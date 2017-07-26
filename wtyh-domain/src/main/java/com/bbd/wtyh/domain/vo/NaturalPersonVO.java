@@ -30,6 +30,17 @@ public class NaturalPersonVO implements Serializable {
     //注册地址
     @Excel(exportName ="注册地址")
     private String regAddress;
+    //范围
+    @Excel(exportName ="所属范围")
+    private String range;
+
+    public String getRange() {
+        return range;
+    }
+
+    public void setRange(String range) {
+        this.range = range;
+    }
 
     public int getIdx() {
         return idx;

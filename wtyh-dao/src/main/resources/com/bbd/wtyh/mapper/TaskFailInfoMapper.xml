@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.bbd.wtyh.mapper.DataLoadingFailInfoMapper">
+<mapper namespace="com.bbd.wtyh.mapper.TaskFailInfoMapper">
 
 
-    <select id="getDataLoadingFailInfoByTaskId" parameterType="java.util.HashMap"
-            resultType="com.bbd.wtyh.domain.DataLoadingFailInfoDO">
+    <select id="getTaskFailInfoByTaskId" parameterType="java.util.HashMap"
+            resultType="com.bbd.wtyh.domain.TaskFailInfoDO">
         SELECT
         `id` ,
         `task_id` AS taskId,
-        `error_name` AS errorName,
+        `fail_name` AS failName,
+        `fail_reason`AS failReason,
+        `source_task_id` AS sourceTaskId,
         `data_version`AS dataVersion,
         `type`AS type,
-        `error_reason`AS errorReason,
-        `source_task_id` AS sourceTaskId,
         `create_by` AS createBy,
         `create_date` AS createDate,
         `update_by` AS updateBy,
         `update_date` AS updateDate
         FROM
-        data_loading_fail_info
+        task_fail_info
         WHERE
         1=1
         <if test="taskId != null">
@@ -27,35 +27,35 @@
     </select>
 
     <select id="findByPage" parameterType="java.util.HashMap"
-            resultType="com.bbd.wtyh.domain.DataLoadingFailInfoDO">
+            resultType="com.bbd.wtyh.domain.TaskFailInfoDO">
         SELECT
         `id` ,
         `task_id` AS taskId,
-        `error_name` AS errorName,
+        `fail_name` AS failName,
+        `fail_reason`AS failReason,
+        `source_task_id` AS sourceTaskId,
         `data_version`AS dataVersion,
         `type`AS type,
-        `error_reason`AS errorReason,
-        `source_task_id` AS sourceTaskId,
         `create_by` AS createBy,
         `create_date` AS createDate,
         `update_by` AS updateBy,
         `update_date` AS updateDate
         FROM
-        data_loading_fail_info
+        task_fail_info
         WHERE
           task_id = #{taskId} limit #{pagination.begin}, #{pagination.pageSize}
     </select>
 
     <select id="countFailByTaskId" resultType="int" parameterType="java.util.HashMap">
-        select count(*) count from data_loading_fail_info where task_id = #{taskId}
+        select count(*) count from task_fail_info where task_id = #{taskId}
     </select>
 
-    <insert id="addTaskFailInfo" parameterType="com.bbd.wtyh.domain.DataLoadingFailInfoDO"
+    <insert id="addTaskFailInfo" parameterType="com.bbd.wtyh.domain.TaskFailInfoDO"
             useGeneratedKeys="true"
             keyProperty="id"
             keyColumn="id">
-        INSERT INTO `data_loading_fail_info` (`task_id`, `type`, `error_name`, `error_reason`,`data_version`,`source_task_id`, `create_date`,  `create_by`)
-        VALUES (#{taskId}, #{type},#{errorName},#{errorReason}, #{dataVersion}, #{sourceTaskId} ,#{createDate}, #{createBy}
+        INSERT INTO `task_fail_info` (`task_id`, `type`, `fail_name`, `fail_reason`,`data_version`,`source_task_id`, `create_date`,  `create_by`)
+        VALUES (#{taskId}, #{type},#{failName},#{failReason}, #{dataVersion}, #{sourceTaskId} ,#{createDate}, #{createBy}
         );
     </insert>
 </mapper>

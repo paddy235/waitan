@@ -111,12 +111,14 @@ public class MyBatisUtil {
 		List<Field> fieldList = getFieldContainsParent(obj.getClass());
 		for (Field field : fieldList) {
 			field.setAccessible(true);
-			if (field.isAnnotationPresent(Transient.class) || !field.isAnnotationPresent(Column.class)) {
-				continue;
-			}
+
 			if (field.isAnnotationPresent(Id.class)) {
 				columnMap.put(KEY_ID_COLUMN, getColumnName(field));
 				columnMap.put(KEY_ID_FIELD, field.getName());
+				continue;
+			}
+
+			if (!field.isAnnotationPresent(Column.class) || field.isAnnotationPresent(Transient.class)) {
 				continue;
 			}
 

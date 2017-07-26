@@ -6,6 +6,8 @@ import com.bbd.wtyh.service.ImgService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created by Barney on 2017/7/6.
  */
@@ -23,5 +25,15 @@ public class ImgServiceImpl implements ImgService {
     @Override
     public ImgDO queryImgById(int id) {
         return mapper.queryImgById(id);
+    }
+
+    @Override
+    public List<ImgDO> queryImgByStatus(int status) {
+        return mapper.queryImgByStatus(status);
+    }
+
+    @Override
+    public void updateImage(ImgDO img) {
+        mapper.updateImage(img);
     }
 }

@@ -47,7 +47,7 @@ public class NaturalPersonServiceImpl implements NaturalPersonService {
     private RedisDAO redisDAO;
 
     //判断导出文件是否能被下载（次数是否超限），每返回一次true就会扣除一次下载次数
-    private synchronized boolean allowDownFile() {
+    public synchronized boolean allowDownFile() {
         MiscParameterDO mpd =mapper.queryParameterDoByName();
         if( null ==mpd || null ==mpd.getValue1() || null ==mpd.getValue2() || null ==mpd.getValue3() ) {
             return false;
@@ -104,7 +104,11 @@ public class NaturalPersonServiceImpl implements NaturalPersonService {
 
     @Override
     public Map<String, Object> queryNaturalPerson2(
-            String nalName, String type, String companyKeyword, Integer pageSize, Integer page ) {
+            String nalName, String type, Boolean isProvince, String companyKeyword, Integer pageSize, Integer page ) {
+        if (null == isProvince) {
+            isProvince =false;
+        }
+        final boolean fIsProvince =isProvince;
         Map<String, Object> rst=new HashMap<>();
         if( StringUtils.isBlank(nalName) ||StringUtils.isBlank(type)
                 ||( !type.equals("all") && !type.equals("gdxx") && !type.equals("baxx") ) ) {
@@ -113,11 +117,11 @@ public class NaturalPersonServiceImpl implements NaturalPersonService {
         //准备CompanySearch2DO.Rdata数据
         // List<NaturalPersonVO> naturalPersons1;
         final Object[] naturalPersonArr =new Object[1];
-        final String redisKey = Constants.REDIS_KEY_NATURAL_PERSON_LIST + "_" + nalName + "_" + type;
+        final String redisKey = Constants.REDIS_KEY_NATURAL_PERSON_LIST +"_" +nalName +"_" +type + "_" +fIsProvince;
         Gson gson =new Gson();
         GetAndRedisAdd gr =()->{
             try {
-                naturalPersonArr[0] = getNaturalPerson(nalName, type);
+                naturalPersonArr[0] = getNaturalPerson2(nalName, fIsProvince, type);
                 redisDAO.addObject(redisKey, naturalPersonArr[0], Constants.cacheDay_One_Day, List.class);
                 //String str = gson.toJson(naturalPersonArr, List.class);
                 //String str = gson.toJson(naturalPersonArr[0], (new TypeToken<List<NaturalPersonVO>>() { }).getType());
@@ -128,7 +132,7 @@ public class NaturalPersonServiceImpl implements NaturalPersonService {
         };
         try {
             Object rObj = redisDAO.getObject(redisKey);
-            rObj =null;
+            rObj =null; //todo tst
             //String jStr = redisDAO.getString(redisKey);
             if (null != rObj && rObj instanceof List /*null !=jStr*/) {
                 try {
@@ -143,11 +147,12 @@ public class NaturalPersonServiceImpl implements NaturalPersonService {
         } catch (Exception e) {
             gr.fun();
         }
+        //按条件重构传给前端的完整列表
         List<String> companyNames =new LinkedList<>();
         int cnt =0;
         for ( ; cnt <2; cnt++) {
             try {
-                if (StringUtils.isNotBlank(companyKeyword)) {
+                if (StringUtils.isNotBlank(companyKeyword)) { //筛选包含企业关键字的自然人信息列表
                     companyNames = new LinkedList<>();
                     List<NaturalPersonVO> tmpLst = new LinkedList<>();
                     for (NaturalPersonVO npv : (List<NaturalPersonVO>)(naturalPersonArr[0]) ) {
@@ -205,6 +210,101 @@ public class NaturalPersonServiceImpl implements NaturalPersonService {
         void fun( );
     };
 
+    private List<NaturalPersonVO> getNaturalPerson2( String nalName, boolean isProvince, String type ) {
+        List<CompanySearch2DO.Rdata> csList;
+        if( type.equals("all") ) {
+            type ="mix";
+        }
+        csList =hologramQueryService.getNaturalPersonListMul(nalName, isProvince, type);
+        LinkedHashMap<String, CompanySearch2DO.Rdata> lhMap =new LinkedHashMap<>(); //用于 去重
+        if( null !=csList && csList.size() >0 ) {
+            for ( CompanySearch2DO.Rdata rd : csList ) {
+                lhMap.put( rd.getCompany_name(), rd );
+            }
+        }
+        csList =new ArrayList<>( lhMap.values() );
+        //转存到新的对象并按地域分类
+        List<String> shCpyNames =new LinkedList<>();
+        List<NaturalPersonVO> shangHaiList =new LinkedList<>();
+        List<NaturalPersonVO> otherList =new LinkedList<>();
+        for ( CompanySearch2DO.Rdata rd : csList ) {
+            NaturalPersonVO npv =new NaturalPersonVO();
+            npv.setNalName(nalName);
+            if( StringUtils.isBlank(rd.getCompany_name()) )
+                continue;
+            npv.setRelatedCompany(rd.getCompany_name());
+            boolean isPosition =false;
+            if ( StringUtils.isNotBlank(rd.getFrname()) && rd.getFrname().equals(nalName) ) {
+                npv.setPosition("企业法人");
+                isPosition =true;
+            }
+            if ( !isPosition ) {
+                List<String> djg =rd.getBaxx();
+                if ( null !=djg ) {
+                    for (String name : djg) {
+                        if (  StringUtils.isNotBlank(name) && name.equals(nalName) ) {
+                            npv.setPosition("董监高");
+                            isPosition =true; break;
+                        }
+                    }
+                }
+            }
+            if ( ! isPosition ) { //没有匹配到企业法人或董监高，此条数据丢弃
+                continue;
+            }
+            npv.setEsDate(rd.getEsdate());
+            npv.setFrName(rd.getFrname());
+            npv.setRegCapital(rd.getRegcap());
+            npv.setRegAddress(rd.getAddress());
+            if( StringUtils.isNotBlank(rd.getProvince()) && rd.getProvince().equals("上海市") ) {
+                shangHaiList.add(npv);
+                shCpyNames.add(rd.getCompany_name());
+            } else {
+                otherList.add(npv);
+                npv.setRange("全国");
+            }
+        }
+        //分类排序类金融
+        Date start =new Date();
+        List<String> kindredFinanceCpyNames =new LinkedList<>();
+        if(  shCpyNames.size() >0) {
+            kindredFinanceCpyNames = companyMapper.findKindredFinanceCompanyNameByCompanyName(shCpyNames);
+        }
+        long dltSec =(new Date()).getTime() -start.getTime();
+        //logger.info("findKindredFinanceCompanyNameByCompanyName--num[{}]--{}ms", kindredFinanceCpyNames.size(), dltSec );
+        if( null !=kindredFinanceCpyNames && kindredFinanceCpyNames.size() >0 ) {
+            List<NaturalPersonVO> kindredFinances =new LinkedList<>();
+            List<NaturalPersonVO> noKindredFinances =new LinkedList<>();
+            for (NaturalPersonVO npv : shangHaiList) {
+                boolean kddFin =false;
+                for( String na :kindredFinanceCpyNames ) {
+                    if( null !=na && null !=npv.getRelatedCompany() && na.equals(npv.getRelatedCompany()) ) {
+                        kddFin =true;
+                        break;
+                    }
+                }
+                if(kddFin) {
+                    kindredFinances.add(npv);
+                    npv.setRange("类金融");
+                } else {
+                    noKindredFinances.add(npv);
+                    npv.setRange("上海市");
+                }
+            }
+            shangHaiList =kindredFinances; //替换成类金融企业
+            shangHaiList.addAll(noKindredFinances); //加入非类金融企业
+        }
+        if ( ! isProvince ) {
+            shangHaiList.addAll(otherList); //加入非上海的企业
+        }
+        /*if (shangHaiList.size() >=360) { //截断过大的结果集合
+            shangHaiList = shangHaiList.subList(0, 360);
+            //shangHaiList = new LinkedList<>(shangHaiList.subList(0, 300));
+        }*/
+        return shangHaiList;
+    }
+
+    //（暂不使用了）
     private List<NaturalPersonVO> getNaturalPerson( String nalName, String type ) {
         List<CompanySearch2DO.Rdata> csList;
         if( type.equals("all") ) {

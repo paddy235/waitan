@@ -60,7 +60,7 @@ public class LargeBorrowerHandler extends AbstractImportHandler<LargeLoanDO> {
 			errorMsg += "贷款公司，";
 		}
 		if (StringUtils.isNotBlank(errorMsg)) {
-			errorMsg += "不存在，，请先导入企业名单";
+			errorMsg += "不存在，请先导入企业名单";
 			addError(errorMsg);
 			return false;
 		}

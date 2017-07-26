@@ -10,6 +10,7 @@ import com.bbd.wtyh.domain.bbdAPI.CourtAnnouncementDO;
 import com.bbd.wtyh.domain.bbdAPI.IndustryCodeDO;
 import com.bbd.wtyh.mapper.CompanyMapper;
 import com.bbd.wtyh.mapper.PlatformNameInformationMapper;
+import com.bbd.wtyh.report.util.MultiExeService;
 import com.bbd.wtyh.service.DataomApiBbdservice;
 import com.bbd.wtyh.service.HologramQueryService;
 import com.bbd.wtyh.util.DateUtils;
@@ -21,6 +22,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import java.util.*;
+import java.util.concurrent.*;
 
 /**
  * 企业全息信息查询平台业务层实现类
@@ -405,7 +407,7 @@ public class HologramQueryServiceImpl implements HologramQueryService {
     public List<CompanySearch2DO.Rdata> getNaturalPersonList( String nalName, String type ) {
         List<CompanySearch2DO.Rdata> csList=new LinkedList<>();
         if( StringUtils.isEmpty(nalName) ||StringUtils.isEmpty(type)
-            ||( !type.equals("gdxx")&& !type.equals("baxx") ) ) {
+            ||( !type.equals("mix")&& !type.equals("gdxx")&& !type.equals("baxx") ) ) {
             return csList;
         }
         Map<String, String>parameters =new HashMap<String, String>() {{
@@ -428,6 +430,84 @@ public class HologramQueryServiceImpl implements HologramQueryService {
                 break;
             }
         }
+        return csList;
+    }
+
+    @Override
+    public List<CompanySearch2DO.Rdata> getNaturalPersonListMul( String nalName, boolean isProvince, String type ) {
+        List<CompanySearch2DO.Rdata> csList=new LinkedList<>();
+        if( StringUtils.isEmpty(nalName) ||StringUtils.isEmpty(type)
+                ||( !type.equals("mix")&& !type.equals("gdxx")&& !type.equals("baxx") ) ) {
+            return csList;
+        }
+        final int pgSz =200;
+        Map<String, String> parameters =new HashMap<String, String>() {{
+            put( "highlight", "false" );
+            put( "page_size", "" +pgSz );
+            put( "type", type );
+            if( isProvince ) {
+                put( "province", "上海市" );
+            }
+        }};
+        parameters.put("page_no", "" + 0);
+        Date start = new Date();
+        CompanySearch2DO cs2 = hologramQueryDao.companySearch2(nalName, parameters);
+        long dltSec = (new Date()).getTime() - start.getTime();
+        if (null == cs2 || cs2.getErr_code() == null || !(cs2.getErr_code().equals("0"))) {
+            return csList;
+        }
+        csList.addAll(cs2.getRdata());
+        int rtnTotal =Integer.decode( null ==cs2.getSum() ? "0" : cs2.getSum() );
+        logger.info("companySearch2--nalName-A[{}]--type[{}]--num[{}]--rtnTotal[{}]--{}ms", nalName, type, cs2.getRdata().size(), rtnTotal, dltSec );
+        if ( rtnTotal <=pgSz ) {
+            return csList;
+        }
+        //rtnTotal -=pgSz;
+        int pgTotal = rtnTotal/pgSz;
+        if (rtnTotal%pgSz >0) {
+            pgTotal++;
+        }
+        MultiExeService mes =new MultiExeService(true);
+        //ExecutorService exeSer = Executors.newFixedThreadPool(8);
+        ExecutorService exeSer = Executors.newWorkStealingPool(8);
+        ConcurrentLinkedDeque< List<CompanySearch2DO.Rdata> > cdC =new ConcurrentLinkedDeque<>();
+        start = new Date();
+        for ( int idxA =1; idxA <pgTotal /*&& idxA <200*/ ; idxA++  ) {
+            final int idx =idxA;
+            logger.info("companySearch2--nalName--C--idxIn[{}]", idx );
+            exeSer.submit( ()->{
+                logger.info("companySearch2--nalName--C--idxIn1[{}]", idx);
+                Map<String, String> par = new HashMap<>(parameters);
+                par.put("page_no", "" + idx);
+                CompanySearch2DO cs2x = hologramQueryDao.companySearch2(nalName, par);
+                if (null == cs2x || cs2x.getErr_code() == null || !(cs2x.getErr_code().equals("0"))) {
+                    return;
+                }
+                cdC.add(cs2x.getRdata());
+                logger.info("companySearch2--nalName--C--idx[{}]--num[{}]", idx, cs2x.getRdata().size());
+            });
+            /*mes.runThreadFun( ()->{
+                logger.info("companySearch2--nalName--C--idxIn1[{}]", idx );
+                Map<String, String> par =new HashMap<>(parameters);
+                par.put("page_no", "" + idx);
+                CompanySearch2DO cs2x = hologramQueryDao.companySearch2(nalName, par);
+                if (null == cs2x || cs2x.getErr_code() == null || !(cs2x.getErr_code().equals("0"))) {
+                    return;
+                }
+                cdC.add(cs2x.getRdata());
+                logger.info("companySearch2--nalName--C--idx[{}]--num[{}]", idx, cs2x.getRdata().size() );
+            } );
+            mes.waitingNew(8); //最多同时运行的线程数*/
+        }
+        //mes.waiting();
+        exeSer.shutdown();
+        try {exeSer.awaitTermination( pgTotal *30, TimeUnit.SECONDS);}
+        catch (Exception e){logger.error(e.getMessage());}
+        dltSec = (new Date()).getTime() - start.getTime();
+        for ( List<CompanySearch2DO.Rdata> itr : cdC ) {
+            csList.addAll(itr);
+        }
+        logger.info("companySearch2--nalName--B[{}]--type[{}]--num[{}]--{}ms", nalName, type, csList.size() -cs2.getRdata().size(), dltSec );
         return csList;
     }
 
