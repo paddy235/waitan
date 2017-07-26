@@ -5,6 +5,8 @@ import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.domain.CompanyCreditPointItemsDO;
 import com.bbd.wtyh.domain.dto.CreditInfoDTO;
 import com.bbd.wtyh.excel.ExportExcel;
+import com.bbd.wtyh.log.user.Operation;
+import com.bbd.wtyh.log.user.UserLogRecord;
 import com.bbd.wtyh.mapper.CompanyCreditInformationMapper;
 import com.bbd.wtyh.mapper.CompanyCreditMapper;
 import com.bbd.wtyh.service.CoCreditScoreService;
@@ -123,6 +125,9 @@ public class CreditController {
 
 			List<CreditInfoDTO> list = coCreditScoreService.getCreditInfo(companyName, dataType);
 
+			UserLogRecord.record("搜索["+companyName+"]", Operation.Type.query, Operation.Page.creditDataManager,
+					Operation.System.back, request);
+
 			return ResponseBean.successResponse(list);
 		} catch (Exception e) {
 
@@ -148,6 +153,10 @@ public class CreditController {
 			ExportExcel exportExcel = new ExportExcel(excelName);
 			exportExcel.createSheet(list);
 			exportExcel.exportExcel();
+
+			UserLogRecord.record("导出公信数据["+companyName+"]", Operation.Type.DATA_EXPORT, Operation.Page.creditDataManager,
+					Operation.System.back, request);
+
 			return ResponseBean.successResponse(exportExcel.getDownloadURL());
 		} catch (Exception e) {
 			return ResponseBean.errorResponse(null);
@@ -157,7 +166,7 @@ public class CreditController {
 
 	@RequestMapping("/getCreditDataType")
 	@ResponseBody
-	public ResponseBean getCreditDataType() {
+	public ResponseBean getCreditDataType(HttpServletRequest request) {
 
 		try {
 
@@ -173,6 +182,10 @@ public class CreditController {
 				map.put("name", c.getItem());
 				list.add(map);
 			}
+
+			UserLogRecord.record("浏览公信中心数据管理", Operation.Type.browse, Operation.Page.creditDataManager,
+					Operation.System.back, request);
+
 			return ResponseBean.successResponse(list);
 
 		} catch (Exception e) {

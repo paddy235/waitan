@@ -62,6 +62,30 @@ public class MultiExeService {
         }
     }
 
+    //等待列表中活动线程数小于指定Num
+    public  void waitingNew( int Num ) {
+        if (multithreading) {
+            while (true) {
+                int aNum = 0;
+                List<ExeThread> rmList = new ArrayList();
+                for (ExeThread jt : thrList) {
+                    Thread.State tSt = jt.getState();
+                    if (Thread.State.TERMINATED == tSt) {
+                        rmList.add(jt);
+                    } else {
+                        aNum++;
+                    }
+                }
+                thrList.removeAll(rmList);
+                if ( aNum <Num || Num <=1 ) {
+                    break;
+                } else {
+                    try { Thread.sleep(60); } catch (Exception e) {}
+                }
+            }
+        }
+    }
+
     public void test () {
         ThreadFun tf =()->{
             try {
