@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bbd.wtyh.mapper.CompanyStatusChangeMapper">
+
+  <insert id="insertOne" parameterType="com.bbd.wtyh.domain.CompanyStatusChangeDO" useGeneratedKeys="true"
+          keyProperty="id" >
+    INSERT INTO company_status_change (
+    `id` ,`company_id` ,`company_name` ,`organization_code` ,`company_type` ,`old_company_type` ,
+    `area_id`,`area_name` ,`register_date` ,`adjust_date` ,`closed_date` ,`order_date` ,
+    `registered_capital_type` ,`registered_capital` , `change_type` , `source` ,`closed_type` ,
+    `address` ,`create_by` , `create_date`,`update_by` ,`update_date`)
+    VALUES (
+    #{id},#{companyId},#{compamyName} ,#{organizationCode} ,#{companyType} ,#{oldCompanyType} ,
+    #{areaId},#{areaName},#{registerDate} ,#{adjustDate} ,#{closedDate} ,#{orderDate} ,
+    #{registeredCapitalType},#{registeredCapital},#{changeType} ,#{source} ,#{closedType} ,
+    #{address},#{createBy},#{createDate} ,#{updateBy} ,#{updateDate});
+  </insert>
+
+</mapper>

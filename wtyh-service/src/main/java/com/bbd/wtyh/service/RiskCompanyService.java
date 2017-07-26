@@ -28,4 +28,6 @@ public interface RiskCompanyService {
     void recordOffLine(OffLineModify offLineModify);
 
     void modifyOffLine(OffLineModify offLineModify);
+
+    void modifyIndustry(String name);
 }

@@ -4,7 +4,6 @@ import com.bbd.wtyh.domain.CompanyInfoModify.CompanyInfo;
 import com.bbd.wtyh.domain.CompanyInfoModify.LoanModify;
 import com.bbd.wtyh.domain.CompanyInfoModify.OffLineModify;
 import com.bbd.wtyh.domain.CompanyInfoModify.WangdaiModify;
-import com.bbd.wtyh.domain.EasyExport.OffLineData;
 import com.bbd.wtyh.mapper.CompanyInfoModifyMapper;
 import com.bbd.wtyh.service.CompanyInfoModifyService;
 import com.bbd.wtyh.service.impl.companyInfoModify.CompanyInfoMudifyUtil;
@@ -12,6 +11,7 @@ import com.bbd.wtyh.service.impl.companyInfoModify.CompanyInfoQueryUtil;
 import com.bbd.wtyh.web.companyInfoModify.ModifyData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -37,6 +37,9 @@ public class CompanyInfoModifyServiceImpl implements CompanyInfoModifyService {
 
     @Override
     public CompanyInfo queryCompany(String name) {
+        if (companyInfoModifyMapper.queryCompany(name) == null) {
+            return null;
+        }
         if (CompanyInfo.TYPE_P2P_1 == companyInfoModifyMapper.queryCompany(name).getIndustry()) { // 网络借贷
             return companyInfoQueryUtil.getWangdaiInfo(name);
         } else if (CompanyInfo.TYPE_XD_2 == companyInfoModifyMapper.queryCompany(name).getIndustry()) { // 小额贷款
@@ -61,7 +64,7 @@ public class CompanyInfoModifyServiceImpl implements CompanyInfoModifyService {
      * @return
      */
     @Override
-    public CompanyInfo modifyLevel(ModifyData modifyData) {
+    public void modifyLevel(ModifyData modifyData) throws Exception {
         if (CompanyInfo.TYPE_P2P_1 == companyInfoModifyMapper.queryCompany(modifyData.getName()).getIndustry()) { // 网络借贷
             CompanyInfo wangdai = companyInfoQueryUtil.getWangdaiInfo(modifyData.getName());
             WangdaiModify wangdaiModify = new WangdaiModify();
@@ -75,7 +78,7 @@ public class CompanyInfoModifyServiceImpl implements CompanyInfoModifyService {
             // 记录company值
             companyInfoMudifyUtil.modifyLevel(modifyData.getName(), wangdaiModify);
         } else if (CompanyInfo.TYPE_XD_2 == companyInfoModifyMapper.queryCompany(modifyData.getName()).getIndustry()) { // 小额贷款
-            CompanyInfo companyInfo = companyInfoModifyMapper.queryCompany(modifyData.getName());
+            CompanyInfo companyInfo = companyInfoQueryUtil.getLoan(modifyData.getName());
             LoanModify loanModify = new LoanModify();
             loanModify.setName(companyInfo.getName());
             loanModify.setBeforeOutLevel(companyInfo.getOutLevel());
@@ -149,6 +152,19 @@ public class CompanyInfoModifyServiceImpl implements CompanyInfoModifyService {
             // 修改值
             companyInfoMudifyUtil.modifyOffLine(offLineModify);
         }
-        return null;
+        // 修改行业
+        if (!StringUtils.isEmpty(modifyData.getIndustry())) {
+            companyInfoMudifyUtil.modifyIndustry(modifyData.getName(), modifyData.getIndustry());
+        }
     }
+
+    @Override
+    public Boolean isModify(String name) {
+        List<String> names = companyInfoModifyMapper.queryModifyCompany(name);
+        if (names.isEmpty()) {
+            return false;
+        }
+        return true;
+    }
+
 }

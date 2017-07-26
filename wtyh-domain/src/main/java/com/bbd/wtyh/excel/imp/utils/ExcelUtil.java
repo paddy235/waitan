@@ -196,11 +196,16 @@ public class ExcelUtil {
 		// 私募基金
 		Map<String, String> mapLevel23 = new HashMap<>();
 		mapLevel1.put("私募基金", mapLevel23);// 构建一级下拉
+		mapLevel23.put("私募企业列表", "private_fund_extra");// 构建二级下拉
 		mapLevel23.put("股权投资机构管理资本量", "private_fund_capital_amount");// 构建二级下拉
 		mapLevel23.put("股权投资市场退出及退出回报情况", "private_fund_investment_return");// 构建二级下拉
 		mapLevel23.put("股权投资市场投资金额情况", "private_fund_investment_statistic");// 构建二级下拉
 		mapLevel23.put("产品数量前十", "private_fund_top10");// 构建二级下拉
 
+		Map<String, String> mapLevel24 = new HashMap<>();
+		mapLevel1.put(" 融资担", mapLevel24);// 构建一级下拉
+		mapLevel24.put("融资担保-大额被担保人信息列表", "guaranteed_info");// 构建二级下拉
+		mapLevel24.put("融资担保-担保责任余额信息列表", "guarantee_balance");// 构建二级下拉
 		return mapLevel1;
 	}
 

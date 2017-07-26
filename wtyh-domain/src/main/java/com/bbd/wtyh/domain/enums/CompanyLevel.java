@@ -1,5 +1,10 @@
 package com.bbd.wtyh.domain.enums;
 
+import org.apache.commons.collections.map.HashedMap;
+
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by Marco on 2016/8/7 0007.
  */
@@ -41,6 +46,14 @@ public enum CompanyLevel {
             }
         }
         return null;
+    }
+
+    public static Map<String, Integer> getMap() {
+        Map<String, Integer> rst = new HashMap();
+        for (CompanyLevel companyLevel : CompanyLevel.values()) {
+            rst.put(companyLevel.getValue(), companyLevel.ordinal());
+        }
+        return rst;
     }
 
 

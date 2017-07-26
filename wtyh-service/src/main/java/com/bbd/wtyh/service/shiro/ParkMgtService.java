@@ -1,6 +1,7 @@
 package com.bbd.wtyh.service.shiro;
 
 import com.bbd.wtyh.domain.BuildingDO;
+import com.bbd.wtyh.domain.CompanyBuildingDO;
 import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.ParkDO;
 import com.bbd.wtyh.domain.vo.ParkAndBuildingVO;
@@ -97,7 +98,7 @@ public interface ParkMgtService{
      * @param buildingName
      * @return
      */
-    int queryBuildingIdByName(String buildingName);
+    int queryBuildingIdByName(Integer parkId,String buildingName);
 
     /**
      * 园区楼宇企业数量
@@ -105,14 +106,6 @@ public interface ParkMgtService{
      * @return
      */
     List<ParkAndBuildingVO> queryBuildingCompanyNumber(String parkId);
-
-    /**
-     * 园区楼宇企业数量
-     * @param parkId
-     * @param buildingName
-     * @return
-     */
-    BuildingDO queryBuildingByParkAndName(int parkId, String buildingName);
 
     /**
      * 新增园区
@@ -127,6 +120,27 @@ public interface ParkMgtService{
     void addBuilding(BuildingDO building);
 
     /**
+     * 新增楼宇企业
+     * @param companyBuildingList
+     */
+    void addCompanyBuilding(List<CompanyBuildingDO> companyBuildingList);
+
+    /**
+     * 返回园区图片路径
+     * @param parkId
+     * @return
+     */
+    ParkDO queryParkById(String parkId);
+
+    /**
+     * 返回楼宇图片路径
+     * @param parkId
+     * @param buildingId
+     * @return
+     */
+    BuildingDO queryBuildingByParkAndBuilding(String parkId, String buildingId);
+
+    /**
      * 更新园区图片URL
      * @param park
      */
@@ -137,4 +151,5 @@ public interface ParkMgtService{
      * @param building
      */
     void updateBuildingImgUrl(BuildingDO building);
+
 }

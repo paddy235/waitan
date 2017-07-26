@@ -123,8 +123,8 @@
                         `beforeIndustry`)
         VALUES
         (#{name},
-          #{beforeOutLevel}, #{beforeInnnerLevel}, #{beforeLiveLevel}，
-          #{afterOutLevel}, #{afterInnnerLevel}, #{afterLiveLevel}，
+        #{beforeOutLevel}, #{beforeInnnerLevel}, #{beforeLiveLevel},
+        #{afterOutLevel}, #{afterInnnerLevel},  #{afterLiveLevel},
           #{beforeIndustry})
     </insert>
 
