@@ -104,4 +104,16 @@
         order by company_name
     </select>
 
+	<select id="getCreditDataItems" parameterType="String" resultType="com.bbd.wtyh.domain.CompanyCreditDataItemsDO">
+		select
+		 id,
+		 resource_name AS resourceName,
+		 data_item AS dataItem,
+		 data_item_name AS dataItemName
+		from company_credit_data_items
+		where
+		1=1
+		order by resource_name
+	</select>
+
 </mapper>
