@@ -2,6 +2,7 @@ package com.bbd.wtyh.mapper;
 
 import com.bbd.wtyh.domain.ImgDO;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -14,6 +15,8 @@ public interface ImgMapper {
     void updateImage(ImgDO img);
 
     ImgDO queryImgById(int id);
+
+    List<ImgDO> queryImgByStatus(int status);
 
     void delImg(Map<String, Object> params);
 
