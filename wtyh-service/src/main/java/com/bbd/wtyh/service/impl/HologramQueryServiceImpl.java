@@ -434,7 +434,7 @@ public class HologramQueryServiceImpl implements HologramQueryService {
     }
 
     @Override
-    public List<CompanySearch2DO.Rdata> getNaturalPersonListMul( String nalName, boolean isProvince, String type ) {
+    public List<CompanySearch2DO.Rdata> getNaturalPersonListMul( String nalName, boolean isProvince, String type, Integer maxGet ) {
         List<CompanySearch2DO.Rdata> csList=new LinkedList<>();
         if( StringUtils.isEmpty(nalName) ||StringUtils.isEmpty(type)
                 ||( !type.equals("mix")&& !type.equals("gdxx")&& !type.equals("baxx") ) ) {
@@ -449,6 +449,11 @@ public class HologramQueryServiceImpl implements HologramQueryService {
                 put( "province", "上海市" );
             }
         }};
+        if( null ==maxGet || maxGet >10000 ) { //每一单搜索结果数据平台最多允许取1w条记录
+            maxGet =30;
+        } else {
+            maxGet =maxGet/pgSz +1;
+        }
         parameters.put("page_no", "" + 0);
         Date start = new Date();
         CompanySearch2DO cs2 = hologramQueryDao.companySearch2(nalName, parameters);
@@ -471,7 +476,7 @@ public class HologramQueryServiceImpl implements HologramQueryService {
         //ExecutorService exeSer = Executors.newWorkStealingPool(8);
         ConcurrentSkipListMap< Integer, List<CompanySearch2DO.Rdata> > cslMap =new ConcurrentSkipListMap<>();
         start = new Date();
-        for ( int idxA =1; idxA <pgTotal && idxA <50 ; idxA++  ) { //每一单搜索结果数据平台最多允许取1w条记录，所有idx限制到50（pgSz=200）
+        for ( int idxA =1; idxA <pgTotal && idxA <maxGet ; idxA++  ) {
             /*if( idxA %50 ==0 ) {
                 mes.waiting();
                 //try {Thread.sleep(6000);} catch (Exception e){};

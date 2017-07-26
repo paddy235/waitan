@@ -218,7 +218,17 @@ public class NaturalPersonServiceImpl implements NaturalPersonService {
         if( type.equals("all") ) {
             type ="mix";
         }
-        csList =hologramQueryService.getNaturalPersonListMul(nalName, isProvince, type);
+        csList =hologramQueryService.getNaturalPersonListMul(nalName, true, type, null);
+        if( !isProvince ) {
+            //查全国范围
+            int pgLimit =csList.size();
+            if( pgLimit <4000 ) {
+                pgLimit =4000 -pgLimit;
+            } else {
+                pgLimit =0;
+            }
+            csList.addAll( hologramQueryService.getNaturalPersonListMul( nalName, false, type, pgLimit) );
+        }
         LinkedHashMap<String, CompanySearch2DO.Rdata> lhMap =new LinkedHashMap<>(); //用于 去重
         if( null !=csList && csList.size() >0 ) {
             for ( CompanySearch2DO.Rdata rd : csList ) {
@@ -296,6 +306,10 @@ public class NaturalPersonServiceImpl implements NaturalPersonService {
             }
             shangHaiList =kindredFinances; //替换成类金融企业
             shangHaiList.addAll(noKindredFinances); //加入非类金融企业
+        } else {
+            for (NaturalPersonVO npv : shangHaiList) {
+                npv.setRange("上海市");
+            }
         }
         if ( ! isProvince ) {
             shangHaiList.addAll(otherList); //加入非上海的企业
