@@ -7,6 +7,7 @@ import com.bbd.wtyh.domain.bbdAPI.IndustryCodeDO;
 import com.bbd.wtyh.excel.imp.handler.AbstractImportHandler;
 import com.bbd.wtyh.service.AreaService;
 import com.bbd.wtyh.service.CompanyService;
+import com.bbd.wtyh.service.CompanyStatusChangeService;
 import com.bbd.wtyh.service.HologramQueryService;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
@@ -38,6 +39,9 @@ public class CompanyListHandler extends AbstractImportHandler<CompanyDO> {
 
     @Autowired
     private AreaService areaService;
+
+    @Autowired
+    private CompanyStatusChangeService companyStatusChangeService;
 
     private List< Map.Entry<CompanyDO, BaseDataDO.Results> > insertList = null;
     private List< Map.Entry<CompanyDO, BaseDataDO.Results> > updateList = null;
@@ -128,6 +132,8 @@ public class CompanyListHandler extends AbstractImportHandler<CompanyDO> {
             companyService.update( me.getKey() );
             //todo 以下放天王和其他同事的方法 ：
             //me.getValue()
+            //企业状态变化
+            companyStatusChangeService.companyStatusChange(false, me.getKey(),me.getValue());
         }
         //insert
         for ( Map.Entry<CompanyDO, BaseDataDO.Results> me : insertList ) {
@@ -136,6 +142,8 @@ public class CompanyListHandler extends AbstractImportHandler<CompanyDO> {
             companyService.insert( me.getKey() );
             //todo 以下放天王和其他同事的方法 ：
             int companyId = me.getKey().getCompanyId(); //大尧说：插入的主键这样取//todo 不用再去查库了
+            //企业状态变化
+            companyStatusChangeService.companyStatusChange(true, me.getKey(),me.getValue());
             //me.getValue()
             //CompanyDO locCp =companyService.getCompanyByName(me.getKey().getName());
         }

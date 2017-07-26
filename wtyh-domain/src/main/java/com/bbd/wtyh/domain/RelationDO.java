@@ -9,8 +9,17 @@ public class RelationDO extends BaseDO {
     private String investors;
     private String investee;
     private String relationship;
+    private String fullLine;
     private int investorsNo;
     private int investeeNo;
+
+    public String getFullLine() {
+        return fullLine;
+    }
+
+    public void setFullLine(String fullLine) {
+        this.fullLine = fullLine;
+    }
 
     public String getTargetCompany() {
         return targetCompany;

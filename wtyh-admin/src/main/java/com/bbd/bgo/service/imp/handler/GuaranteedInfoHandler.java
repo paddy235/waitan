@@ -25,7 +25,7 @@ import java.util.Map;
  */
 @Component
 @Scope("prototype")
-	public class GuaranteedInfoHandler extends AbstractImportHandler<GuaranteedInfoDO> {
+public class GuaranteedInfoHandler extends AbstractImportHandler<GuaranteedInfoDO> {
 
 	private Logger log = LoggerFactory.getLogger(GuaranteedInfoHandler.class);
 
@@ -36,15 +36,12 @@ import java.util.Map;
 
 	private List<GuaranteedInfoDO> insertList = null;
 
-	private List<GuaranteedInfoDO> updateList = null;
-
 	private CompanyDO guaranteeCompanyDO;
 
 	@Override
 	public void start(HttpServletRequest request) throws Exception {
 		log.info("开始导入融资担保-大额被担保人信息列表");
 		insertList = new ArrayList<>();
-		updateList = new ArrayList<>();
 	}
 
 	@Override
@@ -64,24 +61,29 @@ import java.util.Map;
 			addError("该担保公司不存在，请先导入企业名单");
 			return false;
 		}
-		row.put("guaranteeId", guaranteeCompanyDO.getId().toString());
+		row.put("guaranteeId", guaranteeCompanyDO.getCompanyId().toString());
 		String guaranteedCompany = row.get("guaranteedCompany");
 		CompanyDO guaranteedComp = this.companyService.getCompanyByName(guaranteedCompany);
 		if(null!=guaranteedComp){
-			row.put("guaranteedId", guaranteedComp.getId().toString());
+			row.put("guaranteedId", guaranteedComp.getCompanyId().toString());
+		}
+		if(guaranteeCompany.equals(guaranteedCompany)){
+			addError("该担保公司和被担保公司相同");
+			return false;
 		}
 		return true;
 	}
 
 	@Override
 	public void endRow(Map<String, String> row, GuaranteedInfoDO bean) throws Exception {
-		GuaranteedInfoDO guaranteedInfoDO = guaranteeService.selectByPrimaryKey(bean.getId());
+		//GuaranteedInfoDO guaranteedInfoDO = guaranteeService.selectByPrimaryKey(bean.getId());
+		String sqlWhere= "`guarantee_id`=" +bean.getGuaranteeId() +" AND 'guaranteed_id'="
+				+bean.getGuaranteedId()+" LIMIT 1";
+		GuaranteedInfoDO guaranteedInfo = guaranteeService.selectOne(GuaranteedInfoDO.class,sqlWhere);
 		bean.setCreateBy("导入融资担保-大额被担保人信息");
 		bean.setCreateDate(new Date());
-		if(null==guaranteedInfoDO){
+		if(null==guaranteedInfo){
 			insertList.add(bean);
-		}else{
-			updateList.add(bean);
 		}
 	}
 
@@ -90,7 +92,6 @@ import java.util.Map;
 	public void end() throws Exception {
 		if (errorList().isEmpty()) {
 			this.guaranteeService.insertList(insertList);
-			this.guaranteeService.updateList(updateList);
 		}
 		log.info("导入融资担保-大额被担保人信息列表结束");
 	}

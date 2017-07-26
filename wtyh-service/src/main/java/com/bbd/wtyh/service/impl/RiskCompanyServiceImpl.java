@@ -114,4 +114,9 @@ public class RiskCompanyServiceImpl implements RiskCompanyService {
         riskCompanyMapper.modifyLevel(offLineModify.getName(), offLineModify.getAfterLevel());
     }
 
+    @Override
+    public void modifyIndustry(String name) {
+        riskCompanyMapper.modifyIndustry(name);
+    }
+
 }

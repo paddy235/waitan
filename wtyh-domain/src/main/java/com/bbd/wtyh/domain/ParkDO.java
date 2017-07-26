@@ -17,6 +17,15 @@ public class ParkDO extends BaseDO {
     private int areaId;
     @Column(name = "img_url")
     private String imgUrl;
+    private String user ;//作为creat_by或update_by字段使用
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
 
     public int getParkId() {
         return parkId;

@@ -23,7 +23,7 @@
         </where>
     </select>
 
-    <select id="queryParkByName" parameterType="java.lang.String" resultType="com.bbd.wtyh.domain.ParkDO">
+    <select id="queryParkById" parameterType="java.lang.String" resultType="com.bbd.wtyh.domain.ParkDO">
         SELECT
             park_id as parkId,
             `name` as `name`,
@@ -31,11 +31,15 @@
             img_url as imgUrl
         FROM
             park
-        WHERE `name`=#{parkName}
+        WHERE park_id=#{parkId}
     </select>
 
     <update id="updateParkImgUrl" parameterType="com.bbd.wtyh.domain.ParkDO">
-        UPDATE park SET img_url=#{imgUrl}, update_date=SYSDATE() WHERE park_id=#{parkId}
+        UPDATE park SET img_url=#{imgUrl}, update_date=SYSDATE(),update_by=#{updateBy} WHERE park_id=#{parkId}
+    </update>
+
+    <update id="updateBuildingImgUrl" parameterType="com.bbd.wtyh.domain.BuildingDO">
+        UPDATE building SET img_url=#{imgUrl}, update_date=SYSDATE(),update_by=#{updateBy} WHERE park_id=#{parkId} AND building_id=#{buildingId}
     </update>
 
     <select id="queryAllPark" resultType="com.bbd.wtyh.domain.ParkDO">
@@ -167,8 +171,8 @@
         SELECT park_id as parkId FROM park WHERE `name`=#{parkName}
     </select>
 
-    <select id="queryBuildingIdByName" parameterType="java.lang.String" resultType="int">
-        SELECT building_id as buildingId FROM building WHERE `name`=#{buildingName}
+    <select id="queryBuildingIdByName" resultType="int">
+        SELECT building_id as buildingId FROM building WHERE park_id=#{parkId} AND `name`=#{buildingName}
     </select>
 
     <select id="queryParkList" resultType="com.bbd.wtyh.domain.ParkDO">
@@ -184,9 +188,9 @@
     </select>
 
     <insert id="addCompanyBuilding" parameterType="java.util.List">
-        INSERT INTO company_building(company_id, building_id, create_by, create_date, update_date) VALUES
+        INSERT INTO company_building(company_id, building_id, create_by, create_date) VALUES
         <foreach collection="list" separator="," item="item">
-            (#{item.companyId},#{item.buildingId},#{item.createBy},SYSDATE(),SYSDATE())
+            (#{item.companyId},#{item.buildingId},#{item.createBy},SYSDATE())
         </foreach>
     </insert>
 
@@ -214,8 +218,8 @@
         WHERE import_no=#{importNo}
     </select>
 
-    <select id="queryBuildingByParkAndName" resultType="com.bbd.wtyh.domain.BuildingDO">
-        SELECT <include refid="building_content" /> FROM building WHERE park_id=#{parkId} AND `name`=#{buildingName}
+    <select id="queryBuildingByParkAndBuilding" resultType="com.bbd.wtyh.domain.BuildingDO">
+        SELECT <include refid="building_content" /> FROM building WHERE park_id=#{parkId} AND building_id=#{buildingId}
     </select>
 
     <select id="queryBuildingList" parameterType="java.lang.String" resultType="java.util.Map">

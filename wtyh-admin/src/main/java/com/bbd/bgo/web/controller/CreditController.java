@@ -130,8 +130,7 @@ public class CreditController {
 
 			return ResponseBean.successResponse(list);
 		} catch (Exception e) {
-
-			return ResponseBean.errorResponse(null);
+			return ResponseBean.errorResponse("数据错误");
 		}
 
 	}
