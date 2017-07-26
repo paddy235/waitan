@@ -13,5 +13,7 @@ public interface CompanyInfoModifyService {
 
     CompanyInfo queryCompany(String name);
 
-    CompanyInfo modifyLevel(ModifyData name) throws Exception;
+    void modifyLevel(ModifyData name) throws Exception;
+
+    Boolean isModify(String name);
 }

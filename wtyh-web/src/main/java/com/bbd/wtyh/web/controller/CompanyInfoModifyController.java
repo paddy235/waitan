@@ -27,7 +27,7 @@ public class CompanyInfoModifyController {
     @Autowired
     private CompanyInfoModifyService companyInfoModify;
 
-    // 0. 搜索公司
+    // 0. 自动补全公司名
     @RequestMapping(value = "/autoComplete")
     @ResponseBody
     public ResponseBean autoComplete(String q) {
@@ -35,7 +35,7 @@ public class CompanyInfoModifyController {
         return ResponseBean.successResponse(rst);
     }
 
-    // 0. 搜索公司
+    // 1. 搜索公司
     @RequestMapping(value = "/queryCompany")
     @ResponseBody
     public ResponseBean queryCompany(String name) {
@@ -46,38 +46,20 @@ public class CompanyInfoModifyController {
         return ResponseBean.successResponse(rst);
     }
 
-    // 0. 修改公司 - 风险等级
+    // 2. 修改公司 - 风险等级
     @RequestMapping(value = "/modify")
     @ResponseBody
     public ResponseBean modify(ModifyData modifyData) {
-        CompanyInfo rst = null;
         try {
-            rst = companyInfoModify.modifyLevel(modifyData);
+            companyInfoModify.modifyLevel(modifyData);
         } catch (Exception e) {
+            e.printStackTrace();
             return ResponseBean.errorResponse(e.getMessage());
         }
-        if (null == rst) {
-            return ResponseBean.errorResponse("未找到公司");
-        }
-        return ResponseBean.successResponse(rst);
+        return ResponseBean.successResponse("修改成功");
     }
 
-    /**
-     * 1. 网络借贷：正常4，一般关注3，重点关注2，问题1
-     *
-     * 2. 小额贷款： Enum类
-     *   AAA_p("AAA+"), AAA("AAA"), AAA_m("AAA-"),
-     AA_p("AA+"), AA("AA"), AA_m("AA-"),
-     A_p("A+"), A("A"), A_m("A-"),
-     BBB_p("BBB+"), BBB("BBB"), BBB_m("BBB-"),
-     BB_p("BB+"), BB("BB"), BB_m("BB-"),
-     B_p("B+"), B("B"), B_m("B-"),
-     CCC_p("CCC+"), CCC("CCC"), CCC_m("CCC-"),
-     CC_p("CC+"), CC("CC"), CC_m("CC-"),
-     C_p("C+"), C("C"), C_m("C-"),
-     D("D");
-     */
-    // 风险
+    // 风险 列表
     @RequestMapping(value = "/risk")
     @ResponseBody
     public ResponseBean risk() {
@@ -110,7 +92,7 @@ public class CompanyInfoModifyController {
     }
 
 
-    // 行业类型
+    // 行业类型 列表
     @RequestMapping(value = "/industry")
     @ResponseBody
     public ResponseBean industry() {
@@ -123,5 +105,12 @@ public class CompanyInfoModifyController {
         rst.put("预付卡", CompanyInfo.TYPE_YFK_11);
         rst.put("融资租赁", CompanyInfo.TYPE_RZZL_13);
         return ResponseBean.successResponse(rst);
+    }
+
+    // 公司是否被修改过
+    @RequestMapping(value = "/isModify")
+    @ResponseBody
+    public ResponseBean isModify(String name) {
+        return ResponseBean.successResponse(companyInfoModify.isModify(name));
     }
 }
