@@ -70,7 +70,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
     private IndustryProblemMapper industryProblemMapper;
 
     @Autowired
-    private WangdaiTaskInfoMapper wangdaiTaskInfoMapper;
+    private TaskFailInfoMapper taskFailInfoMapper;
 
     private Logger logger = LoggerFactory.getLogger(PToPMonitorServiceImpl.class);
 
@@ -365,7 +365,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
 
     @Override
     public Map executeFailTaskByTaskId(Integer runMode, Integer oldTaskId, Integer taskId) {
-        List<TaskFailInfoDO> list = wangdaiTaskInfoMapper.list(oldTaskId);
+        List<TaskFailInfoDO> list = taskFailInfoMapper.getTaskFailInfoByTaskId(oldTaskId);
         Integer planCount = list.size();
         Integer failCount = 0;
         for (TaskFailInfoDO wangdaiTaskInfoDO : list) {
@@ -432,12 +432,12 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
     }
 
     protected void addWangdaiTaskInfo(Integer taskId, String api) {
-        WangdaiTaskInfoDO wangdaiTaskInfoDO = new WangdaiTaskInfoDO();
-        wangdaiTaskInfoDO.setTaskId(taskId);
-        wangdaiTaskInfoDO.setFailName(api);
-        wangdaiTaskInfoDO.setCreateBy("sys");
-        wangdaiTaskInfoDO.setCreateDate(new Date());
-        wangdaiTaskInfoMapper.save(wangdaiTaskInfoDO);
+        TaskFailInfoDO taskFailInfoDO = new TaskFailInfoDO();
+        taskFailInfoDO.setTaskId(taskId);
+        taskFailInfoDO.setFailName(api);
+        taskFailInfoDO.setCreateBy("sys");
+        taskFailInfoDO.setCreateDate(new Date());
+        taskFailInfoMapper.addTaskFailInfo(taskFailInfoDO);
     }
 
     public List<PlatCompanyDTO> searchPlatListByCompanyName(String companyName) { //by cgj
