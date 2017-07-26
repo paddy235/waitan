@@ -194,14 +194,12 @@ public class ParkMgtController {
     @ResponseBody
     public ResponseBean addBuilding(BuildingDO building) {
         //新增之前先查询该楼宇是否存在
-        int i = parkMgtService.queryBuildingIdByName(building.getParkId(), building.getName());
-        if (i != 0) {
-            return ResponseBean.errorResponse("该楼宇已存在");
-
-            parkMgtService.addBuilding(building);
-
-            return ResponseBean.successResponse("OK");
+        int i = parkMgtService.queryBuildingIdByName(building.getParkId(),building.getName());
+        if(i != 0){
+            return  ResponseBean.errorResponse("该楼宇已存在");
         }
+        parkMgtService.addBuilding(building);
+        return ResponseBean.successResponse("OK");
     }
 
     /**
