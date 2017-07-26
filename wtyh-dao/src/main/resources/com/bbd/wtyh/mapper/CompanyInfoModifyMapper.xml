@@ -5,13 +5,13 @@
     <select id="autoComplete" resultType="string">
 			SELECT `name`
 			FROM company
-			WHERE `name` LIKE concat("%", #{q},"%")
+			WHERE `name` LIKE concat("%", #{q},"%") AND company_type IN (1, 2, 3, 4, 9, 11, 13)
 			LIMIT 0, 5
 	</select>
 
     <select id="queryCompany" resultType="com.bbd.wtyh.domain.CompanyInfoModify.CompanyInfo">
         SELECT
-            `name` AS company,
+            `name` AS `name`,
             legal_person AS legalPerson,
             registered_capital AS registeredCapital,
             company_type AS industry
@@ -19,5 +19,15 @@
             company
         WHERE
             `name` = #{name}
+            AND company_type IN (1, 2, 3, 4, 9, 11, 13)
+    </select>
+
+    <select id="queryModifyCompany" resultType="string">
+        SELECT
+          `name` AS `name`
+        FROM
+          company_modify
+        WHERE
+          `name` = #{name}
     </select>
 </mapper>

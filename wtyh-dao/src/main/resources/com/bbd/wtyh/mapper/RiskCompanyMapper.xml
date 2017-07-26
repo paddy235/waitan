@@ -194,4 +194,12 @@
         (#{name}, #{beforeLevel},#{afterLevel}, #{beforeIndustry})
     </insert>
 
+    <update id="modifyIndustry" >
+        update company
+        <set>
+            company_type=4
+        </set>
+        where `name`=#{name}
+    </update>
+
 </mapper>

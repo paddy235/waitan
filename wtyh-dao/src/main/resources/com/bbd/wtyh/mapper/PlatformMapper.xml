@@ -14,9 +14,9 @@
 
     <insert id="recordWangdai" parameterType="com.bbd.wtyh.domain.CompanyInfoModify.WangdaiModify">
         INSERT INTO
-          `company_modify` (`name`, `platName`, `beforeLevel`, `afterLevel`, `beforeIndustry`)
+          `company_modify` (`name`, `platName`, `beforeLevel`, `afterLevel`, `beforeIndustry`, `afterIndustry`)
         VALUES
-          (#{name}, #{platName}, #{beforeLevel},#{afterLevel}, #{beforeIndustry})
+          (#{name}, #{platName}, #{beforeLevel},#{afterLevel}, #{beforeIndustry}, #{afterIndustry})
     </insert>
 
 
