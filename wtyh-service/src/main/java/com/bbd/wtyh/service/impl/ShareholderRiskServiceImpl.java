@@ -57,13 +57,13 @@ public class ShareholderRiskServiceImpl implements ShareholderRiskService {
         return riskList;
     }
 
-    @Scheduled(cron = "0 0 3 * * *")
-    public void warmupShareholderRiskCache() {
-        List<ShareholderRiskDTO> riskList = innerListShareholderRisk((int) CompanyDO.TYPE_XD_2);
-        redisDAO.addObject(SHAREHOLDER_RISK_CACHE_PRIFIX + (int) CompanyDO.TYPE_XD_2, riskList, Constants.REDIS_10, riskList.getClass());
-        riskList = innerListShareholderRisk((int) CompanyDO.TYPE_RZDB_3);
-        redisDAO.addObject(SHAREHOLDER_RISK_CACHE_PRIFIX + (int) CompanyDO.TYPE_RZDB_3, riskList, Constants.REDIS_10, riskList.getClass());
-    }
+//    @Scheduled(cron = "0 0 3 * * *")
+//    public void warmupShareholderRiskCache() {
+//        List<ShareholderRiskDTO> riskList = innerListShareholderRisk((int) CompanyDO.TYPE_XD_2);
+//        redisDAO.addObject(SHAREHOLDER_RISK_CACHE_PRIFIX + (int) CompanyDO.TYPE_XD_2, riskList, Constants.REDIS_10, riskList.getClass());
+//        riskList = innerListShareholderRisk((int) CompanyDO.TYPE_RZDB_3);
+//        redisDAO.addObject(SHAREHOLDER_RISK_CACHE_PRIFIX + (int) CompanyDO.TYPE_RZDB_3, riskList, Constants.REDIS_10, riskList.getClass());
+//    }
 
     private List<ShareholderRiskDTO> innerListShareholderRisk(Integer companyType) {
         List<CompanyDO> companyList = companyService.queryCompanyByType(companyType, null, null);

@@ -23,6 +23,16 @@ public class BuildingDO extends BaseDO {
 	@Column(name = "img_url")
 	private String imgUrl;
 
+	private String user;//作为creat_by或update_by字段使用
+
+	public String getUser() {
+		return user;
+	}
+
+	public void setUser(String user) {
+		this.user = user;
+	}
+
 	/**
 	 * @Fields finComNum : finance_company_number 新型金融企业数量
 	 */
