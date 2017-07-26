@@ -95,10 +95,10 @@ public class CompanyInfoModifyController {
         rst.put(CompanyInfo.TYPE_RZDB_3, CompanyLevel.getMap());
 //        // "线下理财"
         Map<String, Integer> offLine = new HashedMap();
-        wangdai.put("已出风险",  1);
-        wangdai.put("重点关注",  2);
-        wangdai.put("一般关注",  3);
-        wangdai.put("正常", 4);
+        offLine.put("已出风险",  1);
+        offLine.put("重点关注",  2);
+        offLine.put("一般关注",  3);
+        offLine.put("正常", 4);
         rst.put(CompanyInfo.TYPE_XXLC_4, offLine);
 //        // "交易场所"
         rst.put(CompanyInfo.TYPE_JYS_9, offLine);
