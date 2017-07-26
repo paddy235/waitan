@@ -5,9 +5,11 @@ import com.bbd.wtyh.domain.*;
 import com.bbd.wtyh.domain.vo.ParkAndBuildingVO;
 import com.bbd.wtyh.service.ImgService;
 import com.bbd.wtyh.service.shiro.ParkMgtService;
+import com.bbd.wtyh.util.WtyhHelper;
 import com.bbd.wtyh.web.ResponseBean;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -343,21 +345,44 @@ public class ParkMgtController {
         return ResponseBean.successResponse("OK");
     }
 
+
+
+    private String PARK_DIR1 = WtyhHelper.adminImgPath;//开发环境
+
+    /**
+     * 更新图片到执行文件夹
+     * @param request
+     * @param img
+     */
     private void updatePic(HttpServletRequest request,ImgDO img){
         String path = PARK_DIR;
         Integer picType = img.getPicType();
         if (picType == 2) {
             path = BUILDING_DIR;
         }
+        // /data/wtyh/static/wtyh-admin/build/data/img
+        if(org.apache.commons.lang3.StringUtils.isBlank(PARK_DIR1)){//正式环境
+            PARK_DIR1 = request.getSession().getServletContext().getRealPath("/") + File.separator + path + img.getPicName();
+        }else{//开发环境
+            PARK_DIR1+=File.separator+ "park"+File.separator+ img.getPicName();
+        }
 
-        File f = new File(request.getSession().getServletContext().getRealPath("/") + "/" + path + img.getPicName());
+        File f = new File(PARK_DIR1);
         request.getRemoteAddr();
         FileOutputStream fos = null;
 
         try {
             //若原图片已经被打开，是否还能直接删除？
-            if (f.exists())
+            if (f.exists()){
                 f.delete();
+            }
+
+            if(!f.getParentFile().exists()){
+                f.getParentFile().mkdirs();
+            }
+
+//            f.createNewFile();
+
             fos = new FileOutputStream(f);
             int len = 0;
             byte[] buf = new byte[1024];
