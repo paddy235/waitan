@@ -458,7 +458,7 @@ public class HologramQueryServiceImpl implements HologramQueryService {
         }
         csList.addAll(cs2.getRdata());
         int rtnTotal =Integer.decode( null ==cs2.getSum() ? "0" : cs2.getSum() );
-        logger.info("companySearch2--nalName-A[{}]--type[{}]--num[{}]--rtnTotal[{}]--{}ms", nalName, type, cs2.getRdata().size(), rtnTotal, dltSec );
+        logger.info("companySearch2--nalName-A[{}]--type[{}]--isProvince[{}]--rtnTotal[{}]--{}ms", nalName, type, isProvince, rtnTotal, dltSec );
         if ( rtnTotal <=pgSz ) {
             return csList;
         }
@@ -467,47 +467,39 @@ public class HologramQueryServiceImpl implements HologramQueryService {
         if (rtnTotal%pgSz >0) {
             pgTotal++;
         }
-        MultiExeService mes =new MultiExeService(true);
-        //ExecutorService exeSer = Executors.newFixedThreadPool(8);
-        ExecutorService exeSer = Executors.newWorkStealingPool(8);
-        ConcurrentLinkedDeque< List<CompanySearch2DO.Rdata> > cdC =new ConcurrentLinkedDeque<>();
+        MultiExeService mes =new MultiExeService(false);
+        //ExecutorService exeSer = Executors.newWorkStealingPool(8);
+        ConcurrentSkipListMap< Integer, List<CompanySearch2DO.Rdata> > cslMap =new ConcurrentSkipListMap<>();
         start = new Date();
-        for ( int idxA =1; idxA <pgTotal /*&& idxA <200*/ ; idxA++  ) {
+        for ( int idxA =1; idxA <pgTotal && idxA <50 ; idxA++  ) { //每一单搜索结果数据平台最多允许取1w条记录，所有idx限制到50（pgSz=200）
+            /*if( idxA %50 ==0 ) {
+                mes.waiting();
+                //try {Thread.sleep(6000);} catch (Exception e){};
+            }*/
             final int idx =idxA;
-            logger.info("companySearch2--nalName--C--idxIn[{}]", idx );
-            exeSer.submit( ()->{
-                logger.info("companySearch2--nalName--C--idxIn1[{}]", idx);
+            //logger.info("companySearch2--nalName--Create--idxIn[{}]", idx );
+            mes.runThreadFun/*exeSer.submit*/( ()->{
+                //logger.info("companySearch2--nalName--Start--idxIn1[{}]", idx);
                 Map<String, String> par = new HashMap<>(parameters);
                 par.put("page_no", "" + idx);
                 CompanySearch2DO cs2x = hologramQueryDao.companySearch2(nalName, par);
                 if (null == cs2x || cs2x.getErr_code() == null || !(cs2x.getErr_code().equals("0"))) {
+                    //logger.info("companySearch2--nalName--End--idxIn1[{}]--cs2x ==null", idx);
                     return;
                 }
-                cdC.add(cs2x.getRdata());
-                logger.info("companySearch2--nalName--C--idx[{}]--num[{}]", idx, cs2x.getRdata().size());
+                cslMap.put( idx, cs2x.getRdata() );
+                //logger.info("companySearch2--nalName--End--idx[{}]--num[{}]", idx, cs2x.getRdata().size());
             });
-            /*mes.runThreadFun( ()->{
-                logger.info("companySearch2--nalName--C--idxIn1[{}]", idx );
-                Map<String, String> par =new HashMap<>(parameters);
-                par.put("page_no", "" + idx);
-                CompanySearch2DO cs2x = hologramQueryDao.companySearch2(nalName, par);
-                if (null == cs2x || cs2x.getErr_code() == null || !(cs2x.getErr_code().equals("0"))) {
-                    return;
-                }
-                cdC.add(cs2x.getRdata());
-                logger.info("companySearch2--nalName--C--idx[{}]--num[{}]", idx, cs2x.getRdata().size() );
-            } );
-            mes.waitingNew(8); //最多同时运行的线程数*/
+            mes.waitingNew(6);
         }
-        //mes.waiting();
-        exeSer.shutdown();
-        try {exeSer.awaitTermination( pgTotal *30, TimeUnit.SECONDS);}
-        catch (Exception e){logger.error(e.getMessage());}
+        //exeSer.shutdown();
+        //try {exeSer.awaitTermination( pgTotal *30, TimeUnit.SECONDS);} catch (Exception e){ logger.error(e.getMessage()); }
+        mes.waiting();
         dltSec = (new Date()).getTime() - start.getTime();
-        for ( List<CompanySearch2DO.Rdata> itr : cdC ) {
+        for ( List<CompanySearch2DO.Rdata> itr : cslMap.values() ) {
             csList.addAll(itr);
         }
-        logger.info("companySearch2--nalName--B[{}]--type[{}]--num[{}]--{}ms", nalName, type, csList.size() -cs2.getRdata().size(), dltSec );
+        logger.info("companySearch2--nalName--B[{}]--type[{}]--num[{}]--{}ms", nalName, type, csList.size(), dltSec );
         return csList;
     }
 

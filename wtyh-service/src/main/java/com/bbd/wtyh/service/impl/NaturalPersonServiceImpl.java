@@ -103,8 +103,8 @@ public class NaturalPersonServiceImpl implements NaturalPersonService {
     }
 
     @Override
-    public Map<String, Object> queryNaturalPerson2(
-            String nalName, String type, Boolean isProvince, String companyKeyword, Integer pageSize, Integer page ) {
+    public Map<String, Object> queryNaturalPerson2( String nalName, String type, Boolean isProvince,
+                    String companyKeyword, Integer pageSize, Integer page, Boolean noCache ) {
         if (null == isProvince) {
             isProvince =false;
         }
@@ -118,7 +118,7 @@ public class NaturalPersonServiceImpl implements NaturalPersonService {
         // List<NaturalPersonVO> naturalPersons1;
         final Object[] naturalPersonArr =new Object[1];
         final String redisKey = Constants.REDIS_KEY_NATURAL_PERSON_LIST +"_" +nalName +"_" +type + "_" +fIsProvince;
-        Gson gson =new Gson();
+        //Gson gson =new Gson();
         GetAndRedisAdd gr =()->{
             try {
                 naturalPersonArr[0] = getNaturalPerson2(nalName, fIsProvince, type);
@@ -130,22 +130,25 @@ public class NaturalPersonServiceImpl implements NaturalPersonService {
                 logger.warn(e.toString());
             }
         };
-        try {
-            Object rObj = redisDAO.getObject(redisKey);
-            rObj =null; //todo tst
-            //String jStr = redisDAO.getString(redisKey);
-            if (null != rObj && rObj instanceof List /*null !=jStr*/) {
-                try {
-                    naturalPersonArr[0] = rObj;
-                    //naturalPersonArr[0] =gson.fromJson( jStr, (new TypeToken<List<NaturalPersonVO>>() { }).getType() );
-                } catch (Exception e) {
+        if ( null !=noCache && noCache ) {
+            gr.fun();
+        } else {
+            try {
+                Object rObj = redisDAO.getObject(redisKey);
+                //String jStr = redisDAO.getString(redisKey);
+                if (null != rObj && rObj instanceof List /*null !=jStr*/) {
+                    try {
+                        naturalPersonArr[0] = rObj;
+                        //naturalPersonArr[0] =gson.fromJson( jStr, (new TypeToken<List<NaturalPersonVO>>() { }).getType() );
+                    } catch (Exception e) {
+                        gr.fun();
+                    }
+                } else {
                     gr.fun();
                 }
-            } else {
+            } catch (Exception e) {
                 gr.fun();
             }
-        } catch (Exception e) {
-            gr.fun();
         }
         //按条件重构传给前端的完整列表
         List<String> companyNames =new LinkedList<>();
@@ -297,10 +300,6 @@ public class NaturalPersonServiceImpl implements NaturalPersonService {
         if ( ! isProvince ) {
             shangHaiList.addAll(otherList); //加入非上海的企业
         }
-        /*if (shangHaiList.size() >=360) { //截断过大的结果集合
-            shangHaiList = shangHaiList.subList(0, 360);
-            //shangHaiList = new LinkedList<>(shangHaiList.subList(0, 300));
-        }*/
         return shangHaiList;
     }
 
