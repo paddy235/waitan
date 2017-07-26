@@ -9,7 +9,6 @@ import com.bbd.wtyh.util.WtyhHelper;
 import com.bbd.wtyh.web.ResponseBean;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
