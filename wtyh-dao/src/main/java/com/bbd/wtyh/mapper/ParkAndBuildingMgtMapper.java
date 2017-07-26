@@ -18,6 +18,8 @@ public interface ParkAndBuildingMgtMapper {
 
     void updateParkImgUrl(ParkDO park);
 
+    void updateBuildingImgUrl(BuildingDO building);
+
     List<ParkDO> queryAllPark();
 
     List<ParkAndBuildingVO> queryBuildingCompany(String parkName);

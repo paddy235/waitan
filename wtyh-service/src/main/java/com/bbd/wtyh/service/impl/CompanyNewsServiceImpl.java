@@ -211,29 +211,29 @@ public class CompanyNewsServiceImpl implements CompanyNewsService {
 
 
 
-    @Scheduled(cron = "0 0 0 * * *")
-    public void scheduleQueryCompanyNews() {
-
-        List<String> names = companyMapper.queryCompanyNames(null, null);
-
-        StringBuilder ns = new StringBuilder();
-        for (String n:names) {
-            ns.append(ns.length()>0?",":"").append(n);
-        }
-        if (!StringUtils.isEmpty(ns.toString())) {
-            List<NameValuePair> list = new ArrayList<>();
-            list.add(new BasicNameValuePair("keys", ns.toString() ));
-            list.add(new BasicNameValuePair("ktype", "" + ktype));
-            list.add(new BasicNameValuePair("pageSize", "100"));
-            list.add(new BasicNameValuePair("ak", ak));
-            try {
-                String data = new HttpTemplate().post(batchNewsUrl, list);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-    }
+//    @Scheduled(cron = "0 0 0 * * *")
+//    public void scheduleQueryCompanyNews() {
+//
+//        List<String> names = companyMapper.queryCompanyNames(null, null);
+//
+//        StringBuilder ns = new StringBuilder();
+//        for (String n:names) {
+//            ns.append(ns.length()>0?",":"").append(n);
+//        }
+//        if (!StringUtils.isEmpty(ns.toString())) {
+//            List<NameValuePair> list = new ArrayList<>();
+//            list.add(new BasicNameValuePair("keys", ns.toString() ));
+//            list.add(new BasicNameValuePair("ktype", "" + ktype));
+//            list.add(new BasicNameValuePair("pageSize", "100"));
+//            list.add(new BasicNameValuePair("ak", ak));
+//            try {
+//                String data = new HttpTemplate().post(batchNewsUrl, list);
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        }
+//
+//    }
 
 
 

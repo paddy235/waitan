@@ -4,9 +4,9 @@
 <mapper namespace="com.bbd.wtyh.mapper.RelationMapper">
 
     <insert id="addRelation" parameterType="java.util.List">
-        INSERT INTO tbl_relation(target_company, investors, investee, relationship, investors_no, investee_no, create_by, create_date, update_date) VALUES
+        INSERT INTO tbl_relation(target_company, investors, investee, relationship, investors_no, investee_no, full_line, create_by, create_date, update_date) VALUES
         <foreach collection="list" separator="," item="item">
-            (#{item.targetCompany}, #{item.investors}, #{item.investee}, #{item.relationship}, #{item.investorsNo}, #{item.investeeNo}, 'system', SYSDATE(), SYSDATE())
+            (#{item.targetCompany}, #{item.investors}, #{item.investee}, #{item.relationship}, #{item.investorsNo}, #{item.investeeNo}, #{item.fullLine}, 'system', SYSDATE(), SYSDATE())
         </foreach>
     </insert>
 

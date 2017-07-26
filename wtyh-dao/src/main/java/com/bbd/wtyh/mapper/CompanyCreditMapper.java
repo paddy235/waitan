@@ -1,5 +1,6 @@
 package com.bbd.wtyh.mapper;
 
+import com.bbd.wtyh.domain.CompanyCreditDataItemsDO;
 import com.bbd.wtyh.domain.CompanyCreditRawInfoDO;
 import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.TaskFailInfoDO;
@@ -32,6 +33,8 @@ public interface CompanyCreditMapper {
 	List<CreditInfoDTO> getCreditCompany(@Param("companyName") String companyName);
 
 	List<CreditInfoDTO> getCreditInfo(@Param("companyName") String companyName, @Param("dataType") List<String> dataType);
+
+	List<CompanyCreditDataItemsDO> getCreditDataItems();
 
 
 
