@@ -19,5 +19,6 @@
             company
         WHERE
             `name` = #{name}
+            AND company_type IN (1, 2, 3, 4, 9, 11, 13)
     </select>
 </mapper>
