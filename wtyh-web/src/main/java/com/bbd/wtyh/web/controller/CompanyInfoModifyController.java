@@ -59,7 +59,7 @@ public class CompanyInfoModifyController {
         return ResponseBean.successResponse("修改成功");
     }
 
-    // 风险 列表
+    // 3. 风险 列表
     @RequestMapping(value = "/risk")
     @ResponseBody
     public ResponseBean risk() {
@@ -92,7 +92,7 @@ public class CompanyInfoModifyController {
     }
 
 
-    // 行业类型 列表
+    // 4. 行业类型 列表
     @RequestMapping(value = "/industry")
     @ResponseBody
     public ResponseBean industry() {
@@ -107,7 +107,7 @@ public class CompanyInfoModifyController {
         return ResponseBean.successResponse(rst);
     }
 
-    // 公司是否被修改过
+    // 5. 公司是否被修改过
     @RequestMapping(value = "/isModify")
     @ResponseBody
     public ResponseBean isModify(String name) {
