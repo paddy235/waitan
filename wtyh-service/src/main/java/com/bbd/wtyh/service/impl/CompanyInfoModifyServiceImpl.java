@@ -61,7 +61,7 @@ public class CompanyInfoModifyServiceImpl implements CompanyInfoModifyService {
      * @return
      */
     @Override
-    public CompanyInfo modifyLevel(ModifyData modifyData) {
+    public CompanyInfo modifyLevel(ModifyData modifyData) throws Exception {
         if (CompanyInfo.TYPE_P2P_1 == companyInfoModifyMapper.queryCompany(modifyData.getName()).getIndustry()) { // 网络借贷
             CompanyInfo wangdai = companyInfoQueryUtil.getWangdaiInfo(modifyData.getName());
             WangdaiModify wangdaiModify = new WangdaiModify();
@@ -149,6 +149,8 @@ public class CompanyInfoModifyServiceImpl implements CompanyInfoModifyService {
             // 修改值
             companyInfoMudifyUtil.modifyOffLine(offLineModify);
         }
+        // 修改行业
+        companyInfoMudifyUtil.modifyIndustry(modifyData.getName(), modifyData.getIndustry());
         return null;
     }
 }
