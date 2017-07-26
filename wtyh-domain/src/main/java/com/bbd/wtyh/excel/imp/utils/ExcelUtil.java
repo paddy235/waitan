@@ -193,6 +193,7 @@ public class ExcelUtil {
 		mapLevel22.put("大额借款人", "xiaodai-large-borrower");// 构建二级下拉
 		mapLevel22.put("贷款余额", "xiaodai-loan-balance");// 构建二级下拉
 
+
 		// 私募基金
 		Map<String, String> mapLevel23 = new HashMap<>();
 		mapLevel1.put("私募基金", mapLevel23);// 构建一级下拉
@@ -206,6 +207,12 @@ public class ExcelUtil {
 		mapLevel1.put(" 融资担", mapLevel24);// 构建一级下拉
 		mapLevel24.put("融资担保-大额被担保人信息列表", "guaranteed_info");// 构建二级下拉
 		mapLevel24.put("融资担保-担保责任余额信息列表", "guarantee_balance");// 构建二级下拉
+
+		//典当
+		Map<String, String> mapLevel25 = new HashMap<>();
+		mapLevel1.put("典当", mapLevel25);// 构建一级下拉
+		mapLevel25.put("典当数据", "mortgage_statistic");// 构建二级下拉
+
 		return mapLevel1;
 	}
 
