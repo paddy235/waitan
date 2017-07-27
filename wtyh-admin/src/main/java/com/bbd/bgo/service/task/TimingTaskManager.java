@@ -3,6 +3,7 @@ package com.bbd.bgo.service.task;
 
 import com.bbd.bgo.quartz.TaskUtil;
 import com.bbd.wtyh.domain.TaskFailInfoDO;
+import com.bbd.wtyh.domain.TaskResultDO;
 import com.bbd.wtyh.mapper.TaskFailInfoMapper;
 import com.bbd.wtyh.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,20 +59,17 @@ public class TimingTaskManager {
 	 */
 	public void updateRiskLevelTask() throws Exception {
 		Integer taskId=null;
-		Integer planCount = null;// 计划执行笔数。 可在任务结束时更新
-		Integer successCount=null;
-		Integer failCount=null;
-		Map map =null;
+        TaskResultDO taskResultDO=null;
 		try {
 			Integer runMode = 0;// 运行方式：0 自动执行， 1 手动执行
 			taskId=TaskUtil.taskStart(TaskUtil.riskLevelJob[0],TaskUtil.riskLevelJob[1],null,runMode,null,null);
 			//需要传 taskId 给业务接口
-			map = offlineFinanceService.updateCompanyRiskLevel(taskId);
+            taskResultDO = offlineFinanceService.updateCompanyRiskLevel(taskId);
 		} catch (Exception e) {
 			logger.error("riskLevelTask"+e);
 		}finally {
 
-            taskEnd(map,taskId,planCount,successCount,failCount,null,canRan);
+            taskEnd(taskResultDO,taskId,null,canRan);
 		}
 
 	}
@@ -84,20 +82,17 @@ public class TimingTaskManager {
 	 */
 	public void updateCompanyBaseInfoTask() throws Exception {
 		Integer taskId=null;
-		Integer planCount = null;// 计划执行笔数。 可在任务结束时更新
-		Integer successCount=null;
-		Integer failCount=null;
-		Map map =null;
+        TaskResultDO taskResultDO=null;
 		try {
 			Integer runMode = 0;// 运行方式：0 自动执行， 1 手动执行
 			taskId=TaskUtil.taskStart(TaskUtil.companyBaseInfo[0],TaskUtil.companyBaseInfo[1],null,runMode,null,null);
 			//需要传 taskId 给业务接口
-			systemDataUpdateService.updateCompanyAndBackgroundAutomaticOperate(taskId);
+            taskResultDO=systemDataUpdateService.updateCompanyAndBackgroundAutomaticOperate(taskId);
 		} catch (Exception e) {
 			logger.error("companyBaseInfoTask"+e);
 		}finally {
 
-            taskEnd(map,taskId,planCount,successCount,failCount,null,canRan);
+            taskEnd(taskResultDO,taskId,null,canRan);
 		}
 
 	}
@@ -110,20 +105,17 @@ public class TimingTaskManager {
 	 */
 	public void updatePlatformTask() throws Exception {
 		Integer taskId=null;
-		Integer planCount = null;// 计划执行笔数。 可在任务结束时更新
-		Integer successCount=null;
-		Integer failCount=null;
-		Map map =null;
+        TaskResultDO taskResultDO=null;
 		try {
 			Integer runMode = 0;// 运行方式：0 自动执行， 1 手动执行
 			taskId=TaskUtil.taskStart(TaskUtil.platformJob[0],TaskUtil.platformJob[1],null,runMode,null,null);
 			//需要传 taskId 给业务接口
-			map=platUpdateTaskService.updatePlatAutomaticOperate(taskId);
+            taskResultDO=platUpdateTaskService.updatePlatAutomaticOperate(taskId);
 		} catch (Exception e) {
 			logger.error("updatePlatformTask"+e);
 		}finally {
 
-			taskEnd(map,taskId,planCount,successCount,failCount,null,canRan);
+			taskEnd(taskResultDO,taskId,null,canRan);
 		}
 
 	}
@@ -136,10 +128,7 @@ public class TimingTaskManager {
 	 */
 	public void pullOfflineFinanceTask() {
 		Integer taskId=null;
-		Integer planCount = null;// 计划执行笔数。 可在任务结束时更新
-		Integer successCount=null;
-		Integer failCount=null;
-		Map map =null;
+        TaskResultDO taskResultDO=null;
 		try {
 			Integer runMode = 0;// 运行方式：0 自动执行， 1 手动执行
 			taskId=TaskUtil.taskStart(TaskUtil.offlineFinanceJob[0],TaskUtil.offlineFinanceJob[1],null,runMode,null,null);
@@ -150,7 +139,7 @@ public class TimingTaskManager {
 			logger.error("pullDataFileFromBBDTask"+e);
 		}finally {
 
-            taskEnd(map,taskId,planCount,successCount,failCount,null,canRan);
+            taskEnd(taskResultDO,taskId,null,canRan);
 		}
 
 	}
@@ -163,20 +152,17 @@ public class TimingTaskManager {
 	 */
 	public void pullHolographicAndOpinionTask() {
 		Integer taskId=null;
-		Integer planCount = null;// 计划执行笔数。 可在任务结束时更新
-		Integer successCount=null;
-		Integer failCount=null;
-		Map map =null;
+        TaskResultDO taskResultDO=null;
 		try {
 			Integer runMode = 0;// 运行方式：0 自动执行， 1 手动执行
 			taskId=TaskUtil.taskStart(TaskUtil.holographicAndOpinionJob[0],TaskUtil.holographicAndOpinionJob[1],null,runMode,null,null);
 			//需要传 taskId 给业务接口
-			map=dataLoadingService.dataLoadingAutomaticOperate(taskId);
+            taskResultDO=dataLoadingService.dataLoadingAutomaticOperate(taskId);
 		} catch (Exception e) {
 			logger.error("pullHolographicAndOpinionTask"+e);
 		}finally {
 
-            taskEnd(map,taskId,planCount,successCount,failCount,null,canRan);
+            taskEnd(taskResultDO,taskId,null,canRan);
 		}
 
 
@@ -189,20 +175,17 @@ public class TimingTaskManager {
 	 */
 	public void pullCreditTask() {
 		Integer taskId=null;
-		Integer planCount = null;// 计划执行笔数。 可在任务结束时更新
-		Integer successCount=null;
-		Integer failCount=null;
-		Map map =null;
+		TaskResultDO taskResultDO=null;
 		try {
 			Integer runMode = 0;// 运行方式：0 自动执行， 1 手动执行
 			taskId=TaskUtil.taskStart(TaskUtil.shangHaiCreditJob[0],TaskUtil.shangHaiCreditJob[1],null,runMode,null,null);
 			//需要传 taskId 给业务接口
-			map=coCreditScoreService.creditScoreCalculate(taskId,runMode);
+			taskResultDO=coCreditScoreService.creditScoreCalculate(taskId,runMode);
 		} catch (Exception e) {
 			logger.error("shangHaiCreditTask"+e);
 		}finally {
 
-            taskEnd(map,taskId,planCount,successCount,failCount,null,canRan);
+            taskEnd(taskResultDO,taskId,null,canRan);
 		}
 	}
 	/**
@@ -224,22 +207,19 @@ public class TimingTaskManager {
 	 */
 	public void pullP2PMonitorTask() throws Exception {
 		Integer taskId=null;
-		Integer planCount = null;// 计划执行笔数。 可在任务结束时更新
-		Integer successCount=null;
-		Integer failCount=null;
-		Map map = null;
+		TaskResultDO taskResultDO=null;
 		try {
 
 			String dataVersion= null;//有版本号的传版本号，没有的不传，根据自己的业务规则定
 			Integer runMode = 0;// 运行方式：0 自动执行， 1 手动执行
 			taskId=TaskUtil.taskStart(TaskUtil.pToPMonitorJob[0],TaskUtil.pToPMonitorJob[1],dataVersion,runMode,null,null);
 			//需要传 taskId 给业务接口
-            map = p2pMonitorService.pToPMonitorDataLandTask(taskId);
+			taskResultDO = p2pMonitorService.pToPMonitorDataLandTask(taskId);
 
 		} catch (Exception e) {
 			logger.error("pullP2PMonitorTask"+e);
 		}finally {
-            taskEnd(map,taskId,planCount,successCount,failCount,null,canRan);
+            taskEnd(taskResultDO,taskId,null,canRan);
 		}
 	}
 
@@ -250,22 +230,19 @@ public class TimingTaskManager {
      */
     public void pullP2PImageTask() throws Exception {
         Integer taskId=null;
-        Integer planCount = null;// 计划执行笔数。 可在任务结束时更新
-        Integer successCount=null;
-        Integer failCount=null;
-        Map map = null;
+		TaskResultDO taskResultDO=null;
         try {
 
             String dataVersion= null;//有版本号的传版本号，没有的不传，根据自己的业务规则定
             Integer runMode = 0;// 运行方式：0 自动执行， 1 手动执行
             taskId=TaskUtil.taskStart(TaskUtil.p2pImageJob[0],TaskUtil.p2pImageJob[1],dataVersion,runMode,null,null);
             //需要传 taskId 给业务接口
-            map = p2pImageService.p2pImageDataLandTask(taskId);
+			taskResultDO = p2pImageService.p2pImageDataLandTask(taskId);
 
         } catch (Exception e) {
             logger.error("pullP2PMonitorTask"+e);
         }finally {
-            taskEnd(map,taskId,planCount,successCount,failCount,null,canRan);
+            taskEnd(taskResultDO,taskId,null,canRan);
         }
     }
 
@@ -278,20 +255,17 @@ public class TimingTaskManager {
 	public void pullCrowdFundingTask()throws Exception{
 
 		Integer taskId=null;
-		Integer planCount = null;// 计划执行笔数。 可在任务结束时更新
-		Integer successCount=null;
-		Integer failCount=null;
-		Map map =null;
+		TaskResultDO taskResultDO=null;
 		try {
 			Integer runMode = 0;// 运行方式：0 自动执行， 1 手动执行
 			taskId=TaskUtil.taskStart(TaskUtil.crowdFundingJob[0],TaskUtil.crowdFundingJob[1],null,runMode,null,null);
 			//需要传 taskId 给业务接口
-            map=crowdFundingService.crowdFundingDataLandTask(taskId);
+			taskResultDO=crowdFundingService.crowdFundingDataLandTask(taskId);
 		} catch (Exception e) {
 			logger.error("updateCrowdFundingData"+e);
 		}finally {
 
-            taskEnd(map,taskId,planCount,successCount,failCount,null,canRan);
+            taskEnd(taskResultDO,taskId,null,canRan);
 		}
 	}
 
@@ -310,21 +284,18 @@ public class TimingTaskManager {
 
         Integer runMode=1;
         Integer newTaskId=null;
-        Integer planCount = null;// 计划执行笔数。 可在任务结束时更新
-        Integer successCount=null;
-        Integer failCount=null;
-        Map map =null;
+		TaskResultDO taskResultDO=null;
 
         if(TaskUtil.shangHaiCreditJob[0].equals(taskKey)){
 
             //公信数据落地
             try {
                 newTaskId = TaskUtil.taskStart(TaskUtil.shangHaiCreditJob[0], TaskUtil.shangHaiCreditJob[1], null, runMode, null, null);
-                map=coCreditScoreService.executeFailCompanyByTaskId(runMode, oldTaskId, newTaskId);
+				taskResultDO=coCreditScoreService.executeFailCompanyByTaskId(runMode, oldTaskId, newTaskId);
             }catch (Exception e){
                 logger.error("reExecuteTask-shangHaiCreditJob"+e);
             }finally {
-                taskEnd(map,newTaskId,planCount,successCount,failCount,null,canRan);
+                taskEnd(taskResultDO,newTaskId,null,canRan);
             }
 
         }else if(TaskUtil.offlineFinanceJob[0].equals(taskKey)){
@@ -335,11 +306,11 @@ public class TimingTaskManager {
 
 			try {
 				newTaskId = TaskUtil.taskStart(TaskUtil.holographicAndOpinionJob[0], TaskUtil.holographicAndOpinionJob[1], null, runMode, null, null);
-				map=dataLoadingService.dataLoadingManualOperate(oldTaskId, newTaskId);
+				taskResultDO=dataLoadingService.dataLoadingManualOperate(oldTaskId, newTaskId);
 			}catch (Exception e){
 				logger.error("reExecuteTask-holographicAndOpinionJob"+e);
 			}finally {
-				taskEnd(map,newTaskId,planCount,successCount,failCount,null,canRan);
+				taskEnd(taskResultDO,newTaskId,null,canRan);
 			}
 
         }else if(TaskUtil.pToPMonitorJob[0].equals(taskKey)){
@@ -347,66 +318,66 @@ public class TimingTaskManager {
 
             try {
                 newTaskId = TaskUtil.taskStart(TaskUtil.pToPMonitorJob[0], TaskUtil.pToPMonitorJob[1], null, runMode, null, null);
-                map=p2pMonitorService.executeFailTaskByTaskId(runMode, oldTaskId, newTaskId);
+				taskResultDO=p2pMonitorService.executeFailTaskByTaskId(runMode, oldTaskId, newTaskId);
             }catch (Exception e){
                 logger.error("reExecuteTask-pToPMonitorJob"+e);
             }finally {
-                taskEnd(map,newTaskId,planCount,successCount,failCount,null,canRan);
+                taskEnd(taskResultDO,newTaskId,null,canRan);
             }
 
         }else if(TaskUtil.p2pImageJob[0].equals(taskKey)){
             //网贷之家数据落地-网络借贷-平台画像
             try {
                 newTaskId = TaskUtil.taskStart(TaskUtil.p2pImageJob[0], TaskUtil.p2pImageJob[1], null, runMode, null, null);
-                map=p2pImageService.executeFailTaskByTaskId(runMode, oldTaskId, newTaskId);
+				taskResultDO=p2pImageService.executeFailTaskByTaskId(runMode, oldTaskId, newTaskId);
             }catch (Exception e){
                 logger.error("reExecuteTask-p2pImageJob"+e);
             }finally {
-                taskEnd(map,newTaskId,planCount,successCount,failCount,null,canRan);
+                taskEnd(taskResultDO,newTaskId,null,canRan);
             }
 
         }else if(TaskUtil.crowdFundingJob[0].equals(taskKey)){
             //网贷之家数据落地-众筹
             try {
                 newTaskId = TaskUtil.taskStart(TaskUtil.crowdFundingJob[0], TaskUtil.crowdFundingJob[1], null, runMode, null, null);
-                map=crowdFundingService.executeFailTaskByTaskId(runMode, oldTaskId, newTaskId);
+				taskResultDO=crowdFundingService.executeFailTaskByTaskId(runMode, oldTaskId, newTaskId);
             }catch (Exception e){
                 logger.error("reExecuteTask-crowdFundingJob"+e);
             }finally {
-                taskEnd(map,newTaskId,planCount,successCount,failCount,null,canRan);
+                taskEnd(taskResultDO,newTaskId,null,canRan);
             }
 
         }else if(TaskUtil.riskLevelJob[0].equals(taskKey)){
             //系统数据更新-风险等级
 			try {
 				newTaskId = TaskUtil.taskStart(TaskUtil.riskLevelJob[0], TaskUtil.riskLevelJob[1], null, runMode, null, null);
-				map=offlineFinanceService.executeFailTaskByTaskId(runMode, oldTaskId, newTaskId);
+				taskResultDO=offlineFinanceService.executeFailTaskByTaskId(runMode, oldTaskId, newTaskId);
 			}catch (Exception e){
 				logger.error("reExecuteTask-riskLevelJob"+e);
 			}finally {
-				taskEnd(map,newTaskId,planCount,successCount,failCount,null,canRan);
+				taskEnd(taskResultDO,newTaskId,null,canRan);
 			}
 
         }else if(TaskUtil.companyBaseInfo[0].equals(taskKey)){
             //系统数据更新-企业基本信息和背景
 			try {
 				newTaskId = TaskUtil.taskStart(TaskUtil.companyBaseInfo[0], TaskUtil.companyBaseInfo[1], null, runMode, null, null);
-				map=systemDataUpdateService.updateCompanyAndBackgroundManualOperate(oldTaskId, newTaskId);
+				taskResultDO=systemDataUpdateService.updateCompanyAndBackgroundManualOperate(oldTaskId, newTaskId);
 			}catch (Exception e){
 				logger.error("reExecuteTask-companyBaseInfo"+e);
 			}finally {
-				taskEnd(map,newTaskId,planCount,successCount,failCount,null,canRan);
+				taskEnd(taskResultDO,newTaskId,null,canRan);
 			}
 
         }else if(TaskUtil.platformJob[0].equals(taskKey)){
 			//系统数据更新-企业与网贷平台对照表
 			try {
 				newTaskId = TaskUtil.taskStart(TaskUtil.platformJob[0], TaskUtil.platformJob[1], null, runMode, null, null);
-				map=platUpdateTaskService.updatePlatManualOperate(oldTaskId, newTaskId);
+				taskResultDO=platUpdateTaskService.updatePlatManualOperate(oldTaskId, newTaskId);
 			}catch (Exception e){
 				logger.error("reExecuteTask-platformJob"+e);
 			}finally {
-				taskEnd(map,newTaskId,planCount,successCount,failCount,null,canRan);
+				taskEnd(taskResultDO,newTaskId,null,canRan);
 			}
 		}
 	}
@@ -414,11 +385,14 @@ public class TimingTaskManager {
 	/**
 	 * 任务结束
 	 */
-	public void taskEnd(Map map,Integer taskId,Integer planCount,Integer successCount,Integer failCount,String creatBy,Integer reExecute){
-        if(null!=map){
-            planCount=map.get("planCount")==null?null:(Integer)map.get("planCount");
-            successCount=map.get("successCount")==null?null:(Integer)map.get("successCount");
-            failCount=map.get("failCount")==null?null:(Integer)map.get("failCount");
+	public void taskEnd(TaskResultDO taskResultDO, Integer taskId, String creatBy, Integer reExecute){
+        Integer planCount = null;
+        Integer successCount=null;
+        Integer failCount=null;
+	    if(null!=taskResultDO){
+            planCount=taskResultDO.getPlanCount();
+            successCount=taskResultDO.getSuccessCount();
+            failCount=taskResultDO.getFailCount();
         }
         TaskUtil.taskEnd(taskId,planCount,successCount,failCount,null,reExecute);
     }

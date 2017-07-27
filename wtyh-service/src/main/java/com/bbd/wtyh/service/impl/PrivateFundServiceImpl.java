@@ -10,6 +10,7 @@ import com.bbd.wtyh.web.EasyExportExcel.ExportCondition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -78,6 +79,11 @@ public class PrivateFundServiceImpl implements PrivateFundService {
     }
 
     @Override
+    public FundProductTypeDO getProductTypeByName(String typeName) {
+        return productTypeMapper.getProductTypeByName(typeName);
+    }
+
+    @Override
     public List<FundProductStatisticDO> productTypeStatisticList() {
         return productStatisticMapper.selectAll();
     }
@@ -130,6 +136,22 @@ public class PrivateFundServiceImpl implements PrivateFundService {
     @Override
     public void addQdlpProgress(QdlpProgressDO qdlpProgressDO) {
         qdlpProgressMapper.add(qdlpProgressDO);
+    }
+
+    @Override
+    public void saveOrUpdateProductStatistic(FundProductStatisticDO productDO) {
+        FundProductStatisticDO statisticDO = productStatisticMapper.selectByPrimaryKey(productDO.getProductTypeId());
+        if(statisticDO!=null){
+            statisticDO.setProductNumber(productDO.getProductNumber());
+            statisticDO.setUpdateBy(productDO.getUpdateBy());
+            statisticDO.setUpdateDate(new Date());
+            productStatisticMapper.update(statisticDO);
+            return;
+        }
+        productDO.setCreateDate(new Date());
+        productDO.setCreateBy(productDO.getUpdateBy());
+        productStatisticMapper.add(productDO);
+
     }
 
 }

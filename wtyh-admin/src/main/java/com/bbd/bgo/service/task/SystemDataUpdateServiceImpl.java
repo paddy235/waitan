@@ -5,6 +5,7 @@ import com.bbd.wtyh.common.Pagination;
 import com.bbd.wtyh.domain.CompanyBackgroundDO;
 import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.TaskFailInfoDO;
+import com.bbd.wtyh.domain.TaskResultDO;
 import com.bbd.wtyh.mapper.CompanyBackgroundMapper;
 import com.bbd.wtyh.mapper.CompanyMapper;
 import com.bbd.wtyh.mapper.TaskFailInfoMapper;
@@ -54,10 +55,10 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService {
 
     /*@Scheduled(cron = "0 0 20 2 * ?")*/
     @Override
-    public Map<String,Integer> updateCompanyAndBackgroundAutomaticOperate(Integer taskId) {
+    public TaskResultDO updateCompanyAndBackgroundAutomaticOperate(Integer taskId) {
         this.taskId=taskId;
         this.errorNum=0;
-        Map<String,Integer> returnMap = new HashMap<String,Integer>();
+        TaskResultDO taskResultDO=new TaskResultDO();
         Integer dataTotal = 0;
         try {
             final int totalCount = companyMapper.countAllCompany();
@@ -91,15 +92,17 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService {
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
         }
-        returnMap.put("total",dataTotal);
-        returnMap.put("error",errorNum);
-        returnMap.put("success",dataTotal-errorNum);
-        return returnMap;
+
+        taskResultDO.setPlanCount(dataTotal);
+        taskResultDO.setFailCount(errorNum);
+        taskResultDO.setSuccessCount(dataTotal-errorNum);
+
+        return taskResultDO;
     }
 
     @Override
-    public Map<String,Integer> updateCompanyAndBackgroundManualOperate(Integer oldTaskId,Integer newTaskId){
-        Map<String,Integer> returnMap = new HashMap<String,Integer>();
+    public TaskResultDO updateCompanyAndBackgroundManualOperate(Integer oldTaskId,Integer newTaskId){
+        TaskResultDO taskResultDO = new TaskResultDO();
         this.taskId=newTaskId;
         this.errorNum=0;
         Integer dataTotal = 0;
@@ -135,10 +138,11 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService {
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
         }
-        returnMap.put("total",dataTotal);
-        returnMap.put("error",errorNum);
-        returnMap.put("success",dataTotal-errorNum);
-        return returnMap;
+
+        taskResultDO.setPlanCount(dataTotal);
+        taskResultDO.setFailCount(errorNum);
+        taskResultDO.setSuccessCount(dataTotal-errorNum);
+        return taskResultDO;
     }
 
 

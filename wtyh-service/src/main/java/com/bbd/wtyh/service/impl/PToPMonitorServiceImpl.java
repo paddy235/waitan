@@ -312,7 +312,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
 
 
     @Override
-    public Map pToPMonitorDataLandTask(Integer taskId) {
+    public TaskResultDO pToPMonitorDataLandTask(Integer taskId) {
         Integer planCount = 5;// 计划执行笔数。 可在任务结束时更新
         Integer failCount = 0;
         //type=industry_shanghai 数据落地
@@ -356,16 +356,17 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
             addWangdaiTaskInfo(taskId, "area_index");
             failCount++;
         }
-        Map map = new HashMap();
-        map.put("planCount", planCount);
-        map.put("failCount", failCount);
-        map.put("successCount", planCount - failCount);
+        TaskResultDO taskResultDO = new TaskResultDO();
 
-        return map;
+        taskResultDO.setPlanCount(planCount);
+        taskResultDO.setFailCount(failCount);
+        taskResultDO.setSuccessCount(planCount - failCount);
+
+        return taskResultDO;
     }
 
     @Override
-    public Map executeFailTaskByTaskId(Integer runMode, Integer oldTaskId, Integer taskId) {
+    public TaskResultDO executeFailTaskByTaskId(Integer runMode, Integer oldTaskId, Integer taskId) {
         List<TaskFailInfoDO> list = taskFailInfoMapper.getTaskFailInfoByTaskId(oldTaskId);
         Integer planCount = list.size();
         Integer failCount = 0;
@@ -424,12 +425,11 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
                     continue;
             }
         }
-        Map map = new HashMap();
-        map.put("planCount", planCount);
-        map.put("failCount", failCount);
-        map.put("successCount", planCount - failCount);
-
-        return map;
+        TaskResultDO taskResultDO = new TaskResultDO();
+        taskResultDO.setPlanCount(planCount);
+        taskResultDO.setFailCount(failCount);
+        taskResultDO.setSuccessCount(planCount - failCount);
+        return taskResultDO;
     }
 
     protected void addWangdaiTaskInfo(Integer taskId, String api) {

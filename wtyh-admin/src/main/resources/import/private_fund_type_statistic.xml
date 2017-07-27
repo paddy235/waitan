@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <excel key="private_fund_type_statistic" name="私募基金分类数量">
-    <sheet name="Sheet1" startRow="4" entity="com.bbd.wtyh.domain.dto.QdlpProgressDTO"
+    <sheet name="Sheet1" startRow="4" entity="com.bbd.wtyh.domain.vo.PriFundTypeVO"
            importHandler="com.bbd.bgo.service.imp.handler.prifund.PriFundTypeStatisticHandler">
         <rowHeader>
             <column mergeFirstRow="1" mergeLastRow="2" mergeFirstCol="1" mergeLastCol="2" align="LEFT"

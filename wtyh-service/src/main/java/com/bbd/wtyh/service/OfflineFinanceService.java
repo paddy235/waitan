@@ -1,5 +1,6 @@
 package com.bbd.wtyh.service;
 
+import com.bbd.wtyh.domain.TaskResultDO;
 import com.bbd.wtyh.domain.enums.CompanyAnalysisResult;
 import com.bbd.wtyh.domain.vo.StaticRiskVO;
 import com.bbd.wtyh.domain.vo.StatisticsVO;
@@ -64,9 +65,9 @@ public interface OfflineFinanceService {
 
     Map companyInfo(String companyName);
 
-    public Map updateCompanyRiskLevel(Integer taskId) throws Exception;
+    public TaskResultDO updateCompanyRiskLevel(Integer taskId) throws Exception;
 
-    Map executeFailTaskByTaskId(Integer runMode, Integer oldTaskId, Integer taskId) throws Exception;
+    TaskResultDO executeFailTaskByTaskId(Integer runMode, Integer oldTaskId, Integer taskId) throws Exception;
 
     public void updateIndexData(String companyName);
 
