@@ -1,6 +1,7 @@
 package com.bbd.wtyh.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.bbd.shanghai.credit.utils.CreditConfig;
 import com.bbd.shanghai.credit.utils.XyptWebServiceUtil;
 import com.bbd.wtyh.common.Constants;
@@ -288,41 +289,76 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 	}
 
 	@Override
-	public List<CreditInfoDTO> getCreditInfo(String companyName, String dataType) {
-		Map<Integer,String> items;
-		List<CreditInfoDTO> list;
-		List<String> types=null;
-		if(dataType!=null && !"0".equals(dataType)){
-			types=new ArrayList<>();
-			String[] arrDataType=dataType.split(",");
-			Object obj=redisDao.getObject(REDIS_KEY_COMPANY_CREDIT_ITEMS);
+	public List<CreditInfoDTO> getCreditInfo(String companyName, String dataType)  {
 
-			if(obj!=null){
-				items=(Map<Integer,String>)obj;
-				for(int i=0;i<arrDataType.length;i++){
-					Integer it= Integer.valueOf(arrDataType[i]);
-					types.add(items.get(it));
+			Map<Integer, String> items;
+			List<CreditInfoDTO> list;
+			List<String> types = null;
+			if (dataType != null && !"0".equals(dataType)) {
+				types = new ArrayList<>();
+				String[] arrDataType = dataType.split(",");
+				Object obj = redisDao.getObject(REDIS_KEY_COMPANY_CREDIT_ITEMS);
+
+				if (obj != null) {
+					items = (Map<Integer, String>) obj;
+					for (int i = 0; i < arrDataType.length; i++) {
+						Integer it = Integer.valueOf(arrDataType[i]);
+						types.add(items.get(it));
+					}
+
+				} else {
+
+					items = new HashMap();
+					List<CompanyCreditPointItemsDO> itemList = companyCreditInformationMapper.selectCompanyCreditPointItems();
+					for (CompanyCreditPointItemsDO c : itemList) {
+
+						items.put(c.getId(), c.getItem());
+					}
+					redisDao.addObject(REDIS_KEY_COMPANY_CREDIT_ITEMS, items, Constants.cacheDay_One_Day, Map.class);
+					for (int i = 0; i < arrDataType.length; i++) {
+						Integer it = Integer.valueOf(arrDataType[i]);
+						types.add(items.get(it));
+					}
+
 				}
-
-			}else{
-
-				items=new HashMap();
-				List<CompanyCreditPointItemsDO> itemList = companyCreditInformationMapper.selectCompanyCreditPointItems();
-				for(CompanyCreditPointItemsDO c:itemList){
-
-					items.put(c.getId(),c.getItem());
-				}
-				redisDao.addObject(REDIS_KEY_COMPANY_CREDIT_ITEMS,items, Constants.cacheDay_One_Day, Map.class);
-				for(int i=0;i<arrDataType.length;i++){
-					Integer it= Integer.valueOf(arrDataType[i]);
-					types.add(items.get(it));
-				}
-
 			}
-		}
 
-		list=companyCreditMapper.getCreditInfo(companyName,types);
-		return list;
+			list = companyCreditMapper.getCreditInfo(companyName, types);
+			List<CompanyCreditDataItemsDO> dataItemList = companyCreditMapper.getCreditDataItems();
+			Map<String, String> dataItemMap = new HashMap<>();
+			for (CompanyCreditDataItemsDO itemsDO : dataItemList) {
+				dataItemMap.put(itemsDO.getResourceName() + "-" + itemsDO.getDataItem(), itemsDO.getDataItemName());
+			}
+			for (CreditInfoDTO creditInfoDTO : list) {
+				try {
+					StringBuffer sb = new StringBuffer();
+					String content = creditInfoDTO.getContent();
+					JSONObject jsonObject = JSON.parseObject(content);
+					Set<String> keys = new TreeSet(jsonObject.keySet());
+
+					for (Object obj : keys) {
+						String key = creditInfoDTO.getResourceName() + "-" + obj;
+						String str = dataItemMap.get(key);
+						if (str != null) {
+							sb.append(str);
+						} else {
+							sb.append(obj);
+						}
+						sb.append(":");
+						sb.append("\"");
+						sb.append(jsonObject.get(obj));
+						sb.append("\"");
+						sb.append(",");
+					}
+					String contentTemp = sb.toString();
+					contentTemp = contentTemp.substring(0, contentTemp.length() - 1);
+					creditInfoDTO.setContent(contentTemp);
+				}catch (Exception e){
+					LOGGER.error("getCreditInfo:"+e);
+					continue;
+				}
+			}
+			return list;
 	}
 
 	@Override

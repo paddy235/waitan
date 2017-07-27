@@ -35,9 +35,10 @@ public interface NaturalPersonService {
      * @param companyKeyword
      * @param pageSize
      * @param page
+     * @param noCache 不从缓存取信息
      * @return
      */
-    Map<String, Object> queryNaturalPerson2(
-            String nalName, String type, Boolean isProvince, String companyKeyword, Integer pageSize, Integer page );
+    Map<String, Object> queryNaturalPerson2( String nalName, String type, Boolean isProvince,
+                                             String companyKeyword, Integer pageSize, Integer page, Boolean noCache );
 
 }

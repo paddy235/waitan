@@ -53,7 +53,7 @@ public class P2PImageServiceImpl implements P2PImageService {
     private RadarScoreMapper radarScoreMapper;
 
     @Autowired
-    private WangdaiTaskInfoMapper wangdaiTaskInfoMapper;
+    private TaskFailInfoMapper taskFailInfoMapper;
 
 
     private static final String PLAT_FORM_STATUS_CACHE_PRIFIX = "wtyh:P2PImage:platFormStatus";
@@ -349,12 +349,12 @@ public class P2PImageServiceImpl implements P2PImageService {
 
             } catch (Exception e) {
                 logger.error(e.getMessage(), e);
-                WangdaiTaskInfoDO wangdaiTaskInfoDO = new WangdaiTaskInfoDO();
-                wangdaiTaskInfoDO.setTaskId(taskId);
-                wangdaiTaskInfoDO.setFailName(plat.getPlat_name());
-                wangdaiTaskInfoDO.setCreateBy("sys");
-                wangdaiTaskInfoDO.setCreateDate(new Date());
-                wangdaiTaskInfoMapper.save(wangdaiTaskInfoDO);
+                TaskFailInfoDO taskFailInfoDO = new TaskFailInfoDO();
+                taskFailInfoDO.setTaskId(taskId);
+                taskFailInfoDO.setFailName(plat.getPlat_name());
+                taskFailInfoDO.setCreateBy("sys");
+                taskFailInfoDO.setCreateDate(new Date());
+                taskFailInfoMapper.addTaskFailInfo(taskFailInfoDO);
                 failCount++;
             }
             logger.info(String.format("end update %s data", plat.getPlat_name()));
@@ -369,7 +369,7 @@ public class P2PImageServiceImpl implements P2PImageService {
 
     @Override
     public Map executeFailTaskByTaskId(Integer runMode, Integer oldTaskId, Integer taskId) {
-        List<TaskFailInfoDO> list = wangdaiTaskInfoMapper.list(oldTaskId);
+        List<TaskFailInfoDO> list = taskFailInfoMapper.getTaskFailInfoByTaskId(oldTaskId);
         List<String> platNameList = list.stream().filter(n -> n != null).map(n -> n.getFailName()).collect(Collectors.toList());
         logger.info("start executeFailTaskByTaskId ");
         List<PlatListDO> platList = new ArrayList<>();
@@ -401,12 +401,12 @@ public class P2PImageServiceImpl implements P2PImageService {
 
             } catch (Exception e) {
                 logger.error(e.getMessage(), e);
-                WangdaiTaskInfoDO wangdaiTaskInfoDO = new WangdaiTaskInfoDO();
-                wangdaiTaskInfoDO.setTaskId(taskId);
-                wangdaiTaskInfoDO.setFailName(plat.getPlat_name());
-                wangdaiTaskInfoDO.setCreateBy("sys");
-                wangdaiTaskInfoDO.setCreateDate(new Date());
-                wangdaiTaskInfoMapper.save(wangdaiTaskInfoDO);
+                TaskFailInfoDO taskFailInfoDO = new TaskFailInfoDO();
+                taskFailInfoDO.setTaskId(taskId);
+                taskFailInfoDO.setFailName(plat.getPlat_name());
+                taskFailInfoDO.setCreateBy("sys");
+                taskFailInfoDO.setCreateDate(new Date());
+                taskFailInfoMapper.addTaskFailInfo(taskFailInfoDO);
                 failCount++;
             }
             logger.info(String.format("end update %s data", plat.getPlat_name()));

@@ -107,23 +107,21 @@ public class ExportExcel {
 
 		boolean getKey = true;
 		for (T entity : dateSet) {
-			List<Field> noSortFieldList = new ArrayList<>();
+			List<Field> fieldList = new ArrayList<>();
 			Class clazz = entity.getClass();
 
 			while (null != clazz && !clazz.getName().toLowerCase().equals("java.lang.object")) {
-				noSortFieldList.addAll(Arrays.asList(clazz.getDeclaredFields()));
+				fieldList.addAll(Arrays.asList(clazz.getDeclaredFields()));
 				clazz = clazz.getSuperclass();
 			}
 
-			if (ListUtil.isEmpty(noSortFieldList))
+			if (ListUtil.isEmpty(fieldList))
 				continue;
-
-//			Field[] fields = entity.getClass().getDeclaredFields();
 
 			Map<String, Object> dataMap = new HashMap<>(32);
 			boolean isSort = false;
 			/** first loop 2 decision sort */
-			for (Field f : noSortFieldList) {
+			for (Field f : fieldList) {
 				Excel e = f.getAnnotation(Excel.class);
 				if (null == e)
 					continue;
@@ -133,21 +131,18 @@ public class ExportExcel {
 				}
 			}
 
-			Field[] fields = new Field[noSortFieldList.size()];
 			if (isSort) {
-				for (Field f : noSortFieldList) {
-					Excel e = f.getAnnotation(Excel.class);
-					if (null == e)
-						continue;
-					fields[e.sortNo() - 1] = f;
-				}
-			} else {
-				for (int i = 0; i < noSortFieldList.size(); i++) {
-					fields[i] = noSortFieldList.get(i);
-				}
+				fieldList.sort(new Comparator<Field>() {
+					@Override
+					public int compare(Field f1, Field f2) {
+						Excel e1 = f1.getAnnotation(Excel.class);
+						Excel e2 = f2.getAnnotation(Excel.class);
+						return e1.sortNo() - e2.sortNo();
+					}
+				});
 			}
 
-			for (Field field : fields) {
+			for (Field field : fieldList) {
 				if (null == field)
 					continue;
 				field.setAccessible(true);

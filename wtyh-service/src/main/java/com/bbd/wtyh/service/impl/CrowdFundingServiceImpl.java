@@ -47,7 +47,7 @@ public class CrowdFundingServiceImpl implements CrowdFundingService {
     private CrowdFundingCommonMapper crowdFundingCommonMapper;
 
     @Autowired
-    private WangdaiTaskInfoMapper wangdaiTaskInfoMapper;
+    private TaskFailInfoMapper taskFailInfoMapper;
 
 
     @Override
@@ -91,12 +91,12 @@ public class CrowdFundingServiceImpl implements CrowdFundingService {
             updateCrowdFundingCompany();
         } catch (Exception e) {
             e.printStackTrace();
-            WangdaiTaskInfoDO wangdaiTaskInfoDO = new WangdaiTaskInfoDO();
-            wangdaiTaskInfoDO.setTaskId(taskId);
-            wangdaiTaskInfoDO.setFailName("dataType=1");
-            wangdaiTaskInfoDO.setCreateBy("sys");
-            wangdaiTaskInfoDO.setCreateDate(new Date());
-            wangdaiTaskInfoMapper.save(wangdaiTaskInfoDO);
+            TaskFailInfoDO taskFailInfoDO = new TaskFailInfoDO();
+            taskFailInfoDO.setTaskId(taskId);
+            taskFailInfoDO.setFailName("dataType=1");
+            taskFailInfoDO.setCreateBy("sys");
+            taskFailInfoDO.setCreateDate(new Date());
+            taskFailInfoMapper.addTaskFailInfo(taskFailInfoDO);
             failCount++;
         }
 
@@ -105,12 +105,12 @@ public class CrowdFundingServiceImpl implements CrowdFundingService {
                 updateCrowdFundingCommon(String.valueOf(i));
             } catch (Exception e) {
                 e.printStackTrace();
-                WangdaiTaskInfoDO wangdaiTaskInfoDO = new WangdaiTaskInfoDO();
-                wangdaiTaskInfoDO.setTaskId(taskId);
-                wangdaiTaskInfoDO.setFailName(String.format("dataType=%s", i));
-                wangdaiTaskInfoDO.setCreateBy("sys");
-                wangdaiTaskInfoDO.setCreateDate(new Date());
-                wangdaiTaskInfoMapper.save(wangdaiTaskInfoDO);
+                TaskFailInfoDO taskFailInfoDO = new TaskFailInfoDO();
+                taskFailInfoDO.setTaskId(taskId);
+                taskFailInfoDO.setFailName(String.format("dataType=%s", i));
+                taskFailInfoDO.setCreateBy("sys");
+                taskFailInfoDO.setCreateDate(new Date());
+                taskFailInfoMapper.addTaskFailInfo(taskFailInfoDO);
                 failCount++;
             }
         }
@@ -123,7 +123,7 @@ public class CrowdFundingServiceImpl implements CrowdFundingService {
 
     @Override
     public Map executeFailTaskByTaskId(Integer runMode, Integer oldTaskId, Integer taskId) {
-        List<TaskFailInfoDO> list = wangdaiTaskInfoMapper.list(oldTaskId);
+        List<TaskFailInfoDO> list = taskFailInfoMapper.getTaskFailInfoByTaskId(oldTaskId);
         Integer planCount = list.size();
         Integer failCount = 0;
         for (TaskFailInfoDO wangdaiTaskInfo : list) {
@@ -132,12 +132,12 @@ public class CrowdFundingServiceImpl implements CrowdFundingService {
                     updateCrowdFundingCompany();
                 } catch (Exception e) {
                     e.printStackTrace();
-                    WangdaiTaskInfoDO wangdaiTaskInfoDO = new WangdaiTaskInfoDO();
-                    wangdaiTaskInfoDO.setTaskId(taskId);
-                    wangdaiTaskInfoDO.setFailName("dataType=1");
-                    wangdaiTaskInfoDO.setCreateBy("sys");
-                    wangdaiTaskInfoDO.setCreateDate(new Date());
-                    wangdaiTaskInfoMapper.save(wangdaiTaskInfoDO);
+                    TaskFailInfoDO taskFailInfoDO = new TaskFailInfoDO();
+                    taskFailInfoDO.setTaskId(taskId);
+                    taskFailInfoDO.setFailName("dataType=1");
+                    taskFailInfoDO.setCreateBy("sys");
+                    taskFailInfoDO.setCreateDate(new Date());
+                    taskFailInfoMapper.addTaskFailInfo(taskFailInfoDO);
                     failCount++;
                 }
             } else {
@@ -145,12 +145,12 @@ public class CrowdFundingServiceImpl implements CrowdFundingService {
                     updateCrowdFundingCommon(wangdaiTaskInfo.getFailName().split("=")[1]);
                 } catch (Exception e) {
                     e.printStackTrace();
-                    WangdaiTaskInfoDO wangdaiTaskInfoDO = new WangdaiTaskInfoDO();
-                    wangdaiTaskInfoDO.setTaskId(taskId);
-                    wangdaiTaskInfoDO.setFailName(String.format("dataType=%s", i));
-                    wangdaiTaskInfoDO.setCreateBy("sys");
-                    wangdaiTaskInfoDO.setCreateDate(new Date());
-                    wangdaiTaskInfoMapper.save(wangdaiTaskInfoDO);
+                    TaskFailInfoDO taskFailInfoDO = new TaskFailInfoDO();
+                    taskFailInfoDO.setTaskId(taskId);
+                    taskFailInfoDO.setFailName(String.format("dataType=%s", i));
+                    taskFailInfoDO.setCreateBy("sys");
+                    taskFailInfoDO.setCreateDate(new Date());
+                    taskFailInfoMapper.addTaskFailInfo(taskFailInfoDO);
                     failCount++;
                 }
             }

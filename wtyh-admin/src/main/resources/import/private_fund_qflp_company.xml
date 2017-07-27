@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<excel key="private_fund_qflp_company" name="私募基金-QFLP试点企业">
+    <sheet name="Sheet1" startRow="4" entity="com.bbd.wtyh.domain.dto.QflpCompanyDTO"
+           importHandler="com.bbd.bgo.service.imp.handler.prifund.PriFundQflpCompanyHandler">
+        <rowHeader>
+            <column mergeFirstRow="1" mergeLastRow="2" mergeFirstCol="1" mergeLastCol="2" align="LEFT"
+                    value="填写说明：&#x000A;本表格不可填写Excel公式；所有字段必填，机构名称不能超过40个汉字；"/>
+        </rowHeader>
+        <columns>
+            <column name="试点企业名称" code="companyName" dataType="string" required="true" bgColor="#FFFF00"/>
+            <column name="总规模(单位：亿美元)" code="total" dataType="number" required="true" bgColor="#FFFF00"/>
+            <column name="美元部分(亿美元)" code="dollarPart" dataType="number" required="true" bgColor="#FFFF00"/>
+            <column name="投资合计(万元)" code="rmbTotal" dataType="number" required="true" bgColor="#FFFF00"/>
+        </columns>
+    </sheet>
+</excel>

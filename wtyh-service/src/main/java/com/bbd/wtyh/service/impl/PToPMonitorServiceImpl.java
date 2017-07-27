@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.bbd.higgs.utils.http.HttpCallback;
 import com.bbd.higgs.utils.http.HttpTemplate;
 import com.bbd.wtyh.domain.*;
+import com.bbd.wtyh.domain.CompanyInfoModify.WangdaiModify;
 import com.bbd.wtyh.domain.dto.*;
 import com.bbd.wtyh.mapper.*;
 import com.bbd.wtyh.redis.RedisDAO;
@@ -70,7 +71,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
     private IndustryProblemMapper industryProblemMapper;
 
     @Autowired
-    private WangdaiTaskInfoMapper wangdaiTaskInfoMapper;
+    private TaskFailInfoMapper taskFailInfoMapper;
 
     private Logger logger = LoggerFactory.getLogger(PToPMonitorServiceImpl.class);
 
@@ -365,7 +366,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
 
     @Override
     public Map executeFailTaskByTaskId(Integer runMode, Integer oldTaskId, Integer taskId) {
-        List<TaskFailInfoDO> list = wangdaiTaskInfoMapper.list(oldTaskId);
+        List<TaskFailInfoDO> list = taskFailInfoMapper.getTaskFailInfoByTaskId(oldTaskId);
         Integer planCount = list.size();
         Integer failCount = 0;
         for (TaskFailInfoDO wangdaiTaskInfoDO : list) {
@@ -432,12 +433,12 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
     }
 
     protected void addWangdaiTaskInfo(Integer taskId, String api) {
-        WangdaiTaskInfoDO wangdaiTaskInfoDO = new WangdaiTaskInfoDO();
-        wangdaiTaskInfoDO.setTaskId(taskId);
-        wangdaiTaskInfoDO.setFailName(api);
-        wangdaiTaskInfoDO.setCreateBy("sys");
-        wangdaiTaskInfoDO.setCreateDate(new Date());
-        wangdaiTaskInfoMapper.save(wangdaiTaskInfoDO);
+        TaskFailInfoDO taskFailInfoDO = new TaskFailInfoDO();
+        taskFailInfoDO.setTaskId(taskId);
+        taskFailInfoDO.setFailName(api);
+        taskFailInfoDO.setCreateBy("sys");
+        taskFailInfoDO.setCreateDate(new Date());
+        taskFailInfoMapper.addTaskFailInfo(taskFailInfoDO);
     }
 
     public List<PlatCompanyDTO> searchPlatListByCompanyName(String companyName) { //by cgj
@@ -508,13 +509,20 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
         logger.info("start update plat_rank_data date task");
         List<PlatRankDataDTO> dtoList = getPlatRankData();
         for (PlatRankDataDTO dto : dtoList) {
+
             PlatRankDataDO platRankDataDO = new PlatRankDataDO();
             platRankDataDO.setAmount(dto.getAmount());
             platRankDataDO.setAreaId(dto.getArea_id());
             platRankDataDO.setIncomeRate(dto.getIncome_rate());
             platRankDataDO.setLoanPeriod(dto.getLoan_period());
             platRankDataDO.setPlatName(dto.getPlat_name());
-            platRankDataDO.setPlatStatus(dto.getPlat_status());
+            WangdaiModify wangdaiModify = platRankDataMapper.getWangdaiModify(dto.getPlat_name());
+            if(wangdaiModify!=null){
+                platRankDataDO.setPlatStatus(wangdaiModify.getAfterLevel());
+            }else{
+                platRankDataDO.setPlatStatus(dto.getPlatRank());
+
+            }
             platRankDataDO.setRank(dto.getRank());
             platRankDataDO.setRegisteredAddress(dto.getRegistered_address());
             platRankDataDO.setStayStillOfTotal(dto.getStay_still_of_total());

@@ -435,21 +435,14 @@ public class TimingTaskManager {
 		}else if(TaskUtil.offlineFinanceJob[0].equals(taskKey)){
 			//BBD数据落地-线下理财
 
-		}else if(TaskUtil.holographicAndOpinionJob[0].equals(taskKey)
-				||TaskUtil.companyBaseInfo[0].equals(taskKey)){
+		}else{
 			//BBD数据落地-权限舆情
 			//系统数据更新-企业基本信息和背景
+            //网贷之家数据落地-网络借贷-监测
+            //网贷之家数据落地-网络借贷-平台画像
+            //网贷之家数据落地-众筹
+            //系统数据更新-风险等级
 			list = taskFailInfoMapper.getTaskFailInfoByTaskId(taskId);
-
-		}else if(TaskUtil.pToPMonitorJob[0].equals(taskKey)
-				|| TaskUtil.p2pImageJob[0].equals(taskKey)
-				|| TaskUtil.crowdFundingJob[0].equals(taskKey)
-				||TaskUtil.riskLevelJob[0].equals(taskKey)){
-			//网贷之家数据落地-网络借贷-监测
-			//网贷之家数据落地-网络借贷-平台画像
-			//网贷之家数据落地-众筹
-			//系统数据更新-风险等级
-			list=wangdaiTaskInfoService.listByTaskId(taskId);
 
 		}
 

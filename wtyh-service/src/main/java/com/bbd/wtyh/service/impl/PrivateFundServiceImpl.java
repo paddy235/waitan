@@ -3,6 +3,7 @@ package com.bbd.wtyh.service.impl;
 import com.bbd.wtyh.domain.*;
 import com.bbd.wtyh.domain.EasyExport.PrivateOfferedFundData;
 import com.bbd.wtyh.domain.dto.PrivateFundCompanyDTO;
+import com.bbd.wtyh.domain.dto.QdlpProgressDTO;
 import com.bbd.wtyh.mapper.*;
 import com.bbd.wtyh.service.PrivateFundService;
 import com.bbd.wtyh.web.EasyExportExcel.ExportCondition;
@@ -47,8 +48,18 @@ public class PrivateFundServiceImpl implements PrivateFundService {
     }
 
     @Override
+    public QdlpProgressDO getQdlpProgressByPrimaryKey(Integer companyId) {
+        return qdlpProgressMapper.selectByPrimaryKey(companyId);
+    }
+
+    @Override
     public List<QflpCompanyDO> qflpCompanyList() {
         return qflpCompanyMapper.selectAll();
+    }
+
+    @Override
+    public QflpCompanyDO getQflpCompanyByPrimaryKey(Integer companyId) {
+        return qflpCompanyMapper.selectByPrimaryKey(companyId);
     }
 
     @Override
@@ -99,6 +110,26 @@ public class PrivateFundServiceImpl implements PrivateFundService {
     @Override
     public List<PrivateOfferedFundData> getPrivateOfferedFund(ExportCondition exportCondition) {
         return privateFundExtraMapper.getPrivateOfferedFund(exportCondition);
+    }
+
+    @Override
+    public void updateQflpCompany(QflpCompanyDO qflpCompanyDO) {
+        qflpCompanyMapper.update(qflpCompanyDO);
+    }
+
+    @Override
+    public void addQflpCompany(QflpCompanyDO qflpCompanyDO) {
+        qflpCompanyMapper.add(qflpCompanyDO);
+    }
+
+    @Override
+    public void updateQdlpProgress(QdlpProgressDO qdlpProgressDO) {
+        qdlpProgressMapper.update(qdlpProgressDO);
+    }
+
+    @Override
+    public void addQdlpProgress(QdlpProgressDO qdlpProgressDO) {
+        qdlpProgressMapper.add(qdlpProgressDO);
     }
 
 }
