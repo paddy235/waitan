@@ -14,7 +14,11 @@ public interface PrivateFundService {
 
     List<QdlpProgressDO> qdlpProgressList();
 
+    QdlpProgressDO getQdlpProgressByPrimaryKey(Integer companyId);
+
     List<QflpCompanyDO> qflpCompanyList();
+
+    QflpCompanyDO getQflpCompanyByPrimaryKey(Integer companyId);
 
     List<PrivateFundStatisticDO> typeStatisticList();
 
@@ -36,4 +40,12 @@ public interface PrivateFundService {
     List<PrivateFundCompanyDTO> privateFundExtraList(Integer orderByField, String descAsc, Integer recordStatus);
 
     List<PrivateOfferedFundData> getPrivateOfferedFund(ExportCondition exportCondition);
+
+    void updateQflpCompany(QflpCompanyDO qflpCompanyDO);
+
+    void addQflpCompany(QflpCompanyDO qflpCompanyDO);
+
+    void updateQdlpProgress(QdlpProgressDO qdlpProgressDO);
+
+    void addQdlpProgress(QdlpProgressDO qdlpProgressDO);
 }

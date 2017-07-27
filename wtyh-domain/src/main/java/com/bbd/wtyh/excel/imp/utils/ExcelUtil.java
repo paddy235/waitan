@@ -193,6 +193,7 @@ public class ExcelUtil {
 		mapLevel22.put("大额借款人", "xiaodai-large-borrower");// 构建二级下拉
 		mapLevel22.put("贷款余额", "xiaodai-loan-balance");// 构建二级下拉
 
+
 		// 私募基金
 		Map<String, String> mapLevel23 = new HashMap<>();
 		mapLevel1.put("私募基金", mapLevel23);// 构建一级下拉
@@ -201,11 +202,22 @@ public class ExcelUtil {
 		mapLevel23.put("股权投资市场退出及退出回报情况", "private_fund_investment_return");// 构建二级下拉
 		mapLevel23.put("股权投资市场投资金额情况", "private_fund_investment_statistic");// 构建二级下拉
 		mapLevel23.put("产品数量前十", "private_fund_top10");// 构建二级下拉
+		mapLevel23.put("QDLP试点企业", "private_fund_qdlp_progress");// 构建二级下拉
+		mapLevel23.put("QFLP试点企业", "private_fund_qflp_company");// 构建二级下拉
+		mapLevel23.put("私募基金分类", "private_fund_type_statistic");// 构建二级下拉
+		mapLevel23.put("产品类型数量", "private_fund_product_type_statistic");// 构建二级下拉
+
 
 		Map<String, String> mapLevel24 = new HashMap<>();
 		mapLevel1.put(" 融资担", mapLevel24);// 构建一级下拉
 		mapLevel24.put("融资担保-大额被担保人信息列表", "guaranteed_info");// 构建二级下拉
 		mapLevel24.put("融资担保-担保责任余额信息列表", "guarantee_balance");// 构建二级下拉
+
+		//典当
+		Map<String, String> mapLevel25 = new HashMap<>();
+		mapLevel1.put("典当", mapLevel25);// 构建一级下拉
+		mapLevel25.put("典当数据", "mortgage_statistic");// 构建二级下拉
+
 		return mapLevel1;
 	}
 
