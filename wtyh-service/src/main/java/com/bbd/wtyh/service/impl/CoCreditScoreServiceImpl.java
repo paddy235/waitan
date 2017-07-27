@@ -218,7 +218,7 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 			for (CompanyDO companyDO : companyList) {
 
 				dataExecutorService.execute(() -> {
-					if (isShutdown && isHandle==0) {
+					if (isShutdown) {
 						return;
 					}
 					LOGGER.info("开始处理：" + companyDO.getCompanyId());
