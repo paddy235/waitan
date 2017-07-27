@@ -1,5 +1,7 @@
 package com.bbd.bgo.service.task;
 
+import com.bbd.wtyh.domain.TaskResultDO;
+
 /**
  * wtyh
  *
@@ -7,5 +9,7 @@ package com.bbd.bgo.service.task;
  */
 public interface SyncFileService {
 
-	void pullFile();
+	TaskResultDO pullFile(Integer taskId);
+
+	TaskResultDO rePullFile(Integer oldTaskId, Integer newTaskId);
 }
