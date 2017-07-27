@@ -5,6 +5,7 @@ import com.bbd.wtyh.domain.CompanyBuildingDO;
 import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.ParkDO;
 import com.bbd.wtyh.domain.vo.ParkAndBuildingVO;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -108,6 +109,14 @@ public interface ParkMgtService{
     List<ParkAndBuildingVO> queryBuildingCompanyNumber(String parkId);
 
     /**
+     * 取得公司ID
+     * @param buildingId
+     * @param companyId
+     * @return
+     */
+    Integer queryCompanyBuildingId(String buildingId, String companyId);
+
+    /**
      * 新增园区
      * @param park
      */
@@ -121,9 +130,10 @@ public interface ParkMgtService{
 
     /**
      * 新增楼宇企业
-     * @param companyBuildingList
+     * @param buildingId
+     * @param companyId
      */
-    void addCompanyBuilding(List<CompanyBuildingDO> companyBuildingList);
+    void addCompanyBuilding(CompanyBuildingDO companyBuildingDO);
 
     /**
      * 返回园区图片路径

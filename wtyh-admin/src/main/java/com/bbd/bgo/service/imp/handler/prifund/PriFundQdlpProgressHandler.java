@@ -16,10 +16,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by lixudong on 2017/7/25.
@@ -67,7 +64,7 @@ public class PriFundQdlpProgressHandler extends AbstractImportHandler<QdlpProgre
             rtr = false;
         }
         String quatas = row.get("quatas");
-        if (!quatas.matches("\\d+")) {
+        if (!quatas.matches("^[0-9]+([.][0-9]+){0,1}$")) {
             addError("获批额度格式错误");
             rtr = false;
         }
@@ -110,6 +107,8 @@ public class PriFundQdlpProgressHandler extends AbstractImportHandler<QdlpProgre
             qdlpProgressDO.setQuatas(qdlpProgressVO.getQuatas());
             qdlpProgressDO.setChinaShareholder(qdlpProgressVO.getChinaShareholder());
             qdlpProgressDO.setForeignShareholder(qdlpProgressVO.getForeignShareholder());
+            qdlpProgressDO.setUpdateBy(loginName);
+            qdlpProgressDO.setUpdateDate(new Date());
             privateFundService.updateQdlpProgress(qdlpProgressDO);
         }
 
@@ -122,6 +121,8 @@ public class PriFundQdlpProgressHandler extends AbstractImportHandler<QdlpProgre
             qdlpProgressDO.setQuatas(qdlpProgressVO.getQuatas());
             qdlpProgressDO.setChinaShareholder(qdlpProgressVO.getChinaShareholder());
             qdlpProgressDO.setForeignShareholder(qdlpProgressVO.getForeignShareholder());
+            qdlpProgressDO.setCreateBy(loginName);
+            qdlpProgressDO.setCreateDate(new Date());
             privateFundService.addQdlpProgress(qdlpProgressDO);
         }
         log.info(caption + "导入已完成");

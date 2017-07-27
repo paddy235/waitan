@@ -1,5 +1,6 @@
 package com.bbd.wtyh.excel.imp.validator;
 
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.regex.Pattern;
@@ -26,7 +27,7 @@ public class NumberValidator extends AbstractValidator {
 		if (StringUtils.isBlank(format)) {
 			format = "0.###############";
 		}
-		this.numberFormat = new DecimalFormat(format);
+		this.numberFormat = createDecimalFormat();
 	}
 
 	@Override
@@ -48,18 +49,17 @@ public class NumberValidator extends AbstractValidator {
 	}
 
 	@Override
-	protected String formatName() {
-		return "数值";
+	protected String errorMsg() {
+		return "数值格式错误";
 	}
 
-	private boolean isNumber(String str) {
+	protected boolean isNumber(String str) {
 		return PATTERN.matcher(str).matches();
 	}
 
-	public static void main(String[] args) throws ParseException {
-		DecimalFormat numberFormat = new DecimalFormat("0.00");
-		Number num = numberFormat.parse("0.");
-		System.out.println(num);
-		System.out.println();
+	protected DecimalFormat createDecimalFormat() {
+		DecimalFormat numberFormat = new DecimalFormat(format);
+		numberFormat.setRoundingMode(RoundingMode.HALF_UP);
+		return numberFormat;
 	}
 }

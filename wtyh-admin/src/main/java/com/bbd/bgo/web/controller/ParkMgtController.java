@@ -1,8 +1,10 @@
 package com.bbd.bgo.web.controller;
 
 import com.bbd.wtyh.cachetobean.ShanghaiAreaCode;
+import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.domain.*;
 import com.bbd.wtyh.domain.vo.ParkAndBuildingVO;
+import com.bbd.wtyh.service.CompanyService;
 import com.bbd.wtyh.service.ImgService;
 import com.bbd.wtyh.service.shiro.ParkMgtService;
 import com.bbd.wtyh.util.WtyhHelper;
@@ -40,6 +42,8 @@ public class ParkMgtController {
     private ImgService imgService;
     @Autowired
     private ParkMgtService parkMgtService;
+    @Autowired
+    private CompanyService companyService;
 
     /**
      * 上海所有行政区
@@ -173,11 +177,20 @@ public class ParkMgtController {
      */
     @RequestMapping("/addPark")
     @ResponseBody
-    public ResponseBean addPark(ParkDO park) {
+    public ResponseBean addPark(HttpServletRequest request, ParkDO park) {
         //新增之前先查询该园区是否存在
         int i = parkMgtService.queryParkIdByName(park.getName());
         if (i != 0) {
             return ResponseBean.errorResponse("该园区已存在");
+        }
+        //若前端不传用户名，则自行抓取
+        String creatBy = park.getCreateBy();
+        if(StringUtils.isEmpty(creatBy)){
+            String loginName = (String) request.getSession().getAttribute(Constants.SESSION.loginName);
+            if( null ==loginName ) {
+                loginName ="park";
+            }
+            park.setCreateBy(loginName);
         }
         parkMgtService.addPark(park);
         return ResponseBean.successResponse("OK");
@@ -190,11 +203,20 @@ public class ParkMgtController {
      */
     @RequestMapping("/addBuilding")
     @ResponseBody
-    public ResponseBean addBuilding(BuildingDO building) {
+    public ResponseBean addBuilding(HttpServletRequest request, BuildingDO building) {
         //新增之前先查询该楼宇是否存在
         int i = parkMgtService.queryBuildingIdByName(building.getParkId(),building.getName());
         if(i != 0){
             return  ResponseBean.errorResponse("该楼宇已存在");
+        }
+        //若前端不传用户名，则自行抓取
+        String creatBy = building.getCreateBy();
+        if(StringUtils.isEmpty(creatBy)){
+            String loginName = (String) request.getSession().getAttribute(Constants.SESSION.loginName);
+            if( null ==loginName ) {
+                loginName ="building";
+            }
+            building.setCreateBy(loginName);
         }
         parkMgtService.addBuilding(building);
         return ResponseBean.successResponse("OK");
@@ -202,14 +224,43 @@ public class ParkMgtController {
 
     /**
      * 新增企业
-     * @param companyBuildingList
+     * @param request
+     * @param buildingId
+     * @param name
+     * @param creatBy
      * @return
      */
     @RequestMapping("/addCompanyBuilding")
     @ResponseBody
-    public ResponseBean addCompanyBuilding(List<CompanyBuildingDO> companyBuildingList) {
-        //新增之前先查询该企业是否存在
+    public ResponseBean addCompanyBuilding(HttpServletRequest request, String buildingId,String name,String creatBy) {
+        CompanyBuildingDO companyBuildingDO = new CompanyBuildingDO();
+        //新增之前先查询该企业是否存在，既不能存在于company_building中，也不能不存在于company中
+        CompanyDO companyDO = companyService.getCompanyByName(name);
+        if(null == companyDO){
+            return ResponseBean.successResponse("企业不存在于企业信息表");
+        }
+        Integer companyId  = companyDO.getCompanyId();
 
+        Integer companyBuildingId = parkMgtService.queryCompanyBuildingId(buildingId+"",companyId+"");
+        if(companyBuildingId != null){
+            return ResponseBean.successResponse("企业已存在于该楼宇");
+        }
+        //校验完成则可新增
+        companyBuildingDO.setBuildingId(Integer.valueOf(buildingId));
+        companyBuildingDO.setCompanyId(Integer.valueOf(companyId));
+        //若前端不传用户名，则自行抓取
+        if(StringUtils.isEmpty(creatBy)){
+            String loginName = (String) request.getSession().getAttribute(Constants.SESSION.loginName);
+            if( null ==loginName ) {
+                loginName ="cb";
+            }
+            companyBuildingDO.setCreateBy(loginName);
+        }else{
+            companyBuildingDO.setCreateBy(creatBy);
+        }
+
+
+        parkMgtService.addCompanyBuilding(companyBuildingDO);
         return ResponseBean.successResponse("OK");
     }
 
