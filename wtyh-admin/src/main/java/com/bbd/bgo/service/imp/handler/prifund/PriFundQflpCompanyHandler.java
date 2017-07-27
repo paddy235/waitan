@@ -4,6 +4,7 @@ import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.QflpCompanyDO;
 import com.bbd.wtyh.domain.dto.QflpCompanyDTO;
+import com.bbd.wtyh.excel.imp.entity.ImportError;
 import com.bbd.wtyh.excel.imp.handler.AbstractImportHandler;
 import com.bbd.wtyh.service.CompanyService;
 import com.bbd.wtyh.service.PrivateFundService;
@@ -15,10 +16,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by lixudong on 2017/7/26.
@@ -66,17 +64,17 @@ public class PriFundQflpCompanyHandler  extends AbstractImportHandler<QflpCompan
             rtr = false;
         }
         String total = row.get("total");
-        if (total.matches("\\d+")) {
+        if (!total.matches("^[0-9]+([.][0-9]+){0,1}$")) {
             addError("总规模格式错误");
             rtr = false;
         }
         String dollarPart = row.get("dollarPart");
-        if (dollarPart.matches("\\d+")) {
+        if (!dollarPart.matches("^[0-9]+([.][0-9]+){0,1}$")) {
             addError("美元部分格式错误");
             rtr = false;
         }
         String rmbTotal = row.get("rmbTotal");
-        if (rmbTotal.matches("\\d+")) {
+        if (!rmbTotal.matches("^[0-9]+([.][0-9]+){0,1}$")) {
             addError("投资合计格式错误");
             rtr = false;
         }
@@ -108,6 +106,7 @@ public class PriFundQflpCompanyHandler  extends AbstractImportHandler<QflpCompan
         if (errorList().size() > 0) {
             addError("用户上传的" + caption + "中的数据有误，所有数据均不予入库");
             log.warn("用户上传的" + caption + "中的数据有误，所有数据均不予入库");
+            List<ImportError> list = errorList();
             return;
         }
         for(QflpCompanyDTO qflpCompanyDTO:updateList){
@@ -116,14 +115,19 @@ public class PriFundQflpCompanyHandler  extends AbstractImportHandler<QflpCompan
             qflpCompanyDO.setDollorPart(qflpCompanyDTO.getDollarPart());
             qflpCompanyDO.setRmbPart(qflpCompanyDTO.getRmbTotal());
             qflpCompanyDO.setScale(qflpCompanyDTO.getTotal());
+            qflpCompanyDO.setUpdateBy(loginName);
+            qflpCompanyDO.setUpdateDate(new Date());
             privateFundService.updateQflpCompany(qflpCompanyDO);
         }
         for(QflpCompanyDTO qflpCompanyDTO:insertList){
             CompanyDO cp = companyService.getCompanyByName(qflpCompanyDTO.getCompanyName());
-            QflpCompanyDO qflpCompanyDO = privateFundService.getQflpCompanyByPrimaryKey(cp.getCompanyId());
+            QflpCompanyDO qflpCompanyDO = new QflpCompanyDO();
+            qflpCompanyDO.setCompanyId(cp.getCompanyId());
             qflpCompanyDO.setDollorPart(qflpCompanyDTO.getDollarPart());
             qflpCompanyDO.setRmbPart(qflpCompanyDTO.getRmbTotal());
             qflpCompanyDO.setScale(qflpCompanyDTO.getTotal());
+            qflpCompanyDO.setCreateBy(loginName);
+            qflpCompanyDO.setCreateDate(new Date());
             privateFundService.addQflpCompany(qflpCompanyDO);
         }
     }

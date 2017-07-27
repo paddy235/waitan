@@ -29,7 +29,7 @@
   </select>
 
   <update id="update" parameterType="com.bbd.wtyh.domain.QflpCompanyDO">
-    update qflp_company set  dollor_part=#{dollorPart},scale=#{scale},rmb_part+#{rmbPart},update_by=#{updateBy},update_date=#{updateDate}
+    update qflp_company set  dollor_part=#{dollorPart},scale=#{scale},rmb_part=#{rmbPart},update_by=#{updateBy},update_date=#{updateDate}
      where company_id = #{companyId}
   </update>
 
