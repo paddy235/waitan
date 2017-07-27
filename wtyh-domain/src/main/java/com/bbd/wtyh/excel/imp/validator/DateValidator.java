@@ -42,7 +42,7 @@ public class DateValidator extends AbstractValidator {
 	}
 
 	@Override
-	protected String formatName() {
-		return "日期";
+	protected String errorMsg() {
+		return "日期格式错误";
 	}
 }

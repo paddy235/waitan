@@ -119,7 +119,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 
     /* @Scheduled(cron = "0 20 16 * * *") */
     @Override
-    public Map updateCompanyRiskLevel(Integer taskId) throws Exception {
+    public TaskResultDO updateCompanyRiskLevel(Integer taskId) throws Exception {
         logger.info("start update company risk level");
         final Map<Integer, Integer> platRankMapData = pToPMonitorService.getPlatRankMapData();
 
@@ -159,16 +159,17 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 
         dataExecutorService.shutdown();
         dataExecutorService.awaitTermination(1, TimeUnit.DAYS);
-        Map map = new HashMap();
-        map.put("planCount", totalCount);
-        map.put("failCount",failCount);
-        map.put("successCount",totalCount - failCount);
+
+        TaskResultDO taskResultDO = new TaskResultDO();
+        taskResultDO.setPlanCount(totalCount);
+        taskResultDO.setFailCount(failCount);
+        taskResultDO.setSuccessCount(totalCount - failCount);
         logger.info("end update company risk level");
-        return map;
+        return taskResultDO;
     }
 
     @Override
-    public Map executeFailTaskByTaskId(Integer runMode, Integer oldTaskId, Integer taskId) throws Exception {
+    public TaskResultDO executeFailTaskByTaskId(Integer runMode, Integer oldTaskId, Integer taskId) throws Exception {
         List<TaskFailInfoDO> list = taskFailInfoMapper.getTaskFailInfoByTaskId(oldTaskId);
         final Map<Integer, Integer> platRankMapData = pToPMonitorService.getPlatRankMapData();
         Integer planCount = list.size();
@@ -182,11 +183,11 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
                 addWangdaiTaskInfo(taskId,wangdaiTaskInfoDO.getFailName());
             }
         }
-        Map map = new HashMap();
-        map.put("planCount",planCount);
-        map.put("failCount",failCount);
-        map.put("successCount",planCount - failCount);
-        return map;
+        TaskResultDO taskResultDO = new TaskResultDO();
+        taskResultDO.setPlanCount(planCount);
+        taskResultDO.setFailCount(failCount);
+        taskResultDO.setSuccessCount(planCount - failCount);
+        return taskResultDO;
     }
 
     protected void addWangdaiTaskInfo(Integer taskId, String companyName) {

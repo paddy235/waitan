@@ -77,12 +77,12 @@ public class GuaranteedInfoHandler extends AbstractImportHandler<GuaranteedInfoD
 	@Override
 	public void endRow(Map<String, String> row, GuaranteedInfoDO bean) throws Exception {
 		//GuaranteedInfoDO guaranteedInfoDO = guaranteeService.selectByPrimaryKey(bean.getId());
-		String sqlWhere= "`guarantee_id`=" +bean.getGuaranteeId() +" AND 'guaranteed_id'="
+		String sqlWhere= "guarantee_id=" +bean.getGuaranteeId() +" AND guaranteed_id="
 				+bean.getGuaranteedId()+" LIMIT 1";
 		GuaranteedInfoDO guaranteedInfo = guaranteeService.selectOne(GuaranteedInfoDO.class,sqlWhere);
-		bean.setCreateBy("导入融资担保-大额被担保人信息");
-		bean.setCreateDate(new Date());
 		if(null==guaranteedInfo){
+			bean.setCreateBy("导入融资担保-大额被担保人信息");
+			bean.setCreateDate(new Date());
 			insertList.add(bean);
 		}
 	}
@@ -90,9 +90,12 @@ public class GuaranteedInfoHandler extends AbstractImportHandler<GuaranteedInfoD
 	@Override
 	@Transactional
 	public void end() throws Exception {
-		if (errorList().isEmpty()) {
-			this.guaranteeService.insertList(insertList);
+		if( errorList().size() >0 ) {
+			addError("用户上传的数据有误，所有数据均不予入库");
+			log.warn("用户上传的数据有误，所有数据均不予入库");
+			return;
 		}
+		this.guaranteeService.insertList(insertList);
 		log.info("导入融资担保-大额被担保人信息列表结束");
 	}
 

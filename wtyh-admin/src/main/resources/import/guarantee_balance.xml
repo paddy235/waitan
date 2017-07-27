@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<excel key="guaranteed_info" name="融资担保-内容包含企业评级，担保责任余额，担保户均-导入模板">
-    <sheet name="Sheet1" startRow="2" entity="com.bbd.wtyh.domain.GuaranteeBalanceDO"
+<excel key="guarantee_balance" name="融资担保-内容包含企业评级，担保责任余额，担保户均-导入模板">
+    <sheet name="Sheet1" startRow="4" entity="com.bbd.wtyh.domain.GuaranteeBalanceDO"
            importHandler="com.bbd.bgo.service.imp.handler.GuaranteeBalanceHandler">
         <rowHeader>
             <column mergeFirstRow="1" mergeLastRow="2" mergeFirstCol="1" mergeLastCol="7" align="LEFT"
-                    value="填写说明：本表格不可填写Excel公式；年份、月份必填；"/>
+                    value="填写说明：&#x000A;本表格不可填写Excel公式；年份、月份必填；"/>
         </rowHeader>
         <columns>
-            <column name="年份	" code="year" dataType="string" bgColor="#FFFF00" required="true"/>
-            <column name="月份" code="month" dataType="string" bgColor="#FFFF00" required="true"/>
-            <column name="政策类	" code="policyBalance" dataType="string"/>
-            <column name="综合类	" code="compositeBalance" dataType="string"/>
-            <column name="钢贸类	" code="steelBalance" dataType="string"/>
-            <column name="担保笔数" code="number" dataType="string"/>
-            <column name="担保责任余额" code="guaranteeBalance" dataType="string"/>
+            <column name="年份	" code="year" dataType="number" bgColor="#FFFF00" required="true"/>
+            <column name="月份" code="month" dataType="number" bgColor="#FFFF00" required="true"/>
+            <column name="政策类	" code="policyBalance" dataType="number"/>
+            <column name="综合类	" code="compositeBalance" dataType="number"/>
+            <column name="钢贸类	" code="steelBalance" dataType="number"/>
+            <column name="担保笔数" code="number" dataType="number"/>
+            <column name="担保责任余额" code="guaranteeBalance" dataType="number"/>
         </columns>
 
     </sheet>

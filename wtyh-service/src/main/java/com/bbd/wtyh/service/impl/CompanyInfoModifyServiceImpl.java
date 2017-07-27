@@ -64,93 +64,21 @@ public class CompanyInfoModifyServiceImpl implements CompanyInfoModifyService {
      * @return
      */
     @Override
-    public void modifyLevel(ModifyData modifyData) throws Exception {
+    public void modify(ModifyData modifyData) throws Exception {
         if (CompanyInfo.TYPE_P2P_1 == companyInfoModifyMapper.queryCompany(modifyData.getName()).getIndustry()) { // 网络借贷
-            CompanyInfo wangdai = companyInfoQueryUtil.getWangdaiInfo(modifyData.getName());
-            WangdaiModify wangdaiModify = new WangdaiModify();
-            wangdaiModify.setName(modifyData.getName());
-            wangdaiModify.setPlatName(wangdai.getPlatName());
-            wangdaiModify.setBeforeLevel(wangdai.getCurrentLevel());
-            wangdaiModify.setAfterLevel(modifyData.getLevel());
-            wangdaiModify.setBeforeIndustry(CompanyInfo.TYPE_P2P_1);
-            // 记录行为
-            companyInfoMudifyUtil.recordWangdai(wangdaiModify);
-            // 记录company值
-            companyInfoMudifyUtil.modifyLevel(modifyData.getName(), wangdaiModify);
+            companyInfoMudifyUtil.modifyWangdaiLevel(modifyData);
         } else if (CompanyInfo.TYPE_XD_2 == companyInfoModifyMapper.queryCompany(modifyData.getName()).getIndustry()) { // 小额贷款
-            CompanyInfo companyInfo = companyInfoQueryUtil.getLoan(modifyData.getName());
-            LoanModify loanModify = new LoanModify();
-            loanModify.setName(companyInfo.getName());
-            loanModify.setBeforeOutLevel(companyInfo.getOutLevel());
-            loanModify.setBeforeInnnerLevel(companyInfo.getInnnerLevel());
-            loanModify.setBeforeLiveLevel(companyInfo.getLiveLevel());
-            loanModify.setAfterOutLevel(modifyData.getOutLevel());
-            loanModify.setAfterInnnerLevel(modifyData.getInnnerLevel());
-            loanModify.setAfterLiveLevel(modifyData.getLiveLevel());
-            loanModify.setBeforeIndustry(CompanyInfo.TYPE_XD_2);
-            // 记录行为
-            companyInfoMudifyUtil.recordLoad(loanModify);
-            // 修改值
-            companyInfoMudifyUtil.modifyLoad(loanModify);
+            companyInfoMudifyUtil.modifyLoad(modifyData);
         } else if (CompanyInfo.TYPE_RZDB_3 == companyInfoModifyMapper.queryCompany(modifyData.getName()).getIndustry()) { // 融资担保
-            CompanyInfo companyInfo = companyInfoModifyMapper.queryCompany(modifyData.getName());
-            LoanModify loanModify = new LoanModify();
-            loanModify.setName(companyInfo.getName());
-            loanModify.setBeforeOutLevel(companyInfo.getOutLevel());
-            loanModify.setBeforeInnnerLevel(companyInfo.getInnnerLevel());
-            loanModify.setBeforeLiveLevel(companyInfo.getLiveLevel());
-            loanModify.setAfterOutLevel(modifyData.getOutLevel());
-            loanModify.setAfterInnnerLevel(modifyData.getInnnerLevel());
-            loanModify.setAfterLiveLevel(modifyData.getLiveLevel());
-            loanModify.setBeforeIndustry(CompanyInfo.TYPE_RZDB_3);
-            // 记录行为
-            companyInfoMudifyUtil.recordLoad(loanModify);
-            // 修改值
-            companyInfoMudifyUtil.modifyLoad(loanModify);
+            companyInfoMudifyUtil.modifyLoad(modifyData);
         } else if (CompanyInfo.TYPE_XXLC_4 == companyInfoModifyMapper.queryCompany(modifyData.getName()).getIndustry()) { // 线下理财
-            CompanyInfo companyInfo = companyInfoModifyMapper.queryCompany(modifyData.getName());
-            OffLineModify offLineModify = new OffLineModify();
-            offLineModify.setName(companyInfo.getName());
-            offLineModify.setBeforeLevel(companyInfo.getCurrentLevel());
-            offLineModify.setAfterLevel(modifyData.getLevel());
-            offLineModify.setBeforeIndustry(CompanyInfo.TYPE_XXLC_4);
-            // 记录行为
-            companyInfoMudifyUtil.recordOffLine(offLineModify);
-            // 修改值
-            companyInfoMudifyUtil.modifyOffLine(offLineModify);
+            companyInfoMudifyUtil.modifyOffLine(modifyData);
         } else if (CompanyInfo.TYPE_JYS_9 == companyInfoModifyMapper.queryCompany(modifyData.getName()).getIndustry()) { // 交易场所
-            CompanyInfo companyInfo = companyInfoModifyMapper.queryCompany(modifyData.getName());
-            OffLineModify offLineModify = new OffLineModify();
-            offLineModify.setName(companyInfo.getName());
-            offLineModify.setBeforeLevel(companyInfo.getCurrentLevel());
-            offLineModify.setAfterLevel(modifyData.getLevel());
-            offLineModify.setBeforeIndustry(CompanyInfo.TYPE_JYS_9);
-            // 记录行为
-            companyInfoMudifyUtil.recordOffLine(offLineModify);
-            // 修改值
-            companyInfoMudifyUtil.modifyOffLine(offLineModify);
+            companyInfoMudifyUtil.modifyOffLine(modifyData);
         } else if (CompanyInfo.TYPE_YFK_11 == companyInfoModifyMapper.queryCompany(modifyData.getName()).getIndustry()) { // 预付卡
-            CompanyInfo companyInfo = companyInfoModifyMapper.queryCompany(modifyData.getName());
-            OffLineModify offLineModify = new OffLineModify();
-            offLineModify.setName(companyInfo.getName());
-            offLineModify.setBeforeLevel(companyInfo.getCurrentLevel());
-            offLineModify.setAfterLevel(modifyData.getLevel());
-            offLineModify.setBeforeIndustry(CompanyInfo.TYPE_JYS_9);
-            // 记录行为
-            companyInfoMudifyUtil.recordOffLine(offLineModify);
-            // 修改值
-            companyInfoMudifyUtil.modifyOffLine(offLineModify);
+            companyInfoMudifyUtil.modifyOffLine(modifyData);
         } else if (CompanyInfo.TYPE_RZZL_13 == companyInfoModifyMapper.queryCompany(modifyData.getName()).getIndustry()) { // 融资租赁
-            CompanyInfo companyInfo = companyInfoModifyMapper.queryCompany(modifyData.getName());
-            OffLineModify offLineModify = new OffLineModify();
-            offLineModify.setName(companyInfo.getName());
-            offLineModify.setBeforeLevel(companyInfo.getCurrentLevel());
-            offLineModify.setAfterLevel(modifyData.getLevel());
-            offLineModify.setBeforeIndustry(CompanyInfo.TYPE_JYS_9);
-            // 记录行为
-            companyInfoMudifyUtil.recordOffLine(offLineModify);
-            // 修改值
-            companyInfoMudifyUtil.modifyOffLine(offLineModify);
+            companyInfoMudifyUtil.modifyOffLine(modifyData);
         }
         // 修改行业
         if (!StringUtils.isEmpty(modifyData.getIndustry())) {
