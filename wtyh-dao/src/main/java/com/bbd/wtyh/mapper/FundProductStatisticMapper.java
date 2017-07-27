@@ -8,4 +8,8 @@ public interface FundProductStatisticMapper {
     FundProductStatisticDO selectByPrimaryKey(Integer productTypeId);
 
     List<FundProductStatisticDO> selectAll();
+
+    void update(FundProductStatisticDO statisticDO);
+
+    void add(FundProductStatisticDO productDO);
 }

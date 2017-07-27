@@ -24,4 +24,15 @@
         <include refid="Base_Column_List"/>
         from fund_product_statistic
     </select>
+
+
+    <update id="update" parameterType="com.bbd.wtyh.domain.FundProductStatisticDO">
+        update fund_product_statistic set  product_type_id=#{productTypeId},product_number=#{productNumber},update_by=#{updateBy},update_date=#{updateDate}
+        where product_type_id = #{productTypeId}
+    </update>
+
+    <insert id="add" parameterType="com.bbd.wtyh.domain.FundProductStatisticDO">
+        INSERT INTO `fund_product_statistic` (`product_type_id`, `product_number`,  `create_by`, `create_date`, `update_by`, `update_date`)
+        VALUES (#{productTypeId}, #{productNumber}, #{createBy}, #{createDate}, #{updateBy}, #{updateDate});
+    </insert>
 </mapper>
