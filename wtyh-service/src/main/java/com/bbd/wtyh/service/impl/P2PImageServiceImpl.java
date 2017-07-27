@@ -452,7 +452,7 @@ public class P2PImageServiceImpl implements P2PImageService {
         platListDO.setCreateBy("sys");
         platListDO.setCreateDate(new Date());
 
-        platformMapper.deleteByPlatName(dto.getPlat_name());
+//        platformMapper.deleteByPlatName(dto.getPlat_name());
         platformMapper.save(platListDO);
     }
 
@@ -477,7 +477,7 @@ public class P2PImageServiceImpl implements P2PImageService {
                 platCoreDataDO.setCreateBy("sys");
                 platCoreDataDO.setCreateDate(new Date());
 
-                platCoreDataMapper.deleteByPlatName(platDataDO.getPlat_name());
+//                platCoreDataMapper.deleteByPlatName(platDataDO.getPlat_name());
                 platCoreDataMapper.save(platCoreDataDO);
             }
         } catch (JsonSyntaxException e) {
@@ -502,7 +502,7 @@ public class P2PImageServiceImpl implements P2PImageService {
                 radarScoreDO.setCreateBy("sys");
                 radarScoreDO.setCreateDate(new Date());
 
-                radarScoreMapper.deleteByPlatName(object.getPlat_name());
+ //               radarScoreMapper.deleteByPlatName(object.getPlat_name());
                 radarScoreMapper.save(radarScoreDO);
             }
         } catch (JsonSyntaxException e) {
