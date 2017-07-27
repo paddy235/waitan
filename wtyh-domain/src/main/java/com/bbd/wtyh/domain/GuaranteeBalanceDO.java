@@ -10,23 +10,31 @@ public class GuaranteeBalanceDO extends BaseDO {
     @Id
     @Column(name = "id")
     private Integer id;
+
     @Column(name = "guarantee_balance")
     private Integer guaranteeBalance;
+
     @Column(name = "year")
     private Integer year;
+
     @Column(name = "month")
     private Integer month;
+
     @Column(name = "number")
     private Integer number;//笔数
-    @Column(name = "guarantee_id")
+
+    @Column(name = "company_amount")
     private Integer companyAmount;
+
     @Column(name = "steel_balance")
     private Integer steelBalance;//钢贸类余额
-    @Column(name = "composite_balance")//综合类余额
-    private Integer compositeBalance;
-    @Column(name = "guarantee_id")
+
+    @Column(name = "composite_balance")
+    private Integer compositeBalance;//综合类余额
+
+    @Column(name = "policy_balance")
     private Integer policyBalance;
-    @Column(name = "guarantee_id")
+
     public Integer getId() {
         return id;
     }
