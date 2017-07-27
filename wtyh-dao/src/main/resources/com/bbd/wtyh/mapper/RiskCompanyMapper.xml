@@ -197,7 +197,7 @@
     <update id="modifyIndustry" >
         update company
         <set>
-            company_type=4
+            company_type=#{industry}
         </set>
         where `name`=#{name}
     </update>

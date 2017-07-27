@@ -29,5 +29,5 @@ public interface RiskCompanyService {
 
     void modifyOffLine(OffLineModify offLineModify);
 
-    void modifyIndustry(String name);
+    void modifyIndustry(String name, String industry);
 }
