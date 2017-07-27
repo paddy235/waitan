@@ -48,6 +48,9 @@ public class CompanyInfoMudifyUtil {
     @Autowired
     private HologramQueryService hologramQueryService;
 
+    @Autowired
+    private CompanyStatusChangeService companyStatusChangeService;//企业状态变化
+
     /**
      * 修改 company 修改风险等级
      * @param name
@@ -130,8 +133,13 @@ public class CompanyInfoMudifyUtil {
         if (!String.valueOf(CompanyInfo.TYPE_XXLC_4).equals(industry)) {
             throw new Exception("只能修改为线下理财");
         }
+
+        // 记录企业状态变化-放在修改之前，因为要记录修改前的类型
+        companyStatusChangeService.companyStatusChange(false,name,Byte.valueOf(industry));
+
         // 修改company的行业类型
         riskCompanyService.modifyIndustry(name);
+
         // 通知数据平台的api
         addTagWhite(name);
     }

@@ -42,16 +42,21 @@ public class CompanyStatusChangeServiceImpl implements CompanyStatusChangeServic
     private CompanyStatusChangeMapper companyStatusChangeMapper;
 
 
+
     private static final Logger logger = LoggerFactory.getLogger(CompanyStatusChangeServiceImpl.class);
     private static final int REGISTERED_CAPITAL_TYPE_RMB = 1;
     private static final int REGISTERED_CAPITAL_TYPE_DOLLAR = 2;
 
     @Override
-    public void companyStatusChange(boolean isNew,Integer companyId,String companyName,
-                                                 Integer oldCompanyType,Integer newCompanyType) {
+    public void companyStatusChange(boolean isNew,String companyName,Byte newCompanyType) {
         CompanyStatusChangeDO companyStatusChangeDO;
         try{
-            companyStatusChangeDO=companyChange(isNew,companyId,companyName,oldCompanyType,newCompanyType);
+            companyStatusChangeDO=companyChange(isNew,companyName,newCompanyType);
+            if(null!=companyStatusChangeDO){
+
+                companyStatusChangeMapper.insertOne(companyStatusChangeDO);
+            }
+
         }catch (Exception e){
             logger.error("companyIsChange"+e);
         }
@@ -174,20 +179,21 @@ public class CompanyStatusChangeServiceImpl implements CompanyStatusChangeServic
 
 
     @Override
-    public CompanyStatusChangeDO companyChange(boolean isNew,Integer companyId,String companyName,
-                                               Integer oldCompanyType,Integer newCompanyType) {
+    public CompanyStatusChangeDO companyChange(boolean isNew,String companyName,Byte newCompanyType) {
 
 
         String now=(new SimpleDateFormat("yyyy-MM-dd").format(new Date())).substring(0,7);
 
+        CompanyDO companyDO=companyMapper.selectByName(companyName);
 
         Map<String,Object> coInfo=getCompanyInfo(companyName);
-        if(null==coInfo){
+        if(null==coInfo || null==companyDO){
             //数据平台查不到这家企业的信息则不记录
             return null;
         }
+        Integer oldCompanyType=companyDO.getCompanyType().intValue();
         CompanyStatusChangeDO companyStatusChangeDO=new CompanyStatusChangeDO();
-        companyStatusChangeDO.setCompanyId(companyId);
+        companyStatusChangeDO.setCompanyId(companyDO.getCompanyId());
         companyStatusChangeDO.setCompanyName(companyName);//公司名称
         companyStatusChangeDO.setCompanyType(newCompanyType.intValue());//新金融类型
         companyStatusChangeDO.setAreaId((Integer)coInfo.get("areaId"));//地区ID
@@ -255,7 +261,6 @@ public class CompanyStatusChangeServiceImpl implements CompanyStatusChangeServic
             if(oldType==newType){
                 return null ;
             }
-            CompanyDO companyDO=companyMapper.getCompanyById(companyId);
             companyStatusChangeDO.setOldCompanyType(oldCompanyType);
             companyStatusChangeDO.setRegisterDate(companyDO.getRegisteredDate());
             companyStatusChangeDO.setAdjustDate(new Date());//调整日期
@@ -287,13 +292,15 @@ public class CompanyStatusChangeServiceImpl implements CompanyStatusChangeServic
         Map<String, Object> jbxx = (Map<String, Object>) result.get("jbxx");
         Map companyDO = new HashMap();
         String company_county = (String) (result.get("company_county"));
-        Integer areaId = ShanghaiAreaCode.getCodeToAreaMap().get(Integer.valueOf(company_county));
-        if (null == areaId) {
+        String company_province = (String) (result.get("company_province"));
+
+        AreaDO areaDO = areaService.selectByCountyCodeOrProvinceName( company_county,company_province );
+        if (null == areaDO) {
             return null;
         }
-        AreaDO areaDO=areaMapper.getAreaByAreaId(areaId);
-        companyDO.put("areaId",areaId);
-        companyDO.put("areaName",areaDO==null?null:areaDO.getName());
+
+        companyDO.put("areaId",areaDO.getAreaId());
+        companyDO.put("areaName",areaDO.getName());
         String esdate = (String) jbxx.get("esdate");
         if (StringUtils.isNotEmpty(esdate)) {
             companyDO.put("registeredDate",esdate);
