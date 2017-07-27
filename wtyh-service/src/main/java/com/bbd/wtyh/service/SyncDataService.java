@@ -1,11 +1,8 @@
 package com.bbd.wtyh.service;
 
-import com.bbd.wtyh.domain.AreaDO;
-import com.bbd.wtyh.domain.NvDO;
-import org.springframework.web.multipart.MultipartFile;
+import com.bbd.wtyh.domain.TaskResultDO;
 
 import java.io.File;
-import java.util.List;
 
 /**
  * 数据同步
@@ -15,5 +12,5 @@ import java.util.List;
  */
 public interface SyncDataService {
 
-	void receiveFileData(File file) throws Exception;
+	TaskResultDO receiveFileData(File file) throws Exception;
 }
