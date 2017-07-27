@@ -35,7 +35,7 @@ public class MainTest {
                 newDay=today.format(DateTimeFormatter.ofPattern(formatDay));
             }
 
-            CronSequenceGenerator cronSequenceGenerator = new CronSequenceGenerator("0 0 18 * * 5,6,7");
+            CronSequenceGenerator cronSequenceGenerator = new CronSequenceGenerator("0 0 18 ? * 5");
 
             String run=DateFormatUtils.format(cronSequenceGenerator.next(DateUtils.parseDate(newDay,formatDay)),format);
             System.out.println(run);
