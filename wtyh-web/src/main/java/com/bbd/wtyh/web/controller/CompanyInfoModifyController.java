@@ -63,13 +63,13 @@ public class CompanyInfoModifyController {
     @RequestMapping(value = "/risk")
     @ResponseBody
     public ResponseBean risk() {
-        Map<Byte, Map<String, Integer>> rst = new HashMap<>();
+        Map<Byte, Map> rst = new HashMap<>();
         // "网络借贷"
-        Map<String, Integer> wangdai = new HashedMap();
-        wangdai.put("正常",  4);
-        wangdai.put("一般关注",  3);
-        wangdai.put("重点关注",  2);
-        wangdai.put("问题", 1);
+        Map<String, String> wangdai = new HashedMap();
+        wangdai.put("A",  "优良");
+        wangdai.put("B",  "一般关注");
+        wangdai.put("C",  "重点关注");
+        wangdai.put("D", "问题及停业平台");
         rst.put(CompanyInfo.TYPE_P2P_1, wangdai);
 //        // "小额贷款"
         rst.put(CompanyInfo.TYPE_XD_2, CompanyLevel.getMap());
