@@ -94,9 +94,9 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
     private CompanyAnalysisResultMapper companyAnalysisResultMapper;
     @Autowired
     private PToPMonitorService pToPMonitorService;
-    @Autowired
-    private WangdaiTaskInfoMapper wangdaiTaskInfoMapper;
 
+    @Autowired
+    private TaskFailInfoMapper taskFailInfoMapper;
 
     @Autowired
     private RealTimeMonitorService realTimeMonitorService;
@@ -169,7 +169,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 
     @Override
     public Map executeFailTaskByTaskId(Integer runMode, Integer oldTaskId, Integer taskId) throws Exception {
-        List<TaskFailInfoDO> list = wangdaiTaskInfoMapper.list(oldTaskId);
+        List<TaskFailInfoDO> list = taskFailInfoMapper.getTaskFailInfoByTaskId(oldTaskId);
         final Map<Integer, Integer> platRankMapData = pToPMonitorService.getPlatRankMapData();
         Integer planCount = list.size();
         Integer failCount = 0;
@@ -190,12 +190,12 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
     }
 
     protected void addWangdaiTaskInfo(Integer taskId, String companyName) {
-        WangdaiTaskInfoDO wangdaiTaskInfoDO = new WangdaiTaskInfoDO();
-        wangdaiTaskInfoDO.setTaskId(taskId);
-        wangdaiTaskInfoDO.setFailName(companyName);
-        wangdaiTaskInfoDO.setCreateBy("sys");
-        wangdaiTaskInfoDO.setCreateDate(new Date());
-        wangdaiTaskInfoMapper.save(wangdaiTaskInfoDO);
+        TaskFailInfoDO taskFailInfoDO = new TaskFailInfoDO();
+        taskFailInfoDO.setTaskId(taskId);
+        taskFailInfoDO.setFailName(companyName);
+        taskFailInfoDO.setCreateBy("sys");
+        taskFailInfoDO.setCreateDate(new Date());
+        taskFailInfoMapper.addTaskFailInfo(taskFailInfoDO);
     }
 
     @Override

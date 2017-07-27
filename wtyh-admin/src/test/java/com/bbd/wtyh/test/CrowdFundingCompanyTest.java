@@ -1,6 +1,8 @@
 package com.bbd.wtyh.test;
 
 import com.bbd.wtyh.service.CrowdFundingService;
+import com.bbd.wtyh.service.OfflineFinanceService;
+import com.bbd.wtyh.service.SysAnalyzeService;
 import com.bbd.wtyh.service.WangdaiTaskInfoService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,6 +25,9 @@ public class CrowdFundingCompanyTest {
     @Autowired
     private WangdaiTaskInfoService wangdaiTaskInfoService;
 
+    @Autowired
+    private OfflineFinanceService offlineFinanceService;
+
     @Test
     public void dataLandTask(){
         Integer taskId = 21;
@@ -41,6 +46,18 @@ public class CrowdFundingCompanyTest {
     public void wangdaiTaskListTest(){
         List list = wangdaiTaskInfoService.listByTaskId(21);
         System.out.print(list);
+    }
+
+    @Test
+    public void offlineFinanceServiceTest(){
+        Integer taskId = 66;
+        Map map = null;
+        try {
+            map = offlineFinanceService.updateCompanyRiskLevel(taskId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.print(map);
     }
 
 }

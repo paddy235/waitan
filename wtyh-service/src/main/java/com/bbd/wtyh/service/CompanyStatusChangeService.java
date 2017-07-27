@@ -11,13 +11,11 @@ import java.util.Map;
  * Created by Administrator on 2017/7/19 0019.
  */
 public interface CompanyStatusChangeService {
-    public void companyStatusChange(boolean isNew,Integer companyId,String companyName,
-                                                 Integer oldCompanyType,Integer newCompanyType);
+    public void companyStatusChange(boolean isNew,String companyName,Byte newCompanyType);
 
     public void companyStatusChange(boolean isNew,CompanyDO companyDO, BaseDataDO.Results bddRst);
 
-    public CompanyStatusChangeDO companyChange(boolean isNew,Integer companyId,String companyName,
-                                               Integer oldCompanyType,Integer newCompanyType);
+    public CompanyStatusChangeDO companyChange(boolean isNew,String companyName,Byte newCompanyType);
 
     public Map<String,Object> getCompanyInfo(String companyName);
 }

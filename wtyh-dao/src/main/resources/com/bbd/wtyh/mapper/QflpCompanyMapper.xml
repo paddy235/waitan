@@ -28,4 +28,14 @@
     order by index_num
   </select>
 
+  <update id="update" parameterType="com.bbd.wtyh.domain.QflpCompanyDO">
+    update qflp_company set  dollor_part=#{dollorPart},scale=#{scale},rmb_part=#{rmbPart},update_by=#{updateBy},update_date=#{updateDate}
+     where company_id = #{companyId}
+  </update>
+
+  <insert id="add" parameterType="com.bbd.wtyh.domain.QflpCompanyDO">
+    INSERT INTO `qflp_company` (`company_id`, `dollor_part`, `scale`,`rmb_part`, `create_by`, `create_date`, `update_by`, `update_date`)
+    VALUES (#{companyId}, #{dollorPart}, #{scale}, #{rmbPart}, #{createBy}, #{createDate}, #{updateBy}, #{updateDate});
+  </insert>
+
 </mapper>

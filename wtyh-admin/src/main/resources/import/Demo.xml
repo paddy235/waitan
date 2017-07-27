@@ -25,8 +25,8 @@
 
             name            ：显示名称。仅在 columns 中生效
             code            ：该列数据对应代码。仅在 columns 中生效
-            dataType        ：该列数据类型。String/date/number。仅在 columns 中生效
-            format          ：格式化模式。仅在 columns 中生效
+            dataType        ：该列数据类型。String/date/number/integer/decimal。仅在 columns 中生效
+            format          ：格式化模式。仅在 columns 中生效。在dataType="integer"时失效。
             width           ：列宽。默认自适应。仅在 columns 中生效
             colNumber       ：列号。仅在 columns 中生效
             required        ：是否必须。默认false。仅在 columns 中生效
