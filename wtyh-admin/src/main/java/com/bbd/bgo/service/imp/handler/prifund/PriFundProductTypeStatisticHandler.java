@@ -30,14 +30,11 @@ public class PriFundProductTypeStatisticHandler extends AbstractImportHandler<Pr
 
     private Logger log = LoggerFactory.getLogger(PriFundProductTypeStatisticHandler.class);
 
-    @Autowired
-    private CompanyService companyService;
 
     @Autowired
     private PrivateFundService privateFundService;
 
-    private List<PriFundProductTypeVO> insertList = new ArrayList<>();
-    private List<PriFundProductTypeVO> updateList = new ArrayList<>();
+    private List<PriFundProductTypeVO> updateList = null;
     String loginName = "";
 
     @Override
@@ -47,7 +44,6 @@ public class PriFundProductTypeStatisticHandler extends AbstractImportHandler<Pr
             loginName = "";
         }
         log.info("开始检查" + caption);
-        insertList = new LinkedList<>();
         updateList = new LinkedList<>();
     }
 
