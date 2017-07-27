@@ -19,7 +19,7 @@ public class StringValidator extends AbstractValidator {
 	}
 
 	@Override
-	protected String formatName() {
-		return "字符";
+	protected String errorMsg() {
+		return "字符格式错误";
 	}
 }
