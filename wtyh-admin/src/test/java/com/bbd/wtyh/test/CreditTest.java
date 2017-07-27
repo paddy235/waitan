@@ -2,7 +2,6 @@ package com.bbd.wtyh.test;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
-import com.bbd.bgo.service.task.SyncFileService;
 import com.bbd.wtyh.domain.CompanyCreditRawInfoDO;
 import com.bbd.wtyh.domain.credit.CompanyCreditFailInfoDO;
 import com.bbd.wtyh.mapper.CompanyCreditRawInfoMapper;
@@ -21,31 +20,24 @@ import java.util.List;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:spring-config.xml" })
 public class CreditTest {
-    @Autowired
-    private SyncFileService syncFileService;
-    @Autowired
-    private CoCreditScoreService coCreditScoreService;
-    @Autowired
-    private CompanyCreditRawInfoMapper companyCreditRawInfoMapper;
-    @Test
-    public void queryfailCompanyTest(){
-        List<CompanyCreditFailInfoDO> list=coCreditScoreService.queryfailCompany(
-                new String[]{}, "1002", 2,1,2);
-        System.err.println(JSON.toJSONString(list, SerializerFeature.PrettyFormat, SerializerFeature.DisableCircularReferenceDetect));
 
-    }
+	@Autowired
+	private CoCreditScoreService coCreditScoreService;
+	@Autowired
+	private CompanyCreditRawInfoMapper companyCreditRawInfoMapper;
 
-    @Test
-    public void insertTest(){
-        CompanyCreditRawInfoDO companyCreditRawInfoDO=new CompanyCreditRawInfoDO();
-        companyCreditRawInfoDO.setCompanyName("你好5");
-        companyCreditRawInfoMapper.saveCompanyCreditRawInfo(companyCreditRawInfoDO);
+	@Test
+	public void queryfailCompanyTest() {
+		List<CompanyCreditFailInfoDO> list = coCreditScoreService.queryfailCompany(new String[] {}, "1002", 2, 1, 2);
+		System.err.println(JSON.toJSONString(list, SerializerFeature.PrettyFormat, SerializerFeature.DisableCircularReferenceDetect));
 
-    }
+	}
 
-    @Test
-    public void test2(){
-        syncFileService.pullFile();
+	@Test
+	public void insertTest() {
+		CompanyCreditRawInfoDO companyCreditRawInfoDO = new CompanyCreditRawInfoDO();
+		companyCreditRawInfoDO.setCompanyName("你好5");
+		companyCreditRawInfoMapper.saveCompanyCreditRawInfo(companyCreditRawInfoDO);
 
-    }
+	}
 }
