@@ -13,6 +13,8 @@ public class WtyhHelper {
 	public static String userName = "";
 	public static String password = "";
 	public static String brokerIp = "";
+	public static String adminImgPath = "";
+	public static String webImgPath = "";
 
 	static {
 		load();
@@ -30,8 +32,9 @@ public class WtyhHelper {
 		}
 		exportPath = bundle.getString("wtyh.export.excel.path");
 		brokerIp = bundle.getString("api.bbd.broker.ip");
+		adminImgPath = bundle.getString("wtyh.admin.update.img.path");
+		webImgPath = bundle.getString("wtyh.web.update.img.path");
 	}
-
 	public static void loadSystem() {
 		tomcatPath = System.getProperty("tomcat.root");
 	}

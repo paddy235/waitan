@@ -5,8 +5,9 @@ import com.bbd.wtyh.domain.CompanyInfoModify.CompanyInfo;
 import com.bbd.wtyh.domain.CompanyInfoModify.LoanModify;
 import com.bbd.wtyh.domain.CompanyInfoModify.OffLineModify;
 import com.bbd.wtyh.domain.CompanyInfoModify.WangdaiModify;
-import com.bbd.wtyh.domain.wangDaiAPI.PlatListDO;
+import com.bbd.wtyh.mapper.CompanyInfoModifyMapper;
 import com.bbd.wtyh.service.*;
+import com.bbd.wtyh.web.companyInfoModify.ModifyData;
 import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,21 +41,35 @@ public class CompanyInfoMudifyUtil {
     private RiskCompanyService riskCompanyService;  // 线下理财、交易场所
 
     @Autowired
-    private PrepaidCompanyStaticService prepaidCompanyStaticService; // 预付卡
-
-    @Autowired
-    private FinanceLeaseService financeLeaseService;    // 融资租赁
-
-    @Autowired
     private HologramQueryService hologramQueryService;
 
+    @Autowired
+    private CompanyStatusChangeService companyStatusChangeService;//企业状态变化
+
+    @Autowired
+    private CompanyInfoModifyMapper companyInfoModifyMapper;
+
+
+    @Autowired
+    private CompanyInfoQueryUtil companyInfoQueryUtil;
+
+
     /**
-     * 修改 company 修改风险等级
-     * @param name
-     * @param wangdaiModify
+     * 网络借贷 风险等级
+     *
+     * @param modifyData
      */
-    public void modifyLevel(String name, WangdaiModify wangdaiModify) {
-        riskCompanyService.modifyLevel(name, wangdaiModify.getAfterLevel());
+    public void modifyWangdaiLevel(ModifyData modifyData) {
+        CompanyInfo wangdai = companyInfoQueryUtil.getWangdaiInfo(modifyData.getName());
+        WangdaiModify wangdaiModify = new WangdaiModify();
+        wangdaiModify.setName(modifyData.getName());
+        wangdaiModify.setPlatName(wangdai.getPlatName());
+        wangdaiModify.setBeforeLevel(wangdai.getCurrentLevel());
+        wangdaiModify.setAfterLevel(modifyData.getLevel());
+        wangdaiModify.setBeforeIndustry(CompanyInfo.TYPE_P2P_1);
+        // 记录行为
+        recordWangdai(wangdaiModify);
+        riskCompanyService.modifyLevel(modifyData.getName(), wangdaiModify.getAfterLevel());
     }
 
     public void recordWangdai(WangdaiModify wangdaiModify) {
@@ -62,83 +77,68 @@ public class CompanyInfoMudifyUtil {
     }
 
     /**
-     * 小额贷款 记录
+     * 小额贷款、融资担保 风险等级
      *
-     * @param loanModify
-     * @return
+     * @param modifyData
      */
-    public void recordLoad(LoanModify loanModify) {
+    public void modifyLoad(ModifyData modifyData) {
+        CompanyInfo companyInfo = companyInfoQueryUtil.getLoan(modifyData.getName());
+        LoanModify loanModify = new LoanModify();
+        loanModify.setName(companyInfo.getName());
+        loanModify.setBeforeOutLevel(companyInfo.getOutLevel());
+        loanModify.setBeforeInnnerLevel(companyInfo.getInnnerLevel());
+        loanModify.setBeforeLiveLevel(companyInfo.getLiveLevel());
+        loanModify.setAfterOutLevel(modifyData.getOutLevel());
+        loanModify.setAfterInnnerLevel(modifyData.getInnnerLevel());
+        loanModify.setAfterLiveLevel(modifyData.getLiveLevel());
+        loanModify.setBeforeIndustry(CompanyInfo.TYPE_XD_2);
+        // 记录行为
         companyLevelService.recordLoad(loanModify);
-    }
-
-    public void modifyLoad(LoanModify loanModify) {
+        ;
         companyLevelService.modifyLoad(loanModify);
     }
 
     /**
-     * 线下理财
+     * 线下理财、交易场所、预付卡、融资租赁 风险等级
      *
-     * @param offLineModify
+     * @param modifyData
      * @return
      */
-    public void recordOffLine(OffLineModify offLineModify) {
+    public void modifyOffLine(ModifyData modifyData) {
+        CompanyInfo companyInfo = companyInfoModifyMapper.queryCompany(modifyData.getName());
+        OffLineModify offLineModify = new OffLineModify();
+        offLineModify.setName(companyInfo.getName());
+        offLineModify.setBeforeLevel(companyInfo.getCurrentLevel());
+        offLineModify.setAfterLevel(modifyData.getLevel());
+        offLineModify.setBeforeIndustry(CompanyInfo.TYPE_XXLC_4);
+        // 记录行为
         riskCompanyService.recordOffLine(offLineModify);
-    }
-    public void modifyOffLine(OffLineModify offLineModify) {
         riskCompanyService.modifyOffLine(offLineModify);
     }
 
     /**
-     * 交易场所
+     * 修改行业
      *
      * @param name
-     * @return
+     * @param industry
+     * @throws Exception
      */
-    public CompanyInfo getTradeMarket(String name) {
-        CompanyInfo companyInfo = riskCompanyService.getOffLineFinanceByCompanyName(name);
-        companyInfo.setIndustry(CompanyInfo.TYPE_JYS_9);
-        return companyInfo;
-    }
-
-    /**
-     * 预付卡
-     *
-     * @param name
-     * @return
-     */
-    public CompanyInfo getPerpaycard(String name) {
-        CompanyInfo companyInfo = prepaidCompanyStaticService.getPerpaycardByCompanyName(name);
-        companyInfo.setIndustry(CompanyInfo.TYPE_YFK_11);
-        return companyInfo;
-    }
-
-    /**
-     * 融资租赁
-     *
-     * @param name
-     * @return
-     */
-    public CompanyInfo getTenancy(String name) {
-        CompanyInfo companyInfo = financeLeaseService.getTenancy(name);
-        companyInfo.setIndustry(CompanyInfo.TYPE_RZZL_13);
-        return companyInfo;
-    }
-
-
     public void modifyIndustry(String name, String industry) throws Exception {
         // 判断是否修改为线下理财
         if (!String.valueOf(CompanyInfo.TYPE_XXLC_4).equals(industry)) {
             throw new Exception("只能修改为线下理财");
         }
+        // 记录企业状态变化-放在修改之前，因为要记录修改前的类型
+        companyStatusChangeService.companyStatusChange(false, name, Byte.valueOf(industry));
         // 修改company的行业类型
         riskCompanyService.modifyIndustry(name);
         // 通知数据平台的api
         addTagWhite(name);
     }
 
-    private  void addTagWhite(String companyName) throws Exception {
+    private void addTagWhite(String companyName) throws Exception {
         StringBuffer sb = new StringBuffer();
-        sb.append("http://dataapi.bbdservice.com/api/add_tag_white/?tag="+TAG+"&appkey=")
+        sb.append("http://dataapi.bbdservice.com/api/add_tag_white/?tag=" + TAG + "&appkey=")
                 .append(appkey)
                 .append("&company_name=")
                 .append(companyName)
@@ -148,12 +148,12 @@ public class CompanyInfoMudifyUtil {
             String result = new HttpTemplate().get(sb.toString());
             JSONObject jsonObject = JSONObject.fromObject(result);
             String message = jsonObject.getString("message");
-            if(!"ok".equalsIgnoreCase(message)){
-                logger.error("线下理财名单数据上传错误，错误公司："+companyName+"错误原因："+message);
+            if (!"ok".equalsIgnoreCase(message)) {
+                logger.error("线下理财名单数据上传错误，错误公司：" + companyName + "错误原因：" + message);
                 throw new Exception("修改行业类型失败：线下理财名单数据上传错误");
             }
         } catch (Exception e) {
-            logger.error("线下理财名单数据上传错误，错误公司："+companyName+"错误原因："+e);
+            logger.error("线下理财名单数据上传错误，错误公司：" + companyName + "错误原因：" + e);
             throw new Exception("修改行业类型失败：线下理财名单数据上传错误");
         }
     }

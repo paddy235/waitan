@@ -12,4 +12,10 @@
         DELETE FROM plat_rank_data WHERE `plat_name`=#{platName}
     </delete>
 
+    <select id="getWangdaiModify" parameterType="java.lang.String" resultType="com.bbd.wtyh.domain.CompanyInfoModify.WangdaiModify">
+        select name,platName,afterLevel
+        from company_modify
+        where beforeIndustry = 1 and platName = #{platName}
+    </select>
+
 </mapper>

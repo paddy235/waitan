@@ -5,9 +5,7 @@ import com.bbd.wtyh.domain.enums.CompanyLevel;
 import com.bbd.wtyh.service.CompanyInfoModifyService;
 import com.bbd.wtyh.web.ResponseBean;
 import com.bbd.wtyh.web.companyInfoModify.ModifyData;
-import com.google.common.collect.Lists;
 import org.apache.commons.collections.map.HashedMap;
-import org.docx4j.wml.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -51,7 +49,7 @@ public class CompanyInfoModifyController {
     @ResponseBody
     public ResponseBean modify(ModifyData modifyData) {
         try {
-            companyInfoModify.modifyLevel(modifyData);
+            companyInfoModify.modify(modifyData);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseBean.errorResponse(e.getMessage());
@@ -59,17 +57,17 @@ public class CompanyInfoModifyController {
         return ResponseBean.successResponse("修改成功");
     }
 
-    // 风险 列表
+    // 3. 风险 列表
     @RequestMapping(value = "/risk")
     @ResponseBody
     public ResponseBean risk() {
-        Map<Byte, Map<String, Integer>> rst = new HashMap<>();
+        Map<Byte, Map> rst = new HashMap<>();
         // "网络借贷"
-        Map<String, Integer> wangdai = new HashedMap();
-        wangdai.put("正常",  4);
-        wangdai.put("一般关注",  3);
-        wangdai.put("重点关注",  2);
-        wangdai.put("问题", 1);
+        Map<String, String> wangdai = new HashedMap();
+        wangdai.put("A", "优良");
+        wangdai.put("B", "一般关注");
+        wangdai.put("C", "重点关注");
+        wangdai.put("D", "问题及停业平台");
         rst.put(CompanyInfo.TYPE_P2P_1, wangdai);
 //        // "小额贷款"
         rst.put(CompanyInfo.TYPE_XD_2, CompanyLevel.getMap());
@@ -77,9 +75,9 @@ public class CompanyInfoModifyController {
         rst.put(CompanyInfo.TYPE_RZDB_3, CompanyLevel.getMap());
 //        // "线下理财"
         Map<String, Integer> offLine = new HashedMap();
-        offLine.put("已出风险",  1);
-        offLine.put("重点关注",  2);
-        offLine.put("一般关注",  3);
+        offLine.put("已出风险", 1);
+        offLine.put("重点关注", 2);
+        offLine.put("一般关注", 3);
         offLine.put("正常", 4);
         rst.put(CompanyInfo.TYPE_XXLC_4, offLine);
 //        // "交易场所"
@@ -92,7 +90,7 @@ public class CompanyInfoModifyController {
     }
 
 
-    // 行业类型 列表
+    // 4. 行业类型 列表
     @RequestMapping(value = "/industry")
     @ResponseBody
     public ResponseBean industry() {
@@ -107,7 +105,7 @@ public class CompanyInfoModifyController {
         return ResponseBean.successResponse(rst);
     }
 
-    // 公司是否被修改过
+    // 5. 公司是否被修改过
     @RequestMapping(value = "/isModify")
     @ResponseBody
     public ResponseBean isModify(String name) {

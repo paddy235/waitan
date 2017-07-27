@@ -53,7 +53,7 @@ public abstract class AbstractValidator implements DataValidator {
 
 	protected abstract boolean validateFormat();
 
-	protected abstract String formatName();
+	protected abstract String errorMsg();
 
 	@Override
 	public boolean validate(ValidateCell cell) throws Exception {
@@ -83,7 +83,7 @@ public abstract class AbstractValidator implements DataValidator {
 		}
 		if (!validateFormat()) {
 			flag = false;
-			cell.addError(this.name + " " + formatName() + "格式错误");
+			cell.addError(this.name + " " + errorMsg());
 		}
 
 		cell.setValue(this.result == null ? this.value : this.result);
