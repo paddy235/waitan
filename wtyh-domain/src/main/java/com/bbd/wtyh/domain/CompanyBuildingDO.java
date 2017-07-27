@@ -1,10 +1,18 @@
 package com.bbd.wtyh.domain;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Table(name = "company_building")
 public class CompanyBuildingDO extends BaseDO {
+    @Id
     private Integer id;
 
+    @Column(name = "company_id")
     private Integer companyId;
 
+    @Column(name = "building_id")
     private Integer buildingId;
 
     public Integer getId() {
