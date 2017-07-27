@@ -97,7 +97,8 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
     @Autowired
     private WangdaiTaskInfoMapper wangdaiTaskInfoMapper;
 
-
+    @Autowired
+    private CompanyInfoModifyService companyInfoModify;
     @Autowired
     private RealTimeMonitorService realTimeMonitorService;
 
@@ -307,6 +308,10 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
      * @param companyDO
      */
     private void updateCompanRiskLevel(Map<Integer, Integer> platRankMapData, CompanyDO companyDO) {
+        if(companyInfoModify.isModify(companyDO.getName())){
+            return;
+        }
+
         Integer companyId = companyDO.getCompanyId();
         Integer oldRiskLevel = companyDO.getRiskLevel();
         Integer companyType = (int) companyDO.getCompanyType();

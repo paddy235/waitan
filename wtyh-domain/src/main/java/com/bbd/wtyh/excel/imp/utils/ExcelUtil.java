@@ -201,6 +201,11 @@ public class ExcelUtil {
 		mapLevel23.put("股权投资市场退出及退出回报情况", "private_fund_investment_return");// 构建二级下拉
 		mapLevel23.put("股权投资市场投资金额情况", "private_fund_investment_statistic");// 构建二级下拉
 		mapLevel23.put("产品数量前十", "private_fund_top10");// 构建二级下拉
+		mapLevel23.put("QDLP试点企业", "private_fund_qdlp_progress");// 构建二级下拉
+		mapLevel23.put("QFLP试点企业", "private_fund_qflp_company");// 构建二级下拉
+		mapLevel23.put("私募基金分类", "private_fund_type_statistic");// 构建二级下拉
+		mapLevel23.put("产品类型数量", "private_fund_product_type_statistic");// 构建二级下拉
+
 
 		Map<String, String> mapLevel24 = new HashMap<>();
 		mapLevel1.put(" 融资担", mapLevel24);// 构建一级下拉

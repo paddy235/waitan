@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<excel key="private_fund_type_statistic" name="私募基金分类">
+<excel key="private_fund_product_type_statistic" name="私募基金产品类型">
     <sheet name="Sheet1" startRow="4" entity="com.bbd.wtyh.domain.dto.QdlpProgressDTO"
            importHandler="com.bbd.bgo.service.imp.handler.prifund.PriFundTypeStatisticHandler">
         <rowHeader>
