@@ -66,7 +66,7 @@ public class NaturalPersonController {
     /*@LogRecord(logMsg = "检索自然人“%s”的信息，检索类型：%s，企业关键字：%s", params = { "nalName", "type",
             "companyKeyword" }, type = Operation.Type.query, page = Operation.Page.naturalPerson, after = true, before = false)*/
     public @ResponseBody ResponseBean queryNaturalPerson2( @RequestParam String nalName, @RequestParam String type,
-                                    Boolean isProvince, String companyKeyword, Integer pageSize, Integer page  ) {
+                    Boolean isProvince, String companyKeyword, Integer pageSize, Integer page, Boolean noCache ) {
         StringBuffer sb =new StringBuffer("检索自然人“");
         sb.append(nalName).append("”的信息，检索类型：");
         switch (type) {
@@ -80,7 +80,7 @@ public class NaturalPersonController {
         }
         UserLogRecord.record(sb.toString(), Operation.Type.query, Operation.Page.naturalPerson, Operation.System.back);
         return ResponseBean.successResponse(
-                naturalPersonService.queryNaturalPerson2( nalName, type, isProvince, companyKeyword, pageSize, page) );
+                naturalPersonService.queryNaturalPerson2( nalName, type, isProvince, companyKeyword, pageSize, page, noCache) );
     }
 
     @RequestMapping("/download2.do")
@@ -93,7 +93,7 @@ public class NaturalPersonController {
             ExportExcel exportExcel = new ExportExcel(excelName);
             try {
                 Map<String, Object> rst = naturalPersonService.queryNaturalPerson2(
-                        nalName, type, isProvince, companyKeyword, 200, 1);
+                        nalName, type, isProvince, companyKeyword, 200, 1,false);
                 List<NaturalPersonVO> list = (List<NaturalPersonVO>) rst.get("naturalPersons");
                 exportExcel.createSheet("自然人信息", list);
                 exportExcel.exportExcel();

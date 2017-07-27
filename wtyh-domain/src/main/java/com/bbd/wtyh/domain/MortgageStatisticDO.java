@@ -1,18 +1,31 @@
 package com.bbd.wtyh.domain;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Table(name = "mortgage_statistic")
 public class MortgageStatisticDO extends BaseDO {
+    @Id
+    @Column(name = "year")
     private Integer year;
 
+    @Column(name = "company_number")
     private Integer companyNumber;
 
+    @Column(name = "balance")
     private Integer balance;
 
+    @Column(name = "register_capital")
     private Integer registerCapital;
 
+    @Column(name = "total_income")
     private Integer totalIncome;
 
+    @Column(name = "total_amout")
     private Integer totalAmout;
 
+    @Column(name = "number")
     private Integer number;
 
     public Integer getYear() {
