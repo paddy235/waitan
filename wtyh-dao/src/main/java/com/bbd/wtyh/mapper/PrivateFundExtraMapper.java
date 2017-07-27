@@ -1,9 +1,11 @@
 package com.bbd.wtyh.mapper;
 
+import com.bbd.wtyh.core.entity.Pagination;
 import com.bbd.wtyh.domain.EasyExport.PrivateOfferedFundData;
 import com.bbd.wtyh.domain.PrivateFundExtraDO;
 import com.bbd.wtyh.domain.dto.PrivateFundCompanyDTO;
 import com.bbd.wtyh.web.EasyExportExcel.ExportCondition;
+import com.bbd.wtyh.web.PageBean;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -34,5 +36,6 @@ public interface PrivateFundExtraMapper {
     List<PrivateFundCompanyDTO> findByPage(Map<String, Object> params);
 
 
-    List<PrivateOfferedFundData> getPrivateOfferedFund(ExportCondition exportCondition);
+    List<PrivateOfferedFundData> getPrivateOfferedFund(@Param(value = "exportCondition")ExportCondition exportCondition,
+                                                       @Param(value = "pagination")PageBean pagination);
 }

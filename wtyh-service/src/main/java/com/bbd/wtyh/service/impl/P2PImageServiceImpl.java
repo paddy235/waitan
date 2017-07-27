@@ -13,6 +13,7 @@ import com.bbd.wtyh.redis.RedisDAO;
 import com.bbd.wtyh.service.P2PImageService;
 import com.bbd.wtyh.service.PToPMonitorService;
 import com.bbd.wtyh.web.EasyExportExcel.ExportCondition;
+import com.bbd.wtyh.web.PageBean;
 import com.google.gson.JsonSyntaxException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -525,8 +526,8 @@ public class P2PImageServiceImpl implements P2PImageService {
     }
 
     @Override
-    public List<WangdaiData> getWangdai(ExportCondition exportCondition) {
-        return platCoreDataMapper.getWangdai(exportCondition);
+    public List<WangdaiData> getWangdai(ExportCondition exportCondition, PageBean pageBean) {
+        return platCoreDataMapper.getWangdai(exportCondition, pageBean);
     }
 
     @Override

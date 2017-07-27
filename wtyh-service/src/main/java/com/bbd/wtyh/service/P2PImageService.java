@@ -8,6 +8,7 @@ import com.bbd.wtyh.domain.wangDaiAPI.PlatDataDO;
 import com.bbd.wtyh.domain.wangDaiAPI.PlatListDO;
 import com.bbd.wtyh.domain.wangDaiAPI.YuQingDTO;
 import com.bbd.wtyh.web.EasyExportExcel.ExportCondition;
+import com.bbd.wtyh.web.PageBean;
 
 import java.util.List;
 import java.util.Map;
@@ -117,7 +118,7 @@ public interface P2PImageService {
 
     PlatListDO getWangdaiCompanyList(String name);
 
-    List<WangdaiData> getWangdai(ExportCondition exportCondition);
+    List<WangdaiData> getWangdai(ExportCondition exportCondition, PageBean pagination);
 
     void recordWangdai(WangdaiModify companyInfo);
 }

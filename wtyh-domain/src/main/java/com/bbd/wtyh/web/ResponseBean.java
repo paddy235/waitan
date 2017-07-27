@@ -1,6 +1,10 @@
 package com.bbd.wtyh.web;
 
 
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class ResponseBean {
 
     private boolean success;
@@ -9,6 +13,26 @@ public class ResponseBean {
 
     private Object msg;
 
+    /**
+     * @param content 成功的内容，带分页
+     * @param pagination
+     * @return ResponseBean
+     * @author Ian.Su
+     */
+    public static ResponseBean successResponseWithPage(Object content, PageBean pagination) {
+        ResponseBean responseBean = new ResponseBean();
+        responseBean.success = true;
+        responseBean.msg = "";
+        if (content == null) {
+            responseBean.content = "";
+        } else {
+            Map<String, Object> rst = new HashMap<>();
+            rst.put("data", content);
+            rst.put("page", pagination);
+            responseBean.content = rst;
+        }
+        return responseBean;
+    }
 
     /**
      * @param content 成功的内容

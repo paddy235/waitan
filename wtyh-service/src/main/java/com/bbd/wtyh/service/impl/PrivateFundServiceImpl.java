@@ -3,10 +3,10 @@ package com.bbd.wtyh.service.impl;
 import com.bbd.wtyh.domain.*;
 import com.bbd.wtyh.domain.EasyExport.PrivateOfferedFundData;
 import com.bbd.wtyh.domain.dto.PrivateFundCompanyDTO;
-import com.bbd.wtyh.domain.dto.QdlpProgressDTO;
 import com.bbd.wtyh.mapper.*;
 import com.bbd.wtyh.service.PrivateFundService;
 import com.bbd.wtyh.web.EasyExportExcel.ExportCondition;
+import com.bbd.wtyh.web.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -108,8 +108,8 @@ public class PrivateFundServiceImpl implements PrivateFundService {
     }
 
     @Override
-    public List<PrivateOfferedFundData> getPrivateOfferedFund(ExportCondition exportCondition) {
-        return privateFundExtraMapper.getPrivateOfferedFund(exportCondition);
+    public List<PrivateOfferedFundData> getPrivateOfferedFund(ExportCondition exportCondition, PageBean pagination) {
+        return privateFundExtraMapper.getPrivateOfferedFund(exportCondition, pagination);
     }
 
     @Override

@@ -81,26 +81,27 @@
             crowd_funding_company
         WHERE
             company.company_id = crowd_funding_company.company_id
-            <if test="industry!=null">
-                and company.company_type = #{industry}
+            <if test="exportCondition.industry!=null">
+                and company.company_type = #{exportCondition.industry}
             </if>
-            <if test="currentLevel!=null">
-                and company.risk_level = #{currentLevel}
+            <if test="exportCondition.currentLevel!=null">
+                and company.risk_level = #{exportCondition.currentLevel}
             </if>
-            <if test="registeredCapitalMin!=null">
-                and company.registered_capital >= #{registeredCapitalMin}
+            <if test="exportCondition.registeredCapitalMin!=null">
+                and company.registered_capital >= #{exportCondition.registeredCapitalMin}
             </if>
-            <if test="registeredCapitalMax!=null">
-                and #{registeredCapitalMin} >= company.registered_capital
+            <if test="exportCondition.registeredCapitalMax!=null">
+                and #{exportCondition.registeredCapitalMin} >= company.registered_capital
             </if>
-            <if test="registeredDateMin!=null">
-                and company.registered_date >= #{registeredCapitalMin}
+            <if test="exportCondition.registeredDateMin!=null">
+                and company.registered_date >= #{exportCondition.registeredCapitalMin}
             </if>
-            <if test="registeredDateMax!=null">
-                and #{registeredDateMax} >= company.registered_date
+            <if test="exportCondition.registeredDateMax!=null">
+                and #{exportCondition.registeredDateMax} >= company.registered_date
             </if>
-            <if test="areaId!=null">
-                and company.areaId = #{areaId}
+            <if test="exportCondition.areaId!=null">
+                and company.areaId = #{exportCondition.areaId}
             </if>
+        LIMIT #{pagination.offset}, #{pagination.pageSize}
     </select>
 </mapper>

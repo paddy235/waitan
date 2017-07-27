@@ -10,6 +10,7 @@ import com.bbd.wtyh.mapper.RiskCompanyMapper;
 import com.bbd.wtyh.redis.RedisDAO;
 import com.bbd.wtyh.service.RiskCompanyService;
 import com.bbd.wtyh.web.EasyExportExcel.ExportCondition;
+import com.bbd.wtyh.web.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -95,8 +96,8 @@ public class RiskCompanyServiceImpl implements RiskCompanyService {
     }
 
     @Override
-    public List<OffLineData> getOffLineFinance(ExportCondition exportCondition) {
-        return riskCompanyMapper.getOffLineFinance(exportCondition);
+    public List<OffLineData> getOffLineFinance(ExportCondition exportCondition, PageBean pageBean) {
+        return riskCompanyMapper.getOffLineFinance(exportCondition, pageBean);
     }
 
     @Override
