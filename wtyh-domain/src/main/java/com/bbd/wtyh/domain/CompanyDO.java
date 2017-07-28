@@ -132,11 +132,11 @@ public class CompanyDO extends BaseDO implements Comparable {
 	// 平台名称
 	private String platName = "";
 
-	public boolean isNeo() {
+	public Boolean isNeo() {
 		return neo;
 	}
 
-	public void setNeo(boolean neo) {
+	public void setNeo(Boolean neo) {
 		this.neo = neo;
 	}
 
