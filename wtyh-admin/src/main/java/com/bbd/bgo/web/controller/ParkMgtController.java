@@ -418,6 +418,7 @@ public class ParkMgtController {
         }
 
         File f = new File(PARK_DIR1);
+//        File f = new File(request.getSession().getServletContext().getRealPath("/") + File.separator + path + img.getPicName());
         request.getRemoteAddr();
         FileOutputStream fos = null;
 
