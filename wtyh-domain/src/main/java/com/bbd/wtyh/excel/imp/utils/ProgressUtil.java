@@ -3,6 +3,7 @@ package com.bbd.wtyh.excel.imp.utils;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.bbd.wtyh.domain.UserInfoTableDo;
 import com.bbd.wtyh.excel.imp.entity.ProgressInfo;
 
 import javax.servlet.http.HttpServletRequest;
@@ -78,7 +79,8 @@ public class ProgressUtil {
 	}
 
 	public static String getProgressKey(HttpServletRequest request) {
-		return "admin";// TODO 后期改为用户名
+		UserInfoTableDo userInfo = (UserInfoTableDo) request.getSession().getAttribute("loginUser");
+		return userInfo.getLoginName();
 	}
 
 }
