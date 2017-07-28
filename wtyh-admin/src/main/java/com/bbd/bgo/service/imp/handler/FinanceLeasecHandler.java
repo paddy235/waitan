@@ -108,7 +108,7 @@ public class FinanceLeasecHandler extends AbstractImportHandler<FinanceLeaseRisk
     //BusinessException()
     @Override
     public void endRow(Map<String, String> row, FinanceLeaseRiskDO bean) throws Exception {
-         msd =baseService.selectOne( MortgageStatisticDO.class,
+         /*msd =baseService.selectOne( MortgageStatisticDO.class,
                 "`year`=" +bean.getYear() +" LIMIT 1" );
         if( null ==msd ) {
             insertList.add(bean);
@@ -118,7 +118,7 @@ public class FinanceLeasecHandler extends AbstractImportHandler<FinanceLeaseRisk
             updateList.add(bean);
             bean.setUpdateDate(new Date());
             bean.setUpdateBy(loginName);
-        }
+        }*/
     }
 
     @Override
