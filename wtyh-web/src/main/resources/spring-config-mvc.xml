@@ -19,20 +19,20 @@
         <property name="operationSys" value="front"/>
     </bean>
 
-    <!--<mvc:interceptors>-->
+    <mvc:interceptors>
 
-        <!--<mvc:interceptor>-->
-            <!--<mvc:mapping path="/**"/>-->
-            <!--<mvc:exclude-mapping path="/third-party/*"/>-->
-            <!--<ref bean="loginInterceptor"/>-->
-        <!--</mvc:interceptor>-->
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/third-party/*"/>
+            <ref bean="loginInterceptor"/>
+        </mvc:interceptor>
 
-        <!--<mvc:interceptor>-->
-            <!--&lt;!&ndash; 对所有的请求拦截使用/**  &ndash;&gt;-->
-            <!--<mvc:mapping path="/**"/>-->
-            <!--<ref bean="userLogInterceptor"/>-->
-        <!--</mvc:interceptor>-->
-    <!--</mvc:interceptors>-->
+        <mvc:interceptor>
+            <!-- 对所有的请求拦截使用/**  -->
+            <mvc:mapping path="/**"/>
+            <ref bean="userLogInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
 
 
     <bean id="loginInterceptor" class="com.bbd.sys.service.LoginInterceptor"/>
