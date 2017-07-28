@@ -1,4 +1,4 @@
-package com.bbd.bgo.service.imp.handler.prifund;
+package com.bbd.bgo.service.imp.handler;
 
 import java.util.Date;
 import java.util.LinkedList;
@@ -7,10 +7,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.bbd.bgo.service.imp.handler.CompanyLevelHandler;
-import com.bbd.wtyh.core.base.BaseService;
-import com.bbd.wtyh.domain.*;
-import com.bbd.wtyh.report.word.WordReportBuilder;
+import com.bbd.wtyh.domain.FinanceLeaseRiskDO;
+import com.bbd.wtyh.excel.imp.importer.AbstractImporter;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,17 +18,21 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.bbd.wtyh.common.Constants;
+import com.bbd.wtyh.core.base.BaseService;
+import com.bbd.wtyh.domain.MortgageStatisticDO;
 import com.bbd.wtyh.excel.imp.handler.AbstractImportHandler;
 
 /**
- * Created by cgj on 2017/7/24.
+ * Created by cgj on 2017/7/27.
  */
 
 @Component
 @Scope("prototype") //非单例模式
-public class PriFundInvestmentReturnHandler extends AbstractImportHandler<InvestmentReturnStatisticDO> {
+public class FinanceLeasecHandler extends AbstractImportHandler<FinanceLeaseRiskDO> {
 
-    final static String caption ="私募基金-股权投资机构管理资本量";
+    private CompanyListHandler cpH =new CompanyListHandler();
+
+    final static String caption ="典当-典当数据";
 
     private Logger log = LoggerFactory.getLogger(CompanyLevelHandler.class);
 
@@ -39,15 +41,18 @@ public class PriFundInvestmentReturnHandler extends AbstractImportHandler<Invest
     private BaseService baseService;
 
 
-    private List< InvestmentReturnStatisticDO > insertList = null;
-    private List< InvestmentReturnStatisticDO > updateList = null;
-    String loginName ="";
+    private List< MortgageStatisticDO > insertList = null;
+    private List< MortgageStatisticDO > updateList = null;
 
+    String loginName ="";
 
 
     //@Transactional //事务--原子性操作
     @Override
     public void start(HttpServletRequest request) throws Exception {
+
+        cpH.setAbstractImporter( new AbstractImporter(null, null, null) );
+
         loginName = (String) request.getSession().getAttribute(Constants.SESSION.loginName);
         if( null ==loginName ) {
             loginName ="";
@@ -67,17 +72,27 @@ public class PriFundInvestmentReturnHandler extends AbstractImportHandler<Invest
     @Override
     public boolean validateRow(Map<String, String> row) throws Exception {
         //正则：整数或者小数：^[0-9]+([.][0-9]+){0,1}$，只能输入至少一位数字"\\d+"，"+"等价于{1,}
-        int [] validCntA = {0};
-        FunIf1 f1 =(String numName, String  capName)->{
-            String lessNumber =row.get(numName);
-            if( StringUtils.isNotBlank( lessNumber ) ) {
-                validCntA[0]++;
+        String companyName =row.get("companyName");
+        if( StringUtils.isBlank( companyName ) || companyName.length() <3 ) {
+            addError("企业名称格式错误");
+            return false;
+        }
+        int [] validCntA = { 0 ,0 }; //[0]格式正确，[1]格式错误
+        FunIf1 f1 =(String nameStr, String  capName)->{
+            String val =row.get(nameStr);
+            if( StringUtils.isNotBlank( val ) ) {
+                if ( 1 ==val.length() && ( val.equals("是") ||val.equals("否") ) ) {
+                    validCntA[0]++;
+                    return;
+                }
+                addError(capName +" 内容错误");
             }
         };
-        f1.fun("lessNumber", "");
-        f1.fun("betweenNumber", "");
-        f1.fun("greater_number", "");
-        f1.fun("quit_number", "");
+        f1.fun("address", "是否在自贸区" );
+        f1.fun("riskStatusA", "失联企业" );
+        f1.fun("riskStatusB", "未参加自查企业" );
+        f1.fun("riskStatusC", "一年以上零认缴资本" );
+        f1.fun("riskStatusD", "一年以上未经营" );
         if( validCntA[0] <1 ) {
             addError("选填参数数量不足");
             return false;
@@ -85,17 +100,17 @@ public class PriFundInvestmentReturnHandler extends AbstractImportHandler<Invest
         return true;
     }
 
-    //@FunctionalInterface
+    @FunctionalInterface
     interface FunIf1 {
-        void fun(String numName, String  capName);
+        void fun( String numName, String capName );
     }
 
     //BusinessException()
     @Override
-    public void endRow(Map<String, String> row, InvestmentReturnStatisticDO bean) throws Exception {
-        InvestmentReturnStatisticDO irs =baseService.selectOne(InvestmentReturnStatisticDO.class,
+    public void endRow(Map<String, String> row, FinanceLeaseRiskDO bean) throws Exception {
+         /*msd =baseService.selectOne( MortgageStatisticDO.class,
                 "`year`=" +bean.getYear() +" LIMIT 1" );
-        if( null ==irs ) {
+        if( null ==msd ) {
             insertList.add(bean);
             bean.setCreateDate(new Date());
             bean.setCreateBy(loginName);
@@ -103,7 +118,7 @@ public class PriFundInvestmentReturnHandler extends AbstractImportHandler<Invest
             updateList.add(bean);
             bean.setUpdateDate(new Date());
             bean.setUpdateBy(loginName);
-        }
+        }*/
     }
 
     @Override
@@ -116,7 +131,7 @@ public class PriFundInvestmentReturnHandler extends AbstractImportHandler<Invest
         //update
         baseService.updateList(updateList);
         //insert
-        baseService.insert(insertList);
+        baseService.insertList(insertList);
         log.info(caption +" 导入已完成");
     }
 

@@ -9,7 +9,7 @@
         </rowHeader>
         <columns>
             <column name="机构名称" code="companyName" dataType="string" required="true" bgColor="#FFFF00"/>
-            <column name="产品数量" code="productNumber" dataType="number" required="true" bgColor="#FFFF00"/>
+            <column name="产品数量" code="productNumber" dataType="number" required="true" bgColor="#FFFF00" regex="\d+" format="0"/>
         </columns>
 
     </sheet>

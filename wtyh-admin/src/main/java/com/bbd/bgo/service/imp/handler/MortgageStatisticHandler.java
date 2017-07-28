@@ -68,34 +68,21 @@ public class MortgageStatisticHandler extends AbstractImportHandler<MortgageStat
     public boolean validateRow(Map<String, String> row) throws Exception {
         //正则：整数或者小数：^[0-9]+([.][0-9]+){0,1}$，只能输入至少一位数字"\\d+"，"+"等价于{1,}
 
-        String year =row.get("year");
-        if( StringUtils.isBlank( year ) || ! year.matches("\\d{4}") ) {
-            addError("年份 格式错误");
-            return false;
-        }
         int [] validCntA = { 0 ,0 }; //[0]格式正确，[1]格式错误
         FunIf1 f1 =(String numName, String  capName, String  regex)->{
             String lessNumber =row.get(numName);
             if( StringUtils.isNotBlank( lessNumber ) ) {
-                if ( lessNumber.matches(regex) ){
-                    validCntA[0]++;
-                } else {
-                    addError(capName +" 格式错误");
-                    validCntA[1]++;
-                }
+                validCntA[0]++;
             }
         };
-        f1.fun("companyNumber", "企业数", "\\d+");
-        f1.fun("balance", "典当余额（万元）", "^[0-9]+([.][0-9]+){0,1}$" );
-        f1.fun("registerCapital", "注册资本（万元）", "^[0-9]+([.][0-9]+){0,1}$" );
-        f1.fun("total_amout", "典当金额（万元）", "^[0-9]+([.][0-9]+){0,1}$" );
-        f1.fun("number", "典当笔数", "\\d+");
-        f1.fun("total_income", "总费收入（万元）", "^[0-9]+([.][0-9]+){0,1}$" );
+        f1.fun("companyNumber", "", "");
+        f1.fun("balance", "", "" );
+        f1.fun("registerCapital", "", "" );
+        f1.fun("totalAmout", "", "" );
+        f1.fun("number", "", "");
+        f1.fun("totalIncome", "", "" );
         if( validCntA[0] <1 ) {
             addError("选填参数数量不足");
-            return false;
-        }
-        if( validCntA[1] >0 ) { //这一行有格式错误的单元格
             return false;
         }
         return true;
@@ -132,7 +119,7 @@ public class MortgageStatisticHandler extends AbstractImportHandler<MortgageStat
         //update
         baseService.updateList(updateList);
         //insert
-        baseService.insert(insertList);
+        baseService.insertList(insertList);
         log.info(caption +" 导入已完成");
     }
 

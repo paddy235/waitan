@@ -24,6 +24,8 @@ public interface PrivateFundService {
 
     PrivateFundTypeDO getTypeById(Integer privateFundTypeId);
 
+    PrivateFundTypeDO getPriFundTypeByName(String typeName);
+
     FundProductTypeDO getProductTypeById(Integer productTypeId);
 
     FundProductTypeDO getProductTypeByName(String typeName);
@@ -52,4 +54,6 @@ public interface PrivateFundService {
     void addQdlpProgress(QdlpProgressDO qdlpProgressDO);
 
     void saveOrUpdateProductStatistic(FundProductStatisticDO productDO);
+
+    void saveOrUpdateStatistic(PrivateFundStatisticDO statisticDO);
 }

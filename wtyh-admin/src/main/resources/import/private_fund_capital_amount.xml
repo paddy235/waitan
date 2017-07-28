@@ -9,8 +9,8 @@
         </rowHeader>
         <columns>
             <column name="私募机构类型" code="typeName" dataType="string" required="true" bgColor="#FFFF00"/>
-            <column name="管理资本金额（亿元）" code="managedCapitalAmount" dataType="number" />
-            <column name="数量" code="publishCompanyNumber" dataType="number"/>
+            <column name="管理资本金额（亿元）" code="managedCapitalAmount" dataType="number" regex="^[0-9]+([.][0-9]+){0,1}$"/>
+            <column name="数量" code="publishCompanyNumber" dataType="number" regex="\d+" format="0"/>
         </columns>
 
     </sheet>

@@ -73,6 +73,12 @@ public class ParkMgtServiceImpl implements ParkMgtService {
     }
 
     @Override
+    public Integer queryCompanyBuildingId(String buildingId, String companyId) {
+        Integer i = parkAndBuildingMgtMapper.queryCompanyBuildingId(buildingId,companyId);
+        return i;
+    }
+
+    @Override
     public List<CompanyDO> queryCompanyByBuildingId(String buildingId) {
         List<CompanyDO> list = new ArrayList<>();
         try {
@@ -197,9 +203,9 @@ public class ParkMgtServiceImpl implements ParkMgtService {
     }
 
     @Override
-    public void addCompanyBuilding(List<CompanyBuildingDO> companyBuildingList) {
+    public void addCompanyBuilding(CompanyBuildingDO companyBuildingDO) {
         try {
-            parkAndBuildingMgtMapper.addCompanyBuilding(companyBuildingList);
+            parkAndBuildingMgtMapper.addCompanyBuilding(companyBuildingDO);
         } catch (Exception e) {
             e.printStackTrace();
         }

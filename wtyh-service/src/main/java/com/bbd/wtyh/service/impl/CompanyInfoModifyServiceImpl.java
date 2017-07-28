@@ -80,10 +80,6 @@ public class CompanyInfoModifyServiceImpl implements CompanyInfoModifyService {
         } else if (CompanyInfo.TYPE_RZZL_13 == companyInfoModifyMapper.queryCompany(modifyData.getName()).getIndustry()) { // 融资租赁
             companyInfoMudifyUtil.modifyOffLine(modifyData);
         }
-        // 修改行业
-        if (!StringUtils.isEmpty(modifyData.getIndustry())) {
-            companyInfoMudifyUtil.modifyIndustry(modifyData.getName(), modifyData.getIndustry());
-        }
     }
 
     @Override

@@ -8,11 +8,11 @@
                     value="填写说明：&#x000A;本表格不可填写Excel公式；年份必填，其余字段至少选填一项；"/>
         </rowHeader>
         <columns>
-            <column name="年份" code="year" dataType="number" required="true" bgColor="#FFFF00"/>
-            <column name="回报数小于1的数量" code="lessNumber" dataType="number" />
-            <column name="回报数1到10倍的数量" code="betweenNumber" dataType="number" />
-            <column name="回报数大于10倍的数量" code="greaterNumber" dataType="number" />
-            <column name="退出数量" code="quitNumber" dataType="number" />
+            <column name="年份" code="year" dataType="number" required="true" bgColor="#FFFF00" regex="[1-9]\d{3}" format="0"/>
+            <column name="回报数小于1的数量" code="lessNumber" dataType="number" regex="\d+" format="0" />
+            <column name="回报数1到10倍的数量" code="betweenNumber" dataType="number" regex="\d+" format="0" />
+            <column name="回报数大于10倍的数量" code="greaterNumber" dataType="number" regex="\d+" format="0" />
+            <column name="退出数量" code="quitNumber" dataType="number" regex="\d+" format="0" />
         </columns>
 
     </sheet>

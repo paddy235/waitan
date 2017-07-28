@@ -115,8 +115,8 @@ public class RiskCompanyServiceImpl implements RiskCompanyService {
     }
 
     @Override
-    public void modifyIndustry(String name) {
-        riskCompanyMapper.modifyIndustry(name);
+    public void modifyIndustry(String name, String industry) {
+        riskCompanyMapper.modifyIndustry(name, industry);
     }
 
 }
