@@ -102,8 +102,8 @@ public class SyncDataServiceImpl extends BaseServiceImpl implements SyncDataServ
 			BigDecimal staticRiskIndex = offlineFinanceService.getSRI(oldStaticRiskIndex, companyName);
 			staticRiskDataDO.setStaticRiskIndex(staticRiskIndex);
 
-			String sql = "DELETE FROM static_risk_data WHERE area = ? AND company_name = ? AND data_version = ?";
-			this.executeCUD(sql, areaName, dataVersion, companyName);
+			String sql = "DELETE FROM static_risk_data WHERE company_name = ? AND data_version = ? AND area = ?";
+			this.executeCUD(sql, companyName, dataVersion, areaName);
 			staticRiskMapper.save(staticRiskDataDO);
 			logger.info("----type---success---" + type);
 			break;
@@ -112,8 +112,8 @@ public class SyncDataServiceImpl extends BaseServiceImpl implements SyncDataServ
 			companyName = dynamicRiskDataDO.getCompanyName();
 			dataVersion = dynamicRiskDataDO.getDataVersion();
 			areaName = dynamicRiskDataDO.getArea();
-			sql = "DELETE FROM dynamic_risk_data WHERE area = ? AND company_name = ? AND data_version = ?";
-			this.executeCUD(sql, areaName, dataVersion, companyName);
+			sql = "DELETE FROM dynamic_risk_data WHERE company_name = ? AND data_version = ?  AND area = ?";
+			this.executeCUD(sql, companyName, dataVersion, areaName);
 			dynamicRiskMapper.save(dynamicRiskDataDO);
 			logger.info("----type---success---" + type);
 			break;
@@ -147,8 +147,8 @@ public class SyncDataServiceImpl extends BaseServiceImpl implements SyncDataServ
 			dataVersion = relationDataDO.getDataVersion();
 			areaName = relationDataDO.getArea();
 
-			sql = "DELETE FROM relation_data WHERE area = ? AND company_name = ? AND data_version = ?";
-			this.executeCUD(sql, areaName, dataVersion, companyName);
+			sql = "DELETE FROM relation_data WHERE company_name = ? AND data_version = ?  AND area = ?";
+			this.executeCUD(sql, companyName, dataVersion, areaName);
 			relationDataMapper.save(relationDataDO);
 			logger.info("----type---success---" + type);
 			break;
