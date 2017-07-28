@@ -15,7 +15,7 @@
     <select id="getWangdaiModify" parameterType="java.lang.String" resultType="com.bbd.wtyh.domain.CompanyInfoModify.WangdaiModify">
         select name,platName,afterLevel
         from company_modify
-        where beforeIndustry = 1 and platName = #{platName}
+        where beforeIndustry = 1 and platName = #{platName} limit 1
     </select>
 
 </mapper>
