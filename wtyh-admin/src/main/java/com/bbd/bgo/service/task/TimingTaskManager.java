@@ -39,8 +39,6 @@ public class TimingTaskManager {
 	@Autowired
 	private CrowdFundingService crowdFundingService;
 	@Autowired
-	private WangdaiTaskInfoService wangdaiTaskInfoService;
-	@Autowired
 	private PlatUpdateTaskService platUpdateTaskService;
 
 	private Logger logger = LoggerFactory.getLogger(TimingTaskManager.class);
