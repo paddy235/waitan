@@ -112,6 +112,8 @@ public interface CompanyMapper {
 
 	List<CompanyDO> getCompanyList(@Param("startId") int startId, @Param("type") String type, @Param("limit") int limit);
 
+	int countAllCompanyByType(@Param("type") String type);
+
 	@Select("SELECT MAX(company_id) FROM company")
 	Integer maxCompanyId();
 

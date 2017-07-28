@@ -413,6 +413,18 @@
         LIMIT #{limit}
     </select>
 
+    <select id="countAllCompanyByType" resultType="int">
+        SELECT
+          count(*) counts
+        FROM
+        company c
+        WHERE
+        1=1
+        <if test='type != "0"'>
+            AND c.company_type IN (${type})
+        </if>
+    </select>
+
 
     <select id="findCompanyByName" resultMap="BaseResultMap">
         select <include refid="Base_Column_List"/> from company

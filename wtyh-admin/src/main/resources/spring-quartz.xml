@@ -40,12 +40,12 @@
 
     <!--  调度触发器 -->
     <bean id="shangHaiCreditTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
-        <!-- 金融办张乐要求公信接口下午6点开始到第二天7点结束 -->
+        <!-- 金融办要求公信接口每周五下午6点30开始到周一7点结束 -->
         <property name="name" value="shangHaiCreditTrigger"/>
         <property name="group" value="credit_work"/>
         <property name="jobDetail" ref="shangHaiCreditJob"/>
 
-        <property name="cronExpression" value="0 0 18 * * ?"/>
+        <property name="cronExpression" value="0 30 18 ? * 6"/>
         <property name="timeZone" ref="timeZone"/>
 
         <!--将表达式生效时间设置为当前，防止 scheduler 启动时就执行定时任务-->
@@ -74,7 +74,7 @@
         <property name="group" value="close_credit_work"/>
         <property name="jobDetail" ref="closeShangHaiCreditJob"/>
 
-        <property name="cronExpression" value="0 0 7 * * ?"/>
+        <property name="cronExpression" value="0 0 7 ? * 2"/>
         <property name="timeZone" ref="timeZone"/>
 
         <!--将表达式生效时间设置为当前，防止 scheduler 启动时就执行定时任务-->

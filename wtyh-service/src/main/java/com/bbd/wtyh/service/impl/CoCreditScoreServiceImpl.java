@@ -112,6 +112,12 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 		int dailyLimit = CreditConfig.dailyLimit();
 		String coType = CreditConfig.dataType();
 
+		//如果设置的笔数大于实际的企业数，就以实际的企业数为准
+		int realCount=this.companyMapper.countAllCompanyByType(coType);
+		if(dailyLimit>realCount){
+			dailyLimit=realCount;
+		}
+
 		List<CompanyDO> coList = new ArrayList<>(dailyLimit);
 
 		List<CompanyDO> tmpLisst1 = this.companyMapper.getCompanyList(startId, coType, dailyLimit);
@@ -211,7 +217,7 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 			for (CompanyDO companyDO : companyList) {
 
 				dataExecutorService.execute(() -> {
-					if (isShutdown && isHandle==0) {
+					if (isShutdown) {
 						return;
 					}
 					LOGGER.info("开始处理：" + companyDO.getCompanyId());
