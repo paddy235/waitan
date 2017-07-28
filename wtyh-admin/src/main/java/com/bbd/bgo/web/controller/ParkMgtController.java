@@ -36,8 +36,6 @@ import java.util.Map;
 @RequestMapping("/park-mgt")
 public class ParkMgtController {
 
-    private static final String PARK_DIR = "data/img/park/";
-    private static final String BUILDING_DIR = "data/img/building/";
     @Autowired
     private ImgService imgService;
     @Autowired
@@ -365,26 +363,28 @@ public class ParkMgtController {
             //查询状态为0的图片列表，依次更新
             List<ImgDO> list = imgService.queryImgByStatus(0);
             for (ImgDO imgDO : list) {
+
                 updatePic(request, imgDO);//更新图片到执行文件夹
-            if(imgDO.getPicType()==1){
-                ParkDO parkDO = new ParkDO();
-                parkDO.setImgUrl(imgDO.getPicUrl());
-                parkDO.setUpdateBy(user);
-                parkDO.setParkId(imgDO.getPicParkId());
-                parkMgtService.updateParkImgUrl(parkDO);//更新图片路径到园区表
-            }else if(imgDO.getPicType()==2){
-                BuildingDO buildingDO = new BuildingDO();
-                buildingDO.setImgUrl(imgDO.getPicUrl());
-                buildingDO.setUpdateBy(user);
-                buildingDO.setParkId(imgDO.getPicParkId());
-                buildingDO.setBuildingId(imgDO.getPicBuildingId());
-                parkMgtService.updateBuildingImgUrl(buildingDO);//更新图片路径到楼宇表
-            }
-            //将处理过的图片数据状态更新为1
-            imgDO.setStatus(1);
-            imgDO.setLastStatus(0);
-            imgDO.setUser(user);
-            imgService.updateImage(imgDO);
+
+                if(imgDO.getPicType()==1){
+                    ParkDO parkDO = new ParkDO();
+                    parkDO.setImgUrl(imgDO.getPicUrl());
+                    parkDO.setUpdateBy(user);
+                    parkDO.setParkId(imgDO.getPicParkId());
+                    parkMgtService.updateParkImgUrl(parkDO);//更新图片路径到园区表
+                }else if(imgDO.getPicType()==2){
+                    BuildingDO buildingDO = new BuildingDO();
+                    buildingDO.setImgUrl(imgDO.getPicUrl());
+                    buildingDO.setUpdateBy(user);
+                    buildingDO.setParkId(imgDO.getPicParkId());
+                    buildingDO.setBuildingId(imgDO.getPicBuildingId());
+                    parkMgtService.updateBuildingImgUrl(buildingDO);//更新图片路径到楼宇表
+                }
+                 //将处理过的图片数据状态更新为1
+                imgDO.setStatus(1);
+                imgDO.setLastStatus(0);
+                imgDO.setUser(user);
+                imgService.updateImage(imgDO);
 
             }
 
@@ -398,7 +398,8 @@ public class ParkMgtController {
 
 
     private String PARK_DIR1 = WtyhHelper.adminImgPath;//开发环境
-
+    private static final String PARK_DIR = "data/img/park/";
+    private static final String BUILDING_DIR = "data/img/building/";
     /**
      * 更新图片到执行文件夹
      * @param request
@@ -406,20 +407,21 @@ public class ParkMgtController {
      */
     private void updatePic(HttpServletRequest request,ImgDO img){
         String path = PARK_DIR;
+        String filePath = PARK_DIR1;
         Integer picType = img.getPicType();
+        String folder = "park";
         if (picType == 2) {
             path = BUILDING_DIR;
+            folder = "building";
         }
         // /data/wtyh/static/wtyh-admin/build/data/img
         if(org.apache.commons.lang3.StringUtils.isBlank(PARK_DIR1)){//正式环境
-            PARK_DIR1 = request.getSession().getServletContext().getRealPath("/") + File.separator + path + img.getPicName();
+            filePath = request.getSession().getServletContext().getRealPath("/") + File.separator + path + img.getPicName();
         }else{//开发环境
-            PARK_DIR1+=File.separator+ "park"+File.separator+ img.getPicName();
+                filePath += File.separator + folder+ File.separator + img.getPicName();
         }
 
-        File f = new File(PARK_DIR1);
-//        File f = new File(request.getSession().getServletContext().getRealPath("/") + File.separator + path + img.getPicName());
-        request.getRemoteAddr();
+        File f = new File(filePath);
         FileOutputStream fos = null;
 
         try {
@@ -438,9 +440,11 @@ public class ParkMgtController {
             int len = 0;
             byte[] buf = new byte[1024];
             InputStream ins = new ByteArrayInputStream(img.getPic());
+
             while ((len = ins.read(buf)) != -1) {
                 fos.write(buf, 0, len);
             }
+
             fos.flush();
         } catch (Exception e) {
             e.printStackTrace();
