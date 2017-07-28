@@ -31,4 +31,7 @@ public interface RiskCompanyService {
     void modifyOffLine(OffLineModify offLineModify);
 
     void modifyIndustry(String name, String industry);
+
+    Map<String,String> area();
+
 }

@@ -140,6 +140,37 @@
 		  company.`name` = #{name}
 	</select>
 
+    <select id="countOffLineFinance" resultType="long">
+        SELECT
+            COUNT(1)
+        FROM
+            company,
+            company_background
+        WHERE
+            company.company_id = company_background.company_id
+            <if test="exportCondition.industry!=null">
+                and company.company_type = #{exportCondition.industry}
+            </if>
+            <if test="exportCondition.currentLevel!=null">
+                and company.risk_level = #{exportCondition.currentLevel}
+            </if>
+            <if test="exportCondition.registeredCapitalMin!=null">
+                and company.registered_capital >= #{exportCondition.registeredCapitalMin}
+            </if>
+            <if test="exportCondition.registeredCapitalMax!=null">
+                and #{exportCondition.registeredCapitalMin} >= company.registered_capital
+            </if>
+            <if test="exportCondition.registeredDateMin!=null">
+                and company.registered_date >= #{exportCondition.registeredCapitalMin}
+            </if>
+            <if test="exportCondition.registeredDateMax!=null">
+                and #{exportCondition.registeredDateMax} >= company.registered_date
+            </if>
+            <if test="exportCondition.areaId!=null">
+                and company.area_id = #{exportCondition.areaId}
+            </if>
+    </select>
+
     <select id="getOffLineFinance" parameterType="com.bbd.wtyh.web.EasyExportExcel.ExportCondition" resultType="com.bbd.wtyh.domain.EasyExport.OffLineData">
         SELECT
             company.`name` AS `name`,
@@ -175,7 +206,7 @@
                 and #{exportCondition.registeredDateMax} >= company.registered_date
             </if>
             <if test="exportCondition.areaId!=null">
-                and company.areaId = #{exportCondition.areaId}
+                and company.area_id = #{exportCondition.areaId}
             </if>
         LIMIT #{pagination.offset}, #{pagination.pageSize}
     </select>
@@ -202,5 +233,15 @@
         </set>
         where `name`=#{name}
     </update>
+
+    <select id="area" resultType="map" >
+       SELECT
+            `name` AS city,
+             area_id AS areaId
+       FROM
+            area
+       WHERE
+            `city_id` = '104'
+    </select>
 
 </mapper>

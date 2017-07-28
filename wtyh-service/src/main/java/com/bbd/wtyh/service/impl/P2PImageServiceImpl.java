@@ -527,6 +527,7 @@ public class P2PImageServiceImpl implements P2PImageService {
 
     @Override
     public List<WangdaiData> getWangdai(ExportCondition exportCondition, PageBean pageBean) {
+        pageBean.setTotalCount(platCoreDataMapper.countWangdai(exportCondition));
         return platCoreDataMapper.getWangdai(exportCondition, pageBean);
     }
 

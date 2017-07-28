@@ -38,4 +38,6 @@ public interface PrivateFundExtraMapper {
 
     List<PrivateOfferedFundData> getPrivateOfferedFund(@Param(value = "exportCondition")ExportCondition exportCondition,
                                                        @Param(value = "pagination")PageBean pagination);
+
+    Long countPrivateOfferedFund(@Param(value = "exportCondition")ExportCondition exportCondition);
 }

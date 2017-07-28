@@ -24,4 +24,6 @@ public interface CrowdFundingCompanyMapper {
 
     List<CrowdfundData> getCrowdfund(@Param(value = "exportCondition")ExportCondition exportCondition,
                                      @Param(value = "pagination")PageBean pagination);
+
+    Long countCrowdfund(@Param(value = "exportCondition")ExportCondition exportCondition);
 }

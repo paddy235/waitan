@@ -34,6 +34,34 @@ public class EasyExportExeclController {
     @Autowired
     private EasyExportExeclService easyExportExeclService;
 
+    // 行业类型 列表
+    @RequestMapping(value = "/industry")
+    @ResponseBody
+    public ResponseBean industry() {
+        Map<String, Byte> rst = new HashMap<>();
+        rst.put("网络借贷", CompanyInfo.TYPE_P2P_1);
+        rst.put("小额贷款", CompanyInfo.TYPE_XD_2);
+        rst.put("融资担保", CompanyInfo.TYPE_RZDB_3);
+        rst.put("线下理财", CompanyInfo.TYPE_XXLC_4);
+        rst.put("私募基金", CompanyInfo.TYPE_SMJJ_5);
+        rst.put("众筹", CompanyInfo.TYPE_ZC_6);
+        rst.put("交易场所", CompanyInfo.TYPE_JYS_9);
+        rst.put("商业保理", CompanyInfo.TYPE_SYBL_10);
+        rst.put("预付卡", CompanyInfo.TYPE_YFK_11);
+        rst.put("典当", CompanyInfo.TYPE_DD_12);
+        rst.put("融资租赁", CompanyInfo.TYPE_RZZL_13);
+        return ResponseBean.successResponse(rst);
+    }
+
+
+    // 区域
+    @RequestMapping(value = "/area")
+    @ResponseBody
+    public ResponseBean area() {
+        Map<String, String> area = easyExportExeclService.area();
+        return ResponseBean.successResponse(area);
+    }
+
     @RequestMapping(value = "/preview")
     @ResponseBody
     public ResponseBean preview(ExportCondition exportCondition, PageBean pageBean) {

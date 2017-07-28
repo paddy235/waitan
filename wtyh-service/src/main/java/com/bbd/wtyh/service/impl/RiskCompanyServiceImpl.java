@@ -11,6 +11,7 @@ import com.bbd.wtyh.redis.RedisDAO;
 import com.bbd.wtyh.service.RiskCompanyService;
 import com.bbd.wtyh.web.EasyExportExcel.ExportCondition;
 import com.bbd.wtyh.web.PageBean;
+import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -97,6 +98,7 @@ public class RiskCompanyServiceImpl implements RiskCompanyService {
 
     @Override
     public List<OffLineData> getOffLineFinance(ExportCondition exportCondition, PageBean pageBean) {
+        pageBean.setTotalCount(riskCompanyMapper.countOffLineFinance(exportCondition));
         return riskCompanyMapper.getOffLineFinance(exportCondition, pageBean);
     }
 
@@ -118,6 +120,15 @@ public class RiskCompanyServiceImpl implements RiskCompanyService {
     @Override
     public void modifyIndustry(String name, String industry) {
         riskCompanyMapper.modifyIndustry(name, industry);
+    }
+
+    @Override
+    public Map<String, String> area() {
+        Map<String, String> rst = new HashedMap();
+        for (Map.Entry<String, Map<String, String>> e : riskCompanyMapper.area().entrySet()) {
+            rst.put(e.getKey(), e.getValue().get("areaId"));
+        }
+        return rst;
     }
 
 }

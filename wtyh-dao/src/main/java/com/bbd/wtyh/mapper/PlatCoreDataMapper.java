@@ -20,4 +20,6 @@ public interface PlatCoreDataMapper {
 
     List<WangdaiData> getWangdai(@Param("exportCondition")ExportCondition exportCondition,
                                  @Param("pageBean")PageBean pageBean);
+
+    Long countWangdai(@Param("exportCondition")ExportCondition exportCondition);
 }

@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service("easyExportExeclService")
 public class EasyExportExcelServiceImpl implements EasyExportExeclService {
@@ -95,5 +96,10 @@ public class EasyExportExcelServiceImpl implements EasyExportExeclService {
     @Override
     public List<PrivateOfferedFundData> getInsurance(ExportCondition exportCondition, PageBean pageBean) {
         return privateFundService.getPrivateOfferedFund(exportCondition, pageBean);
+    }
+
+    @Override
+    public Map<String, String> area() {
+        return riskCompanyService.area();
     }
 }

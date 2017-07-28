@@ -26,4 +26,6 @@ public interface ExchangeCompanyMapper {
 
     List<TradeMarketData> getTradeMarket(@Param(value = "exportCondition")ExportCondition exportCondition,
                                          @Param(value = "pagination")PageBean pagination);
+
+    Long countTradeMarket(@Param(value = "exportCondition")ExportCondition exportCondition);
 }

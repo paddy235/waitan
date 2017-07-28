@@ -120,6 +120,7 @@ public class PrivateFundServiceImpl implements PrivateFundService {
 
     @Override
     public List<PrivateOfferedFundData> getPrivateOfferedFund(ExportCondition exportCondition, PageBean pagination) {
+        pagination.setTotalCount(privateFundExtraMapper.countPrivateOfferedFund(exportCondition));
         return privateFundExtraMapper.getPrivateOfferedFund(exportCondition, pagination);
     }
 

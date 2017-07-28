@@ -106,6 +106,7 @@ public class ExchangeCompanyServiceImpl implements ExchangeCompanyService {
 
     @Override
     public List<TradeMarketData> getTradeMarket(ExportCondition exportCondition, PageBean pagination) {
+        pagination.setTotalCount(exchangeCompanyMapper.countTradeMarket(exportCondition));
         return exchangeCompanyMapper.getTradeMarket(exportCondition, pagination);
     }
 }

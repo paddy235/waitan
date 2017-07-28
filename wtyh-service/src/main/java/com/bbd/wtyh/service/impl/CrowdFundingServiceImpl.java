@@ -193,6 +193,7 @@ public class CrowdFundingServiceImpl implements CrowdFundingService {
 
     @Override
     public List<CrowdfundData> getCrowdfund(ExportCondition exportCondition, PageBean pagination) {
+        pagination.setTotalCount(crowdFundingCompanyMapper.countCrowdfund(exportCondition));
         return crowdFundingCompanyMapper.getCrowdfund(exportCondition, pagination);
     }
 }

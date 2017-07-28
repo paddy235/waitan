@@ -24,4 +24,6 @@ public interface CompanyLevelMapper {
     void recordLoad(LoanModify loanModify);
 
     void modifyLoad(LoanModify loanModify);
+
+    Long countLoan(@Param(value = "exportCondition")ExportCondition exportCondition);
 }

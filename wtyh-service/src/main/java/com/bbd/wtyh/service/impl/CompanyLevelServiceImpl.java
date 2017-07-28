@@ -59,6 +59,7 @@ public class CompanyLevelServiceImpl implements CompanyLevelService {
 
     @Override
     public List<LoanData> getLoan(ExportCondition exportCondition, PageBean pageBean) {
+        pageBean.setTotalCount(companyLevelMapper.countLoan(exportCondition));
         return companyLevelMapper.getLoan(exportCondition, pageBean);
     }
 

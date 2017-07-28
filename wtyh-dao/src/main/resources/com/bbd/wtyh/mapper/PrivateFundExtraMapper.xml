@@ -125,8 +125,38 @@
                 and #{exportCondition.registeredDateMax} >= company.registered_date
             </if>
             <if test="exportCondition.areaId!=null">
-                and company.areaId = #{exportCondition.areaId}
+                and company.area_id = #{exportCondition.areaId}
             </if>
         LIMIT #{pagination.offset}, #{pagination.pageSize}
+    </select>
+
+    <select id="countPrivateOfferedFund" resultType="long">
+        SELECT
+            COUNT(1)
+        FROM
+          company
+        WHERE
+            1=1
+            <if test="exportCondition.industry!=null">
+                and company.company_type = #{exportCondition.industry}
+            </if>
+            <if test="exportCondition.currentLevel!=null">
+                and company.risk_level = #{exportCondition.currentLevel}
+            </if>
+            <if test="exportCondition.registeredCapitalMin!=null">
+                and company.registered_capital >= #{exportCondition.registeredCapitalMin}
+            </if>
+            <if test="exportCondition.registeredCapitalMax!=null">
+                and #{exportCondition.registeredCapitalMin} >= company.registered_capital
+            </if>
+            <if test="exportCondition.registeredDateMin!=null">
+                and company.registered_date >= #{exportCondition.registeredCapitalMin}
+            </if>
+            <if test="exportCondition.registeredDateMax!=null">
+                and #{exportCondition.registeredDateMax} >= company.registered_date
+            </if>
+            <if test="exportCondition.areaId!=null">
+                and company.area_id = #{exportCondition.areaId}
+            </if>
     </select>
 </mapper>
