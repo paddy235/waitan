@@ -54,9 +54,13 @@ public interface ParkAndBuildingMgtMapper {
 
     List<ParkDO> queryParkList();
 
+    Integer queryCompanyBuildingId(@Param("buildingId") String buildingId,@Param("companyId") String companyId);
+
     int queryCompanyIdByName(String companyName);
 
-    void addCompanyBuilding(List<CompanyBuildingDO> companyBuildingList);
+    void addCompanyBuilding(CompanyBuildingDO companyBuildingDO);
+
+    void addCompanyBuildingList(List<CompanyBuildingDO> companyBuildingList);
 
     void addExcelComAndBuilding(List<ParkCompanyImportDO> parkComImportList);
 

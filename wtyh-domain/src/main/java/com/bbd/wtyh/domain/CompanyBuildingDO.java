@@ -15,6 +15,16 @@ public class CompanyBuildingDO extends BaseDO {
     @Column(name = "building_id")
     private Integer buildingId;
 
+    private String user ;//作为creat_by或update_by字段使用
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
     public Integer getId() {
         return id;
     }

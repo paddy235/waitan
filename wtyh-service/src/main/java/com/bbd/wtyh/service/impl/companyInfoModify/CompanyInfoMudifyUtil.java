@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Map;
@@ -59,7 +60,7 @@ public class CompanyInfoMudifyUtil {
      *
      * @param modifyData
      */
-    public void modifyWangdaiLevel(ModifyData modifyData) {
+    public void modifyWangdaiLevel(ModifyData modifyData) throws Exception {
         CompanyInfo wangdai = companyInfoQueryUtil.getWangdaiInfo(modifyData.getName());
         WangdaiModify wangdaiModify = new WangdaiModify();
         wangdaiModify.setName(modifyData.getName());
@@ -69,7 +70,10 @@ public class CompanyInfoMudifyUtil {
         wangdaiModify.setBeforeIndustry(CompanyInfo.TYPE_P2P_1);
         // 记录行为
         recordWangdai(wangdaiModify);
+        // 修改风险等级
         riskCompanyService.modifyLevel(modifyData.getName(), wangdaiModify.getAfterLevel());
+        // 修改行业
+        modifyIndustry(modifyData.getName(), modifyData.getIndustry());
     }
 
     public void recordWangdai(WangdaiModify wangdaiModify) {
@@ -81,7 +85,7 @@ public class CompanyInfoMudifyUtil {
      *
      * @param modifyData
      */
-    public void modifyLoad(ModifyData modifyData) {
+    public void modifyLoad(ModifyData modifyData) throws Exception {
         CompanyInfo companyInfo = companyInfoQueryUtil.getLoan(modifyData.getName());
         LoanModify loanModify = new LoanModify();
         loanModify.setName(companyInfo.getName());
@@ -94,8 +98,9 @@ public class CompanyInfoMudifyUtil {
         loanModify.setBeforeIndustry(CompanyInfo.TYPE_XD_2);
         // 记录行为
         companyLevelService.recordLoad(loanModify);
-        ;
         companyLevelService.modifyLoad(loanModify);
+        // 修改行业
+        modifyIndustry(modifyData.getName(), modifyData.getIndustry());
     }
 
     /**
@@ -104,7 +109,7 @@ public class CompanyInfoMudifyUtil {
      * @param modifyData
      * @return
      */
-    public void modifyOffLine(ModifyData modifyData) {
+    public void modifyOffLine(ModifyData modifyData) throws Exception {
         CompanyInfo companyInfo = companyInfoModifyMapper.queryCompany(modifyData.getName());
         OffLineModify offLineModify = new OffLineModify();
         offLineModify.setName(companyInfo.getName());
@@ -114,6 +119,8 @@ public class CompanyInfoMudifyUtil {
         // 记录行为
         riskCompanyService.recordOffLine(offLineModify);
         riskCompanyService.modifyOffLine(offLineModify);
+        // 修改行业
+        modifyIndustry(modifyData.getName(), modifyData.getIndustry());
     }
 
     /**
@@ -124,16 +131,19 @@ public class CompanyInfoMudifyUtil {
      * @throws Exception
      */
     public void modifyIndustry(String name, String industry) throws Exception {
-        // 判断是否修改为线下理财
-        if (!String.valueOf(CompanyInfo.TYPE_XXLC_4).equals(industry)) {
-            throw new Exception("只能修改为线下理财");
+        // 修改行业
+        if (StringUtils.isEmpty(industry)) {
+            return;
         }
         // 记录企业状态变化-放在修改之前，因为要记录修改前的类型
         companyStatusChangeService.companyStatusChange(false, name, Byte.valueOf(industry));
         // 修改company的行业类型
-        riskCompanyService.modifyIndustry(name);
-        // 通知数据平台的api
-        addTagWhite(name);
+        riskCompanyService.modifyIndustry(name, industry);
+        // 判断是否修改为线下理财
+        if (!String.valueOf(CompanyInfo.TYPE_XXLC_4).equals(industry)) {
+            // 通知数据平台的api
+            addTagWhite(name);
+        }
     }
 
     private void addTagWhite(String companyName) throws Exception {
