@@ -10,6 +10,7 @@ import com.bbd.wtyh.web.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -73,8 +74,18 @@ public class PrivateFundServiceImpl implements PrivateFundService {
     }
 
     @Override
+    public PrivateFundTypeDO getPriFundTypeByName(String typeName) {
+        return privateFundTypeMapper.getPriFundTypeByName(typeName);
+    }
+
+    @Override
     public FundProductTypeDO getProductTypeById(Integer productTypeId) {
         return productTypeMapper.selectByPrimaryKey(productTypeId);
+    }
+
+    @Override
+    public FundProductTypeDO getProductTypeByName(String typeName) {
+        return productTypeMapper.getProductTypeByName(typeName);
     }
 
     @Override
@@ -130,6 +141,38 @@ public class PrivateFundServiceImpl implements PrivateFundService {
     @Override
     public void addQdlpProgress(QdlpProgressDO qdlpProgressDO) {
         qdlpProgressMapper.add(qdlpProgressDO);
+    }
+
+    @Override
+    public void saveOrUpdateProductStatistic(FundProductStatisticDO productDO) {
+        FundProductStatisticDO statisticDO = productStatisticMapper.selectByPrimaryKey(productDO.getProductTypeId());
+        if (statisticDO != null) {
+            statisticDO.setProductNumber(productDO.getProductNumber());
+            statisticDO.setUpdateBy(productDO.getUpdateBy());
+            statisticDO.setUpdateDate(new Date());
+            productStatisticMapper.update(statisticDO);
+            return;
+        }
+        productDO.setCreateDate(new Date());
+        productDO.setCreateBy(productDO.getUpdateBy());
+        productStatisticMapper.add(productDO);
+
+    }
+
+    @Override
+    public void saveOrUpdateStatistic(PrivateFundStatisticDO statisticDO) {
+        PrivateFundStatisticDO privateFundStatisticDO = statisticMapper.selectByPrimaryKey(statisticDO.getTypeId());
+
+        if (privateFundStatisticDO != null) {
+            privateFundStatisticDO.setAmount(statisticDO.getAmount());
+            privateFundStatisticDO.setUpdateBy(statisticDO.getUpdateBy());
+            privateFundStatisticDO.setUpdateDate(new Date());
+            statisticMapper.update(privateFundStatisticDO);
+            return;
+        }
+        statisticDO.setCreateBy(statisticDO.getUpdateBy());
+        statisticDO.setCreateDate(new Date());
+        statisticMapper.add(privateFundStatisticDO);
     }
 
 }

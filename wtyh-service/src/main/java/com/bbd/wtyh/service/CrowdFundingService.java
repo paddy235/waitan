@@ -6,6 +6,8 @@ import java.util.Map;
 import com.bbd.wtyh.domain.CrowdFundingCompanyDO;
 import com.bbd.wtyh.domain.EasyExport.CrowdfundData;
 import com.bbd.wtyh.domain.NvDO;
+import com.bbd.wtyh.domain.TaskResultDO;
+import com.bbd.wtyh.domain.wangDaiAPI.CrowdFundingStatisticsDTO;
 import com.bbd.wtyh.web.EasyExportExcel.ExportCondition;
 import com.bbd.wtyh.web.PageBean;
 
@@ -33,7 +35,7 @@ public interface CrowdFundingService {
 	 * @param taskId
 	 * @return
 	 */
-	Map crowdFundingDataLandTask(Integer taskId);
+	TaskResultDO crowdFundingDataLandTask(Integer taskId);
 
 	List<CrowdfundData> getCrowdfund(ExportCondition exportCondition, PageBean pagination);
 
@@ -44,6 +46,6 @@ public interface CrowdFundingService {
 	 * @param taskId
 	 * @return
 	 */
-	Map executeFailTaskByTaskId(Integer runMode, Integer oldTaskId, Integer taskId);
+	TaskResultDO executeFailTaskByTaskId(Integer runMode, Integer oldTaskId, Integer taskId);
 
 }

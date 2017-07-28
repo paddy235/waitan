@@ -69,7 +69,7 @@ public class GuaranteeBalanceHandler extends AbstractImportHandler<GuaranteeBala
 			addError("月份格式错误");
 			return false;
 		}
-		String monthReg = "/^(0?[1-9]|1[0-2])$/";
+		String monthReg = "0?[1-9]|1[0-2]";
 		if(!monthStr.matches(monthReg)){
 			addError("月份格式错误");
 			return false;
@@ -81,7 +81,7 @@ public class GuaranteeBalanceHandler extends AbstractImportHandler<GuaranteeBala
 	public void endRow(Map<String, String> row, GuaranteeBalanceDO bean) throws Exception {
 		bean.setCreateBy("导入融资担保-担保责任余额");
 		bean.setCreateDate(new Date());
-		String sqlWhere= "`year`=" +bean.getYear() +" AND 'month'="
+		String sqlWhere= "year=" +bean.getYear() +" AND month="
 				+bean.getMonth()+" LIMIT 1";
 		GuaranteeBalanceDO balanceDO = guaranteeService.selectOne(GuaranteeBalanceDO.class,sqlWhere);
 		if(null==balanceDO){
@@ -95,10 +95,13 @@ public class GuaranteeBalanceHandler extends AbstractImportHandler<GuaranteeBala
 	@Override
 	@Transactional
 	public void end() throws Exception {
-		if (errorList().isEmpty()) {
-			this.guaranteeService.insertList(insertList);
-			this.guaranteeService.updateList(updateList);
+		if( errorList().size() >0 ) {
+			addError("用户上传的数据有误，所有数据均不予入库");
+			log.warn("用户上传的数据有误，所有数据均不予入库");
+			return;
 		}
+		this.guaranteeService.insertList(insertList);
+		this.guaranteeService.updateList(updateList);
 		log.info("导入融资担保-担保责任余额信息列表结束");
 	}
 

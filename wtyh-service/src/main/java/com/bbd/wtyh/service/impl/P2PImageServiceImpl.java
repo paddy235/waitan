@@ -320,7 +320,7 @@ public class P2PImageServiceImpl implements P2PImageService {
     }
 
     @Override
-    public Map p2pImageDataLandTask(Integer taskId) {
+    public TaskResultDO p2pImageDataLandTask(Integer taskId) {
         logger.info("start p2pImageDataLandTask ");
         List<PlatListDO> platList = new ArrayList<>();
         try {
@@ -361,15 +361,15 @@ public class P2PImageServiceImpl implements P2PImageService {
             logger.info(String.format("end update %s data", plat.getPlat_name()));
         }
 
-        Map map = new HashMap();
-        map.put("planCount", platCount);
-        map.put("failCount", failCount);
-        map.put("successCount", platCount - failCount);
-        return map;
+        TaskResultDO taskResultDO = new TaskResultDO();
+        taskResultDO.setPlanCount(platCount);
+        taskResultDO.setFailCount(failCount);
+        taskResultDO.setSuccessCount(platCount - failCount);
+        return taskResultDO;
     }
 
     @Override
-    public Map executeFailTaskByTaskId(Integer runMode, Integer oldTaskId, Integer taskId) {
+    public TaskResultDO executeFailTaskByTaskId(Integer runMode, Integer oldTaskId, Integer taskId) {
         List<TaskFailInfoDO> list = taskFailInfoMapper.getTaskFailInfoByTaskId(oldTaskId);
         List<String> platNameList = list.stream().filter(n -> n != null).map(n -> n.getFailName()).collect(Collectors.toList());
         logger.info("start executeFailTaskByTaskId ");
@@ -413,11 +413,11 @@ public class P2PImageServiceImpl implements P2PImageService {
             logger.info(String.format("end update %s data", plat.getPlat_name()));
         }
 
-        Map map = new HashMap();
-        map.put("planCount", platCount);
-        map.put("failCount", failCount);
-        map.put("successCount", platCount - failCount);
-        return map;
+        TaskResultDO taskResultDO = new TaskResultDO();
+        taskResultDO.setPlanCount(platCount);
+        taskResultDO.setFailCount(failCount);
+        taskResultDO.setSuccessCount(platCount - failCount);
+        return taskResultDO;
     }
 
     protected void updateWangDaiYuQing(String platName) {

@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<excel key="guaranteed_info" name="私募企业列表-导入模板">
-    <sheet name="Sheet1" startRow="2" entity="com.bbd.wtyh.domain.PrivateFundExtraDO"
+<excel key="private_fund_extra" name="私募企业列表-导入模板">
+    <sheet name="Sheet1" startRow="4" entity="com.bbd.wtyh.domain.PrivateFundExtraDO"
            importHandler="com.bbd.bgo.service.imp.handler.prifund.PrivateFundExtraHandler">
         <rowHeader>
-            <column mergeFirstRow="1" mergeLastRow="2" mergeFirstCol="1" mergeLastCol="7" align="LEFT"
-                    value="填写说明：本表格不可填写Excel公式；机构名称必填，不能超过40个汉字；"/>
+            <column mergeFirstRow="1" mergeLastRow="2" mergeFirstCol="1" mergeLastCol="4" align="LEFT"
+                    value="填写说明：&#x000A;本表格不可填写Excel公式；机构名称必填，不能超过40个汉字；"/>
         </rowHeader>
         <columns>
-            <column name="机构名称	" code="company_Name" dataType="string" bgColor="#FFFF00" required="true"/>
-            <column name="机构网址	" code="website" dataType="string"/>
-            <column name="实缴资本	" code="paidin_capital" dataType="string"/>
-            <column name="管理基金数量	" code="managed_fund" dataType="string"/>
+            <column name="机构名称" code="company_Name" dataType="string" bgColor="#FFFF00" required="true"/>
+            <column name="机构网址" code="website" dataType="string"/>
+            <column name="实缴资本" code="paidinCapital" dataType="number"/>
+            <column name="管理基金数量" code="managedFund" dataType="number"/>
         </columns>
     </sheet>
 

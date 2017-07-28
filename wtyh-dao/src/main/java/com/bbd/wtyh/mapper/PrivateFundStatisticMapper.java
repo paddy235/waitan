@@ -5,7 +5,12 @@ import com.bbd.wtyh.domain.PrivateFundStatisticDO;
 import java.util.List;
 
 public interface PrivateFundStatisticMapper {
+
     PrivateFundStatisticDO selectByPrimaryKey(Byte typeId);
 
     List<PrivateFundStatisticDO> selectAll();
+
+    void update(PrivateFundStatisticDO privateFundStatisticDO);
+
+    void add(PrivateFundStatisticDO privateFundStatisticDO);
 }

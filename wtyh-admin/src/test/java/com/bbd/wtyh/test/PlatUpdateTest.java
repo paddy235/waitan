@@ -1,6 +1,7 @@
 package com.bbd.wtyh.test;
 
 import com.bbd.bgo.service.task.PlatUpdateTaskService;
+import com.bbd.wtyh.domain.TaskResultDO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,13 +22,13 @@ public class PlatUpdateTest {
 
     @Test
     public void updatePlatAutomaticOperate(){
-        Map<String,Integer> map = platUpdateTaskService.updatePlatAutomaticOperate(1);
-        System.out.println(map);
+        TaskResultDO taskResultDO = platUpdateTaskService.updatePlatAutomaticOperate(1);
+        System.out.println(taskResultDO);
     }
 
     @Test
     public void updatePlatManualOperate(){
-        Map<String,Integer> map = platUpdateTaskService.updatePlatManualOperate(1,2);
-        System.out.println(map);
+        TaskResultDO taskResultDO = platUpdateTaskService.updatePlatManualOperate(1,2);
+        System.out.println(taskResultDO);
     }
 }

@@ -1,5 +1,6 @@
 package com.bbd.wtyh.test;
 
+import com.bbd.wtyh.domain.TaskResultDO;
 import com.bbd.wtyh.service.OfflineFinanceService;
 import com.bbd.wtyh.service.PToPMonitorService;
 import org.junit.Test;
@@ -25,42 +26,43 @@ public class PToPMonitorServiceTest {
 
     @Test
     public void industryShanghaiDataLanding() {
+
         Integer taskId = 11;
-        Map map = monitorService.pToPMonitorDataLandTask(taskId);
-        System.out.print(map);
+        TaskResultDO taskResultDO = monitorService.pToPMonitorDataLandTask(taskId);
+        System.out.print(taskResultDO);
     }
 
     @Test
     public void reExecuteTest() {
         Integer taskId = 12;
         Integer oldTaskId = 11;
-        Map map = monitorService.executeFailTaskByTaskId(0, oldTaskId, taskId);
-        System.out.print(map);
+        TaskResultDO taskResultDO = monitorService.executeFailTaskByTaskId(0, oldTaskId, taskId);
+        System.out.print(taskResultDO);
     }
 
     @Test
     public void updateCompanyRiskLevelTest(){
         Integer taskId = 50;
-        Map map = null;
+        TaskResultDO taskResultDO=null;
         try {
-            map = offlineFinanceService.updateCompanyRiskLevel(taskId);
+            taskResultDO = offlineFinanceService.updateCompanyRiskLevel(taskId);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.print(map);
+        System.out.print(taskResultDO);
     }
 
     @Test
     public void reExecuteCompanyRiskLevel(){
         Integer taskId = 51;
         Integer oldTaskId = 50;
-        Map map = null;
+        TaskResultDO taskResultDO=null;
         try {
-            map = offlineFinanceService.executeFailTaskByTaskId(0,oldTaskId,taskId);
+            taskResultDO = offlineFinanceService.executeFailTaskByTaskId(0,oldTaskId,taskId);
         }catch (Exception e){
             e.printStackTrace();
         }
-        System.out.print(map);
+        System.out.print(taskResultDO);
     }
 
 }

@@ -3,21 +3,17 @@ package com.bbd.bgo.service.task;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.net.URI;
+import java.io.OutputStream;
+import java.util.Date;
+import java.util.List;
 
-import org.apache.commons.io.FileUtils;
+import com.bbd.wtyh.domain.TaskFailInfoDO;
+import com.bbd.wtyh.domain.TaskResultDO;
+import com.bbd.wtyh.excel.imp.utils.FileUtil;
+import com.bbd.wtyh.mapper.TaskFailInfoMapper;
+import com.bbd.wtyh.util.HttpUtil;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.http.HttpHost;
-import org.apache.http.auth.AuthScope;
-import org.apache.http.auth.UsernamePasswordCredentials;
-import org.apache.http.client.CredentialsProvider;
-import org.apache.http.client.config.RequestConfig;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.BasicCredentialsProvider;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.impl.client.HttpClients;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,55 +38,94 @@ public class SyncFileServiceImpl extends BaseServiceImpl implements SyncFileServ
 
 	@Autowired
 	private SyncDataService syncDataService;
-
 	@Autowired
 	private RelationDataService relationDataService;
+	@Autowired
+	private TaskFailInfoMapper taskFailInfoMapper;
 
 	@Value("${api.bbd.broker.ip}")
 	private String brokerIp;
 	private String brokerUri = "/syncFile/supplyFile.do";
-	private String httpProxy = System.getenv("http_proxy");
 
 	@Override
-	public void pullFile() {
+	public TaskResultDO pullFile(Integer taskId) {
+		TaskResultDO taskResult = null;
 		try {
-			logger.info("--------- pull data file start ------");
 			String dataVersion = relationDataService.getNewestDataVersion();
-			logger.info("--------- pull dataVersion ---------：" + dataVersion);
-
-			String url = brokerIp+brokerUri+ "?dataVersion=" + dataVersion;
-
-			HttpGet httpRequest = new HttpGet(url);
-			HttpClientBuilder httpClientBuilder = HttpClients.custom();
-			// 设置http代理
-			if (StringUtils.isNotEmpty(httpProxy)) {
-				URI httpProxyUri = new URI(httpProxy);
-				if (StringUtils.isNotEmpty(httpProxyUri.getUserInfo())) {
-					CredentialsProvider credsProvider = new BasicCredentialsProvider();
-					credsProvider.setCredentials(new AuthScope(httpProxyUri.getHost(), httpProxyUri.getPort()),
-							new UsernamePasswordCredentials(httpProxyUri.getUserInfo()));
-					httpClientBuilder.setDefaultCredentialsProvider(credsProvider);
-				}
-				httpClientBuilder.setProxy(new HttpHost(httpProxyUri.getHost(), httpProxyUri.getPort(), httpProxyUri.getScheme()));
-			}
-			httpRequest.setConfig(RequestConfig.custom().setConnectTimeout(36000 * 1000).setSocketTimeout(36000 * 1000).build());
-			CloseableHttpResponse response = httpClientBuilder.build().execute(httpRequest);
-			InputStream inputStream = response.getEntity().getContent();
-
-			String fileName = dataVersion + ".txt";
-
-			File file = new File(PULL_FILE_SAVE_PATH + fileName);
-			FileUtils.forceMkdirParent(file);
-			IOUtils.copyLarge(inputStream, new FileOutputStream(file));
-			logger.info("--------- pull data file end --------");
-
+			File file = pullFile(dataVersion);
 			logger.info("--------- parse data file start -----");
-			this.syncDataService.receiveFileData(file);
+			taskResult = this.syncDataService.receiveFileData(file);
+			// 表示有错误数据，需要记录
+			if (taskResult != null && taskResult.getFailCount().compareTo(0) == 1) {
+				taskRecord(taskId, dataVersion);
+			}
+			logger.info("--------- parse data file end -------");
+		} catch (Exception e) {
+			logger.error("处理线下理财风险数据异常。", e);
+		}
+		return taskResult;
+	}
+
+	@Override
+	public TaskResultDO rePullFile(Integer oldTaskId, Integer newTaskId) {
+		TaskResultDO taskResult = null;
+		try {
+			List<TaskFailInfoDO> taskFailList = taskFailInfoMapper.getTaskFailInfoByTaskId(oldTaskId);
+			if (CollectionUtils.isEmpty(taskFailList)) {
+				return taskResult;
+			}
+			TaskFailInfoDO taskFail = taskFailList.get(0);
+			String dataVersion = taskFail.getDataVersion();
+			File file = pullFile(dataVersion);
+			logger.info("--------- parse data file start -----");
+			taskResult = this.syncDataService.receiveFileData(file);
+
+			// 表示有错误数据，需要记录
+			if (taskResult != null && taskResult.getFailCount().compareTo(0) == 1) {
+				taskRecord(newTaskId, dataVersion);
+			}
 			logger.info("--------- parse data file end -------");
 
 		} catch (Exception e) {
-			logger.error(e.getMessage(), e);
+			logger.error("处理线下理财风险数据异常。", e);
 		}
 
+		return taskResult;
 	}
+
+	private void taskRecord(Integer taskId, String dataVersion) {
+		TaskFailInfoDO taskFail = new TaskFailInfoDO();
+		taskFail.setTaskId(taskId);
+		taskFail.setDataVersion(dataVersion);
+		taskFail.setFailName(dataVersion);
+		taskFail.setCreateBy("线下理财风险数据定时任务");
+		taskFail.setCreateDate(new Date());
+		this.taskFailInfoMapper.addTaskFailInfo(taskFail);
+	}
+
+	public File pullFile(String dataVersion) throws Exception {
+		logger.info("--------- pull data file start,dataVersion:{} ------", dataVersion);
+		String fileName = dataVersion + ".txt";
+		File file = new File(PULL_FILE_SAVE_PATH + fileName);
+		if (file.exists()) {
+			logger.info("--------- pull data file end. File from the local ------");
+			return file;
+		}
+
+		InputStream input = null;
+		OutputStream out = null;
+		try {
+			String url = brokerIp + brokerUri + "?dataVersion=" + dataVersion;
+			input = HttpUtil.get(url, 36000, InputStream.class);
+			file = new File(PULL_FILE_SAVE_PATH + fileName);
+			FileUtil.forceMkdirParent(file);
+			out = new FileOutputStream(file);
+			IOUtils.copyLarge(input, out);
+			logger.info("--------- pull data file end. File from the Beijing server --------");
+		} finally {
+			FileUtil.closeResource(input, out);
+		}
+		return file;
+	}
+
 }
