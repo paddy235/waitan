@@ -35,8 +35,8 @@ public class PriFundQdlpProgressHandler extends AbstractImportHandler<QdlpProgre
     @Autowired
     private PrivateFundService privateFundService;
 
-    private List<QdlpProgressVO> insertList = new ArrayList<>();
-    private List<QdlpProgressVO> updateList = new ArrayList<>();
+    private List<QdlpProgressVO> insertList = null;
+    private List<QdlpProgressVO> updateList = null;
     String loginName = "";
 
     @Override

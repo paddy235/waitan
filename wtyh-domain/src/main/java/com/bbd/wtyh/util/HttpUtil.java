@@ -133,6 +133,10 @@ public class HttpUtil {
 		return get(url, null, null, 0, clazz);
 	}
 
+	public static <T> T get(String url, int timeoutSecond, Class<T> clazz) throws Exception {
+		return get(url, null, null, timeoutSecond, clazz);
+	}
+
 	public static <T> T get(String url, Map<String, Object> params, Class<T> clazz) throws Exception {
 		return get(url, null, params, 0, clazz);
 	}

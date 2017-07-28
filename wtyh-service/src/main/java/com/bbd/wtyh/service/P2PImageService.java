@@ -3,6 +3,7 @@ package com.bbd.wtyh.service;
 import com.bbd.wtyh.domain.CompanyInfoModify.WangdaiModify;
 import com.bbd.wtyh.domain.EasyExport.WangdaiData;
 import com.bbd.wtyh.domain.PlatformNameInformationDO;
+import com.bbd.wtyh.domain.TaskResultDO;
 import com.bbd.wtyh.domain.dto.PlatRankDataDTO;
 import com.bbd.wtyh.domain.wangDaiAPI.PlatDataDO;
 import com.bbd.wtyh.domain.wangDaiAPI.PlatListDO;
@@ -103,7 +104,7 @@ public interface P2PImageService {
      * 平台画像相关接口数据落地
      * @return
      */
-    Map p2pImageDataLandTask(Integer taskId);
+    TaskResultDO p2pImageDataLandTask(Integer taskId);
 
     /**
      * 重新执行数据落地失败任务
@@ -112,7 +113,7 @@ public interface P2PImageService {
      * @param taskId
      * @return
      */
-    Map executeFailTaskByTaskId(Integer runMode, Integer oldTaskId, Integer taskId);
+    TaskResultDO executeFailTaskByTaskId(Integer runMode, Integer oldTaskId, Integer taskId);
 
 
     PlatListDO getWangdaiCompanyList(String name);
