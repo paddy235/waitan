@@ -1,5 +1,7 @@
 package com.bbd.bgo.service.task;
 
+import com.bbd.wtyh.domain.TaskResultDO;
+
 import java.util.Map;
 
 /**
@@ -11,12 +13,12 @@ public interface SystemDataUpdateService {
      * 更新企业表和背景表手动执行
      * (by zhw)
      */
-    Map<String,Integer> updateCompanyAndBackgroundManualOperate(Integer oldTaskId,Integer newTaskId);
+    TaskResultDO updateCompanyAndBackgroundManualOperate(Integer oldTaskId,Integer newTaskId);
 
     /**
      * 更新企业表和背景表自动执行
      * (by zhw)
      */
-    Map<String,Integer> updateCompanyAndBackgroundAutomaticOperate(Integer taskId);
+    TaskResultDO updateCompanyAndBackgroundAutomaticOperate(Integer taskId);
 
 }

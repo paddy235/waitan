@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<excel key="finance_lease" name="融资租赁-企业列表">
+    <sheet name="Sheet1" startRow="4" entity="com.bbd.wtyh.domain.FinanceLeaseRiskDO"
+           importHandler="com.bbd.bgo.service.imp.handler.FinanceLeasecHandler">
+        <rowHeader>
+            <column mergeFirstRow="1" mergeLastRow="2" mergeFirstCol="1" mergeLastCol="6" align="LEFT"
+                    value="填写说明：&#x000A;本表格不可填写Excel公式；本表格不可填写Excel公式；企业名称必填，不能超过40个汉字；其余字段填“是”或“否”"/>
+        </rowHeader>
+        <columns>
+            <column name="企业名称" code="companyName" dataType="string" required="true" bgColor="#FFFF00"/>
+            <column name="是否在自贸区" code="address" dataType="string"/>
+            <column name="失联企业" code="riskStatusA" dataType="string"/>
+            <column name="未参加自查企业" code="riskStatusB" dataType="string"/>
+            <column name="一年以上零认缴资本" code="riskStatusC" dataType="string"/>
+            <column name="一年以上未经营" code="riskStatusD" dataType="string"/>
+        </columns>
+
+    </sheet>
+</excel>

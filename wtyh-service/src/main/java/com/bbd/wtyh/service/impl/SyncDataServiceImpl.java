@@ -1,5 +1,6 @@
 package com.bbd.wtyh.service.impl;
 
+import com.bbd.wtyh.core.base.BaseServiceImpl;
 import com.bbd.wtyh.domain.*;
 
 import com.bbd.wtyh.mapper.*;
@@ -19,6 +20,8 @@ import java.io.*;
 import java.math.BigDecimal;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 数据同步
@@ -27,7 +30,7 @@ import java.util.concurrent.Executors;
  * @since 2016/8/20
  */
 @Service
-public class SyncDataServiceImpl implements SyncDataService {
+public class SyncDataServiceImpl extends BaseServiceImpl implements SyncDataService {
 
 	private Logger logger = LoggerFactory.getLogger(SyncDataServiceImpl.class);
 	@Autowired
@@ -44,25 +47,39 @@ public class SyncDataServiceImpl implements SyncDataService {
 	private OfflineFinanceService offlineFinanceService;
 
 	@Override
-	public void receiveFileData(File file) throws Exception {
+	public TaskResultDO receiveFileData(File file) throws Exception {
 		if (file == null) {
-			return;
+			return null;
 		}
+		int totalCount = 0;
+		int successCount = 0;
+		int failCount = 0;
 		InputStream inputStream = new FileInputStream(file);
-
 		LineIterator lineIterator = IOUtils.lineIterator(inputStream, "utf-8");
 		ExecutorService dataExecutorService = Executors.newFixedThreadPool(20);
+
 		while (lineIterator.hasNext()) {
+			totalCount++;
 			final String string = lineIterator.next();
-			dataExecutorService.submit(() -> {
+			Future<Boolean> future = dataExecutorService.submit(() -> {
 				try {
 					insertData(string);
+					return true;
 				} catch (Throwable t) {
-					logger.error("----------exception------" + string, t);
+					logger.error("----------exception：{}------", string, t);
+					return false;
 				}
 			});
+			if (future.get()) {
+				successCount++;
+			} else {
+				failCount++;
+			}
 		}
+		dataExecutorService.shutdown();
+		dataExecutorService.awaitTermination(1, TimeUnit.DAYS);
 
+		return new TaskResultDO(totalCount, successCount, failCount);
 	}
 
 	private void insertData(String string) {
@@ -71,29 +88,47 @@ public class SyncDataServiceImpl implements SyncDataService {
 		Integer type = syncDataInformationDO.getType();
 		logger.info("----type------" + type);
 		String content = syncDataInformationDO.getContent();
+		String companyName;
+		String dataVersion;
+		String areaName;
 		switch (type) {
 		case 1:
 			StaticRiskDataDO staticRiskDataDO = gson.fromJson(content, StaticRiskDataDO.class);
-			String companyName = staticRiskDataDO.getCompanyName();
+			companyName = staticRiskDataDO.getCompanyName();
+			dataVersion = staticRiskDataDO.getDataVersion();
+			areaName = staticRiskDataDO.getArea();
+
 			BigDecimal oldStaticRiskIndex = staticRiskDataDO.getStaticRiskIndex();
 			BigDecimal staticRiskIndex = offlineFinanceService.getSRI(oldStaticRiskIndex, companyName);
 			staticRiskDataDO.setStaticRiskIndex(staticRiskIndex);
+
+			String sql = "DELETE FROM static_risk_data WHERE area = ? AND company_name = ? AND data_version = ?";
+			this.executeCUD(sql, areaName, dataVersion, companyName);
 			staticRiskMapper.save(staticRiskDataDO);
 			logger.info("----type---success---" + type);
 			break;
 		case 2:
 			DynamicRiskDataDO dynamicRiskDataDO = gson.fromJson(content, DynamicRiskDataDO.class);
+			companyName = dynamicRiskDataDO.getCompanyName();
+			dataVersion = dynamicRiskDataDO.getDataVersion();
+			areaName = dynamicRiskDataDO.getArea();
+			sql = "DELETE FROM dynamic_risk_data WHERE area = ? AND company_name = ? AND data_version = ?";
+			this.executeCUD(sql, areaName, dataVersion, companyName);
 			dynamicRiskMapper.save(dynamicRiskDataDO);
 			logger.info("----type---success---" + type);
 			break;
 		case 3:
 			RecruitDataDO recruitDataDO = gson.fromJson(content, RecruitDataDO.class);
+			companyName = recruitDataDO.getCompanyName();
+			dataVersion = recruitDataDO.getDataVersion();
+			this.executeCUD("DELETE FROM recruit_data WHERE data_version = ? AND company_name = ?", dataVersion, companyName);
 			recruitDataMapper.save(recruitDataDO);
 			logger.info("----type---success---" + type);
 			break;
 		case 4:
 			IndexDataDO indexDataDO = gson.fromJson(content, IndexDataDO.class);
 			String companyNameIndexData = indexDataDO.getCompanyName();
+
 			BigDecimal oldStaticRiskIndexIndexData = indexDataDO.getStaticRiskIndex();
 			BigDecimal staticRiskIndexIndexData = offlineFinanceService.getSRI(oldStaticRiskIndexIndexData, companyNameIndexData);
 			String area = indexDataDO.getArea();
@@ -108,6 +143,12 @@ public class SyncDataServiceImpl implements SyncDataService {
 			break;
 		case 5:
 			RelationDataDO relationDataDO = gson.fromJson(content, RelationDataDO.class);
+			companyName = relationDataDO.getCompanyName();
+			dataVersion = relationDataDO.getDataVersion();
+			areaName = relationDataDO.getArea();
+
+			sql = "DELETE FROM relation_data WHERE area = ? AND company_name = ? AND data_version = ?";
+			this.executeCUD(sql, areaName, dataVersion, companyName);
 			relationDataMapper.save(relationDataDO);
 			logger.info("----type---success---" + type);
 			break;

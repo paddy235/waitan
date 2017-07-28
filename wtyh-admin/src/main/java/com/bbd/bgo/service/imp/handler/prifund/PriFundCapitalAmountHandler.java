@@ -75,19 +75,11 @@ public class PriFundCapitalAmountHandler extends AbstractImportHandler<CapitalAm
         int validCnt =0;
         String managedCapitalAmount =row.get("managedCapitalAmount");
         if( StringUtils.isNotBlank( managedCapitalAmount ) ) {
-            if ( managedCapitalAmount.matches("^[0-9]+([.][0-9]+){0,1}$") ){
-                validCnt++;
-            } else {
-                addError("管理资本金额（亿元） 格式错误");
-            }
+            validCnt++;
         }
         String publishCompanyNumber =row.get("publishCompanyNumber");
         if( StringUtils.isNotBlank( publishCompanyNumber ) ) {
-            if ( publishCompanyNumber.matches("\\d+") ){
-                validCnt++;
-            } else {
-                addError("数量 格式错误");
-            }
+            validCnt++;
         }
         if( validCnt <1 ) {
             addError("选填参数数量太少");

@@ -1,6 +1,7 @@
 package com.bbd.wtyh.test;
 
 import com.bbd.bgo.service.task.SystemDataUpdateService;
+import com.bbd.wtyh.domain.TaskResultDO;
 import com.bbd.wtyh.service.OfflineFinanceService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,8 +28,8 @@ public class CompanyBackUpateTest {
     public void backgroundTest(){
         Integer taskId = 10;
         //Map<String,Integer> map=systemDataUpdateService.updateCompanyAndBackgroundAutomaticOperate(taskId);
-        Map<String,Integer> map=systemDataUpdateService.updateCompanyAndBackgroundManualOperate(10,11);
-        System.out.println(map);
+        TaskResultDO taskResultDO =systemDataUpdateService.updateCompanyAndBackgroundManualOperate(10,11);
+        System.out.println(taskResultDO);
     }
 
 }

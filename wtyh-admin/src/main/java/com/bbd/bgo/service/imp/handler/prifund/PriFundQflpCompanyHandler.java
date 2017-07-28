@@ -35,8 +35,8 @@ public class PriFundQflpCompanyHandler  extends AbstractImportHandler<QflpCompan
     @Autowired
     private PrivateFundService privateFundService;
 
-    private List<QflpCompanyDTO> insertList = new ArrayList<>();
-    private List<QflpCompanyDTO> updateList = new ArrayList<>();
+    private List<QflpCompanyDTO> insertList = null;
+    private List<QflpCompanyDTO> updateList = null;
     String loginName = "";
 
     @Override

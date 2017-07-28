@@ -19,10 +19,20 @@
         where type_id = #{typeId,jdbcType=TINYINT}
     </select>
 
-
     <select id="selectAll" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from private_fund_statistic
     </select>
+
+    <update id="update" parameterType="com.bbd.wtyh.domain.PrivateFundStatisticDO">
+        update private_fund_statistic set  amount=#{amount},update_by=#{updateBy},update_date=#{updateDate}
+        where type_id = #{typeId}
+    </update>
+
+    <insert id="add" parameterType="com.bbd.wtyh.domain.PrivateFundStatisticDO">
+        INSERT INTO `private_fund_statistic` (`type_id`, `amount`,  `create_by`, `create_date`, `update_by`, `update_date`)
+        VALUES (#{typeId}, #{amount}, #{createBy}, #{createDate}, #{updateBy}, #{updateDate});
+    </insert>
+
 </mapper>

@@ -3,6 +3,7 @@ package com.bbd.wtyh.service;
 import java.util.List;
 import java.util.Map;
 
+import com.bbd.wtyh.domain.TaskResultDO;
 import com.bbd.wtyh.domain.dto.*;
 
 /**
@@ -91,12 +92,12 @@ public interface PToPMonitorService {
      * @return
      * @throws Exception
      */
-    Map pToPMonitorDataLandTask(Integer taskId);
+    TaskResultDO pToPMonitorDataLandTask(Integer taskId);
 
 
     /**
      * 重新执行失败的数据落地任务
      */
-    Map executeFailTaskByTaskId(Integer runMode,Integer oldTaskId,Integer taskId);
+    TaskResultDO executeFailTaskByTaskId(Integer runMode,Integer oldTaskId,Integer taskId);
 
 }
