@@ -9,7 +9,7 @@
         </rowHeader>
         <columns>
             <column name="顾问管理" code="adviserManage" dataType="number" required="true" bgColor="#FFFF00"/>
-            <column name="委托管理" code="entrustedManage" dataType="number" required="true" bgColor="#FFFF00"/>
+            <column name="受托管理" code="entrustedManage" dataType="number" required="true" bgColor="#FFFF00"/>
             <column name="自我管理" code="selfManage" dataType="number" required="true" bgColor="#FFFF00"/>
         </columns>
     </sheet>

@@ -16,7 +16,7 @@
             <column name="战略投资" code="strategy" dataType="number" required="true" bgColor="#FFFF00"/>
             <column name="天使投资" code="angel" dataType="number" required="true" bgColor="#FFFF00"/>
             <column name="PE" code="pe" dataType="number" required="true" bgColor="#FFFF00"/>
-            <column name="其它" code="other" dataType="number" required="true" bgColor="#FFFF00"/>
+            <column name="其他" code="other" dataType="number" required="true" bgColor="#FFFF00"/>
         </columns>
     </sheet>
 </excel>

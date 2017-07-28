@@ -3,16 +3,11 @@ package com.bbd.wtyh.test;
 import com.bbd.wtyh.domain.TaskResultDO;
 import com.bbd.wtyh.service.CrowdFundingService;
 import com.bbd.wtyh.service.OfflineFinanceService;
-import com.bbd.wtyh.service.SysAnalyzeService;
-import com.bbd.wtyh.service.WangdaiTaskInfoService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by lixudong on 2017/7/19.
@@ -23,8 +18,6 @@ public class CrowdFundingCompanyTest {
     @Autowired
     private CrowdFundingService crowdFundingService;
 
-    @Autowired
-    private WangdaiTaskInfoService wangdaiTaskInfoService;
 
     @Autowired
     private OfflineFinanceService offlineFinanceService;
@@ -43,11 +36,6 @@ public class CrowdFundingCompanyTest {
         System.out.print(taskResultDO);
     }
 
-    @Test
-    public void wangdaiTaskListTest(){
-        List list = wangdaiTaskInfoService.listByTaskId(21);
-        System.out.print(list);
-    }
 
     @Test
     public void offlineFinanceServiceTest(){
