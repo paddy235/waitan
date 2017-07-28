@@ -31,5 +31,6 @@ public interface RiskCompanyMapper {
 
     void recordOffLine(OffLineModify offLineModify);
 
-    void modifyIndustry(String name);
+    void modifyIndustry(@Param(value = "name")String name,
+                        @Param(value = "industry")String industry);
 }

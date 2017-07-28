@@ -8,9 +8,9 @@
                     value="填写说明：&#x000A;本表格不可填写Excel公式；年份必填，其余字段至少选填一项；"/>
         </rowHeader>
         <columns>
-            <column name="年份" code="year" dataType="number" required="true" bgColor="#FFFF00"/>
-            <column name="投资金额（亿元）" code="investmentAmount" dataType="number" />
-            <column name="披露数量" code="publishNumber" dataType="number" />
+            <column name="年份" code="year" dataType="number" required="true" bgColor="#FFFF00" regex="[1-9]\d{3}" format="0"/>
+            <column name="投资金额（亿元）" code="investmentAmount" dataType="number" regex="^[0-9]+([.][0-9]+){0,1}$"/>
+            <column name="披露数量" code="publishNumber" dataType="number" regex="\d+" format="0" />
         </columns>
 
     </sheet>

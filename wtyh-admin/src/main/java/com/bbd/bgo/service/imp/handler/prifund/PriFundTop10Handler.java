@@ -64,7 +64,7 @@ public class PriFundTop10Handler extends AbstractImportHandler<ProductAmountDO> 
 
     @Override
     public boolean validateRow(Map<String, String> row) throws Exception {
-        //todo 正则：整数或者小数：^[0-9]+([.][0-9]+){0,1}$，只能输入至少一位数字"\\d+"，"+"等价于{1,}
+        // 正则：整数或者小数：^[0-9]+([.][0-9]+){0,1}$，只能输入至少一位数字"\\d+"，"+"等价于{1,}
         boolean rtr =true;
         String companyName =row.get("companyName");
         if( StringUtils.isBlank( companyName ) || companyName.length() <3 ) {
@@ -72,8 +72,8 @@ public class PriFundTop10Handler extends AbstractImportHandler<ProductAmountDO> 
             rtr =false;
         }
         String productNumber =row.get("productNumber");
-        if( StringUtils.isEmpty( productNumber ) || !productNumber.matches("\\d+") ) {
-            addError("产品数量格式错误");
+        if( StringUtils.isBlank( productNumber )  ) {
+            addError("产品数量 格式错误");
             rtr =false;
         }
         return rtr;

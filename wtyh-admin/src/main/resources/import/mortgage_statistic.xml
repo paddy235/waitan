@@ -5,16 +5,16 @@
            importHandler="com.bbd.bgo.service.imp.handler.MortgageStatisticHandler">
         <rowHeader>
             <column mergeFirstRow="1" mergeLastRow="2" mergeFirstCol="1" mergeLastCol="7" align="LEFT"
-                    value="填写说明：&#x000A;本表格不可填写Excel公式；年份必填，其余字段至少选填一项；"/>
+                    value="填写说明：&#x000A;本表格不可填写Excel公式；年份必填，其余字段至少选填一项；本表所有字段仅能填整数。"/>
         </rowHeader>
         <columns>
-            <column name="年份" code="year" dataType="number" required="true" bgColor="#FFFF00"/>
-            <column name="企业数" code="companyNumber" dataType="number" />
-            <column name="典当余额（万元）" code="balance" dataType="number" />
-            <column name="注册资本（万元）" code="registerCapital" dataType="number" />
-            <column name="典当金额（万元）" code="total_amout" dataType="number" />
-            <column name="典当笔数" code="number" dataType="number" />
-            <column name="总费收入（万元）" code="total_income" dataType="number" />
+            <column name="年份" code="year" dataType="number" required="true" bgColor="#FFFF00" regex="[1-9]\d{3}" format="0"/>
+            <column name="企业数" code="companyNumber" dataType="number" regex="\d+" format="0" />
+            <column name="典当余额（万元）" code="balance" dataType="number" regex="\d+" format="0" />
+            <column name="注册资本（万元）" code="registerCapital" dataType="number" regex="\d+" format="0" />
+            <column name="典当金额（万元）" code="totalAmout" dataType="number" regex="\d+" format="0" />
+            <column name="典当笔数" code="number" dataType="number" regex="\d+" format="0" />
+            <column name="总费收入（万元）" code="totalIncome" dataType="number" regex="\d+" format="0" />
         </columns>
 
     </sheet>

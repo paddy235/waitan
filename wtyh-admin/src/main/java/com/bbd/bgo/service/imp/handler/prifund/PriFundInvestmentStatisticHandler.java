@@ -66,27 +66,17 @@ public class PriFundInvestmentStatisticHandler extends AbstractImportHandler<Inv
     @Override
     public boolean validateRow(Map<String, String> row) throws Exception {
         //正则：整数或者小数：^[0-9]+([.][0-9]+){0,1}$，只能输入至少一位数字"\\d+"，"+"等价于{1,}
-
-        String year =row.get("year");
-        if( StringUtils.isBlank( year ) || ! year.matches("\\d+") ) {
-            addError("年份 格式错误");
-            return false;
-        }
         int [] validCntA = {0};
         FunIf1 f1 =(String numName, String  capName)->{
             String lessNumber =row.get(numName);
             if( StringUtils.isNotBlank( lessNumber ) ) {
-                if ( lessNumber.matches("\\d+") ){
-                    validCntA[0]++;
-                } else {
-                    addError(capName +" 格式错误");
-                }
+                validCntA[0]++;
             }
         };
-        f1.fun("investmentAmount", "投资金额（亿元）");
-        f1.fun("publishNumber", "披露数量");
+        f1.fun("investmentAmount", "");
+        f1.fun("publishNumber", "");
         if( validCntA[0] <1 ) {
-            addError("选填参数数量太少");
+            addError("选填参数数量不足");
             return false;
         }
         return true;

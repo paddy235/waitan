@@ -21,7 +21,6 @@ import java.util.Map;
 @Controller
 @RequestMapping("/companyInfoModify")
 public class CompanyInfoModifyController {
-
     @Autowired
     private CompanyInfoModifyService companyInfoModify;
 
