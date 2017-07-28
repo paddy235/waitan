@@ -108,13 +108,13 @@ public class AbstractImporter implements Importer {
 			if (this.importHandler == null) {
 				return;
 			}
-			this.importHandler.start(this.request);
 			// 进度信息
 			this.progressKey = importHandler.getProgressKey(this.request);
 			initProgress();
 			this.progress.setFinish(false);
 			this.progress.initErrorList();
 			this.progress.setProcessed(sheet.getReadStartRow() - 1);
+			this.importHandler.start(this.request);
 
 			Row[] rows = this.sheet.getAllRow();
 
