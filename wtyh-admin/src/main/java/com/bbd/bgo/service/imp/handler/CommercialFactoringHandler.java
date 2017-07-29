@@ -2,11 +2,11 @@ package com.bbd.bgo.service.imp.handler;
 
 import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.core.base.BaseService;
-import com.bbd.wtyh.domain.CompanyBuildingDO;
+import com.bbd.wtyh.domain.CommercialFactoringExtraDO;
 import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.excel.imp.handler.AbstractImportHandler;
 import com.bbd.wtyh.service.CompanyService;
-import com.bbd.wtyh.service.shiro.ParkMgtService;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,15 +26,13 @@ import java.util.Map;
  */
 @Component
 @Scope("prototype") //非单例模式
-public class CommercialFactoringHandler extends AbstractImportHandler<CompanyBuildingDO> {
-    @Autowired
-    private ParkMgtService parkMgtService;
+public class CommercialFactoringHandler extends AbstractImportHandler<CommercialFactoringExtraDO> {
     @Autowired
     private CompanyService companyService;
 
-    private List<CompanyBuildingDO> listCompanyBuinding = null;
+    private List<CommercialFactoringExtraDO> listCommercialFactoring = null;
 
-    private Logger log = LoggerFactory.getLogger(CompanyBuildingHandler.class);
+    private Logger log = LoggerFactory.getLogger(CommercialFactoringHandler.class);
 
     String loginName = "";
 
@@ -52,8 +50,8 @@ public class CommercialFactoringHandler extends AbstractImportHandler<CompanyBui
             loginName ="";
         }
         //Object ob= request.getHeaderNames();
-        log.info("开始检查 楼宇企业列表");
-        listCompanyBuinding = new LinkedList<>();
+        log.info("开始检查 商业保理-企业类型列表");
+        listCommercialFactoring = new LinkedList<>();
     }
 
     @Override
@@ -64,22 +62,8 @@ public class CommercialFactoringHandler extends AbstractImportHandler<CompanyBui
     @Override
     public boolean validateRow(Map<String, String> row) throws Exception {
         String companyName = row.get("companyName");
-        String buildingName = row.get("buildingName");
-        String parkName = row.get("parkName");
 
-        int parkId = parkMgtService.queryParkIdByName(parkName);
-        if(parkId == 0){
-            addError("园区不存在");
-            return false;
-        }
-
-        int buildingId = parkMgtService.queryBuildingIdByName(parkId,buildingName);
-        if(buildingId == 0){
-            addError("楼宇不存在");
-            return false;
-        }
-
-        //既不能存在于company_building中，也不能不存在于company中
+        //企业名称必须存在于company表中
         CompanyDO companyDO = companyService.getCompanyByName(companyName);
         if(null == companyDO){
             addError("企业不存在于企业信息表");
@@ -90,39 +74,53 @@ public class CommercialFactoringHandler extends AbstractImportHandler<CompanyBui
             addError("企业ID不存在于企业信息表");
             return false;
         }
+        row.put("companyId",companyId + "");
 
-        Integer companyBuildingId = parkMgtService.queryCompanyBuildingId(buildingId+"",companyId+"");
-        if(companyBuildingId != null){
-            addError("企业已存在于该楼宇");
+        String companyType = row.get("companyType");
+        if(!StringUtils.isEmpty(companyType)){
+            if(companyType.equals("内资")){
+                row.put("domestic","1");
+                row.put("foreignOwned","0");
+            }else if(companyType.equals("外资")){
+                row.put("domestic","0");
+                row.put("foreignOwned","1");
+            }else if(companyType.equals("内外资")){
+                row.put("domestic","1");
+                row.put("foreignOwned","1");
+            }else {
+                addError("企业类型不存在");
+                return false;
+            }
+        }else{
+            addError("企业类型不可为空");
             return false;
         }
 
-        row.put("buildingId",buildingId + "");
-        row.put("companyId",companyId + "");
+
         return true;
     }
 
     @Override
-    public void endRow(Map<String, String> row, CompanyBuildingDO bean) throws Exception {
+    public void endRow(Map<String, String> row, CommercialFactoringExtraDO bean) throws Exception {
 
         bean.setCreateBy(loginName);
         bean.setCreateDate(sqlDate);
-        listCompanyBuinding.add(bean);
+        listCommercialFactoring.add(bean);
     }
 
     @Override
     public void end() throws Exception {
         if (errorList().isEmpty()) {
-            baseService.insertList(listCompanyBuinding);
-            log.info("导入楼宇企业列表结束");
+            baseService.insertList(listCommercialFactoring);
+            log.info("导入商业保理-企业类型列表结束");
         }else{
-            log.info("导入楼宇企业列表失败，数据有误");
+            log.info("导入商业保理-企业类型列表失败，数据有误");
         }
     }
 
     @Override
     public void exception(Exception e) {
         addError("服务器异常：" + e.getMessage());
-        log.error("导入楼宇企业列表服务器异常！", e);
+        log.error("导入商业保理-企业类型列表服务器异常！", e);
     }
 }
