@@ -25,7 +25,6 @@ public class CompanyImportAssist {
     private Sheet sheet;
     private List< Map.Entry<CompanyDO, BaseDataDO.Results> > insertList =new LinkedList<>();
     private List< Map.Entry<CompanyDO, BaseDataDO.Results> > updateList =new LinkedList<>();
-    private List<CompanyDO> tempList;
     private CompanyService companyService = ApplicationContextUtil.getBean(CompanyServiceImpl.class);
     private HologramQueryService hologramQueryService = ApplicationContextUtil.getBean(HologramQueryService.class);
     private AreaService areaService = ApplicationContextUtil.getBean(AreaService.class);
@@ -33,14 +32,26 @@ public class CompanyImportAssist {
 
     /**
      *
-     * @param tempList 中的CompanyDo 必须包含企业名称，并通过setId(Integer id)设置行号
-     * @param errList 来自AbstractImportHandler的errorList()
+     * @param errList 来自AbstractImportHandler的errorList();
      * @param sheet 来自AbstractImportHandler的getSheet();
      */
-    public CompanyImportAssist(List<CompanyDO> tempList, List<ImportError> errList, Sheet sheet) {
-        this.tempList =tempList;
+    public CompanyImportAssist(List<ImportError> errList, Sheet sheet) {
         this.errList = errList;
         this.sheet = sheet;
+    }
+
+    public List<Map.Entry<CompanyDO, BaseDataDO.Results>> getInsertList() {
+        return insertList;
+    }
+
+    public List<Map.Entry<CompanyDO, BaseDataDO.Results>> getUpdateList() {
+        return updateList;
+    }
+
+    public List< Map.Entry<CompanyDO, BaseDataDO.Results> > getResultList() {
+        List< Map.Entry<CompanyDO, BaseDataDO.Results> > rstList =getUpdateList();
+        rstList.addAll( getInsertList() );
+        return rstList;
     }
 
     private void addError(Integer rowNum, String msg)
@@ -51,7 +62,12 @@ public class CompanyImportAssist {
     }
 
 
-    public void processCp() {
+    /**
+     *
+     * @param tempList 中的CompanyDo 必须包含企业名称，并通过setId(Integer id)设置行号
+     *                 此方法返回时，list表会被清空
+     */
+    public void processCp( List<CompanyDO> tempList ) {
 
         //准备企业名称列表
         List<String> cNameLst =new LinkedList<>();
@@ -111,6 +127,7 @@ public class CompanyImportAssist {
                 }
             }
         }
+        tempList.clear();
     }
 
     //插入或更新、客户导入的、从本地库查询的、来自数据平台

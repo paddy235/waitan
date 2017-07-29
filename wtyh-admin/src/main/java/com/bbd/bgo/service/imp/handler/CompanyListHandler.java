@@ -47,7 +47,7 @@ public class CompanyListHandler extends AbstractImportHandler<CompanyDO> {
             loginName ="";
         }
         tempList = new LinkedList<>();
-        companyImportAssist =new CompanyImportAssist(tempList, errorList(), getSheet() );
+        companyImportAssist =new CompanyImportAssist( errorList(), getSheet() );
         log.info("开始检查企业名单");
     }
 
@@ -97,15 +97,14 @@ public class CompanyListHandler extends AbstractImportHandler<CompanyDO> {
         if( tempList.size() <200 ) {
             return;
         }
-        companyImportAssist.processCp(); //processCp( );
-        tempList.clear(); //tempList =new LinkedList<>(); //列表清零
+        companyImportAssist.processCp(tempList); //processCp( );
     }
 
     @Override
     public void end() throws Exception {
         if ( tempList.size() >0 ) {
             //有企业没有处理完
-            companyImportAssist.processCp(); //processCp( );
+            companyImportAssist.processCp(tempList); //processCp( );
         }
         if( errorList().size() >0 ) {
             addError("用户上传的企业名单中的数据有误，所有数据均不予入库");
