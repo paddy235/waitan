@@ -2415,7 +2415,7 @@
 
 	var debug = function() {};
 	if (true) {
-	  debug = __webpack_require__(19)('sockjs-client:utils:url');
+	  debug = __webpack_require__(19)('sockjs-client:assist:url');
 	}
 
 	module.exports = {
@@ -5633,7 +5633,7 @@
 
 	var debug = function() {};
 	if (true) {
-	  debug = __webpack_require__(19)('sockjs-client:utils:iframe');
+	  debug = __webpack_require__(19)('sockjs-client:assist:iframe');
 	}
 
 	module.exports = {
@@ -7304,7 +7304,7 @@
 
 	var debug = function() {};
 	if (true) {
-	  debug = __webpack_require__(19)('sockjs-client:utils:transport');
+	  debug = __webpack_require__(19)('sockjs-client:assist:transport');
 	}
 
 	module.exports = function(availableTransports) {
@@ -28078,7 +28078,7 @@
 	exports.Lifecycle = _Lifecycle3.default;
 	exports.RouteContext = _RouteContext3.default;
 
-	/* utils */
+	/* assist */
 
 	exports.useRoutes = _useRoutes3.default;
 	exports.RouterContext = _RouterContext3.default;

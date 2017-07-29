@@ -10,7 +10,7 @@
     `registered_capital_type` ,`registered_capital` , `change_type` , `source` ,`closed_type` ,
     `address` ,`create_by` , `create_date`,`update_by` ,`update_date`)
     VALUES (
-    #{id},#{companyId},#{compamyName} ,#{organizationCode} ,#{companyType} ,#{oldCompanyType} ,
+    #{id},#{companyId},#{companyName} ,#{organizationCode} ,#{companyType} ,#{oldCompanyType} ,
     #{areaId},#{areaName},#{registerDate} ,#{adjustDate} ,#{closedDate} ,#{orderDate} ,
     #{registeredCapitalType},#{registeredCapital},#{changeType} ,#{source} ,#{closedType} ,
     #{address},#{createBy},#{createDate} ,#{updateBy} ,#{updateDate});
