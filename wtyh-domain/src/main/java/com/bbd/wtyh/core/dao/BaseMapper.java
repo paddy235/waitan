@@ -1,6 +1,7 @@
-package com.bbd.wtyh.core.mybatis;
+package com.bbd.wtyh.core.dao;
 
 import com.bbd.wtyh.core.entity.Pagination;
+import com.bbd.wtyh.core.mybatis.CRUDTemplate;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
