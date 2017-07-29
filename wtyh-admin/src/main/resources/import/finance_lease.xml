@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <excel key="finance_lease" name="融资租赁-企业列表">
-    <sheet name="Sheet1" startRow="4" entity="com.bbd.wtyh.domain.FinanceLeaseRiskDO"
+    <sheet name="Sheet1" startRow="4" entity="com.bbd.wtyh.domain.vo.FinanceLeasecCompanyVO"
            importHandler="com.bbd.bgo.service.imp.handler.FinanceLeasecHandler">
         <rowHeader>
             <column mergeFirstRow="1" mergeLastRow="2" mergeFirstCol="1" mergeLastCol="6" align="LEFT"

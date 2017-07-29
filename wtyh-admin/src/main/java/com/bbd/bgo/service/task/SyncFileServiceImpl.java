@@ -107,7 +107,7 @@ public class SyncFileServiceImpl extends BaseServiceImpl implements SyncFileServ
 		logger.info("--------- pull data file start,dataVersion:{} ------", dataVersion);
 		String fileName = dataVersion + ".txt";
 		File file = new File(PULL_FILE_SAVE_PATH + fileName);
-		if (file.exists()) {
+		if (file.exists() && file.length() > 0) {
 			logger.info("--------- pull data file end. File from the local ------");
 			return file;
 		}

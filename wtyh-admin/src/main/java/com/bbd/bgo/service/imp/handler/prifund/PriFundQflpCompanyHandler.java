@@ -64,17 +64,17 @@ public class PriFundQflpCompanyHandler  extends AbstractImportHandler<QflpCompan
             rtr = false;
         }
         String total = row.get("total");
-        if (!total.matches("^[0-9]+([.][0-9]+){0,1}$")) {
+        if (StringUtils.isBlank(total) || !total.matches("^[0-9]+([.][0-9]+){0,1}$")) {
             addError("总规模格式错误");
             rtr = false;
         }
         String dollarPart = row.get("dollarPart");
-        if (!dollarPart.matches("^[0-9]+([.][0-9]+){0,1}$")) {
+        if (StringUtils.isBlank(dollarPart) || !dollarPart.matches("^[0-9]+([.][0-9]+){0,1}$")) {
             addError("美元部分格式错误");
             rtr = false;
         }
         String rmbTotal = row.get("rmbTotal");
-        if (!rmbTotal.matches("^[0-9]+([.][0-9]+){0,1}$")) {
+        if (StringUtils.isBlank(rmbTotal) || !rmbTotal.matches("^[0-9]+([.][0-9]+){0,1}$")) {
             addError("投资合计格式错误");
             rtr = false;
         }
@@ -130,6 +130,7 @@ public class PriFundQflpCompanyHandler  extends AbstractImportHandler<QflpCompan
             qflpCompanyDO.setCreateDate(new Date());
             privateFundService.addQflpCompany(qflpCompanyDO);
         }
+        log.info(caption + "导入已完成");
     }
 
     @Override
