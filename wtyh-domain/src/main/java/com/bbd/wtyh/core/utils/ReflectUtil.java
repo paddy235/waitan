@@ -1,6 +1,7 @@
 package com.bbd.wtyh.core.utils;
 
 import com.bbd.wtyh.core.mybatis.MyBatisUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -111,7 +112,8 @@ public class ReflectUtil {
 	}
 
 	/**
-	 *
+	 * 设置字段值
+	 * 
 	 * @param obj
 	 * @param fieldName
 	 * @param fieldValue
@@ -119,7 +121,7 @@ public class ReflectUtil {
 	public static void setFieldValue(Object obj, String fieldName, Object fieldValue) {
 		Field field = ReflectUtil.getField(obj, fieldName);
 		field.setAccessible(true);
-		String methodName = Capitalize("set" + fieldName);
+		String methodName = "set" + StringUtils.capitalize(fieldName);
 		try {
 			Method mt = obj.getClass().getMethod(methodName, field.getType());
 			mt.invoke(obj, fieldValue);
@@ -132,11 +134,5 @@ public class ReflectUtil {
 		} catch (Exception e) {
 			logger.error("", e);
 		}
-	}
-
-	private static String Capitalize(String str) {
-		char[] c = str.toCharArray();
-		c[0] -= 32;
-		return String.valueOf(c);
 	}
 }
