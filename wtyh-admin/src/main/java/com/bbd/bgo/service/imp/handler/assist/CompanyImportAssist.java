@@ -72,7 +72,11 @@ public class CompanyImportAssist {
         //准备企业名称列表
         List<String> cNameLst =new LinkedList<>();
         for (CompanyDO cDo : tempList) {
-            cNameLst.add(cDo.getName());
+            if( StringUtils.isBlank( cDo.getName() ) || cDo.getName().length() <3 ) {
+                addError(cDo.getId(), "企业名称格式错误");
+            } else {
+                cNameLst.add(cDo.getName());
+            }
         }
         //获取批量企业信息
         List<BaseDataDO.Results> bdLst =hologramQueryService.getBbdQyxxAll(cNameLst);
@@ -202,7 +206,7 @@ public class CompanyImportAssist {
             me.getKey().setCreateBy(loginName);
             me.getKey().setCreateDate(new Date());
             companyService.insert( me.getKey() );
-            //大尧说：插入的主键这样取: int companyId = me.getKey().getCompanyId(); todo 不用再去查库了
+            //大尧说：插入的主键这样取: int companyId = me.getKey().getCompanyId();  不用再去查库了
             //todo 以下放天王和其他同事的方法 ：
             //企业状态变化
             companyStatusChangeService.companyStatusChange(true, me.getKey(),me.getValue());

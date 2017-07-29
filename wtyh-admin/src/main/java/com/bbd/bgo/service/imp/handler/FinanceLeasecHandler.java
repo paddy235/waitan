@@ -34,7 +34,7 @@ import com.bbd.wtyh.excel.imp.handler.AbstractImportHandler;
 @Scope("prototype") //非单例模式
 public class FinanceLeasecHandler extends AbstractImportHandler<FinanceLeasecCompanyVO> {
 
-    final static String caption ="典当-典当数据";
+    final static String caption ="融资租赁-企业目录";
 
     private Logger log = LoggerFactory.getLogger(CompanyLevelHandler.class);
 
@@ -193,6 +193,17 @@ public class FinanceLeasecHandler extends AbstractImportHandler<FinanceLeasecCom
                 }
             }
             RiskChgCoDo riskChgCoDo =new RiskChgCoDo();
+            // 区域
+            AreaDO areaDO = this.baseService.selectById(AreaDO.class, riskChgCoDo.getAreaId());
+            if (areaDO != null) {
+                riskChgCoDo.setAreaName(areaDO.getName());
+            }
+            // 楼宇
+            BuildingDO buildingDO = this.baseService.selectById(BuildingDO.class, riskChgCoDo.getCompanyId());
+            if (buildingDO != null) {
+                riskChgCoDo.setBuildingId(buildingDO.getBuildingId());
+                riskChgCoDo.setBuildingName(buildingDO.getName());
+            }
             riskChgCoDo.setCompanyId( locCDo.getCompanyId() );
             riskChgCoDo.setCompanyName( locCDo.getName() );
             riskChgCoDo.setCompanyType(locCDo.getCompanyType().intValue());
