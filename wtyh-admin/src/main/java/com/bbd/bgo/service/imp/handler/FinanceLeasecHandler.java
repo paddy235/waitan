@@ -162,7 +162,7 @@ public class FinanceLeasecHandler extends AbstractImportHandler<FinanceLeasecCom
                         frDo.setUpdateBy(loginName);
                         frDo.setUpdateDate(new Date());
                         baseService.update(frDo);
-                        if ( 1 == sFrDo.getRiskStatus() ) {
+                        if ( null !=sFrDo.getRiskStatus() && 1 == sFrDo.getRiskStatus() ) {
                             isRisk[1] =true;
                         }
                     }
