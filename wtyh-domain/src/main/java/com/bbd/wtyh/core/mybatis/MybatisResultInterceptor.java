@@ -1,6 +1,7 @@
 package com.bbd.wtyh.core.mybatis;
 
 import com.bbd.wtyh.core.utils.ReflectUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.executor.resultset.ResultSetHandler;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.plugin.*;
@@ -31,19 +32,17 @@ public class MybatisResultInterceptor implements Interceptor {
 	public Object intercept(Invocation invocation) throws Throwable {
 		ResultSetHandler resultSetHandler = (ResultSetHandler) invocation.getTarget();
 		MappedStatement mappedStatement = (MappedStatement) ReflectUtil.getFieldValue(resultSetHandler, "mappedStatement");
-		// 方法全限定名
 		if (null == mappedStatement) {
 			return invocation.proceed();
 		}
+		// 方法全限定名
 		String mappedId = mappedStatement.getId();
 
 		if (null == mappedId) {
 			return invocation.proceed();
 		}
-		// 方法简写名称
-		mappedId = mappedId.substring(mappedId.lastIndexOf(".") + 1, mappedId.length());
-		// 不处理未配置的方法
-		if (!Arrays.asList(interceptMethods).contains(mappedId)) {
+		// 判断是否拦截
+		if (!isIntercept(mappedId)) {
 			return invocation.proceed();
 		}
 
@@ -82,9 +81,9 @@ public class MybatisResultInterceptor implements Interceptor {
 					o = rs.getTimestamp(fieldName);
 				} else if (clazz.equals(boolean.class) || clazz.equals(Boolean.class)) {
 					o = rs.getBoolean(fieldName);
-				}  else if (clazz.equals(byte.class) || clazz.equals(Byte.class)) {
+				} else if (clazz.equals(byte.class) || clazz.equals(Byte.class)) {
 					o = rs.getByte(fieldName);
-				}else {
+				} else {
 					o = rs.getObject(fieldName);
 				}
 				ReflectUtil.setFieldValue(obj, f.getName(), o);
@@ -107,5 +106,21 @@ public class MybatisResultInterceptor implements Interceptor {
 	@SuppressWarnings("unused")
 	public void setInterceptMethods(String... interceptMethods) {
 		this.interceptMethods = interceptMethods;
+	}
+
+	private boolean isIntercept(String method) {
+		if (StringUtils.isBlank(method)) {
+			return false;
+		}
+		if (interceptMethods == null || interceptMethods.length == 0) {
+			return true;
+		}
+
+		for (String name : interceptMethods) {
+			if (method.endsWith(name)) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

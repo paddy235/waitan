@@ -135,4 +135,39 @@ public class ReflectUtil {
 			logger.error("", e);
 		}
 	}
+
+	public static Method getMethod(String fullMethodName) throws Exception {
+		if (StringUtils.isBlank(fullMethodName)) {
+			return null;
+		}
+		int lastPointIndex = fullMethodName.lastIndexOf(".");
+		String fullClazz = fullMethodName.substring(0, lastPointIndex);
+		String methodName = fullMethodName.substring(lastPointIndex + 1, fullMethodName.length());
+		return getMethod(fullClazz, methodName);
+	}
+
+	public static Method getMethod(String fullClazz, String methodName) throws Exception {
+		if (StringUtils.isBlank(fullClazz) || StringUtils.isBlank(methodName)) {
+			return null;
+		}
+		Class<?> clazz = Class.forName(fullClazz);
+		return getMethod(clazz, methodName);
+	}
+
+	public static Method getMethod(Class<?> clazz, String methodName) throws Exception {
+		if (clazz == null || StringUtils.isBlank(methodName)) {
+			return null;
+		}
+		try {
+			return clazz.getDeclaredMethod(methodName);
+		} catch (NoSuchMethodException ignored) {
+		}
+		Method[] ms = clazz.getDeclaredMethods();
+		for (Method m : ms) {
+			if (m.getName().equals(methodName)) {
+				return m;
+			}
+		}
+		return null;
+	}
 }
