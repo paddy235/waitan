@@ -21,12 +21,12 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 园区管理-楼宇企业列表
- * Created by zhaodonghjun on 2017/7/26 0026.
+ * 商业保理-企业类型
+ * Created by zhaodongjun on 2017/7/29 0029.
  */
 @Component
 @Scope("prototype") //非单例模式
-public class CompanyBuildingHandler extends AbstractImportHandler<CompanyBuildingDO> {
+public class CommercialFactoringHandler extends AbstractImportHandler<CompanyBuildingDO> {
     @Autowired
     private ParkMgtService parkMgtService;
     @Autowired
