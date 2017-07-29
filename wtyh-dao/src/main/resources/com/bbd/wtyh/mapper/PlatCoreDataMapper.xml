@@ -39,10 +39,10 @@
                 and company.registered_capital >= #{exportCondition.registeredCapitalMin}
             </if>
             <if test="exportCondition.registeredCapitalMax!=null">
-                and #{exportCondition.registeredCapitalMin} >= company.registered_capital
+                and #{exportCondition.registeredCapitalMax} >= company.registered_capital
             </if>
             <if test="exportCondition.registeredDateMin!=null">
-                and company.registered_date >= #{exportCondition.registeredCapitalMin}
+                and company.registered_date >= #{exportCondition.registeredDateMin}
             </if>
             <if test="exportCondition.registeredDateMax!=null">
                 and #{exportCondition.registeredDateMax} >= company.registered_date
@@ -71,10 +71,10 @@
                 and company.registered_capital >= #{exportCondition.registeredCapitalMin}
             </if>
             <if test="exportCondition.registeredCapitalMax!=null">
-                and #{exportCondition.registeredCapitalMin} >= company.registered_capital
+                and #{exportCondition.registeredCapitalMax} >= company.registered_capital
             </if>
             <if test="exportCondition.registeredDateMin!=null">
-                and company.registered_date >= #{exportCondition.registeredCapitalMin}
+                and company.registered_date >= #{exportCondition.registeredDateMin}
             </if>
             <if test="exportCondition.registeredDateMax!=null">
                 and #{exportCondition.registeredDateMax} >= company.registered_date
