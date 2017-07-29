@@ -130,8 +130,7 @@ public interface ParkMgtService{
 
     /**
      * 新增楼宇企业
-     * @param buildingId
-     * @param companyId
+     * @param companyBuildingDO
      */
     void addCompanyBuilding(CompanyBuildingDO companyBuildingDO);
 

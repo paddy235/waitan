@@ -43,6 +43,10 @@ public class ParkMgtController {
     @Autowired
     private CompanyService companyService;
 
+    private String PARK_DIR1 = WtyhHelper.adminImgPath;//开发环境
+    private static final String PARK_DIR = "data/img/park/";
+    private static final String BUILDING_DIR = "data/img/building/";
+
     /**
      * 上海所有行政区
      *
@@ -328,6 +332,9 @@ public class ParkMgtController {
                 } else if (!StringUtils.isEmpty(picType) && picType == 2) {
                     img.setPicParkId(parkId);
                     Integer buildingId = parkMgtService.queryBuildingIdByName(parkId,buildingName);
+                    if(buildingId == null ||buildingId == 0){
+                        return ResponseBean.successResponse("楼宇不存在");
+                    }
                     img.setPicBuildingId(buildingId);
                 }
                 img.setCreateBy(user);
@@ -395,11 +402,6 @@ public class ParkMgtController {
         return ResponseBean.successResponse("OK");
     }
 
-
-
-    private String PARK_DIR1 = WtyhHelper.adminImgPath;//开发环境
-    private static final String PARK_DIR = "data/img/park/";
-    private static final String BUILDING_DIR = "data/img/building/";
     /**
      * 更新图片到执行文件夹
      * @param request
@@ -418,14 +420,14 @@ public class ParkMgtController {
         if(org.apache.commons.lang3.StringUtils.isBlank(PARK_DIR1)){//正式环境
             filePath = request.getSession().getServletContext().getRealPath("/") + File.separator + path + img.getPicName();
         }else{//开发环境
-                filePath += File.separator + folder+ File.separator + img.getPicName();
+            filePath += File.separator + folder+ File.separator + img.getPicName();
         }
 
         File f = new File(filePath);
         FileOutputStream fos = null;
 
         try {
-            //若原图片已经被打开，是否还能直接删除？
+            //若原图片已经被打开，是否还能直接删除？能。。。
             if (f.exists()){
                 f.delete();
             }
