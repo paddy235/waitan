@@ -1,5 +1,6 @@
 package com.bbd.bgo.quartz;
 
+import com.bbd.wtyh.constants.TaskState;
 import com.bbd.wtyh.domain.TaskSuccessFailInfoDO;
 import com.bbd.wtyh.mapper.TaskSuccessFailInfoMapper;
 import com.bbd.wtyh.util.ApplicationContextUtil;
@@ -42,5 +43,16 @@ public class TaskUtil {
 		quartzHandler.taskEnd(taskId,planCount,successCount,failCount,updateBy,reExecute);
 	}
 
+	/**
+	 * 停止任务-更新任务状态
+	 **/
+
+	public static void stopTask(Integer taskId,String taskName,String taskGroup){
+		try {
+			quartzHandler.updateTaskState(taskId,taskName,taskGroup, TaskState.STOP);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 }

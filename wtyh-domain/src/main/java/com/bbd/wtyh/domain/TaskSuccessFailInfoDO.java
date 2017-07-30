@@ -37,9 +37,9 @@ public class TaskSuccessFailInfoDO extends BaseDO {
     private Integer successCount;
 
     private Integer failCount;
-
+    @Column(name = "state")
     private Integer state;
-
+    @Column(name = "re_execute")
     private Integer reExecute;
 
     @Override

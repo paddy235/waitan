@@ -13,7 +13,7 @@ public enum TaskState {
 	EXECUTING(2, "正在执行"),
 	SUCCESS(3, "成功"),
 	ERROR(4, "失败"),
-	PAUSED(5, "暂停中"),
+	STOP(5, "终止"),
 	NONE(9, "");
 
 	private int state;

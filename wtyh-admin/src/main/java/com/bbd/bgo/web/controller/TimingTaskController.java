@@ -133,7 +133,7 @@ public class TimingTaskController {
         List<Map<String, Object>> list = new ArrayList<>();
         setAllElement(list, "code", "name");
         for (TaskState rl : types) {
-            if(rl.state()>4){
+            if(rl.state()>5){
                 continue;
             }
             Map<String, Object> map = new HashMap<>();
@@ -168,5 +168,18 @@ public class TimingTaskController {
         map.put(codeKey, "0");
         map.put(nameKey, "全部");
         list.add(map);
+    }
+
+
+    @RequestMapping("/stopTask")
+    @ResponseBody
+    public ResponseBean stopTask(@RequestParam Integer taskId, @RequestParam String taskKey,
+                                      @RequestParam String taskGroup,@RequestParam String taskName,HttpServletRequest request) {
+
+
+        boolean isStop=false;
+        isStop=timingTaskManager.stopTask(taskId,taskKey,taskGroup);
+
+        return ResponseBean.successResponse(isStop);
     }
 }
