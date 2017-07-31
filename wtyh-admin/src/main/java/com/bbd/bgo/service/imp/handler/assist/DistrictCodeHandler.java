@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import com.bbd.wtyh.core.base.BaseService;
+import com.bbd.wtyh.domain.Area1DO;
 import com.bbd.wtyh.domain.AreaDO;
 import com.bbd.wtyh.domain.DistrictCodeDO;
 import org.apache.commons.lang.StringUtils;
@@ -79,7 +80,25 @@ public class DistrictCodeHandler extends AbstractImportHandler<DistrictCodeDO> {
         if ( endCut >1 ) {
             name = name.substring(0, endCut);
         }
-        baseService.selectAll(AreaDO.class, "");
+        int level =3;
+        if ( 0 ==bean.gettCode() ) {
+            if ( 0 ==bean.getcCode() ) {
+                level =1;
+            } else {
+                level =2;
+            }
+        }
+        String strWhere =" `level` = " +level +" AND `name` LIKE '%" +name +"%' ";
+        Area1DO area=baseService.selectOne(Area1DO.class, "");
+        if ( null !=area ) {
+            Area1DO updateD =new Area1DO();
+            updateD.setAreaId( area.getAreaId() );
+            updateD.setNationDistrictCode( bean.getCode() );
+            baseService.update(updateD);
+            log.info( "城市[]-ndCode[]-->城市[]-areaId[]", bean.getName(), bean.getCode(), area.getName(), area.getAreaId() );
+        } else {
+            log.info( "未匹配到城市[]", bean.getName() );
+        }
     }
 
     @Override
