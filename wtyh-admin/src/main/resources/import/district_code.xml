@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<excel key="company_list" name="国家区县代码-导入">
+    <sheet name="Sheet1" startRow="2" entity="com.bbd.wtyh.domain.CompanyDO"
+           importHandler="com.bbd.bgo.service.imp.handler.CompanyListHandler">
+        <columns>
+            <column name="区代" code="name" dataType="integer" required="true"/>
+            <column name="名称" code="creditCode" dataType="string"/>
+            <column name="注册号" code="organizationCode" dataType="string"/>
+            <column name="行业类别" code="comTypeCN" dataType="string" required="true" bgColor="#FFFF00"/>
+        </columns>
+
+    </sheet>
+</excel>
