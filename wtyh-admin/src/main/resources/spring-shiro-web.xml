@@ -114,6 +114,7 @@
                 /userInfo/updateUserInfo.do = perms[B_HTGLQX]
                 /userInfo/deleteUser.do = perms[B_HTGLQX]
                 /userBehaviorLog/listUserBehaviorLog.do = perms[B_YHRZGL] <!--用户日志管理-->
+                /co-chg-monitor/* = perms[B_QYBHJC]  <!--企业变化监测-->
                 /timingTask/* = perms[B_DSRW]  <!--定时任务-->
                 /import/* = perms[B_YWSJGL]     <!--数据管理-导出-->
                 /credit/* = perms[B_YWSJGL]     <!--数据管理-公信数据导出-->
