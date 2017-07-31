@@ -68,6 +68,8 @@ public class TimingTaskServiceImpl  extends BaseServiceImpl implements TimingTas
             beanCopier.copy(taskInfoDO,taskInfoDTO,null);
             taskInfoDTO.setReExecute(0);
             taskInfoDTO.setState(TaskState.NONSTARTER.state());
+            taskInfoDTO.setStartDate(null);
+            taskInfoDTO.setEndDate(null);
             TaskSuccessFailInfoDO taskDO=taskSuccessFailInfoMapper.getTaskRecentInfo(taskInfoDO.getTaskKey(),taskInfoDO.getTaskGroup());
             if(taskDO!=null) {
                 taskInfoDTO.setId(taskDO.getId());
