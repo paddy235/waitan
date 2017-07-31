@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.usermodel.Font;
@@ -60,18 +61,13 @@ public class ExcelUtil {
 					continue;
 				}
 
-				// Excel批注
-				Comment comment = drawing.createCellComment(anchor);
-				RichTextString notation = factory.createRichTextString(errorInfo.getMsg());
-				comment.setString(notation);
-
 				if (colNum > 0) {
 					Cell cell = row.getCell(colNum - 1);
 					if (cell == null) {
 						cell = row.createCell(colNum - 1);
 					}
 					cell.setCellStyle(redStyle);
-					cell.setCellComment(comment);
+					setCellComment(cell, errorInfo.getMsg(), drawing, anchor, factory);
 				} else {
 					for (int i = 0; i < progress.getMaxCol(); i++) {
 						Cell cell = row.getCell(i);
@@ -79,7 +75,7 @@ public class ExcelUtil {
 							cell = row.createCell(i);
 						}
 						if (i == 0) {
-							cell.setCellComment(comment);
+							setCellComment(cell, errorInfo.getMsg(), drawing, anchor, factory);
 						}
 						cell.setCellStyle(redStyle);
 					}
@@ -95,6 +91,24 @@ public class ExcelUtil {
 			}
 		}
 
+	}
+
+	private static void setCellComment(Cell cell, String msg, Drawing drawing, ClientAnchor anchor, CreationHelper factory) {
+		Comment comment = cell.getCellComment();
+		if (comment == null) {
+			comment = drawing.createCellComment(anchor);
+		}
+
+		RichTextString richTextString = comment.getString();
+		if (richTextString != null) {
+			String tmpMsg = comment.getString().getString();
+			if (StringUtils.isNotBlank(msg)) {
+				msg = tmpMsg + "\n" + msg;
+			}
+		}
+		RichTextString notation = factory.createRichTextString(msg);
+		comment.setString(notation);
+		cell.setCellComment(comment);
 	}
 
 	public static int createSetMergeCell(XSSFSheet xssfSheet, RowHeader rowHeader) {
@@ -194,39 +208,48 @@ public class ExcelUtil {
 		mapLevel22.put("贷款余额", "xiaodai-loan-balance");// 构建二级下拉
 
 		// 私募基金
-		mapLevel1.put("私募基金", new HashMap<String, String>(){{
-			put("私募企业列表", "private_fund_extra");// 构建二级下拉
-			put("股权投资机构管理资本量", "private_fund_capital_amount");// 构建二级下拉
-			put("股权投资市场退出及退出回报情况", "private_fund_investment_return");// 构建二级下拉
-			put("股权投资市场投资金额情况", "private_fund_investment_statistic");// 构建二级下拉
-			put("产品数量前十", "private_fund_top10");// 构建二级下拉
-			put("QDLP试点企业", "private_fund_qdlp_progress");// 构建二级下拉
-			put("QFLP试点企业", "private_fund_qflp_company");// 构建二级下拉
-			put("私募基金分类", "private_fund_type_statistic");// 构建二级下拉
-			put("产品类型数量", "private_fund_product_type_statistic");// 构建二级下拉
-		}});// 构建一级下拉
+		mapLevel1.put("私募基金", new HashMap<String, String>() {
+
+			{
+				put("私募企业列表", "private_fund_extra");// 构建二级下拉
+				put("股权投资机构管理资本量", "private_fund_capital_amount");// 构建二级下拉
+				put("股权投资市场退出及退出回报情况", "private_fund_investment_return");// 构建二级下拉
+				put("股权投资市场投资金额情况", "private_fund_investment_statistic");// 构建二级下拉
+				put("产品数量前十", "private_fund_top10");// 构建二级下拉
+				put("QDLP试点企业", "private_fund_qdlp_progress");// 构建二级下拉
+				put("QFLP试点企业", "private_fund_qflp_company");// 构建二级下拉
+				put("私募基金分类", "private_fund_type_statistic");// 构建二级下拉
+				put("产品类型数量", "private_fund_product_type_statistic");// 构建二级下拉
+			}
+		});// 构建一级下拉
 
 		Map<String, String> mapLevel24 = new HashMap<>();
 		mapLevel1.put(" 融资担保", mapLevel24);// 构建一级下拉
 		mapLevel24.put("融资担保-大额被担保人信息列表", "guaranteed_info");// 构建二级下拉
 		mapLevel24.put("融资担保-担保责任余额信息列表", "guarantee_balance");// 构建二级下拉
 
-		//典当
-		mapLevel1.put( "典当", new HashMap<String, String>(){{
-			put("典当数据", "mortgage_statistic"); //构建二级下拉
-		}} ); //构建一级下拉
+		// 典当
+		mapLevel1.put("典当", new HashMap<String, String>() {
 
-		//融资租赁
-		mapLevel1.put( "融资租赁", new HashMap<String, String>(){{
-			put("企业列表", "finance_lease"); // 构建二级下拉
-		}} ); //构建一级下拉
+			{
+				put("典当数据", "mortgage_statistic"); // 构建二级下拉
+			}
+		}); // 构建一级下拉
 
-		//商业保理
+		// 融资租赁
+		mapLevel1.put("融资租赁", new HashMap<String, String>() {
+
+			{
+				put("企业列表", "finance_lease"); // 构建二级下拉
+			}
+		}); // 构建一级下拉
+
+		// 商业保理
 		Map<String, String> mapLevel26 = new HashMap<>();
 		mapLevel1.put("商业保理", mapLevel26);// 构建一级下拉
 		mapLevel26.put("企业类型", "commercial-factoring");// 构建二级下拉
 
-		//预付卡
+		// 预付卡
 		Map<String, String> mapLevel27 = new HashMap<>();
 		mapLevel1.put("预付卡", mapLevel27);// 构建一级下拉
 		mapLevel27.put("企业列表", "prepay-company-list");// 构建二级下拉

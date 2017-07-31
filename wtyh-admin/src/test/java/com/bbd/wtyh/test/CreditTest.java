@@ -13,6 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.List;
 
 /**
@@ -44,8 +49,27 @@ public class CreditTest {
 
 	@Test
 	public void getCreditInfoTest() {
-		List<CreditInfoDTO> list=coCreditScoreService.getCreditInfo("中阜投融资产管理股份有限公司","3");
+		List<CreditInfoDTO> list = coCreditScoreService.getCreditInfo("中阜投融资产管理股份有限公司", "3");
 		System.err.println(JSON.toJSONString(list, SerializerFeature.PrettyFormat, SerializerFeature.DisableCircularReferenceDetect));
+
+	}
+
+	@Autowired
+	private DataSource dataSource;
+
+	@Test
+	public void test() throws Exception {
+		String sql = "insert into test1(name) values (?)";
+		Connection conn = dataSource.getConnection();
+		PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+		statement.setObject(1, "成都4");
+		statement.execute();
+		System.out.println(statement.getUpdateCount());
+		ResultSet resultSet = statement.getGeneratedKeys();
+		while (resultSet.next()) {
+			System.out.println(resultSet.getObject(1));
+			System.out.println(resultSet.getObject(2));
+		}
 
 	}
 }
