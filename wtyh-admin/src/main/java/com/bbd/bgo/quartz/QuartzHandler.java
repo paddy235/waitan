@@ -14,6 +14,7 @@ import org.quartz.impl.triggers.CronTriggerImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import org.springframework.stereotype.Component;
 
@@ -40,6 +41,60 @@ public class QuartzHandler extends BaseServiceImpl {
 
 	private static final String SEPARATOR = "@_@";
 	private final Map<String, TaskInfoDO> TASK_MAP = new ConcurrentHashMap<>();
+
+	@Scheduled(cron = "0 0/5 * * * ?")
+	public void reLoadJob(){
+		Map<String, TaskInfoDO> taskMapCopy=new HashMap<>(TASK_MAP);
+		List<TaskInfoDO> taskList = this.selectAll(TaskInfoDO.class, "");
+
+		//有任务的时间被修改
+		taskList.forEach(taskInfo -> {
+
+			String key=taskInfo.getTaskKey() + SEPARATOR + taskInfo.getTaskGroup();
+			taskMapCopy.remove(key);
+			TaskInfoDO oldDO=TASK_MAP.get(key);
+			if(null==oldDO){
+				addJob(taskInfo);
+			}else {
+				String newCron=taskInfo.getCron();
+				if(!StringUtils.isEmpty(newCron)){
+					if(!oldDO.getCron().trim().equals(taskInfo.getCron().trim())){
+						modifyJobTime(taskInfo.getTaskKey(),taskInfo.getTaskGroup(), newCron);
+					}
+				}
+
+			}
+		});
+
+		//有任务被移除
+		for (TaskInfoDO taskInfoDO : taskMapCopy.values()) {
+			try {
+				deleteJob(taskInfoDO.getTaskKey(),taskInfoDO.getTaskGroup());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+	}
+
+	public void modifyJobTime(String triggerName,String triggerGroupName, String time) {
+		try {
+			Scheduler sched = schedulerFactory.getScheduler();
+			CronTriggerImpl trigger = (CronTriggerImpl) sched.getTrigger(TriggerKey.triggerKey(triggerName,triggerGroupName));
+			if (trigger == null) {
+				return;
+			}
+			String oldTime = trigger.getCronExpression();
+			if (!oldTime.equalsIgnoreCase(time)) {
+				// 修改时间
+				trigger.setCronExpression(time);
+				// 重启触发器
+				sched.rescheduleJob(trigger.getKey(),trigger);
+			}
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
 
 	public void init() {
 
@@ -157,7 +212,6 @@ public class QuartzHandler extends BaseServiceImpl {
 		JobKey jobKey = JobKey.jobKey(key, group);
 		// scheduler.interrupt(jobKey)
 		scheduler.deleteJob(jobKey);
-		this.executeCUD("DELETE FROM timing_task_info WHERE task_key = ? AND task_group = ?", key, group);
 	}
 
 	public Integer taskStart(String taskName,String taskGroup,String dataVersion,Integer runMode,Integer planCount,String createBy ) {
