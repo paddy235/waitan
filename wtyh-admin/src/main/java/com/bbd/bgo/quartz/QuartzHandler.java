@@ -69,6 +69,8 @@ public class QuartzHandler extends BaseServiceImpl {
 		//有任务被移除
 		for (TaskInfoDO taskInfoDO : taskMapCopy.values()) {
 			try {
+                String key=taskInfoDO.getTaskKey() + SEPARATOR + taskInfoDO.getTaskGroup();
+                TASK_MAP.remove(key);
 				deleteJob(taskInfoDO.getTaskKey(),taskInfoDO.getTaskGroup());
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -116,7 +118,7 @@ public class QuartzHandler extends BaseServiceImpl {
 
 	public TaskInfoDO getTaskInfo(String key, String group) {
 		String mapKey = key + SEPARATOR + group;
-		String where = "key = '" + key + "' AND group = '" + group + "'";
+		String where = "task_key = '" + key + "' AND task_group = '" + group + "'";
 		return TASK_MAP.computeIfAbsent(mapKey, (String k) -> this.selectOne(TaskInfoDO.class, where));
 	}
 
@@ -231,12 +233,12 @@ public class QuartzHandler extends BaseServiceImpl {
 		this.taskDetailMapper.addTaskSuccessFailInfo(taskDetail);//任务历史表-取得任务ID
 
 		TaskInfoDO taskInfo = this.getTaskInfo(taskName, taskGroup);
-		taskInfo.setStartDate(taskDetail.getBeginDate());
-		taskInfo.setEndDate(null);
-		taskInfo.setState(TaskState.EXECUTING.state());
-		this.update(taskInfo,false,true);
-		//this.executeCUD("UPDATE timing_task_info SET start_date=?,end_date=?,state=? WHERE id=?", DateFormatUtils.format(taskDetail.getBeginDate(),"yyyy-MM-dd HH:mm:ss"),null,TaskState.EXECUTING.state(),taskInfo.getId());
-
+        if(null!=taskInfo){
+            taskInfo.setStartDate(taskDetail.getBeginDate());
+            taskInfo.setEndDate(null);
+            taskInfo.setState(TaskState.EXECUTING.state());
+            this.update(taskInfo,false,true);
+        }
 		return taskDetail.getId();
 	}
 
@@ -266,9 +268,11 @@ public class QuartzHandler extends BaseServiceImpl {
 		taskDetailMapper.updateTaskSuccessFailInfo(taskDetail);
 
 		TaskInfoDO taskInfo = this.getTaskInfo(taskDetail.getTaskName(), taskDetail.getTaskGroup());
-		taskInfo.setEndDate(taskDetail.getEndDate());
-        taskInfo.setState(taskDetail.getState());
-		this.update(taskInfo);
+        if(null!=taskInfo) {
+            taskInfo.setEndDate(taskDetail.getEndDate());
+            taskInfo.setState(taskDetail.getState());
+            this.update(taskInfo);
+        }
 	}
 
 	public void updateTaskEndDate(String key, String group) {
@@ -283,7 +287,7 @@ public class QuartzHandler extends BaseServiceImpl {
 		taskDetail.setState(taskState.state());
 		this.update(taskDetail);
 
-		TaskInfoDO taskInfo = this.getTaskInfo(taskDetail.getTaskName(), taskDetail.getTaskGroup());
+		TaskInfoDO taskInfo = this.getTaskInfo(key, group);
 		taskInfo.setState(taskDetail.getState());
 		this.update(taskInfo);
 	}
