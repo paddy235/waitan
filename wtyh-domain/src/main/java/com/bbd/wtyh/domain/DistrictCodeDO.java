@@ -3,51 +3,60 @@ package com.bbd.wtyh.domain;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 
-@Table(name = "finance_lease_risk")
-public class DistrictCodeDO extends BaseDO {
-    @Id
-    @Column(name = "id")
-    Integer mkId;
+//@Table(name = "finance_lease_risk")
+public class DistrictCodeDO  implements Serializable {
+    //@Id
+    //@Column(name = "id")
+    //区县代码
+    private Integer code;
+    //区县名称
+    private String name;
+    //省代码
+    private Integer pCode;
+    //市代码
+    private Integer cCode;
+    //县代码
+    private Integer tCode;
 
-    @Column(name = "company_id")
-    private Integer companyId;
-
-    @Column(name = "risk_type")
-    private Integer riskType;
-
-    @Column(name = "risk_status")
-    private Integer riskStatus;
-
-    public Integer getMkId() {
-        return mkId;
+    public Integer getCode() {
+        return code;
     }
 
-    public void setMkId(Integer mkId) {
-        this.mkId = mkId;
+    public void setCode(Integer code) {
+        this.code = code;
     }
 
-    public Integer getCompanyId() {
-        return companyId;
+    public String getName() {
+        return name;
     }
 
-    public void setCompanyId(Integer companyId) {
-        this.companyId = companyId;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Integer getRiskType() {
-        return riskType;
+    public Integer getpCode() {
+        return pCode;
     }
 
-    public void setRiskType(Integer riskType) {
-        this.riskType = riskType;
+    public void setpCode(Integer pCode) {
+        this.pCode = pCode;
     }
 
-    public Integer getRiskStatus() {
-        return riskStatus;
+    public Integer getcCode() {
+        return cCode;
     }
 
-    public void setRiskStatus(Integer riskStatus) {
-        this.riskStatus = riskStatus;
+    public void setcCode(Integer cCode) {
+        this.cCode = cCode;
+    }
+
+    public Integer gettCode() {
+        return tCode;
+    }
+
+    public void settCode(Integer tCode) {
+        this.tCode = tCode;
     }
 }
