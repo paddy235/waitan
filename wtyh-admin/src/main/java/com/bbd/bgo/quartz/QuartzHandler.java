@@ -196,12 +196,18 @@ public class QuartzHandler extends BaseServiceImpl {
 		if(updateBy==null){
 			taskDetail.setUpdateBy("system");
 		}
-        if(failCount!=null && failCount>0) {
-            taskDetail.setState(TaskState.ERROR.state());
-            taskDetail.setReExecute(reExecute);
-        }else {
-            taskDetail.setState(TaskState.SUCCESS.state());
-        }
+
+		//被认为停止，不再更新状态
+		if(TaskState.STOP.state()!=taskDetail.getState()){
+
+			if(failCount!=null && failCount>0) {
+				taskDetail.setState(TaskState.ERROR.state());
+				taskDetail.setReExecute(reExecute);
+			}else {
+				taskDetail.setState(TaskState.SUCCESS.state());
+			}
+		}
+
 
 		taskDetailMapper.updateTaskSuccessFailInfo(taskDetail);
 
@@ -217,14 +223,15 @@ public class QuartzHandler extends BaseServiceImpl {
 		this.update(taskInfo);
 	}
 
-	public void updateTaskState(String key, String group, TaskState taskState) throws Exception {
-		if (taskState == null) {
-			taskState = getTaskState(key, group);
-		}
+	public void updateTaskState(Integer taskId, String key, String group, TaskState taskState) throws Exception {
+		TaskSuccessFailInfoDO taskDetail=new TaskSuccessFailInfoDO();
+		taskDetail.setId(taskId);
+		taskDetail.setState(taskState.state());
+		this.update(taskDetail);
 
-		TaskInfoDO taskInfo = this.getTaskInfo(key, group);
-		taskInfo.setState(taskState.state());
-		this.updateJob(taskInfo);
+		TaskInfoDO taskInfo = this.getTaskInfo(taskDetail.getTaskName(), taskDetail.getTaskGroup());
+		taskInfo.setState(taskDetail.getState());
+		this.update(taskInfo);
 	}
 
 	public void businessStart(String key, String group, TaskState taskState) throws Exception {

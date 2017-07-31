@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<excel key="commercial-factoring" name="商业保理-企业类型-导入模板">
+    <sheet name="Sheet1" startRow="2" entity="com.bbd.wtyh.domain.CommercialFactoringExtraDO"
+           importHandler="com.bbd.bgo.service.imp.handler.CommercialFactoringHandler">
+
+        <columns>
+            <column name="企业名称" code="companyName" dataType="string" required="true" />
+            <column name="企业类型（内资/外资/中外合资)" code="companyType" dataType="string" required="true" />
+        </columns>
+
+    </sheet>
+</excel>

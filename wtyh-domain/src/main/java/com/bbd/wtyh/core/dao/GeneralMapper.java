@@ -1,6 +1,5 @@
 package com.bbd.wtyh.core.dao;
 
-import com.bbd.wtyh.core.mybatis.BaseMapper;
 import org.springframework.stereotype.Repository;
 
 /**

@@ -173,7 +173,10 @@ public class UserLogRecord {
 	}
 
 	public static String getRemoteAddress(HttpServletRequest request) {
-		String ip = request.getHeader("x-forwarded-for");
+		String ip = request.getHeader("X-Real-IP");//BBD运维自定义存放真是IP的变量
+		if (StringUtils.isBlank(ip) || ip.equalsIgnoreCase("unknown")) {
+			ip = request.getHeader("x-forwarded-for");
+		}
 		if (StringUtils.isBlank(ip) || ip.equalsIgnoreCase("unknown")) {
 			ip = request.getHeader("Proxy-Client-IP");
 		}

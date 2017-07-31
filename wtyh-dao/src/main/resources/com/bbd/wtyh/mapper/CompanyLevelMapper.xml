@@ -75,7 +75,38 @@
             AND company.`name` = #{name}
     </select>
 
-    <select id="getLoan" parameterType="com.bbd.wtyh.web.EasyExportExcel.ExportCondition" resultType="com.bbd.wtyh.domain.EasyExport.LoanData">
+    <select id="countLoan" resultType="long">
+        SELECT
+          COUNT(1)
+        FROM
+            company_level,
+            company
+        WHERE
+            company_level.company_id = company.company_id
+            <if test="exportCondition.industry!=null">
+                and company.company_type = #{exportCondition.industry}
+            </if>
+            <if test="exportCondition.currentLevel!=null">
+                and company.risk_level = #{exportCondition.currentLevel}
+            </if>
+            <if test="exportCondition.registeredCapitalMin!=null">
+                and company.registered_capital >= #{exportCondition.registeredCapitalMin}
+            </if>
+            <if test="exportCondition.registeredCapitalMax!=null">
+                and #{exportCondition.registeredCapitalMax} >= company.registered_capital
+            </if>
+            <if test="exportCondition.registeredDateMin!=null">
+                and company.registered_date >= #{exportCondition.registeredDateMin}
+            </if>
+            <if test="exportCondition.registeredDateMax!=null">
+                and #{exportCondition.registeredDateMax} >= company.registered_date
+            </if>
+            <if test="exportCondition.areaId!=null">
+                and company.area_id = #{exportCondition.areaId}
+            </if>
+    </select>
+
+    <select id="getLoan" resultType="com.bbd.wtyh.domain.EasyExport.LoanData">
         SELECT
             company.`name` AS `name`,
             company.company_type AS industry,
@@ -92,27 +123,28 @@
             company
         WHERE
             company_level.company_id = company.company_id
-            <if test="industry!=null">
-                and company.company_type = #{industry}
+            <if test="exportCondition.industry!=null">
+                and company.company_type = #{exportCondition.industry}
             </if>
-            <if test="currentLevel!=null">
-                and company.risk_level = #{currentLevel}
+            <if test="exportCondition.currentLevel!=null">
+                and company.risk_level = #{exportCondition.currentLevel}
             </if>
-            <if test="registeredCapitalMin!=null">
-                and company.registered_capital >= #{registeredCapitalMin}
+            <if test="exportCondition.registeredCapitalMin!=null">
+                and company.registered_capital >= #{exportCondition.registeredCapitalMin}
             </if>
-            <if test="registeredCapitalMax!=null">
-                and #{registeredCapitalMin} >= company.registered_capital
+            <if test="exportCondition.registeredCapitalMax!=null">
+                and #{exportCondition.registeredCapitalMax} >= company.registered_capital
             </if>
-            <if test="registeredDateMin!=null">
-                and company.registered_date >= #{registeredCapitalMin}
+            <if test="exportCondition.registeredDateMin!=null">
+                and company.registered_date >= #{exportCondition.registeredDateMin}
             </if>
-            <if test="registeredDateMax!=null">
-                and #{registeredDateMax} >= company.registered_date
+            <if test="exportCondition.registeredDateMax!=null">
+                and #{exportCondition.registeredDateMax} >= company.registered_date
             </if>
-            <if test="areaId!=null">
-                and company.areaId = #{areaId}
+            <if test="exportCondition.areaId!=null">
+                and company.area_id = #{exportCondition.areaId}
             </if>
+        LIMIT #{pagination.offset}, #{pagination.pageSize}
     </select>
 
     <insert id="recordLoad" parameterType="com.bbd.wtyh.domain.CompanyInfoModify.LoanModify">

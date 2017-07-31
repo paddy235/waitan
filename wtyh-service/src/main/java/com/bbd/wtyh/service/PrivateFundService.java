@@ -4,6 +4,7 @@ import com.bbd.wtyh.domain.*;
 import com.bbd.wtyh.domain.EasyExport.PrivateOfferedFundData;
 import com.bbd.wtyh.domain.dto.PrivateFundCompanyDTO;
 import com.bbd.wtyh.web.EasyExportExcel.ExportCondition;
+import com.bbd.wtyh.web.PageBean;
 
 import java.util.List;
 
@@ -43,7 +44,7 @@ public interface PrivateFundService {
 
     List<PrivateFundCompanyDTO> privateFundExtraList(Integer orderByField, String descAsc, Integer recordStatus);
 
-    List<PrivateOfferedFundData> getPrivateOfferedFund(ExportCondition exportCondition);
+    List<PrivateOfferedFundData> getPrivateOfferedFund(ExportCondition exportCondition, PageBean pagination);
 
     void updateQflpCompany(QflpCompanyDO qflpCompanyDO);
 

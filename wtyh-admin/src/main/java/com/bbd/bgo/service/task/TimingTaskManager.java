@@ -124,7 +124,7 @@ public class TimingTaskManager {
 			Integer runMode = 0;// 运行方式：0 自动执行， 1 手动执行
 			taskId = TaskUtil.taskStart(TaskUtil.offlineFinanceJob[0], TaskUtil.offlineFinanceJob[1], null, runMode, null, null);
 			// 需要传 taskId 给业务接口
-			syncFileService.pullFile(taskId);
+			taskResultDO = syncFileService.pullFile(taskId);
 		} catch (Exception e) {
 			logger.error("pullDataFileFromBBDTask" + e);
 		} finally {
@@ -287,7 +287,7 @@ public class TimingTaskManager {
 				// BBD数据落地-线下理财
 				newTaskId = TaskUtil.taskStart(TaskUtil.offlineFinanceJob[0], TaskUtil.offlineFinanceJob[1], null, runMode, null, null);
 				// 需要传 taskId 给业务接口
-				syncFileService.rePullFile(oldTaskId, newTaskId);
+				taskResultDO = syncFileService.rePullFile(oldTaskId, newTaskId);
 			} catch (Exception e) {
 				logger.error("reExecuteTask-offlineFinanceJob" + e);
 			} finally {
@@ -409,6 +409,18 @@ public class TimingTaskManager {
 
 		}
 		return list;
+	}
+
+	public boolean stopTask(Integer taskId, String taskKey, String taskGroup){
+		boolean isStop=false;
+		if (TaskUtil.shangHaiCreditJob[0].equals(taskKey)) {
+			// 公信数据落地
+			coCreditScoreService.colseScoreCalculate();
+			TaskUtil.stopTask(taskId,taskKey,taskGroup);
+
+			isStop=true;
+		}
+		return  isStop;
 	}
 
 }
