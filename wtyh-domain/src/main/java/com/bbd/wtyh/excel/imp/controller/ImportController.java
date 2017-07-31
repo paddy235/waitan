@@ -288,7 +288,7 @@ public class ImportController {
 		if (StringUtils.isNotBlank(impState)) {
 			state = ImpRecord.getRecord(Integer.parseInt(impState)).desc();
 		}
-		String conditions = ",搜索条件[%s%s%s,状态:%s]";
+		String conditions = ",搜索条件[%s%s%s状态:%s]";
 		logMsg += String.format(conditions, tmpFileName, tmpStartDate, tmpEndDate, state);
 		UserLogRecord.record(logMsg, Operation.Type.query, p, Operation.System.back, request);
 		return ResponseBean.successResponse(ImpRecordUtil.recordList(loginName, fileName, startDate, endDate, impState, impType));
