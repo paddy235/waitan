@@ -36,8 +36,6 @@
             <mvc:exclude-mapping path="/login.do"/>
             <mvc:exclude-mapping path="/syncData/*"/>
             <mvc:exclude-mapping path="/adminLogInfo/*"/>
-            <mvc:exclude-mapping path="/credit/*"/>
-            <mvc:exclude-mapping path="/import/*"/>
             <ref bean="loginInterceptor"/>
         </mvc:interceptor>
 
