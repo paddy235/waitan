@@ -77,12 +77,10 @@ public class CompanyImportAssist {
         for (CompanyDO cDo : tempList) {
             if( StringUtils.isBlank( cDo.getName() ) || cDo.getName().length() <3 || cDo.getName().length() >39) {
                 addError(cDo.getId(), "企业名称格式错误");
+            } else if( cDo.getCompanyType() <0 ) {
+                addError(cDo.getId(), "行业类别填写错误");
             } else {
                 cNameLst.add(cDo.getName());
-            }
-            if( cDo.getCompanyType() <0 ) {
-                addError(cDo.getId(), "指定的 行业类别 有误");
-                return;
             }
         }
         //获取批量企业信息
