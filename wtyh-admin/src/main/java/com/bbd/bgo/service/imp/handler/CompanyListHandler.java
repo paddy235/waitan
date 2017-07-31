@@ -58,11 +58,11 @@ public class CompanyListHandler extends AbstractImportHandler<CompanyDO> {
 
     @Override
     public boolean validateRow(Map<String, String> row) throws Exception {
-        String companyName =row.get("name");
+/*        String companyName =row.get("name");
         if( StringUtils.isBlank( companyName ) || companyName.length() <3 ) {
             addError("企业名称格式错误");
             return false;
-        }
+        }*/
         int validCnt =0;
         String creditCode =row.get("creditCode");
         if( StringUtils.isNotBlank( creditCode ) ) {
@@ -87,10 +87,10 @@ public class CompanyListHandler extends AbstractImportHandler<CompanyDO> {
     @Override
     public void endRow(Map<String, String> row, CompanyDO bean) throws Exception {
         byte cpTypeCode =CompanyDO.companyType( bean.getComTypeCnItself() );
-        if( cpTypeCode <0 ) {
-            addError("用指定的 行业类别 有误");
+        /*if( cpTypeCode <0 ) {
+            addError("指定的 行业类别 有误");
             return;
-        }
+        }*/
         bean.setCompanyType( cpTypeCode );
         bean.setId(getRowNumber()); //将行号存下
         tempList.add(bean);

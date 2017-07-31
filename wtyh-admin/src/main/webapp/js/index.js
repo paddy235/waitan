@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "b1f8e33f08a2db74b590"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "9dc20e9d082465dbf1bf"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -2415,7 +2415,7 @@
 
 	var debug = function() {};
 	if (true) {
-	  debug = __webpack_require__(19)('sockjs-client:assist:url');
+	  debug = __webpack_require__(19)('sockjs-client:utils:url');
 	}
 
 	module.exports = {
@@ -5633,7 +5633,7 @@
 
 	var debug = function() {};
 	if (true) {
-	  debug = __webpack_require__(19)('sockjs-client:assist:iframe');
+	  debug = __webpack_require__(19)('sockjs-client:utils:iframe');
 	}
 
 	module.exports = {
@@ -7304,7 +7304,7 @@
 
 	var debug = function() {};
 	if (true) {
-	  debug = __webpack_require__(19)('sockjs-client:assist:transport');
+	  debug = __webpack_require__(19)('sockjs-client:utils:transport');
 	}
 
 	module.exports = function(availableTransports) {
@@ -8060,7 +8060,7 @@
 
 	var _Root2 = _interopRequireDefault(_Root);
 
-	var _configureStore = __webpack_require__(812);
+	var _configureStore = __webpack_require__(817);
 
 	var _configureStore2 = _interopRequireDefault(_configureStore);
 
@@ -28078,7 +28078,7 @@
 	exports.Lifecycle = _Lifecycle3.default;
 	exports.RouteContext = _RouteContext3.default;
 
-	/* assist */
+	/* utils */
 
 	exports.useRoutes = _useRoutes3.default;
 	exports.RouterContext = _RouterContext3.default;
@@ -48760,29 +48760,10 @@
 
 	    imgType: ['jpg', 'png', 'bmp', 'jpeg'],
 	    fileType: ['xlsx', 'xls', 'xlsm', 'xltx', 'xltm', 'xlsb', 'xlam'],
-	    buildDateParam: function (_buildDateParam) {
-	        function buildDateParam(_x) {
-	            return _buildDateParam.apply(this, arguments);
-	        }
-
-	        buildDateParam.toString = function () {
-	            return _buildDateParam.toString();
-	        };
-
-	        return buildDateParam;
-	    }(function (pickerArray) {
+	    buildDateParam: function buildDateParam(pickerArray) {
 	        var now = new Date();
-	        var arr = [];
-	        var length = pickerArray.length;
-	        if (length < 0) {
-	            arr = buildDateParam([now.getFullYear(), now.getMonth() + 1]);
-	        } else if (length === 3) {
-	            arr = [pickerArray[0], pickerArray[1] < 10 ? '0' + pickerArray[1] : pickerArray[1], pickerArray[2] < 10 ? '0' + pickerArray[2] : pickerArray[2]].join('-');
-	        } else if (length === 2) {
-	            arr = [pickerArray[0], pickerArray[1] < 10 ? '0' + pickerArray[1] : pickerArray[1]].join('-');
-	        }
-	        return arr;
-	    })
+	        return pickerArray ? [pickerArray[0], pickerArray[1] < 10 ? '0' + pickerArray[1] : pickerArray[1], pickerArray[2] < 10 ? '0' + pickerArray[2] : pickerArray[2]].join('-') : this.buildDateParam([now.getFullYear(), now.getMonth() + 1]);
+	    }
 	};
 
 	exports.default = util;
@@ -48940,7 +48921,7 @@
 	        path: 'taskDetails',
 	        bread: '定时任务详情',
 	        white: 'B_HTGLQX',
-	        component: __webpack_require__(767).default
+	        component: __webpack_require__(770).default
 	    }, {
 	        redirect: {
 	            from: 'companyLeadin',
@@ -48996,23 +48977,27 @@
 	        }, {
 	            path: 'parkDetail',
 	            bread: '园区详情',
-	            component: __webpack_require__(788).default
+	            component: __webpack_require__(791).default
 	        }, {
 	            path: 'buildingDetail',
 	            bread: '园区详情',
-	            component: __webpack_require__(796).default
+	            component: __webpack_require__(799).default
 	        }, {
 	            path: 'newBuilding',
 	            bread: '新增楼宇',
-	            component: __webpack_require__(801).default
+	            component: __webpack_require__(804).default
 	        }, {
 	            path: 'newPark',
 	            bread: '新增园区',
-	            component: __webpack_require__(802).default
+	            component: __webpack_require__(805).default
 	        }, {
 	            path: 'leadin',
 	            bread: '导入企业',
-	            component: __webpack_require__(803).default
+	            component: __webpack_require__(806).default
+	        }, {
+	            path: 'recordList',
+	            bread: '导入企业',
+	            component: __webpack_require__(808).default
 	        }]
 
 	    }, {
@@ -49028,27 +49013,27 @@
 	        subRoutes: [{
 	            path: 'index',
 	            bread: '批量导入记录',
-	            component: __webpack_require__(805).default
+	            component: __webpack_require__(809).default
 	        }, {
 	            path: 'uploadList',
 	            bread: '上传名单',
-	            component: __webpack_require__(805).default
+	            component: __webpack_require__(809).default
 	        }]
 	    }, {
 	        path: 'naturalSearch',
 	        bread: '自然人检索',
 	        white: 'B_HTGLQX',
-	        component: __webpack_require__(806).default
+	        component: __webpack_require__(810).default
 	    }, {
 	        path: 'companyChange',
 	        bread: '企业信息变更',
 	        white: 'B_HTGLQX',
-	        component: __webpack_require__(810).default
+	        component: __webpack_require__(814).default
 	    }, {
 	        path: 'export',
 	        bread: '快捷导出',
 	        white: 'B_HTGLQX',
-	        component: __webpack_require__(811).default
+	        component: __webpack_require__(816).default
 	    }]
 	};
 
@@ -49852,7 +49837,7 @@
 	                    function () {
 	                        return _react2.default.createElement(
 	                            'li',
-	                            { key: '3', className: 'bbdMenu_submenu noChild' },
+	                            { key: '2', className: 'bbdMenu_submenu noChild' },
 	                            _react2.default.createElement(
 	                                _reactRouter.Link,
 	                                { to: '/logAudit', className: 'bbdMenu_submenuTitle', activeClassName: 'active' },
@@ -49872,11 +49857,11 @@
 	                ),
 	                _react2.default.createElement(
 	                    _Right2.default,
-	                    { white: 'B_YHRZGL' },
+	                    { white: 'B_DSRW' },
 	                    function () {
 	                        return _react2.default.createElement(
 	                            'li',
-	                            { key: '4', className: 'bbdMenu_submenu noChild' },
+	                            { key: '3', className: 'bbdMenu_submenu noChild' },
 	                            _react2.default.createElement(
 	                                _reactRouter.Link,
 	                                { to: '/taskWatch', className: 'bbdMenu_submenuTitle', activeClassName: 'active' },
@@ -49920,7 +49905,7 @@
 	                ),
 	                _react2.default.createElement(
 	                    _Right2.default,
-	                    { white: 'B_HTGLQX' },
+	                    { white: 'B_YWSJGL' },
 	                    function () {
 	                        return _react2.default.createElement(
 	                            'li',
@@ -50123,7 +50108,7 @@
 
 
 	// module
-	exports.push([module.id, ".bbdMenu {\n  position: relative;\n  width: 100%; }\n\n.bbdMenu_submenu {\n  margin: 22px 0; }\n\n.bbdMenu_submenuTitle {\n  display: block;\n  position: relative;\n  height: 40px;\n  line-height: 40px;\n  padding: 0 24px;\n  font-size: 16px;\n  color: #8899aa;\n  border-right: 2px solid transparent; }\n\n.bbdMenu_submenu_sub {\n  padding-left: 40px; }\n\n.bbdMenu_submenu-selected > .bbdMenu_submenuTitle {\n  color: #00b7ee; }\n\n.bbdMenu_submenuTitle .iconleft {\n  padding-right: 16px;\n  color: #09729a; }\n\n.bbdMenu_submenuTitle .iconright {\n  position: absolute;\n  right: 24px;\n  top: 50%;\n  margin-top: -20px; }\n\n.bbdMenu_sub {\n  display: none; }\n\n.bbdMenu_sub-show {\n  display: block;\n  background-color: #103a57; }\n\n.bbdMenu_item a {\n  display: block;\n  height: 40px;\n  line-height: 40px;\n  color: #fff;\n  font-size: 14px;\n  padding-left: 50px; }\n\n.bbdMenu_item a.active {\n  background-color: #0d5375;\n  color: #fff; }\n\n.bbdMenu_submenu a.active {\n  background-color: #0d5375;\n  color: #00b7ee;\n  border-right: 2px solid #00b7ee; }\n\n.bbdMenu_submenu-selected .iconleft {\n  color: #00b7ee; }\n\n.bbdMenu_submenu-selected a.active {\n  border-right: 2px solid #00b7ee; }\n", ""]);
+	exports.push([module.id, ".bbdMenu {\n  position: relative;\n  width: 100%; }\n\n.bbdMenu_submenu {\n  margin: 14px 0; }\n\n.bbdMenu_submenuTitle {\n  display: block;\n  position: relative;\n  height: 40px;\n  line-height: 40px;\n  padding: 0 24px;\n  font-size: 16px;\n  color: #8899aa;\n  border-right: 2px solid transparent; }\n\n.bbdMenu_submenu_sub {\n  padding-left: 40px; }\n\n.bbdMenu_submenu-selected > .bbdMenu_submenuTitle {\n  color: #00b7ee; }\n\n.bbdMenu_submenuTitle .iconleft {\n  padding-right: 16px;\n  color: #09729a; }\n\n.bbdMenu_submenuTitle .iconright {\n  position: absolute;\n  right: 24px;\n  top: 50%;\n  margin-top: -20px; }\n\n.bbdMenu_sub {\n  display: none; }\n\n.bbdMenu_sub-show {\n  display: block;\n  background-color: #103a57; }\n\n.bbdMenu_item a {\n  display: block;\n  height: 40px;\n  line-height: 40px;\n  color: #fff;\n  font-size: 14px;\n  padding-left: 50px; }\n\n.bbdMenu_item a.active {\n  background-color: #0d5375;\n  color: #fff; }\n\n.bbdMenu_submenu a.active {\n  background-color: #0d5375;\n  color: #00b7ee;\n  border-right: 2px solid #00b7ee; }\n\n.bbdMenu_submenu-selected .iconleft {\n  color: #00b7ee; }\n\n.bbdMenu_submenu-selected a.active {\n  border-right: 2px solid #00b7ee; }\n", ""]);
 
 	// exports
 
@@ -51720,7 +51705,6 @@
 	                                            className: 'username',
 	                                            prefix: 'icon-user',
 	                                            type: 'text',
-	                                            width: '276',
 	                                            name: 'name',
 	                                            onChange: this.handleChange
 	                                        })
@@ -51737,7 +51721,6 @@
 	                                            className: 'username',
 	                                            prefix: 'icon-password',
 	                                            type: 'password',
-	                                            width: '276',
 	                                            name: 'password',
 	                                            onChange: this.handleChange
 	                                        })
@@ -57132,7 +57115,12 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
+	exports.buildDateParam = buildDateParam;
 	exports.codeToName = codeToName;
+	function buildDateParam(pickerArray) {
+	    var now = new Date();
+	    return pickerArray ? [pickerArray[0], pickerArray[1] < 10 ? '0' + pickerArray[1] : pickerArray[1]].join('-') : buildDateParam([now.getFullYear(), now.getMonth() + 1]);
+	}
 	function codeToName(code, options, defaultName) {
 	    var option = options.find(function (o) {
 	        return String(o.code) === String(code);
@@ -60113,7 +60101,6 @@
 	        value: function showCalender(year, month) {
 	            var _props$panel = this.props.panel;
 	            var panel = _props$panel === undefined ? 'day' : _props$panel;
-	            // console.log(this.props)
 
 	            switch (panel) {
 	                case 'year':
@@ -60821,7 +60808,7 @@
 	                var filterForm = _this2.state.filterForm;
 	                filterForm[field] = y === null ? [] : [y, m, d];
 	                // 后面的日期不能超过前面的日期
-	                if (_util2.default.buildDateParam(filterForm.endDate) < _util2.default.buildDateParam(filterForm.beginDate)) {
+	                if ((0, _tool.buildDateParam)(filterForm.endDate) < (0, _tool.buildDateParam)(filterForm.beginDate)) {
 	                    filterForm.beginDate = filterForm.endDate;
 	                }
 	                _this2.setState({ filterForm: filterForm });
@@ -60962,8 +60949,8 @@
 	        key: 'buildQueryParam',
 	        value: function buildQueryParam() {
 	            var filter = _extends({}, this.state.filter);
-	            filter.beginDate = _util2.default.buildDateParam(filter.beginDate);
-	            filter.endDate = _util2.default.buildDateParam(filter.endDate);
+	            filter.beginDate = (0, _tool.buildDateParam)(filter.beginDate);
+	            filter.endDate = (0, _tool.buildDateParam)(filter.endDate);
 	            return filter;
 	        }
 	    }, {
@@ -61811,7 +61798,7 @@
 	                filterForm[field] = y === null ? [] : [y, m, d];
 
 	                // 后面的日期不能超过前面的日期
-	                if (_util2.default.buildDateParam(filterForm.edate) < _util2.default.buildDateParam(filterForm.sdate)) {
+	                if ((0, _tool.buildDateParam)(filterForm.edate) < (0, _tool.buildDateParam)(filterForm.sdate)) {
 	                    filterForm.sdate = filterForm.edate;
 	                }
 	                _this6.setState({ filterForm: filterForm });
@@ -61821,8 +61808,8 @@
 	        key: 'buildQueryParam',
 	        value: function buildQueryParam() {
 	            var filter = _extends({}, this.state.filter);
-	            filter.sdate = _util2.default.buildDateParam(filter.sdate);
-	            filter.edate = _util2.default.buildDateParam(filter.edate);
+	            filter.sdate = (0, _tool.buildDateParam)(filter.sdate);
+	            filter.edate = (0, _tool.buildDateParam)(filter.edate);
 	            return filter;
 	        }
 	    }, {
@@ -62750,13 +62737,17 @@
 
 	var _Pophover2 = _interopRequireDefault(_Pophover);
 
+	var _index = __webpack_require__(767);
+
+	var _index2 = _interopRequireDefault(_index);
+
 	var _util = __webpack_require__(673);
 
 	var _util2 = _interopRequireDefault(_util);
 
-	var _index = __webpack_require__(759);
+	var _index3 = __webpack_require__(759);
 
-	var TaskCommon = _interopRequireWildcard(_index);
+	var TaskCommon = _interopRequireWildcard(_index3);
 
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -62805,6 +62796,7 @@
 	            dataSourceList: [],
 	            stateList: [{ value: '', text: '所有' }, { value: '成功', text: '成功' }, { value: '失败', text: '失败' }, { value: '正在更新', text: '正在更新' }]
 	        };
+	        _this.execute = _this.execute.bind(_this);
 	        _this.cancelExecute = _this.cancelExecute.bind(_this);
 	        _this.toReset = _this.toReset.bind(_this);
 	        return _this;
@@ -62921,29 +62913,70 @@
 
 	    }, {
 	        key: 'execute',
-	        value: function execute() {}
-	        //
+	        value: function execute() {
+	            var _this5 = this;
 
+	            var _state = this.state;
+	            var activeItem = _state.activeItem;
+	            var data = _state.data;
+	            var taskGroup = activeItem.taskGroup;
+	            var id = activeItem.id;
+	            var taskKey = activeItem.taskKey;
+	            var taskName = activeItem.taskName;
+
+	            _util2.default.promiseAjax({
+	                type: 'get',
+	                url: '/timingTask/reExecuteTask.do',
+	                data: { taskGroup: taskGroup, taskId: id, taskKey: taskKey, taskName: taskName }
+	            }).then(function (resp) {
+	                if (resp.success) {
+	                    _this5.setState({ executeVisible: false });
+	                    _this5.getList();
+	                }
+	            });
+	        }
 	        /*
 	         * 下载
 	         * */
 
 	    }, {
 	        key: 'download',
-	        value: function download(item) {
-	            console.log(item);
+	        value: function download(item, index) {
+	            var _this6 = this;
+
+	            var data = this.state.data;
+	            var taskGroup = item.taskGroup;
+	            var id = item.id;
+	            var taskKey = item.taskKey;
+	            var taskName = item.taskName;
+
+	            data[index].downloading = true;
+	            this.setState({ data: data });
+	            _util2.default.promiseAjax({
+	                type: 'get',
+	                url: '/timingTask/downloadTaskInfo.do',
+	                data: { taskGroup: taskGroup, taskId: id, taskKey: taskKey, taskName: taskName }
+	            }).then(function (resp) {
+	                data[index].downloading = false;
+	                _this6.setState({ data: data });
+	                if (resp.success) {
+	                    window.location.href = resp.content;
+	                } else {
+	                    _index2.default.error(resp.msg);
+	                }
+	            });
 	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            var _this5 = this;
+	            var _this7 = this;
 
-	            var _state = this.state;
-	            var filter = _state.filter;
-	            var dataSourceList = _state.dataSourceList;
-	            var stateList = _state.stateList;
-	            var loading = _state.loading;
-	            var data = _state.data;
+	            var _state2 = this.state;
+	            var filter = _state2.filter;
+	            var dataSourceList = _state2.dataSourceList;
+	            var stateList = _state2.stateList;
+	            var loading = _state2.loading;
+	            var data = _state2.data;
 	            var taskDataSource = filter.taskDataSource;
 	            var taskState = filter.taskState;
 
@@ -63027,7 +63060,7 @@
 	                                ),
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    { width: '10%', className: 'text-left' },
+	                                    { width: '10%' },
 	                                    '下载'
 	                                ),
 	                                _react2.default.createElement('th', { width: '5%' })
@@ -63066,6 +63099,8 @@
 	                                    } else if (item.state === 2) {
 	                                        // 进行中
 	                                        color = 'blue';stateName = '进行中';
+	                                    } else {
+	                                        stateName = '未知状态';
 	                                    }
 	                                    return _react2.default.createElement(
 	                                        'tr',
@@ -63172,7 +63207,7 @@
 	                                            item.reExecute === 1 ? _react2.default.createElement(
 	                                                'span',
 	                                                { className: 'link', onClick: function onClick() {
-	                                                        _this5.executeGgain(item, index);
+	                                                        _this7.executeGgain(item, index);
 	                                                    } },
 	                                                '再次执行'
 	                                            ) : item.reExecute === 2 ? _react2.default.createElement(
@@ -63187,10 +63222,14 @@
 	                                        ),
 	                                        _react2.default.createElement(
 	                                            'td',
-	                                            { width: '10%', className: 'more', className: 'text-left' },
-	                                            item.state === 4 ? _react2.default.createElement(
+	                                            { width: '10%' },
+	                                            item.state === 4 ? item.downloading ? _react2.default.createElement(
 	                                                'span',
-	                                                { className: 'link', onClick: _this5.download.bind(_this5, item) },
+	                                                { className: 'link' },
+	                                                '下载中...'
+	                                            ) : _react2.default.createElement(
+	                                                'span',
+	                                                { className: 'link', onClick: _this7.download.bind(_this7, item, index) },
 	                                                '下载'
 	                                            ) : _react2.default.createElement(
 	                                                'span',
@@ -63617,6 +63656,109 @@
 	    value: true
 	});
 
+	__webpack_require__(768);
+
+	var Tip = {};
+	Tip.init = function (opt) {
+	    var id = 'bbdTip_box_' + new Date().getTime();
+	    var box = document.createElement('div');
+	    var p = document.createElement('p');
+	    var root = document.getElementById('bbdTip_root'); // ����
+	    if (!root) {
+	        root = document.createElement('div');
+	        root.setAttribute('id', 'bbdTip_root');
+	        document.body.appendChild(root);
+	    }
+
+	    box.setAttribute('id', id);
+	    box.setAttribute('class', 'bbdTip_box animated fadeInDown');
+	    p.setAttribute('class', 'bbdTip_content');
+	    p.innerHTML = '<i class="iconfont icon-' + opt.type + '"></i>' + opt.msg;
+	    box.appendChild(p);
+	    root.appendChild(box);
+
+	    // ����
+	    setTimeout(function () {
+	        box.setAttribute('class', box.getAttribute('class').replace(' fadeInDown', '') + ' fadeOutUp');
+	        box.style.height = 0;
+	        box.style.marginTop = 0;
+	        setTimeout(function () {
+	            try {
+	                box.remove();
+	            } catch (e) {
+	                box.removeNode(true);
+	            }
+	            opt.callback && opt.callback(box);
+	        }, 800);
+	    }, opt.time || 2000);
+	};
+
+	Tip.warning = function (msg, time, callback) {
+	    this.init({ msg: msg, time: time, callback: callback, type: 'jinggao' });
+	};
+	Tip.success = function (msg, time, callback) {
+	    this.init({ msg: msg, time: time, callback: callback, type: 'wancheng' });
+	};
+	Tip.error = function (msg, time, callback) {
+	    this.init({ msg: msg, time: time, callback: callback, type: 'icon-yxj-error' });
+	};
+	exports.default = Tip;
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "index.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 768 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(769);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(679)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(true) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept(769, function() {
+				var newContent = __webpack_require__(769);
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 769 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(678)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "#bbdTip_root {\n  position: fixed;\n  z-index: 999999;\n  top: 5px;\n  left: 0;\n  width: 100%;\n  text-align: center; }\n  #bbdTip_root .bbdTip_box {\n    margin-top: 10px;\n    height: 38px;\n    line-height: 38px;\n    transition: .5s; }\n    #bbdTip_root .bbdTip_box p {\n      display: inline-block;\n      padding: 0 15px;\n      max-width: 90%;\n      color: #333;\n      border-radius: 3px;\n      background: #fff;\n      box-shadow: 0 0 8px #333; }\n    #bbdTip_root .bbdTip_box .iconfont {\n      margin-right: 5px; }\n    #bbdTip_root .bbdTip_box .icon-jinggao {\n      color: #FF9B00;\n      font-size: 20px; }\n    #bbdTip_root .bbdTip_box .icon-wancheng {\n      color: #5CB85C;\n      font-size: 16px; }\n    #bbdTip_root .bbdTip_box .icon-icon-yxj-error {\n      color: #FF3535;\n      font-size: 14px; }\n\n.animated {\n  animation-duration: 1s;\n  animation-fill-mode: both; }\n\n@keyframes fadeInDown {\n  from {\n    opacity: 0;\n    transform: translate3d(0, -100%, 0); }\n  to {\n    opacity: 1;\n    transform: none; } }\n\n.fadeInDown {\n  animation-name: fadeInDown; }\n\n@keyframes fadeOutUp {\n  from {\n    opacity: 1; }\n  to {\n    opacity: 0;\n    transform: translate3d(0, -100%, 0); } }\n\n.fadeOutUp {\n  animation-name: fadeOutUp; }\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 770 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
 	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -63659,7 +63801,7 @@
 
 	var _DatePicker2 = _interopRequireDefault(_DatePicker);
 
-	var _index = __webpack_require__(768);
+	var _index = __webpack_require__(767);
 
 	var _index2 = _interopRequireDefault(_index);
 
@@ -63868,14 +64010,18 @@
 	            var _state = this.state;
 	            var activeItem = _state.activeItem;
 	            var data = _state.data;
+	            var taskGroup = activeItem.taskGroup;
+	            var id = activeItem.id;
+	            var taskKey = activeItem.taskKey;
+	            var taskName = activeItem.taskName;
 
 	            var index = data.findIndex(function (item) {
 	                return item.id === activeItem.id;
 	            });
 	            _util2.default.promiseAjax({
 	                type: 'get',
-	                url: '',
-	                data: ''
+	                url: '/timingTask/reExecuteTask.do',
+	                data: { taskGroup: taskGroup, taskId: id, taskKey: taskKey, taskName: taskName }
 	            }).then(function (resp) {
 	                if (resp.success) {
 	                    _this6.setState({ executeVisible: false });
@@ -63889,13 +64035,35 @@
 
 	    }, {
 	        key: 'download',
-	        value: function download(item) {
-	            console.log(item);
+	        value: function download(item, index) {
+	            var _this7 = this;
+
+	            var data = this.state.data;
+	            var taskGroup = item.taskGroup;
+	            var id = item.id;
+	            var taskKey = item.taskKey;
+	            var taskName = item.taskName;
+
+	            data[index].downloading = true;
+	            this.setState({ data: data });
+	            _util2.default.promiseAjax({
+	                type: 'get',
+	                url: '/timingTask/downloadTaskInfo.do',
+	                data: { taskGroup: taskGroup, taskId: id, taskKey: taskKey, taskName: taskName }
+	            }).then(function (resp) {
+	                data[index].downloading = false;
+	                _this7.setState({ data: data });
+	                if (resp.success) {
+	                    window.location.href = resp.content;
+	                } else {
+	                    _index2.default.error(resp.msg);
+	                }
+	            });
 	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            var _this7 = this;
+	            var _this8 = this;
 
 	            var _state2 = this.state;
 	            var filter = _state2.filter;
@@ -64005,7 +64173,7 @@
 	                                ),
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    { width: '10%', className: 'text-left' },
+	                                    { width: '10%' },
 	                                    '下载'
 	                                ),
 	                                _react2.default.createElement('th', { width: '5%' })
@@ -64044,6 +64212,8 @@
 	                                    } else if (item.state === 2) {
 	                                        // 进行中
 	                                        color = 'blue';stateName = '进行中';
+	                                    } else {
+	                                        stateName = '未知状态';
 	                                    }
 	                                    return _react2.default.createElement(
 	                                        'tr',
@@ -64150,7 +64320,7 @@
 	                                            item.reExecute === 1 ? _react2.default.createElement(
 	                                                'span',
 	                                                { className: 'link', onClick: function onClick() {
-	                                                        _this7.executeGgain(item, index);
+	                                                        _this8.executeGgain(item, index);
 	                                                    } },
 	                                                '再次执行'
 	                                            ) : item.reExecute === 2 ? _react2.default.createElement(
@@ -64165,10 +64335,14 @@
 	                                        ),
 	                                        _react2.default.createElement(
 	                                            'td',
-	                                            { width: '10%', className: 'text-left' },
-	                                            item.state === 4 ? _react2.default.createElement(
+	                                            { width: '10%' },
+	                                            item.state === 4 ? item.downloading ? _react2.default.createElement(
 	                                                'span',
-	                                                { className: 'link', onClick: _this7.download.bind(_this7, item) },
+	                                                { className: 'link' },
+	                                                '下载中...'
+	                                            ) : _react2.default.createElement(
+	                                                'span',
+	                                                { className: 'link', onClick: _this8.download.bind(_this8, item, index) },
 	                                                '下载'
 	                                            ) : _react2.default.createElement(
 	                                                'span',
@@ -64207,109 +64381,6 @@
 
 	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "TaskDetails.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
-
-/***/ },
-/* 768 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	__webpack_require__(769);
-
-	var Tip = {};
-	Tip.init = function (opt) {
-	    var id = 'bbdTip_box_' + new Date().getTime();
-	    var box = document.createElement('div');
-	    var p = document.createElement('p');
-	    var root = document.getElementById('bbdTip_root'); // ����
-	    if (!root) {
-	        root = document.createElement('div');
-	        root.setAttribute('id', 'bbdTip_root');
-	        document.body.appendChild(root);
-	    }
-
-	    box.setAttribute('id', id);
-	    box.setAttribute('class', 'bbdTip_box animated fadeInDown');
-	    p.setAttribute('class', 'bbdTip_content');
-	    p.innerHTML = '<i class="iconfont icon-' + opt.type + '"></i>' + opt.msg;
-	    box.appendChild(p);
-	    root.appendChild(box);
-
-	    // ����
-	    setTimeout(function () {
-	        box.setAttribute('class', box.getAttribute('class').replace(' fadeInDown', '') + ' fadeOutUp');
-	        box.style.height = 0;
-	        box.style.marginTop = 0;
-	        setTimeout(function () {
-	            try {
-	                box.remove();
-	            } catch (e) {
-	                box.removeNode(true);
-	            }
-	            opt.callback && opt.callback(box);
-	        }, 800);
-	    }, opt.time || 2000);
-	};
-
-	Tip.warning = function (msg, time, callback) {
-	    this.init({ msg: msg, time: time, callback: callback, type: 'jinggao' });
-	};
-	Tip.success = function (msg, time, callback) {
-	    this.init({ msg: msg, time: time, callback: callback, type: 'wancheng' });
-	};
-	Tip.error = function (msg, time, callback) {
-	    this.init({ msg: msg, time: time, callback: callback, type: 'icon-yxj-error' });
-	};
-	exports.default = Tip;
-
-	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "index.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
-
-/***/ },
-/* 769 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(770);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(679)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(true) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept(770, function() {
-				var newContent = __webpack_require__(770);
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 770 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(678)();
-	// imports
-
-
-	// module
-	exports.push([module.id, "#bbdTip_root {\n  position: fixed;\n  z-index: 999999;\n  top: 5px;\n  left: 0;\n  width: 100%;\n  text-align: center; }\n  #bbdTip_root .bbdTip_box {\n    margin-top: 10px;\n    height: 38px;\n    line-height: 38px;\n    transition: .5s; }\n    #bbdTip_root .bbdTip_box p {\n      display: inline-block;\n      padding: 0 15px;\n      color: #333;\n      border-radius: 3px;\n      background: #fff;\n      box-shadow: 0 0 8px #333; }\n    #bbdTip_root .bbdTip_box .iconfont {\n      margin-right: 5px; }\n    #bbdTip_root .bbdTip_box .icon-jinggao {\n      color: #FF9B00;\n      font-size: 20px; }\n    #bbdTip_root .bbdTip_box .icon-wancheng {\n      color: #5CB85C;\n      font-size: 16px; }\n    #bbdTip_root .bbdTip_box .icon-icon-yxj-error {\n      color: #FF3535;\n      font-size: 14px; }\n\n.animated {\n  animation-duration: 1s;\n  animation-fill-mode: both; }\n\n@keyframes fadeInDown {\n  from {\n    opacity: 0;\n    transform: translate3d(0, -100%, 0); }\n  to {\n    opacity: 1;\n    transform: none; } }\n\n.fadeInDown {\n  animation-name: fadeInDown; }\n\n@keyframes fadeOutUp {\n  from {\n    opacity: 1; }\n  to {\n    opacity: 0;\n    transform: translate3d(0, -100%, 0); } }\n\n.fadeOutUp {\n  animation-name: fadeOutUp; }\n", ""]);
-
-	// exports
-
 
 /***/ },
 /* 771 */
@@ -64416,7 +64487,7 @@
 
 
 	// module
-	exports.push([module.id, ".submit-btn {\n  padding-top: 46px;\n  text-align: center; }\n  .submit-btn .bbdBtn_root {\n    width: 140px;\n    margin-left: 25px;\n    font-size: 14px; }\n  .submit-btn .cancel {\n    background-color: #8899aa;\n    margin-left: 0; }\n\n.uploading-img {\n  width: 95px;\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  margin-left: -44px;\n  margin-top: -20px; }\n  .uploading-img .bbdBtn_root {\n    background-color: #00a2ff;\n    font-size: 14px; }\n\n.parkManage_root .mainTitle_opr .bbdBtn_root {\n  width: 100px;\n  margin-right: 15px;\n  background-color: #02668e;\n  font-size: 14px; }\n\n.parkManage_root .parkManage_box .park-name:hover {\n  color: #00b7ee; }\n\n.parkManage_root .taskList-content {\n  height: 620px;\n  position: relative; }\n\n.common_root .bbdBtn_root {\n  font-size: 14px; }\n\n.common_root .list-content {\n  position: relative;\n  height: 616px; }\n\n.common-upload {\n  color: #fff; }\n  .common-upload .content {\n    margin: 0 auto;\n    position: relative;\n    background-color: rgba(27, 60, 89, 0.7);\n    border: 1px solid #03688F;\n    padding: 0 1.5% 100px 1.5%; }\n  .common-upload .mainTitle_opr {\n    padding-right: 115px; }\n  .common-upload .blue {\n    display: inline-block;\n    font-size: 14px;\n    margin-right: 20px;\n    font-weight: 600;\n    color: #00b7ee; }\n  .common-upload .size b {\n    color: #00b7ee; }\n  .common-upload .table-list {\n    margin-top: 20px; }\n    .common-upload .table-list .blue {\n      padding-bottom: 10px; }\n    .common-upload .table-list .list-content {\n      height: 398px; }\n  .common-upload .upload_root {\n    vertical-align: middle; }\n  .common-upload .barBox {\n    width: 406px;\n    height: 6px;\n    border-radius: 12px;\n    background-color: #165577;\n    display: inline-block;\n    position: relative;\n    margin: 0 20px; }\n    .common-upload .barBox .bar {\n      background-color: #00b7ee;\n      left: 0;\n      top: 0;\n      position: absolute;\n      height: 6px;\n      border-radius: 12px;\n      display: inline-block; }\n  .common-upload .upload-list {\n    height: 572px;\n    position: relative; }\n    .common-upload .upload-list li {\n      margin-top: 20px; }\n      .common-upload .upload-list li a {\n        color: #fff; }\n    .common-upload .upload-list .delete {\n      margin-left: 15px;\n      cursor: pointer;\n      color: #00b7ee; }\n    .common-upload .upload-list .iconfont {\n      margin: 0 15px;\n      vertical-align: middle; }\n    .common-upload .upload-list .icon-wancheng {\n      color: #80C269; }\n    .common-upload .upload-list .icon-icon-yxj-error {\n      color: #ff5926;\n      font-size: 14px; }\n  .common-upload .upload_label {\n    position: absolute;\n    right: 0;\n    top: -50px; }\n  .common-upload .upload_submit {\n    position: absolute;\n    bottom: 40px;\n    right: 1.5%; }\n  .common-upload .building-list {\n    position: relative;\n    min-height: 433px;\n    font-size: 14px; }\n    .common-upload .building-list th, .common-upload .building-list td {\n      text-align: left; }\n      .common-upload .building-list th:first-child, .common-upload .building-list td:first-child {\n        padding-left: 4%; }\n    .common-upload .building-list .blue {\n      margin: 0;\n      font-size: 20px;\n      font-weight: 400; }\n    .common-upload .building-list .cover-btn {\n      cursor: pointer;\n      position: absolute;\n      width: 100%;\n      top: 50%;\n      left: 0;\n      margin-top: -26px;\n      text-align: center; }\n      .common-upload .building-list .cover-btn p {\n        font-weight: 600; }\n\n.export_root .table-list {\n  padding: 70px 28px 20px 28px;\n  background-color: #1b3c59;\n  border: 1px solid #03688F;\n  border-top: 0;\n  color: #fff; }\n  .export_root .table-list .export-btn {\n    width: 100px;\n    float: right; }\n  .export_root .table-list .label {\n    font-size: 14px;\n    margin-bottom: 10px;\n    font-weight: 600;\n    overflow: hidden; }\n  .export_root .table-list .blue {\n    margin-top: 20px;\n    display: inline-block;\n    color: #00b7ee; }\n  .export_root .table-list .list-content {\n    height: 441px; }\n\n.export_filterPanel {\n  padding: 28px 38px;\n  background-color: #1b3c59;\n  border: 1px solid #03688F; }\n  .export_filterPanel .selectRow {\n    margin-bottom: 24px; }\n    .export_filterPanel .selectRow:last-child .inputField {\n      width: 39%; }\n    .export_filterPanel .selectRow:last-child .input {\n      width: 35.5%;\n      min-width: 140px; }\n  .export_filterPanel .inputField {\n    width: 26%;\n    float: left; }\n    .export_filterPanel .inputField > div {\n      float: left; }\n    .export_filterPanel .inputField .label {\n      height: 40px;\n      line-height: 40px;\n      color: #8899aa;\n      font-size: 14px;\n      margin-right: 18px; }\n    .export_filterPanel .inputField .input {\n      width: 65%; }\n    .export_filterPanel .inputField .line {\n      width: 2%;\n      border-top: 1px solid #8899aa;\n      margin: 20px 10px 0 10px; }\n    .export_filterPanel .inputField .bbdSelect_root {\n      min-width: 140px; }\n  .export_filterPanel .buttonField {\n    width: 120px;\n    float: left; }\n  .export_filterPanel .date__root {\n    height: 40px;\n    border: 1px solid #4C667C;\n    border-radius: 4px; }\n\n.publicTrust_box {\n  background-color: #1b3c59;\n  border: 1px solid #03688F;\n  padding: 80px 30px 110px 30px; }\n  .publicTrust_box .autoComplete {\n    width: 500px;\n    float: left; }\n  .publicTrust_box .table-list {\n    border: 0;\n    padding: 0; }\n    .publicTrust_box .table-list .export-btn {\n      background-color: #0d7aa4;\n      margin-top: 10px;\n      font-size: 14px; }\n    .publicTrust_box .table-list .list-content {\n      height: 400px; }\n    .publicTrust_box .table-list tr th:first-child, .publicTrust_box .table-list tr td:first-child {\n      padding-left: 5%; }\n    .publicTrust_box .table-list tr td {\n      padding: 10px 0; }\n\n.publicTrust_filterPanel {\n  padding-left: 28%;\n  overflow: hidden; }\n  .publicTrust_filterPanel .label-name {\n    font-size: 14px;\n    margin-top: 8px;\n    width: 90px;\n    text-align: right;\n    padding-right: 15px; }\n  .publicTrust_filterPanel .search-box {\n    margin-bottom: 36px;\n    overflow: hidden; }\n  .publicTrust_filterPanel .bbdInputPreSuffix_input {\n    height: 40px; }\n  .publicTrust_filterPanel i.icon-search {\n    color: #00b7ee;\n    font-weight: 700; }\n  .publicTrust_filterPanel .bbdCheckbox_root {\n    margin-right: 30px;\n    margin-bottom: 20px; }\n  .publicTrust_filterPanel .bbdCheckbox_icon {\n    display: inline-block; }\n  .publicTrust_filterPanel .bbdCheckbox_text {\n    position: static;\n    margin-left: 10px;\n    vertical-align: top; }\n  .publicTrust_filterPanel .right {\n    float: left;\n    width: 68%; }\n  .publicTrust_filterPanel .search-btn {\n    width: 100px;\n    float: left; }\n\n.common_box {\n  box-sizing: border-box;\n  color: #fff;\n  background-color: rgba(27, 60, 89, 0.7);\n  border: 1px solid #03688F;\n  padding: 25px 0; }\n  .common_box .inputRow {\n    float: left; }\n    .common_box .inputRow label {\n      float: left;\n      margin-right: 15px; }\n      .common_box .inputRow label i {\n        margin-right: 10px;\n        color: #ff7800; }\n    .common_box .inputRow .inputItem {\n      float: left; }\n    .common_box .inputRow .error-tip {\n      display: block;\n      height: 24px;\n      line-height: 24px;\n      color: #ff7800;\n      font-weight: normal; }\n\n.companyChange_root .companyChange_box {\n  padding: 180px 0; }\n\n.companyChange_root .companyChange_content {\n  margin: auto;\n  width: 98%; }\n\n.companyChange_root .search {\n  width: 600px;\n  margin: 0 auto; }\n  .companyChange_root .search .bbdInputPreSuffix_input {\n    height: 50px;\n    border: solid 1px #247BAC; }\n  .companyChange_root .search .bbdInputPreSuffix_suffix i.icon-search {\n    font-weight: bold;\n    color: #00B7EE; }\n\n.companyChange_root .inputRow {\n  float: left; }\n  .companyChange_root .inputRow label {\n    line-height: 40px; }\n  .companyChange_root .inputRow .inputItem {\n    float: left; }\n  .companyChange_root .inputRow .error-tip {\n    height: 24px;\n    line-height: 24px;\n    color: #ff7800; }\n\n.companyChange_root .companyInfo_wrap {\n  margin: 110px auto 0;\n  padding: 10px 10px 0 70px;\n  border: 1px solid #03688F;\n  background: #122C46; }\n  .companyChange_root .companyInfo_wrap .companyInfo_name {\n    margin: 40px auto;\n    font-size: 24px;\n    font-weight: bold; }\n  .companyChange_root .companyInfo_wrap li {\n    margin-bottom: 30px;\n    float: left;\n    width: 25%;\n    font-size: 14px;\n    font-weight: bold; }\n    .companyChange_root .companyInfo_wrap li label {\n      color: #8899aa; }\n      .companyChange_root .companyInfo_wrap li label.groupLabel {\n        float: left;\n        line-height: 40px; }\n    .companyChange_root .companyInfo_wrap li.riskGroup .inputRow label {\n      margin-left: 15px;\n      font-weight: normal;\n      color: #fff; }\n    .companyChange_root .companyInfo_wrap li .bbdSelect_root {\n      min-width: auto;\n      display: inline-block;\n      font-weight: normal; }\n\n.companyChange_root .handle_group {\n  margin: 20px auto;\n  text-align: right; }\n  .companyChange_root .handle_group .bbdBtn_root {\n    margin-left: 20px;\n    width: 140px;\n    font-size: 14px; }\n    .companyChange_root .handle_group .bbdBtn_root.cancel {\n      background: #8899AA; }\n\n.naturalSearch_root .naturalSearch_content {\n  margin: auto;\n  width: 98%; }\n\n.naturalSearch_root .search_box {\n  margin: 40px auto;\n  max-width: 1200px; }\n  .naturalSearch_root .search_box input {\n    height: 50px; }\n\n.naturalSearch_root .inputRow {\n  display: inline-block;\n  margin-right: 30px; }\n  .naturalSearch_root .inputRow label {\n    font-size: 16px;\n    font-weight: bold;\n    line-height: 50px;\n    color: #8899aa; }\n\n.naturalSearch_root .bbdBtn_root.search {\n  float: right;\n  height: 50px;\n  width: 100px; }\n\n.naturalSearch_root .range {\n  margin: 0 0 28px 100px;\n  font-size: 14px;\n  color: #247BAC; }\n  .naturalSearch_root .range li {\n    position: relative;\n    float: left;\n    padding: 0 10px; }\n    .naturalSearch_root .range li:hover {\n      cursor: pointer; }\n    .naturalSearch_root .range li:last-child:after {\n      width: 0; }\n    .naturalSearch_root .range li:after {\n      content: '';\n      position: absolute;\n      right: 0;\n      top: 4px;\n      display: inline-block;\n      width: 1px;\n      height: 10px;\n      background: #247BAC; }\n    .naturalSearch_root .range li span {\n      position: relative;\n      padding: 2px 5px; }\n    .naturalSearch_root .range li.active span {\n      background: #247BAC;\n      color: #fff; }\n      .naturalSearch_root .range li.active span:after {\n        content: '';\n        position: absolute;\n        z-index: 0;\n        bottom: -12px;\n        margin-left: -6px;\n        left: 50%;\n        border: 6px solid transparent;\n        border-top-color: #247BAC; }\n\n.naturalSearch_root .handle_group {\n  margin: 10px auto;\n  text-align: right; }\n  .naturalSearch_root .handle_group .bbdBtn_root {\n    margin-left: 20px;\n    width: 100px;\n    font-size: 14px;\n    background: #0D7AA4; }\n\n.naturalSearch_root .data_wrap {\n  padding: 0 20px 30px;\n  background: #122C46;\n  border: 1px solid #03688F; }\n  .naturalSearch_root .data_wrap .bbdTable_root th, .naturalSearch_root .data_wrap .bbdTable_root td {\n    text-align: left; }\n  .naturalSearch_root .data_wrap .nodata-tips td {\n    text-align: center; }\n  .naturalSearch_root .data_wrap .id {\n    text-indent: 40px; }\n  .naturalSearch_root .data_wrap .data_header .bbdTable_root {\n    border: none; }\n  .naturalSearch_root .data_wrap .data_list table {\n    border: 1px solid #03688F; }\n  .naturalSearch_root .data_wrap .data_list tr {\n    background: #1B3C59;\n    border-bottom: 1px solid #03688F; }\n    .naturalSearch_root .data_wrap .data_list tr:hover {\n      background: #03688F; }\n", ""]);
+	exports.push([module.id, ".submit-btn {\n  padding-top: 46px;\n  text-align: center; }\n  .submit-btn .bbdBtn_root {\n    width: 140px;\n    margin-left: 25px;\n    font-size: 14px; }\n  .submit-btn .cancel {\n    background-color: #8899aa;\n    margin-left: 0; }\n\n.uploading-img {\n  width: 95px;\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  margin-left: -44px;\n  margin-top: -20px; }\n  .uploading-img .bbdBtn_root {\n    background-color: #00a2ff;\n    font-size: 14px; }\n\n.parkManage_root .mainTitle_opr .bbdBtn_root {\n  width: 100px;\n  margin-right: 15px;\n  background-color: #02668e;\n  font-size: 14px; }\n\n.parkManage_root .parkManage_box .park-name:hover {\n  color: #00b7ee; }\n\n.parkManage_root .taskList-content {\n  height: 620px;\n  position: relative; }\n\n.common_root .bbdBtn_root {\n  font-size: 14px; }\n\n.common_root .list-content {\n  position: relative;\n  height: 616px; }\n\n.common-upload {\n  color: #fff; }\n  .common-upload .content {\n    margin: 0 auto;\n    position: relative;\n    background-color: rgba(27, 60, 89, 0.7);\n    border: 1px solid #03688F;\n    padding: 0 1.5% 100px 1.5%; }\n  .common-upload .mainTitle_opr {\n    padding-right: 115px; }\n  .common-upload .blue {\n    display: inline-block;\n    font-size: 14px;\n    margin-right: 20px;\n    font-weight: 600;\n    color: #00b7ee; }\n  .common-upload .size b {\n    color: #00b7ee; }\n  .common-upload .table-list {\n    margin-top: 20px; }\n    .common-upload .table-list .blue {\n      padding-bottom: 10px; }\n    .common-upload .table-list .list-content {\n      height: 398px; }\n  .common-upload .upload_root {\n    vertical-align: middle; }\n  .common-upload .barBox {\n    width: 406px;\n    height: 6px;\n    border-radius: 12px;\n    background-color: #165577;\n    display: inline-block;\n    position: relative;\n    margin: 0 20px; }\n    .common-upload .barBox .bar {\n      background-color: #00b7ee;\n      left: 0;\n      top: 0;\n      position: absolute;\n      height: 6px;\n      border-radius: 12px;\n      display: inline-block; }\n  .common-upload .upload-list {\n    height: 572px;\n    position: relative; }\n    .common-upload .upload-list li {\n      margin-top: 20px; }\n      .common-upload .upload-list li a {\n        color: #fff; }\n    .common-upload .upload-list .delete {\n      margin-left: 15px;\n      cursor: pointer;\n      color: #00b7ee; }\n    .common-upload .upload-list .iconfont {\n      margin: 0 15px;\n      vertical-align: middle; }\n    .common-upload .upload-list .icon-wancheng {\n      color: #80C269; }\n    .common-upload .upload-list .icon-icon-yxj-error {\n      color: #ff5926;\n      font-size: 14px; }\n  .common-upload .upload_label {\n    position: absolute;\n    right: 0;\n    top: -50px; }\n  .common-upload .upload_submit {\n    position: absolute;\n    bottom: 40px;\n    right: 1.5%; }\n  .common-upload .building-list {\n    position: relative;\n    min-height: 433px;\n    font-size: 14px; }\n    .common-upload .building-list th, .common-upload .building-list td {\n      text-align: left; }\n      .common-upload .building-list th:first-child, .common-upload .building-list td:first-child {\n        padding-left: 4%; }\n    .common-upload .building-list .blue {\n      margin: 0;\n      font-size: 20px;\n      font-weight: 400; }\n    .common-upload .building-list .cover-btn {\n      cursor: pointer;\n      position: absolute;\n      width: 100%;\n      top: 50%;\n      left: 0;\n      margin-top: -26px;\n      text-align: center; }\n      .common-upload .building-list .cover-btn p {\n        font-weight: 600; }\n\n.export_root .table-list {\n  padding: 70px 28px 20px 28px;\n  background-color: #1b3c59;\n  border: 1px solid #03688F;\n  border-top: 0;\n  color: #fff; }\n  .export_root .table-list .export-btn {\n    width: 100px;\n    float: right; }\n  .export_root .table-list .label {\n    font-size: 14px;\n    margin-bottom: 10px;\n    font-weight: 600;\n    overflow: hidden; }\n  .export_root .table-list .blue {\n    margin-top: 20px;\n    display: inline-block;\n    color: #00b7ee; }\n  .export_root .table-list .list-content {\n    height: auto !important; }\n    .export_root .table-list .list-content td {\n      word-break: break-all;\n      word-wrap: break-word; }\n  .export_root .table-list .address {\n    padding-right: 20px; }\n  .export_root .table-list .layout-fixed {\n    table-layout: fixed; }\n\n.export_filterPanel {\n  padding: 28px 38px;\n  background-color: #1b3c59;\n  border: 1px solid #03688F; }\n  .export_filterPanel .selectRow {\n    margin-bottom: 24px; }\n    .export_filterPanel .selectRow:last-child .inputField {\n      width: 39%; }\n    .export_filterPanel .selectRow:last-child .input {\n      width: 35.5%;\n      min-width: 140px; }\n  .export_filterPanel .inputField {\n    width: 26%;\n    float: left; }\n    .export_filterPanel .inputField > div {\n      float: left; }\n    .export_filterPanel .inputField.group {\n      max-width: 600px;\n      width: 48%; }\n      .export_filterPanel .inputField.group label {\n        color: #fff;\n        margin: 0 5px; }\n      .export_filterPanel .inputField.group .input {\n        width: 28%; }\n      .export_filterPanel .inputField.group .bbdSelect_root {\n        display: inline-block;\n        width: 55%;\n        min-width: 10px; }\n    .export_filterPanel .inputField .label {\n      height: 40px;\n      line-height: 40px;\n      color: #8899aa;\n      font-size: 14px;\n      margin-right: 18px; }\n    .export_filterPanel .inputField .input {\n      width: 65%; }\n    .export_filterPanel .inputField .capital {\n      position: relative; }\n      .export_filterPanel .inputField .capital input {\n        padding-right: 32px;\n        border: solid 1px #4C667C; }\n      .export_filterPanel .inputField .capital i {\n        position: absolute;\n        display: inline-block;\n        right: 0;\n        top: 0;\n        line-height: 40px;\n        font-style: normal;\n        border-left: 1px solid #4C667C;\n        width: 32px;\n        text-align: center;\n        color: #8899aa; }\n    .export_filterPanel .inputField .line {\n      width: 2%;\n      border-top: 1px solid #8899aa;\n      margin: 20px 10px 0 10px; }\n    .export_filterPanel .inputField .bbdSelect_root {\n      min-width: 140px; }\n  .export_filterPanel .buttonField {\n    width: 120px;\n    float: right; }\n  .export_filterPanel .date__root {\n    height: 40px;\n    border: 1px solid #4C667C;\n    border-radius: 4px; }\n\n.pagination {\n  width: 900px;\n  margin: 20px auto 0; }\n\n.publicTrust_box {\n  background-color: #1b3c59;\n  border: 1px solid #03688F;\n  padding: 80px 30px 110px 30px; }\n  .publicTrust_box .autoComplete {\n    width: 500px;\n    float: left; }\n  .publicTrust_box .table-list {\n    border: 0;\n    padding: 0;\n    clear: both; }\n    .publicTrust_box .table-list .export-btn {\n      background-color: #0d7aa4;\n      margin-top: 10px;\n      font-size: 14px; }\n    .publicTrust_box .table-list .list-content {\n      height: 400px; }\n    .publicTrust_box .table-list tr th:first-child, .publicTrust_box .table-list tr td:first-child {\n      padding-left: 5%; }\n    .publicTrust_box .table-list tr td {\n      padding: 10px 0; }\n\n.publicTrust_filterPanel {\n  padding-left: 28%;\n  min-height: 148px; }\n  .publicTrust_filterPanel .label-name {\n    font-size: 14px;\n    margin-top: 8px;\n    width: 90px;\n    text-align: right;\n    padding-right: 15px; }\n  .publicTrust_filterPanel .search-box {\n    margin-bottom: 36px; }\n  .publicTrust_filterPanel .bbdInputPreSuffix_input {\n    height: 40px; }\n  .publicTrust_filterPanel i.icon-search {\n    color: #00b7ee;\n    font-weight: 700; }\n  .publicTrust_filterPanel .bbdCheckbox_root {\n    margin-right: 30px;\n    margin-bottom: 20px; }\n  .publicTrust_filterPanel .bbdCheckbox_icon {\n    display: inline-block;\n    vertical-align: top; }\n  .publicTrust_filterPanel .bbdCheckbox_text {\n    position: static;\n    margin-left: 10px;\n    vertical-align: top; }\n  .publicTrust_filterPanel .right {\n    float: left;\n    width: 68%; }\n  .publicTrust_filterPanel .search-btn {\n    width: 100px;\n    float: left; }\n\n.common_box {\n  box-sizing: border-box;\n  color: #fff;\n  background-color: rgba(27, 60, 89, 0.7);\n  border: 1px solid #03688F;\n  padding: 25px 0; }\n  .common_box .inputRow {\n    float: left; }\n    .common_box .inputRow label {\n      float: left;\n      margin-right: 15px; }\n      .common_box .inputRow label i {\n        margin-right: 10px;\n        color: #ff7800; }\n    .common_box .inputRow .inputItem {\n      float: left; }\n    .common_box .inputRow .error-tip {\n      display: block;\n      height: 24px;\n      line-height: 24px;\n      color: #ff7800;\n      font-weight: normal; }\n\n.companyChange_root .companyChange_box {\n  padding: 180px 0; }\n\n.companyChange_root .companyChange_content {\n  margin: auto;\n  width: 98%; }\n\n.companyChange_root .search {\n  width: 600px;\n  margin: 0 auto; }\n  .companyChange_root .search .bbdInputPreSuffix_input {\n    height: 50px;\n    border: solid 1px #247BAC; }\n  .companyChange_root .search .bbdInputPreSuffix_suffix i.icon-search {\n    font-weight: bold;\n    color: #00B7EE; }\n\n.companyChange_root .inputRow {\n  float: left; }\n  .companyChange_root .inputRow label {\n    line-height: 40px; }\n  .companyChange_root .inputRow .inputItem {\n    float: left; }\n  .companyChange_root .inputRow .error-tip {\n    height: 24px;\n    line-height: 24px;\n    color: #ff7800; }\n\n.companyChange_root .companyInfo_wrap {\n  margin: 110px auto 0;\n  padding: 10px 10px 0 70px;\n  border: 1px solid #03688F;\n  background: #122C46; }\n  .companyChange_root .companyInfo_wrap .companyInfo_name {\n    margin: 40px auto;\n    font-size: 24px;\n    font-weight: bold; }\n  .companyChange_root .companyInfo_wrap li {\n    margin-bottom: 30px;\n    float: left;\n    width: 25%;\n    font-size: 14px;\n    font-weight: bold; }\n    .companyChange_root .companyInfo_wrap li label {\n      color: #8899aa; }\n      .companyChange_root .companyInfo_wrap li label.groupLabel {\n        float: left;\n        line-height: 40px; }\n    .companyChange_root .companyInfo_wrap li.riskGroup .inputRow label {\n      margin-left: 15px;\n      font-weight: normal;\n      color: #fff; }\n    .companyChange_root .companyInfo_wrap li .bbdSelect_root {\n      min-width: auto;\n      display: inline-block;\n      font-weight: normal; }\n\n.companyChange_root .handle_group {\n  margin: 20px auto;\n  text-align: right; }\n  .companyChange_root .handle_group .bbdBtn_root {\n    margin-left: 20px;\n    width: 140px;\n    font-size: 14px; }\n    .companyChange_root .handle_group .bbdBtn_root.cancel {\n      background: #8899AA; }\n\n.companyChange_root .loading {\n  margin: 110px auto 0;\n  text-align: center;\n  font-size: 14px; }\n\n.naturalSearch_root .naturalSearch_content {\n  margin: auto;\n  width: 98%; }\n\n.naturalSearch_root .search_box {\n  margin: 40px auto;\n  max-width: 1200px; }\n  .naturalSearch_root .search_box input {\n    height: 50px; }\n\n.naturalSearch_root .inputRow {\n  display: inline-block;\n  margin-right: 30px; }\n  .naturalSearch_root .inputRow label {\n    font-size: 16px;\n    font-weight: bold;\n    line-height: 50px;\n    color: #8899aa; }\n\n.naturalSearch_root .bbdBtn_root.search {\n  float: right;\n  height: 50px;\n  width: 100px; }\n\n.naturalSearch_root .database {\n  display: inline-block;\n  margin-left: 140px; }\n\n.naturalSearch_root .range {\n  margin-left: 100px;\n  width: 413px;\n  font-size: 14px;\n  color: #247BAC;\n  display: inline-block;\n  vertical-align: middle; }\n  .naturalSearch_root .range li {\n    position: relative;\n    float: left;\n    padding: 0 10px; }\n    .naturalSearch_root .range li:hover {\n      cursor: pointer; }\n    .naturalSearch_root .range li:last-child:after {\n      width: 0; }\n    .naturalSearch_root .range li:after {\n      content: '';\n      position: absolute;\n      right: 0;\n      top: 4px;\n      display: inline-block;\n      width: 1px;\n      height: 10px;\n      background: #247BAC; }\n    .naturalSearch_root .range li span {\n      position: relative;\n      padding: 2px 5px; }\n    .naturalSearch_root .range li.active span {\n      background: #247BAC;\n      color: #fff; }\n      .naturalSearch_root .range li.active span:after {\n        content: '';\n        position: absolute;\n        z-index: 0;\n        bottom: -12px;\n        margin-left: -6px;\n        left: 50%;\n        border: 6px solid transparent;\n        border-top-color: #247BAC; }\n\n.naturalSearch_root .handle_group {\n  margin: 10px auto;\n  text-align: right; }\n  .naturalSearch_root .handle_group .bbdBtn_root {\n    margin-left: 20px;\n    width: 100px;\n    font-size: 14px;\n    background: #0D7AA4; }\n\n.naturalSearch_root .data_wrap {\n  padding: 0 20px 30px;\n  background: #122C46;\n  border: 1px solid #03688F; }\n  .naturalSearch_root .data_wrap .bbdTable_root th, .naturalSearch_root .data_wrap .bbdTable_root td {\n    text-align: left; }\n  .naturalSearch_root .data_wrap .nodata-tips td {\n    text-align: center; }\n  .naturalSearch_root .data_wrap .id {\n    text-indent: 40px; }\n  .naturalSearch_root .data_wrap .data_header .bbdTable_root {\n    border: none; }\n  .naturalSearch_root .data_wrap .data_list table {\n    border: 1px solid #03688F; }\n  .naturalSearch_root .data_wrap .data_list tr {\n    background: #1B3C59;\n    border-bottom: 1px solid #03688F; }\n    .naturalSearch_root .data_wrap .data_list tr:hover {\n      background: #03688F; }\n\n.naturalSearch_root .pagination {\n  width: 900px;\n  margin: 20px auto 0; }\n", ""]);
 
 	// exports
 
@@ -64487,7 +64558,6 @@
 	    startDate: [today.getFullYear(), today.getMonth() + 1, today.getDate()],
 	    endDate: [today.getFullYear(), today.getMonth() + 1, today.getDate()],
 	    fileName: '',
-	    impType: 2,
 	    impState: ''
 	};
 
@@ -64511,7 +64581,9 @@
 
 	        _this.state = {
 	            list: [],
-	            filter: _extends({}, defaultFilter),
+	            filter: _extends({}, defaultFilter, {
+	                impType: _this.props.impType
+	            }),
 	            impStateOptions: [{ value: '', text: '全部' }, { value: 2, text: '处理中' }, { value: 3, text: '成功' }, { value: 4, text: '失败' }]
 	        };
 	        _this.toPage = _this.toPage.bind(_this);
@@ -64663,7 +64735,7 @@
 	                                null,
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    { width: '10%', className: 'text-left no-indent padding4' },
+	                                    { width: '8%', className: 'text-left no-indent padding4' },
 	                                    '序号'
 	                                ),
 	                                _react2.default.createElement(
@@ -64686,7 +64758,7 @@
 	                                ),
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    { width: '30%', className: 'date-box' },
+	                                    { width: '32%', className: 'date-box' },
 	                                    _react2.default.createElement(
 	                                        'div',
 	                                        { className: 'label' },
@@ -64716,7 +64788,7 @@
 	                                    'th',
 	                                    { width: '8%', className: 'text-left' },
 	                                    _react2.default.createElement(_Select2.default, {
-	                                        defaultText: '所属',
+	                                        defaultText: '',
 	                                        options: this.state.impStateOptions,
 	                                        onSelected: this.impStateSelected,
 	                                        selected: filter.impState,
@@ -64765,7 +64837,7 @@
 	                                        { key: index },
 	                                        _react2.default.createElement(
 	                                            'td',
-	                                            { width: '10%', className: 'text-left no-indent padding4' },
+	                                            { width: '8%', className: 'text-left no-indent padding4' },
 	                                            index + 1
 	                                        ),
 	                                        _react2.default.createElement(
@@ -64780,7 +64852,7 @@
 	                                        ),
 	                                        _react2.default.createElement(
 	                                            'td',
-	                                            { width: '30%' },
+	                                            { width: '32%' },
 	                                            item.impDate
 	                                        ),
 	                                        _react2.default.createElement(
@@ -64791,12 +64863,16 @@
 	                                        _react2.default.createElement(
 	                                            'td',
 	                                            { width: '14%', className: 'text-left' },
-	                                            dom
+	                                            item.haveErrorFile ? _react2.default.createElement(
+	                                                'a',
+	                                                { className: 'blueDre', href: '/import/download-error-file.do?fileName=' + item.fileName + '&recordId=' + item.id },
+	                                                item.fileName
+	                                            ) : '- -'
 	                                        ),
 	                                        _react2.default.createElement(
 	                                            'td',
 	                                            { className: 'more text-left', width: '10%' },
-	                                            item.remark ? item.remark : '-'
+	                                            item.remark ? item.remark : '- -'
 	                                        )
 	                                    );
 	                                }) : _react2.default.createElement(
@@ -64859,7 +64935,7 @@
 
 
 	// module
-	exports.push([module.id, ".industry-upload .bbdSelect_root {\n  display: inline-block;\n  margin-right: 10px; }\n  .industry-upload .bbdSelect_root .valuePanel {\n    border: 1px solid #03688F;\n    background: none;\n    padding-left: 10px; }\n\n.RecordList_root .date-box > div {\n  float: left; }\n\n.RecordList_root .date-box .input {\n  width: 32%; }\n\n.RecordList_root .date-box .line {\n  width: 2%;\n  border-top: 1px solid #8899aa;\n  margin: 20px 10px 0 10px; }\n\n.RecordList_root .date-box .date__root {\n  height: 40px;\n  border: 1px solid #4C667C;\n  border-radius: 4px;\n  line-height: 40px;\n  text-align: left; }\n  .RecordList_root .date-box .date__root .date__showDate {\n    line-height: 40px; }\n  .RecordList_root .date-box .date__root .date__showDate::after {\n    top: 0; }\n\n.RecordList_root .date-box .label {\n  height: 40px;\n  line-height: 40px;\n  margin-right: 18px; }\n", ""]);
+	exports.push([module.id, ".industry-upload .bbdSelect_root {\n  display: inline-block;\n  margin-right: 10px; }\n  .industry-upload .bbdSelect_root .valuePanel {\n    border: 1px solid #03688F;\n    background: none;\n    padding-left: 10px; }\n\n.RecordList_root .date-box > div {\n  float: left; }\n\n.RecordList_root .date-box .input {\n  width: 34%; }\n\n.RecordList_root .date-box .line {\n  width: 2%;\n  border-top: 1px solid #8899aa;\n  margin: 20px 10px 0 10px; }\n\n.RecordList_root .date-box .date__root {\n  height: 40px;\n  border: 1px solid #4C667C;\n  border-radius: 4px;\n  line-height: 40px;\n  text-align: left; }\n  .RecordList_root .date-box .date__root .date__showDate {\n    line-height: 40px; }\n  .RecordList_root .date-box .date__root .date__showDate::after {\n    top: 0; }\n\n.RecordList_root .date-box .label {\n  height: 40px;\n  line-height: 40px;\n  margin-right: 18px; }\n", ""]);
 
 	// exports
 
@@ -64932,7 +65008,15 @@
 	    _createClass(CompanyLeadin, [{
 	        key: 'render',
 	        value: function render() {
-	            return _react2.default.createElement(_UploadList2.default, { templateName: '', isIndustry: false, backUrl: '/companyLeadin/index', title: '企业名单快捷导入' });
+	            var propsJson = {
+	                templateName: 'company_list',
+	                isIndustry: false,
+	                backUrl: '/companyLeadin/index',
+	                title: '企业名单快捷导入',
+	                impType: 1,
+	                showTitle: true
+	            };
+	            return _react2.default.createElement(_UploadList2.default, propsJson);
 	        }
 	    }]);
 
@@ -64978,6 +65062,10 @@
 
 	var _Upload2 = _interopRequireDefault(_Upload);
 
+	var _UploadList = __webpack_require__(784);
+
+	var _UploadList2 = _interopRequireDefault(_UploadList);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -64996,282 +65084,21 @@
 	    function LeadinMore(props) {
 	        _classCallCheck(this, LeadinMore);
 
-	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(LeadinMore).call(this, props));
-
-	        _this.state = {
-	            list: [{ id: 1, orderNum: 1, loginName: 1, realName: 1, department: 1, userStatus: 1, userType: 1 }, { id: 2, orderNum: 1, loginName: 1, realName: 1, department: 1, userStatus: 1, userType: 1 }, { id: 3, orderNum: 1, loginName: 1, realName: 1, department: 1, userStatus: 1, userType: 1 }, { id: 4, orderNum: 1, loginName: 1, realName: 1, department: 1, userStatus: 1, userType: 1 }, { id: 5, orderNum: 1, loginName: 1, realName: 1, department: 1, userStatus: 1, userType: 1 }, { id: 6, orderNum: 1, loginName: 1, realName: 1, department: 1, userStatus: 1, userType: 1 }, { id: 7, orderNum: 1, loginName: 1, realName: 1, department: 1, userStatus: 1, userType: 1 }, { id: 8, orderNum: 1, loginName: 1, realName: 1, department: 1, userStatus: 1, userType: 1 }, { id: 9, orderNum: 1, loginName: 1, realName: 1, department: 1, userStatus: 1, userType: 1 }, { id: 10, orderNum: 1, loginName: 1, realName: 1, department: 1, userStatus: 1, userType: 1 }]
-	        };
-	        _this.onChange = _this.onChange.bind(_this);
-	        return _this;
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(LeadinMore).call(this, props));
 	    }
 
 	    _createClass(LeadinMore, [{
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
-	            $('#list-content').perfectScrollbar();
-	            $('#upload-list').perfectScrollbar();
-	        }
-	    }, {
-	        key: 'onChange',
-	        value: function onChange() {
-	            this.setState({
-	                isEdit: true
-	            });
-	        }
-	    }, {
-	        key: 'checkList',
-	        value: function checkList() {
-	            this.setState({
-	                showList: true,
-	                showOne: 0
-	            });
-	        }
-	    }, {
-	        key: 'downTemplate',
-	        value: function downTemplate() {
-	            //
-	        }
-	    }, {
-	        key: 'uploadExcel',
-	        value: function uploadExcel(fd) {
-	            console.info(555555555555);
-	        }
-	    }, {
-	        key: 'selectFile',
-	        value: function selectFile(name) {
-	            // console.info(name, 11111111111);
-	        }
-	    }, {
 	        key: 'render',
 	        value: function render() {
-	            return _react2.default.createElement(
-	                'div',
-	                { className: 'leadinMore_root common-upload' },
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'content' },
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'top-btn btn-box' },
-	                        _react2.default.createElement(
-	                            _Button2.default,
-	                            { className: 'checkList-btn', icon: 'icon-lishijilu', onClick: this.checkList },
-	                            '查看批量导入记录'
-	                        ),
-	                        _react2.default.createElement(_Upload2.default, { uploadName: '上传名单', icon: 'icon-msnui-upload', submit: this.uploadExcel, change: this.selectFile, submitText: '导入' })
-	                    ),
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'btn-box' },
-	                        _react2.default.createElement(
-	                            'span',
-	                            { className: 'blue' },
-	                            '名单上传'
-	                        ),
-	                        _react2.default.createElement(
-	                            _Button2.default,
-	                            { className: 'downTemplate-btn', icon: 'icon-xiazai', onClick: this.downTemplate },
-	                            '下载批量添加模板'
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        'ul',
-	                        { className: 'upload-list', id: 'upload-list' },
-	                        _react2.default.createElement(
-	                            'li',
-	                            null,
-	                            _react2.default.createElement('i', { className: 'iconfont icon-moban blue' }),
-	                            _react2.default.createElement(
-	                                'span',
-	                                null,
-	                                '大家撒都看见三德科技埃里克1'
-	                            ),
-	                            _react2.default.createElement(
-	                                'span',
-	                                { className: 'barBox' },
-	                                _react2.default.createElement('span', { className: 'bar' })
-	                            ),
-	                            _react2.default.createElement(
-	                                'span',
-	                                { className: 'size' },
-	                                _react2.default.createElement(
-	                                    'b',
-	                                    null,
-	                                    '1M'
-	                                ),
-	                                '/45m'
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            'li',
-	                            null,
-	                            _react2.default.createElement('i', { className: 'iconfont icon-moban blue' }),
-	                            _react2.default.createElement(
-	                                'span',
-	                                null,
-	                                '大家撒都看见三德科技埃里克2'
-	                            ),
-	                            _react2.default.createElement(
-	                                'span',
-	                                { className: 'barBox' },
-	                                _react2.default.createElement('span', { className: 'bar' })
-	                            ),
-	                            _react2.default.createElement(
-	                                'span',
-	                                { className: 'size' },
-	                                _react2.default.createElement(
-	                                    'b',
-	                                    null,
-	                                    '1M'
-	                                ),
-	                                '/45M'
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            'li',
-	                            null,
-	                            _react2.default.createElement('i', { className: 'iconfont icon-moban blue' }),
-	                            _react2.default.createElement(
-	                                'span',
-	                                null,
-	                                '大家撒都看见三德科技埃里克3'
-	                            ),
-	                            _react2.default.createElement(
-	                                'span',
-	                                { className: 'barBox' },
-	                                _react2.default.createElement('span', { className: 'bar' })
-	                            ),
-	                            _react2.default.createElement(
-	                                'span',
-	                                { className: 'size' },
-	                                _react2.default.createElement(
-	                                    'b',
-	                                    null,
-	                                    '1M'
-	                                ),
-	                                '/45M'
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            'li',
-	                            null,
-	                            _react2.default.createElement('i', { className: 'iconfont icon-moban blue' }),
-	                            _react2.default.createElement(
-	                                'span',
-	                                null,
-	                                '大家撒都看见三德科技埃里克4'
-	                            ),
-	                            _react2.default.createElement('i', { className: 'iconfont icon-wancheng' }),
-	                            _react2.default.createElement(
-	                                'span',
-	                                { className: 'size' },
-	                                '删除'
-	                            )
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'table-list' },
-	                        _react2.default.createElement(
-	                            'span',
-	                            { className: 'blue' },
-	                            '名单上传'
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'building-list' },
-	                            _react2.default.createElement(
-	                                'table',
-	                                { className: '' },
-	                                _react2.default.createElement(
-	                                    'thead',
-	                                    null,
-	                                    _react2.default.createElement(
-	                                        'tr',
-	                                        null,
-	                                        _react2.default.createElement(
-	                                            'th',
-	                                            { width: '30%' },
-	                                            '企业名称'
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'th',
-	                                            { width: '20%' },
-	                                            '统一信用代码'
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'th',
-	                                            { width: '20%' },
-	                                            '组织机构代码'
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'th',
-	                                            { width: '22%' },
-	                                            '工商注册号'
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'th',
-	                                            { width: '8%' },
-	                                            '行业类别'
-	                                        )
-	                                    )
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'list-content', id: 'list-content' },
-	                                _react2.default.createElement(
-	                                    'table',
-	                                    { className: '' },
-	                                    _react2.default.createElement(
-	                                        'tbody',
-	                                        null,
-	                                        this.state.list.length > 0 ? this.state.list.map(function (item, index) {
-	                                            return _react2.default.createElement(
-	                                                'tr',
-	                                                { key: index },
-	                                                _react2.default.createElement(
-	                                                    'td',
-	                                                    { width: '30%' },
-	                                                    item.department
-	                                                ),
-	                                                _react2.default.createElement(
-	                                                    'td',
-	                                                    { width: '20%' },
-	                                                    item.userStatus
-	                                                ),
-	                                                _react2.default.createElement(
-	                                                    'td',
-	                                                    { width: '20%' },
-	                                                    item.userType
-	                                                ),
-	                                                _react2.default.createElement(
-	                                                    'td',
-	                                                    { width: '22%' },
-	                                                    item.userStatus
-	                                                ),
-	                                                _react2.default.createElement(
-	                                                    'td',
-	                                                    { width: '8%' },
-	                                                    item.userType
-	                                                )
-	                                            );
-	                                        }) : _react2.default.createElement(
-	                                            'tr',
-	                                            { className: 'nodata-tips' },
-	                                            _react2.default.createElement(
-	                                                'td',
-	                                                null,
-	                                                '暂无数据'
-	                                            )
-	                                        )
-	                                    )
-	                                )
-	                            )
-	                        )
-	                    )
-	                )
-	            );
+	            var propsJson = {
+	                templateName: 'company_building',
+	                isIndustry: false,
+	                backUrl: '/parkManage/recordList',
+	                title: '行业数据管理',
+	                impType: 3,
+	                showTitle: true
+	            };
+	            return _react2.default.createElement(_UploadList2.default, propsJson);
 	        }
 	    }]);
 
@@ -65318,7 +65145,7 @@
 
 
 	// module
-	exports.push([module.id, ".leadinOne_root {\n  padding-top: 85px; }\n  .leadinOne_root .content {\n    width: 580px;\n    margin: 0 auto; }\n  .leadinOne_root .label-name {\n    font-size: 16px;\n    height: 40px;\n    line-height: 40px;\n    width: 140px;\n    text-align: right;\n    padding-right: 20px; }\n  .leadinOne_root .right {\n    float: left; }\n    .leadinOne_root .right .bbdSelect_root .valuePanel {\n      border-color: #0D7199;\n      padding-left: 10px; }\n  .leadinOne_root .item {\n    height: 40px;\n    margin-bottom: 20px; }\n  .leadinOne_root .left-select .valuePanel {\n    border: 0;\n    text-align: left;\n    color: #8899aa;\n    font-size: 16px;\n    font-weight: 600; }\n  .leadinOne_root .left-select i.iconfont {\n    right: -5px; }\n  .leadinOne_root .submit-btn {\n    padding-left: 37px; }\n\n.leadinMore_root .content {\n  padding-top: 25px;\n  border: 0;\n  background: none; }\n  .leadinMore_root .content .top-btn {\n    text-align: right; }\n    .leadinMore_root .content .top-btn .checkList-btn {\n      margin-right: 110px; }\n  .leadinMore_root .content .upload_label {\n    top: 25px;\n    right: 20px; }\n", ""]);
+	exports.push([module.id, ".leadinOne_root {\n  padding-top: 85px; }\n  .leadinOne_root .content {\n    width: 580px;\n    margin: 0 auto; }\n  .leadinOne_root .label-name {\n    font-size: 16px;\n    height: 40px;\n    line-height: 40px;\n    width: 140px;\n    text-align: right;\n    padding-right: 20px; }\n  .leadinOne_root .right {\n    float: left; }\n    .leadinOne_root .right .bbdSelect_root .valuePanel {\n      border-color: #0D7199;\n      padding-left: 10px; }\n  .leadinOne_root .item {\n    height: 40px;\n    margin-bottom: 20px; }\n  .leadinOne_root .left-select .valuePanel {\n    border: 0;\n    text-align: left;\n    color: #8899aa;\n    font-size: 16px;\n    font-weight: 600;\n    background: none; }\n  .leadinOne_root .left-select i.iconfont {\n    right: -5px; }\n  .leadinOne_root .submit-btn {\n    padding-left: 37px; }\n\n.leadinMore_root .content {\n  padding-top: 25px;\n  border: 0;\n  background: none; }\n  .leadinMore_root .content .top-btn {\n    text-align: right; }\n    .leadinMore_root .content .top-btn .checkList-btn {\n      margin-right: 110px; }\n  .leadinMore_root .content .upload_label {\n    top: 25px;\n    right: 20px; }\n", ""]);
 
 	// exports
 
@@ -65341,7 +65168,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _index = __webpack_require__(768);
+	var _index = __webpack_require__(767);
 
 	var _index2 = _interopRequireDefault(_index);
 
@@ -65603,7 +65430,7 @@
 
 	var _Upload2 = _interopRequireDefault(_Upload);
 
-	var _index = __webpack_require__(768);
+	var _index = __webpack_require__(767);
 
 	var _index2 = _interopRequireDefault(_index);
 
@@ -65667,7 +65494,9 @@
 	        key: 'componentDidMount',
 	        value: function componentDidMount() {
 	            $('#upload-list').perfectScrollbar();
-	            this.getselectOne();
+	            if (this.props.isIndustry) {
+	                this.getselectOne();
+	            }
 	        }
 
 	        // 获取下拉框行业数据一级
@@ -65677,17 +65506,18 @@
 	        value: function getselectOne() {
 	            var _this2 = this;
 
-	            _util2.default.promiseAjax({
+	            _util2.default.ajax({
 	                type: 'get',
-	                url: ' /import/import-list-one.do'
-	            }).then(function (res) {
-	                if (res.success) {
-	                    var industryOptionsOne = res.content.map(function (v) {
-	                        return { value: v.key, text: v.desc };
-	                    });
-	                    _this2.setState({
-	                        industryOptionsOne: industryOptionsOne
-	                    });
+	                url: ' /import/import-list-one.do',
+	                success: function success(res) {
+	                    if (res.success) {
+	                        var industryOptionsOne = res.content.map(function (v) {
+	                            return { value: v.key, text: v.desc };
+	                        });
+	                        _this2.setState({
+	                            industryOptionsOne: industryOptionsOne
+	                        });
+	                    }
 	                }
 	            });
 	        }
@@ -65698,21 +65528,22 @@
 	        value: function getselectTwo(value) {
 	            var _this3 = this;
 
-	            _util2.default.promiseAjax({
+	            _util2.default.ajax({
 	                type: 'get',
 	                url: '/import/import-list-two.do',
 	                data: {
 	                    key: value
-	                }
-	            }).then(function (res) {
-	                if (res.success) {
-	                    var industryOptionsTwo = res.content.map(function (v) {
-	                        return { value: v.key, text: v.desc };
-	                    });
-	                    _this3.setState({
-	                        industryOptionsTwo: industryOptionsTwo,
-	                        twoStatus: ''
-	                    });
+	                },
+	                success: function success(res) {
+	                    if (res.success) {
+	                        var industryOptionsTwo = res.content.map(function (v) {
+	                            return { value: v.key, text: v.desc };
+	                        });
+	                        _this3.setState({
+	                            industryOptionsTwo: industryOptionsTwo,
+	                            twoStatus: ''
+	                        });
+	                    }
 	                }
 	            });
 	        }
@@ -65723,12 +65554,14 @@
 	         * 模板下载
 	         * */
 	        value: function downTemplate() {
-	            var isIndustry = this.props.isIndustry;
+	            var _props = this.props;
+	            var isIndustry = _props.isIndustry;
+	            var templateName = _props.templateName;
 
 	            if (this.state.twoStatus === '' && isIndustry) {
 	                _index2.default.warning('请选择行业数据类型');
 	            } else {
-	                window.location.href = '/import/import-template.do?templateName=' + this.state.twoStatus;
+	                window.location.href = '/import/import-template.do?templateName=' + (this.state.twoStatus || templateName);
 	            }
 	        }
 	        /*
@@ -65762,9 +65595,10 @@
 	        value: function uploadExcel() {
 	            var _this4 = this;
 
-	            var _props = this.props;
-	            var isIndustry = _props.isIndustry;
-	            var impType = _props.impType;
+	            var _props2 = this.props;
+	            var isIndustry = _props2.isIndustry;
+	            var impType = _props2.impType;
+	            var templateName = _props2.templateName;
 
 	            var allFiles = this.state.allFile;
 	            var twoStatus = this.state.twoStatus;
@@ -65777,9 +65611,11 @@
 	            }
 	            var fd = new FormData();
 	            for (var key in allFiles) {
-	                fd.append('files', allFiles[key]);
+	                if (allFiles.hasOwnProperty(key)) {
+	                    fd.append('files', allFiles[key]);
+	                }
 	            }
-	            fd.append('templateName', twoStatus);
+	            fd.append('templateName', templateName || twoStatus);
 	            fd.append('impType', impType);
 	            _util2.default.uploadXhr({
 	                url: '/import/import-data-list.do',
@@ -65803,17 +65639,24 @@
 	        value: function render() {
 	            var _this5 = this;
 
+	            var _props3 = this.props;
+	            var title = _props3.title;
+	            var isIndustry = _props3.isIndustry;
+	            var showTitle = _props3.showTitle;
+
 	            var allFile = this.state.allFile;
 	            var fileList = [];
 	            for (var key in allFile) {
-	                fileList.push(allFile[key]);
+	                if (allFile.hasOwnProperty(key)) {
+	                    fileList.push(allFile[key]);
+	                }
 	            }
 	            return _react2.default.createElement(
 	                'div',
 	                { className: 'industry-upload common-upload' },
 	                _react2.default.createElement(
 	                    _MainTitle2.default,
-	                    { title: this.props.title, subTitle: ['上传名单'] },
+	                    { title: title, subTitle: ['上传名单'] },
 	                    _react2.default.createElement(
 	                        'div',
 	                        { className: 'btn-box' },
@@ -65836,21 +65679,21 @@
 	                            { className: 'blue' },
 	                            '数据上传'
 	                        ),
-	                        this.props.isIndustry ? _react2.default.createElement(_Select2.default, {
+	                        isIndustry ? _react2.default.createElement(_Select2.default, {
 	                            defaultText: '请选择',
 	                            options: this.state.industryOptionsOne,
 	                            onSelected: this.oneSelected,
 	                            selected: this.state.oneStatus,
 	                            name: 'oneStatus',
-	                            style: { width: '150px', minWidth: 'auto' }
+	                            style: { width: '200px', minWidth: 'auto' }
 	                        }) : '',
-	                        this.props.isIndustry ? _react2.default.createElement(_Select2.default, {
+	                        isIndustry ? _react2.default.createElement(_Select2.default, {
 	                            defaultText: '请选择',
 	                            options: this.state.industryOptionsTwo,
 	                            onSelected: this.oneSelected,
 	                            selected: this.state.twoStatus,
 	                            name: 'twoStatus',
-	                            style: { width: '150px', minWidth: 'auto' }
+	                            style: { width: '200px', minWidth: 'auto' }
 	                        }) : '',
 	                        _react2.default.createElement(
 	                            _Button2.default,
@@ -66029,7 +65872,7 @@
 
 	var _Upload2 = _interopRequireDefault(_Upload);
 
-	var _index = __webpack_require__(768);
+	var _index = __webpack_require__(767);
 
 	var _index2 = _interopRequireDefault(_index);
 
@@ -66068,7 +65911,15 @@
 	    _createClass(IndustryManage, [{
 	        key: 'render',
 	        value: function render() {
-	            return _react2.default.createElement(_UploadList2.default, { templateName: '', isIndustry: true, backUrl: '/industryManage/index', title: '行业数据管理' });
+	            var propsJson = {
+	                templateName: '',
+	                isIndustry: true,
+	                backUrl: '/industryManage/index',
+	                title: '行业数据管理',
+	                impType: 2,
+	                showTitle: true
+	            };
+	            return _react2.default.createElement(_UploadList2.default, propsJson);
 	        }
 	    }]);
 
@@ -66126,6 +65977,10 @@
 
 	var _Modal2 = _interopRequireDefault(_Modal);
 
+	var _index = __webpack_require__(788);
+
+	var _index2 = _interopRequireDefault(_index);
+
 	var _util = __webpack_require__(673);
 
 	var _util2 = _interopRequireDefault(_util);
@@ -66142,6 +65997,7 @@
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Created By hejie
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 园区楼宇管理
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               */
+	// 自动补全组件
 
 
 	var ParkManage = function (_Component) {
@@ -66179,7 +66035,8 @@
 
 	        _this.parkSelected = function (val) {
 	            _this.setState({
-	                parkStatus: val
+	                parkStatus: val,
+	                buildingVal: ''
 	            }, function () {
 	                _this.getParkList();
 	            });
@@ -66293,6 +66150,47 @@
 
 	        // 园区筛选
 
+	    }, {
+	        key: 'buildChange',
+
+	        /*
+	         * 楼宇名改变
+	         * */
+	        value: function buildChange(buildingVal, selected) {
+	            this.setState({ buildingVal: buildingVal });
+	        }
+	        /*
+	         * 获取楼宇联想数据
+	         * */
+
+	    }, {
+	        key: 'buildNameComplete',
+	        value: function buildNameComplete(v) {
+	            return _util2.default.promiseAjax({
+	                type: 'get',
+	                url: '/park-mgt/buildingList.do',
+	                data: { buildingName: v, parkId: this.state.parkStatus }
+	            }).then(function (resp) {
+	                if (resp.success) {
+	                    return resp.content.map(function (item) {
+	                        return { text: item.buildingName, value: item.buildingId };
+	                    });
+	                }
+	            });
+	        }
+	        /*
+	         * 获取楼宇数据
+	         * */
+
+	    }, {
+	        key: 'getBuildInfo',
+	        value: function getBuildInfo(item) {
+	            var _this4 = this;
+
+	            this.setState({ buildingVal: item.text }, function () {
+	                _this4.getParkList();
+	            });
+	        }
 	        // 绑定输入
 
 	    }, {
@@ -66300,7 +66198,7 @@
 
 	        // 编辑园区
 	        value: function handleEdit(packName, areaId) {
-	            _reactRouter.browserHistory.push('/parkManage/parkDetail?isEdit=true&packName=' + packName + '&areaId=' + areaId);
+	            _reactRouter.browserHistory.push('/parkManage/parkDetail?isEdit=true&parkName=' + packName + '&areaId=' + areaId);
 	        }
 	        /* 
 	        *弹窗展示 
@@ -66322,7 +66220,7 @@
 	    }, {
 	        key: 'deletePack',
 	        value: function deletePack() {
-	            var _this4 = this;
+	            var _this5 = this;
 
 	            var _state = this.state;
 	            var deleteItem = _state.deleteItem;
@@ -66339,8 +66237,8 @@
 	                },
 	                success: function success(res) {
 	                    if (res.success) {
-	                        _this4.getParkList();
-	                        _this4.showModel(false);
+	                        _this5.getParkList();
+	                        _this5.showModel(false);
 	                    }
 	                }
 	            });
@@ -66356,7 +66254,7 @@
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            var _this5 = this;
+	            var _this6 = this;
 
 	            return _react2.default.createElement(
 	                'div',
@@ -66367,28 +66265,28 @@
 	                    _react2.default.createElement(
 	                        _Button2.default,
 	                        { onClick: function onClick() {
-	                                return _this5.topage('newPark');
+	                                return _this6.topage('newPark');
 	                            } },
 	                        '新增园区'
 	                    ),
 	                    _react2.default.createElement(
 	                        _Button2.default,
 	                        { onClick: function onClick() {
-	                                return _this5.topage('newBuilding');
+	                                return _this6.topage('newBuilding');
 	                            } },
 	                        '新增楼宇'
 	                    ),
 	                    _react2.default.createElement(
 	                        _Button2.default,
 	                        { onClick: function onClick() {
-	                                return _this5.topage('leadin');
+	                                return _this6.topage('leadin');
 	                            } },
 	                        '导入企业'
 	                    ),
 	                    _react2.default.createElement(
 	                        _Button2.default,
 	                        { onClick: function onClick() {
-	                                return _this5.showModel(true);
+	                                return _this6.showModel(true);
 	                            } },
 	                        '批量删除'
 	                    )
@@ -66427,14 +66325,17 @@
 	                                    _react2.default.createElement(
 	                                        'th',
 	                                        { width: '22%', className: 'text-left' },
-	                                        _react2.default.createElement(_Input2.default, {
-	                                            placeholder: '楼宇名称',
+	                                        _react2.default.createElement(_index2.default, {
+	                                            placeholder: '请输入楼宇名称搜索',
 	                                            suffix: 'icon-search',
 	                                            value: this.state.buildingVal,
-	                                            onChange: this.handleChange,
-	                                            onSearch: this.getParkList,
-	                                            name: 'buildingVal',
-	                                            width: '200'
+	                                            name: this.state.buildingVal,
+	                                            onChange: this.buildChange.bind(this),
+	                                            request: this.buildNameComplete.bind(this),
+	                                            onChoose: function onChoose(item) {
+	                                                _this6.getBuildInfo(item);
+	                                            },
+	                                            style: { width: '76%' }
 	                                        })
 	                                    ),
 	                                    _react2.default.createElement(
@@ -66466,7 +66367,7 @@
 	                                            _react2.default.createElement(
 	                                                'td',
 	                                                { width: '12%', className: 'text-left no-indent padding7' },
-	                                                _react2.default.createElement(_Checkbox2.default, { value: item.buildingId, onChange: _this5.onChange, checked: _this5.state.ischecked })
+	                                                _react2.default.createElement(_Checkbox2.default, { value: item.buildingId, onChange: _this6.onChange, checked: _this6.state.ischecked })
 	                                            ),
 	                                            _react2.default.createElement(
 	                                                'td',
@@ -66498,13 +66399,13 @@
 	                                                    title: '编辑',
 	                                                    className: 'iconfont icon-edit',
 	                                                    onClick: function onClick() {
-	                                                        return _this5.handleEdit(item.parkName, item.parkId);
+	                                                        return _this6.handleEdit(item.parkName, item.parkId);
 	                                                    } }),
 	                                                _react2.default.createElement('i', {
 	                                                    title: '=删除',
 	                                                    className: 'iconfont icon-del',
 	                                                    onClick: function onClick() {
-	                                                        return _this5.showModel(true, item.buildingId);
+	                                                        return _this6.showModel(true, item.buildingId);
 	                                                    } })
 	                                            )
 	                                        );
@@ -66526,7 +66427,7 @@
 	                    _Modal2.default,
 	                    {
 	                        onCancel: function onCancel() {
-	                            return _this5.showModel(false);
+	                            return _this6.showModel(false);
 	                        },
 	                        onOk: this.deletePack,
 	                        okText: '我确定',
@@ -66569,19 +66470,13 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactRouter = __webpack_require__(243);
+	var _reactDom = __webpack_require__(242);
 
-	var _ParkDetail = __webpack_require__(791);
+	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	var _ParkDetail2 = _interopRequireDefault(_ParkDetail);
+	var _Input = __webpack_require__(703);
 
-	var _ParkEdit = __webpack_require__(794);
-
-	var _ParkEdit2 = _interopRequireDefault(_ParkEdit);
-
-	var _util = __webpack_require__(673);
-
-	var _util2 = _interopRequireDefault(_util);
+	var _Input2 = _interopRequireDefault(_Input);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -66589,85 +66484,185 @@
 
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Created By hejie
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 园区管理布局
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               */
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+	/**
+	 * props 的值
+	 * {
+	 *  request: 发起请求的方法
+	 *  onChoose 选了以后的回调函数
+	 * }
+	 */
+	var timer; // 所有组件实例公用这一个 变量来储存请求“线程”。因为如果放到实例的state上，会引起同步问题，但是这个组件，用户不可能会同时使用不同的 组件实例
 
-	var ParkInfo = function (_Component) {
-	    _inherits(ParkInfo, _Component);
+	/* 自动补全组件*/
 
-	    function ParkInfo(props) {
-	        _classCallCheck(this, ParkInfo);
+	var AutoComplete = function (_Component) {
+	    _inherits(AutoComplete, _Component);
 
-	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(ParkInfo).call(this, props));
+	    function AutoComplete(props) {
+	        _classCallCheck(this, AutoComplete);
 
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AutoComplete).call(this, props));
+
+	        _this.handleChange = _this.handleChange.bind(_this);
+	        _this.hanldeSelectItem = _this.hanldeSelectItem.bind(_this);
 	        _this.state = {
-	            isEdit: _this.props.location.query.isEdit || false, // 是否编辑状态
-	            list: []
+	            textValue: '', // input的value回显
+	            data: [], // 服务器返回的待选列表
+	            show: 'none',
+	            lastRequestValue: '', // 上一次往服务器请求的值，防止重复搜索
+	            selected: '' // 是否选中
 	        };
-	        _this.onChange = _this.onChange.bind(_this);
-	        _this.getBuildingList = _this.getBuildingList.bind(_this);
+	        _this.hide = _this.hide.bind(_this);
 	        return _this;
 	    }
 
-	    _createClass(ParkInfo, [{
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
-	            // console.info(this.props.location);
-	            this.getBuildingList();
+	    _createClass(AutoComplete, [{
+	        key: 'componentWillReceiveProps',
+	        value: function componentWillReceiveProps(nextProps) {
+	            if (nextProps.value !== this.props.value) {
+	                var state = { textValue: nextProps.value };
+	                if ($.trim(nextProps.value) === '') {
+	                    state = _extends({}, state, {
+	                        textValue: '',
+	                        lastRequestValue: '',
+	                        selected: '',
+	                        data: []
+	                    });
+	                }
+	                this.setState(state);
+	            }
 	        }
-	        /*
-	        *楼宇列表
-	        */
-
 	    }, {
-	        key: 'getBuildingList',
-	        value: function getBuildingList() {
+	        key: 'handleChange',
+	        value: function handleChange(e) {
+	            var textValue = e.target.value;
+	            this.setState({
+	                textValue: textValue,
+	                selected: ''
+	            });
+	            var onChange = this.props.onChange;
+
+	            typeof onChange === 'function' && onChange(textValue, e);
+	            this.delayRequest(textValue);
+	        }
+	    }, {
+	        key: 'delayRequest',
+	        value: function delayRequest(value) {
+	            // 延时请求处理
+	            var self = this;
+
+	            clearTimeout(timer);
+	            timer = setTimeout(function () {
+	                self.requestData(value);
+	            }, 500);
+	        }
+	    }, {
+	        key: 'requestData',
+	        value: function requestData(value) {
 	            var _this2 = this;
 
-	            _util2.default.ajax({
-	                type: 'get',
-	                url: '/park-mgt/queryBuildingCompanyNumber.do',
-	                dataType: 'json',
-	                data: {
-	                    parkId: this.props.location.query.areaId
-	                },
-	                success: function success(res) {
-	                    if (res.success) {
-	                        _this2.setState({
-	                            list: res.content
-	                        });
-	                    }
+	            value = $.trim(value);
+	            if (value === '' || value === this.state.lastRequestValue) {
+	                if (value === '') {
+	                    this.setState({ data: [], lastRequestValue: '' });
 	                }
-
+	                return;
+	            }
+	            this.props.request(value).then(function (data) {
+	                _this2.setState({
+	                    data: data,
+	                    lastRequestValue: value
+	                });
+	                _this2.show();
 	            });
 	        }
 	    }, {
-	        key: 'onChange',
-	        value: function onChange() {
-	            this.setState({
-	                isEdit: true
+	        key: 'show',
+	        value: function show() {
+	            this.setState({ show: 'block' });
+	        }
+	    }, {
+	        key: 'hide',
+	        value: function hide() {
+	            this.setState({ show: 'none' });
+	        }
+	    }, {
+	        key: 'hanldeSelectItem',
+	        value: function hanldeSelectItem(item) {
+	            var _this3 = this;
+
+	            this.setState({ selected: 'selected', textValue: item.text }, function () {
+	                _this3.props.onChoose(item);
+	                _this3.hide();
 	            });
+	        }
+	    }, {
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            document.addEventListener('click', this.hide);
+	        }
+	    }, {
+	        key: 'componentWillUnmount',
+	        value: function componentWillUnmount() {
+	            document.removeEventListener('click', this.hide);
 	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            return _react2.default.createElement(
-	                'div',
-	                { className: 'parkInfo_root' },
-	                this.state.isEdit ? _react2.default.createElement(_ParkEdit2.default, _extends({}, this.props, { list: this.state.list, getBuildList: this.getBuildingList })) : _react2.default.createElement(_ParkDetail2.default, _extends({}, this.props, { list: this.state.list, onChange: this.onChange, getBuildList: this.getBuildingList }))
+	            var _this4 = this;
+
+	            var data = this.state.data ? this.state.data : [];
+	            var length = data.length;
+	            var show = this.state.show;
+	            return(
+	                // react 事件包装方式：http://www.cnblogs.com/libin-1/p/6298326.html
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'autoCompleteCommon', 'data-selected': this.state.selected, style: this.props.style, ref: function ref(e) {
+	                            return _this4._root = e;
+	                        }, onClick: function onClick(e) {
+	                            e.nativeEvent.stopImmediatePropagation();
+	                        } },
+	                    _react2.default.createElement(_Input2.default, { disabled: this.props.disabled, type: 'text',
+	                        suffix: this.props.suffix,
+	                        name: this.props.name,
+	                        onChange: this.handleChange,
+	                        placeholder: this.props.placeholder,
+	                        value: this.state.textValue,
+	                        onFocus: function onFocus() {
+	                            _this4.state.data.length > 0 && _this4.show();
+	                        }
+	                    }),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'autoComplete_list', style: { display: show } },
+	                        _react2.default.createElement(
+	                            'ul',
+	                            null,
+	                            data.map(function (item, index) {
+	                                return _react2.default.createElement(
+	                                    'li',
+	                                    { key: index, onClick: function onClick(e) {
+	                                            _this4.hanldeSelectItem(item);
+	                                        } },
+	                                    item.text
+	                                );
+	                            })
+	                        )
+	                    )
+	                )
 	            );
 	        }
 	    }]);
 
-	    return ParkInfo;
+	    return AutoComplete;
 	}(_react.Component);
 
-	exports.default = ParkInfo;
+	exports.default = AutoComplete;
 
-	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "ParkInfo.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "index.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
@@ -66705,7 +66700,7 @@
 
 
 	// module
-	exports.push([module.id, ".label-name {\n  float: left;\n  color: #8899aa;\n  font-weight: 600; }\n  .label-name .icon {\n    color: #ff7800;\n    margin-right: 10px;\n    vertical-align: sub; }\n\n.label-middle {\n  height: 40px;\n  line-height: 40px; }\n\n.btn-box .bbdBtn_root {\n  font-size: 14px;\n  background-color: #0d7aa4; }\n\n.checkList-btn {\n  width: 156px; }\n\n.uploadExcel-btn {\n  width: 100px; }\n\n.downTemplate-btn {\n  width: 150px; }\n\n.building-list {\n  border: 1px solid #03688F;\n  background-color: #122c46;\n  padding: 22px; }\n  .building-list table {\n    width: 100%;\n    font-size: 14px;\n    text-align: center; }\n    .building-list table th {\n      padding: 4px 0 10px 0; }\n  .building-list .list-content {\n    border: 1px solid #03688F;\n    height: 175px;\n    position: relative;\n    background-color: rgba(27, 60, 89, 0.7); }\n    .building-list .list-content tr {\n      border-bottom: 1px solid #03688F; }\n      .building-list .list-content tr:hover {\n        background-color: #03688F; }\n    .building-list .list-content .nodata-tips {\n      border: 0; }\n    .building-list .list-content td {\n      padding: 12px 0; }\n\n.newPark_root .newPark_box {\n  color: #fff;\n  background-color: rgba(27, 60, 89, 0.7);\n  border: 1px solid #03688F;\n  padding: 50px 0;\n  min-height: 740px; }\n\n.newPark_root .bbdSelect_root .valuePanel {\n  padding-left: 12px; }\n\n.newPark_root .content {\n  width: 516px;\n  margin: 0 auto; }\n  .newPark_root .content .item {\n    margin-bottom: 20px;\n    overflow: hidden;\n    font-size: 14px; }\n    .newPark_root .content .item .label-name {\n      margin-right: 20px;\n      padding-left: 16px; }\n    .newPark_root .content .item .right {\n      float: left; }\n    .newPark_root .content .item .new-btn {\n      width: 90px;\n      background-color: #89c997;\n      font-size: 14px; }\n    .newPark_root .content .item .park-img {\n      width: 420px;\n      height: 180px;\n      position: relative; }\n      .newPark_root .content .item .park-img img {\n        width: 100%;\n        height: 100%; }\n\n.newBuilding_root .content .item .park-img {\n  width: 240px;\n  height: 340px; }\n\n.newBuilding_root .content .upload_submit {\n  top: 376px;\n  left: 180px; }\n\n.leadin_root .leadin_box {\n  color: #fff;\n  background-color: rgba(27, 60, 89, 0.7);\n  border: 1px solid #03688F;\n  min-height: 740px; }\n\n.leadin_root .bbdSelect_root {\n  display: inline-block; }\n\n.park-img .upload_label {\n  background-color: #00a2ff; }\n\n.park-img .upload_submit {\n  position: absolute;\n  top: 236px;\n  width: 140px;\n  background-color: #00b7ee; }\n", ""]);
+	exports.push([module.id, "@charset \"UTF-8\";\n/*自动补全*/\n.autoCompleteCommon {\n  position: relative;\n  line-height: 1; }\n  .autoCompleteCommon .autoComplete input {\n    height: 40px;\n    border-color: #60778b;\n    color: #8899aa; }\n  .autoCompleteCommon .bbdInputPreSuffix_input {\n    box-sizing: border-box; }\n  .autoCompleteCommon .icon-search {\n    /*position: absolute;\r\n        right: 20px;*/ }\n  .autoCompleteCommon .autoComplete_list {\n    position: absolute;\n    left: 0;\n    top: 100%;\n    width: 100%;\n    box-sizing: border-box;\n    padding: 0px;\n    overflow: auto;\n    z-index: 100;\n    max-height: 200px;\n    border: 0;\n    border-bottom-left-radius: 4px;\n    border-bottom-right-radius: 4px; }\n  .autoCompleteCommon .autoComplete_list ul {\n    width: 100%;\n    list-style: none;\n    padding: 0;\n    margin: 0; }\n  .autoCompleteCommon .autoComplete_list li {\n    padding: 8px 10px;\n    display: block;\n    font-size: 14px;\n    cursor: pointer;\n    color: #ffffff;\n    background-color: #25a9ee; }\n    .autoCompleteCommon .autoComplete_list li.active {\n      background-color: #31526F;\n      color: #fff; }\n  .autoCompleteCommon .autoComplete_list ul li:hover {\n    background-color: #0b70a5;\n    color: #fff; }\n  .autoCompleteCommon .autoComplete_list li.last {\n    border-bottom: none; }\n", ""]);
 
 	// exports
 
@@ -66722,9 +66717,209 @@
 	    value: true
 	});
 
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	__webpack_require__(792);
+
+	var _react = __webpack_require__(138);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(243);
+
+	var _ParkDetail = __webpack_require__(794);
+
+	var _ParkDetail2 = _interopRequireDefault(_ParkDetail);
+
+	var _ParkEdit = __webpack_require__(797);
+
+	var _ParkEdit2 = _interopRequireDefault(_ParkEdit);
+
+	var _util = __webpack_require__(673);
+
+	var _util2 = _interopRequireDefault(_util);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Created By hejie
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 园区管理布局
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               */
+
+
+	var ParkInfo = function (_Component) {
+	    _inherits(ParkInfo, _Component);
+
+	    function ParkInfo(props) {
+	        _classCallCheck(this, ParkInfo);
+
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(ParkInfo).call(this, props));
+
+	        _this.state = {
+	            isEdit: _this.props.location.query.isEdit || false, // 是否编辑状态
+	            list: [],
+	            imgUrl: ''
+	        };
+	        _this.onChange = _this.onChange.bind(_this);
+	        _this.getBuildingList = _this.getBuildingList.bind(_this);
+	        return _this;
+	    }
+
+	    _createClass(ParkInfo, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            // console.info(this.props.location);
+	            this.getBuildingList();
+	            this.getImgUrl();
+	        }
+	        /*
+	        *楼宇列表
+	        */
+
+	    }, {
+	        key: 'getBuildingList',
+	        value: function getBuildingList() {
+	            var _this2 = this;
+
+	            _util2.default.ajax({
+	                type: 'get',
+	                url: '/park-mgt/queryBuildingCompanyNumber.do',
+	                dataType: 'json',
+	                data: {
+	                    parkId: this.props.location.query.areaId
+	                },
+	                success: function success(res) {
+	                    if (res.success) {
+	                        _this2.setState({
+	                            list: res.content
+	                        });
+	                    }
+	                }
+
+	            });
+	        }
+	        /*
+	        *园区图片
+	        */
+
+	    }, {
+	        key: 'getImgUrl',
+	        value: function getImgUrl() {
+	            var _this3 = this;
+
+	            _util2.default.ajax({
+	                type: 'get',
+	                url: '/park-mgt/parkImg.do',
+	                dataType: 'json',
+	                data: {
+	                    parkId: this.props.location.query.areaId
+	                },
+	                success: function success(res) {
+	                    if (res.success) {
+	                        _this3.setState({
+	                            imgUrl: res.content
+	                        });
+	                    }
+	                }
+
+	            });
+	        }
+	    }, {
+	        key: 'onChange',
+	        value: function onChange(flag) {
+	            this.setState({
+	                isEdit: flag
+	            });
+	            if (!flag) {
+	                this.getImgUrl();
+	            }
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var propsjson = _extends({}, this.props, {
+	                list: this.state.list,
+	                getBuildList: this.getBuildingList,
+	                onChange: this.onChange,
+	                imgUrl: this.state.imgUrl
+	            });
+	            return _react2.default.createElement(
+	                'div',
+	                { className: 'parkInfo_root' },
+	                this.state.isEdit ? _react2.default.createElement(_ParkEdit2.default, propsjson) : _react2.default.createElement(_ParkDetail2.default, propsjson)
+	            );
+	        }
+	    }]);
+
+	    return ParkInfo;
+	}(_react.Component);
+
+	exports.default = ParkInfo;
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "ParkInfo.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 792 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(793);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(679)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(true) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept(793, function() {
+				var newContent = __webpack_require__(793);
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 793 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(678)();
+	// imports
+
+
+	// module
+	exports.push([module.id, ".label-name {\n  float: left;\n  color: #8899aa;\n  font-weight: 600; }\n  .label-name .icon {\n    color: #ff7800;\n    margin-right: 10px;\n    vertical-align: sub; }\n\n.label-middle {\n  height: 40px;\n  line-height: 40px; }\n\n.btn-box .bbdBtn_root {\n  font-size: 14px;\n  background-color: #0d7aa4; }\n\n.checkList-btn {\n  width: 156px; }\n\n.uploadExcel-btn {\n  width: 100px; }\n\n.downTemplate-btn {\n  width: 150px; }\n\n.building-list {\n  border: 1px solid #03688F;\n  background-color: #122c46;\n  padding: 22px; }\n  .building-list table {\n    width: 100%;\n    font-size: 14px;\n    text-align: center; }\n    .building-list table th {\n      padding: 4px 0 10px 0; }\n  .building-list .list-content {\n    border: 1px solid #03688F;\n    height: 175px;\n    position: relative;\n    background-color: rgba(27, 60, 89, 0.7); }\n    .building-list .list-content tr {\n      border-bottom: 1px solid #03688F; }\n      .building-list .list-content tr:hover {\n        background-color: #03688F; }\n    .building-list .list-content .nodata-tips {\n      border: 0; }\n    .building-list .list-content td {\n      padding: 12px 0; }\n\n.newPark_root .newPark_box {\n  color: #fff;\n  background-color: rgba(27, 60, 89, 0.7);\n  border: 1px solid #03688F;\n  padding: 50px 0;\n  min-height: 740px; }\n\n.newPark_root .bbdSelect_root .valuePanel {\n  padding-left: 12px; }\n\n.newPark_root .content {\n  width: 516px;\n  margin: 0 auto; }\n  .newPark_root .content .item {\n    margin-bottom: 20px;\n    overflow: hidden;\n    font-size: 14px; }\n    .newPark_root .content .item .label-name {\n      margin-right: 20px;\n      padding-left: 16px; }\n    .newPark_root .content .item .right {\n      float: left; }\n    .newPark_root .content .item .new-btn {\n      width: 90px;\n      background-color: #89c997;\n      font-size: 14px; }\n    .newPark_root .content .item .park-img {\n      width: 420px;\n      height: 180px;\n      position: relative; }\n      .newPark_root .content .item .park-img img {\n        width: 100%;\n        height: 100%; }\n\n.newBuilding_root .content .item .park-img {\n  width: 240px;\n  height: 340px; }\n\n.newBuilding_root .content .upload_submit {\n  top: 376px;\n  left: 180px; }\n\n.leadin_root .leadin_box {\n  color: #fff;\n  background-color: rgba(27, 60, 89, 0.7);\n  border: 1px solid #03688F;\n  min-height: 740px; }\n  .leadin_root .leadin_box .common-upload {\n    padding-right: 15px; }\n  .leadin_root .leadin_box .mainTitle_root {\n    margin-top: 10px;\n    background: none; }\n    .leadin_root .leadin_box .mainTitle_root .breadcrumb {\n      display: none; }\n\n.leadin_root .bbdSelect_root {\n  display: inline-block; }\n\n.leadin_root .content {\n  border: 0;\n  background: none; }\n  .leadin_root .content .upload_root {\n    display: inline; }\n\n.park-img .upload_label {\n  background-color: #00a2ff; }\n\n.park-img .upload_submit {\n  position: absolute;\n  top: 236px;\n  width: 140px;\n  background-color: #00b7ee; }\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 794 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	__webpack_require__(795);
 
 	var _react = __webpack_require__(138);
 
@@ -66799,7 +66994,7 @@
 	    }, {
 	        key: 'handleEdit',
 	        value: function handleEdit() {
-	            this.props.onChange();
+	            this.props.onChange(true);
 	        }
 	        // 删除园区
 
@@ -66891,7 +67086,7 @@
 	                        _react2.default.createElement(
 	                            'div',
 	                            { className: 'park-img right' },
-	                            _react2.default.createElement('img', { src: '', alt: '' })
+	                            _react2.default.createElement('img', { src: '/' + this.props.imgUrl, alt: '园区图片' })
 	                        )
 	                    ),
 	                    _react2.default.createElement(
@@ -67002,13 +67197,13 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 792 */
+/* 795 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(793);
+	var content = __webpack_require__(796);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(679)(content, {});
@@ -67017,8 +67212,8 @@
 	if(true) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept(793, function() {
-				var newContent = __webpack_require__(793);
+			module.hot.accept(796, function() {
+				var newContent = __webpack_require__(796);
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -67028,7 +67223,7 @@
 	}
 
 /***/ },
-/* 793 */
+/* 796 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(678)();
@@ -67042,7 +67237,7 @@
 
 
 /***/ },
-/* 794 */
+/* 797 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -67055,7 +67250,7 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	__webpack_require__(792);
+	__webpack_require__(795);
 
 	var _react = __webpack_require__(138);
 
@@ -67107,7 +67302,7 @@
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               */
 
 
-	var Immutable = __webpack_require__(795);
+	var Immutable = __webpack_require__(798);
 
 	var ParkEdit = function (_Component) {
 	    _inherits(ParkEdit, _Component);
@@ -67155,7 +67350,7 @@
 	            parkOptions: [], // 园区下拉框数据
 	            ischecked: false,
 	            parkStatus: Number(_this.props.location.query.areaId),
-	            parkText: _this.props.location.query.packName,
+	            parkText: _this.props.location.query.parkName,
 	            selectImg: '', // 选择上传的图片
 	            parkName: '',
 	            deleteBuild: [], // 需要删除的楼宇列表
@@ -67169,8 +67364,9 @@
 	        _this.selectFile = _this.selectFile.bind(_this);
 	        _this.uploadimg = _this.uploadimg.bind(_this);
 	        _this.showModel = _this.showModel.bind(_this);
-	        _this.closeModel = _this.closeModel.bind(_this);
 	        _this.deleteBuild = _this.deleteBuild.bind(_this);
+	        _this.topage = _this.topage.bind(_this);
+	        _this.cancel = _this.cancel.bind(_this);
 	        return _this;
 	    }
 
@@ -67257,7 +67453,31 @@
 	                data: fd,
 	                success: function success(res) {
 	                    if (res.success) {
-	                        _this3.setState({
+	                        _this3.saveImg();
+	                    }
+	                }
+	            });
+	        }
+	        /*
+	        *园区楼宇管理-图片上传
+	        */
+
+	    }, {
+	        key: 'saveImg',
+	        value: function saveImg() {
+	            var _this4 = this;
+
+	            var userName = sessionStorage.getItem('userName');
+	            _util2.default.ajax({
+	                type: 'get',
+	                url: '/park-mgt/updateDevPic.do',
+	                dataType: 'json',
+	                data: {
+	                    user: userName
+	                },
+	                success: function success(res) {
+	                    if (res.success) {
+	                        _this4.setState({
 	                            isUpLoad: false,
 	                            uploadVisible: true
 	                        });
@@ -67272,7 +67492,7 @@
 	    }, {
 	        key: 'deleteBuild',
 	        value: function deleteBuild(id) {
-	            var _this4 = this;
+	            var _this5 = this;
 
 	            var _state = this.state;
 	            var deleteItem = _state.deleteItem;
@@ -67289,8 +67509,8 @@
 	                },
 	                success: function success(res) {
 	                    if (res.success) {
-	                        _this4.props.getBuildList();
-	                        _this4.setState({
+	                        _this5.props.getBuildList();
+	                        _this5.setState({
 	                            deleteBuild: [],
 	                            delVisible: false
 	                        });
@@ -67310,7 +67530,10 @@
 	        *返回列表 
 	        */
 	        value: function cancel() {
-	            _reactRouter.browserHistory.push('/parkManage/index');
+	            this.props.onChange(false);
+	            this.setState({
+	                uploadVisible: false
+	            });
 	        }
 	        /* 
 	        *选择图片 
@@ -67333,8 +67556,8 @@
 
 	    }, {
 	        key: 'topage',
-	        value: function topage() {
-	            _reactRouter.browserHistory.push('/parkManage/newBuilding?areaId=' + this.state.parkStatus);
+	        value: function topage(url) {
+	            _reactRouter.browserHistory.push(url);
 	        }
 	        /* 
 	        *弹窗展示 
@@ -67350,17 +67573,16 @@
 	            });
 	        }
 	    }, {
-	        key: 'closeModel',
-	        value: function closeModel() {
-	            this.setState({
-	                uploadVisible: false
-	            });
-	        }
-	    }, {
 	        key: 'render',
 	        value: function render() {
-	            var _this5 = this;
+	            var _this6 = this;
 
+	            var _state2 = this.state;
+	            var parkStatus = _state2.parkStatus;
+	            var parkText = _state2.parkText;
+
+	            var newBuildUrl = '/parkManage/newBuilding?areaId=' + parkStatus;
+	            var goBack = '/parkManage/parkDetail?areaId=' + parkStatus + '&parkName=' + parkText;
 	            return _react2.default.createElement(
 	                'div',
 	                { className: 'parkDetail_root parkEdit_root' },
@@ -67388,13 +67610,11 @@
 	                        _react2.default.createElement(
 	                            'div',
 	                            { className: 'right' },
-	                            _react2.default.createElement(_Select2.default, {
-	                                defaultText: '',
-	                                options: this.state.parkOptions,
-	                                onSelected: this.parkSelected,
-	                                selected: this.state.parkStatus,
-	                                style: { width: '420px', minWidth: 'auto' }
-	                            })
+	                            _react2.default.createElement(
+	                                'span',
+	                                { className: 'name' },
+	                                parkText
+	                            )
 	                        )
 	                    ),
 	                    _react2.default.createElement(
@@ -67408,7 +67628,7 @@
 	                        _react2.default.createElement(
 	                            'div',
 	                            { className: 'park-img right' },
-	                            _react2.default.createElement('img', { src: '', alt: '园区图片', id: 'upload-img' }),
+	                            _react2.default.createElement('img', { src: '/' + this.props.imgUrl, alt: '园区图片', id: 'upload-img' }),
 	                            _react2.default.createElement(
 	                                'div',
 	                                { className: 'uploading-img' },
@@ -67429,13 +67649,15 @@
 	                            { className: 'btn-box' },
 	                            _react2.default.createElement(
 	                                _Button2.default,
-	                                { width: '100', onClick: this.topage },
+	                                { width: '100', onClick: function onClick() {
+	                                        return _this6.topage(newBuildUrl);
+	                                    } },
 	                                '新增楼宇'
 	                            ),
 	                            _react2.default.createElement(
 	                                _Button2.default,
 	                                { onClick: function onClick() {
-	                                        return _this5.showModel(true);
+	                                        return _this6.showModel(true);
 	                                    } },
 	                                '批量删除'
 	                            )
@@ -67496,7 +67718,7 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '10%', className: '' },
-	                                                    _react2.default.createElement(_Checkbox2.default, { value: item.buildingId, onChange: _this5.onChange, checked: _this5.state.ischecked })
+	                                                    _react2.default.createElement(_Checkbox2.default, { value: item.buildingId, onChange: _this6.onChange, checked: _this6.state.ischecked })
 	                                                ),
 	                                                _react2.default.createElement(
 	                                                    'td',
@@ -67520,7 +67742,7 @@
 	                                                        title: '删除',
 	                                                        className: 'iconfont icon-del',
 	                                                        onClick: function onClick() {
-	                                                            return _this5.showModel(true, item.buildingId);
+	                                                            return _this6.showModel(true, item.buildingId);
 	                                                        }
 	                                                    })
 	                                                )
@@ -67553,7 +67775,7 @@
 	                    _Modal2.default,
 	                    {
 	                        onCancel: function onCancel() {
-	                            return _this5.showModel(false);
+	                            return _this6.showModel(false);
 	                        },
 	                        onOk: this.deleteBuild,
 	                        okText: '我确定',
@@ -67565,7 +67787,7 @@
 	                _react2.default.createElement(
 	                    _Modal2.default,
 	                    {
-	                        onOk: this.closeModel,
+	                        onOk: this.cancel,
 	                        okText: '确定',
 	                        visible: this.state.uploadVisible
 	                    },
@@ -67584,7 +67806,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 795 */
+/* 798 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -72568,7 +72790,7 @@
 	}));
 
 /***/ },
-/* 796 */
+/* 799 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -72583,7 +72805,7 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	__webpack_require__(789);
+	__webpack_require__(792);
 
 	var _react = __webpack_require__(138);
 
@@ -72591,11 +72813,11 @@
 
 	var _reactRouter = __webpack_require__(243);
 
-	var _BuildingDetail = __webpack_require__(797);
+	var _BuildingDetail = __webpack_require__(800);
 
 	var _BuildingDetail2 = _interopRequireDefault(_BuildingDetail);
 
-	var _BuildingEdit = __webpack_require__(800);
+	var _BuildingEdit = __webpack_require__(803);
 
 	var _BuildingEdit2 = _interopRequireDefault(_BuildingEdit);
 
@@ -72625,7 +72847,8 @@
 
 	        _this.state = {
 	            isEdit: false,
-	            list: []
+	            list: [],
+	            imgUrl: ''
 	        };
 	        _this.onChange = _this.onChange.bind(_this);
 	        _this.getCompanyList = _this.getCompanyList.bind(_this);
@@ -72637,6 +72860,7 @@
 	        value: function componentDidMount() {
 	            // console.info(this.props.location);
 	            this.getCompanyList();
+	            this.getImgUrl();
 	        }
 	        /*
 	        *入驻企业列表
@@ -72663,20 +72887,56 @@
 	                }
 	            });
 	        }
+	        /*
+	        *楼宇图片
+	        */
+
+	    }, {
+	        key: 'getImgUrl',
+	        value: function getImgUrl() {
+	            var _this3 = this;
+
+	            _util2.default.ajax({
+	                type: 'get',
+	                url: '/park-mgt/buildingImg.do',
+	                dataType: 'json',
+	                data: {
+	                    parkId: this.props.location.query.areaId,
+	                    buildingId: this.props.location.query.buildingId
+	                },
+	                success: function success(res) {
+	                    if (res.success) {
+	                        _this3.setState({
+	                            imgUrl: res.content
+	                        });
+	                    }
+	                }
+
+	            });
+	        }
 	    }, {
 	        key: 'onChange',
-	        value: function onChange() {
+	        value: function onChange(flag) {
 	            this.setState({
-	                isEdit: true
+	                isEdit: flag
 	            });
+	            if (!flag) {
+	                this.getImgUrl();
+	            }
 	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
+	            var propsjson = _extends({}, this.props, {
+	                list: this.state.list,
+	                getCompanyList: this.getCompanyList,
+	                onChange: this.onChange,
+	                imgUrl: this.state.imgUrl
+	            });
 	            return _react2.default.createElement(
 	                'div',
 	                { className: 'buildingInfo_root' },
-	                this.state.isEdit ? _react2.default.createElement(_BuildingEdit2.default, _extends({}, this.props, { list: this.state.list, getCompanyList: this.getCompanyList })) : _react2.default.createElement(_BuildingDetail2.default, _extends({}, this.props, { list: this.state.list, onChange: this.onChange, getCompanyList: this.getCompanyList }))
+	                this.state.isEdit ? _react2.default.createElement(_BuildingEdit2.default, propsjson) : _react2.default.createElement(_BuildingDetail2.default, propsjson)
 	            );
 	        }
 	    }]);
@@ -72690,7 +72950,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 797 */
+/* 800 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -72703,7 +72963,7 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	__webpack_require__(798);
+	__webpack_require__(801);
 
 	var _react = __webpack_require__(138);
 
@@ -72731,6 +72991,14 @@
 
 	var _Input2 = _interopRequireDefault(_Input);
 
+	var _Modal = __webpack_require__(693);
+
+	var _Modal2 = _interopRequireDefault(_Modal);
+
+	var _util = __webpack_require__(673);
+
+	var _util2 = _interopRequireDefault(_util);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -72753,12 +73021,10 @@
 
 	        _this.state = {
 	            list: [],
-	            parkOptions: [],
-	            parkStatus: '',
-	            ischecked: false,
-	            formData: {}
+	            delVisible: false
 	        };
 	        _this.handleEdit = _this.handleEdit.bind(_this);
+	        _this.handleDelete = _this.handleDelete.bind(_this);
 	        return _this;
 	    }
 
@@ -72767,23 +73033,48 @@
 	        value: function componentDidMount() {
 	            $('#list-content').perfectScrollbar();
 	        }
-	        // 编辑园区
+	        // 编辑楼宇
 
 	    }, {
 	        key: 'handleEdit',
 	        value: function handleEdit() {
-	            this.props.onChange();
+	            this.props.onChange(true);
 	        }
-	        // 删除园区
+	        // 删除楼宇
 
 	    }, {
 	        key: 'handleDelete',
 	        value: function handleDelete() {
-	            //
+	            _util2.default.ajax({
+	                type: 'get',
+	                url: '/park-mgt/delBuilding.do',
+	                dataType: 'json',
+	                data: {
+	                    buildingId: this.props.location.query.buildingId
+	                },
+	                success: function success(res) {
+	                    if (res.success) {
+	                        _reactRouter.browserHistory.push('/parkManage/index');
+	                    }
+	                }
+	            });
+	        }
+	        /* 
+	        *弹窗展示 
+	        */
+
+	    }, {
+	        key: 'showModel',
+	        value: function showModel(flag) {
+	            this.setState({
+	                delVisible: flag
+	            });
 	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
+	            var _this2 = this;
+
 	            return _react2.default.createElement(
 	                'div',
 	                { className: 'parkDetail_root buildingDetail_root' },
@@ -72823,7 +73114,9 @@
 	                            _react2.default.createElement('i', {
 	                                title: '删除',
 	                                className: 'iconfont icon-del',
-	                                onClick: this.handleDelete.bind(this, 2) })
+	                                onClick: function onClick() {
+	                                    return _this2.showModel(true);
+	                                } })
 	                        )
 	                    ),
 	                    _react2.default.createElement(
@@ -72837,7 +73130,7 @@
 	                        _react2.default.createElement(
 	                            'div',
 	                            { className: 'park-img right' },
-	                            _react2.default.createElement('img', { src: '', alt: '' })
+	                            _react2.default.createElement('img', { src: '/' + this.props.imgUrl, alt: '楼宇图片' })
 	                        )
 	                    ),
 	                    _react2.default.createElement(
@@ -72942,7 +73235,7 @@
 	                                                _react2.default.createElement(
 	                                                    'th',
 	                                                    { width: '15%' },
-	                                                    item.riskLevel
+	                                                    item.riskName
 	                                                )
 	                                            );
 	                                        }) : _react2.default.createElement(
@@ -72959,6 +73252,19 @@
 	                            )
 	                        )
 	                    )
+	                ),
+	                _react2.default.createElement(
+	                    _Modal2.default,
+	                    {
+	                        onCancel: function onCancel() {
+	                            return _this2.showModel(false);
+	                        },
+	                        onOk: this.handleDelete,
+	                        okText: '我确定',
+	                        cancelText: '再想想',
+	                        visible: this.state.delVisible
+	                    },
+	                    '删除之后，不可恢复，请谨慎操作！确认删除？'
 	                )
 	            );
 	        }
@@ -72973,13 +73279,13 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 798 */
+/* 801 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(799);
+	var content = __webpack_require__(802);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(679)(content, {});
@@ -72988,8 +73294,8 @@
 	if(true) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept(799, function() {
-				var newContent = __webpack_require__(799);
+			module.hot.accept(802, function() {
+				var newContent = __webpack_require__(802);
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -72999,7 +73305,7 @@
 	}
 
 /***/ },
-/* 799 */
+/* 802 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(678)();
@@ -73007,13 +73313,13 @@
 
 
 	// module
-	exports.push([module.id, ".buildingDetail_box .park-img {\n  width: 240px;\n  height: 340px; }\n  .buildingDetail_box .park-img .upload_submit {\n    top: 615px;\n    left: 365px; }\n\n.buildingDetail_box .building-list .padding10 {\n  padding-left: 10px; }\n", ""]);
+	exports.push([module.id, ".buildingDetail_box .park-img {\n  width: 240px;\n  height: 340px; }\n  .buildingDetail_box .park-img .upload_submit {\n    top: 615px;\n    left: 645px; }\n\n.buildingDetail_box .building-list .padding10 {\n  padding-left: 10px; }\n", ""]);
 
 	// exports
 
 
 /***/ },
-/* 800 */
+/* 803 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -73026,7 +73332,7 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	__webpack_require__(798);
+	__webpack_require__(801);
 
 	var _react = __webpack_require__(138);
 
@@ -73078,7 +73384,7 @@
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               */
 
 
-	var Immutable = __webpack_require__(795);
+	var Immutable = __webpack_require__(798);
 
 	var BuildingEdit = function (_Component) {
 	    _inherits(BuildingEdit, _Component);
@@ -73119,6 +73425,7 @@
 	            ischecked: false,
 	            parkStatus: Number(_this.props.location.query.areaId),
 	            buildStatus: Number(_this.props.location.query.buildingId),
+	            buildName: _this.props.location.query.buildingName,
 	            selectImg: '', // 选择上传的图片
 	            parkName: '',
 	            deleteCompany: [], // 需要删除的公司列表
@@ -73130,9 +73437,9 @@
 	        _this.selectFile = _this.selectFile.bind(_this);
 	        _this.uploadimg = _this.uploadimg.bind(_this);
 	        _this.showModel = _this.showModel.bind(_this);
-	        _this.closeModel = _this.closeModel.bind(_this);
 	        _this.deleteCompany = _this.deleteCompany.bind(_this);
 	        _this.topage = _this.topage.bind(_this);
+	        _this.cancel = _this.cancel.bind(_this);
 	        return _this;
 	    }
 
@@ -73209,8 +73516,8 @@
 	            var selectImg = this.state.selectImg;
 	            var userName = sessionStorage.getItem('userName');
 	            fd.append('file', selectImg);
-	            fd.append('parkId', this.state.parkStatus);
-	            fd.append('buildingId', this.state.buildStatus);
+	            fd.append('parkName', this.props.location.query.parkName);
+	            fd.append('buildingName', this.state.buildName);
 	            fd.append('picType', 2);
 	            fd.append('user', userName);
 	            _util2.default.uploadXhr({
@@ -73218,7 +73525,31 @@
 	                data: fd,
 	                success: function success(res) {
 	                    if (res.success) {
-	                        _this3.setState({
+	                        _this3.saveImg();
+	                    }
+	                }
+	            });
+	        }
+	        /*
+	        *园区楼宇管理-图片上传
+	        */
+
+	    }, {
+	        key: 'saveImg',
+	        value: function saveImg() {
+	            var _this4 = this;
+
+	            var userName = sessionStorage.getItem('userName');
+	            _util2.default.ajax({
+	                type: 'get',
+	                url: '/park-mgt/updateDevPic.do',
+	                dataType: 'json',
+	                data: {
+	                    user: userName
+	                },
+	                success: function success(res) {
+	                    if (res.success) {
+	                        _this4.setState({
 	                            isUpLoad: false,
 	                            uploadVisible: true
 	                        });
@@ -73233,7 +73564,7 @@
 	    }, {
 	        key: 'deleteCompany',
 	        value: function deleteCompany(id) {
-	            var _this4 = this;
+	            var _this5 = this;
 
 	            var data = id ? id : this.state.deleteCompany.join(',');
 	            _util2.default.ajax({
@@ -73241,12 +73572,13 @@
 	                url: '/park-mgt/delCompanyByCompanyId.do',
 	                dataType: 'json',
 	                data: {
-	                    companyList: data
+	                    companyList: data,
+	                    buildingId: this.state.buildStatus
 	                },
 	                success: function success(res) {
 	                    if (res.success) {
-	                        _this4.props.getCompanyList();
-	                        _this4.setState({
+	                        _this5.props.getCompanyList();
+	                        _this5.setState({
 	                            deleteCompany: [],
 	                            delVisible: false
 	                        });
@@ -73266,7 +73598,10 @@
 	        *返回列表 
 	        */
 	        value: function cancel() {
-	            _reactRouter.browserHistory.push('/parkManage/index');
+	            this.props.onChange(false);
+	            this.setState({
+	                uploadVisible: false
+	            });
 	        }
 	        /* 
 	        *选择图片 
@@ -73306,16 +73641,9 @@
 	            }
 	        }
 	    }, {
-	        key: 'closeModel',
-	        value: function closeModel() {
-	            this.setState({
-	                uploadVisible: false
-	            });
-	        }
-	    }, {
 	        key: 'render',
 	        value: function render() {
-	            var _this5 = this;
+	            var _this6 = this;
 
 	            return _react2.default.createElement(
 	                'div',
@@ -73344,13 +73672,11 @@
 	                        _react2.default.createElement(
 	                            'div',
 	                            { className: 'right' },
-	                            _react2.default.createElement(_Select2.default, {
-	                                defaultText: '',
-	                                options: this.state.buildOptions,
-	                                onSelected: this.buildSelected,
-	                                selected: this.state.buildStatus,
-	                                style: { width: '420px', minWidth: 'auto' }
-	                            })
+	                            _react2.default.createElement(
+	                                'span',
+	                                { className: 'name' },
+	                                this.props.location.query.buildingName
+	                            )
 	                        )
 	                    ),
 	                    _react2.default.createElement(
@@ -73364,7 +73690,7 @@
 	                        _react2.default.createElement(
 	                            'div',
 	                            { className: 'park-img right' },
-	                            _react2.default.createElement('img', { src: '', alt: '', id: 'upload-img' }),
+	                            _react2.default.createElement('img', { src: '/' + this.props.imgUrl, alt: '楼宇图片', id: 'upload-img' }),
 	                            _react2.default.createElement(
 	                                'div',
 	                                { className: 'uploading-img' },
@@ -73383,13 +73709,11 @@
 	                        _react2.default.createElement(
 	                            'div',
 	                            { className: 'right' },
-	                            _react2.default.createElement(_Select2.default, {
-	                                defaultText: '',
-	                                options: this.state.parkOptions,
-	                                onSelected: this.parkSelected,
-	                                selected: this.state.parkStatus,
-	                                style: { width: '420px', minWidth: 'auto' }
-	                            })
+	                            _react2.default.createElement(
+	                                'span',
+	                                { className: 'name' },
+	                                this.props.location.query.parkName
+	                            )
 	                        )
 	                    ),
 	                    _react2.default.createElement(
@@ -73411,7 +73735,7 @@
 	                            _react2.default.createElement(
 	                                _Button2.default,
 	                                { onClick: function onClick() {
-	                                        return _this5.showModel(true);
+	                                        return _this6.showModel(true);
 	                                    } },
 	                                '批量删除'
 	                            )
@@ -73440,17 +73764,17 @@
 	                                        ),
 	                                        _react2.default.createElement(
 	                                            'th',
-	                                            { width: '20%' },
+	                                            { width: '20%', className: 'text-left' },
 	                                            '法定代表人'
 	                                        ),
 	                                        _react2.default.createElement(
 	                                            'th',
-	                                            { width: '20%' },
+	                                            { width: '20%', className: 'text-left' },
 	                                            '企业背景'
 	                                        ),
 	                                        _react2.default.createElement(
 	                                            'th',
-	                                            { width: '10%' },
+	                                            { width: '10%', className: 'text-left' },
 	                                            '行业'
 	                                        ),
 	                                        _react2.default.createElement(
@@ -73478,11 +73802,11 @@
 	                                        this.props.list.length > 0 ? this.props.list.map(function (item, index) {
 	                                            return _react2.default.createElement(
 	                                                'tr',
-	                                                { key: index },
+	                                                { key: item.companyId },
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '10%', className: '' },
-	                                                    _react2.default.createElement(_Checkbox2.default, { value: item.companyId, onChange: _this5.onChange, checked: _this5.state.ischecked })
+	                                                    _react2.default.createElement(_Checkbox2.default, { value: item.companyId, onChange: _this6.onChange, checked: _this6.state.ischecked })
 	                                                ),
 	                                                _react2.default.createElement(
 	                                                    'td',
@@ -73491,23 +73815,23 @@
 	                                                ),
 	                                                _react2.default.createElement(
 	                                                    'td',
-	                                                    { width: '20%' },
+	                                                    { width: '20%', className: 'text-left' },
 	                                                    item.legalPerson
 	                                                ),
 	                                                _react2.default.createElement(
 	                                                    'td',
-	                                                    { width: '20%' },
+	                                                    { width: '20%', className: 'text-left' },
 	                                                    item.registeredType
 	                                                ),
 	                                                _react2.default.createElement(
 	                                                    'td',
-	                                                    { width: '10%' },
+	                                                    { width: '10%', className: 'text-left' },
 	                                                    item.businessType
 	                                                ),
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '10%' },
-	                                                    item.riskLevel
+	                                                    item.riskName
 	                                                ),
 	                                                _react2.default.createElement(
 	                                                    'td',
@@ -73516,7 +73840,7 @@
 	                                                        title: '删除',
 	                                                        className: 'iconfont icon-del',
 	                                                        onClick: function onClick() {
-	                                                            return _this5.deleteCompany(item.companyId);
+	                                                            return _this6.deleteCompany(item.companyId);
 	                                                        } })
 	                                                )
 	                                            );
@@ -73548,7 +73872,7 @@
 	                    _Modal2.default,
 	                    {
 	                        onCancel: function onCancel() {
-	                            return _this5.showModel(false);
+	                            return _this6.showModel(false);
 	                        },
 	                        onOk: this.deleteCompany,
 	                        okText: '我确定',
@@ -73560,7 +73884,7 @@
 	                _react2.default.createElement(
 	                    _Modal2.default,
 	                    {
-	                        onOk: this.closeModel,
+	                        onOk: this.cancel,
 	                        okText: '确定',
 	                        visible: this.state.uploadVisible
 	                    },
@@ -73579,7 +73903,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 801 */
+/* 804 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -73592,7 +73916,7 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	__webpack_require__(789);
+	__webpack_require__(792);
 
 	var _react = __webpack_require__(138);
 
@@ -73616,7 +73940,25 @@
 
 	var _Upload2 = _interopRequireDefault(_Upload);
 
+	var _Modal = __webpack_require__(693);
+
+	var _Modal2 = _interopRequireDefault(_Modal);
+
+	var _util = __webpack_require__(673);
+
+	var _util2 = _interopRequireDefault(_util);
+
+	var _Input = __webpack_require__(703);
+
+	var _Input2 = _interopRequireDefault(_Input);
+
+	var _index = __webpack_require__(767);
+
+	var _index2 = _interopRequireDefault(_index);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -73636,39 +73978,215 @@
 
 	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(NewBuilding).call(this, props));
 
-	        _this.state = {
-	            isEdit: false
+	        _this.parkSelected = function (val, name, text) {
+	            _this.setState({
+	                parkStatus: val,
+	                parkText: text
+	            }, function () {
+	                // this.getParkList();
+	            });
 	        };
-	        _this.onChange = _this.onChange.bind(_this);
+
+	        _this.state = {
+	            buildName: '',
+	            parkOptions: [],
+	            parkStatus: Number(_this.props.location.query.areaId) || '',
+	            parkText: '',
+	            uploadVisible: false,
+	            isUpLoad: false, // 是否上传中
+	            selectImg: '' // 选择上传的图片
+	        };
+	        _this.selectFile = _this.selectFile.bind(_this);
+	        _this.uploadimg = _this.uploadimg.bind(_this);
+	        _this.newPark = _this.newPark.bind(_this);
+	        _this.closeModel = _this.closeModel.bind(_this);
 	        return _this;
 	    }
 
 	    _createClass(NewBuilding, [{
-	        key: 'onChange',
-	        value: function onChange() {
-	            this.setState({
-	                isEdit: true
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            this.getAreaList();
+	        }
+	        /*
+	        *园区楼宇管理-园区下拉框
+	        */
+
+	    }, {
+	        key: 'getAreaList',
+	        value: function getAreaList() {
+	            var _this2 = this;
+
+	            _util2.default.ajax({
+	                type: 'get',
+	                url: '/park-mgt/parkList.do',
+	                dataType: 'json',
+	                success: function success(res) {
+	                    if (res.success) {
+	                        var parkOptions = res.content.map(function (v) {
+	                            return { value: v.parkId === 0 ? '' : v.parkId, text: v.name };
+	                        });
+	                        _this2.setState({
+	                            parkOptions: parkOptions
+	                        });
+	                    }
+	                }
 	            });
 	        }
+	        // 园区筛选
+
 	    }, {
-	        key: 'uploadExcel',
-	        value: function uploadExcel(fd) {
-	            // console.info(555555555555);
+	        key: 'newPark',
+
+	        /*
+	        *园区楼宇管理-新增楼宇1
+	        */
+	        value: function newPark() {
+	            var _this3 = this;
+
+	            if (this.state.isUpLoad) {
+	                return;
+	            }
+	            var _state = this.state;
+	            var parkStatus = _state.parkStatus;
+	            var buildName = _state.buildName;
+	            var selectImg = _state.selectImg;
+
+	            if (!buildName) {
+	                _index2.default.warning('楼宇名称不能为空');
+	                return;
+	            } else if (!selectImg) {
+	                _index2.default.warning('请选择需要上传的图片');
+	                return;
+	            } else if (!parkStatus) {
+	                _index2.default.warning('请选择园区');
+	                return;
+	            }
+	            this.setState({
+	                isUpLoad: true
+	            });
+	            var userName = sessionStorage.getItem('userName');
+	            _util2.default.ajax({
+	                type: 'get',
+	                url: '/park-mgt/addBuilding.do',
+	                dataType: 'json',
+	                data: {
+	                    parkId: this.state.parkStatus,
+	                    create_by: userName,
+	                    name: this.state.buildName
+	                },
+	                success: function success(res) {
+	                    if (res.success) {
+	                        _this3.uploadimg();
+	                    }
+	                }
+
+	            });
 	        }
+	        /*
+	        *园区楼宇管理-图片上传2
+	        */
+
+	    }, {
+	        key: 'uploadimg',
+	        value: function uploadimg() {
+	            var _this4 = this;
+
+	            var fd = new FormData();
+	            var selectImg = this.state.selectImg;
+	            var userName = sessionStorage.getItem('userName');
+	            fd.append('file', selectImg);
+	            fd.append('parkName', this.state.parkText);
+	            fd.append('buildingName', this.state.buildName);
+	            fd.append('picType', 2);
+	            fd.append('user', userName);
+	            _util2.default.uploadXhr({
+	                url: '/park-mgt/upLoadPic.do',
+	                data: fd,
+	                success: function success(res) {
+	                    if (res.success) {
+	                        _this4.saveImg();
+	                    }
+	                }
+	            });
+	        }
+	        /*
+	        *园区楼宇管理-图片上传3
+	        */
+
+	    }, {
+	        key: 'saveImg',
+	        value: function saveImg() {
+	            var _this5 = this;
+
+	            var userName = sessionStorage.getItem('userName');
+	            _util2.default.ajax({
+	                type: 'get',
+	                url: '/park-mgt/updateDevPic.do',
+	                dataType: 'json',
+	                data: {
+	                    user: userName
+	                },
+	                success: function success(res) {
+	                    if (res.success) {
+	                        _this5.setState({
+	                            isUpLoad: false,
+	                            uploadVisible: true
+	                        });
+	                    }
+	                }
+	            });
+	        }
+	        /*
+	         * 表单值改变
+	         * */
+
+	    }, {
+	        key: 'inputChange',
+	        value: function inputChange(e, ecomplete) {
+	            e = e.target ? e : ecomplete;
+	            var name = e.target.name;
+	            var v = e.target.value;
+	            this.setState(_defineProperty({}, name, v));
+	        }
+	        /* 
+	        *选择图片 
+	        */
+
 	    }, {
 	        key: 'selectFile',
 	        value: function selectFile(all, item) {
-
-	            //利用files获得被上传附件(图片)信息 
-	            // var mypic = document.getElementById('upload_input').files[0]; 
-	            //利用mypic获得图像的url地址(二进制源码) 
-	            //URL  html5新标准属性 
+	            // 利用mypic获得图像的url地址(二进制源码) 
+	            // URL  html5新标准属性 
 	            var url = window.URL.createObjectURL(item);
 	            document.getElementById('upload-img').src = url;
+	            this.setState({
+	                selectImg: item
+	            });
+	        }
+	    }, {
+	        key: 'closeModel',
+	        value: function closeModel() {
+	            this.setState({
+	                uploadVisible: false
+	            });
+	        }
+	        /* 
+	        *页面跳转 
+	        */
+
+	    }, {
+	        key: 'topage',
+	        value: function topage(url) {
+	            _reactRouter.browserHistory.push(url);
 	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
+	            var _this6 = this;
+
+	            var parkStatus = this.state.parkStatus;
+
 	            return _react2.default.createElement(
 	                'div',
 	                { className: 'newBuilding_root newPark_root' },
@@ -73695,12 +74213,12 @@
 	                            _react2.default.createElement(
 	                                'div',
 	                                { className: 'right' },
-	                                _react2.default.createElement(_Select2.default, {
-	                                    defaultText: '请选择',
-	                                    options: this.state.parkOptions,
-	                                    onSelected: this.parkSelected,
-	                                    selected: this.state.parkStatus,
-	                                    style: { width: '420px', minWidth: 'auto' }
+	                                _react2.default.createElement(_Input2.default, {
+	                                    placeholder: '请输入',
+	                                    value: this.state.buildName,
+	                                    onChange: this.inputChange.bind(this),
+	                                    name: 'buildName',
+	                                    width: '420'
 	                                })
 	                            )
 	                        ),
@@ -73715,11 +74233,11 @@
 	                            _react2.default.createElement(
 	                                'div',
 	                                { className: 'park-img right' },
-	                                _react2.default.createElement('img', { src: '', alt: '' }),
+	                                _react2.default.createElement('img', { src: '', alt: '', id: 'upload-img' }),
 	                                _react2.default.createElement(
 	                                    'div',
 	                                    { className: 'uploading-img' },
-	                                    _react2.default.createElement(_Upload2.default, { uploadName: '图片上传', submit: this.uploadExcel, change: this.selectFile, submitText: '保存' })
+	                                    _react2.default.createElement(_Upload2.default, { uploadName: '图片上传', submit: this.newPark, change: this.selectFile, submitText: this.state.isUpLoad ? '上传中' : '保存', fileType: _util2.default.imgType, isImmediate: false })
 	                                )
 	                            )
 	                        ),
@@ -73743,7 +74261,7 @@
 	                                    defaultText: '请选择',
 	                                    options: this.state.parkOptions,
 	                                    onSelected: this.parkSelected,
-	                                    selected: this.state.parkStatus,
+	                                    selected: parkStatus,
 	                                    style: { width: '420px', minWidth: 'auto' }
 	                                })
 	                            )
@@ -73761,7 +74279,9 @@
 	                                { className: 'right' },
 	                                _react2.default.createElement(
 	                                    _Button2.default,
-	                                    { className: 'new-btn' },
+	                                    { className: 'new-btn', onClick: function onClick() {
+	                                            return _this6.topage('/parkManage/leadin?areaId=' + parkStatus);
+	                                        } },
 	                                    '导入企业'
 	                                )
 	                            )
@@ -73771,11 +74291,22 @@
 	                            { className: 'item submit-btn' },
 	                            _react2.default.createElement(
 	                                _Button2.default,
-	                                { className: 'cancel' },
+	                                { className: 'cancel', onClick: function onClick() {
+	                                        return _this6.topage('/parkManage/index');
+	                                    } },
 	                                '取消'
 	                            )
 	                        )
 	                    )
+	                ),
+	                _react2.default.createElement(
+	                    _Modal2.default,
+	                    {
+	                        onOk: this.closeModel,
+	                        okText: '确定',
+	                        visible: this.state.uploadVisible
+	                    },
+	                    '上传成功'
 	                )
 	            );
 	        }
@@ -73790,7 +74321,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 802 */
+/* 805 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -73803,7 +74334,7 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	__webpack_require__(789);
+	__webpack_require__(792);
 
 	var _react = __webpack_require__(138);
 
@@ -73834,6 +74365,10 @@
 	var _util = __webpack_require__(673);
 
 	var _util2 = _interopRequireDefault(_util);
+
+	var _index = __webpack_require__(767);
+
+	var _index2 = _interopRequireDefault(_index);
 
 	var _Modal = __webpack_require__(693);
 
@@ -73911,7 +74446,6 @@
 	                        });
 	                    }
 	                }
-
 	            });
 	        }
 	        // 园区筛选
@@ -73920,12 +74454,24 @@
 	        key: 'newPark',
 
 	        /*
-	        *园区楼宇管理-新增园区
+	        *园区楼宇管理-新增园区1
 	        */
 	        value: function newPark() {
 	            var _this3 = this;
 
 	            if (this.state.isUpLoad) {
+	                return;
+	            }
+	            var _state = this.state;
+	            var parkStatus = _state.parkStatus;
+	            var parkText = _state.parkText;
+	            var selectImg = _state.selectImg;
+
+	            if (!parkStatus) {
+	                _index2.default.warning('请选择园区');
+	                return;
+	            } else if (!selectImg) {
+	                _index2.default.warning('请选择需要上传的图片');
 	                return;
 	            }
 	            this.setState({
@@ -73937,9 +74483,9 @@
 	                url: '/park-mgt/addPark.do',
 	                dataType: 'json',
 	                data: {
-	                    areaId: this.state.parkStatus,
+	                    areaId: parkStatus,
 	                    create_by: userName,
-	                    name: this.state.parkText
+	                    name: parkText
 	                },
 	                success: function success(res) {
 	                    if (res.success) {
@@ -73950,7 +74496,7 @@
 	            });
 	        }
 	        /*
-	        *园区楼宇管理-图片上传
+	        *园区楼宇管理-图片上传2
 	        */
 
 	    }, {
@@ -73970,7 +74516,31 @@
 	                data: fd,
 	                success: function success(res) {
 	                    if (res.success) {
-	                        _this4.setState({
+	                        _this4.saveImg();
+	                    }
+	                }
+	            });
+	        }
+	        /*
+	        *园区楼宇管理-图片上传3
+	        */
+
+	    }, {
+	        key: 'saveImg',
+	        value: function saveImg() {
+	            var _this5 = this;
+
+	            var userName = sessionStorage.getItem('userName');
+	            _util2.default.ajax({
+	                type: 'get',
+	                url: '/park-mgt/updateDevPic.do',
+	                dataType: 'json',
+	                data: {
+	                    user: userName
+	                },
+	                success: function success(res) {
+	                    if (res.success) {
+	                        _this5.setState({
 	                            isUpLoad: false,
 	                            uploadVisible: true
 	                        });
@@ -74000,9 +74570,20 @@
 	                uploadVisible: false
 	            });
 	        }
+	        /* 
+	        *页面跳转 
+	        */
+
+	    }, {
+	        key: 'topage',
+	        value: function topage(url) {
+	            _reactRouter.browserHistory.push(url);
+	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
+	            var _this6 = this;
+
 	            return _react2.default.createElement(
 	                'div',
 	                { className: 'newPark_root' },
@@ -74070,7 +74651,9 @@
 	                                { className: 'right' },
 	                                _react2.default.createElement(
 	                                    _Button2.default,
-	                                    { className: 'new-btn' },
+	                                    { className: 'new-btn', onClick: function onClick() {
+	                                            return _this6.topage('/parkManage/newBuilding');
+	                                        } },
 	                                    '新增楼宇'
 	                                )
 	                            )
@@ -74080,7 +74663,9 @@
 	                            { className: 'item submit-btn' },
 	                            _react2.default.createElement(
 	                                _Button2.default,
-	                                { className: 'cancel' },
+	                                { className: 'cancel', onClick: function onClick() {
+	                                        return _this6.topage('/parkManage/index');
+	                                    } },
 	                                '取消'
 	                            )
 	                        )
@@ -74108,7 +74693,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 803 */
+/* 806 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -74121,7 +74706,7 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	__webpack_require__(789);
+	__webpack_require__(792);
 
 	var _react = __webpack_require__(138);
 
@@ -74145,7 +74730,7 @@
 
 	var _LeadinMore2 = _interopRequireDefault(_LeadinMore);
 
-	var _LeadinOne = __webpack_require__(804);
+	var _LeadinOne = __webpack_require__(807);
 
 	var _LeadinOne2 = _interopRequireDefault(_LeadinOne);
 
@@ -74212,7 +74797,7 @@
 	                            '批量录入'
 	                        )
 	                    ),
-	                    this.state.title ? _react2.default.createElement(_LeadinMore2.default, null) : _react2.default.createElement(_LeadinOne2.default, null)
+	                    this.state.title ? _react2.default.createElement(_LeadinMore2.default, this.props) : _react2.default.createElement(_LeadinOne2.default, this.props)
 	                )
 	            );
 	        }
@@ -74227,7 +74812,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 804 */
+/* 807 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -74260,7 +74845,17 @@
 
 	var _Input2 = _interopRequireDefault(_Input);
 
+	var _util = __webpack_require__(673);
+
+	var _util2 = _interopRequireDefault(_util);
+
+	var _index = __webpack_require__(767);
+
+	var _index2 = _interopRequireDefault(_index);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -74280,23 +74875,157 @@
 
 	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(LeadinOne).call(this, props));
 
-	        _this.state = {
-	            isEdit: false
+	        _this.handleSelected = function (val, name) {
+	            _this.setState(_defineProperty({}, name, val));
+	            if (name === 'parkStatus') {
+	                _this.getBuildingList(val);
+	            }
 	        };
-	        _this.onChange = _this.onChange.bind(_this);
+
+	        _this.state = {
+	            parkOptions: [],
+	            parkStatus: Number(_this.props.location.query.areaId) || '',
+	            buildOptions: [],
+	            buildStatus: Number(_this.props.location.query.buildingId) || '',
+	            companyName: ''
+	        };
+	        _this.addCompany = _this.addCompany.bind(_this);
 	        return _this;
 	    }
 
 	    _createClass(LeadinOne, [{
-	        key: 'onChange',
-	        value: function onChange() {
-	            this.setState({
-	                isEdit: true
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            var _state = this.state;
+	            var buildStatus = _state.buildStatus;
+	            var parkStatus = _state.parkStatus;
+
+	            if (buildStatus) {
+	                this.getBuildingList(parkStatus, true);
+	            }
+	            this.getAreaList(buildStatus);
+	        }
+	        /*
+	        *园区楼宇管理-园区下拉框
+	        */
+
+	    }, {
+	        key: 'getAreaList',
+	        value: function getAreaList(buildStatus) {
+	            var _this2 = this;
+
+	            _util2.default.ajax({
+	                type: 'get',
+	                url: '/park-mgt/parkList.do',
+	                dataType: 'json',
+	                success: function success(res) {
+	                    if (res.success) {
+	                        var parkOptions = res.content.map(function (v) {
+	                            return { value: v.parkId === 0 ? '' : v.parkId, text: v.name };
+	                        });
+	                        _this2.setState({
+	                            parkOptions: parkOptions
+	                        });
+	                    }
+	                }
+
 	            });
+	        }
+	        /*
+	        *楼宇下拉框
+	        */
+
+	    }, {
+	        key: 'getBuildingList',
+	        value: function getBuildingList(parkId, flag) {
+	            var _this3 = this;
+
+	            _util2.default.ajax({
+	                type: 'get',
+	                url: '/park-mgt/queryBuildingCompanyNumber.do',
+	                dataType: 'json',
+	                data: {
+	                    parkId: parkId
+	                },
+	                success: function success(res) {
+	                    if (res.success) {
+	                        var buildOptions = res.content.map(function (v) {
+	                            return { value: v.buildingId, text: v.buildingName };
+	                        });
+	                        _this3.setState({
+	                            buildOptions: buildOptions
+	                        });
+	                    }
+	                }
+
+	            });
+	        }
+	        /*
+	        *导入企业
+	        */
+
+	    }, {
+	        key: 'addCompany',
+	        value: function addCompany() {
+	            var _state2 = this.state;
+	            var buildStatus = _state2.buildStatus;
+	            var companyName = _state2.companyName;
+
+	            if (!companyName) {
+	                _index2.default.warning('企业名称不能为空');
+	                return;
+	            } else if (!buildStatus) {
+	                _index2.default.warning('请选择楼宇');
+	                return;
+	            }
+	            var userName = sessionStorage.getItem('userName');
+	            _util2.default.ajax({
+	                type: 'get',
+	                url: '/park-mgt/addCompanyBuilding.do',
+	                dataType: 'json',
+	                data: {
+	                    buildingId: buildStatus,
+	                    name: companyName,
+	                    createBy: userName
+	                },
+	                success: function success(res) {
+	                    if (res.success) {
+	                        _index2.default.warning(res.content);
+	                    }
+	                }
+
+	            });
+	        }
+	        // 园区筛选
+
+	    }, {
+	        key: 'inputChange',
+
+	        /*
+	         * 表单值改变
+	         * */
+	        value: function inputChange(e, ecomplete) {
+	            e = e.target ? e : ecomplete;
+	            var name = e.target.name;
+	            var v = e.target.value;
+	            this.setState(_defineProperty({}, name, v));
+	        }
+	        /* 
+	        *页面跳转 
+	        */
+
+	    }, {
+	        key: 'topage',
+	        value: function topage(url) {
+	            _reactRouter.browserHistory.push(url);
 	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
+	            var _this4 = this;
+
+	            var companyName = this.state.companyName;
+
 	            return _react2.default.createElement(
 	                'div',
 	                { className: 'leadinOne_root' },
@@ -74319,39 +75048,13 @@
 	                        _react2.default.createElement(
 	                            'div',
 	                            { className: 'right' },
-	                            _react2.default.createElement(_Select2.default, {
-	                                defaultText: '请选择',
-	                                options: this.state.parkOptions,
-	                                onSelected: this.parkSelected,
-	                                selected: this.state.parkStatus,
-	                                style: { width: '420px', minWidth: 'auto' }
+	                            _react2.default.createElement(_Input2.default, {
+	                                placeholder: '请输入',
+	                                value: companyName,
+	                                onChange: this.inputChange.bind(this),
+	                                name: 'companyName',
+	                                width: '420'
 	                            })
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        'li',
-	                        { className: 'item', style: { overflow: 'visible', height: '40px' } },
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'label-name label-middle', style: { paddingLeft: 0 } },
-	                            _react2.default.createElement(
-	                                'i',
-	                                { className: 'icon' },
-	                                '*'
-	                            ),
-	                            _react2.default.createElement(_Select2.default, {
-	                                className: 'left-select',
-	                                defaultText: '统一信用代码',
-	                                options: this.state.parkOptions,
-	                                onSelected: this.parkSelected,
-	                                selected: this.state.parkStatus,
-	                                style: { width: '120px', minWidth: 'auto' }
-	                            })
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'right' },
-	                            _react2.default.createElement(_Input2.default, { width: '420' })
 	                        )
 	                    ),
 	                    _react2.default.createElement(
@@ -74373,36 +75076,18 @@
 	                            _react2.default.createElement(_Select2.default, {
 	                                defaultText: '请选择',
 	                                options: this.state.parkOptions,
-	                                onSelected: this.parkSelected,
+	                                onSelected: this.handleSelected,
 	                                selected: this.state.parkStatus,
+	                                name: 'parkStatus',
 	                                style: { width: '200px', marginRight: '20px' }
 	                            }),
 	                            _react2.default.createElement(_Select2.default, {
 	                                defaultText: '请选择',
-	                                options: this.state.parkOptions,
-	                                onSelected: this.parkSelected,
-	                                selected: this.state.parkStatus,
+	                                options: this.state.buildOptions,
+	                                onSelected: this.handleSelected,
+	                                selected: this.state.buildStatus,
+	                                name: 'buildStatus',
 	                                style: { width: '200px', minWidth: 'auto' }
-	                            })
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        'li',
-	                        { className: 'item', style: { overflow: 'visible', height: '40px' } },
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'label-name label-middle' },
-	                            '行业'
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'right' },
-	                            _react2.default.createElement(_Select2.default, {
-	                                defaultText: '请选择',
-	                                options: this.state.parkOptions,
-	                                onSelected: this.parkSelected,
-	                                selected: this.state.parkStatus,
-	                                style: { width: '420px', minWidth: 'auto' }
 	                            })
 	                        )
 	                    ),
@@ -74411,12 +75096,14 @@
 	                        { className: 'item submit-btn' },
 	                        _react2.default.createElement(
 	                            _Button2.default,
-	                            { className: 'cancel' },
+	                            { className: 'cancel', onClick: function onClick() {
+	                                    return _this4.topage('/parkManage/index');
+	                                } },
 	                            '取消'
 	                        ),
 	                        _react2.default.createElement(
 	                            _Button2.default,
-	                            null,
+	                            { onClick: this.addCompany },
 	                            '保存'
 	                        )
 	                    )
@@ -74434,7 +75121,77 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 805 */
+/* 808 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	__webpack_require__(792);
+
+	var _react = __webpack_require__(138);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(243);
+
+	var _Button = __webpack_require__(696);
+
+	var _Button2 = _interopRequireDefault(_Button);
+
+	var _MainTitle = __webpack_require__(712);
+
+	var _MainTitle2 = _interopRequireDefault(_MainTitle);
+
+	var _RecordList = __webpack_require__(774);
+
+	var _RecordList2 = _interopRequireDefault(_RecordList);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Created By hejie
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 企业名单快捷导入
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               */
+
+
+	var ParkRecordList = function (_Component) {
+	    _inherits(ParkRecordList, _Component);
+
+	    function ParkRecordList(props) {
+	        _classCallCheck(this, ParkRecordList);
+
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(ParkRecordList).call(this, props));
+	    }
+
+	    _createClass(ParkRecordList, [{
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(_RecordList2.default, { impType: 3, topageUrl: '/parkManage/leadin', title: '园区楼宇管理' });
+	        }
+	    }]);
+
+	    return ParkRecordList;
+	}(_react.Component);
+
+	exports.default = ParkRecordList;
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "RecordList.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 809 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -74475,9 +75232,13 @@
 
 	var _Input2 = _interopRequireDefault(_Input);
 
-	var _AutoComplete = __webpack_require__(723);
+	var _index = __webpack_require__(788);
 
-	var _AutoComplete2 = _interopRequireDefault(_AutoComplete);
+	var _index2 = _interopRequireDefault(_index);
+
+	var _util = __webpack_require__(673);
+
+	var _util2 = _interopRequireDefault(_util);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -74489,9 +75250,8 @@
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Created By hejie
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 公信中心数据管理
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               */
-
-
 	// 自动补全组件
+
 
 	var PublicTrust = function (_Component) {
 	    _inherits(PublicTrust, _Component);
@@ -74502,57 +75262,177 @@
 	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(PublicTrust).call(this, props));
 
 	        _this.onChange = function (_ref) {
-	            // const checked = target.checked;
-	            // const val = target.value;
-	            // if(val === 'all'){
-	            //     this.setState({
-	            //         ischecked: checked
-	            //     });
-	            // }
-	            // const formData = this.state.formData;
-	            // let roleSet = formData.roleSet === '' ? [] : formData.roleSet.split(',');
-	            // role.isChecked = checked;
-	            // if(checked) {
-	            //     roleSet.push(String(role.id));
-	            //     formData.roleSet = roleSet.join(',');
-	            // } else {
-	            //     let index = roleSet.indexOf(String(role.id));
-	            //     roleSet.splice(index, 1);
-	            //     codeArray(mapServerJsonToLocal(role.resources)).forEach((v) => {
-	            //         this.powerState[v] = false;
-	            //     });
-	            // }
-
-	            // formData.roleSet = roleSet.join(',');
-
-	            // Object.assign(this.powerState, this.getRolePowerList(roleSet));
-	            // this.updateResourceSet();
-	            // getPower(formData.userType).then((powerCodes) => {
-	            //     this.setState({
-	            //         formData,
-	            //         powerTree: buildPowerTree(powerCodes, this.powerState)
-	            //     });
-	            // });
-
 	            var target = _ref.target;
+
+	            var selectdataType = _this.state.selectdataType;
+	            var checked = target.checked;
+	            var val = target.value;
+	            if (val === '0') {
+	                var value = checked ? [val] : [];
+	                _this.setState({
+	                    ischecked: checked,
+	                    selectdataType: value
+	                });
+	                return;
+	            }
+	            if (checked) {
+	                selectdataType.push(val);
+	            } else {
+	                var index = selectdataType.indexOf(val);
+	                selectdataType.splice(index, 1);
+	            }
+	            _this.setState({
+	                selectdataType: selectdataType
+	            });
 	        };
 
 	        _this.state = {
-	            list: [{ id: 1, orderNum: 1, loginName: 1, realName: 1, department: 1, userStatus: 1, userType: 1 }, { id: 2, orderNum: 1, loginName: 1, realName: 1, department: 1, userStatus: 1, userType: 1 }, { id: 3, orderNum: 1, loginName: 1, realName: 1, department: 1, userStatus: 1, userType: 1 }, { id: 4, orderNum: 1, loginName: 1, realName: 1, department: 1, userStatus: 1, userType: 1 }, { id: 5, orderNum: 1, loginName: 1, realName: 1, department: 1, userStatus: 1, userType: 1 }, { id: 6, orderNum: 1, loginName: 1, realName: 1, department: 1, userStatus: 1, userType: 1 }, { id: 7, orderNum: 1, loginName: 1, realName: 1, department: 1, userStatus: 1, userType: 1 }, { id: 8, orderNum: 1, loginName: 1, realName: 1, department: 1, userStatus: 1, userType: 1 }, { id: 9, orderNum: 1, loginName: 1, realName: 1, department: 1, userStatus: 1, userType: 1 }, { id: 10, orderNum: 1, loginName: 1, realName: 1, department: 1, userStatus: 1, userType: 1 }],
-	            parkOptions: [],
-	            parkStatus: '',
+	            list: [],
 	            ischecked: false,
-	            formData: {}
+	            companyName: '',
+	            dataType: [], // 需要展示的复选框
+	            selectdataType: [], // 已选择的类型
+	            showList: 'none'
 	        };
-	        // this.topage = this.topage.bind(this);
+	        _this.getList = _this.getList.bind(_this);
+	        _this.exportList = _this.exportList.bind(_this);
 	        return _this;
 	    }
-	    // 角色框勾选后，相应的改变
-
 
 	    _createClass(PublicTrust, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            this.getCreditDataType();
+	            this.getList();
+	            $('#list-content').perfectScrollbar();
+	        }
+	        // 角色框勾选后，相应的改变
+
+	    }, {
+	        key: 'companyNameChange',
+
+	        /*
+	         * 公司名改变
+	         * */
+	        value: function companyNameChange(companyName, selected) {
+	            this.setState({ companyName: companyName });
+	        }
+
+	        /*
+	         * 获取公司名联想数据
+	         * */
+
+	    }, {
+	        key: 'companyNameComplete',
+	        value: function companyNameComplete(v) {
+	            return _util2.default.promiseAjax({
+	                type: 'get',
+	                url: '/credit/getCompany.do',
+	                data: { companyName: v }
+	            }).then(function (resp) {
+	                if (resp.success) {
+	                    return resp.content.map(function (item) {
+	                        return { text: item.name, value: item.companyId };
+	                    });
+	                }
+	            });
+	        }
+	        /*
+	         * 获取公司列表
+	         * */
+
+	    }, {
+	        key: 'getList',
+	        value: function getList() {
+	            var _this2 = this;
+
+	            var _state = this.state;
+	            var companyName = _state.companyName;
+	            var selectdataType = _state.selectdataType;
+
+	            _util2.default.ajax({
+	                type: 'get',
+	                url: '/credit/getCreditData.do',
+	                data: {
+	                    companyName: companyName,
+	                    dataType: selectdataType.join(',')
+	                },
+	                success: function success(resp) {
+	                    if (resp.success) {
+	                        _this2.setState({ list: resp.content, showList: 'block' });
+	                    }
+	                }
+	            });
+	        }
+	        /*
+	         * 获取数据类型数据
+	         * */
+
+	    }, {
+	        key: 'getCreditDataType',
+	        value: function getCreditDataType() {
+	            var _this3 = this;
+
+	            _util2.default.ajax({
+	                type: 'get',
+	                url: '/credit/getCreditDataType.do',
+	                data: {},
+	                success: function success(resp) {
+	                    if (resp.success) {
+	                        var dataType = resp.content;
+	                        _this3.setState({
+	                            dataType: dataType
+	                        });
+	                    }
+	                }
+	            });
+	        }
+	        /*
+	         * 获取公司数据
+	         * */
+
+	    }, {
+	        key: 'getCompanyInfo',
+	        value: function getCompanyInfo(item) {
+	            this.setState({ companyName: item.text });
+	        }
+	        /*
+	         * 导出列表
+	         * */
+
+	    }, {
+	        key: 'exportList',
+	        value: function exportList() {
+	            var _state2 = this.state;
+	            var companyName = _state2.companyName;
+	            var selectdataType = _state2.selectdataType;
+
+	            var selectType = selectdataType.join(',');
+	            _util2.default.ajax({
+	                type: 'get',
+	                url: '/credit/downloadCreditData.do',
+	                data: {
+	                    companyName: companyName,
+	                    dataType: selectType
+	                },
+	                success: function success(resp) {
+	                    if (resp.success) {
+	                        window.location.href = resp.content;
+	                    }
+	                }
+	            });
+	        }
+	    }, {
 	        key: 'render',
 	        value: function render() {
+	            var _this4 = this;
+
+	            var _state3 = this.state;
+	            var companyName = _state3.companyName;
+	            var list = _state3.list;
+	            var ischecked = _state3.ischecked;
+	            var showList = _state3.showList;
+
 	            return _react2.default.createElement(
 	                'div',
 	                { className: 'publicTrust_root export_root' },
@@ -74571,13 +75451,17 @@
 	                                { className: 'label-name' },
 	                                '企业搜索'
 	                            ),
-	                            _react2.default.createElement(_AutoComplete2.default, {
-	                                type: 'get',
-	                                url: '/userInfo/queryUserTemplate.do?userType=',
-	                                field: 'loginName',
-	                                onChoose: this.onChooseUserTemplate,
-	                                disabled: false,
-	                                placeholder: '请输入企业关键词进行搜索'
+	                            _react2.default.createElement(_index2.default, {
+	                                placeholder: '请输入需要变更行业的企业名称',
+	                                suffix: 'icon-search',
+	                                value: companyName,
+	                                name: 'companyName',
+	                                onChange: this.companyNameChange.bind(this),
+	                                request: this.companyNameComplete.bind(this),
+	                                onChoose: function onChoose(item) {
+	                                    _this4.getCompanyInfo(item);
+	                                },
+	                                style: { width: '50%', display: 'inline-block' }
 	                            })
 	                        ),
 	                        _react2.default.createElement(
@@ -74591,76 +75475,24 @@
 	                            _react2.default.createElement(
 	                                'div',
 	                                { className: 'right' },
-	                                _react2.default.createElement(
-	                                    'label',
-	                                    null,
-	                                    _react2.default.createElement(
-	                                        _Checkbox2.default,
-	                                        { checked: this.state.ischecked, onChange: this.onChange },
-	                                        '全部'
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    'label',
-	                                    null,
-	                                    _react2.default.createElement(
-	                                        _Checkbox2.default,
-	                                        { checked: this.state.ischecked, onChange: this.onChange },
-	                                        '非正常户认定'
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    'label',
-	                                    null,
-	                                    _react2.default.createElement(
-	                                        _Checkbox2.default,
-	                                        { checked: this.state.ischecked, onChange: this.onChange },
-	                                        '对不正当竞争行为的处罚'
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    'label',
-	                                    null,
-	                                    _react2.default.createElement(
-	                                        _Checkbox2.default,
-	                                        { checked: this.state.ischecked, onChange: this.onChange },
-	                                        '经营异常名录'
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    'label',
-	                                    null,
-	                                    _react2.default.createElement(
-	                                        _Checkbox2.default,
-	                                        { checked: this.state.ischecked, onChange: this.onChange },
-	                                        '行政处罚信息'
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    'label',
-	                                    null,
-	                                    _react2.default.createElement(
-	                                        _Checkbox2.default,
-	                                        { checked: this.state.ischecked, onChange: this.onChange },
-	                                        '市场监管类行政处罚（法人）'
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    'label',
-	                                    null,
-	                                    _react2.default.createElement(
-	                                        _Checkbox2.default,
-	                                        { checked: this.state.ischecked, onChange: this.onChange },
-	                                        '用人单位欠缴社会保险费，被依法责令期限缴纳信息'
-	                                    )
-	                                )
+	                                this.state.dataType.map(function (ele, index) {
+	                                    return _react2.default.createElement(
+	                                        'label',
+	                                        { key: ele.code },
+	                                        _react2.default.createElement(
+	                                            _Checkbox2.default,
+	                                            { checked: ischecked, value: ele.code, disabled: ele.code === '0' ? false : ischecked ? true : false, onChange: _this4.onChange },
+	                                            ele.name
+	                                        )
+	                                    );
+	                                })
 	                            ),
 	                            _react2.default.createElement(
 	                                'div',
 	                                { className: 'search-btn' },
 	                                _react2.default.createElement(
 	                                    _Button2.default,
-	                                    null,
+	                                    { onClick: this.getList },
 	                                    '搜索'
 	                                )
 	                            )
@@ -74668,7 +75500,7 @@
 	                    ),
 	                    _react2.default.createElement(
 	                        'div',
-	                        { className: 'table-list' },
+	                        { className: 'table-list', style: { display: showList } },
 	                        _react2.default.createElement(
 	                            'div',
 	                            { className: 'label btn-box' },
@@ -74712,19 +75544,19 @@
 	                                    _react2.default.createElement(
 	                                        'tbody',
 	                                        null,
-	                                        this.state.list.length > 0 ? this.state.list.map(function (item, index) {
+	                                        list.length > 0 ? list.map(function (item, index) {
 	                                            return _react2.default.createElement(
 	                                                'tr',
 	                                                { key: index },
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '55%', className: 'text-left' },
-	                                                    item.id
+	                                                    item.resourceName
 	                                                ),
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '45%', className: 'text-left' },
-	                                                    item.userStatus
+	                                                    item.content
 	                                                )
 	                                            );
 	                                        }) : _react2.default.createElement(
@@ -74740,11 +75572,11 @@
 	                                )
 	                            )
 	                        ),
-	                        _react2.default.createElement(
+	                        list.length > 0 ? _react2.default.createElement(
 	                            _Button2.default,
-	                            { className: 'export-btn', onClick: this.handleSearch },
+	                            { className: 'export-btn', onClick: this.exportList },
 	                            '导出列表'
-	                        )
+	                        ) : ''
 	                    )
 	                )
 	            );
@@ -74760,7 +75592,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 806 */
+/* 810 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -74803,7 +75635,11 @@
 
 	var _Modal2 = _interopRequireDefault(_Modal);
 
-	var _index = __webpack_require__(807);
+	var _Pagination = __webpack_require__(713);
+
+	var _Pagination2 = _interopRequireDefault(_Pagination);
+
+	var _index = __webpack_require__(788);
 
 	var _index2 = _interopRequireDefault(_index);
 
@@ -74811,9 +75647,13 @@
 
 	var _Input2 = _interopRequireDefault(_Input);
 
-	var _index3 = __webpack_require__(768);
+	var _index3 = __webpack_require__(811);
 
 	var _index4 = _interopRequireDefault(_index3);
+
+	var _index5 = __webpack_require__(767);
+
+	var _index6 = _interopRequireDefault(_index5);
 
 	var _util = __webpack_require__(673);
 
@@ -74840,21 +75680,32 @@
 
 	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(NaturalSearch).call(this, props));
 
+	        _this.handlePageChange = function (page) {
+	            _this.setState({ page: page }, function () {
+	                _this.getList();
+	            });
+	        };
+
 	        _this.state = {
 	            rangeList: [{ value: 'all', text: '全部' }, { value: 'gdxx', text: '法人代表及自然人股东' }, { value: 'baxx', text: '董监高' }],
 	            range: 'all',
 	            name: '',
 	            relatedCompany: '',
-	            nameError: ''
+	            nameError: '',
+	            isProvince: true,
+	            totalCount: 0,
+	            page: 1,
+	            pageSize: 10
 	        };
+	        _this.databaseList = [{ text: '上海全区', value: true }, { text: '全国', value: false }];
 	        return _this;
 	    }
 
 	    _createClass(NaturalSearch, [{
 	        key: 'componentDidMount',
-	        value: function componentDidMount() {
-	            $('#data_list').perfectScrollbar();
-	        }
+	        value: function componentDidMount() {}
+	        // $('#data_list').perfectScrollbar();
+
 	        /*
 	         * setRange
 	         * */
@@ -74864,6 +75715,18 @@
 	        value: function setRange(range) {
 	            this.setState({ range: range });
 	        }
+	        /*
+	         * databaseChange
+	         * */
+
+	    }, {
+	        key: 'databaseChange',
+	        value: function databaseChange(item) {
+	            this.setState({ isProvince: item.value });
+	        }
+	        /*
+	         *
+	         * */
 	        /*
 	         * 表单值改变
 	         * */
@@ -74876,12 +75739,11 @@
 	            var v = e.target.value;
 	            var state = {};
 	            state[name] = v;
-	            name === 'name' ? state.nameError = '' : '';
 	            this.setState(state);
 	        }
 	        /*
-	        * 联想
-	        * */
+	         * 联想
+	         * */
 
 	    }, {
 	        key: 'getRelatedCompanyList',
@@ -74916,38 +75778,51 @@
 	            var name = _state2.name;
 	            var relatedCompany = _state2.relatedCompany;
 	            var range = _state2.range;
+	            var isProvince = _state2.isProvince;
 
 	            if (!$.trim(name)) {
-	                this.setState({ nameError: '自然人名称不能为空' });
+	                _index6.default.warning('自然人名称不能为空！');
+	                // this.setState({ nameError: '自然人名称不能为空' });
 	                return false;
 	            }
-	            this.setState({ searchParam: { nalName: name, companyKeyword: relatedCompany, type: range } }, function () {
+	            this.setState({
+	                searchParam: { nalName: name, companyKeyword: relatedCompany, type: range, isProvince: isProvince },
+	                page: 1,
+	                totalCount: 0,
+	                loading: '努力加载中......'
+	            }, function () {
 	                _this2.getList();
 	            });
 	        }
 	        /*
-	         * 根据参数获取数据
+	         * 页码变化
 	         * */
 
 	    }, {
 	        key: 'getList',
+
+	        /*
+	         * 根据参数获取数据
+	         * */
 	        value: function getList() {
 	            var _this3 = this;
 
-	            var searchParam = this.state.searchParam;
+	            var _state3 = this.state;
+	            var searchParam = _state3.searchParam;
+	            var page = _state3.page;
+	            var pageSize = _state3.pageSize;
 
-	            this.setState({ loading: '努力加载中......' });
 	            _util2.default.promiseAjax({
 	                type: 'get',
 	                url: '/natural-person/query2.do',
-	                data: _extends({}, searchParam, { pageSize: 1000000 })
+	                data: _extends({}, searchParam, { pageSize: pageSize, page: page })
 	            }).then(function (resp) {
 	                if (resp.success) {
 	                    var response = resp.content;
 	                    var data = response.naturalPersons || [];
-	                    _this3.setState({ data: data, loading: '' }, function () {
-	                        $('#data_list').scrollTop(0);
-	                        $('#data_list').perfectScrollbar('update');
+	                    _this3.setState({ data: data, loading: '', totalCount: response.total }, function () {
+	                        /* $('#data_list').scrollTop(0);
+	                         $('#data_list').perfectScrollbar('update');*/
 	                    });
 	                }
 	            });
@@ -74963,34 +75838,28 @@
 
 	            var searchParam = this.state.searchParam;
 
-	            if (searchParam && searchParam.nalName) {
-	                this.setState({ downloading: true });
-	                var nalName = searchParam.nalName;
-	                var companyKeyword = searchParam.companyKeyword;
-	                var type = searchParam.type;
-
-	                _util2.default.promiseAjax({
-	                    type: 'get',
-	                    url: '/natural-person/download2.do',
-	                    data: searchParam
-	                }).then(function (resp) {
-	                    _this4.setState({ downloading: false });
-	                    if (resp.success) {
-	                        window.location.href = resp.content;
-	                    } else {
-	                        _index4.default.error(resp.msg);
-	                    }
-	                }).catch(function (e) {
-	                    _index4.default.error('请求失败，请稍后再试');
-	                    _this4.setState({
-	                        downloading: false
-	                    });
+	            this.setState({ downloading: true });
+	            _util2.default.promiseAjax({
+	                type: 'get',
+	                url: '/natural-person/download2.do',
+	                data: searchParam
+	            }).then(function (resp) {
+	                _this4.setState({ downloading: false });
+	                if (resp.success) {
+	                    window.location.href = resp.content;
+	                } else {
+	                    _index6.default.error(resp.msg);
+	                }
+	            }).catch(function (e) {
+	                _index6.default.error('请求失败，请稍后再试');
+	                _this4.setState({
+	                    downloading: false
 	                });
-	            }
+	            });
 	        }
 	        /*
-	        * closeModal
-	        * */
+	         * closeModal
+	         * */
 
 	    }, {
 	        key: 'closeModal',
@@ -75002,17 +75871,22 @@
 	        value: function render() {
 	            var _this5 = this;
 
-	            var _state3 = this.state;
-	            var data = _state3.data;
-	            var rangeList = _state3.rangeList;
-	            var range = _state3.range;
-	            var name = _state3.name;
-	            var relatedCompany = _state3.relatedCompany;
-	            var nameError = _state3.nameError;
-	            var modalShow = _state3.modalShow;
-	            var errorTip = _state3.errorTip;
-	            var downloading = _state3.downloading;
-	            var loading = _state3.loading;
+	            var _state4 = this.state;
+	            var data = _state4.data;
+	            var rangeList = _state4.rangeList;
+	            var range = _state4.range;
+	            var name = _state4.name;
+	            var relatedCompany = _state4.relatedCompany;
+	            var nameError = _state4.nameError;
+	            var modalShow = _state4.modalShow;
+	            var errorTip = _state4.errorTip;
+	            var downloading = _state4.downloading;
+	            var loading = _state4.loading;
+	            var isProvince = _state4.isProvince;
+	            var searchParam = _state4.searchParam;
+	            var totalCount = _state4.totalCount;
+	            var pageSize = _state4.pageSize;
+	            var page = _state4.page;
 
 	            return _react2.default.createElement(
 	                'div',
@@ -75028,30 +75902,48 @@
 	                            'div',
 	                            { className: 'search_box' },
 	                            _react2.default.createElement(
-	                                'ul',
-	                                { className: 'group range' },
-	                                rangeList.map(function (item, index) {
-	                                    if (item.value === range) {
+	                                'div',
+	                                { className: 'group', style: { marginBottom: '28px' } },
+	                                _react2.default.createElement(
+	                                    'ul',
+	                                    { className: 'range' },
+	                                    rangeList.map(function (item, index) {
+	                                        if (item.value === range) {
+	                                            return _react2.default.createElement(
+	                                                'li',
+	                                                { key: index, className: 'active' },
+	                                                _react2.default.createElement(
+	                                                    'span',
+	                                                    null,
+	                                                    item.text
+	                                                )
+	                                            );
+	                                        }
 	                                        return _react2.default.createElement(
 	                                            'li',
-	                                            { key: index, className: 'active' },
+	                                            { key: index, onClick: _this5.setRange.bind(_this5, item.value) },
 	                                            _react2.default.createElement(
 	                                                'span',
 	                                                null,
 	                                                item.text
 	                                            )
 	                                        );
-	                                    }
-	                                    return _react2.default.createElement(
-	                                        'li',
-	                                        { key: index, onClick: _this5.setRange.bind(_this5, item.value) },
-	                                        _react2.default.createElement(
-	                                            'span',
-	                                            null,
+	                                    })
+	                                ),
+	                                _react2.default.createElement(
+	                                    'div',
+	                                    { className: 'database' },
+	                                    this.databaseList.map(function (item, index) {
+	                                        return _react2.default.createElement(
+	                                            _index4.default,
+	                                            { key: index,
+	                                                checked: item.value === isProvince,
+	                                                value: item.value,
+	                                                onChange: _this5.databaseChange.bind(_this5) },
 	                                            item.text
-	                                        )
-	                                    );
-	                                })
+	                                        );
+	                                    })
+	                                )
 	                            ),
 	                            _react2.default.createElement(
 	                                'div',
@@ -75120,11 +76012,11 @@
 	                        _react2.default.createElement(
 	                            'div',
 	                            { className: 'handle_group' },
-	                            _react2.default.createElement(
+	                            searchParam && searchParam.isProvince ? _react2.default.createElement(
 	                                _Button2.default,
 	                                { className: 'export', onClick: this.downloadList.bind(this) },
 	                                downloading ? '下载中...' : '下载列表'
-	                            )
+	                            ) : null
 	                        ),
 	                        _react2.default.createElement(
 	                            'div',
@@ -75187,7 +76079,7 @@
 	                            ),
 	                            _react2.default.createElement(
 	                                'div',
-	                                { className: 'data_list', id: 'data_list', style: { position: 'relative', maxHeight: '611px' } },
+	                                { className: 'data_list', id: 'data_list' },
 	                                _react2.default.createElement(
 	                                    'table',
 	                                    { className: 'bbdTable_root' },
@@ -75210,7 +76102,7 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { className: 'id', width: '10%' },
-	                                                    index + 1
+	                                                    pageSize * (page - 1) + index + 1
 	                                                ),
 	                                                _react2.default.createElement(
 	                                                    'td',
@@ -75260,7 +76152,14 @@
 	                                    )
 	                                )
 	                            )
-	                        )
+	                        ),
+	                        _react2.default.createElement(_Pagination2.default, {
+	                            totalCount: totalCount,
+	                            pageSize: pageSize,
+	                            showPage: 5,
+	                            currentPage: page,
+	                            callBack: this.handlePageChange
+	                        })
 	                    ),
 	                    _react2.default.createElement(
 	                        _Modal2.default,
@@ -75288,7 +76187,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 807 */
+/* 811 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -75301,19 +76200,11 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	__webpack_require__(808);
+	__webpack_require__(812);
 
 	var _react = __webpack_require__(138);
 
 	var _react2 = _interopRequireDefault(_react);
-
-	var _reactDom = __webpack_require__(242);
-
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-
-	var _Input = __webpack_require__(703);
-
-	var _Input2 = _interopRequireDefault(_Input);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -75323,195 +76214,106 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	/**
-	 * props 的值
-	 * {
-	 *  request: 发起请求的方法
-	 *  onChoose 选了以后的回调函数
-	 * }
-	 */
-	var timer; // 所有组件实例公用这一个 变量来储存请求“线程”。因为如果放到实例的state上，会引起同步问题，但是这个组件，用户不可能会同时使用不同的 组件实例
+	/*
+	 * radio
+	 * */
 
-	/* 自动补全组件*/
+	var Radio = function (_Component) {
+	    _inherits(Radio, _Component);
 
-	var AutoComplete = function (_Component) {
-	    _inherits(AutoComplete, _Component);
+	    function Radio(props) {
+	        _classCallCheck(this, Radio);
 
-	    function AutoComplete(props) {
-	        _classCallCheck(this, AutoComplete);
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Radio).call(this, props));
 
-	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AutoComplete).call(this, props));
-
-	        _this.handleChange = _this.handleChange.bind(_this);
-	        _this.hanldeSelectItem = _this.hanldeSelectItem.bind(_this);
 	        _this.state = {
-	            textValue: '', // input的value回显
-	            data: [], // 服务器返回的待选列表
-	            show: 'none',
-	            lastRequestValue: '', // 上一次往服务器请求的值，防止重复搜索
-	            selected: '' // 是否选中
+	            checked: !!_this.props.checked
 	        };
-	        _this.hide = _this.hide.bind(_this);
+	        _this.handleChange = _this.handleChange.bind(_this);
 	        return _this;
 	    }
 
-	    _createClass(AutoComplete, [{
+	    _createClass(Radio, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            //
+	        }
+	    }, {
 	        key: 'componentWillReceiveProps',
 	        value: function componentWillReceiveProps(nextProps) {
-	            if (nextProps.value !== this.state.textValue) {
+	            if (nextProps.checked !== this.props.checked) {
 	                this.setState({
-	                    textValue: nextProps.value,
-	                    selected: ''
+	                    checked: nextProps.checked
 	                });
-	                this.delayRequest(nextProps.value);
 	            }
 	        }
 	    }, {
 	        key: 'handleChange',
-	        value: function handleChange(e) {
-	            var textValue = e.target.value;
-	            this.setState({
-	                textValue: textValue,
-	                selected: ''
-	            });
-	            var onChange = this.props.onChange;
+	        value: function handleChange() {
+	            var checked = this.state.checked;
+	            var _props = this.props;
+	            var disabled = _props.disabled;
+	            var onChange = _props.onChange;
+	            var name = _props.name;
+	            var value = _props.value;
 
-	            typeof onChange === 'function' && onChange(textValue, e);
-	            this.delayRequest(textValue);
-	        }
-	    }, {
-	        key: 'delayRequest',
-	        value: function delayRequest(value) {
-	            // 延时请求处理
-	            var self = this;
-
-	            clearTimeout(timer);
-	            timer = setTimeout(function () {
-	                self.requestData(value);
-	            }, 500);
-	        }
-	    }, {
-	        key: 'requestData',
-	        value: function requestData(value) {
-	            var _this2 = this;
-
-	            value = $.trim(value);
-	            if (value === '' || value === this.state.lastRequestValue) {
-	                if (value === '') {
-	                    this.setState({ data: [] });
-	                }
+	            if (disabled || checked) {
 	                return;
 	            }
-	            this.props.request(value).then(function (data) {
-	                _this2.setState({
-	                    data: data,
-	                    lastRequestValue: value
-	                });
-	                _this2.show();
+	            this.setState({
+	                checked: true
 	            });
-	        }
-	    }, {
-	        key: 'show',
-	        value: function show() {
-	            this.setState({ show: 'block' });
-	        }
-	    }, {
-	        key: 'hide',
-	        value: function hide() {
-	            this.setState({ show: 'none' });
-	        }
-	    }, {
-	        key: 'hanldeSelectItem',
-	        value: function hanldeSelectItem(item) {
-	            var _this3 = this;
 
-	            this.setState({ selected: 'selected' }, function () {
-	                _this3.props.onChoose(item);
-	                _this3.hide();
+	            onChange({
+	                name: name,
+	                value: value,
+	                checked: true
 	            });
-	        }
-	    }, {
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
-	            document.addEventListener('click', this.hide);
-	        }
-	    }, {
-	        key: 'componentWillUnmount',
-	        value: function componentWillUnmount() {
-	            document.removeEventListener('click', this.hide);
 	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            var _this4 = this;
+	            var checked = this.state.checked;
+	            var _props2 = this.props;
+	            var _props2$className = _props2.className;
+	            var className = _props2$className === undefined ? '' : _props2$className;
+	            var _props2$style = _props2.style;
+	            var style = _props2$style === undefined ? {} : _props2$style;
 
-	            var data = this.state.data ? this.state.data : [];
-	            var length = data.length;
-	            var show = this.state.show;
-	            return(
-	                // react 事件包装方式：http://www.cnblogs.com/libin-1/p/6298326.html
+	            return _react2.default.createElement(
+	                'span',
+	                { className: 'bbdRadio_root ' + (checked ? 'bbdRadio_checked ' : ' ') + className, onClick: this.handleChange, style: style },
+	                _react2.default.createElement('span', { className: 'bbdRadio_input' }),
 	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'autoCompleteCommon', 'data-selected': this.state.selected, style: this.props.style, ref: function ref(e) {
-	                            return _this4._root = e;
-	                        }, onClick: function onClick(e) {
-	                            e.nativeEvent.stopImmediatePropagation();
-	                        } },
-	                    _react2.default.createElement(_Input2.default, { disabled: this.props.disabled, type: 'text',
-	                        suffix: this.props.suffix,
-	                        name: this.props.name,
-	                        onChange: this.handleChange,
-	                        placeholder: this.props.placeholder,
-	                        value: this.state.textValue,
-	                        onFocus: function onFocus() {
-	                            _this4.state.data.length > 0 && _this4.show();
-	                        }
-	                    }),
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'autoComplete_list', style: { display: show } },
-	                        _react2.default.createElement(
-	                            'ul',
-	                            null,
-	                            data.map(function (item, index) {
-	                                if (_this4.state.textValue === item.text) {
-	                                    return _react2.default.createElement(
-	                                        'li',
-	                                        { key: index, className: 'active' },
-	                                        item.text
-	                                    );
-	                                }
-	                                return _react2.default.createElement(
-	                                    'li',
-	                                    { key: index, onClick: function onClick(e) {
-	                                            _this4.hanldeSelectItem(item);
-	                                        } },
-	                                    item.text
-	                                );
-	                            })
-	                        )
-	                    )
+	                    'span',
+	                    { className: 'bbdRadio_text' },
+	                    this.props.children
 	                )
 	            );
 	        }
 	    }]);
 
-	    return AutoComplete;
+	    return Radio;
 	}(_react.Component);
 
-	exports.default = AutoComplete;
+	Radio.defaultProps = {
+	    style: {},
+	    type: 'radio',
+	    defaultChecked: false
+	};
+	exports.default = Radio;
 
 	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "index.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 808 */
+/* 812 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(809);
+	var content = __webpack_require__(813);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(679)(content, {});
@@ -75520,8 +76322,8 @@
 	if(true) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept(809, function() {
-				var newContent = __webpack_require__(809);
+			module.hot.accept(813, function() {
+				var newContent = __webpack_require__(813);
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -75531,7 +76333,7 @@
 	}
 
 /***/ },
-/* 809 */
+/* 813 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(678)();
@@ -75539,13 +76341,13 @@
 
 
 	// module
-	exports.push([module.id, "@charset \"UTF-8\";\n/*自动补全*/\n.autoCompleteCommon {\n  position: relative;\n  line-height: 1; }\n  .autoCompleteCommon .autoComplete input {\n    height: 40px;\n    border-color: #60778b;\n    color: #8899aa; }\n  .autoCompleteCommon .bbdInputPreSuffix_input {\n    box-sizing: border-box; }\n  .autoCompleteCommon .icon-search {\n    /*position: absolute;\r\n        right: 20px;*/ }\n  .autoCompleteCommon .autoComplete_list {\n    position: absolute;\n    left: 0px;\n    top: 38px;\n    width: 100%;\n    box-sizing: border-box;\n    padding: 0px;\n    overflow: auto;\n    z-index: 100;\n    max-height: 200px;\n    border: 0;\n    border-bottom-left-radius: 4px;\n    border-bottom-right-radius: 4px; }\n  .autoCompleteCommon .autoComplete_list ul {\n    width: 100%;\n    list-style: none;\n    padding: 0;\n    margin: 0; }\n  .autoCompleteCommon .autoComplete_list li {\n    padding: 8px 10px;\n    display: block;\n    font-size: 14px;\n    cursor: pointer;\n    color: #ffffff;\n    background-color: #25a9ee; }\n    .autoCompleteCommon .autoComplete_list li.active {\n      background-color: #31526F;\n      color: #fff; }\n  .autoCompleteCommon .autoComplete_list ul li:hover {\n    background-color: #0b70a5;\n    color: #fff; }\n  .autoCompleteCommon .autoComplete_list li.last {\n    border-bottom: none; }\n", ""]);
+	exports.push([module.id, ".bbdRadio_root {\n  position: relative;\n  margin-right: 10px;\n  white-space: nowrap;\n  cursor: pointer;\n  outline: none;\n  display: inline-block;\n  line-height: 1;\n  vertical-align: middle; }\n\n.bbdRadio_input {\n  margin-right: 5px;\n  position: relative;\n  display: inline-block;\n  width: 16px;\n  height: 16px;\n  border-radius: 50%;\n  border: 1px solid #CCC;\n  cursor: pointer;\n  vertical-align: middle; }\n\n.bbdRadio_checked .bbdRadio_input {\n  border: 1px solid #0D7199; }\n  .bbdRadio_checked .bbdRadio_input:after {\n    content: '';\n    display: block;\n    margin: auto;\n    position: absolute;\n    top: 4px;\n    left: 0;\n    right: 0;\n    width: 8px;\n    height: 8px;\n    border-radius: 50%;\n    background: #0D7199; }\n\n.bbdRadio_text {\n  color: #fff;\n  font-size: 14px;\n  vertical-align: middle; }\n", ""]);
 
 	// exports
 
 
 /***/ },
-/* 810 */
+/* 814 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -75557,6 +76359,8 @@
 	});
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -75592,17 +76396,23 @@
 
 	var _Modal2 = _interopRequireDefault(_Modal);
 
-	var _index = __webpack_require__(807);
+	var _index = __webpack_require__(788);
 
 	var _index2 = _interopRequireDefault(_index);
 
-	var _index3 = __webpack_require__(768);
+	var _index3 = __webpack_require__(767);
 
 	var _index4 = _interopRequireDefault(_index3);
 
 	var _util = __webpack_require__(673);
 
 	var _util2 = _interopRequireDefault(_util);
+
+	var _index5 = __webpack_require__(815);
+
+	var Tool = _interopRequireWildcard(_index5);
+
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -75626,13 +76436,13 @@
 	    riskStatus: {
 	        required: '请选择风险状态'
 	    },
-	    outerRisk: {
+	    outLevel: {
 	        required: '请选择外部评级'
 	    },
-	    innerRisk: {
+	    innnerLevel: {
 	        required: '请选择内部评级'
 	    },
-	    nowRisk: {
+	    liveLevel: {
 	        required: '请选择现场检查'
 	    }
 	};
@@ -75645,25 +76455,97 @@
 
 	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(CompanyChange).call(this, props));
 
+	        _this.chooseCompanyName = function (item) {
+	            var companyInfo = _this.state.companyInfo;
+
+	            if (companyInfo && item.text === companyInfo.name) {
+	                return;
+	            } // 不重复查询
+	            _this.setState({ companyName: item.text, loading: '努力加载中......' }, function () {
+	                _this.getCompanyInfo();
+	            });
+	        };
+
+	        _this.closeModal = function () {
+	            _this.setState({ modalShow: false });
+	        };
+
 	        _this.state = {
-	            businessList: [{ value: '网络借贷', text: '网络借贷', riskTag: '0' }, { value: '小额贷款', text: '小额贷款', riskTag: 'group' }, { value: '融资担保', text: '融资担保', riskTag: 'group' }, { value: '线下理财', text: '线下理财', riskTag: '0' }, { value: '交易场所', text: '交易场所', riskTag: '1' }, { value: '预付卡', text: '预付卡', riskTag: '2' }, { value: '融资租赁', text: '融资租赁', riskTag: '3' }],
-	            riskStatusList: [],
-	            riskStatusAll: [[{ value: '重点关注', text: '重点关注' }, { value: '一般关注', text: '一般关注' }, { value: '正常', text: '正常' }, { value: '已出风险', text: '已出风险' }], [{ value: '正常', text: '正常' }, { value: '已出风险', text: '已出风险' }], [{ value: '正常', text: '正常' }, { value: '潜在', text: '潜在' }, { value: '已发生', text: '已发生' }], [{ value: '正常', text: '正常' }, { value: '潜在', text: '潜在' }]],
+	            businessList: [],
+	            riskStatusOptions: [],
+	            riskStatusAll: {},
 	            business: '',
 	            riskStatus: '',
-	            riskGroup: [{ text: '外部评级', key: 'outerRisk' }, { text: '内部评级', key: 'innerRisk' }, { text: '现场检查', key: 'nowRisk' }],
-	            riskGroupList: [{ value: 'A', text: 'A' }, { value: 'B', text: 'B' }, { value: 'C', text: 'C' }],
+	            riskGroup: [{ text: '外部评级', key: 'outLevel' }, { text: '内部评级', key: 'innnerLevel' }, { text: '现场检查', key: 'liveLevel' }],
 	            formError: {}
 	        };
 	        return _this;
 	    }
 
-	    /*
-	     * 公司名改变
-	     * */
-
-
 	    _createClass(CompanyChange, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            var _this2 = this;
+
+	            Promise.all([_util2.default.promiseAjax({ // 行业
+	                type: 'get',
+	                url: '/companyInfoModify/industry.do'
+	            }), _util2.default.promiseAjax({ // 风险状态
+	                type: 'get',
+	                url: 'companyInfoModify/risk.do'
+	            })]).then(function (data) {
+	                return data.map(function (item) {
+	                    return item.content;
+	                });
+	            }).then(function (_ref) {
+	                var _ref2 = _slicedToArray(_ref, 2);
+
+	                var businessList = _ref2[0];
+	                var riskStatusAll = _ref2[1];
+
+	                var state = {};
+	                state.businessList = Object.keys(businessList).map(function (key) {
+	                    return { value: businessList[key], text: key };
+	                });
+	                state.riskStatusAll = {};
+	                Object.keys(riskStatusAll).map(function (key) {
+	                    state.riskStatusAll[key] = Object.keys(riskStatusAll[key]).sort().map(function (deepKey) {
+	                        return { value: riskStatusAll[key][deepKey], text: deepKey };
+	                    });
+	                });
+	                _this2.setState(state);
+	            });
+	        }
+	        /*
+	         * resetData
+	         * */
+
+	    }, {
+	        key: 'resetData',
+	        value: function resetData() {
+	            var _state = this.state;
+	            var formError = _state.formError;
+	            var riskGroup = _state.riskGroup;
+
+	            var state = {
+	                companyInfo: null,
+	                business: '',
+	                riskStatus: '',
+	                riskStatusOptions: []
+	            };
+	            var changeError = { business: '', riskStatus: '' };
+	            riskGroup.map(function (item) {
+	                state[item.key] = '';
+	                changeError[item.key] = '';
+	            });
+	            state.formError = _extends({}, formError, changeError);
+	            return state;
+	        }
+	        /*
+	         * 公司名改变
+	         * */
+
+	    }, {
 	        key: 'companyNameChange',
 	        value: function companyNameChange(companyName, selected) {
 	            this.setState({ companyName: companyName });
@@ -75688,24 +76570,41 @@
 	                }
 	            });
 	        }
-
 	        /*
-	         * 获取公司数据
+	         * selectCompanyName选择公司
 	         * */
 
 	    }, {
 	        key: 'getCompanyInfo',
-	        value: function getCompanyInfo(item) {
-	            var _this2 = this;
 
-	            this.setState({ companyName: item.text });
+	        /*
+	         * 获取公司数据
+	         * */
+	        value: function getCompanyInfo() {
+	            var _this3 = this;
+
+	            var _state2 = this.state;
+	            var businessList = _state2.businessList;
+	            var riskStatusAll = _state2.riskStatusAll;
+	            var companyName = _state2.companyName;
+	            var companyInfo = _state2.companyInfo;
+
+	            if (companyInfo && companyName !== companyInfo.name) {
+	                // 新查询
+	                this.setState(this.resetData());
+	            }
 	            _util2.default.promiseAjax({
 	                type: 'get',
 	                url: '/companyInfoModify/queryCompany.do',
-	                data: { name: item.text }
+	                data: { name: companyName }
 	            }).then(function (resp) {
+	                _this3.setState({ loading: '' });
 	                if (resp.success) {
-	                    _this2.setState({ companyInfo: resp.content });
+	                    var _companyInfo = resp.content;
+	                    Tool.formatterCompanyInfo(_companyInfo, businessList, riskStatusAll);
+	                    _this3.setState({ companyInfo: resp.content });
+	                } else {
+	                    _index4.default.error(resp.msg || '出错啦');
 	                }
 	            });
 	        }
@@ -75739,29 +76638,20 @@
 	    }, {
 	        key: 'businessChange',
 	        value: function businessChange(v) {
-	            var formError = this.state.formError;
+	            // 行业变化联动风险值
+	            var _state3 = this.state;
+	            var formError = _state3.formError;
+	            var riskStatusAll = _state3.riskStatusAll;
+	            var riskGroup = _state3.riskGroup;
 
 	            var state = { business: v };
 	            var changeError = { business: '', riskStatus: '' };
-	            var _state = this.state;
-	            var businessList = _state.businessList;
-	            var riskStatusAll = _state.riskStatusAll;
-	            var riskGroup = _state.riskGroup;
-
-	            var riskTag = businessList.find(function (item) {
-	                return item.value === v;
-	            }).riskTag;
-	            if (riskTag === 'group') {
-	                // 如果有三级风险状态
-	                riskGroup.map(function (item) {
-	                    state[item.key] = '';
-	                    changeError[item.key] = '';
-	                });
-	            } else {
-	                state.riskStatus = '';
-	                state.riskStatusList = riskStatusAll[riskTag];
-	            }
-
+	            state.riskStatusOptions = riskStatusAll[v] || [];
+	            riskGroup.map(function (item) {
+	                state[item.key] = '';
+	                changeError[item.key] = '';
+	            });
+	            state.riskStatus = '';
 	            state.formError = _extends({}, formError, changeError);
 	            this.setState(state);
 	        }
@@ -75772,12 +76662,8 @@
 	    }, {
 	        key: 'onCancel',
 	        value: function onCancel() {
-	            this.setState({
-	                modalShow: false,
-	                companyName: '',
-	                companyInfo: null,
-	                companySelected: false
-	            });
+	            var resetState = this.resetData();
+	            this.setState(_extends({}, resetState, { companyName: '' }));
 	        }
 	        /*
 	         * validData
@@ -75813,43 +76699,69 @@
 	    }, {
 	        key: 'onSave',
 	        value: function onSave() {
-	            var _state2 = this.state;
-	            var business = _state2.business;
-	            var businessList = _state2.businessList;
-	            var riskGroup = _state2.riskGroup;
+	            var _this4 = this;
 
-	            var riskTag = business && businessList.find(function (item) {
-	                return item.value === business;
-	            }).riskTag;
+	            var _state4 = this.state;
+	            var business = _state4.business;
+	            var riskStatusAll = _state4.riskStatusAll;
+	            var riskGroup = _state4.riskGroup;
+	            var _state4$companyInfo = _state4.companyInfo;
+	            var companyInfo = _state4$companyInfo === undefined ? {} : _state4$companyInfo;
+	            var riskStatus = _state4.riskStatus;
+
 	            if (this.validData()) {
-	                // 验证数据正确
-	                this.setState({ modalShow: true, modalTip: '修改成功！' });
+	                (function () {
+	                    // 验证数据正确
+	                    var riskData = { level: riskStatus };
+	                    if (riskStatusAll[business].length > 10) {
+	                        riskData = {};
+	                        riskGroup.map(function (item) {
+	                            riskData[item.key] = _this4.state[item.key];
+	                        });
+	                    }
+	                    _this4.setState({ changing: true });
+	                    _util2.default.promiseAjax({
+	                        url: '/companyInfoModify/modify.do',
+	                        type: 'get',
+	                        data: _extends({ name: companyInfo.name, industry: business }, riskData)
+	                    }).then(function (resp) {
+	                        _this4.setState({ changing: false });
+	                        if (resp.success) {
+	                            // this.setState({ modalShow: true,modalTip: '修改成功！' });
+	                            _this4.getCompanyInfo();
+	                            _index4.default.success('修改成功！');
+	                        } else {
+	                            _index4.default.error(resp.msg || '出错啦');
+	                        }
+	                    });
+	                })();
 	            }
 	        }
+	        /*
+	         * closeModal关闭弹窗
+	         * */
+
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            var _this3 = this;
+	            var _this5 = this;
 
-	            var _state3 = this.state;
-	            var companyInfo = _state3.companyInfo;
-	            var _state3$companyName = _state3.companyName;
-	            var companyName = _state3$companyName === undefined ? '' : _state3$companyName;
-	            var data = _state3.data;
-	            var businessList = _state3.businessList;
-	            var business = _state3.business;
-	            var riskStatus = _state3.riskStatus;
-	            var riskGroup = _state3.riskGroup;
-	            var riskGroupList = _state3.riskGroupList;
-	            var _state3$riskStatusLis = _state3.riskStatusList;
-	            var riskStatusList = _state3$riskStatusLis === undefined ? [] : _state3$riskStatusLis;
-	            var modalShow = _state3.modalShow;
-	            var modalTip = _state3.modalTip;
-	            var formError = _state3.formError;
+	            var _state5 = this.state;
+	            var companyInfo = _state5.companyInfo;
+	            var _state5$companyName = _state5.companyName;
+	            var companyName = _state5$companyName === undefined ? '' : _state5$companyName;
+	            var businessList = _state5.businessList;
+	            var business = _state5.business;
+	            var riskStatus = _state5.riskStatus;
+	            var riskGroup = _state5.riskGroup;
+	            var _state5$riskStatusOpt = _state5.riskStatusOptions;
+	            var riskStatusOptions = _state5$riskStatusOpt === undefined ? [] : _state5$riskStatusOpt;
+	            var modalShow = _state5.modalShow;
+	            var modalTip = _state5.modalTip;
+	            var formError = _state5.formError;
+	            var changing = _state5.changing;
+	            var loading = _state5.loading;
 
-	            var riskShowOne = !business || businessList.find(function (item) {
-	                return item.value === business;
-	            }).riskTag !== 'group';
 	            return _react2.default.createElement(
 	                'div',
 	                { className: 'companyChange_root' },
@@ -75870,13 +76782,16 @@
 	                                name: 'companyName',
 	                                onChange: this.companyNameChange.bind(this),
 	                                request: this.companyNameComplete.bind(this),
-	                                onChoose: function onChoose(item) {
-	                                    _this3.getCompanyInfo(item);
-	                                },
+	                                onChoose: this.chooseCompanyName,
 	                                style: {}
 	                            })
 	                        ),
-	                        companyInfo ? _react2.default.createElement(
+	                        loading ? _react2.default.createElement(
+	                            'p',
+	                            { className: 'loading' },
+	                            loading
+	                        ) : null,
+	                        !loading && companyInfo ? _react2.default.createElement(
 	                            'div',
 	                            null,
 	                            _react2.default.createElement(
@@ -75898,7 +76813,7 @@
 	                                            null,
 	                                            '法定代表人：'
 	                                        ),
-	                                        companyInfo.legalPerson
+	                                        companyInfo.legalPerson || '-'
 	                                    ),
 	                                    _react2.default.createElement(
 	                                        'li',
@@ -75908,7 +76823,7 @@
 	                                            null,
 	                                            '注册资本：'
 	                                        ),
-	                                        companyInfo.registeredCapital
+	                                        companyInfo.registeredCapital || '-'
 	                                    ),
 	                                    _react2.default.createElement(
 	                                        'li',
@@ -75918,7 +76833,7 @@
 	                                            null,
 	                                            '行业（当前）：'
 	                                        ),
-	                                        companyInfo.industry
+	                                        companyInfo.business
 	                                    ),
 	                                    _react2.default.createElement(
 	                                        'li',
@@ -75928,14 +76843,14 @@
 	                                            null,
 	                                            '风险状态（当前）：'
 	                                        ),
-	                                        companyInfo.originalStatus ? companyInfo.originalStatus : '外部评级 ' + companyInfo.outLevel + ' 内部评级 ' + companyInfo.innnerLevel + ' 现场评级 ' + companyInfo.liveLevel
+	                                        !companyInfo.special ? companyInfo.currentLevelText : '外部评级 ' + companyInfo.outLevelText + ' 内部评级 ' + companyInfo.innnerLevelText + ' 现场评级 ' + companyInfo.liveLevelText
 	                                    ),
 	                                    _react2.default.createElement(
 	                                        'li',
 	                                        { className: 'group' },
 	                                        _react2.default.createElement(
 	                                            'div',
-	                                            { className: 'inputRow' },
+	                                            { className: 'inputRow', style: { width: '100%' } },
 	                                            _react2.default.createElement(
 	                                                'label',
 	                                                null,
@@ -75943,15 +76858,14 @@
 	                                            ),
 	                                            _react2.default.createElement(
 	                                                'div',
-	                                                { className: 'inputItem required' },
+	                                                { className: 'inputItem required', style: { width: '40%' } },
 	                                                _react2.default.createElement('input', { type: 'hidden', value: business, name: 'business' }),
 	                                                _react2.default.createElement(_Select2.default, {
 	                                                    defaultText: '请选择',
 	                                                    options: businessList,
 	                                                    onSelected: this.selectChange.bind(this),
 	                                                    selected: business,
-	                                                    name: 'business',
-	                                                    style: { width: '200px' }
+	                                                    name: 'business'
 	                                                }),
 	                                                _react2.default.createElement(
 	                                                    'p',
@@ -75961,7 +76875,7 @@
 	                                            )
 	                                        )
 	                                    ),
-	                                    riskShowOne ? _react2.default.createElement(
+	                                    riskStatusOptions.length < 10 ? _react2.default.createElement(
 	                                        'li',
 	                                        { style: { width: '75%' } },
 	                                        _react2.default.createElement(
@@ -75974,15 +76888,15 @@
 	                                            ),
 	                                            _react2.default.createElement(
 	                                                'div',
-	                                                { className: 'inputItem required' },
+	                                                { className: 'inputItem' },
 	                                                _react2.default.createElement('input', { type: 'hidden', value: riskStatus, name: 'riskStatus' }),
 	                                                _react2.default.createElement(_Select2.default, {
 	                                                    defaultText: '请选择',
-	                                                    options: riskStatusList,
+	                                                    options: riskStatusOptions,
 	                                                    onSelected: this.selectChange.bind(this),
 	                                                    selected: riskStatus,
 	                                                    name: 'riskStatus',
-	                                                    style: { width: '200px' }
+	                                                    style: { width: '153px' }
 	                                                }),
 	                                                _react2.default.createElement(
 	                                                    'p',
@@ -76010,13 +76924,13 @@
 	                                                ),
 	                                                _react2.default.createElement(
 	                                                    'div',
-	                                                    { className: 'inputItem required' },
-	                                                    _react2.default.createElement('input', { type: 'hidden', value: _this3.state[item.key], name: item.key }),
+	                                                    { className: 'inputItem' },
+	                                                    _react2.default.createElement('input', { type: 'hidden', value: _this5.state[item.key], name: item.key }),
 	                                                    _react2.default.createElement(_Select2.default, {
 	                                                        defaultText: '请选择',
-	                                                        options: riskGroupList,
-	                                                        onSelected: _this3.selectChange.bind(_this3),
-	                                                        selected: _this3.state[item.key],
+	                                                        options: riskStatusOptions,
+	                                                        onSelected: _this5.selectChange.bind(_this5),
+	                                                        selected: _this5.state[item.key],
 	                                                        name: item.key,
 	                                                        style: { width: '100px' }
 	                                                    }),
@@ -76039,7 +76953,11 @@
 	                                    { className: 'cancel', style: { width: '140px' }, onClick: this.onCancel.bind(this) },
 	                                    '取消'
 	                                ),
-	                                _react2.default.createElement(
+	                                changing ? _react2.default.createElement(
+	                                    _Button2.default,
+	                                    null,
+	                                    '修改中...'
+	                                ) : _react2.default.createElement(
 	                                    _Button2.default,
 	                                    { onClick: this.onSave.bind(this) },
 	                                    '确认'
@@ -76053,7 +76971,7 @@
 	                            className: 'parkCompanyListModal',
 	                            visible: modalShow,
 	                            title: '',
-	                            onOk: this.onCancel.bind(this),
+	                            onOk: this.closeModal,
 	                            okText: '确定'
 	                        },
 	                        modalTip
@@ -76072,7 +76990,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 811 */
+/* 815 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -76082,6 +77000,84 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var formatterParam = exports.formatterParam = function formatterParam(param) {
+	    Object.keys(param).map(function (key) {
+	        if (param[key] === '') {
+	            delete param[key];
+	        }
+	    });
+	    return param;
+	};
+	var formatterCompanyInfo = exports.formatterCompanyInfo = function formatterCompanyInfo(companyInfo, industryOptions, levelAll) {
+	    // 处理公司数据
+	    var industry = companyInfo.industry;
+	    var currentLevel = companyInfo.currentLevel;
+	    var originalStatus = companyInfo.originalStatus;
+	    var outLevel = companyInfo.outLevel;
+	    var innnerLevel = companyInfo.innnerLevel;
+	    var liveLevel = companyInfo.liveLevel;
+
+	    var riskList = levelAll[industry] || [];
+	    if (riskList.length > 10) {
+	        // 多个评级状态   因为后台数据和格式问题。此处只能用 == 判断。。请勿修改
+	        companyInfo.special = true;
+	        companyInfo.outLevelText = !outLevel ? '-' : riskList.find(function (item) {
+	            return item.value == outLevel;
+	        }).text;
+	        companyInfo.innnerLevelText = !innnerLevel ? '-' : riskList.find(function (item) {
+	            return item.value == innnerLevel;
+	        }).text;
+	        companyInfo.liveLevelText = !liveLevel ? '-' : riskList.find(function (item) {
+	            return item.value == liveLevel;
+	        }).text;
+	    } else if (riskList.length > 0) {
+	        companyInfo.currentLevelText = originalStatus || (!currentLevel ? '-' : riskList.find(function (item) {
+	            return item.value == currentLevel;
+	        }).text);
+	    } else {
+	        companyInfo.currentLevelText = '-';
+	    }
+	    companyInfo.business = companyInfo.business || (!industry ? '-' : industryOptions.find(function (item) {
+	        return item.value === industry;
+	    }).text);
+	    companyInfo.registeredCapital = parseInt(companyInfo.registeredCapital, 10) ? parseInt(companyInfo.registeredCapital, 10) + '万' : '-';
+	};
+
+	var exportData = [{ name: '序号', key: 'index', width: '5%', include: [1, 2, 3, 4, 5, 6, 9, 10, 11, 12, 13] }, { name: '公司名称', key: 'name', width: '16%', className: 'text-left', include: [1, 2, 3, 4, 5, 6, 9, 10, 11, 12, 13] }, { name: '法定代表人', key: 'legalPerson', width: '8%', className: 'text-left', include: [1, 2, 3, 4, 5, 6, 9, 10, 11, 12, 13] }, { name: '注册时间', key: 'registeredDate', width: '8%', include: [1, 2, 3, 4, 5, 6, 9, 10, 11, 12, 13] }, { name: '注册资本', key: 'registeredCapital', width: '8%', include: [1, 2, 3, 4, 5, 6, 9, 10, 11, 12, 13] }, { name: '注册地址', key: 'address', width: '', className: 'text-left address', include: [1, 2, 3, 4, 5, 6, 9, 10, 11, 12, 13] }, { name: '行业类别', key: 'business', width: '8%', include: [1, 2, 3, 4, 5, 6, 9, 10, 11, 12, 13] }, { name: '风险等级', key: 'currentLevelText', width: '8%', include: [1, 4] }, { name: '外部评级', key: 'outLevelText', width: '7%', include: [2, 3] }, { name: '内部评级', key: 'innnerLevelText', width: '7%', include: [2, 3] }, { name: '现场检查', key: 'liveLevelText', width: '7%', include: [2, 3] }, { name: '风险分值', key: 'score', width: '7%', include: [1, 4] }, { name: '平台名称', key: 'platName', width: '8%', className: 'text-left', include: [1] }, { name: '企业背景', key: 'background', width: '8%', include: [4] }, { name: '众筹平台', key: 'backgroud', width: '8%', include: [6] }, { name: '平台链接', key: 'url', width: '8%', className: 'text-left', include: [6] }];
+
+	var getExportHeader = exports.getExportHeader = function getExportHeader(industry) {
+	    var result = [];
+	    var totalWidth = 0; // 用于计算地址的宽度
+	    exportData.forEach(function (item) {
+	        var include = item.include;
+	        if (include.length === 11 || include.indexOf(industry) > -1) {
+	            result.push(_extends({}, item));
+	            totalWidth += parseInt(item.width, 10) || 0;
+	        }
+	    });
+	    result[5].width = 100 - totalWidth + '%';
+	    return result;
+	};
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "index.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 816 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -76115,9 +77111,27 @@
 
 	var _Input2 = _interopRequireDefault(_Input);
 
+	var _index = __webpack_require__(767);
+
+	var _index2 = _interopRequireDefault(_index);
+
+	var _Pagination = __webpack_require__(713);
+
+	var _Pagination2 = _interopRequireDefault(_Pagination);
+
 	var _DatePicker = __webpack_require__(746);
 
 	var _DatePicker2 = _interopRequireDefault(_DatePicker);
+
+	var _util = __webpack_require__(673);
+
+	var _util2 = _interopRequireDefault(_util);
+
+	var _index3 = __webpack_require__(815);
+
+	var Tool = _interopRequireWildcard(_index3);
+
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -76131,19 +77145,26 @@
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
 
 
+	var buildDateParam = function buildDateParam(pickerArray) {
+	    if (!pickerArray.length) {
+	        return '';
+	    }
+	    return [pickerArray[0], pickerArray[1] < 10 ? '0' + pickerArray[1] : pickerArray[1], pickerArray[2] < 10 ? '0' + pickerArray[2] : pickerArray[2]].join('-');
+	};
+
 	var defaultFilter = {
 	    // 字段详情看接口文档
-	    userName: '',
-	    pageNumber: 1,
-	    pageSize: 10,
-	    beginTime: [],
-	    endTime: [],
-	    areaCode: 0,
-	    opPgCd: -1,
-	    opTpCd: -1,
-	    sysCode: -1,
-	    logContent: '',
-	    orderBy: 'DESC'
+	    industry: '',
+	    currentLevel: '',
+	    originalStatus: '',
+	    outLevel: '',
+	    innnerLevel: '',
+	    liveLevel: '',
+	    areaId: '',
+	    registeredCapitalMin: '',
+	    registeredCapitalMax: '',
+	    registeredDateMin: [],
+	    registeredDateMax: []
 	};
 
 	var Export = function (_Component) {
@@ -76154,54 +77175,285 @@
 
 	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Export).call(this, props));
 
+	        _this.handleSearch = function () {
+	            var filter = _this.state.filter;
+
+	            if (!_this.validData()) {
+	                return;
+	            }
+	            var registeredDateMin = filter.registeredDateMin.length ? buildDateParam(filter.registeredDateMin) : '';
+	            var registeredDateMax = filter.registeredDateMax.length ? buildDateParam(filter.registeredDateMax) : '';
+	            _this.setState({
+	                searchParam: Tool.formatterParam(_extends({}, filter, { registeredDateMin: registeredDateMin, registeredDateMax: registeredDateMax })),
+	                currentPage: 1
+	            }, function () {
+	                _this.getList();
+	            });
+	        };
+
+	        _this.downloadList = function () {
+	            var searchParam = _this.state.searchParam;
+
+	            _this.setState({ downloading: true });
+	            _util2.default.promiseAjax({
+	                type: 'get',
+	                url: '/easyExportExecl/export.do',
+	                data: searchParam
+	            }).then(function (resp) {
+	                _this.setState({ downloading: false });
+	                if (resp.success) {
+	                    window.location.href = resp.content;
+	                } else {
+	                    _index2.default.error(resp.msg || '出错啦');
+	                }
+	            }).catch(function (e) {
+	                _index2.default.error('请求失败，请稍后再试');
+	                _this.setState({
+	                    downloading: false
+	                });
+	            });
+	        };
+
+	        _this.handlePageChange = function (currentPage) {
+	            _this.setState({
+	                currentPage: currentPage
+	            }, function () {
+	                _this.getList();
+	            });
+	        };
+
 	        _this.state = {
-	            list: [{ id: 1, orderNum: 1, loginName: 1, realName: 1, department: 1, userStatus: 1, userType: 1 }, { id: 2, orderNum: 1, loginName: 1, realName: 1, department: 1, userStatus: 1, userType: 1 }, { id: 3, orderNum: 1, loginName: 1, realName: 1, department: 1, userStatus: 1, userType: 1 }, { id: 4, orderNum: 1, loginName: 1, realName: 1, department: 1, userStatus: 1, userType: 1 }, { id: 5, orderNum: 1, loginName: 1, realName: 1, department: 1, userStatus: 1, userType: 1 }, { id: 6, orderNum: 1, loginName: 1, realName: 1, department: 1, userStatus: 1, userType: 1 }, { id: 7, orderNum: 1, loginName: 1, realName: 1, department: 1, userStatus: 1, userType: 1 }, { id: 8, orderNum: 1, loginName: 1, realName: 1, department: 1, userStatus: 1, userType: 1 }, { id: 9, orderNum: 1, loginName: 1, realName: 1, department: 1, userStatus: 1, userType: 1 }, { id: 10, orderNum: 1, loginName: 1, realName: 1, department: 1, userStatus: 1, userType: 1 }],
+	            list: null,
 	            filter: _extends({}, defaultFilter),
 	            options: {
-	                areaCodeList: [],
-	                opPageList: [],
-	                opTypeList: [],
-	                sysLocationList: []
-	            }
+	                industryOptions: [],
+	                levelOptions: [{ value: '', text: '全部' }],
+	                areaOptions: []
+	            },
+	            riskGroup: [{ text: '外部评级', key: 'outLevel' }, { text: '内部评级', key: 'innnerLevel' }, { text: '现场检查', key: 'liveLevel' }],
+	            currentPage: 1,
+	            pageSize: 10,
+	            totalCount: 0
 	        };
-	        // this.topage = this.topage.bind(this);
 	        return _this;
 	    }
 
 	    _createClass(Export, [{
 	        key: 'componentDidMount',
 	        value: function componentDidMount() {
-	            $('#list-content').perfectScrollbar();
+	            var _this2 = this;
+
+	            // $('#list-content').perfectScrollbar();
+	            Promise.all([_util2.default.promiseAjax({ // 行业
+	                type: 'get',
+	                url: '/easyExportExecl/industry.do'
+	            }), _util2.default.promiseAjax({ // 风险状态
+	                type: 'get',
+	                url: '/companyInfoModify/risk.do'
+	            }), _util2.default.promiseAjax({ // 行政区域
+	                type: 'get',
+	                url: '/easyExportExecl/area.do'
+	            })]).then(function (data) {
+	                return data.map(function (item) {
+	                    return item.content;
+	                });
+	            }).then(function (_ref) {
+	                var _ref2 = _slicedToArray(_ref, 3);
+
+	                var industryList = _ref2[0];
+	                var levelList = _ref2[1];
+	                var areaList = _ref2[2];
+	                var _state = _this2.state;
+	                var options = _state.options;
+	                var filter = _state.filter;
+
+	                var industryOptions = Object.keys(industryList).map(function (key) {
+	                    return { value: industryList[key], text: key };
+	                });
+	                var levelAll = {};
+	                Object.keys(levelList).map(function (key) {
+	                    levelAll[key] = Object.keys(levelList[key]).sort().map(function (deepKey) {
+	                        return { value: levelList[key][deepKey], text: deepKey };
+	                    });
+	                    levelAll[key].unshift({ value: '', text: '全部' });
+	                });
+	                var areaOptions = Object.keys(areaList).map(function (key) {
+	                    return { value: areaList[key], text: key };
+	                });
+	                areaOptions.unshift({ value: '', text: '全部' });
+	                _this2.setState({
+	                    options: _extends({}, options, { industryOptions: industryOptions, areaOptions: areaOptions }),
+	                    levelAll: levelAll,
+	                    filter: _extends({}, filter, { industry: industryOptions[0].value })
+	                }, function () {
+	                    _this2.handleSearch();
+	                });
+	            });
 	        }
 	    }, {
 	        key: 'writeOption',
 	        value: function writeOption(name) {
-	            var _this2 = this;
+	            var _this3 = this;
 
 	            return function (data) {
-	                var filter = _this2.state.filter;
+	                var filter = _this3.state.filter;
+	                if (filter[name] === data) {
+	                    return;
+	                }
+	                if (name === 'industry') {
+	                    // 风险等级联动
+	                    _this3.levelLinkage(data);
+	                }
 	                filter[name] = data;
-	                _this2.setState({ filter: filter });
+	                _this3.setState({ filter: filter });
+	            };
+	        }
+	    }, {
+	        key: 'writeInput',
+	        value: function writeInput() {
+	            var _this4 = this;
+
+	            return function (e) {
+	                var filter = _this4.state.filter;
+	                var name = e.target.name;
+	                var v = e.target.value;
+	                filter[name] = v;
+	                _this4.setState({ filter: filter });
 	            };
 	        }
 	    }, {
 	        key: 'writeDate',
 	        value: function writeDate(field) {
-	            var _this3 = this;
+	            var _this5 = this;
 
 	            return function (y, m, d) {
-	                var filter = _this3.state.filter;
+	                var filter = _this5.state.filter;
+
 	                filter[field] = y === null ? [] : [y, m, d];
-	                _this3.setState({ filter: filter });
+	                // 后面的日期不能超过前面的日期
+	                if (filter.registeredDateMax.length && filter.registeredDateMin.length && buildDateParam(filter.registeredDateMax) < buildDateParam(filter.registeredDateMin)) {
+	                    filter.registeredDateMin = filter.registeredDateMax;
+	                }
+	                _this5.setState({ filter: filter });
 	            };
 	        }
+	        /*
+	         * 风险联动
+	         * */
+
+	    }, {
+	        key: 'levelLinkage',
+	        value: function levelLinkage(value) {
+	            var _state2 = this.state;
+	            var levelAll = _state2.levelAll;
+	            var options = _state2.options;
+	            var filter = _state2.filter;
+	            var riskGroup = _state2.riskGroup;
+
+	            options.levelOptions = levelAll[value] || [{ value: '', text: '全部' }];
+	            filter.currentLevel = '';
+	            riskGroup.map(function (item) {
+	                filter[item.key] = '';
+	            });
+	            this.setState({ options: options, filter: filter });
+	        }
+	        /*
+	         * 验证数据正确性
+	         * */
+
+	    }, {
+	        key: 'validData',
+	        value: function validData() {
+	            var filter = this.state.filter;
+	            var registeredCapitalMin = filter.registeredCapitalMin;
+	            var registeredCapitalMax = filter.registeredCapitalMax;
+
+	            var reg = /^([0-9]|[1-9][0-9]*)$/;
+	            if (registeredCapitalMin && !reg.test(registeredCapitalMin) || registeredCapitalMax && !reg.test(registeredCapitalMax)) {
+	                _index2.default.warning('注册资本只能为整数！');
+	                return false;
+	            }
+	            if (registeredCapitalMin && registeredCapitalMax && registeredCapitalMax < registeredCapitalMin) {
+	                filter.registeredCapitalMin = filter.registeredCapitalMax;
+	            }
+	            return true;
+	        }
+	        /*
+	         * 搜索
+	         * */
+
+	    }, {
+	        key: 'getList',
+
+	        /*
+	         * 搜索列表
+	         * */
+	        value: function getList() {
+	            var _this6 = this;
+
+	            var _state3 = this.state;
+	            var searchParam = _state3.searchParam;
+	            var levelAll = _state3.levelAll;
+	            var options = _state3.options;
+	            var currentPage = _state3.currentPage;
+	            var pageSize = _state3.pageSize;
+
+	            _util2.default.promiseAjax({
+	                url: '/easyExportExecl/preview.do',
+	                type: 'get',
+	                data: _extends({}, searchParam, { currentPage: currentPage, pageSize: pageSize })
+	            }).then(function (resp) {
+	                if (resp.success) {
+	                    (function () {
+	                        var content = resp.content;
+
+	                        var business = options.industryOptions.find(function (item) {
+	                            return item.value === searchParam.industry;
+	                        }).text;
+	                        // 处理数据
+	                        content.data.forEach(function (companyInfo, index) {
+	                            // 处理公司数据
+	                            companyInfo.business = business;
+	                            companyInfo.index = (currentPage - 1) * pageSize + index + 1;
+	                            Tool.formatterCompanyInfo(companyInfo, options.industryOptions, levelAll);
+	                        });
+	                        _this6.setState({
+	                            list: content.data,
+	                            totalCount: content.page.totalCount,
+	                            exportHeader: Tool.getExportHeader(searchParam.industry)
+	                        }, function () {
+	                            /* $('#list-content').scrollTop(0);
+	                             $('#list-content').perfectScrollbar('update');*/
+	                        });
+	                    })();
+	                } else {
+	                    _index2.default.error(resp.msg || '出错啦');
+	                }
+	            });
+	        }
+	        /*
+	         * 下载列表
+	         * */
+
+	        /*
+	         * handlePageChange
+	         * */
+
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            var _state = this.state;
-	            var list = _state.list;
-	            var options = _state.options;
-	            var filter = _state.filter;
+	            var _this7 = this;
+
+	            var _state4 = this.state;
+	            var list = _state4.list;
+	            var options = _state4.options;
+	            var filter = _state4.filter;
+	            var riskGroup = _state4.riskGroup;
+	            var downloading = _state4.downloading;
+	            var totalCount = _state4.totalCount;
+	            var currentPage = _state4.currentPage;
+	            var pageSize = _state4.pageSize;
+	            var exportHeader = _state4.exportHeader;
 
 	            return _react2.default.createElement(
 	                'div',
@@ -76225,13 +77477,14 @@
 	                                'div',
 	                                { className: 'input' },
 	                                _react2.default.createElement(_Select2.default, {
-	                                    options: options.areaCodeList,
-	                                    onSelected: this.writeOption('areaCode'),
-	                                    selected: filter.areaCode
+	                                    defaultText: '',
+	                                    options: options.industryOptions,
+	                                    onSelected: this.writeOption('industry'),
+	                                    selected: filter.industry
 	                                })
 	                            )
 	                        ),
-	                        _react2.default.createElement(
+	                        options.levelOptions.length < 10 ? _react2.default.createElement(
 	                            'div',
 	                            { className: 'inputField' },
 	                            _react2.default.createElement(
@@ -76243,11 +77496,37 @@
 	                                'div',
 	                                { className: 'input' },
 	                                _react2.default.createElement(_Select2.default, {
-	                                    options: options.areaCodeList,
-	                                    onSelected: this.writeOption('areaCode'),
-	                                    selected: filter.areaCode
+	                                    defaultText: '全部',
+	                                    options: options.levelOptions,
+	                                    onSelected: this.writeOption('currentLevel'),
+	                                    selected: filter.currentLevel
 	                                })
 	                            )
+	                        ) : _react2.default.createElement(
+	                            'div',
+	                            { className: 'inputField group' },
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'label' },
+	                                '风险等级'
+	                            ),
+	                            riskGroup.map(function (item, index) {
+	                                return _react2.default.createElement(
+	                                    'div',
+	                                    { className: 'input', key: index },
+	                                    _react2.default.createElement(
+	                                        'label',
+	                                        null,
+	                                        item.text
+	                                    ),
+	                                    _react2.default.createElement(_Select2.default, {
+	                                        defaultText: '全部',
+	                                        options: options.levelOptions,
+	                                        onSelected: _this7.writeOption(item.key),
+	                                        selected: filter[item.key]
+	                                    })
+	                                );
+	                            })
 	                        ),
 	                        _react2.default.createElement(
 	                            'div',
@@ -76261,9 +77540,10 @@
 	                                'div',
 	                                { className: 'input' },
 	                                _react2.default.createElement(_Select2.default, {
-	                                    options: options.sysLocationList,
-	                                    onSelected: this.writeOption('sysCode'),
-	                                    selected: filter.sysCode
+	                                    defaultText: '全部',
+	                                    options: options.areaOptions,
+	                                    onSelected: this.writeOption('areaId'),
+	                                    selected: filter.areaId
 	                                })
 	                            )
 	                        )
@@ -76281,22 +77561,34 @@
 	                            ),
 	                            _react2.default.createElement(
 	                                'div',
-	                                { className: 'input' },
-	                                _react2.default.createElement(_Select2.default, {
-	                                    options: options.areaCodeList,
-	                                    onSelected: this.writeOption('areaCode'),
-	                                    selected: filter.areaCode
-	                                })
+	                                { className: 'input capital' },
+	                                _react2.default.createElement(_Input2.default, {
+	                                    placeholder: '',
+	                                    value: filter.registeredCapitalMin,
+	                                    onChange: this.writeInput(),
+	                                    name: 'registeredCapitalMin'
+	                                }),
+	                                _react2.default.createElement(
+	                                    'i',
+	                                    null,
+	                                    '万元'
+	                                )
 	                            ),
 	                            _react2.default.createElement('div', { className: 'line' }),
 	                            _react2.default.createElement(
 	                                'div',
-	                                { className: 'input' },
-	                                _react2.default.createElement(_Select2.default, {
-	                                    options: options.areaCodeList,
-	                                    onSelected: this.writeOption('areaCode'),
-	                                    selected: filter.areaCode
-	                                })
+	                                { className: 'input capital' },
+	                                _react2.default.createElement(_Input2.default, {
+	                                    placeholder: '',
+	                                    value: filter.registeredCapitalMax,
+	                                    onChange: this.writeInput(),
+	                                    name: 'registeredCapitalMax'
+	                                }),
+	                                _react2.default.createElement(
+	                                    'i',
+	                                    null,
+	                                    '万元'
+	                                )
 	                            )
 	                        ),
 	                        _react2.default.createElement(
@@ -76311,20 +77603,20 @@
 	                                'div',
 	                                { className: 'input' },
 	                                _react2.default.createElement(_DatePicker2.default, {
-	                                    year: filter.beginTime[0],
-	                                    month: filter.beginTime[1],
-	                                    day: filter.beginTime[2],
-	                                    callback: this.writeDate('beginTime') })
+	                                    year: filter.registeredDateMin[0],
+	                                    month: filter.registeredDateMin[1],
+	                                    day: filter.registeredDateMin[2],
+	                                    callback: this.writeDate('registeredDateMin') })
 	                            ),
 	                            _react2.default.createElement('div', { className: 'line' }),
 	                            _react2.default.createElement(
 	                                'div',
 	                                { className: 'input' },
 	                                _react2.default.createElement(_DatePicker2.default, {
-	                                    year: filter.endTime[0],
-	                                    month: filter.endTime[1],
-	                                    day: filter.endTime[2],
-	                                    callback: this.writeDate('endTime') })
+	                                    year: filter.registeredDateMax[0],
+	                                    month: filter.registeredDateMax[1],
+	                                    day: filter.registeredDateMax[2],
+	                                    callback: this.writeDate('registeredDateMax') })
 	                            )
 	                        ),
 	                        _react2.default.createElement(
@@ -76338,7 +77630,7 @@
 	                        )
 	                    )
 	                ),
-	                _react2.default.createElement(
+	                exportHeader ? _react2.default.createElement(
 	                    'div',
 	                    { className: 'table-list' },
 	                    _react2.default.createElement(
@@ -76347,11 +77639,15 @@
 	                        _react2.default.createElement(
 	                            'span',
 	                            { className: 'blue' },
-	                            '名单上传'
+	                            '数据预览'
 	                        ),
-	                        _react2.default.createElement(
+	                        downloading ? _react2.default.createElement(
 	                            _Button2.default,
-	                            { className: 'export-btn', onClick: this.handleSearch },
+	                            { className: 'export-btn' },
+	                            '下载中...'
+	                        ) : _react2.default.createElement(
+	                            _Button2.default,
+	                            { className: 'export-btn', onClick: this.downloadList },
 	                            '导出列表'
 	                        )
 	                    ),
@@ -76360,63 +77656,20 @@
 	                        { className: 'building-list' },
 	                        _react2.default.createElement(
 	                            'table',
-	                            { className: '' },
+	                            { className: 'layout-fixed' },
 	                            _react2.default.createElement(
 	                                'thead',
 	                                null,
 	                                _react2.default.createElement(
 	                                    'tr',
 	                                    null,
-	                                    _react2.default.createElement(
-	                                        'th',
-	                                        { width: '6%' },
-	                                        '序号'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'th',
-	                                        { width: '16%', className: 'text-left' },
-	                                        '公司名称'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'th',
-	                                        { width: '8%', className: 'text-left' },
-	                                        '法定代表人'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'th',
-	                                        { width: '8%' },
-	                                        '注册时间'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'th',
-	                                        { width: '9%' },
-	                                        '注册资本'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'th',
-	                                        { width: '20%', className: 'text-left' },
-	                                        '注册地址'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'th',
-	                                        { width: '8%', className: 'text-left' },
-	                                        '平台名称'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'th',
-	                                        { width: '9%' },
-	                                        '风险等级'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'th',
-	                                        { width: '8%' },
-	                                        '风险分值'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'th',
-	                                        { width: '8%' },
-	                                        '行业类别'
-	                                    )
+	                                    exportHeader.map(function (item, index) {
+	                                        return _react2.default.createElement(
+	                                            'th',
+	                                            { key: index, width: item.width, className: item.className },
+	                                            item.name
+	                                        );
+	                                    })
 	                                )
 	                            )
 	                        ),
@@ -76425,64 +77678,21 @@
 	                            { className: 'list-content', id: 'list-content' },
 	                            _react2.default.createElement(
 	                                'table',
-	                                { className: '' },
+	                                { className: 'layout-fixed' },
 	                                _react2.default.createElement(
 	                                    'tbody',
 	                                    null,
-	                                    this.state.list.length > 0 ? this.state.list.map(function (item, index) {
+	                                    list ? list.length > 0 ? list.map(function (item, index) {
 	                                        return _react2.default.createElement(
 	                                            'tr',
-	                                            { key: index },
-	                                            _react2.default.createElement(
-	                                                'td',
-	                                                { width: '6%' },
-	                                                item.id
-	                                            ),
-	                                            _react2.default.createElement(
-	                                                'td',
-	                                                { width: '16%', className: 'text-left' },
-	                                                item.userStatus
-	                                            ),
-	                                            _react2.default.createElement(
-	                                                'td',
-	                                                { width: '8%', className: 'text-left' },
-	                                                item.userType
-	                                            ),
-	                                            _react2.default.createElement(
-	                                                'td',
-	                                                { width: '8%' },
-	                                                item.userStatus
-	                                            ),
-	                                            _react2.default.createElement(
-	                                                'td',
-	                                                { width: '9%' },
-	                                                item.userType
-	                                            ),
-	                                            _react2.default.createElement(
-	                                                'td',
-	                                                { width: '20%', className: 'text-left' },
-	                                                item.userType
-	                                            ),
-	                                            _react2.default.createElement(
-	                                                'td',
-	                                                { width: '8%', className: 'text-left' },
-	                                                item.userType
-	                                            ),
-	                                            _react2.default.createElement(
-	                                                'td',
-	                                                { width: '9%' },
-	                                                item.userType
-	                                            ),
-	                                            _react2.default.createElement(
-	                                                'td',
-	                                                { width: '8%' },
-	                                                item.userType
-	                                            ),
-	                                            _react2.default.createElement(
-	                                                'td',
-	                                                { width: '8%' },
-	                                                item.userType
-	                                            )
+	                                            { key: item.index },
+	                                            exportHeader.map(function (td, tdIndex) {
+	                                                return _react2.default.createElement(
+	                                                    'td',
+	                                                    { key: td.name, width: td.width, className: td.className },
+	                                                    item[td.key] || '-'
+	                                                );
+	                                            })
 	                                        );
 	                                    }) : _react2.default.createElement(
 	                                        'tr',
@@ -76492,12 +77702,19 @@
 	                                            null,
 	                                            '暂无数据'
 	                                        )
-	                                    )
+	                                    ) : null
 	                                )
 	                            )
 	                        )
-	                    )
-	                )
+	                    ),
+	                    _react2.default.createElement(_Pagination2.default, {
+	                        totalCount: totalCount,
+	                        pageSize: pageSize,
+	                        showPage: 5,
+	                        currentPage: currentPage,
+	                        callBack: this.handlePageChange
+	                    })
+	                ) : null
 	            );
 	        }
 	    }]);
@@ -76511,7 +77728,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 812 */
+/* 817 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -76525,15 +77742,15 @@
 
 	var _redux = __webpack_require__(312);
 
-	var _reduxThunk = __webpack_require__(813);
+	var _reduxThunk = __webpack_require__(818);
 
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
-	var _index = __webpack_require__(814);
+	var _index = __webpack_require__(819);
 
 	var _index2 = _interopRequireDefault(_index);
 
-	var _DevTools = __webpack_require__(815);
+	var _DevTools = __webpack_require__(820);
 
 	var _DevTools2 = _interopRequireDefault(_DevTools);
 
@@ -76551,7 +77768,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 813 */
+/* 818 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -76579,7 +77796,7 @@
 	exports['default'] = thunk;
 
 /***/ },
-/* 814 */
+/* 819 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -76603,7 +77820,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 815 */
+/* 820 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
