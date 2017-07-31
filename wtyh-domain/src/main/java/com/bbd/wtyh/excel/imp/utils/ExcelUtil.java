@@ -221,6 +221,17 @@ public class ExcelUtil {
 			put("企业列表", "finance_lease"); // 构建二级下拉
 		}} ); //构建一级下拉
 
+		//商业保理
+		Map<String, String> mapLevel26 = new HashMap<>();
+		mapLevel1.put("商业保理", mapLevel26);// 构建一级下拉
+		mapLevel26.put("企业类型", "commercial-factoring");// 构建二级下拉
+
+		//预付卡
+		Map<String, String> mapLevel27 = new HashMap<>();
+		mapLevel1.put("预付卡", mapLevel27);// 构建一级下拉
+		mapLevel27.put("企业列表", "prepay-company-list");// 构建二级下拉
+		mapLevel27.put("备案企业预付金额总额", "prepay-company-amount");// 构建二级下拉
+
 		return mapLevel1;
 	}
 

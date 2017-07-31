@@ -1,6 +1,6 @@
 package com.bbd.wtyh.web.EasyExportExcel;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -37,9 +37,9 @@ public class ExportCondition {
     private String registeredCapitalMin;   // 注册资本
     private String registeredCapitalMax;   // 注册资本
     private Integer registeredCapitalType;  //注册资本类型 1:人民币 2:美元
-    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date registeredDateMin;
-    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date registeredDateMax;
     private Integer areaId;
 

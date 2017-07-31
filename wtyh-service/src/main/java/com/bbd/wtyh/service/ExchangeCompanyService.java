@@ -4,6 +4,7 @@ import com.bbd.wtyh.domain.EasyExport.TradeMarketData;
 import com.bbd.wtyh.domain.vo.ExchangeCompanyAreaVO;
 import com.bbd.wtyh.domain.vo.ExchangeCompanyVO;
 import com.bbd.wtyh.web.EasyExportExcel.ExportCondition;
+import com.bbd.wtyh.web.PageBean;
 
 import java.util.List;
 import java.util.Map;
@@ -49,5 +50,5 @@ public interface ExchangeCompanyService {
      */
     public List<ExchangeCompanyVO> exchangeCompanyListByAreaId(String areaName, String orderName, String orderType, Integer type);
 
-    List<TradeMarketData> getTradeMarket(ExportCondition exportCondition);
+    List<TradeMarketData> getTradeMarket(ExportCondition exportCondition, PageBean pagination);
 }

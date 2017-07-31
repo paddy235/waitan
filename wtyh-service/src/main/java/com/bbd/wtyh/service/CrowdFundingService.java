@@ -4,12 +4,12 @@ import java.util.List;
 import java.util.Map;
 
 import com.bbd.wtyh.domain.CrowdFundingCompanyDO;
-import com.bbd.wtyh.domain.CrowdFundingStatisticsDO;
 import com.bbd.wtyh.domain.EasyExport.CrowdfundData;
 import com.bbd.wtyh.domain.NvDO;
 import com.bbd.wtyh.domain.TaskResultDO;
 import com.bbd.wtyh.domain.wangDaiAPI.CrowdFundingStatisticsDTO;
 import com.bbd.wtyh.web.EasyExportExcel.ExportCondition;
+import com.bbd.wtyh.web.PageBean;
 
 /**
 * 众筹企业相关接口
@@ -37,7 +37,7 @@ public interface CrowdFundingService {
 	 */
 	TaskResultDO crowdFundingDataLandTask(Integer taskId);
 
-	List<CrowdfundData> getCrowdfund(ExportCondition exportCondition);
+	List<CrowdfundData> getCrowdfund(ExportCondition exportCondition, PageBean pagination);
 
 	/**
 	 *重新执行数据落地失败任务

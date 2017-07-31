@@ -7,6 +7,7 @@ import com.bbd.wtyh.domain.vo.ExchangeCompanyVO;
 import com.bbd.wtyh.mapper.ExchangeCompanyMapper;
 import com.bbd.wtyh.service.ExchangeCompanyService;
 import com.bbd.wtyh.web.EasyExportExcel.ExportCondition;
+import com.bbd.wtyh.web.PageBean;
 import org.apache.commons.collections.map.HashedMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -104,7 +105,8 @@ public class ExchangeCompanyServiceImpl implements ExchangeCompanyService {
     }
 
     @Override
-    public List<TradeMarketData> getTradeMarket(ExportCondition exportCondition) {
-        return exchangeCompanyMapper.getTradeMarket(exportCondition);
+    public List<TradeMarketData> getTradeMarket(ExportCondition exportCondition, PageBean pagination) {
+        pagination.setTotalCount(exchangeCompanyMapper.countTradeMarket(exportCondition));
+        return exchangeCompanyMapper.getTradeMarket(exportCondition, pagination);
     }
 }

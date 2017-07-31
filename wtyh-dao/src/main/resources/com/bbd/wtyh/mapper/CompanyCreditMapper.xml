@@ -101,6 +101,11 @@
                 #{item}
             </foreach>
         </if>
+		<if test="dataType==null" >
+			AND resource_name IN (
+			select item from company_credit_point_items
+			)
+		</if>
         order by company_name
     </select>
 

@@ -10,6 +10,7 @@ import com.bbd.wtyh.mapper.CompanyLevelMapper;
 import com.bbd.wtyh.service.CompanyLevelService;
 import com.bbd.wtyh.service.CompanyService;
 import com.bbd.wtyh.web.EasyExportExcel.ExportCondition;
+import com.bbd.wtyh.web.PageBean;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -57,8 +58,9 @@ public class CompanyLevelServiceImpl implements CompanyLevelService {
     }
 
     @Override
-    public List<LoanData> getLoan(ExportCondition exportCondition) {
-        return companyLevelMapper.getLoan(exportCondition);
+    public List<LoanData> getLoan(ExportCondition exportCondition, PageBean pageBean) {
+        pageBean.setTotalCount(companyLevelMapper.countLoan(exportCondition));
+        return companyLevelMapper.getLoan(exportCondition, pageBean);
     }
 
     @Override

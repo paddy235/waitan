@@ -254,7 +254,8 @@
             legal_person as legalPerson,
             registered_type as registeredType,
             business_type as businessType,
-            risk_level as riskLevel
+            risk_level as riskLevel,
+            CASE risk_level WHEN '1' THEN '已出风险' WHEN '2' THEN '重点关注' WHEN '3' THEN '一般关注' WHEN '4' THEN '正常' END as riskName
         FROM
             company
         WHERE
