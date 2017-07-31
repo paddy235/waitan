@@ -144,7 +144,7 @@ public class FinanceLeasecHandler extends AbstractImportHandler<FinanceLeasecCom
             }
             if ( null ==locCDo) continue;
             final CompanyDO fLocC =locCDo;
-            boolean []isRisk ={false,false}; //[0]当前， [1]之前
+            boolean []isRisk ={false, false, false}; //[0]当前，[1]之前，[2]是否是新增
             FunIf2 savRisk =( String status, int riskType )-> {
                 if ( StringUtils.isNotBlank( status ) ) {
                     FinanceLeaseRiskDO frDo = new FinanceLeaseRiskDO();
@@ -154,6 +154,7 @@ public class FinanceLeasecHandler extends AbstractImportHandler<FinanceLeasecCom
                     String strWhere = "`company_id`=" + fLocC.getCompanyId() + " AND `risk_type`=" + riskType;
                     FinanceLeaseRiskDO sFrDo = baseService.selectOne(FinanceLeaseRiskDO.class, strWhere);
                     if ( null == sFrDo ) {
+                        isRisk[2] =true;
                         frDo.setCreateDate(new Date());
                         frDo.setCreateBy(loginName);
                         baseService.insert( frDo );
@@ -192,25 +193,27 @@ public class FinanceLeasecHandler extends AbstractImportHandler<FinanceLeasecCom
                     baseService.update(feDo);
                 }
             }
-            RiskChgCoDo riskChgCoDo =new RiskChgCoDo();
-            // 区域
-            AreaDO areaDO = this.baseService.selectById(AreaDO.class, riskChgCoDo.getAreaId());
-            if (areaDO != null) {
-                riskChgCoDo.setAreaName(areaDO.getName());
+            if ( isRisk[2] || isRisk[0] !=isRisk[1] ) {
+                RiskChgCoDo riskChgCoDo = new RiskChgCoDo();
+                // 区域
+                AreaDO areaDO = this.baseService.selectById(AreaDO.class, riskChgCoDo.getAreaId());
+                if (areaDO != null) {
+                    riskChgCoDo.setAreaName(areaDO.getName());
+                }
+                // 楼宇
+                BuildingDO buildingDO = this.baseService.selectById(BuildingDO.class, riskChgCoDo.getCompanyId());
+                if (buildingDO != null) {
+                    riskChgCoDo.setBuildingId(buildingDO.getBuildingId());
+                    riskChgCoDo.setBuildingName(buildingDO.getName());
+                }
+                riskChgCoDo.setCompanyId(locCDo.getCompanyId());
+                riskChgCoDo.setCompanyName(locCDo.getName());
+                riskChgCoDo.setCompanyType(locCDo.getCompanyType().intValue());
+                riskChgCoDo.setAreaId(locCDo.getAreaId());
+                riskChgCoDo.setHaveRisk(isRisk[0]);
+                riskChgCoDo.setOldHaveRisk(isRisk[1]);
+                baseService.insert(riskChgCoDo);
             }
-            // 楼宇
-            BuildingDO buildingDO = this.baseService.selectById(BuildingDO.class, riskChgCoDo.getCompanyId());
-            if (buildingDO != null) {
-                riskChgCoDo.setBuildingId(buildingDO.getBuildingId());
-                riskChgCoDo.setBuildingName(buildingDO.getName());
-            }
-            riskChgCoDo.setCompanyId( locCDo.getCompanyId() );
-            riskChgCoDo.setCompanyName( locCDo.getName() );
-            riskChgCoDo.setCompanyType(locCDo.getCompanyType().intValue());
-            riskChgCoDo.setAreaId(locCDo.getAreaId());
-            riskChgCoDo.setHaveRisk(isRisk[0]);
-            riskChgCoDo.setOldHaveRisk(isRisk[1]);
-            baseService.insert(riskChgCoDo);
         }
 
         log.info(caption +" 导入已完成");
