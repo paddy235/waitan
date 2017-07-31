@@ -271,21 +271,25 @@ public class ImportController {
 			logMsg = "搜索楼宇企业批量导入记录";
 			p = Operation.Page.PARK_BUILDING_MANAGE;
 		}
-		if (StringUtils.isNotBlank(fileName)) {
-			fileName = "文件名称:" + fileName + ",";
+		String tmpFileName = fileName;
+		if (StringUtils.isNotBlank(tmpFileName)) {
+			tmpFileName = "文件名称:" + tmpFileName + ",";
 		}
-		if (StringUtils.isNotBlank(startDate)) {
-			fileName = "开始时间:" + startDate + ",";
+
+		String tmpStartDate = startDate;
+		if (StringUtils.isNotBlank(tmpStartDate)) {
+			tmpStartDate = "开始时间:" + tmpStartDate + ",";
 		}
-		if (StringUtils.isNotBlank(endDate)) {
-			endDate = "结束时间:" + endDate + ",";
+		String tmpEndDate = endDate;
+		if (StringUtils.isNotBlank(tmpEndDate)) {
+			tmpEndDate = "结束时间:" + tmpEndDate + ",";
 		}
 		String state = "全部";
 		if (StringUtils.isNotBlank(impState)) {
 			state = ImpRecord.getRecord(Integer.parseInt(impState)).desc();
 		}
 		String conditions = ",搜索条件[%s%s%s,状态:%s]";
-		logMsg += String.format(conditions, fileName, startDate, endDate, state);
+		logMsg += String.format(conditions, tmpFileName, tmpStartDate, tmpEndDate, state);
 		UserLogRecord.record(logMsg, Operation.Type.query, p, Operation.System.back, request);
 		return ResponseBean.successResponse(ImpRecordUtil.recordList(loginName, fileName, startDate, endDate, impState, impType));
 	}
