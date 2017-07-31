@@ -479,7 +479,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
             industryShanghaiDO.setDate(dto.getDate());
             industryShanghaiDO.setCreateBy("sys");
             industryShanghaiDO.setCreateDate(new Date());
-            industryShanghaiMapper.deleteByDate(dto.getDate());
+//            industryShanghaiMapper.deleteByDate(dto.getDate());
             industryShanghaiMapper.save(industryShanghaiDO);
         }
         logger.info("end update industry_shanghai date task");
@@ -499,7 +499,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
             industryCompareDO.setBalanceLoans(dto.getBalance_loans());
             industryCompareDO.setCreateBy("sys");
             industryCompareDO.setCreateDate(new Date());
-            industryCompareMapper.deleteByDateArea(dto.getDate(), dto.getArea());
+//            industryCompareMapper.deleteByDateArea(dto.getDate(), dto.getArea());
             industryCompareMapper.save(industryCompareDO);
         }
         logger.info("end update industry_compare date task");
@@ -528,7 +528,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
             platRankDataDO.setStayStillOfTotal(dto.getStay_still_of_total());
             platRankDataDO.setCreateBy("sys");
             platRankDataDO.setCreateDate(new Date());
-            platRankDataMapper.deleteByPlatName(dto.getPlat_name());
+//            platRankDataMapper.deleteByPlatName(dto.getPlat_name());
             platRankDataMapper.save(platRankDataDO);
         }
         logger.info("end update plat_rank_data date task");
@@ -549,7 +549,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
             areaIndexDO.setCompetitiveness(dto.getCompetitiveness());
             areaIndexDO.setCreateBy("sys");
             areaIndexDO.setCreateDate(new Date());
-            areaIndexMapper.deleteByArea(dto.getArea());
+//            areaIndexMapper.deleteByArea(dto.getArea());
             areaIndexMapper.save(areaIndexDO);
         }
         logger.info("end update area_index date task");
@@ -570,7 +570,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
                 industryProblemDO.setCreateBy("sys");
                 industryProblemDO.setCreateDate(new Date());
 
-                industryProblemMapper.deleteByDateArea(dto.getDate(), dto.getArea());
+ //               industryProblemMapper.deleteByDateArea(dto.getDate(), dto.getArea());
                 industryProblemMapper.save(industryProblemDO);
             }
         }

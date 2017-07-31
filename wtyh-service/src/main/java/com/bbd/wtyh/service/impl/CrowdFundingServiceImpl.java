@@ -174,7 +174,7 @@ public class CrowdFundingServiceImpl implements CrowdFundingService {
         crowdFundingCommonDO.setType(type);
         crowdFundingCommonDO.setCreateBy("sys");
         crowdFundingCommonDO.setCreateDate(new Date());
-        crowdFundingCommonMapper.deleteByType(type);
+//        crowdFundingCommonMapper.deleteByType(type);
         crowdFundingCommonMapper.save(crowdFundingCommonDO);
     }
 
@@ -186,7 +186,7 @@ public class CrowdFundingServiceImpl implements CrowdFundingService {
         for (CrowdFundingCompanyDO dto : dtoList) {
             dto.setCreateBy("sys");
             dto.setCreateDate(new Date());
-            crowdFundingCompanyMapper.deleteByPlatName(dto.getPlatformName());
+//            crowdFundingCompanyMapper.deleteByPlatName(dto.getPlatformName());
             crowdFundingCompanyMapper.saveForDataLand(dto);
         }
     }

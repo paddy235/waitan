@@ -71,13 +71,15 @@ public class PrivateFundExtraHandler extends AbstractImportHandler<PrivateFundEx
 	@Override
 	public void endRow(Map<String, String> row, PrivateFundExtraDO bean) throws Exception {
 		//GuaranteedInfoDO guaranteedInfoDO = guaranteeService.selectByPrimaryKey(bean.getId());
-		String sqlWhere= "`company_id`=" +bean.getCompanyId();
+		String sqlWhere= "company_id = " +bean.getCompanyId();
 		PrivateFundExtraDO privateFundExtra = companyService.selectOne(PrivateFundExtraDO.class,sqlWhere);
-		bean.setCreateBy("导入私募企业信息");
-		bean.setCreateDate(new Date());
 		if(null==privateFundExtra){
+			bean.setCreateBy("导入私募企业信息");
+			bean.setCreateDate(new Date());
 			insertList.add(bean);
 		}else{
+			bean.setUpdateBy("导入私募企业信息");
+			bean.setUpdateDate(new Date());
 			updateList.add(bean);
 		}
 	}
@@ -85,10 +87,13 @@ public class PrivateFundExtraHandler extends AbstractImportHandler<PrivateFundEx
 	@Override
 	@Transactional
 	public void end() throws Exception {
-		if (errorList().isEmpty()) {
-			this.companyService.insertList(insertList);
-			this.companyService.updateList(updateList);
+		if( errorList().size() >0 ) {
+			addError("用户上传的数据有误，所有数据均不予入库");
+			log.warn("用户上传的数据有误，所有数据均不予入库");
+			return;
 		}
+		this.companyService.insertList(insertList);
+		this.companyService.updateList(updateList);
 		log.info("导入私募企业列表结束");
 	}
 

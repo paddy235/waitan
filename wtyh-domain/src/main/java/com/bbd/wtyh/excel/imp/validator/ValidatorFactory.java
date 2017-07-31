@@ -11,21 +11,35 @@ public class ValidatorFactory {
 
 	public static final String TYPE_STRING = "string";
 	public static final String TYPE_NUMBER = "number";
+	public static final String TYPE_INTEGER = "integer";
+	public static final String TYPE_DECIMAL = "decimal";
 	public static final String TYPE_DATE = "date";
 
 	public static DataValidator createValidator(Cell cell) {
 		if (cell == null) {
 			return null;
 		}
-		DataValidator v = null;
-		if (TYPE_STRING.equals(cell.getDataType().trim())) {
-			v = new StringValidator(cell);
-		} else if (TYPE_DATE.equals(cell.getDataType().trim())) {
-			v = new DateValidator(cell);
-		} else if (TYPE_NUMBER.equals(cell.getDataType().trim())) {
-			v = new NumberValidator(cell);
+
+		if (TYPE_STRING.equalsIgnoreCase(cell.getDataType().trim())) {
+			return new StringValidator(cell);
 		}
-		return v;
+
+		if (TYPE_DATE.equalsIgnoreCase(cell.getDataType().trim())) {
+			return new DateValidator(cell);
+		}
+
+		if (TYPE_NUMBER.equalsIgnoreCase(cell.getDataType().trim())) {
+			return new NumberValidator(cell);
+		}
+
+		if (TYPE_INTEGER.equalsIgnoreCase(cell.getDataType().trim())) {
+			return new IntegerValidator(cell);
+		}
+
+		if (TYPE_DECIMAL.equalsIgnoreCase(cell.getDataType().trim())) {
+			return new DecimalValidator(cell);
+		}
+		return null;
 	}
 
 }
