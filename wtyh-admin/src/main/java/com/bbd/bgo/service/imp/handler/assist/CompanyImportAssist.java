@@ -80,6 +80,10 @@ public class CompanyImportAssist {
             } else {
                 cNameLst.add(cDo.getName());
             }
+            if( cDo.getCompanyType() <0 ) {
+                addError(cDo.getId(), "指定的 行业类别 有误");
+                return;
+            }
         }
         //获取批量企业信息
         List<BaseDataDO.Results> bdLst =hologramQueryService.getBbdQyxxAll(cNameLst);
