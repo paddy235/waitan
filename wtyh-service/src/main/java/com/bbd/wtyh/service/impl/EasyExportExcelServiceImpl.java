@@ -11,10 +11,12 @@ package com.bbd.wtyh.service.impl;
 import com.bbd.wtyh.domain.EasyExport.*;
 import com.bbd.wtyh.service.*;
 import com.bbd.wtyh.web.EasyExportExcel.ExportCondition;
+import com.bbd.wtyh.web.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service("easyExportExeclService")
 public class EasyExportExcelServiceImpl implements EasyExportExeclService {
@@ -41,58 +43,63 @@ public class EasyExportExcelServiceImpl implements EasyExportExeclService {
     private MortgageService mortgageService;    // 典当
 
     @Override
-    public List<WangdaiData> getWangdai(ExportCondition exportCondition) {
+    public List<WangdaiData> getWangdai(ExportCondition exportCondition, PageBean pageBean) {
         // TODO: 2017/7/21
-        return p2PImageService.getWangdai(exportCondition);
+        return p2PImageService.getWangdai(exportCondition, pageBean);
     }
 
     @Override
-    public List<LoanData> getLoan(ExportCondition exportCondition) {
-        return companyLevelService.getLoan(exportCondition);
+    public List<LoanData> getLoan(ExportCondition exportCondition, PageBean pageBean) {
+        return companyLevelService.getLoan(exportCondition, pageBean);
     }
 
     @Override
-    public List<LoanData> getGuarantee(ExportCondition exportCondition) {
-        return companyLevelService.getLoan(exportCondition);
+    public List<LoanData> getGuarantee(ExportCondition exportCondition, PageBean pageBean) {
+        return companyLevelService.getLoan(exportCondition, pageBean);
     }
 
     @Override
-    public List<OffLineData> getOffLineFinance(ExportCondition exportCondition) {
-        return riskCompanyService.getOffLineFinance(exportCondition);
+    public List<OffLineData> getOffLineFinance(ExportCondition exportCondition, PageBean pageBean) {
+        return riskCompanyService.getOffLineFinance(exportCondition, pageBean);
     }
 
     @Override
-    public List<TradeMarketData> getTradeMarket(ExportCondition exportCondition) {
-        return exchangeCompanyService.getTradeMarket(exportCondition);
+    public List<TradeMarketData> getTradeMarket(ExportCondition exportCondition, PageBean pageBean) {
+        return exchangeCompanyService.getTradeMarket(exportCondition, pageBean);
     }
 
     @Override
-    public List<PrivateOfferedFundData> getPerpaycard(ExportCondition exportCondition) {
-        return privateFundService.getPrivateOfferedFund(exportCondition);
+    public List<PrivateOfferedFundData> getPerpaycard(ExportCondition exportCondition, PageBean pageBean) {
+        return privateFundService.getPrivateOfferedFund(exportCondition, pageBean);
     }
 
     @Override
-    public List<PrivateOfferedFundData> getTenancy(ExportCondition exportCondition) {
-        return privateFundService.getPrivateOfferedFund(exportCondition);
+    public List<PrivateOfferedFundData> getTenancy(ExportCondition exportCondition, PageBean pageBean) {
+        return privateFundService.getPrivateOfferedFund(exportCondition, pageBean);
     }
 
     @Override
-    public List<PrivateOfferedFundData> getPrivateOfferedFund(ExportCondition exportCondition) {
-        return privateFundService.getPrivateOfferedFund(exportCondition);
+    public List<PrivateOfferedFundData> getPrivateOfferedFund(ExportCondition exportCondition, PageBean pageBean) {
+        return privateFundService.getPrivateOfferedFund(exportCondition, pageBean);
     }
 
     @Override
-    public List<CrowdfundData> getCrowdfund(ExportCondition exportCondition) {
-        return crowdFundingService.getCrowdfund(exportCondition);
+    public List<CrowdfundData> getCrowdfund(ExportCondition exportCondition, PageBean pageBean) {
+        return crowdFundingService.getCrowdfund(exportCondition, pageBean);
     }
 
     @Override
-    public List<PrivateOfferedFundData> getPawn(ExportCondition exportCondition) {
-        return privateFundService.getPrivateOfferedFund(exportCondition);
+    public List<PrivateOfferedFundData> getPawn(ExportCondition exportCondition, PageBean pageBean) {
+        return privateFundService.getPrivateOfferedFund(exportCondition, pageBean);
     }
 
     @Override
-    public List<PrivateOfferedFundData> getInsurance(ExportCondition exportCondition) {
-        return privateFundService.getPrivateOfferedFund(exportCondition);
+    public List<PrivateOfferedFundData> getInsurance(ExportCondition exportCondition, PageBean pageBean) {
+        return privateFundService.getPrivateOfferedFund(exportCondition, pageBean);
+    }
+
+    @Override
+    public Map<String, String> area() {
+        return riskCompanyService.area();
     }
 }

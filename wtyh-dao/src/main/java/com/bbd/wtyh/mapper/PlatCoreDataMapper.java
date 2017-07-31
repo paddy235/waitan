@@ -1,8 +1,10 @@
 package com.bbd.wtyh.mapper;
 
+import com.bbd.wtyh.core.entity.Pagination;
 import com.bbd.wtyh.domain.EasyExport.WangdaiData;
 import com.bbd.wtyh.domain.PlatCoreDataDO;
 import com.bbd.wtyh.web.EasyExportExcel.ExportCondition;
+import com.bbd.wtyh.web.PageBean;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -16,5 +18,8 @@ public interface PlatCoreDataMapper {
 
     void deleteByPlatName(@Param("platName")String platName);
 
-    List<WangdaiData> getWangdai(ExportCondition exportCondition);
+    List<WangdaiData> getWangdai(@Param("exportCondition")ExportCondition exportCondition,
+                                 @Param("pageBean")PageBean pageBean);
+
+    Long countWangdai(@Param("exportCondition")ExportCondition exportCondition);
 }

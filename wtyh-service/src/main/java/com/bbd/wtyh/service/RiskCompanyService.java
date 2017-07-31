@@ -5,6 +5,7 @@ import com.bbd.wtyh.domain.CompanyInfoModify.OffLineModify;
 import com.bbd.wtyh.domain.EasyExport.OffLineData;
 import com.bbd.wtyh.domain.RiskCompanyInfoDO;
 import com.bbd.wtyh.web.EasyExportExcel.ExportCondition;
+import com.bbd.wtyh.web.PageBean;
 
 import java.util.List;
 import java.util.Map;
@@ -21,7 +22,7 @@ public interface RiskCompanyService {
 
     CompanyInfo getOffLineFinanceByCompanyName(String name);
 
-    List<OffLineData> getOffLineFinance(ExportCondition exportCondition);
+    List<OffLineData> getOffLineFinance(ExportCondition exportCondition, PageBean pagination);
 
     void modifyLevel(String name, String afterLevel);
 
@@ -30,4 +31,7 @@ public interface RiskCompanyService {
     void modifyOffLine(OffLineModify offLineModify);
 
     void modifyIndustry(String name, String industry);
+
+    Map<String,String> area();
+
 }

@@ -8,9 +8,9 @@ import java.util.Map;
 import com.bbd.wtyh.dao.CrowdFundingDao;
 import com.bbd.wtyh.domain.*;
 import com.bbd.wtyh.domain.EasyExport.CrowdfundData;
-import com.bbd.wtyh.domain.wangDaiAPI.CrowdFundingStatisticsDTO;
 import com.bbd.wtyh.mapper.*;
 import com.bbd.wtyh.web.EasyExportExcel.ExportCondition;
+import com.bbd.wtyh.web.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -192,7 +192,8 @@ public class CrowdFundingServiceImpl implements CrowdFundingService {
     }
 
     @Override
-    public List<CrowdfundData> getCrowdfund(ExportCondition exportCondition) {
-        return crowdFundingCompanyMapper.getCrowdfund(exportCondition);
+    public List<CrowdfundData> getCrowdfund(ExportCondition exportCondition, PageBean pagination) {
+        pagination.setTotalCount(crowdFundingCompanyMapper.countCrowdfund(exportCondition));
+        return crowdFundingCompanyMapper.getCrowdfund(exportCondition, pagination);
     }
 }

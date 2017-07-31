@@ -111,6 +111,8 @@ public class CompanyDO extends BaseDO implements Comparable {
 	private Boolean neo;
 
 	/////////////////////////以下是数据库中没有的字段////
+	//风险名称
+	private String riskName = "";
 
 	//变更前的企业类型
 	private Byte oldCompanyType;
@@ -132,11 +134,11 @@ public class CompanyDO extends BaseDO implements Comparable {
 	// 平台名称
 	private String platName = "";
 
-	public boolean isNeo() {
+	public Boolean isNeo() {
 		return neo;
 	}
 
-	public void setNeo(boolean neo) {
+	public void setNeo(Boolean neo) {
 		this.neo = neo;
 	}
 
@@ -279,6 +281,13 @@ public class CompanyDO extends BaseDO implements Comparable {
 		}
 	}
 
+	public String getRiskName() {
+		return riskName;
+	}
+
+	public void setRiskName(String riskName) {
+		this.riskName = riskName;
+	}
 	public String getComTypeCN() {
 		return companyTypeCN(this.companyType);
 	}
