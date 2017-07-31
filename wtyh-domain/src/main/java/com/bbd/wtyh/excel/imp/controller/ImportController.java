@@ -20,9 +20,12 @@ import javax.servlet.http.HttpServletResponse;
 import com.alibaba.fastjson.JSON;
 import com.bbd.wtyh.common.comenum.UserType;
 import com.bbd.wtyh.domain.UserInfoTableDo;
+import com.bbd.wtyh.excel.imp.constants.ImpRecord;
 import com.bbd.wtyh.excel.imp.entity.ImportRecord;
 import com.bbd.wtyh.excel.imp.exception.ImportRecordException;
 import com.bbd.wtyh.excel.imp.utils.*;
+import com.bbd.wtyh.log.user.Operation;
+import com.bbd.wtyh.log.user.UserLogRecord;
 import com.bbd.wtyh.web.ResponseBean;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -89,8 +92,9 @@ public class ImportController {
 		if (!templateName.endsWith(".xml")) {
 			templateName += ".xml";
 		}
+		Excel excelEntity = null;
 		try {
-			Excel excelEntity = ExcelTemplateUtil.readExcelTemplate(templateName);
+			excelEntity = ExcelTemplateUtil.readExcelTemplate(templateName);
 			response.setCharacterEncoding("UTF-8");
 			String userAgent = request.getHeader("User-Agent");
 			String filename;
@@ -105,6 +109,9 @@ public class ImportController {
 		} catch (Exception e) {
 			LOGGER.error("生成Excel模版【{}】失败，服务器出现异常：", templateName, e);
 		}
+
+		String logMsg = "下载导入模版【" + excelEntity.getName() + "】";
+		UserLogRecord.record(logMsg, Operation.Type.DOWNLOAD, Operation.Page.blank, Operation.System.back, request);
 	}
 
 	@RequestMapping("/import-data")
@@ -141,8 +148,10 @@ public class ImportController {
 		List<CommonsMultipartFile> untreated = new ArrayList<>();
 		List<String> msgList = new ArrayList<>();
 
+		List<String> fileNames = new ArrayList<>();
 		for (CommonsMultipartFile file : files) {
 			String fileName = file.getOriginalFilename();
+			fileNames.add(fileName);
 			if (isFileImportOngoing(fileName, request)) {
 				msgList.add("文件：" + fileName + "，正在处理中，请等待完成后重新上传");
 				continue;
@@ -150,12 +159,17 @@ public class ImportController {
 			untreated.add(file);
 		}
 		syncDealWith(untreated, templateName, impType, request);
+
+		String logMsg = "导入数据【" + StringUtils.join(fileNames, ",") + "】";
+		UserLogRecord.record(logMsg, Operation.Type.IMPORT, Operation.Page.blank, Operation.System.back, request);
+
 		if (msgList.isEmpty()) {
 			msgList.add("上传文件成功，数据处理中");
 			return ResponseBean.successResponse(msgList);
 		} else {
 			return ResponseBean.successResponse(msgList);
 		}
+
 	}
 
 	private void syncDealWith(List<CommonsMultipartFile> files, String templateName, Integer impType, HttpServletRequest request) {
@@ -242,6 +256,37 @@ public class ImportController {
 		if (UserType.SUPER_ADMIN.getTypeCode().equals(userInfo.getUserType())) {
 			loginName = "";
 		}
+		// 用户日志记录
+		String logMsg = "";
+		Operation.Page p = Operation.Page.CO_LIST_EXPORT;
+		if (impType.equals(1)) {
+			logMsg = "搜索企业名单批量导入记录";
+			p = Operation.Page.CO_LIST_EXPORT;
+		}
+		if (impType.equals(2)) {
+			logMsg = "搜索行业数据批量导入记录";
+			p = Operation.Page.INDUSTRY_MANAGE;
+		}
+		if (impType.equals(3)) {
+			logMsg = "搜索楼宇企业批量导入记录";
+			p = Operation.Page.PARK_BUILDING_MANAGE;
+		}
+		if (StringUtils.isNotBlank(fileName)) {
+			fileName = "文件名称:" + fileName + ",";
+		}
+		if (StringUtils.isNotBlank(startDate)) {
+			fileName = "开始时间:" + startDate + ",";
+		}
+		if (StringUtils.isNotBlank(endDate)) {
+			endDate = "结束时间:" + endDate + ",";
+		}
+		String state = "全部";
+		if (StringUtils.isNotBlank(impState)) {
+			state = ImpRecord.getRecord(Integer.parseInt(impState)).desc();
+		}
+		String conditions = ",搜索条件[%s%s%s,状态:%s]";
+		logMsg += String.format(conditions, fileName, startDate, endDate, state);
+		UserLogRecord.record(logMsg, Operation.Type.query, p, Operation.System.back, request);
 		return ResponseBean.successResponse(ImpRecordUtil.recordList(loginName, fileName, startDate, endDate, impState, impType));
 	}
 
@@ -287,6 +332,8 @@ public class ImportController {
 			LOGGER.error("下载错误Excel文件【{}】失败：服务器报错!", fileName, e);
 		} finally {
 			FileUtil.closeResource(outputStream, input);
+			String logMsg = "下载错误Excel文件【" + fileName + "】";
+			UserLogRecord.record(logMsg, Operation.Type.DOWNLOAD, Operation.Page.blank, Operation.System.back, request);
 		}
 	}
 }
