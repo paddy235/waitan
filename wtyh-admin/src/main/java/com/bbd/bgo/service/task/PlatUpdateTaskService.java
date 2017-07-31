@@ -1,5 +1,7 @@
 package com.bbd.bgo.service.task;
 
+import com.bbd.wtyh.domain.TaskResultDO;
+
 import java.util.Map;
 
 /**
@@ -9,10 +11,10 @@ public interface PlatUpdateTaskService {
     /**
      * 更新网贷平台与企业对照关系自动执行
      */
-    Map<String,Integer> updatePlatAutomaticOperate(Integer taskId);
+    TaskResultDO updatePlatAutomaticOperate(Integer taskId);
 
     /**
      * 更新网贷平台与企业对照关系手动执行
      */
-    Map<String,Integer> updatePlatManualOperate(Integer oldTaskId,Integer newTaskId);
+    TaskResultDO updatePlatManualOperate(Integer oldTaskId,Integer newTaskId);
 }

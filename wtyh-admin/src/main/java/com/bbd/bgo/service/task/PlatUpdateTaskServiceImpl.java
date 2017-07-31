@@ -6,6 +6,7 @@ import com.bbd.wtyh.core.base.BaseServiceImpl;
 import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.PlatformNameInformationDO;
 import com.bbd.wtyh.domain.TaskFailInfoDO;
+import com.bbd.wtyh.domain.TaskResultDO;
 import com.bbd.wtyh.domain.wangDaiAPI.PlatListDO;
 import com.bbd.wtyh.log.user.Operation;
 import com.bbd.wtyh.log.user.annotation.LogRecord;
@@ -42,7 +43,7 @@ public class PlatUpdateTaskServiceImpl extends BaseServiceImpl implements PlatUp
 	 */
 	@Override
 	@LogRecord(logMsg = "自动更新网贷平台：%s", params = {"loginName"}, page = Operation.Page.netLendingPlatform, type = Operation.Type.modify)
-	public Map<String,Integer> updatePlatAutomaticOperate(Integer taskId) {
+	public TaskResultDO updatePlatAutomaticOperate(Integer taskId) {
 		return this.updatePlat(taskId,null);
 	}
 
@@ -51,13 +52,13 @@ public class PlatUpdateTaskServiceImpl extends BaseServiceImpl implements PlatUp
 	 */
 	@Override
 	@LogRecord(logMsg = "手动更新网贷平台：%s", params = {"loginName"}, page = Operation.Page.netLendingPlatform, type = Operation.Type.modify)
-	public Map<String,Integer> updatePlatManualOperate(Integer oldTaskId,Integer newTaskId){
+	public TaskResultDO updatePlatManualOperate(Integer oldTaskId,Integer newTaskId){
 		return this.updatePlat(oldTaskId,newTaskId);
 	}
 
 
-	private Map<String,Integer> updatePlat(Integer oldTaskId,Integer newTaskId) {
-		Map<String,Integer> returnMap = new HashMap<String,Integer>();
+	private TaskResultDO updatePlat(Integer oldTaskId,Integer newTaskId) {
+		TaskResultDO taskResultDO = new TaskResultDO();
 		if(null==newTaskId){
 			this.taskId=oldTaskId;
 		}else{
@@ -68,10 +69,10 @@ public class PlatUpdateTaskServiceImpl extends BaseServiceImpl implements PlatUp
 		//网贷平台拉取企业数据
 		List<PlatListDO> platList= this.getPlatList();
 		if(null==platList||platList.size()<1){
-			returnMap.put("total",dataTotal);
-			returnMap.put("error",dataError);
-			returnMap.put("success",dataTotal-dataError);
-			return returnMap;
+			taskResultDO.setPlanCount(dataTotal);
+			taskResultDO.setFailCount(dataError);
+			taskResultDO.setSuccessCount(dataTotal-dataError);
+			return taskResultDO;
 		}
 		dataTotal = platList.size();
 		//根据企业名称获取公司id
@@ -107,10 +108,11 @@ public class PlatUpdateTaskServiceImpl extends BaseServiceImpl implements PlatUp
 		}
 		dataError += updatePlatData(platInfoList);
 		logger.info("end update plat,update number:"+(dataTotal-dataError));
-		returnMap.put("total",dataTotal);
-		returnMap.put("error",dataError);
-		returnMap.put("success",dataTotal-dataError);
-		return returnMap;
+
+		taskResultDO.setPlanCount(dataTotal);
+		taskResultDO.setFailCount(dataError);
+		taskResultDO.setSuccessCount(dataTotal-dataError);
+		return taskResultDO;
 	}
 
 	public void setCompanyId(List<PlatListDO> platList, List<PlatformNameInformationDO> platInfoList){

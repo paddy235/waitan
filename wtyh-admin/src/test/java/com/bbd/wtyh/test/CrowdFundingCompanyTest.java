@@ -1,5 +1,6 @@
 package com.bbd.wtyh.test;
 
+import com.bbd.wtyh.domain.TaskResultDO;
 import com.bbd.wtyh.service.CrowdFundingService;
 import com.bbd.wtyh.service.OfflineFinanceService;
 import com.bbd.wtyh.service.SysAnalyzeService;
@@ -38,8 +39,8 @@ public class CrowdFundingCompanyTest {
     public void reExecuteTest(){
         Integer taskId = 22;
         Integer oldTaskId = 21;
-        Map map = crowdFundingService.executeFailTaskByTaskId(0,oldTaskId,taskId);
-        System.out.print(map);
+        TaskResultDO taskResultDO = crowdFundingService.executeFailTaskByTaskId(0,oldTaskId,taskId);
+        System.out.print(taskResultDO);
     }
 
     @Test
@@ -51,13 +52,13 @@ public class CrowdFundingCompanyTest {
     @Test
     public void offlineFinanceServiceTest(){
         Integer taskId = 66;
-        Map map = null;
+        TaskResultDO taskResultDO = null;
         try {
-            map = offlineFinanceService.updateCompanyRiskLevel(taskId);
+            taskResultDO = offlineFinanceService.updateCompanyRiskLevel(taskId);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.print(map);
+        System.out.print(taskResultDO);
     }
 
 }

@@ -2,6 +2,7 @@ package com.bbd.bgo.service.task;
 
 import com.bbd.wtyh.core.base.BaseServiceImpl;
 import com.bbd.wtyh.domain.TaskFailInfoDO;
+import com.bbd.wtyh.domain.TaskResultDO;
 import com.bbd.wtyh.domain.dataLoading.*;
 import com.bbd.wtyh.log.user.Operation;
 import com.bbd.wtyh.log.user.UserLogRecord;
@@ -67,10 +68,10 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 	private TaskFailInfoMapper taskFailInfoMapper;
 
 	@Override
-	public Map<String,Integer> dataLoadingManualOperate(Integer oldTaskId,Integer newTaskId) {
+	public TaskResultDO dataLoadingManualOperate(Integer oldTaskId,Integer newTaskId) {
 		this.taskId = newTaskId;
 		//手动执行，查询之前任务失败记录，更新插入失败表
-		Map<String,Integer> returnMap = new HashMap<String,Integer>();
+		TaskResultDO taskResultDO =new TaskResultDO();
 		Integer dataError = 0;
 		Integer dataTotal = 0;
 		List<TaskFailInfoDO> failList = taskFailInfoMapper.getTaskFailInfoByTaskId(oldTaskId);
@@ -97,15 +98,16 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 			//operateUpdate(failTableList,Arrays.asList(file.listFiles()));
 			dataError = operateUpdate(failFileList,fileList);
 		}
-		returnMap.put("total",dataTotal);
-		returnMap.put("error",dataError);
-		returnMap.put("success",dataTotal-dataError);
-		return returnMap;
+
+		taskResultDO.setPlanCount(dataTotal);
+		taskResultDO.setFailCount(dataError);
+		taskResultDO.setSuccessCount(dataTotal-dataError);
+		return taskResultDO;
 	}
 
 	@Override
-	public Map<String,Integer> dataLoadingAutomaticOperate(Integer taskId) {
-		Map<String,Integer> returnMap = new HashMap<String,Integer>();
+	public TaskResultDO dataLoadingAutomaticOperate(Integer taskId) {
+		TaskResultDO taskResultDO=new TaskResultDO();
 		Integer dataError = 0;
 		Integer dataTotal = 0;
 		this.taskId = taskId;
@@ -133,10 +135,11 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 			dataLoadingMapper.saveDatasharePullFileDO(fileList);
 			dataError = operateUpdate(null,list);
 		}
-		returnMap.put("total",dataTotal);
-		returnMap.put("error",dataError);
-		returnMap.put("success",dataTotal-dataError);
-		return returnMap;
+
+		taskResultDO.setPlanCount(dataTotal);
+		taskResultDO.setFailCount(dataError);
+		taskResultDO.setSuccessCount(dataTotal-dataError);
+		return taskResultDO;
 	}
 
 	public Integer operateUpdate(List<String> failFileList,List<File> fileList){

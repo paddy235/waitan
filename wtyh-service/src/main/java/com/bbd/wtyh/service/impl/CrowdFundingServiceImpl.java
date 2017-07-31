@@ -84,7 +84,7 @@ public class CrowdFundingServiceImpl implements CrowdFundingService {
     }
 
     @Override
-    public Map crowdFundingDataLandTask(Integer taskId) {
+    public TaskResultDO crowdFundingDataLandTask(Integer taskId) {
         Integer planCount = 5;
         Integer failCount = 0;
         try {
@@ -114,15 +114,15 @@ public class CrowdFundingServiceImpl implements CrowdFundingService {
                 failCount++;
             }
         }
-        Map map = new HashMap();
-        map.put("planCount", planCount);
-        map.put("failCount", failCount);
-        map.put("successCount", planCount - failCount);
-        return map;
+        TaskResultDO taskResultDO = new TaskResultDO();
+        taskResultDO.setPlanCount(planCount);
+        taskResultDO.setFailCount(failCount);
+        taskResultDO.setSuccessCount(planCount - failCount);
+        return taskResultDO;
     }
 
     @Override
-    public Map executeFailTaskByTaskId(Integer runMode, Integer oldTaskId, Integer taskId) {
+    public TaskResultDO executeFailTaskByTaskId(Integer runMode, Integer oldTaskId, Integer taskId) {
         List<TaskFailInfoDO> list = taskFailInfoMapper.getTaskFailInfoByTaskId(oldTaskId);
         Integer planCount = list.size();
         Integer failCount = 0;
@@ -155,11 +155,11 @@ public class CrowdFundingServiceImpl implements CrowdFundingService {
                 }
             }
         }
-        Map map = new HashMap();
-        map.put("planCount", planCount);
-        map.put("failCount", failCount);
-        map.put("successCount", planCount - failCount);
-        return map;
+        TaskResultDO taskResultDO = new TaskResultDO();
+        taskResultDO.setPlanCount(planCount);
+        taskResultDO.setFailCount(failCount);
+        taskResultDO.setSuccessCount(planCount - failCount);
+        return taskResultDO;
     }
 
     private void updateCrowdFundingCommon(String type) {
