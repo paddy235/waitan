@@ -411,4 +411,16 @@ public class TimingTaskManager {
 		return list;
 	}
 
+	public boolean stopTask(Integer taskId, String taskKey, String taskGroup){
+		boolean isStop=false;
+		if (TaskUtil.shangHaiCreditJob[0].equals(taskKey)) {
+			// 公信数据落地
+			coCreditScoreService.colseScoreCalculate();
+			TaskUtil.stopTask(taskId,taskKey,taskGroup);
+
+			isStop=true;
+		}
+		return  isStop;
+	}
+
 }

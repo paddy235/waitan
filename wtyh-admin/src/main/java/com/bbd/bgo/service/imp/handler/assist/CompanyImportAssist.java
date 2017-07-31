@@ -72,7 +72,11 @@ public class CompanyImportAssist {
         //准备企业名称列表
         List<String> cNameLst =new LinkedList<>();
         for (CompanyDO cDo : tempList) {
-            cNameLst.add(cDo.getName());
+            if( StringUtils.isBlank( cDo.getName() ) || cDo.getName().length() <3 ) {
+                addError(cDo.getId(), "企业名称格式错误");
+            } else {
+                cNameLst.add(cDo.getName());
+            }
         }
         //获取批量企业信息
         List<BaseDataDO.Results> bdLst =hologramQueryService.getBbdQyxxAll(cNameLst);
@@ -98,6 +102,7 @@ public class CompanyImportAssist {
                         ! cDo.getOrganizationCode().equals( cInfo.getJbxx().getRegno() ) ) {
                     bCrd =false;
                 }
+                cDo.setOrganizationCode(null);
                 if (bCrd && bRegNo) { //用数据平台数据验证成功
                     if ( null ==locCp ) { //数据库中无此企业
                         //按新增处理
@@ -111,8 +116,9 @@ public class CompanyImportAssist {
                     continue;
                 }
             } else { //数据平台无此企业
+                cDo.setOrganizationCode(null);
                 Map.Entry<CompanyDO, BaseDataDO.Results> me =new AbstractMap.SimpleEntry<>( cDo, cInfo );
-                cDo.setCompanyType( CompanyDO.companyType( cDo.getComTypeCnItself() ) );
+                //cDo.setCompanyType( CompanyDO.companyType( cDo.getComTypeCnItself() ) );
                 if ( null ==locCp ) { //数据库中无此企业
                     //产品确认说按新增处理
                     insertList.add(me);
@@ -201,8 +207,9 @@ public class CompanyImportAssist {
         for ( Map.Entry<CompanyDO, BaseDataDO.Results> me : insertList ) {
             me.getKey().setCreateBy(loginName);
             me.getKey().setCreateDate(new Date());
-            companyService.insert( me.getKey() );
-            //大尧说：插入的主键这样取: int companyId = me.getKey().getCompanyId(); todo 不用再去查库了
+            int rst =companyService.insert( me.getKey() );
+            me.getKey().setCompanyId(me.getKey().getId()); //暂时这样修复，其他类似用法的地方还没有去核实
+            //大尧说：插入的主键这样取: int companyId = me.getKey().getCompanyId();  不用再去查库了
             //todo 以下放天王和其他同事的方法 ：
             //企业状态变化
             companyStatusChangeService.companyStatusChange(true, me.getKey(),me.getValue());
