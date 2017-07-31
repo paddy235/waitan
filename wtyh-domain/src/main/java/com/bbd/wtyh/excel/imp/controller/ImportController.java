@@ -325,8 +325,8 @@ public class ImportController {
 			String exportName;
 			exportName = new String(fileName.getBytes(charsetName), "ISO-8859-1");
 
-			response.setHeader("Content-disposition", "attachment; filename*=utf-8'zh_cn'" + exportName); // 设定输出文件头
-			response.setContentType("application/x-download");
+			response.setContentType("multipart/form-data");
+			response.setHeader("Content-Disposition", "attachment;fileName=" + exportName); // 设定输出文件头
 
 			input = new FileInputStream(file);
 			Workbook workbook = new XSSFWorkbook(input);
