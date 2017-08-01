@@ -1,15 +1,22 @@
 package com.bbd.wtyh.domain;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Table(name = "company_analysis_result")
 public class CompanyAnalysisResultDO extends BaseDO {
 
 	private String name;
-
+	@Id
+	@Column(name = "company_id")
 	private Integer companyId;
 
 	private String longitude;
 
 	private String latitude;
 
+	@Column(name = "analysis_result")
     private Byte analysisResult;
 
 	private int registered_capital;
@@ -21,13 +28,15 @@ public class CompanyAnalysisResultDO extends BaseDO {
 
 	private int registered_capital_type;
 
+	@Column(name = "exposure_date")
 	private String exposureDate;
 
 	private String staticRiskIndex;
 
 	private String platform;
 
-
+	@Column(name="show_on_map")
+	private  Byte showOnMap;
 
 
 	// 颜色 1:已曝光(黑) 2:高危(红) 3:关注(黄) 4:正常(绿)
@@ -54,6 +63,14 @@ public class CompanyAnalysisResultDO extends BaseDO {
 			return "正常";
 		}
     }
+
+	public Byte getShowOnMap() {
+		return showOnMap;
+	}
+
+	public void setShowOnMap(Byte showOnMap) {
+		this.showOnMap = showOnMap;
+	}
 
 	public String getPlatform() {
 		return platform;

@@ -12,12 +12,13 @@
     <sql id="Base_Column_List">
         company_analysis_result.company_id, analysis_result, name, company_analysis_result.create_by, company_analysis_result.create_date, company_analysis_result.update_by, company_analysis_result.update_date
     </sql>
-    <!--<select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">-->
-    <!--select-->
-    <!--<include refid="Base_Column_List"/>-->
-    <!--from company_color-->
-    <!--where company_id = #{companyId,jdbcType=INTEGER}-->
-    <!--</select>-->
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+          <include refid="Base_Column_List"/>
+        from
+          company_analysis_result
+        where company_id = #{companyId,jdbcType=INTEGER}
+    </select>
 
     <select id="getSpectrumAnalysis" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select

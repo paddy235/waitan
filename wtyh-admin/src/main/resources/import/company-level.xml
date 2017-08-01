@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <excel key="company-level" name="企业评级-导入模板">
+
+
+
     <sheet name="Sheet1" startRow="3" entity="com.bbd.wtyh.domain.CompanyLevelDO"
            importHandler="com.bbd.bgo.service.imp.handler.CompanyLevelHandler">
         <rowHeader>
@@ -9,7 +12,7 @@
         </rowHeader>
         <columns>
             <column name="公司名称" code="companyName" dataType="string" bgColor="#FFFF00" required="true"/>
-            <column name="外部评级" code="outLevel" dataType="string"/>
+            <column name="外部评级" code="outLevel" dataType="string" limitCondition=""/>
             <column name="内部评级" code="innerLevel" dataType="string"/>
             <column name="现场检查" code="liveLevel" dataType="string"/>
         </columns>

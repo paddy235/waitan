@@ -73,20 +73,40 @@ public class CompanyLevelHandler extends AbstractImportHandler<CompanyLevelDO> {
 		String outLevelStr = row.get("outLevel");
 		String innerLevelStr = row.get("innerLevel");
 		String liveLevelStr = row.get("liveLevel");
-
+		boolean haveError = false;
 		String outLevel = null;
 		if (StringUtils.isNotBlank(outLevelStr)) {
-			outLevel = CompanyLevel.getByValue(outLevelStr).ordinal() + "";
+			CompanyLevel companyLevel = CompanyLevel.getByValue(outLevelStr);
+			if (companyLevel == null) {
+				addError("外部评级格式不符合要求。");
+				haveError = true;
+			} else {
+				outLevel = companyLevel.ordinal() + "";
+			}
 		}
 		String innerLevel = null;
 		if (StringUtils.isNotBlank(innerLevelStr)) {
-			innerLevel = CompanyLevel.getByValue(innerLevelStr).ordinal() + "";
+			CompanyLevel companyLevel = CompanyLevel.getByValue(innerLevelStr);
+			if (companyLevel == null) {
+				addError("内部评级格式不符合要求。");
+				haveError = true;
+			} else {
+				innerLevel = companyLevel.ordinal() + "";
+			}
 		}
 		String liveLevel = null;
 		if (StringUtils.isNotBlank(liveLevelStr)) {
-			liveLevel = CompanyLevel.getByValue(liveLevelStr).ordinal() + "";
+			CompanyLevel companyLevel = CompanyLevel.getByValue(liveLevelStr);
+			if (companyLevel == null) {
+				addError("现在检查格式不符合要求。");
+				haveError = true;
+			} else {
+				liveLevel = companyLevel.ordinal() + "";
+			}
 		}
-
+		if (haveError) {
+			return false;
+		}
 		row.put("companyId", companyDO.getCompanyId() + "");
 		row.put("outLevel", outLevel);
 		row.put("innerLevel", innerLevel);
