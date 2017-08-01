@@ -51,9 +51,21 @@ public class GuaranteedInfoHandler extends AbstractImportHandler<GuaranteedInfoD
 
 	@Override
 	public boolean validateRow(Map<String, String> row) throws Exception {
+		//担保公司校验
 		String guaranteeCompany = row.get("guaranteeCompany");
+		String guaranteedCompany = row.get("guaranteedCompany");
 		if(StringUtils.isBlank( guaranteeCompany ) || guaranteeCompany.length() >40 ) {
 			addError("担保公司名称格式错误");
+			return false;
+		}
+		//被担保公司校验
+		if(StringUtils.isBlank( guaranteedCompany ) || guaranteedCompany.length() >40 ) {
+			addError("被担保公司名称格式错误");
+			return false;
+		}
+		//担保公司和被担保公司不能下相同
+		if(guaranteeCompany.equals(guaranteedCompany)){
+			addError("该担保公司和被担保公司相同");
 			return false;
 		}
 		guaranteeCompanyDO = this.companyService.getCompanyByName(guaranteeCompany);
@@ -61,16 +73,13 @@ public class GuaranteedInfoHandler extends AbstractImportHandler<GuaranteedInfoD
 			addError("该担保公司不存在，请先导入企业名单");
 			return false;
 		}
-		row.put("guaranteeId", guaranteeCompanyDO.getCompanyId().toString());
-		String guaranteedCompany = row.get("guaranteedCompany");
 		CompanyDO guaranteedComp = this.companyService.getCompanyByName(guaranteedCompany);
-		if(null!=guaranteedComp){
-			row.put("guaranteedId", guaranteedComp.getCompanyId().toString());
-		}
-		if(guaranteeCompany.equals(guaranteedCompany)){
-			addError("该担保公司和被担保公司相同");
+		if (guaranteedComp == null) {
+			addError("该被担保公司不存在，请先导入企业名单");
 			return false;
 		}
+		row.put("guaranteeId", guaranteeCompanyDO.getCompanyId().toString());
+		row.put("guaranteedId", guaranteedComp.getCompanyId().toString());
 		return true;
 	}
 
