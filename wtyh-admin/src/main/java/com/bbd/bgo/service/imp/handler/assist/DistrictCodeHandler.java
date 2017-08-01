@@ -61,6 +61,9 @@ public class DistrictCodeHandler extends AbstractImportHandler<DistrictCodeDO> {
         return true;
     }
 
+    String lastPro ="";
+    String lastCity ="";
+    int dbLastPro =0;
     //BusinessException()
     @Override
     public void endRow(Map<String, String> row, DistrictCodeDO bean) throws Exception {
@@ -70,46 +73,73 @@ public class DistrictCodeHandler extends AbstractImportHandler<DistrictCodeDO> {
             return;
         }
         String name =bean.getName();
-        if ( name.length() >4 ) {
-            name =name.substring(0,4);
-        }
-        int endCut =name.lastIndexOf("区");
-        if ( endCut <2 ) {
-            endCut =name.lastIndexOf("县");
-        }
-        if ( endCut <2 ) {
-            endCut =name.lastIndexOf("市");
-        }
-        if ( endCut <2 ) {
-            endCut =name.lastIndexOf("省");
-        }
-        if ( endCut >1 ) {
-            name = name.substring(0, endCut);
-        }
         int level =3;
         if ( 0 ==bean.getTownCode() ) {
             if ( 0 ==bean.getCityCode() ) {
                 level =1;
+                lastPro =bean.getName();
             } else {
+                lastCity =bean.getName();
                 level =2;
+                if( name.contains("市辖区") ) {
+                    name =lastPro +name;
+                }
+            }
+        } else {
+            if ( 90 ==bean.getCityCode() ) {
+                level =2;
+            }
+            if( name.contains("市辖区") ) {
+                name =lastCity +name;
+            }
+        }
+        if ( name.indexOf("族") >=3 || name.lastIndexOf("自治区")  >=2 ) {
+            name = name.substring(0, 2);
+        }  else {
+            if (name.length() > 4) {
+                name = name.substring(0, 4);
+            }
+            int endCut = name.indexOf("地区");
+            if (endCut < 2) {
+                endCut = name.lastIndexOf("区");
+            }
+            if (endCut < 2) {
+                endCut = name.indexOf("县");
+            }
+            if (endCut < 2) {
+                endCut = name.indexOf("市");
+            }
+            if (endCut < 2) {
+                endCut = name.indexOf("省");
+            }
+            if (endCut < 2) {
+                endCut = name.lastIndexOf("州");
+            }
+            if (endCut >= 2) {
+                name = name.substring(0, endCut);
             }
         }
         String strWhere =" `level` = " +level +" AND `name` LIKE '%" +name +"%' ";
+        if ( level >1 && dbLastPro >0 ) {
+            strWhere = "`province_id` = '" +dbLastPro +"' AND " +strWhere;
+        }
         Area1DO area=baseService.selectOne(Area1DO.class, strWhere);
         if ( null !=area ) {
+            if ( 1 ==level ) { //更新对应db的省级代码
+                dbLastPro =area.getProvinceId();
+            }
             Area1DO updateD =new Area1DO();
             updateD.setAreaId( area.getAreaId() );
             updateD.setNationDistrictCode( bean.getCode() );
             baseService.update(updateD);
-            log.info( "城市[{}]-ndCode[{}]-->城市[{}]-areaId[{}]", bean.getName(), bean.getCode(), area.getName(), area.getAreaId() );
+            //log.info( "[{}]-ndCode[{}]-->[{}]-areaId[{}]", bean.getName(), bean.getCode(), area.getName(), area.getAreaId() );
         } else {
-            log.info( "未匹配到城市[{}]-ndCode[{}]", bean.getName(), bean.getCode() );
+            log.info( "未匹配到[{}]-ndCode[{}]", bean.getName(), bean.getCode() );
         }
     }
 
     @Override
     public void end() throws Exception {
-
         log.info(caption +"导入已完成");
     }
 

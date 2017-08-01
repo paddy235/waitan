@@ -60,7 +60,7 @@ public class CompanyInfoMudifyUtil {
      *
      * @param modifyData
      */
-    public void modifyWangdaiLevel(ModifyData modifyData) throws Exception {
+    public void modifyWangdai(ModifyData modifyData) throws Exception {
         CompanyInfo wangdai = companyInfoQueryUtil.getWangdaiInfo(modifyData.getName());
         WangdaiModify wangdaiModify = new WangdaiModify();
         wangdaiModify.setName(modifyData.getName());
@@ -69,15 +69,11 @@ public class CompanyInfoMudifyUtil {
         wangdaiModify.setAfterLevel(modifyData.getLevel());
         wangdaiModify.setBeforeIndustry(CompanyInfo.TYPE_P2P_1);
         // 记录行为
-        recordWangdai(wangdaiModify);
-        // 修改风险等级
-        riskCompanyService.modifyLevel(modifyData.getName(), wangdaiModify.getAfterLevel());
+        p2PImageService.recordWangdai(wangdaiModify);
+        // 修改风险等
+        riskCompanyService.modifyLevel(modifyData.getName(), wangdaiModify.getConvertAfterLevel());
         // 修改行业
         modifyIndustry(modifyData.getName(), modifyData.getIndustry());
-    }
-
-    public void recordWangdai(WangdaiModify wangdaiModify) {
-        p2PImageService.recordWangdai(wangdaiModify);
     }
 
     /**

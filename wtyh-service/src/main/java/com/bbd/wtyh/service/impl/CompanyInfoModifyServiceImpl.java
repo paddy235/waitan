@@ -1,9 +1,6 @@
 package com.bbd.wtyh.service.impl;
 
 import com.bbd.wtyh.domain.CompanyInfoModify.CompanyInfo;
-import com.bbd.wtyh.domain.CompanyInfoModify.LoanModify;
-import com.bbd.wtyh.domain.CompanyInfoModify.OffLineModify;
-import com.bbd.wtyh.domain.CompanyInfoModify.WangdaiModify;
 import com.bbd.wtyh.mapper.CompanyInfoModifyMapper;
 import com.bbd.wtyh.service.CompanyInfoModifyService;
 import com.bbd.wtyh.service.impl.companyInfoModify.CompanyInfoMudifyUtil;
@@ -11,7 +8,6 @@ import com.bbd.wtyh.service.impl.companyInfoModify.CompanyInfoQueryUtil;
 import com.bbd.wtyh.web.companyInfoModify.ModifyData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -66,7 +62,7 @@ public class CompanyInfoModifyServiceImpl implements CompanyInfoModifyService {
     @Override
     public void modify(ModifyData modifyData) throws Exception {
         if (CompanyInfo.TYPE_P2P_1 == companyInfoModifyMapper.queryCompany(modifyData.getName()).getIndustry()) { // 网络借贷
-            companyInfoMudifyUtil.modifyWangdaiLevel(modifyData);
+            companyInfoMudifyUtil.modifyWangdai(modifyData);
         } else if (CompanyInfo.TYPE_XD_2 == companyInfoModifyMapper.queryCompany(modifyData.getName()).getIndustry()) { // 小额贷款
             companyInfoMudifyUtil.modifyLoad(modifyData);
         } else if (CompanyInfo.TYPE_RZDB_3 == companyInfoModifyMapper.queryCompany(modifyData.getName()).getIndustry()) { // 融资担保

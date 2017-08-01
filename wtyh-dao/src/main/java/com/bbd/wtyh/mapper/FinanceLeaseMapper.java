@@ -25,5 +25,5 @@ public interface FinanceLeaseMapper {
 
     public Integer queryFinanceLeaseMaxYear();
 
-    CompanyInfo getTenancyByName(@Param("year") String name);
+    CompanyInfo getTenancyByName(@Param("name") String name);
 }

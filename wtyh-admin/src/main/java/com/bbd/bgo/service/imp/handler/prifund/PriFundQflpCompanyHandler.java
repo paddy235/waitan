@@ -59,7 +59,7 @@ public class PriFundQflpCompanyHandler  extends AbstractImportHandler<QflpCompan
     public boolean validateRow(Map<String, String> row) throws Exception {
         boolean rtr = true;
         String companyName = row.get("companyName");
-        if (StringUtils.isBlank(companyName) || companyName.length() < 3) {
+        if (StringUtils.isBlank(companyName) || companyName.length() < 3|| companyName.length() > 40) {
             addError("企业名称格式错误");
             rtr = false;
         }
