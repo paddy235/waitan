@@ -122,6 +122,12 @@ public class AreaServiceImpl extends BaseServiceImpl implements AreaService {
 			if( null !=ad ) {
 				return ad;
 			} else { ad =new AreaDO(); }
+			//降级到市一级的区县代码匹配
+			countyCode =countyCode.substring(0, 4) +"00";
+			ad =this.selectOne(AreaDO.class, "`nation_district_code` ='" +countyCode +"'" );
+			if( null !=ad ) {
+				return ad;
+			} else { ad =new AreaDO(); }
 		}
 		if ( StringUtils.isNotBlank(provinceName) ) {
 			if ( provinceName.endsWith("省") ) {
