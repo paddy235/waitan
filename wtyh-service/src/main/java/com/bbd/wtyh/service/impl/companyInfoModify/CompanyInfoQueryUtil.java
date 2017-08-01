@@ -121,6 +121,9 @@ public class CompanyInfoQueryUtil {
      */
     public CompanyInfo getTenancy(String name) {
         CompanyInfo companyInfo = financeLeaseService.getTenancy(name);
+        if (null == companyInfo) {
+            return null;
+        }
         companyInfo.setIndustry(CompanyInfo.TYPE_RZZL_13);
         return companyInfo;
     }

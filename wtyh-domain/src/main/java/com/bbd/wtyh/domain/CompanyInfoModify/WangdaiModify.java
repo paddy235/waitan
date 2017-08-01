@@ -45,6 +45,23 @@ public class WangdaiModify {
         return afterLevel;
     }
 
+    public String getConvertAfterLevel() {
+        if ("优良".equals(this.afterLevel)) {
+            return "4";
+        }
+        if ("一般关注".equals(this.afterLevel)) {
+            return "3";
+        }
+        if ("重点关注".equals(this.afterLevel)) {
+            return "2";
+        }
+        if ("问题及停业平台".equals(this.afterLevel)) {
+            return "1";
+        } else {
+            return "5";
+        }
+    }
+
     public void setAfterLevel(String afterLevel) {
         this.afterLevel = afterLevel;
     }
