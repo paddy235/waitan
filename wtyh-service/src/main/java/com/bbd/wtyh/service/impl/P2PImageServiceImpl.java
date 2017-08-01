@@ -513,6 +513,9 @@ public class P2PImageServiceImpl implements P2PImageService {
 
     public Map<String, PlatListDO> getWangdaiCompanyList() {
         Map<String, PlatListDO> wangdaiCompanyList = new HashMap<>();
+        if (p2PImageDao.baseInfoWangDaiApi() == null) {
+            return null;
+        }
         for (PlatListDO platListDO : p2PImageDao.baseInfoWangDaiApi()) {
             platListDO.setCompany_name(platListDO.getCompany_name().trim());
             wangdaiCompanyList.put(platListDO.getCompany_name(), platListDO);
@@ -522,6 +525,9 @@ public class P2PImageServiceImpl implements P2PImageService {
 
     @Override
     public PlatListDO getWangdaiCompanyList(String companyName) {
+        if (null == getWangdaiCompanyList()) {
+            return null;
+        }
         return getWangdaiCompanyList().get(companyName);
     }
 
