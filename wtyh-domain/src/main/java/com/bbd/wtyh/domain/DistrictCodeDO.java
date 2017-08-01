@@ -1,8 +1,5 @@
 package com.bbd.wtyh.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.Table;
 import java.io.Serializable;
 
 //@Table(name = "finance_lease_risk")
@@ -14,11 +11,11 @@ public class DistrictCodeDO  implements Serializable {
     //区县名称
     private String name;
     //省代码
-    private Integer pCode;
+    private Integer proCode;
     //市代码
-    private Integer cCode;
+    private Integer cityCode;
     //县代码
-    private Integer tCode;
+    private Integer townCode;
 
     public Integer getCode() {
         return code;
@@ -36,27 +33,27 @@ public class DistrictCodeDO  implements Serializable {
         this.name = name;
     }
 
-    public Integer getpCode() {
-        return pCode;
+    public Integer getProCode() {
+        return proCode;
     }
 
-    public void setpCode(Integer pCode) {
-        this.pCode = pCode;
+    public void setProCode(Integer proCode) {
+        this.proCode = proCode;
     }
 
-    public Integer getcCode() {
-        return cCode;
+    public Integer getCityCode() {
+        return cityCode;
     }
 
-    public void setcCode(Integer cCode) {
-        this.cCode = cCode;
+    public void setCityCode(Integer cityCode) {
+        this.cityCode = cityCode;
     }
 
-    public Integer gettCode() {
-        return tCode;
+    public Integer getTownCode() {
+        return townCode;
     }
 
-    public void settCode(Integer tCode) {
-        this.tCode = tCode;
+    public void setTownCode(Integer townCode) {
+        this.townCode = townCode;
     }
 }
