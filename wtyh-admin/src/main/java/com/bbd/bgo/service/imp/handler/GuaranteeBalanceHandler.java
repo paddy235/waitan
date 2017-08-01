@@ -74,6 +74,12 @@ public class GuaranteeBalanceHandler extends AbstractImportHandler<GuaranteeBala
 			addError("月份格式错误");
 			return false;
 		}
+		String guaranteeBalanceStr = row.get("guaranteeBalance");
+		String balanceReg = "\\d+(\\.\\d+)?";
+		if(!guaranteeBalanceStr.matches(balanceReg)){
+			addError("担保责任余额格式错误");
+			return false;
+		}
 		return true;
 	}
 

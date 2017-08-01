@@ -5,7 +5,7 @@
        importHandler="com.bbd.bgo.service.imp.handler.prifund.PriFundQdlpProgressHandler">
     <rowHeader>
         <column mergeFirstRow="1" mergeLastRow="2" mergeFirstCol="1" mergeLastCol="6" align="LEFT"
-                value="填写说明：&#x000A;本表格不可填写Excel公式；所有字段必填，机构名称不能超过40个汉字；"/>
+                value="填写说明：&#x000A;本表格不可填写Excel公式；试点企业名称不能超过40个汉字；除股东方外，其余都为必填字段"/>
     </rowHeader>
     <columns>
         <column name="试点企业名称" code="companyName" dataType="string" required="true" bgColor="#FFFF00"/>

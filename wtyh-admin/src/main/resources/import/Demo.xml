@@ -33,6 +33,8 @@
             allowSkip       ：允许跳过。默认false。优先级比required高。仅在 columns 中生效。
             length          ：长度。默认为0，表示不验证长度。仅在 columns 中生效
             regex           ：正则表达式。仅在 columns 中生效
+            list            ：一个值的列表。如果配置了该属性，则Excel中的值必须为该列表中的值，否则校验不通过
+            list-ref        ：引用一个property变量的值
 
             value           ：值
             bgColor         ：背景色。支持十六进制颜色码和RGB颜色码
@@ -44,10 +46,18 @@
             italic          ：是否斜体。默认false
             align           ：水平对齐方式：LEFT（靠左）/RIGHT（靠右）/CENTER（居中）
             vertical        ：垂直对齐方式：TOP（顶部）/BOTTOM（底部）/CENTER（居中）
+
             小贴士：
                 换行 (&#x000A;)
         -->
 
+        <!--
+            property 用于定义一个变量，可以在其它元素中引用。见具体元素
+            name            ：变量名
+            value           ：变量值
+            value-ref       ：变量值。可以引用一个方法的返回值，目前要求该方法必须是静态方法，且返回值为String。
+        -->
+        <property name="co_level" value-ref="com.bbd.wtyh.domain.enums.CompanyLevel.allValues"/>
 
         <rowHeader>
             <column mergeFirstRow="1" mergeLastRow="1" mergeFirstCol="1" mergeLastCol="2" bgColor="#FFFF00"

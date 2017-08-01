@@ -39,17 +39,34 @@ public class CompanyInfoQueryUtil {
         // 1. 获取“公司名 与 平台名” 的对应关系
         PlatListDO platListDO = p2PImageService.getWangdaiCompanyList(name);
         // 2. 获取“平台名”对应的评级信息
-        Map<String, Object> platFormStatus = p2PImageService.platFormStatus(platListDO.getPlat_name());
-        Map<String, Object> baseInfo = p2PImageService.baseInfo(platListDO.getPlat_name());
+        Map<String, Object> platFormStatus = null;
+        Map<String, Object> baseInfo = null;
+        if (platListDO != null) {
+            platFormStatus = p2PImageService.platFormStatus(platListDO.getPlat_name());
+            baseInfo = p2PImageService.baseInfo(platListDO.getPlat_name());
+        }
+
         // 3. 返回数据
         CompanyInfo companyInfo = new CompanyInfo();
-        companyInfo.setName(String.valueOf(platFormStatus.get("companyName"))); // 公司名称
-        companyInfo.setPlatName(String.valueOf(platFormStatus.get("platname")));    // 平台名称
-        companyInfo.setLegalPerson(String.valueOf(baseInfo.get("legalPeople")));    // 法人
-        companyInfo.setRegisteredCapital(String.valueOf(baseInfo.get("capital")));  // 注册资本
-        companyInfo.setIndustry(CompanyInfo.TYPE_P2P_1);    // 行业
-        companyInfo.setCurrentLevel(String.valueOf(platFormStatus.get("score")));   // 转换后的 评分：A B C D
-        companyInfo.setOriginalStatus(String.valueOf(platFormStatus.get("status")));    // 网贷之家API原始评分："优良";"一般关注";"重点关注";"问题及停业平台";
+        companyInfo.setName(name); // 公司名称
+        if (platFormStatus != null) {
+            companyInfo.setPlatName(String.valueOf(platFormStatus.get("platname")));    // 平台名称
+            companyInfo.setIndustry(CompanyInfo.TYPE_P2P_1);    // 行业
+            companyInfo.setCurrentLevel(String.valueOf(platFormStatus.get("score")));   // 转换后的 评分：A B C D
+            companyInfo.setOriginalStatus(String.valueOf(platFormStatus.get("status")));
+        } else {
+            companyInfo.setPlatName("");    // 平台名称
+            companyInfo.setCurrentLevel("");   // 转换后的 评分：A B C D
+            companyInfo.setOriginalStatus("");  // 网贷之家API原始评分："优良";"一般关注";"重点关注";"问题及停业平台";
+        }
+
+        if (baseInfo != null && !baseInfo.isEmpty()) {
+            companyInfo.setLegalPerson(String.valueOf(baseInfo.get("legalPeople")));    // 法人
+            companyInfo.setRegisteredCapital(String.valueOf(baseInfo.get("capital")));  // 注册资本
+        } else {
+            companyInfo.setLegalPerson("");    // 法人
+            companyInfo.setRegisteredCapital("");  // 注册资本
+        }
         return companyInfo;
     }
 
