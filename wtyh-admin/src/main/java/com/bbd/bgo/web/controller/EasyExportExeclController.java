@@ -1,4 +1,4 @@
-package com.bbd.wtyh.web.controller;
+package com.bbd.bgo.web.controller;
 
 import com.bbd.wtyh.domain.CompanyInfoModify.CompanyInfo;
 import com.bbd.wtyh.excel.ExportExcel;
