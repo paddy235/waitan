@@ -26,6 +26,7 @@ public class Column {
 	private String regex;
 	private boolean required;
 	private boolean allowSkip;
+	private String valueList;
 	private Style style;
 	private Sheet sheet;
 
@@ -200,5 +201,13 @@ public class Column {
 
 	public void setRegex(String regex) {
 		this.regex = regex;
+	}
+
+	public String getValueList() {
+		return valueList;
+	}
+
+	public void setValueList(String valueList) {
+		this.valueList = valueList;
 	}
 }

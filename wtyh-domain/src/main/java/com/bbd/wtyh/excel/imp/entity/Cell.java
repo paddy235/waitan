@@ -25,6 +25,7 @@ public class Cell {
 	private int colNumber;
 	private boolean required;
 	private boolean allowSkip;
+	private String valueList;
 	private Style style;
 	private Sheet sheet;
 
@@ -56,6 +57,7 @@ public class Cell {
 		result = 31 * result + colNumber;
 		result = 31 * result + (required ? 1 : 0);
 		result = 31 * result + (allowSkip ? 1 : 0);
+		result = 31 * result + (valueList != null ? valueList.hashCode() : 0);
 		result = 31 * result + (style != null ? style.hashCode() : 0);
 		result = 31 * result + (sheet != null ? sheet.hashCode() : 0);
 		return result;
@@ -252,5 +254,13 @@ public class Cell {
 
 	public void setErrMsg(String errMsg) {
 		this.errMsg = errMsg;
+	}
+
+	public String getValueList() {
+		return valueList;
+	}
+
+	public void setValueList(String valueList) {
+		this.valueList = valueList;
 	}
 }

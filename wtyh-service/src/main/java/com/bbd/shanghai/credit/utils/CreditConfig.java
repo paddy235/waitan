@@ -31,6 +31,7 @@ public class CreditConfig {
 	private static int threadNum = 1;
 	private static int timeOut;
 	private static int retryNum = 2;
+	private static int retryThreadNum = 2;
 
 	private static SysConfigService configService = ApplicationContextUtil.getBean(SysConfigServiceImpl.class);
 	private static final Logger LOGGER = LoggerFactory.getLogger(CoCreditScoreService.class);
@@ -55,7 +56,10 @@ public class CreditConfig {
 		int timeOutTmp = NumberUtils.toInt(map.get("timeOut"), 0);
 		timeOut = timeOutTmp;
 		int retryNumTmp = NumberUtils.toInt(map.get("retryNum"), 0);
-		retryNum = retryNumTmp < 1 ? 2 : retryNumTmp;
+		retryNum = retryNumTmp < 0 ? 2 : retryNumTmp;
+
+		int retryThreadNumTmp = NumberUtils.toInt(map.get("retryThreadNum"), 0);
+		retryThreadNum = retryThreadNumTmp < 1 ? 2 : retryThreadNumTmp;
 
 		map.put("password", "***");
 		LOGGER.info("读取公信接口配置信息。{}", map.toString());
@@ -100,6 +104,10 @@ public class CreditConfig {
 
 	public static int retryNum() {
 		return retryNum;
+	}
+
+	public static int retryThreadNum() {
+		return retryThreadNum;
 	}
 
 
