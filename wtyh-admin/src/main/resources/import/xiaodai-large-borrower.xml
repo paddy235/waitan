@@ -8,8 +8,8 @@
                     value="填写说明：本表格不可填写Excel公式；公司名称必填，不能超过40个汉字；"/>
         </rowHeader>
         <columns>
-            <column name="借款公司" code="borrower" dataType="string" bgColor="#FFFF00" required="true"/>
-            <column name="贷款公司" code="lender" dataType="string" bgColor="#FFFF00" required="true"/>
+            <column name="借款公司" code="borrower" dataType="string" bgColor="#FFFF00" required="true" length="40"/>
+            <column name="贷款公司" code="lender" dataType="string" bgColor="#FFFF00" required="true" length="40"/>
         </columns>
 
     </sheet>
