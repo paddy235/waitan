@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<excel key="company_building" name="预付卡-备案企业预付金额总额-导入模板">
+    <sheet name="Sheet1" startRow="2" entity="com.bbd.wtyh.domain.CompanyBuildingDO"
+           importHandler="com.bbd.bgo.service.imp.handler.CompanyBuildingHandler">
+
+        <columns>
+            <column name="企业名称" code="companyName" dataType="string" required="true" />
+            <column name="楼宇名称" code="buildingName" dataType="string" required="true" />
+            <column name="园区名称" code="parkName" dataType="string" required="true" />
+        </columns>
+
+    </sheet>
+</excel>
