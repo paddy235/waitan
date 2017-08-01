@@ -151,9 +151,13 @@ public class OfflineFinancialListTaskServiceImpl extends BaseServiceImpl impleme
 	}
 
 	public  boolean addTagWhite(String companyName,String qyxxId) {
+		String url=null;//要求移除该接口地址 add_tag_white
+		if(null==url){
+			return  false;
+		}
 		boolean  success = true;
 		StringBuffer sb = new StringBuffer();
-		sb.append("http://dataapi.bbdservice.com/api/add_tag_white/?tag="+TAG+"&appkey=")
+				sb.append(url).append("tag="+TAG+"&appkey=")
 				.append(appkey)
 				.append("&company_name=")
 				.append(companyName)
