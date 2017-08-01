@@ -94,11 +94,11 @@ public class CommercialFactoringHandler extends AbstractImportHandler<Commercial
                 row.put("domestic","1");
                 row.put("foreignOwned","1");
             }else {
-                addError("企业名单不存在");
+                addError("企业类型不存在");
                 return false;
             }
         }else{
-            addError("企业名单不可为空");
+            addError("企业类型不可为空");
             return false;
         }
 
