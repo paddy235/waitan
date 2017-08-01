@@ -1,7 +1,6 @@
 package com.bbd.wtyh.web.controller;
 
 import com.bbd.wtyh.domain.CompanyInfoModify.CompanyInfo;
-import com.bbd.wtyh.domain.enums.CompanyLevel;
 import com.bbd.wtyh.excel.ExportExcel;
 import com.bbd.wtyh.log.user.Operation;
 import com.bbd.wtyh.log.user.UserLogRecord;
@@ -9,12 +8,12 @@ import com.bbd.wtyh.service.EasyExportExeclService;
 import com.bbd.wtyh.web.EasyExportExcel.ExportCondition;
 import com.bbd.wtyh.web.PageBean;
 import com.bbd.wtyh.web.ResponseBean;
-import org.apache.commons.collections.map.HashedMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -65,6 +64,9 @@ public class EasyExportExeclController {
     @RequestMapping(value = "/preview")
     @ResponseBody
     public ResponseBean preview(ExportCondition exportCondition, PageBean pageBean) {
+        if (StringUtils.isEmpty(exportCondition.getIndustry())) {
+            return ResponseBean.errorResponse("行业参数不可空");
+        }
         if (CompanyInfo.TYPE_P2P_1 == exportCondition.getIndustry()) { // 网络借贷
             return ResponseBean.successResponseWithPage(easyExportExeclService.getWangdai(exportCondition, pageBean), pageBean);
         } else if (CompanyInfo.TYPE_XD_2 == exportCondition.getIndustry()) { // 小额贷款
@@ -159,7 +161,6 @@ public class EasyExportExeclController {
                 return "没有行业数据！";
             }
             ExportExcel exportExcel = new ExportExcel(title);
-            exportExcel.createSheet(title, data);
 
             int totalCount = data.size();
             int pageSize = totalCount > 10000 ? 10000 : totalCount;
@@ -168,11 +169,9 @@ public class EasyExportExeclController {
             int fromIndex;
             int toIndex;
             for (int i = 1; i <= pageCount; i++) {
-
                 fromIndex = (i - 1) * pageSize;
                 toIndex = fromIndex + pageSize;
                 toIndex = toIndex < totalCount ? toIndex : totalCount;
-
                 exportExcel.createSheet(title + i, data.subList(fromIndex, toIndex));
             }
 
