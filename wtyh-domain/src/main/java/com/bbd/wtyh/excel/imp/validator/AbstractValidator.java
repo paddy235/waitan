@@ -72,6 +72,10 @@ public abstract class AbstractValidator implements DataValidator {
 			return false;
 		}
 
+		if (valueIsBlank) {
+			return true;
+		}
+
 		boolean flag = true;
 		if (!validateLength()) {
 			flag = false;
