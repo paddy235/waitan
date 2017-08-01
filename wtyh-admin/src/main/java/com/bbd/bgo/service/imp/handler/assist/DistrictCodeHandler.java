@@ -66,7 +66,11 @@ public class DistrictCodeHandler extends AbstractImportHandler<DistrictCodeDO> {
     //BusinessException()
     @Override
     public void endRow(Map<String, String> row, DistrictCodeDO bean) throws Exception {
-        String name =bean.getName().substring(0,4);
+
+        String name =bean.getName();
+        if ( name.length() >4 ) {
+            name =name.substring(0,4);
+        }
         int endCut =name.lastIndexOf("区");
         if ( endCut <2 ) {
             endCut =name.lastIndexOf("县");
