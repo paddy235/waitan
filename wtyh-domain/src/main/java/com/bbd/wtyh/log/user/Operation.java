@@ -182,7 +182,7 @@ public class Operation {
 		INFO_REPORT("排查信息上报", 13),
 		RE_EXECUTE("再次执行", 14),
 		DOWNLOAD("下载", 15),
-		IMPORT("下载", 15),
+		IMPORT("导入", 16),
 
 		;
 
