@@ -2,10 +2,12 @@ package com.bbd.wtyh.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
- * Created by Administrator on 2017/7/29 0029.
+ * Created by zhaodongjun on 2017/7/29 0029.
  */
+@Table(name = "commercial_factoring_extra")
 public class CommercialFactoringExtraDO extends BaseDO{
     @Id
     @Column(name = "company_id")
@@ -16,6 +18,16 @@ public class CommercialFactoringExtraDO extends BaseDO{
     //是否外资
     @Column(name = "foreign_owned")
     private Integer foreignOwned;
+
+    private String companyName;
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
 
     public Integer getCompanyId() {
         return companyId;

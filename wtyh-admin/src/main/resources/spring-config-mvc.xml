@@ -36,8 +36,6 @@
             <mvc:exclude-mapping path="/login.do"/>
             <mvc:exclude-mapping path="/syncData/*"/>
             <mvc:exclude-mapping path="/adminLogInfo/*"/>
-            <mvc:exclude-mapping path="/credit/*"/>
-            <mvc:exclude-mapping path="/import/*"/>
             <ref bean="loginInterceptor"/>
         </mvc:interceptor>
 
@@ -91,8 +89,10 @@
 
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <property name="defaultEncoding" value="UTF-8"/>
-        <property name="maxUploadSize" value="10485760000"/>
-        <property name="maxInMemorySize" value="40960"/>
+        <!--单位字节，10M-->
+        <property name="maxUploadSize" value="10485760"/>
+        <!--单位字节，10M-->
+        <property name="maxInMemorySize" value="10485760"/>
     </bean>
 
 </beans>

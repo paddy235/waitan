@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<excel key="prepay-company-list" name="预付卡-企业楼表-导入模板">
+    <sheet name="Sheet1" startRow="2" entity="com.bbd.wtyh.domain.CompanyAnalysisResultDO"
+           importHandler="com.bbd.bgo.service.imp.handler.prepaycard.CompanyListHandler">
+
+        <columns>
+            <column name="企业名称" code="companyName" dataType="string" required="true" />
+            <column name="备案号" code="recordNumber" dataType="string" required="false" />
+            <column name="所属行业" code="businessType" dataType="string" required="false" />
+            <column name="风险状态(正常/潜在/已发生)" code="analysisResult" dataType="string" required="false" />
+        </columns>
+
+    </sheet>
+</excel>

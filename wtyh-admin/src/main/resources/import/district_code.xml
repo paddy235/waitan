@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<excel key="district_code" name="国家区县代码-导入">
+    <sheet name="Sheet1" startRow="2" entity="com.bbd.wtyh.domain.DistrictCodeDO"
+           importHandler="com.bbd.bgo.service.imp.handler.assist.DistrictCodeHandler">
+        <columns>
+            <column name="区代" code="code" dataType="integer" required="true"/>
+            <column name="名称" code="name" dataType="string" required="true"/>
+            <column name="省" code="proCode" dataType="integer" required="true"/>
+            <column name="市" code="cityCode" dataType="integer" required="true"/>
+            <column name="县" code="townCode" dataType="integer" required="true"/>
+        </columns>
+
+    </sheet>
+</excel>

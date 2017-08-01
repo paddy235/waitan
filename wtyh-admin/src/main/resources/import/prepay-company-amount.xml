@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<excel key="company_building" name="预付卡-备案企业预付金额总额-导入模板">
+    <sheet name="Sheet1" startRow="2" entity="com.bbd.wtyh.domain.PrepaidCompanyStatisticDO"
+           importHandler="com.bbd.bgo.service.imp.handler.prepaycard.CompanyAmountHandler">
+
+        <columns>
+            <column name="年份" code="year" dataType="string" required="true" />
+            <column name="企业预付金额总额（亿元）" code="amount" dataType="string" required="false" />
+        </columns>
+
+    </sheet>
+</excel>

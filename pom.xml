@@ -556,6 +556,7 @@
                 <m.share.path>/data/wtyh/yed</m.share.path>
                 <!--产生图片后，传给前台的请求action，对应Tomcat虚拟目录的path，后面不需要加att，但是Tomcat的虚拟目录需要加  -->
                 <m.mapping.path>/wtyh/yed</m.mapping.path>
+
                 <update.img.web.path>/data/wtyh/static/wtyh-web/build/data/img</update.img.web.path>
                 <update.img.admin.path>/data/wtyh/static/wtyh-admin/build/data/img</update.img.admin.path>
             </properties>
@@ -594,6 +595,9 @@
                 <m.share.path>/home/tester/wtyh/yed</m.share.path>
                 <!--产生图片后，传给前台的请求action，对应Tomcat虚拟目录的path，后面不需要加att，但是Tomcat的虚拟目录需要加  -->
                 <m.mapping.path>/wtyh/yed</m.mapping.path>
+
+                <update.img.web.path>/home/tester/wtyh/static/wtyh-web/build/data/img</update.img.web.path>
+                <update.img.admin.path>/home/tester/wtyh/static/wtyh-admin/build/data/img</update.img.admin.path>
             </properties>
         </profile>
 
@@ -609,11 +613,12 @@
                 <m.redis.port>6379</m.redis.port>
                 <m.redis.password>bbdredis</m.redis.password>
                 <m.wtyh.web1.ip>http://shanghaijc.bbdservice.com</m.wtyh.web1.ip>
-                <m.wtyh.web2.ip></m.wtyh.web2.ip>
+                <m.wtyh.web2.ip/>
                 <m.export.excel.path>/mfs/file/wtyh</m.export.excel.path>
                 <m.share.path>/mfs/file</m.share.path>
                 <m.mapping.path>/app/yed</m.mapping.path>
-                <path> </path>
+                <update.img.web.path/>
+                <update.img.admin.path/>
             </properties>
         </profile>
 
@@ -632,7 +637,8 @@
                 <m.export.excel.path>/data1/wtyh</m.export.excel.path>
                 <m.share.path>/usr/local/tomcat/shareDir</m.share.path>
                 <m.mapping.path>/wtyh/yed</m.mapping.path>
-                <path> </path>
+                <update.img.web.path/>
+                <update.img.admin.path/>
             </properties>
         </profile>
     </profiles>

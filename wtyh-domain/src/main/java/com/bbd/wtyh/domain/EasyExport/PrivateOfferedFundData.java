@@ -1,5 +1,6 @@
 package com.bbd.wtyh.domain.EasyExport;
 
+import com.bbd.wtyh.excel.annotation.Excel;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Date;
@@ -9,18 +10,18 @@ import java.util.Date;
  * Created by YanWenyuan on 2017/7/19.
  */
 public class PrivateOfferedFundData {
-    // 公司名
+    @Excel(exportName = "公司名")
     private String name;
-    // 行业类别
+    @Excel(exportName = "行业类别")
     private Byte industry;
-    // 法人
+    @Excel(exportName = "法人")
     private String legalPerson;
-    // 注册时间
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    @Excel(exportName = "注册时间")
     private Date registeredDate;
-    // 注册资本
+    @Excel(exportName = "注册资本")
     private String registeredCapital;
-    // 注册地址
+    @Excel(exportName = "注册地址")
     private String address = "";
 
     public String getName() {

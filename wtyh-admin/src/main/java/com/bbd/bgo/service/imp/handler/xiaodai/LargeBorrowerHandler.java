@@ -4,7 +4,6 @@ import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.LargeLoanDO;
 import com.bbd.wtyh.excel.imp.handler.AbstractImportHandler;
 import com.bbd.wtyh.service.CompanyService;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,21 +48,23 @@ public class LargeBorrowerHandler extends AbstractImportHandler<LargeLoanDO> {
 		// 借款公司
 		String borrowerName = row.get("borrower");
 		CompanyDO borrower = this.companyService.getCompanyByName(borrowerName);
-		String errorMsg = "";
+		boolean haveError = false;
 		if (borrower == null) {
-			errorMsg += "借款公司，";
+			addError("借款公司不存在，请先导入企业名单");
+			haveError = true;
 		}
 		// 贷款公司
 		String lenderName = row.get("lender");
 		CompanyDO lender = this.companyService.getCompanyByName(lenderName);
 		if (lender == null) {
-			errorMsg += "贷款公司，";
+			addError("贷款公司不存在，请先导入企业名单");
+			haveError = true;
 		}
-		if (StringUtils.isNotBlank(errorMsg)) {
-			errorMsg += "不存在，请先导入企业名单";
-			addError(errorMsg);
+
+		if (haveError) {
 			return false;
 		}
+
 		int borrowerId = borrower.getCompanyId();
 		int lenderId = lender.getCompanyId();
 
