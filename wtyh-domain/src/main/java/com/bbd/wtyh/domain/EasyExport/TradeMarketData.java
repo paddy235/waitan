@@ -16,6 +16,7 @@ public class TradeMarketData {
     private Byte industry;
     @Excel(exportName = "法人")
     private String legalPerson;
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     @Excel(exportName = "注册时间")
     private Date registeredDate;
     @Excel(exportName = "注册资本")
