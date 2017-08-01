@@ -44,7 +44,7 @@ public class ImpRecordUtil {
 		StringBuilder dynamicWhere = new StringBuilder("imp_type = ").append(impType);
 
 		if (StringUtils.isNotBlank(loginNane)) {
-			dynamicWhere.append(" AND imp_user = ").append(loginNane);
+			dynamicWhere.append(" AND imp_user = '").append(loginNane).append("'");
 		}
 
 		if (StringUtils.isNotBlank(impState)) {

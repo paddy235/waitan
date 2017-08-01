@@ -17,7 +17,7 @@ public class Operation {
 	 */
 	public enum Page {
 
-		blank("--", 0, true, true),  //blank("[blank]", 0)
+		blank("--", 0, true, true), // blank("[blank]", 0)
 		login("登录页面", 1, true, true),
 		home("平台首页", 2, true, true),
 
@@ -43,13 +43,13 @@ public class Operation {
 
 		realCtrl("实时监测页面", 19, true, false),
 
-		userList("用户列表", 20, false,true),
+		userList("用户列表", 20, false, true),
 		userOwnInfo("个人中心", 21, true, true),
-		userCreate("新增用户", 22, false ,true),
-		userInfoModify("编辑用户", 23, false, true ),
-		userOwnPwdModify("修改密码", 24, true, true), //自己的
+		userCreate("新增用户", 22, false, true),
+		userInfoModify("编辑用户", 23, false, true),
+		userOwnPwdModify("修改密码", 24, true, true), // 自己的
 		userLogList("日志审计", 25, false, true),
-		userInfoBrowse("用户信息浏览" ,26, false, true ),
+		userInfoBrowse("用户信息浏览", 26, false, true),
 
 		roleList("角色列表", 27, false, true),
 		roleBrowse("浏览角色", 28, false, true),
@@ -61,19 +61,23 @@ public class Operation {
 		companyRiskChange("风险变化企业", 33, false, true),
 		naturalPerson("自然人检索", 34, false, true),
 		informationReport("排查信息上报", 35, false, true),
-        netLendingPlatform("网贷平台", 36, false, true),
+		netLendingPlatform("网贷平台", 36, false, true),
 		timingTask("定时任务", 37, false, true),
-		creditDataManager("公信中心数据管理", 38, false, true)
-		; //
+		creditDataManager("公信中心数据管理", 38, false, true),
 
+		CO_LIST_EXPORT("企业名单快捷导入", 39, false, true),
+		INDUSTRY_MANAGE("行业数据管理", 40, false, true),
+		PARK_BUILDING_MANAGE("园区楼宇管理", 41, false, true),
+
+		; //
 
 		/** 页面 */
 		private String page;
 		/** 代码 */
 		private int code;
-		/** 存在于在前台系统中*/
+		/** 存在于在前台系统中 */
 		private boolean inForeSys;
-		/** 存在于在后台系统中*/
+		/** 存在于在后台系统中 */
 		private boolean inBackSys;
 
 		Page(String page, int code, boolean inForeSys, boolean inBackSys) {
@@ -101,45 +105,61 @@ public class Operation {
 			return this.code;
 		}
 
-		public static final String OP_PAGE_MAP_KEY ="opPageMap"; //返回map的KEY
+		public static final String OP_PAGE_MAP_KEY = "opPageMap"; // 返回map的KEY
 
 		/**
 		 * 生成Page列表及字典
-		 * @param joinAll 是否加入“全部”项
-		 * @param sys null：所有页面，front 前台页面，back：后台页面
-		 * @param returnMap 是否返回Page字典
+		 * 
+		 * @param joinAll
+		 *            是否加入“全部”项
+		 * @param sys
+		 *            null：所有页面，front 前台页面，back：后台页面
+		 * @param returnMap
+		 *            是否返回Page字典
 		 * @return 返回List<Map>结果。注意：map字典是附加到List.Map.Map中返回的，若true ==returnMap，
-		 * 提取后应去除List最后这个元素{remove(size-1)}。
+		 *         提取后应去除List最后这个元素{remove(size-1)}。
 		 */
 		public static List<Map<String, Object>> getOpPageListBySystem(boolean joinAll, System sys, boolean returnMap) {
-			String codeName ="opPgCd"; //code of name
-			String nameName ="opPage"; //name of name
-			return new ArrayList<Map<String, Object>>() {{
-				if( joinAll ) {
-					add(new HashMap<String, Object>() {{
-						put(codeName, (Integer) (-1));
-						put(nameName, "全部");
-					}});
-				}
-				for (Page opPg : Page.values()) {
-					if( opPg.code >0 && ( null ==sys ||( sys.equals(System.front) &&opPg.inForeSys )
-							||( sys.equals(System.back) &&opPg.inBackSys ) )  ) {
-						add(new HashMap<String, Object>() {{
-							put(codeName, (Integer) opPg.code());
-							put(nameName, opPg.page());
-						}});
+			String codeName = "opPgCd"; // code of name
+			String nameName = "opPage"; // name of name
+			return new ArrayList<Map<String, Object>>() {
+
+				{
+					if (joinAll) {
+						add(new HashMap<String, Object>() {
+
+							{
+								put(codeName, (Integer) (-1));
+								put(nameName, "全部");
+							}
+						});
+					}
+					for (Page opPg : Page.values()) {
+						if (opPg.code > 0 && (null == sys || (sys.equals(System.front) && opPg.inForeSys)
+								|| (sys.equals(System.back) && opPg.inBackSys))) {
+							add(new HashMap<String, Object>() {
+
+								{
+									put(codeName, (Integer) opPg.code());
+									put(nameName, opPg.page());
+								}
+							});
+						}
+					}
+					if (returnMap) {
+						Map<Integer, String> opPageMap = new HashMap<>();
+						for (Map<String, Object> itr : this) { // 构造一个操作页面字典
+							opPageMap.put((Integer) itr.get("opPgCd"), (String) itr.get("opPage"));
+						}
+						add(new HashMap<String, Object>() {
+
+							{
+								put(OP_PAGE_MAP_KEY, opPageMap);
+							}
+						});
 					}
 				}
-				if( returnMap ) {
-					Map<Integer, String> opPageMap = new HashMap<>();
-					for ( Map<String, Object>itr: this ) { //构造一个操作页面字典
-						opPageMap.put( (Integer) itr.get("opPgCd") , (String) itr.get("opPage"));
-					}
-					add( new HashMap<String, Object>() {{
-						put(OP_PAGE_MAP_KEY, opPageMap);
-					}} );
-				}
-			}};
+			};
 		}
 	}
 
@@ -156,11 +176,15 @@ public class Operation {
 		del("删除", 7),
 		lock("锁定", 8),
 		active("激活", 9),
-		REPORT_EXPORT("报告导出",10),
-		DATA_EXPORT("数据导出",11),
-		LOG_EXPORT("日志导出",12),
+		REPORT_EXPORT("报告导出", 10),
+		DATA_EXPORT("数据导出", 11),
+		LOG_EXPORT("日志导出", 12),
 		INFO_REPORT("排查信息上报", 13),
-		RE_EXECUTE("再次执行", 14);
+		RE_EXECUTE("再次执行", 14),
+		DOWNLOAD("下载", 15),
+		IMPORT("下载", 15),
+
+		;
 
 		private String desc;
 		private int code;

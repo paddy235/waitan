@@ -6,10 +6,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.executor.statement.RoutingStatementHandler;
 import org.apache.ibatis.executor.statement.StatementHandler;
 import org.apache.ibatis.mapping.BoundSql;
+import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.plugin.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.sql.*;
 import java.util.*;
 
@@ -34,6 +34,18 @@ public class MybatisPaginationInterceptor implements Interceptor {
 		// 拿到传入的参数分页实体类
 		Object obj = boundSql.getParameterObject();
 		Object pagParme = obj;
+		// 获取当前要执行的Sql语句，也就是我们直接在Mapper映射语句中写的Sql语句
+		String sql = MyBatisUtil.ridSqlBlank(boundSql.getSql());
+
+		// 用于处理insert时，将反正的key值与@Id标注的字段对应
+		if (sql.toUpperCase().startsWith("INSERT")) {
+			keyProperties(delegate, pagParme);
+			return invocation.proceed();
+		}
+		// 只处理SELECT语句
+		if (sql.toUpperCase().startsWith("SELECT")) {
+			return invocation.proceed();
+		}
 		boolean isPaging = false;
 
 		if (obj instanceof Map<?, ?>) {
@@ -52,8 +64,6 @@ public class MybatisPaginationInterceptor implements Interceptor {
 			Pagination pagination = (Pagination) pagParme;
 			// 拦截到的prepare方法参数是一个Connection对象
 			Connection connection = (Connection) invocation.getArgs()[0];
-			// 获取当前要执行的Sql语句，也就是我们直接在Mapper映射语句中写的Sql语句
-			String sql = MyBatisUtil.ridSqlBlank(boundSql.getSql());
 
 			this.setTotalRecord(sql, connection, pagination);
 
@@ -76,6 +86,20 @@ public class MybatisPaginationInterceptor implements Interceptor {
 	@Override
 	public void setProperties(Properties properties) {
 		System.out.println(properties.getProperty("databaseType"));
+	}
+
+	private void keyProperties(StatementHandler delegate, Object paramObj) {
+		MappedStatement mappedStatement = (MappedStatement) ReflectUtil.getFieldValue(delegate, "mappedStatement");
+		// 方法全限定名
+		String mappedId = mappedStatement.getId();
+		// 考虑到其它类中也可能定义insert方法，且不一定会使用@Id或自己配置了keyProperties。
+		// 所以只拦截封装的基本insert方法，该方法在BaseMapper中，由GeneralMapper继承
+		if (StringUtils.isEmpty(mappedId) || !mappedId.endsWith("GeneralMapper.insert")) {
+			return;
+		}
+		Map<String, String> idMap = ReflectUtil.id(paramObj.getClass());
+		String[] strs = { idMap.get(MyBatisUtil.KEY_ID_FIELD) };
+		ReflectUtil.setFieldValue(mappedStatement, "keyProperties", strs);
 	}
 
 	/**

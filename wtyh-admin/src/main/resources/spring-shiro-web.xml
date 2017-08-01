@@ -114,6 +114,11 @@
                 /userInfo/updateUserInfo.do = perms[B_HTGLQX]
                 /userInfo/deleteUser.do = perms[B_HTGLQX]
                 /userBehaviorLog/listUserBehaviorLog.do = perms[B_YHRZGL] <!--用户日志管理-->
+                /co-chg-monitor/* = perms[B_QYBHJC]  <!--企业变化监测-->
+                /timingTask/* = perms[B_DSRW]  <!--定时任务-->
+                /import/* = perms[B_YWSJGL]     <!--数据管理-导出-->
+                /credit/* = perms[B_YWSJGL]     <!--数据管理-公信数据导出-->
+
                 <!--共用交易-->
                 /risk/getScanner.do = perms[F_HYJCPT_XXLC,F_SSJCPT]<!--线下理财、时监测平台-->
                 <!--/offlineFinance/queryDynamicPicData.do = perms[F_QYQXXXCXPT,F_SSJCPT]&lt;!&ndash;全息、时监测平台&ndash;&gt;-->
@@ -214,6 +219,7 @@
 
                 <!--企业全息信息查询平台  目前只控制查询功能，其他功能不鉴权-->
                 /hologram/search.do = perms[F_QYQXXXCXPT]
+
             </value>
         </property>
     </bean>

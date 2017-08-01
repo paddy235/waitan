@@ -63,17 +63,22 @@ public class CompanyImportAssist {
 
 
     /**
-     *
+     * 准备用于新增和更新的数据，如果对应的行有错误，同样样会标记出来
      * @param tempList 中的CompanyDo 必须包含企业名称，并通过setId(Integer id)设置行号
-     *                 此方法返回时，list表会被清空
+     *                 此方法返回时，tempList表会被清空。
+     *                 insertList和updateList存放已经填充好的CompanyDo对象（可用 getResultList()取到它们拼合后的List），
+     *                 其中 CompanyDo.analysisResult用于返回从库中取回的CompanyDo.riskLevel供东均使用；
+     *                 同样的 CompanyDo.oldCompanyType存放的是从库中取回的CompanyDo.CompanyType供天王使用。
      */
     public void processCp( List<CompanyDO> tempList ) {
 
         //准备企业名称列表
         List<String> cNameLst =new LinkedList<>();
         for (CompanyDO cDo : tempList) {
-            if( StringUtils.isBlank( cDo.getName() ) || cDo.getName().length() <3 ) {
+            if( StringUtils.isBlank( cDo.getName() ) || cDo.getName().length() <3 || cDo.getName().length() >39) {
                 addError(cDo.getId(), "企业名称格式错误");
+            } else if( cDo.getCompanyType() <0 ) {
+                addError(cDo.getId(), "行业类别填写错误");
             } else {
                 cNameLst.add(cDo.getName());
             }
@@ -118,7 +123,6 @@ public class CompanyImportAssist {
             } else { //数据平台无此企业
                 cDo.setOrganizationCode(null);
                 Map.Entry<CompanyDO, BaseDataDO.Results> me =new AbstractMap.SimpleEntry<>( cDo, cInfo );
-                //cDo.setCompanyType( CompanyDO.companyType( cDo.getComTypeCnItself() ) );
                 if ( null ==locCp ) { //数据库中无此企业
                     //产品确认说按新增处理
                     insertList.add(me);
@@ -147,7 +151,8 @@ public class CompanyImportAssist {
             updateList.add(me);
             impCp.setNeo(false);
             impCp.setCompanyId(locCp.getCompanyId());
-            impCp.setOldCompanyType( locCp.getCompanyType() );
+            impCp.setOldCompanyType( locCp.getCompanyType() );//供天王使用
+            impCp.setAnalysisResult( locCp.getRiskLevel() ); //供东均使用
         }
         if( StringUtils.isNotBlank( bddRst.getJbxx().getCredit_code() ) ) {
             impCp.setCreditCode(bddRst.getJbxx().getCredit_code());
@@ -184,7 +189,6 @@ public class CompanyImportAssist {
         if( StringUtils.isNotBlank( bddRst.getJbxx().getCompany_type() ) ) {
             impCp.setRegisteredType( bddRst.getJbxx().getCompany_type() );
         }
-        //impCp.setCompanyType( CompanyDO.companyType( impCp.getComTypeCnItself() ) );
         if ( StringUtils.isNotBlank( bddRst.getJbxx().getCompany_industry() ) ) {
             impCp.setBusinessType( IndustryCodeDO.getValueByNameStr( bddRst.getJbxx().getCompany_industry() ) );
         }
@@ -208,7 +212,9 @@ public class CompanyImportAssist {
             me.getKey().setCreateBy(loginName);
             me.getKey().setCreateDate(new Date());
             int rst =companyService.insert( me.getKey() );
-            me.getKey().setCompanyId(me.getKey().getId()); //暂时这样修复，其他类似用法的地方还没有去核实
+            if ( null ==me.getKey().getCompanyId() ) {
+                me.getKey().setCompanyId(me.getKey().getId()); //暂时这样修复，其他类似用法的地方还没有去核实
+            }
             //大尧说：插入的主键这样取: int companyId = me.getKey().getCompanyId();  不用再去查库了
             //todo 以下放天王和其他同事的方法 ：
             //企业状态变化

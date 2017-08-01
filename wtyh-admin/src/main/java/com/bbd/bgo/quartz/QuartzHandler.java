@@ -14,6 +14,7 @@ import org.quartz.impl.triggers.CronTriggerImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import org.springframework.stereotype.Component;
 
@@ -41,6 +42,62 @@ public class QuartzHandler extends BaseServiceImpl {
 	private static final String SEPARATOR = "@_@";
 	private final Map<String, TaskInfoDO> TASK_MAP = new ConcurrentHashMap<>();
 
+	@Scheduled(cron = "0 0/5 * * * ?")
+	public void reLoadJob(){
+		Map<String, TaskInfoDO> taskMapCopy=new HashMap<>(TASK_MAP);
+		List<TaskInfoDO> taskList = this.selectAll(TaskInfoDO.class, "");
+
+		//有任务的时间被修改
+		taskList.forEach(taskInfo -> {
+
+			String key=taskInfo.getTaskKey() + SEPARATOR + taskInfo.getTaskGroup();
+			taskMapCopy.remove(key);
+			TaskInfoDO oldDO=TASK_MAP.get(key);
+			if(null==oldDO){
+				addJob(taskInfo);
+			}else {
+				String newCron=taskInfo.getCron();
+				if(!StringUtils.isEmpty(newCron)){
+					if(!oldDO.getCron().trim().equals(taskInfo.getCron().trim())){
+						modifyJobTime(taskInfo.getTaskKey(),taskInfo.getTaskGroup(), newCron);
+					}
+				}
+
+			}
+		});
+
+		//有任务被移除
+		for (TaskInfoDO taskInfoDO : taskMapCopy.values()) {
+			try {
+                String key=taskInfoDO.getTaskKey() + SEPARATOR + taskInfoDO.getTaskGroup();
+                TASK_MAP.remove(key);
+				deleteJob(taskInfoDO.getTaskKey(),taskInfoDO.getTaskGroup());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+	}
+
+	public void modifyJobTime(String triggerName,String triggerGroupName, String time) {
+		try {
+			Scheduler sched = schedulerFactory.getScheduler();
+			CronTriggerImpl trigger = (CronTriggerImpl) sched.getTrigger(TriggerKey.triggerKey(triggerName,triggerGroupName));
+			if (trigger == null) {
+				return;
+			}
+			String oldTime = trigger.getCronExpression();
+			if (!oldTime.equalsIgnoreCase(time)) {
+				// 修改时间
+				trigger.setCronExpression(time);
+				// 重启触发器
+				sched.rescheduleJob(trigger.getKey(),trigger);
+			}
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
 	public void init() {
 
         List<TaskInfoDO> taskList = this.selectAll(TaskInfoDO.class, "");
@@ -61,7 +118,7 @@ public class QuartzHandler extends BaseServiceImpl {
 
 	public TaskInfoDO getTaskInfo(String key, String group) {
 		String mapKey = key + SEPARATOR + group;
-		String where = "key = '" + key + "' AND group = '" + group + "'";
+		String where = "task_key = '" + key + "' AND task_group = '" + group + "'";
 		return TASK_MAP.computeIfAbsent(mapKey, (String k) -> this.selectOne(TaskInfoDO.class, where));
 	}
 
@@ -157,7 +214,6 @@ public class QuartzHandler extends BaseServiceImpl {
 		JobKey jobKey = JobKey.jobKey(key, group);
 		// scheduler.interrupt(jobKey)
 		scheduler.deleteJob(jobKey);
-		this.executeCUD("DELETE FROM timing_task_info WHERE task_key = ? AND task_group = ?", key, group);
 	}
 
 	public Integer taskStart(String taskName,String taskGroup,String dataVersion,Integer runMode,Integer planCount,String createBy ) {
@@ -177,12 +233,12 @@ public class QuartzHandler extends BaseServiceImpl {
 		this.taskDetailMapper.addTaskSuccessFailInfo(taskDetail);//任务历史表-取得任务ID
 
 		TaskInfoDO taskInfo = this.getTaskInfo(taskName, taskGroup);
-		taskInfo.setStartDate(taskDetail.getBeginDate());
-		taskInfo.setEndDate(null);
-		taskInfo.setState(TaskState.EXECUTING.state());
-		this.update(taskInfo,false,true);
-		//this.executeCUD("UPDATE timing_task_info SET start_date=?,end_date=?,state=? WHERE id=?", DateFormatUtils.format(taskDetail.getBeginDate(),"yyyy-MM-dd HH:mm:ss"),null,TaskState.EXECUTING.state(),taskInfo.getId());
-
+        if(null!=taskInfo){
+            taskInfo.setStartDate(taskDetail.getBeginDate());
+            taskInfo.setEndDate(null);
+            taskInfo.setState(TaskState.EXECUTING.state());
+            this.update(taskInfo,false,true);
+        }
 		return taskDetail.getId();
 	}
 
@@ -212,9 +268,11 @@ public class QuartzHandler extends BaseServiceImpl {
 		taskDetailMapper.updateTaskSuccessFailInfo(taskDetail);
 
 		TaskInfoDO taskInfo = this.getTaskInfo(taskDetail.getTaskName(), taskDetail.getTaskGroup());
-		taskInfo.setEndDate(taskDetail.getEndDate());
-        taskInfo.setState(taskDetail.getState());
-		this.update(taskInfo);
+        if(null!=taskInfo) {
+            taskInfo.setEndDate(taskDetail.getEndDate());
+            taskInfo.setState(taskDetail.getState());
+            this.update(taskInfo);
+        }
 	}
 
 	public void updateTaskEndDate(String key, String group) {
@@ -229,7 +287,7 @@ public class QuartzHandler extends BaseServiceImpl {
 		taskDetail.setState(taskState.state());
 		this.update(taskDetail);
 
-		TaskInfoDO taskInfo = this.getTaskInfo(taskDetail.getTaskName(), taskDetail.getTaskGroup());
+		TaskInfoDO taskInfo = this.getTaskInfo(key, group);
 		taskInfo.setState(taskDetail.getState());
 		this.update(taskInfo);
 	}
