@@ -1,7 +1,10 @@
 package com.bbd.wtyh.excel.imp.utils;
 
 import java.io.OutputStream;
+import java.lang.reflect.Method;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.util.CellUtil;
@@ -104,10 +107,11 @@ public class ExcelTemplateUtil {
 			Element sheetElement = (Element) obj;
 			Sheet sheetEntity = excelEntity.createSheet();
 
-			setSheetEntity(sheetEntity, sheetElement);
+			Map<String, String> propertyMap = createProperties(sheetElement.elements("property"));
 
+			setSheetEntity(sheetEntity, sheetElement);
 			createRowHeader(sheetEntity, sheetElement.element("rowHeader"));
-			createColumn(sheetEntity, sheetElement.element("columns"));
+			createColumn(sheetEntity, sheetElement.element("columns"), propertyMap);
 
 			// Element rowFooterEle = sheetElement.element("rowFooter");
 
@@ -116,7 +120,36 @@ public class ExcelTemplateUtil {
 
 	}
 
-	private static void createColumn(Sheet sheetEntity, Element columnsEle) {
+	private static Map<String, String> createProperties(List<Element> propertyEles) throws Exception {
+		Map<String, String> map = new HashMap<>();
+
+		for (Element propertyEle : propertyEles) {
+			String key = propertyEle.attributeValue("name");
+			if (StringUtils.isBlank(key)) {
+				continue;
+			}
+
+			String value = propertyEle.attributeValue("value");
+			if (StringUtils.isNotBlank(value)) {
+				map.put(key, value);
+				continue;
+			}
+			String fullMethodName = propertyEle.attributeValue("value-ref");
+			int lastPointIndex = fullMethodName.lastIndexOf(".");
+			String fullClazz = fullMethodName.substring(0, lastPointIndex);
+			String methodName = fullMethodName.substring(lastPointIndex + 1, fullMethodName.length());
+
+			Class<?> clazz = Class.forName(fullClazz);
+			Method method = clazz.getDeclaredMethod(methodName);
+			method.setAccessible(true);
+			String str = (String) method.invoke(null);
+			map.put(key, str);
+
+		}
+		return map;
+	}
+
+	private static void createColumn(Sheet sheetEntity, Element columnsEle, Map<String, String> propertyMap) {
 		List<?> xmlColumnList = columnsEle.elements("column");
 		int i = 1;
 		sheetEntity.createRow();
@@ -131,19 +164,30 @@ public class ExcelTemplateUtil {
 			columnEntity.setCode(columnEle.attributeValue("code"));
 			columnEntity.setDataType(columnEle.attributeValue("dataType"));
 			columnEntity.setColNumber(columnEle.attributeValue("colNumber"));
-			columnEntity.setValue(columnEle.attributeValue("value"));
+			columnEntity.setValue(attributeValue("value", columnEle, propertyMap));
 			columnEntity.setFormat(columnEle.attributeValue("format"));
 			columnEntity.setWidth(columnEle.attributeValue("width"));
 			columnEntity.setRequired(columnEle.attributeValue("required"));
 			columnEntity.setAllowSkip(columnEle.attributeValue("allowSkip"));
 			columnEntity.setLength(columnEle.attributeValue("length"));
-			columnEntity.setRegex(columnEle.attributeValue("regex"));
+			columnEntity.setRegex(attributeValue("regex", columnEle, propertyMap));
+			columnEntity.setValueList(attributeValue("list", columnEle, propertyMap));
 
 			if (StringUtils.isBlank(columnEntity.getValue())) {
 				columnEntity.setValue(columnEntity.getName());
 			}
 			columnEntity.createExtendsCell();
 		}
+	}
+
+	private static String attributeValue(String name, Element columnEle, Map<String, String> propertyMap) {
+		String value = columnEle.attributeValue(name);
+		if (StringUtils.isNotBlank(value)) {
+			return value;
+		}
+		String key = columnEle.attributeValue(name + "-ref");
+		return propertyMap.get(key);
+
 	}
 
 	private static void createRowHeader(Sheet sheetEntity, Element columnsEle) {
