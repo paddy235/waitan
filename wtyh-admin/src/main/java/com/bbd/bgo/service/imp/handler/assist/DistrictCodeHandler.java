@@ -8,9 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.bbd.wtyh.core.base.BaseService;
 import com.bbd.wtyh.domain.Area1DO;
-import com.bbd.wtyh.domain.AreaDO;
 import com.bbd.wtyh.domain.DistrictCodeDO;
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,7 +64,11 @@ public class DistrictCodeHandler extends AbstractImportHandler<DistrictCodeDO> {
     //BusinessException()
     @Override
     public void endRow(Map<String, String> row, DistrictCodeDO bean) throws Exception {
-
+        if ( null ==bean || null ==bean.getCode() || null ==bean.getName() ||
+         null ==bean.getProCode()|| null ==bean.getCityCode()|| null ==bean.getTownCode() ) {
+            log.info( "第[{}]行转换失败", getRowNumber() );
+            return;
+        }
         String name =bean.getName();
         if ( name.length() >4 ) {
             name =name.substring(0,4);
@@ -85,23 +87,23 @@ public class DistrictCodeHandler extends AbstractImportHandler<DistrictCodeDO> {
             name = name.substring(0, endCut);
         }
         int level =3;
-        if ( 0 ==bean.gettCode() ) {
-            if ( 0 ==bean.getcCode() ) {
+        if ( 0 ==bean.getTownCode() ) {
+            if ( 0 ==bean.getCityCode() ) {
                 level =1;
             } else {
                 level =2;
             }
         }
         String strWhere =" `level` = " +level +" AND `name` LIKE '%" +name +"%' ";
-        Area1DO area=baseService.selectOne(Area1DO.class, "");
+        Area1DO area=baseService.selectOne(Area1DO.class, strWhere);
         if ( null !=area ) {
             Area1DO updateD =new Area1DO();
             updateD.setAreaId( area.getAreaId() );
             updateD.setNationDistrictCode( bean.getCode() );
             baseService.update(updateD);
-            log.info( "城市[]-ndCode[]-->城市[]-areaId[]", bean.getName(), bean.getCode(), area.getName(), area.getAreaId() );
+            log.info( "城市[{}]-ndCode[{}]-->城市[{}]-areaId[{}]", bean.getName(), bean.getCode(), area.getName(), area.getAreaId() );
         } else {
-            log.info( "未匹配到城市[]", bean.getName() );
+            log.info( "未匹配到城市[{}]-ndCode[{}]", bean.getName(), bean.getCode() );
         }
     }
 
