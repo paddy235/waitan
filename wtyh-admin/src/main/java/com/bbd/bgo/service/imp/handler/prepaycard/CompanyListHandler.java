@@ -3,11 +3,11 @@ package com.bbd.bgo.service.imp.handler.prepaycard;
 import com.bbd.bgo.service.imp.handler.assist.CompanyImportAssist;
 import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.core.base.BaseService;
-import com.bbd.wtyh.domain.CompanyAnalysisResultDO;
-import com.bbd.wtyh.domain.CompanyDO;
+import com.bbd.wtyh.domain.*;
 import com.bbd.wtyh.domain.bbdAPI.BaseDataDO;
 import com.bbd.wtyh.excel.imp.handler.AbstractImportHandler;
 import com.bbd.wtyh.mapper.CompanyAnalysisResultMapper;
+import com.bbd.wtyh.service.CompanyService;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,10 +17,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 预付卡-企业列表
@@ -31,6 +28,8 @@ import java.util.Map;
 public class CompanyListHandler extends AbstractImportHandler<CompanyAnalysisResultDO> {
     @Autowired
     private CompanyAnalysisResultMapper companyAnalysisResultMapper;
+    @Autowired
+    private CompanyService companyService;
 
     private List<CompanyAnalysisResultDO> listCompanyAnalysisResult = null;
 
@@ -42,6 +41,7 @@ public class CompanyListHandler extends AbstractImportHandler<CompanyAnalysisRes
 
     CompanyImportAssist companyImportAssist;
     private List<CompanyDO> tempList = new LinkedList<>();
+    private List<RiskChgCoDo> riskChgCoList = null;
 
     @Autowired
     @Qualifier(value = "baseServiceImpl")
@@ -57,6 +57,7 @@ public class CompanyListHandler extends AbstractImportHandler<CompanyAnalysisRes
         log.info("开始检查 预付卡-企业列表");
         listCompanyAnalysisResult = new LinkedList<>();
         companyImportAssist =new CompanyImportAssist( errorList(), getSheet() );
+        riskChgCoList = new ArrayList<>();
     }
 
     @Override
@@ -113,15 +114,17 @@ public class CompanyListHandler extends AbstractImportHandler<CompanyAnalysisRes
             //如果两者不相等，则将新的风险等级塞入
             if(riskLevel != null && riskLevel != analysisResult){
 //                CompanyDO.setRiskLevel();//endRow已塞值
-                companyDO.setPreviousRiskLevel(companyDO.getAnalysisResult());//前次风险等级(装入数据库当前的风险等级)
-                //写入风险等级变化增量表
-//                addRiskChgCo(levelDO, bean);
+                companyDO.setPreviousRiskLevel(companyDO.getAnalysisResult());//前次风险等级(塞入值为数据库当前的风险等级)
+                //准备风险等级变化增量表数据
+                addRiskChgCo(companyDO);
             }
 
         }
         if (errorList().isEmpty()) {
+            //更新company表
             companyImportAssist.save(loginName);
-
+            //更新风险等级变化表
+            this.companyService.insertList(riskChgCoList);
             //取得CompanyId
             boolean isFalse = true;//标记是否能正常取得更新后的company信息
             List< Map.Entry<CompanyDO, BaseDataDO.Results> > searchList =companyImportAssist.getResultList();
@@ -172,42 +175,40 @@ public class CompanyListHandler extends AbstractImportHandler<CompanyAnalysisRes
         log.error("导入预付卡-企业列表服务器异常！", e);
     }
 
-//    private void addRiskChgCo(CompanyLevelDO oldLevelDO, CompanyLevelDO newLevelDO) {
-//        RiskChgCoDo riskChgCoDo = new RiskChgCoDo();
-//        BeanCopier beanCopier = BeanCopier.create(CompanyDO.class, RiskChgCoDo.class, false);
-//        beanCopier.copy(companyDO, riskChgCoDo, null);
-//
-//        riskChgCoDo.setCompanyName(companyDO.getName());
-//        riskChgCoDo.setCompanyType(companyDO.getCompanyType().intValue());
-//
-//        if (oldLevelDO == null) {
-//            oldLevelDO = new CompanyLevelDO();
-//        }
-//
-//        riskChgCoDo.setLiveLevel(newLevelDO.getLiveLevel());
-//        riskChgCoDo.setOldLiveLevel(oldLevelDO.getLiveLevel());
-//        // 1表示手工修改
-//        riskChgCoDo.setSource(1);
-//
-//        // 区域
-//        AreaDO areaDO = this.companyService.selectById(AreaDO.class, riskChgCoDo.getAreaId());
-//        if (areaDO != null) {
-//            riskChgCoDo.setAreaName(areaDO.getName());
-//        }
-//
-//        // 楼宇
-//        BuildingDO buildingDO = this.companyService.selectById(BuildingDO.class, riskChgCoDo.getCompanyId());
-//        if (buildingDO != null) {
-//            riskChgCoDo.setBuildingId(buildingDO.getBuildingId());
-//            riskChgCoDo.setBuildingName(buildingDO.getName());
-//        }
-//        riskChgCoDo.setChangeDate(new Date());
-//        riskChgCoDo.setCreateBy("导入公司评级");
-//        riskChgCoDo.setCreateDate(new Date());
-//        riskChgCoDo.setUpdateBy(null);
-//        riskChgCoDo.setUpdateDate(null);
-//
-//        this.riskChgCoList.add(riskChgCoDo);
-//
-//    }
+    /**
+     * 风险等级变化
+     * @param companyDO
+     */
+    private void addRiskChgCo(CompanyDO companyDO) {
+        RiskChgCoDo riskChgCoDo = new RiskChgCoDo();
+
+        riskChgCoDo.setCompanyName(companyDO.getName());
+        riskChgCoDo.setCompanyType(companyDO.getCompanyType().intValue());
+
+        riskChgCoDo.setRiskLevel(companyDO.getRiskLevel());
+        riskChgCoDo.setOldLiveLevel(companyDO.getAnalysisResult());
+        // 1表示手工修改
+        riskChgCoDo.setSource(1);
+
+        // 区域
+        AreaDO areaDO = this.companyService.selectById(AreaDO.class, riskChgCoDo.getAreaId());
+        if (areaDO != null) {
+            riskChgCoDo.setAreaName(areaDO.getName());
+        }
+
+        // 楼宇
+        BuildingDO buildingDO = this.companyService.selectById(BuildingDO.class, riskChgCoDo.getCompanyId());
+        if (buildingDO != null) {
+            riskChgCoDo.setBuildingId(buildingDO.getBuildingId());
+            riskChgCoDo.setBuildingName(buildingDO.getName());
+        }
+        riskChgCoDo.setChangeDate(new Date());
+        riskChgCoDo.setCreateBy("导入预付卡-企业列表");
+        riskChgCoDo.setCreateDate(new Date());
+        riskChgCoDo.setUpdateBy(null);
+        riskChgCoDo.setUpdateDate(null);
+
+        this.riskChgCoList.add(riskChgCoDo);
+
+    }
 }
