@@ -16,18 +16,18 @@ public class BaseDO implements Serializable {
 	private Integer id;
 
 	/** 创建人 */
-	@Column(name = "create_by", updatable = false)
+	//@Column(name = "create_by", updatable = false)
 	private String createBy;
 
 	/** 创建时间 */
-	@Column(name = "create_date", updatable = false)
+	//@Column(name = "create_date", updatable = false)
 	private Date createDate;
 	/** 修改人 */
-	@Column(name = "update_by")
+	//@Column(name = "update_by")
 	private String updateBy;
 
 	/** 修改时间 */
-	@Column(name = "update_date")
+	//@Column(name = "update_date")
 	private Date updateDate;
 
 	public Integer getId() {
