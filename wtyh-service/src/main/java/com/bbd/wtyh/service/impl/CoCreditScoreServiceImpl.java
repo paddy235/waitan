@@ -478,8 +478,8 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 		resultCode.add(RESULT_CODE_9997);
 		resultCode.add(RESULT_CODE_9996);
 		int retryNum = CreditConfig.retryNum();
+		int retryThreadNum = CreditConfig.retryThreadNum();
         int runMode = 1;//手动执行或自动补偿
-        int threadNum = 2;
 		for(int i=0;i<retryNum;i++){
 			List<CompanyDO> companyList=this.companyCreditFailInfoMapper.getCompanyDoByTaskId(taskId,resultCode);
 			if(companyList.size()==0){
@@ -489,7 +489,7 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
             LOGGER.info("自动补偿开始：" + j);
 
             // 取公信数据并进行分值计算
-            calculateProcess(pointMap,companyList , taskId,  isHandle, runMode,"wtyh-credit-retry"+j+"-",threadNum);
+            calculateProcess(pointMap,companyList , taskId,  isHandle, runMode,"wtyh-credit-retry"+j+"-",retryThreadNum);
 
 		}
 
