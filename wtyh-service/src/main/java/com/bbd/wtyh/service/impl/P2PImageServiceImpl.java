@@ -525,6 +525,9 @@ public class P2PImageServiceImpl implements P2PImageService {
 
     @Override
     public PlatListDO getWangdaiCompanyList(String companyName) {
+        if (null == getWangdaiCompanyList()) {
+            return null;
+        }
         return getWangdaiCompanyList().get(companyName);
     }
 
