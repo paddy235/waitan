@@ -122,7 +122,9 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
     public TaskResultDO updateCompanyRiskLevel(Integer taskId) throws Exception {
         logger.info("start update company risk level");
         final Map<Integer, Integer> platRankMapData = pToPMonitorService.getPlatRankMapData();
-
+        if (platRankMapData == null || platRankMapData.size() == 0) {
+            throw new Exception("dataType=plat_rank_data Api Error");
+        }
         int totalCount = companyMapper.countAllCompany();
         int failCount = 0;
         Pagination pagination = new Pagination();
@@ -151,7 +153,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
                         });
                     } catch (Exception e) {
                         failCount++;
-                        addWangdaiTaskInfo(taskId,companyDO.getName());
+                        addWangdaiTaskInfo(taskId, companyDO.getName(), e.getClass().getSimpleName());
                     }
                 }
             }
@@ -174,13 +176,13 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
         final Map<Integer, Integer> platRankMapData = pToPMonitorService.getPlatRankMapData();
         Integer planCount = list.size();
         Integer failCount = 0;
-        for(TaskFailInfoDO wangdaiTaskInfoDO : list){
-            try{
+        for (TaskFailInfoDO wangdaiTaskInfoDO : list) {
+            try {
                 CompanyDO companyDO = companyMapper.queryCompanyByName(wangdaiTaskInfoDO.getFailName());
                 updateCompanRiskLevel(platRankMapData, companyDO);
-            }catch (Exception e){
+            } catch (Exception e) {
                 failCount++;
-                addWangdaiTaskInfo(taskId,wangdaiTaskInfoDO.getFailName());
+                addWangdaiTaskInfo(taskId, wangdaiTaskInfoDO.getFailName(), e.getClass().getSimpleName());
             }
         }
         TaskResultDO taskResultDO = new TaskResultDO();
@@ -190,10 +192,20 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
         return taskResultDO;
     }
 
-    protected void addWangdaiTaskInfo(Integer taskId, String companyName) {
+    protected void addWangdaiTaskInfo(Integer taskId, String companyName, String failName) {
         TaskFailInfoDO taskFailInfoDO = new TaskFailInfoDO();
         taskFailInfoDO.setTaskId(taskId);
         taskFailInfoDO.setFailName(companyName);
+        switch (failName) {
+            case "ConnectTimeoutException":
+                taskFailInfoDO.setFailReason("线下理财接口连接超时");
+                break;
+            case "JsonSyntaxException":
+                taskFailInfoDO.setFailReason("线下理财接口返回数据解析失败");
+                break;
+            default:
+                taskFailInfoDO.setFailReason("线下理财接口调用失败");
+        }
         taskFailInfoDO.setCreateBy("sys");
         taskFailInfoDO.setCreateDate(new Date());
         taskFailInfoMapper.addTaskFailInfo(taskFailInfoDO);
@@ -312,7 +324,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
      */
     private void updateCompanRiskLevel(Map<Integer, Integer> platRankMapData, CompanyDO companyDO) {
 
-        if(companyInfoModify.isModify(companyDO.getName())){
+        if (companyInfoModify.isModify(companyDO.getName())) {
             return;
         }
         Integer companyId = companyDO.getCompanyId();
@@ -651,7 +663,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
         this.getRiskIndex(avgList, params, tabIndex);
         List<StatisticsVO> result = new ArrayList<StatisticsVO>();
         if (ListUtil.isEmpty(avgList)) {
-			/* 查询无结果，返回坐标系为零数据 */
+            /* 查询无结果，返回坐标系为零数据 */
             for (int i = 0; i < 6; i++) {
                 StatisticsVO vo = new StatisticsVO();
                 vo.setAvgRiskIndex(BigDecimal.ZERO);

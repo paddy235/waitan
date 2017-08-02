@@ -350,12 +350,7 @@ public class P2PImageServiceImpl implements P2PImageService {
 
             } catch (Exception e) {
                 logger.error(e.getMessage(), e);
-                TaskFailInfoDO taskFailInfoDO = new TaskFailInfoDO();
-                taskFailInfoDO.setTaskId(taskId);
-                taskFailInfoDO.setFailName(plat.getPlat_name());
-                taskFailInfoDO.setCreateBy("sys");
-                taskFailInfoDO.setCreateDate(new Date());
-                taskFailInfoMapper.addTaskFailInfo(taskFailInfoDO);
+                addWangdaiTaskInfo(taskId,plat.getPlat_name(),e.getClass().getSimpleName());
                 failCount++;
             }
             logger.info(String.format("end update %s data", plat.getPlat_name()));
@@ -402,12 +397,7 @@ public class P2PImageServiceImpl implements P2PImageService {
 
             } catch (Exception e) {
                 logger.error(e.getMessage(), e);
-                TaskFailInfoDO taskFailInfoDO = new TaskFailInfoDO();
-                taskFailInfoDO.setTaskId(taskId);
-                taskFailInfoDO.setFailName(plat.getPlat_name());
-                taskFailInfoDO.setCreateBy("sys");
-                taskFailInfoDO.setCreateDate(new Date());
-                taskFailInfoMapper.addTaskFailInfo(taskFailInfoDO);
+                addWangdaiTaskInfo(taskId,plat.getPlat_name(),e.getClass().getSimpleName());
                 failCount++;
             }
             logger.info(String.format("end update %s data", plat.getPlat_name()));
@@ -418,6 +408,28 @@ public class P2PImageServiceImpl implements P2PImageService {
         taskResultDO.setFailCount(failCount);
         taskResultDO.setSuccessCount(platCount - failCount);
         return taskResultDO;
+    }
+
+    protected void addWangdaiTaskInfo(Integer taskId, String api, String failName) {
+        TaskFailInfoDO taskFailInfoDO = new TaskFailInfoDO();
+        taskFailInfoDO.setTaskId(taskId);
+        taskFailInfoDO.setFailName(api);
+        switch (failName) {
+            case "ConnectTimeoutException":
+                taskFailInfoDO.setFailReason("接口连接超时");
+                break;
+            case "JsonSyntaxException":
+                taskFailInfoDO.setFailReason("接口返回数据解析失败");
+                break;
+            case "SQLException":
+                taskFailInfoDO.setFailReason("入库失败");
+                break;
+            default:
+                taskFailInfoDO.setFailReason("接口调用失败");
+        }
+        taskFailInfoDO.setCreateBy("sys");
+        taskFailInfoDO.setCreateDate(new Date());
+        taskFailInfoMapper.addTaskFailInfo(taskFailInfoDO);
     }
 
     protected void updateWangDaiYuQing(String platName) {
@@ -488,7 +500,7 @@ public class P2PImageServiceImpl implements P2PImageService {
     }
 
 
-    protected void updateRadarScore(PlatListDO plat) {
+    protected void updateRadarScore(PlatListDO plat) throws Exception {
         try {
             RadarScoreDTO object = p2PImageDao.getRadarScore(plat.getPlat_name());
             RadarScoreDO radarScoreDO = new RadarScoreDO();
