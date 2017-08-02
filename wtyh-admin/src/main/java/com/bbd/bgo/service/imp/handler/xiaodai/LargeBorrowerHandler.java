@@ -61,6 +61,11 @@ public class LargeBorrowerHandler extends AbstractImportHandler<LargeLoanDO> {
 			haveError = true;
 		}
 
+		if (borrowerName.equals(lenderName)) {
+			addError("借款公司与贷款公司不能相同");
+			haveError = true;
+		}
+
 		if (haveError) {
 			return false;
 		}
