@@ -36,6 +36,8 @@ public interface CompanyCreditMapper {
 
 	List<CompanyCreditDataItemsDO> getCreditDataItems();
 
+	void truncateCreditFailInfo();
+
 
 
 }

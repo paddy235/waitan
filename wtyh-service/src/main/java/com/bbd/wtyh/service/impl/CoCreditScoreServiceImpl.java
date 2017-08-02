@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.bbd.shanghai.credit.utils.CreditConfig;
 import com.bbd.shanghai.credit.utils.XyptWebServiceUtil;
 import com.bbd.wtyh.common.Constants;
+import com.bbd.wtyh.constants.TaskState;
 import com.bbd.wtyh.core.base.BaseServiceImpl;
 import com.bbd.wtyh.domain.*;
 import com.bbd.wtyh.domain.credit.CompanyCreditFailInfoDO;
@@ -92,6 +93,8 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
         taskResultDO.setPlanCount(companyList.size());
 
 		try {
+            // 先清空失败临时表
+            companyCreditMapper.truncateCreditFailInfo();
 
             // 本地模型加分项目
             final Map<String, Integer> pointMap = this.getCompanyCreditPointItems();
@@ -99,12 +102,24 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
             // 取公信数据并进行分值计算
 			calculateProcess(pointMap,companyList , taskId,  isHandle, runMode,"wtyh-credit-score-",CreditConfig.threadNum());
 
-            //自动补偿isHandle设置为1，后续不会再将失败的企业重复记录到失败表
-            isHandle=1;
 
-            untreatedCompanyFromDb(pointMap, taskId, isHandle);
+			//在规定的时间内正常执行完成，且笔数等于计划笔数，才进行补偿。否则算失败，不再进行补偿。
+			int failCount=companyCreditMapper.countCreditFailInfo(taskId);
+			int succCount=companyCreditMapper.countCreditRawInfo(taskId);
+
+			if((failCount+succCount)==taskResultDO.getPlanCount()){
+				//自动补偿isHandle设置为1，后续不会再将失败的企业重复记录到失败表
+				isHandle=1;
+
+				untreatedCompanyFromDb(pointMap, taskId, isHandle);
+			}else{
+                taskResultDO.setState(TaskState.ERROR);
+            }
+
+
 
 		}catch(Exception e){
+            taskResultDO.setState(TaskState.ERROR);
 			LOGGER.error("creditScoreCalculate：" + e);
 		}finally {
 
