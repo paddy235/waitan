@@ -111,7 +111,7 @@ public class TimingTaskController {
             List<TaskFailInfoDO> list= timingTaskManager.downloadTaskInfo(taskId, taskKey, taskGroup);
 			String excelName = "定时任务（" + taskName + "）";
 			ExportExcel exportExcel = new ExportExcel(excelName);
-			exportExcel.createSheet(list);
+            ExportExcel.getPageSheet(list,exportExcel,10000,"sheet");
 			exportExcel.exportExcel();
 
             UserLogRecord.record("导出定时任务【" + taskName + "-" + taskId + "]", Operation.Type.DATA_EXPORT, Operation.Page.timingTask,
