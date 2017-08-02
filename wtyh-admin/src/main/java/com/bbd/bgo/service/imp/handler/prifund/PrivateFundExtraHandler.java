@@ -64,6 +64,12 @@ public class PrivateFundExtraHandler extends AbstractImportHandler<PrivateFundEx
 			addError("该机构不存在，请先导入机构名单");
 			return false;
 		}
+		String websiteStr = row.get("website");
+		String websiteReg ="^([hH][tT]{2}[pP]://|[hH][tT]{2}[pP][sS]://)(([A-Za-z0-9-~]+).)+([A-Za-z0-9-~\\/])+$";
+		if(!websiteStr.matches(websiteReg)){
+			addError("机构网址格式错误");
+			return false;
+		}
 		row.put("companyId", companyDO.getCompanyId().toString());
 		return true;
 	}
