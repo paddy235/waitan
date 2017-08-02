@@ -72,12 +72,13 @@ public class Sheet {
 	}
 
 	public void addCell(Cell cell) {
-		int index = cellList.indexOf(cell);
-		if (index > -1) {
-			cellList.set(index, cell);
-		} else {
-			cellList.add(cell);
-		}
+		// int index = cellList.indexOf(cell);
+		// if (index > -1) {
+		// cellList.set(index, cell);
+		// } else {
+		// cellList.add(cell);
+		// }
+		cellList.add(cell);
 	}
 
 	public Cell[] getAllCell() {
@@ -145,6 +146,13 @@ public class Sheet {
 
 	public RowHeader[] getAllRowHeader() {
 		return this.rowHeaderList.toArray(new RowHeader[0]);
+	}
+
+	public void destroy() {
+		cellList = null;
+		rowList = null;
+		cellList = null;
+		rowHeaderList = null;
 	}
 
 	/**

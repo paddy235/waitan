@@ -55,16 +55,18 @@ public class PrivateFundExtraHandler extends AbstractImportHandler<PrivateFundEx
 	@Override
 	public boolean validateRow(Map<String, String> row) throws Exception {
 		String company_Name = row.get("company_Name");
-		if(StringUtils.isBlank( company_Name ) || company_Name.length() >40 ) {
-			addError("机构名称格式错误");
-			return false;
-		}
 		companyDO = this.companyService.getCompanyByName(company_Name);
 		if (companyDO == null) {
 			addError("该机构不存在，请先导入机构名单");
 			return false;
 		}
 		row.put("companyId", companyDO.getCompanyId().toString());
+//		String websiteStr = row.get("website");
+//		String websiteReg ="^([hH][tT]{2}[pP]://|[hH][tT]{2}[pP][sS]://)(([A-Za-z0-9-~]+).)+([A-Za-z0-9-~\\/])+$";
+//		if(!websiteStr.matches(websiteReg)){
+//			addError("机构网址格式错误");
+//			return false;
+//		}
 		return true;
 	}
 

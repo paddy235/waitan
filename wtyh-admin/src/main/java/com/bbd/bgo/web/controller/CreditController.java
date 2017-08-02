@@ -64,7 +64,7 @@ public class CreditController {
 			successCount = taskResultDO.getSuccessCount();
 			failCount = taskResultDO.getFailCount();
 		}
-		TaskUtil.taskEnd(taskId, planCount, successCount, failCount, null, 1);
+		TaskUtil.taskEnd(taskId, taskResultDO, null, 1);
 
 		return ResponseBean.successResponse(taskResultDO);
 	}
@@ -90,7 +90,7 @@ public class CreditController {
             successCount = taskResultDO.getSuccessCount();
             failCount = taskResultDO.getFailCount();
 		}
-		TaskUtil.taskEnd(newTaskId, planCount, successCount, failCount, loginName, 1);
+		TaskUtil.taskEnd(newTaskId, taskResultDO, loginName, 1);
 
 		return ResponseBean.successResponse(taskResultDO);
 	}
@@ -151,7 +151,7 @@ public class CreditController {
 			List<CreditInfoDTO> list = coCreditScoreService.getCreditInfo(companyName, dataType);
 			String excelName = "公信数据(" + companyName + ")";
 			ExportExcel exportExcel = new ExportExcel(excelName);
-			exportExcel.createSheet(list);
+			ExportExcel.getPageSheet(list,exportExcel,10000,"sheet");
 			exportExcel.exportExcel();
 
 			UserLogRecord.record("导出公信数据["+companyName+"]", Operation.Type.DATA_EXPORT, Operation.Page.creditDataManager,

@@ -5,6 +5,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import com.bbd.wtyh.constants.TaskState;
 import com.bbd.wtyh.domain.TaskInfoDO;
+import com.bbd.wtyh.domain.TaskResultDO;
 import com.bbd.wtyh.domain.TaskSuccessFailInfoDO;
 import com.bbd.wtyh.mapper.TaskSuccessFailInfoMapper;
 import org.apache.commons.lang3.StringUtils;
@@ -242,26 +243,36 @@ public class QuartzHandler extends BaseServiceImpl {
 		return taskDetail.getId();
 	}
 
-	public void taskEnd(Integer taskId,Integer planCount, Integer successCount,Integer failCount,String updateBy,Integer reExecute) {
+	public void taskEnd(Integer taskId, TaskResultDO taskResultDO, String updateBy, Integer reExecute) {
 		TaskSuccessFailInfoDO taskDetail = taskDetailMapper.getTaskInfoById(taskId);
 		taskDetail.setEndDate(new Date());
-		taskDetail.setPlanCount(planCount);
-		taskDetail.setSuccessCount(successCount);
-		taskDetail.setFailCount(failCount);
+		taskDetail.setPlanCount(taskResultDO.getPlanCount());
+		taskDetail.setSuccessCount(taskResultDO.getSuccessCount());
+		taskDetail.setFailCount(taskResultDO.getFailCount());
 		taskDetail.setUpdateDate(taskDetail.getEndDate());
 		if(updateBy==null){
 			taskDetail.setUpdateBy("system");
 		}
 
-		//被认为停止，不再更新状态
+		//若状态为(人工)中断，就不再更新状态,不能手动执行
 		if(TaskState.STOP.state()!=taskDetail.getState()){
+			//外部调用传入了状态，以外部调用的状态为准，否则根据失败笔数决定状态
+			if(null != taskResultDO.getState()){
+				taskDetail.setState(taskResultDO.getState().state());
 
-			if(failCount!=null && failCount>0) {
-				taskDetail.setState(TaskState.ERROR.state());
-				taskDetail.setReExecute(reExecute);
-			}else {
-				taskDetail.setState(TaskState.SUCCESS.state());
+			}else{
+				if(null!=taskResultDO.getFailCount() && taskResultDO.getFailCount().intValue()>0)
+				{
+					taskDetail.setState(TaskState.ERROR.state());
+				}else {
+					taskDetail.setState(TaskState.SUCCESS.state());
+				}
 			}
+			//状态为失败，则允许手动重新执行
+			if(TaskState.ERROR.state()==taskDetail.getState()){
+				taskDetail.setReExecute(reExecute);
+			}
+
 		}
 
 

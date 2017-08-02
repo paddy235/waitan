@@ -54,32 +54,6 @@ public class GuaranteeBalanceHandler extends AbstractImportHandler<GuaranteeBala
 
 	@Override
 	public boolean validateRow(Map<String, String> row) throws Exception {
-		String yearStr = row.get("year");
-		if(StringUtils.isBlank( yearStr )) {
-			addError("年份格式错误");
-			return false;
-		}
-		String yearReg = "[0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]{1}|[0-9]{1}[1-9][0-9]{2}|[1-9][0-9]{3}";
-		if(!yearStr.matches(yearReg)){
-			addError("年份格式错误");
-			return false;
-		}
-		String monthStr = row.get("month");
-		if(StringUtils.isBlank( monthStr )) {
-			addError("月份格式错误");
-			return false;
-		}
-		String monthReg = "0?[1-9]|1[0-2]";
-		if(!monthStr.matches(monthReg)){
-			addError("月份格式错误");
-			return false;
-		}
-		String guaranteeBalanceStr = row.get("guaranteeBalance");
-		String balanceReg = "\\d+(\\.\\d+)?";
-		if(!guaranteeBalanceStr.matches(balanceReg)){
-			addError("担保责任余额格式错误");
-			return false;
-		}
 		return true;
 	}
 

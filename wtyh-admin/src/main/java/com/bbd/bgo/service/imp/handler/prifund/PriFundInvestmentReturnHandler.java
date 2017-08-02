@@ -30,7 +30,7 @@ import com.bbd.wtyh.excel.imp.handler.AbstractImportHandler;
 @Scope("prototype") //非单例模式
 public class PriFundInvestmentReturnHandler extends AbstractImportHandler<InvestmentReturnStatisticDO> {
 
-    final static String caption ="私募基金-股权投资机构管理资本量";
+    final static String caption ="私募基金-股权投资市场退出及退出回报情况";
 
     private Logger log = LoggerFactory.getLogger(CompanyLevelHandler.class);
 
@@ -116,7 +116,7 @@ public class PriFundInvestmentReturnHandler extends AbstractImportHandler<Invest
         //update
         baseService.updateList(updateList);
         //insert
-        baseService.insert(insertList);
+        baseService.insertList(insertList);
         log.info(caption +" 导入已完成");
     }
 

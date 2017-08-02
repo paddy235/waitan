@@ -87,7 +87,7 @@ public abstract class AbstractValidator implements DataValidator {
 		}
 		if (!validateRegex()) {
 			flag = false;
-			cell.addError(this.name + " 格式错误（不能通过正则表达式）");
+			cell.addError(this.name + " 格式错误");
 		}
 		if (!validateFormat()) {
 			flag = false;

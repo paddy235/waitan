@@ -429,4 +429,23 @@ public class ExportExcel {
 	public String getDownloadURL() throws UnsupportedEncodingException {
 		return "/download/download-excel.do?name=" + URLEncoder.encode(this.getExcelName(), "UTF-8");
 	}
+
+	public  static  <T> void  getPageSheet(List<T> data, ExportExcel exportExcel,int pageSize,String sheetName) {
+		try {
+			int totalCount = data.size();
+			pageSize = (totalCount > pageSize || totalCount==0) ? pageSize : totalCount;
+			int pageCount = (totalCount + pageSize - 1) / pageSize;
+
+			int fromIndex;
+			int toIndex;
+			for (int i = 1; i <= pageCount; i++) {
+				fromIndex = (i - 1) * pageSize;
+				toIndex = fromIndex + pageSize;
+				toIndex = toIndex < totalCount ? toIndex : totalCount;
+				exportExcel.createSheet(sheetName + i, data.subList(fromIndex, toIndex));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
