@@ -1,6 +1,10 @@
 package com.bbd.wtyh.domain.enums;
 
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -70,6 +74,14 @@ public enum CompanyLevel {
 			rst.put(companyLevel.getValue(), companyLevel.ordinal());
 		}
 		return rst;
+	}
+
+	public static String allValues() {
+		List<String> list = new ArrayList<>();
+		for (CompanyLevel companyLevel : CompanyLevel.values()) {
+			list.add(companyLevel.getValue());
+		}
+		return StringUtils.join(list, ",");
 	}
 
 }

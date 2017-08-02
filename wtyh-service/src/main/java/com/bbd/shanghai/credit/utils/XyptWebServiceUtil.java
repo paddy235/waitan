@@ -80,6 +80,8 @@ public class XyptWebServiceUtil {
 	public static String getCreditInfo(String dwmc, String zzjgdm, String tydm) {
 		// 创建服务模型
 		XyAppQueryService service;
+		long start=0;
+		long end=0;
 
 		try {
 			SERVICE_URL = CreditConfig.serviceUrl();
@@ -116,6 +118,7 @@ public class XyptWebServiceUtil {
 			XFire xfire = XFireFactory.newInstance().getXFire();
 			XFireProxyFactory factory = new XFireProxyFactory(xfire);
 			service = (XyAppQueryService) factory.create(serviceModel, SERVICE_URL);
+			start = System.currentTimeMillis();
 			return service.queryFrKxHonest(dwmc, zzjgdm, tydm, USER_NAME, PASSWORD, CXYT, UNAME);
 		} catch (Exception e) {
 
@@ -128,6 +131,11 @@ public class XyptWebServiceUtil {
 				return "50X";
 			}
 			return null;
+		}finally {
+			end = System.currentTimeMillis();
+			if(start>0){
+			 LOGGER.info("credit-interface-time :"+(end-start)+ " "+dwmc);
+			}
 		}
 	}
 
