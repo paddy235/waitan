@@ -5,13 +5,14 @@
        importHandler="com.bbd.bgo.service.imp.handler.prifund.PriFundQdlpProgressHandler">
     <rowHeader>
         <column mergeFirstRow="1" mergeLastRow="2" mergeFirstCol="1" mergeLastCol="6" align="LEFT"
-                value="填写说明：&#x000A;本表格不可填写Excel公式；试点企业名称不能超过40个汉字；除股东方外，其余都为必填字段"/>
+                value="填写说明：&#x000A;本表格不可填写Excel公式；试点企业名称不能超过40个汉字；除股东方外，其余都为必填字段；近期进展只能是【
+公司注册中、等待获批额度、公司注册完成，基金募集中、已完成境外投资】"/>
     </rowHeader>
     <columns>
-        <column name="试点企业名称" code="companyName" dataType="string" required="true" bgColor="#FFFF00"/>
+        <column name="试点企业名称" code="companyName" dataType="string" required="true" length="40" bgColor="#FFFF00"/>
         <column name="股东方（国内）" code="chinaShareholder" dataType="string"  bgColor="#FFFF00"/>
         <column name="股东方（国外）" code="foreignShareholder" dataType="string"  bgColor="#FFFF00"/>
-        <column name="获批额度(单位：亿美元)" code="quatas" dataType="number" required="true" bgColor="#FFFF00"/>
+        <column name="获批额度(单位：亿美元)" code="quatas" dataType="number"  required="true"  regex="^[0-9]+([.][0-9]+){0,1}$" bgColor="#FFFF00"/>
         <column name="近期进展" code="progress" dataType="string" required="true" bgColor="#FFFF00"/>
         <column name="企业性质" code="architecture" dataType="string" required="true" bgColor="#FFFF00"/>
     </columns>

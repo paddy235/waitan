@@ -57,13 +57,12 @@ public class PriFundQdlpProgressHandler extends AbstractImportHandler<QdlpProgre
 
     @Override
     public boolean validateRow(Map<String, String> row) throws Exception {
-        boolean rtr = true;
-        String companyName = row.get("companyName");
-        if (companyName.length() > 40) {
-            addError("企业名称字数超过规定范围");
-            rtr = false;
+        String progress = row.get("progress");
+        if(CompanyProgress.getType(progress)==0){
+            addError("近期进展 格式错误");
+            return false;
         }
-        return rtr;
+        return true;
     }
 
     @Override

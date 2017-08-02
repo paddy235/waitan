@@ -63,6 +63,12 @@ public class PriFundTypeStatisticHandler extends AbstractImportHandler<PriFundTy
 
     @Override
     public void end() throws Exception {
+        if (errorList().size() > 0) {
+            addError("用户上传的" + caption + "中的数据有误，所有数据均不予入库");
+            log.warn("用户上传的" + caption + "中的数据有误，所有数据均不予入库");
+            return;
+        }
+
         List<String> typeList = new ArrayList<>();
         typeList.add("股权投资基金");
         typeList.add("证券投资基金");
