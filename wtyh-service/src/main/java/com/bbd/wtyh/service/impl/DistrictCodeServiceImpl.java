@@ -1,73 +1,54 @@
-package com.bbd.bgo.service.imp.handler.assist;
-
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
+package com.bbd.wtyh.service.impl;
 
 import com.bbd.wtyh.core.base.BaseService;
 import com.bbd.wtyh.domain.Area1DO;
 import com.bbd.wtyh.domain.DistrictCodeDO;
+import com.bbd.wtyh.service.DistrictCodeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-import com.bbd.bgo.service.imp.handler.CompanyLevelHandler;
-import com.bbd.wtyh.common.Constants;
-import com.bbd.wtyh.domain.CompanyDO;
-import com.bbd.wtyh.excel.imp.handler.AbstractImportHandler;
+import java.util.List;
+import java.util.Map;
 
 /**
- * Created by cgj on 2017/7/19.
+ * Created by Administrator on 2017/8/1.
  */
 
-@Component
-@Scope("prototype") //非单例模式
-public class DistrictCodeHandler extends AbstractImportHandler<DistrictCodeDO> {
+@Service
+public class DistrictCodeServiceImpl implements DistrictCodeService {
 
-    final static String caption ="区县代码导入";
-
-    private Logger log = LoggerFactory.getLogger(CompanyLevelHandler.class);
+    private Logger log = LoggerFactory.getLogger(DistrictCodeServiceImpl.class);
 
     @Autowired
     @Qualifier(value = "baseServiceImpl")
     private BaseService baseService;
 
-    String loginName ="";
-
-    //@Transactional //事务--原子性操作
     @Override
-    public void start(HttpServletRequest request) throws Exception {
-        loginName = (String) request.getSession().getAttribute(Constants.SESSION.loginName);
-        if( null ==loginName ) {
-            loginName ="";
+    public String ImportDistrictCode() {
+        log.info( "导入开始：" );
+        failCnt =0;
+        List< DistrictCodeDO > scrData=baseService.selectAll(DistrictCodeDO.class, "");
+        log.info( "临时表中代码共计[{}]条。", scrData.size() );
+        for( int rowNum =0 ;rowNum <scrData.size(); rowNum++ ) {
+            endRow(rowNum , scrData.get(rowNum));
         }
-        log.info("开始检查" +caption);
+        log.info( "导入已完成。" );
+        return "导入已完成！";
     }
 
-    @Override
-    public void startRow(Map<String, String> row) throws Exception {
-        //int aa =row.size();
-    }
 
-    @Override
-    public boolean validateRow(Map<String, String> row) throws Exception {
-        return true;
-    }
+    private String lastPro ="";
+    private String lastCity ="";
+    private int dbLastPro =0;
+    private int failCnt =0;
 
-    String lastPro ="";
-    String lastCity ="";
-    int dbLastPro =0;
-    //BusinessException()
-    @Override
-    public void endRow(Map<String, String> row, DistrictCodeDO bean) throws Exception {
+    public void endRow(int rowNum, DistrictCodeDO bean)  {
         if ( null ==bean || null ==bean.getCode() || null ==bean.getName() ||
-         null ==bean.getProCode()|| null ==bean.getCityCode()|| null ==bean.getTownCode() ) {
-            log.info( "第[{}]行转换失败", getRowNumber() );
+                null ==bean.getProCode()|| null ==bean.getCityCode()|| null ==bean.getTownCode() ) {
+            log.info( "第[{}]行转换失败", rowNum );
             return;
         }
         String name =bean.getName();
@@ -132,20 +113,8 @@ public class DistrictCodeHandler extends AbstractImportHandler<DistrictCodeDO> {
             baseService.update(updateD);
             //log.info( "[{}]-ndCode[{}]-->[{}]-areaId[{}]", bean.getName(), bean.getCode(), area.getName(), area.getAreaId() );
         } else {
-            log.info( "未匹配到[{}]-ndCode[{}]", bean.getName(), bean.getCode() );
+            log.info( "NM[{}]-ndCode[{}]", bean.getName(), bean.getCode() );
+            failCnt++;
         }
     }
-
-    @Override
-    public void end() throws Exception {
-        log.info(caption +"导入已完成");
-    }
-
-
-    @Override
-    public void exception(Exception e) {
-        addError("服务器异常：" + e.getMessage());
-        log.error("导入" +caption +"时服务器异常 ", e);
-    }
-
 }

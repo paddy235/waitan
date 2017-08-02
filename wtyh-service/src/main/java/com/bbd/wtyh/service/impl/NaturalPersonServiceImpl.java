@@ -222,10 +222,13 @@ public class NaturalPersonServiceImpl implements NaturalPersonService {
         if( !isProvince ) {
             //查全国范围
             int pgLimit =csList.size();
-            if( pgLimit <4000 ) {
-                pgLimit =4000 -pgLimit;
+            if( pgLimit <3900 ) {
+                pgLimit =3900 -pgLimit;
             } else {
                 pgLimit =0;
+            }
+            if( type.equals("mix") ) {
+                pgLimit +=900;
             }
             csList.addAll( hologramQueryService.getNaturalPersonListMul( nalName, false, type, pgLimit) );
         }
@@ -247,11 +250,11 @@ public class NaturalPersonServiceImpl implements NaturalPersonService {
                 continue;
             npv.setRelatedCompany(rd.getCompany_name());
             boolean isPosition =false;
-            if ( StringUtils.isNotBlank(rd.getFrname()) && rd.getFrname().equals(nalName) ) {
-                npv.setPosition("企业法人");
+            if ( StringUtils.isNotBlank(rd.getFrname()) && rd.getFrname().equals(nalName) && ! type.equals("baxx") ) {
+                npv.setPosition("法人代表");
                 isPosition =true;
             }
-            if ( !isPosition ) {
+            if ( !isPosition && ! type.equals("gdxx")  ) {
                 List<String> djg =rd.getBaxx();
                 if ( null !=djg ) {
                     for (String name : djg) {
