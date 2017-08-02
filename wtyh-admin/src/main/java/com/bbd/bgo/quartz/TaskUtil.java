@@ -1,6 +1,7 @@
 package com.bbd.bgo.quartz;
 
 import com.bbd.wtyh.constants.TaskState;
+import com.bbd.wtyh.domain.TaskResultDO;
 import com.bbd.wtyh.domain.TaskSuccessFailInfoDO;
 import com.bbd.wtyh.mapper.TaskSuccessFailInfoMapper;
 import com.bbd.wtyh.util.ApplicationContextUtil;
@@ -39,8 +40,11 @@ public class TaskUtil {
 	/**
 	 * 任务结束
 	**/
-	public static void taskEnd(Integer taskId, Integer planCount, Integer successCount, Integer failCount,String updateBy,Integer reExecute) {
-		quartzHandler.taskEnd(taskId,planCount,successCount,failCount,updateBy,reExecute);
+	public static void taskEnd(Integer taskId, TaskResultDO taskResultDO, String updateBy, Integer reExecute) {
+		if(null==taskResultDO){
+			taskResultDO= new TaskResultDO(0,0,0);
+		}
+		quartzHandler.taskEnd(taskId,taskResultDO,updateBy,reExecute);
 	}
 
 	/**
