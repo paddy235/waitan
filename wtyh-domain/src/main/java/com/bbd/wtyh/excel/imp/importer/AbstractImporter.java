@@ -176,14 +176,18 @@ public class AbstractImporter implements Importer {
 			} else {
 				logger.error("", e);
 			}
+		} finally {
+			this.progress.setEndDate(new Date());
+			this.progress.setFinish(true);
+			try {
+				ImpRecordUtil.sheetEnd(this.conf.getRecordId(), this.progressKey);
+			} catch (Exception e) {
+				logger.error("处理【{}-{}】结束时出现异常！", this.conf.getFileName(), this.sheet.getName(), e);
+			}
+			this.sheet.destroy();
+			logger.debug("import data end......");
+			System.gc();
 		}
-		this.progress.setEndDate(new Date());
-		this.progress.setFinish(true);
-		try {
-			ImpRecordUtil.sheetEnd(this.conf.getRecordId(), this.progressKey);
-		} catch (Exception e) {
-			logger.error("处理【{}-{}】结束时出现异常！", this.conf.getFileName(), this.sheet.getName(), e);
-		}
-		logger.debug("import data end......");
+
 	}
 }
