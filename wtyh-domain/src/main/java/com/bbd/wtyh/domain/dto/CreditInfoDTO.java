@@ -9,7 +9,7 @@ public class CreditInfoDTO {
 	private Integer id;
 
 	private Integer companyId;
-
+	@Excel(exportName = "公司名称")
 	private String name;
 
 	private String organizationCode;

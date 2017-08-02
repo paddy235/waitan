@@ -379,15 +379,8 @@ public class TimingTaskManager {
 	 * 任务结束
 	 */
 	public void taskEnd(TaskResultDO taskResultDO, Integer taskId, String creatBy, Integer reExecute) {
-		Integer planCount = null;
-		Integer successCount = null;
-		Integer failCount = null;
-		if (null != taskResultDO) {
-			planCount = taskResultDO.getPlanCount();
-			successCount = taskResultDO.getSuccessCount();
-			failCount = taskResultDO.getFailCount();
-		}
-		TaskUtil.taskEnd(taskId, planCount, successCount, failCount, null, reExecute);
+
+		TaskUtil.taskEnd(taskId, taskResultDO, null, reExecute);
 	}
 
 	/**
