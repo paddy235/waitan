@@ -59,23 +59,8 @@ public class PriFundQflpCompanyHandler  extends AbstractImportHandler<QflpCompan
     public boolean validateRow(Map<String, String> row) throws Exception {
         boolean rtr = true;
         String companyName = row.get("companyName");
-        if (StringUtils.isBlank(companyName) || companyName.length() < 3|| companyName.length() > 40) {
-            addError("企业名称格式错误");
-            rtr = false;
-        }
-        String total = row.get("total");
-        if (StringUtils.isBlank(total) || !total.matches("^[0-9]+([.][0-9]+){0,1}$")) {
-            addError("总规模格式错误");
-            rtr = false;
-        }
-        String dollarPart = row.get("dollarPart");
-        if (StringUtils.isBlank(dollarPart) || !dollarPart.matches("^[0-9]+([.][0-9]+){0,1}$")) {
-            addError("美元部分格式错误");
-            rtr = false;
-        }
-        String rmbTotal = row.get("rmbTotal");
-        if (StringUtils.isBlank(rmbTotal) || !rmbTotal.matches("^[0-9]+([.][0-9]+){0,1}$")) {
-            addError("投资合计格式错误");
+        if (companyName.length() > 40) {
+            addError("企业名称字数超过规定范围");
             rtr = false;
         }
         return rtr;

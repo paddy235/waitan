@@ -59,25 +59,8 @@ public class PriFundQdlpProgressHandler extends AbstractImportHandler<QdlpProgre
     public boolean validateRow(Map<String, String> row) throws Exception {
         boolean rtr = true;
         String companyName = row.get("companyName");
-        if (StringUtils.isBlank(companyName) || companyName.length() < 3 || companyName.length() > 40) {
-            addError("企业名称格式错误");
-            rtr = false;
-        }
-        String quatas = row.get("quatas");
-        if (!quatas.matches("^[0-9]+([.][0-9]+){0,1}$")) {
-            addError("获批额度格式错误");
-            rtr = false;
-        }
-
-        String progress = row.get("progress");
-        if (StringUtils.isBlank(progress)) {
-            addError("近期进展不能为空");
-            rtr = false;
-        }
-
-        String architecture = row.get("architecture");
-        if (StringUtils.isBlank(architecture)) {
-            addError("企业性质不能为空");
+        if (companyName.length() > 40) {
+            addError("企业名称字数超过规定范围");
             rtr = false;
         }
         return rtr;

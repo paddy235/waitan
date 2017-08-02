@@ -54,23 +54,7 @@ public class PriFundProductTypeStatisticHandler extends AbstractImportHandler<Pr
 
     @Override
     public boolean validateRow(Map<String, String> row) throws Exception {
-        boolean rtr = true;
-        String adviserManage = row.get("adviserManage");
-        if (!adviserManage.matches("^[0-9]+([.][0-9]+){0,1}$")) {
-            addError("顾问管理格式错误");
-            rtr = false;
-        }
-        String entrustedManage = row.get("entrustedManage");
-        if (!entrustedManage.matches("^[0-9]+([.][0-9]+){0,1}$")) {
-            addError("受委管理格式错误");
-            rtr = false;
-        }
-        String selfManage = row.get("selfManage");
-        if (!selfManage.matches("^[0-9]+([.][0-9]+){0,1}$")) {
-            addError("自我管理格式错误");
-            rtr = false;
-        }
-        return rtr;
+        return true;
     }
 
     @Override
