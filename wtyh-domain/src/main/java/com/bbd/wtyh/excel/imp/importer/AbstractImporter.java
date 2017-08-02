@@ -7,7 +7,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import com.bbd.wtyh.excel.imp.handler.ImportHandler;
-import com.bbd.wtyh.excel.imp.utils.FileUtil;
 import com.bbd.wtyh.excel.imp.utils.ImpRecordUtil;
 import com.bbd.wtyh.util.ApplicationContextUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -153,22 +152,31 @@ public class AbstractImporter implements Importer {
 					continue;
 				}
 
-				importHandler.startRow(rowMap);
+				try {
+					importHandler.startRow(rowMap);
 
-				boolean isPass = importHandler.validateRow(rowMap);
+					boolean isPass = importHandler.validateRow(rowMap);
 
-				if (!isPass) {
-					continue;
+					if (!isPass) {
+						continue;
+					}
+
+					Object obj = null;
+					if (sheet.getEntityClass() != null) {
+						obj = JSON.parseObject(JSON.toJSONString(rowMap), sheet.getEntityClass());
+					}
+					importHandler.endRow(rowMap, obj);
+				} catch (Exception e) {
+					if (this.importHandler != null) {
+						this.importHandler.exception(e);
+					} else {
+						logger.error("", e);
+					}
 				}
-
-				Object obj = null;
-				if (sheet.getEntityClass() != null) {
-					obj = JSON.parseObject(JSON.toJSONString(rowMap), sheet.getEntityClass());
-				}
-				importHandler.endRow(rowMap, obj);
 
 				rowMap = null;
 			}
+
 			this.importHandler.end();
 		} catch (Exception e) {
 			if (this.importHandler != null) {
