@@ -1,5 +1,7 @@
 package com.bbd.wtyh.domain;
 
+import com.bbd.wtyh.constants.TaskState;
+
 /**
  * Created by Administrator on 2017/7/31 0031.
  */
@@ -10,6 +12,8 @@ public class TaskResultDO {
 	private Integer successCount = 0;
 
 	private Integer failCount = 0;
+
+	private TaskState state;
 
 	public TaskResultDO() {
 	}
@@ -42,5 +46,14 @@ public class TaskResultDO {
 
 	public void setFailCount(Integer failCount) {
 		this.failCount = failCount;
+	}
+
+
+	public TaskState getState() {
+		return state;
+	}
+
+	public void setState(TaskState state) {
+		this.state = state;
 	}
 }

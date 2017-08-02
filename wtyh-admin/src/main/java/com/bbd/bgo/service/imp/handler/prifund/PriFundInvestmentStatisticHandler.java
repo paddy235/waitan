@@ -113,7 +113,7 @@ public class PriFundInvestmentStatisticHandler extends AbstractImportHandler<Inv
         //update
         baseService.updateList(updateList);
         //insert
-        baseService.insert(insertList);
+        baseService.insertList(insertList);
         log.info(caption +" 导入已完成");
     }
 

@@ -20,7 +20,6 @@ import java.util.Map;
 @Service
 public class DistrictCodeServiceImpl implements DistrictCodeService {
 
-
     private Logger log = LoggerFactory.getLogger(DistrictCodeServiceImpl.class);
 
     @Autowired
@@ -29,11 +28,14 @@ public class DistrictCodeServiceImpl implements DistrictCodeService {
 
     @Override
     public String ImportDistrictCode() {
+        log.info( "导入开始：" );
         failCnt =0;
         List< DistrictCodeDO > scrData=baseService.selectAll(DistrictCodeDO.class, "");
+        log.info( "临时表中代码共计[{}]条。", scrData.size() );
         for( int rowNum =0 ;rowNum <scrData.size(); rowNum++ ) {
             endRow(rowNum , scrData.get(rowNum));
         }
+        log.info( "导入已完成。" );
         return "导入已完成！";
     }
 
@@ -111,7 +113,7 @@ public class DistrictCodeServiceImpl implements DistrictCodeService {
             baseService.update(updateD);
             //log.info( "[{}]-ndCode[{}]-->[{}]-areaId[{}]", bean.getName(), bean.getCode(), area.getName(), area.getAreaId() );
         } else {
-            log.info( "未匹配到[{}]-ndCode[{}]", bean.getName(), bean.getCode() );
+            log.info( "NM[{}]-ndCode[{}]", bean.getName(), bean.getCode() );
             failCnt++;
         }
     }
