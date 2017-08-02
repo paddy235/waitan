@@ -142,6 +142,7 @@ public class ExcelReadUtil {
 					dataCell.setFormat(dataColumn.getFormat());
 					dataCell.setRequired(dataColumn.isRequired());
 					dataCell.setAllowSkip(dataColumn.isAllowSkip());
+					dataCell.setValueList(dataColumn.getValueList());
 				}
 
 			}

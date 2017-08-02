@@ -20,6 +20,7 @@ public abstract class AbstractValidator implements DataValidator {
 	protected int length;
 	protected Pattern regex;
 	protected String value;
+	protected String valueList;
 	protected String result;
 	protected boolean allowSkip;
 	protected boolean required;
@@ -30,6 +31,7 @@ public abstract class AbstractValidator implements DataValidator {
 		this.name = cell.getName();
 		this.code = cell.getCode();
 		this.value = cell.getValue();
+		this.valueList = cell.getValueList();
 		this.length = cell.getLength();
 		this.allowSkip = cell.isAllowSkip();
 		this.required = cell.isRequired();
@@ -66,6 +68,7 @@ public abstract class AbstractValidator implements DataValidator {
 
 		this.value = value.trim();
 		this.valueIsBlank = StringUtils.isBlank(this.value);
+		this.valueList = cell.getValueList();
 
 		if (!validateRequired()) {
 			cell.addError(this.name + " 该值是必须的");
@@ -73,6 +76,7 @@ public abstract class AbstractValidator implements DataValidator {
 		}
 
 		if (valueIsBlank) {
+			cell.setValue("");
 			return true;
 		}
 
@@ -90,7 +94,27 @@ public abstract class AbstractValidator implements DataValidator {
 			cell.addError(this.name + " " + errorMsg());
 		}
 
+		if (!validateValueList(this.value, this.valueList)) {
+			flag = false;
+			cell.addError(this.name + " 应从[" + this.valueList + "]中取值");
+		}
+
 		cell.setValue(this.result == null ? this.value : this.result);
 		return flag;
 	}
+
+	private boolean validateValueList(String value, String valueList) {
+		if (StringUtils.isBlank(valueList)) {
+			return true;
+		}
+		String[] values = valueList.split(",");
+
+		for (String v : values) {
+			if (value.equals(v)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 }
