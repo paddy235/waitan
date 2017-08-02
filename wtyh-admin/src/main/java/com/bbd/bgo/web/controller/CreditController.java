@@ -64,7 +64,7 @@ public class CreditController {
 			successCount = taskResultDO.getSuccessCount();
 			failCount = taskResultDO.getFailCount();
 		}
-		TaskUtil.taskEnd(taskId, planCount, successCount, failCount, null, 1);
+		TaskUtil.taskEnd(taskId, taskResultDO, null, 1);
 
 		return ResponseBean.successResponse(taskResultDO);
 	}
@@ -90,7 +90,7 @@ public class CreditController {
             successCount = taskResultDO.getSuccessCount();
             failCount = taskResultDO.getFailCount();
 		}
-		TaskUtil.taskEnd(newTaskId, planCount, successCount, failCount, loginName, 1);
+		TaskUtil.taskEnd(newTaskId, taskResultDO, loginName, 1);
 
 		return ResponseBean.successResponse(taskResultDO);
 	}

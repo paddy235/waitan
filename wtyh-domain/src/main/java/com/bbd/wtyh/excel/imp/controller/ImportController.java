@@ -92,9 +92,8 @@ public class ImportController {
 		if (!templateName.endsWith(".xml")) {
 			templateName += ".xml";
 		}
-		Excel excelEntity = null;
 		try {
-			excelEntity = ExcelTemplateUtil.readExcelTemplate(templateName);
+			Excel excelEntity = ExcelTemplateUtil.readExcelTemplate(templateName);
 			response.setCharacterEncoding("UTF-8");
 			String userAgent = request.getHeader("User-Agent");
 			String filename;
@@ -106,12 +105,12 @@ public class ImportController {
 			response.setContentType("multipart/form-data");
 			response.setHeader("Content-Disposition", "attachment;fileName=" + filename + ".xlsx");
 			ExcelTemplateUtil.createTemplate(excelEntity, response.getOutputStream());
+
+			String logMsg = "下载导入模版【" + excelEntity.getName() + "】";
+			UserLogRecord.record(logMsg, Operation.Type.DOWNLOAD, Operation.Page.blank, Operation.System.back, request);
 		} catch (Exception e) {
 			LOGGER.error("生成Excel模版【{}】失败，服务器出现异常：", templateName, e);
 		}
-
-		String logMsg = "下载导入模版【" + excelEntity.getName() + "】";
-		UserLogRecord.record(logMsg, Operation.Type.DOWNLOAD, Operation.Page.blank, Operation.System.back, request);
 	}
 
 	@RequestMapping("/import-data")
