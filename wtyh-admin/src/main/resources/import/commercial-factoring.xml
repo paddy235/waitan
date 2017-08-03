@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <excel key="commercial-factoring" name="商业保理-企业类型-导入模板">
-    <sheet name="Sheet1" startRow="2" entity="com.bbd.wtyh.domain.CommercialFactoringExtraDO"
+    <sheet name="Sheet1" startRow="3" entity="com.bbd.wtyh.domain.CommercialFactoringExtraDO"
            importHandler="com.bbd.bgo.service.imp.handler.CommercialFactoringHandler">
+        <rowHeader>
+            <column mergeFirstRow="1" mergeLastRow="1" mergeFirstCol="1" mergeLastCol="2" align="LEFT"
+                    value="填写说明：企业名称必填、不能超过40个汉字"/>
+        </rowHeader>
 
         <columns>
-            <column name="企业名称" code="companyName" dataType="string" required="true" />
-            <column name="企业类型（内资/外资/中外合资)" code="companyType" dataType="string" required="false" />
+            <column name="企业名称" code="companyName" dataType="string" required="true" bgColor="#FFFF00"/>
+            <column name="企业类型（内资/外资/中外合资)" code="companyType" dataType="string" required="false" list="内资,外资,中外合资"/>
         </columns>
 
     </sheet>

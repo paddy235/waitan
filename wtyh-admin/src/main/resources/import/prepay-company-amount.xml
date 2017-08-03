@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <excel key="company_building" name="预付卡-备案企业预付金额总额-导入模板">
-    <sheet name="Sheet1" startRow="2" entity="com.bbd.wtyh.domain.PrepaidCompanyStatisticDO"
+    <sheet name="Sheet1" startRow="3" entity="com.bbd.wtyh.domain.PrepaidCompanyStatisticDO"
            importHandler="com.bbd.bgo.service.imp.handler.prepaycard.CompanyAmountHandler">
+        <rowHeader>
+            <column mergeFirstRow="1" mergeLastRow="1" mergeFirstCol="1" mergeLastCol="2" align="LEFT"
+                    value="填写说明：年份必填、企业预付金额总额单位（亿元）"/>
+        </rowHeader>
 
         <columns>
             <column name="年份" code="year" dataType="string" required="true" />
