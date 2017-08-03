@@ -5,18 +5,18 @@
            importHandler="com.bbd.bgo.service.imp.handler.prifund.PriFundTypeStatisticHandler">
         <rowHeader>
             <column mergeFirstRow="1" mergeLastRow="2" mergeFirstCol="1" mergeLastCol="9" align="LEFT"
-                    value="填写说明：&#x000A;本表格不可填写Excel公式；所有字段必填，且都是数字；"/>
+                    value="填写说明：&#x000A;本表格不可填写Excel公式；所有字段必填，且都是整数；"/>
         </rowHeader>
         <columns>
-            <column name="股权投资基金" code="equityInvestment" dataType="number" required="true" bgColor="#FFFF00"/>
-            <column name="证券投资基金" code="portfolioInvestment" dataType="number" required="true" bgColor="#FFFF00"/>
-            <column name="VC" code="vc" dataType="number" required="true" bgColor="#FFFF00"/>
-            <column name="FOFs" code="fofs" dataType="number" required="true" bgColor="#FFFF00"/>
-            <column name="券商投资" code="broker" dataType="number" required="true" bgColor="#FFFF00"/>
-            <column name="战略投资" code="strategy" dataType="number" required="true" bgColor="#FFFF00"/>
-            <column name="天使投资" code="angel" dataType="number" required="true" bgColor="#FFFF00"/>
-            <column name="PE" code="pe" dataType="number" required="true" bgColor="#FFFF00"/>
-            <column name="其他" code="other" dataType="number" required="true" bgColor="#FFFF00"/>
+            <column name="股权投资基金" code="equityInvestment" regex="\d+"  dataType="number" required="true" bgColor="#FFFF00"/>
+            <column name="证券投资基金" code="portfolioInvestment" dataType="number" regex="\d+"  required="true" bgColor="#FFFF00"/>
+            <column name="VC" code="vc" dataType="number" regex="\d+"  required="true" bgColor="#FFFF00"/>
+            <column name="FOFs" code="fofs" dataType="number" regex="\d+"  required="true" bgColor="#FFFF00"/>
+            <column name="券商投资" code="broker" dataType="number" regex="\d+"  required="true" bgColor="#FFFF00"/>
+            <column name="战略投资" code="strategy" dataType="number" regex="\d+"  required="true" bgColor="#FFFF00"/>
+            <column name="天使投资" code="angel" dataType="number" regex="\d+" required="true" bgColor="#FFFF00"/>
+            <column name="PE" code="pe" dataType="number" regex="\d+"  required="true" bgColor="#FFFF00"/>
+            <column name="其他" code="other" dataType="number" regex="\d+"  required="true" bgColor="#FFFF00"/>
         </columns>
     </sheet>
 </excel>

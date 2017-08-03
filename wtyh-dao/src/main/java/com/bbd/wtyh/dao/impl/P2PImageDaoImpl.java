@@ -298,26 +298,21 @@ public class P2PImageDaoImpl implements P2PImageDao {
     }
 
     @Override
-    public RadarScoreDTO getRadarScore(String platName) {
+    public RadarScoreDTO getRadarScore(String platName) throws Exception {
         String radarUrl = url + "?dataType=leida" + "&plat_name=" + platName;
         HttpTemplate httpTemplate = new HttpTemplate();
-        try {
-            return httpTemplate.get(radarUrl, new HttpCallback<RadarScoreDTO>() {
-                @Override
-                public boolean valid() {
-                    return true;
-                }
+        return httpTemplate.get(radarUrl, new HttpCallback<RadarScoreDTO>() {
+            @Override
+            public boolean valid() {
+                return true;
+            }
 
-                @Override
-                public RadarScoreDTO parse(String result) {
-                    Gson gson = new Gson();
-                    return gson.fromJson(result, RadarScoreDTO.class);
-                }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+            @Override
+            public RadarScoreDTO parse(String result) {
+                Gson gson = new Gson();
+                return gson.fromJson(result, RadarScoreDTO.class);
+            }
+        });
     }
 
     @Override
@@ -373,7 +368,7 @@ public class P2PImageDaoImpl implements P2PImageDao {
                         return null;
                     }
                     Gson gson = new Gson();
-                    return gson.fromJson(result,PlatDataDO.class);
+                    return gson.fromJson(result, PlatDataDO.class);
                 }
             });
         } catch (Exception e) {

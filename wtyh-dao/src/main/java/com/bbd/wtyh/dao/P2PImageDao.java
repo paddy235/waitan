@@ -74,7 +74,7 @@ public interface P2PImageDao {
 
 
 
-    RadarScoreDTO getRadarScore(String platName);
+    RadarScoreDTO getRadarScore(String platName) throws Exception;
 
 
     PlatCoreDataDTO getPlatCoreData(String platName) throws Exception;

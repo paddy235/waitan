@@ -54,23 +54,7 @@ public class PriFundProductTypeStatisticHandler extends AbstractImportHandler<Pr
 
     @Override
     public boolean validateRow(Map<String, String> row) throws Exception {
-        boolean rtr = true;
-        String adviserManage = row.get("adviserManage");
-        if (!adviserManage.matches("^[0-9]+([.][0-9]+){0,1}$")) {
-            addError("顾问管理格式错误");
-            rtr = false;
-        }
-        String entrustedManage = row.get("entrustedManage");
-        if (!entrustedManage.matches("^[0-9]+([.][0-9]+){0,1}$")) {
-            addError("受委管理格式错误");
-            rtr = false;
-        }
-        String selfManage = row.get("selfManage");
-        if (!selfManage.matches("^[0-9]+([.][0-9]+){0,1}$")) {
-            addError("自我管理格式错误");
-            rtr = false;
-        }
-        return rtr;
+        return true;
     }
 
     @Override
@@ -80,6 +64,12 @@ public class PriFundProductTypeStatisticHandler extends AbstractImportHandler<Pr
 
     @Override
     public void end() throws Exception {
+        if (errorList().size() > 0) {
+            addError("用户上传的" + caption + "中的数据有误，所有数据均不予入库");
+            log.warn("用户上传的" + caption + "中的数据有误，所有数据均不予入库");
+            return;
+        }
+
         List<String> typeList = new ArrayList<>();
         typeList.add("顾问管理");
         typeList.add("受托管理");
