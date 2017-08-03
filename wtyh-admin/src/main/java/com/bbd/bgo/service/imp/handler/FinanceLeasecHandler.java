@@ -128,6 +128,7 @@ public class FinanceLeasecHandler extends AbstractImportHandler<FinanceLeasecCom
             //有企业没有处理完
             companyImportAssist.processCp(tempList); //processCp( );
         }
+        errorList().addAll(companyImportAssist.getErrList());
         if( errorList().size() >0 ) {
             addError("用户上传的 " +caption +" 中的数据有误，所有数据均不予入库");
             log.warn("用户上传的 " +caption +" 中的数据有误，所有数据均不予入库");
