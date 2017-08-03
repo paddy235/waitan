@@ -127,6 +127,7 @@ public class CommercialFactoringHandler extends AbstractImportHandler<Commercial
     public void end() throws Exception {
         //对企业信息进行判断，若存在，则更新，不存在则新增(针对Company表)
         companyImportAssist.processCp(tempList);
+        errorList().addAll(companyImportAssist.getErrList());
         if (errorList().isEmpty()) {
             companyImportAssist.save(loginName);
 
