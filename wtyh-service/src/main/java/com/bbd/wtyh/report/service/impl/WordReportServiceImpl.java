@@ -122,7 +122,7 @@ public class WordReportServiceImpl implements WordReportService {
                 }
                 synchronized (wrbArr) {
                     //设置企业摘要信息
-                    wrbArr[0].setCompanySummary(companyName, backgroud, analysisResultName, emReportType.getName(), statusName);
+                    wrbArr[0].setCompanySummary(companyName, backgroud, analysisResultName, reportTypeName/*emReportType.getName()*/, statusName);
                     //设置水印
                     wrbArr[0].setWaterMark(loginName);
                 }
