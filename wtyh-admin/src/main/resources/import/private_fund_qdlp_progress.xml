@@ -10,8 +10,8 @@
     </rowHeader>
     <columns>
         <column name="试点企业名称" code="companyName" dataType="string" required="true" length="40" bgColor="#FFFF00"/>
-        <column name="股东方（国内）" code="chinaShareholder" dataType="string"  bgColor="#FFFF00"/>
-        <column name="股东方（国外）" code="foreignShareholder" dataType="string"  bgColor="#FFFF00"/>
+        <column name="股东方（国内）" code="chinaShareholder" dataType="string"  />
+        <column name="股东方（国外）" code="foreignShareholder" dataType="string"  />
         <column name="获批额度(单位：亿美元)" code="quatas" dataType="number"  required="true"  regex="^[0-9]+([.][0-9]+){0,1}$" bgColor="#FFFF00"/>
         <column name="近期进展" code="progress" dataType="string" required="true" bgColor="#FFFF00"/>
         <column name="企业性质" code="architecture" dataType="string" required="true" bgColor="#FFFF00"/>
