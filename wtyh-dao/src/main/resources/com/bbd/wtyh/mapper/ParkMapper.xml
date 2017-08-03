@@ -66,17 +66,14 @@
             AND base.riskLevel=#{riskLevel}
         </if>
         ) AS aa LEFT JOIN
-
-        <if test="background == null">
             (
             SELECT company_id,GROUP_CONCAT(background)background FROM company_background GROUP BY company_id
             ) AS
-        </if>
         company_background
         ON aa.companyId=company_background.company_id)AS bb
         WHERE 1=1
                 <if test="background != null">
-                    AND  bb.background=#{background}
+                    AND  bb.background LIKE CONCAT('%',#{background},'%')
                 </if>
         ORDER BY bb.riskLevel ASC, bb.isNew DESC,bb.registeredCapital DESC
         <if test="beginNumber !=null">
@@ -144,17 +141,14 @@
             AND base.riskLevel=#{riskLevel}
         </if>
         ) AS aa LEFT JOIN
-
-        <if test="background == null">
             (
             SELECT company_id,GROUP_CONCAT(background)background FROM company_background GROUP BY company_id
             ) AS
-        </if>
         company_background
         ON aa.companyId=company_background.company_id)AS bb
         WHERE 1=1
         <if test="background != null">
-            AND  bb.background=#{background}
+            AND  bb.background LIKE CONCAT('%',#{background},'%')
         </if>
     </select>
 

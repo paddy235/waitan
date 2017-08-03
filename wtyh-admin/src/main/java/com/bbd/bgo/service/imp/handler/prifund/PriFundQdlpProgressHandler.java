@@ -58,7 +58,7 @@ public class PriFundQdlpProgressHandler extends AbstractImportHandler<QdlpProgre
     @Override
     public boolean validateRow(Map<String, String> row) throws Exception {
         String progress = row.get("progress");
-        if(CompanyProgress.getType(progress)==0){
+        if(progress!=null&&CompanyProgress.getType(progress)==0){
             addError("近期进展 格式错误");
             return false;
         }
