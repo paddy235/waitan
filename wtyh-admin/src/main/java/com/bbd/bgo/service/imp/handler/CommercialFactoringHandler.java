@@ -90,18 +90,14 @@ public class CommercialFactoringHandler extends AbstractImportHandler<Commercial
             }else if(companyType.equals("外资")){
                 row.put("domestic","0");
                 row.put("foreignOwned","1");
-            }else if(companyType.equals("内外资")){
+            }else if(companyType.equals("中外合资")){
                 row.put("domestic","1");
                 row.put("foreignOwned","1");
             }else {
                 addError("企业类型不存在");
                 return false;
             }
-        }else{
-            addError("企业类型不可为空");
-            return false;
         }
-
 
         return true;
     }
@@ -127,7 +123,6 @@ public class CommercialFactoringHandler extends AbstractImportHandler<Commercial
     public void end() throws Exception {
         //对企业信息进行判断，若存在，则更新，不存在则新增(针对Company表)
         companyImportAssist.processCp(tempList);
-        errorList().addAll(companyImportAssist.getErrList());
         if (errorList().isEmpty()) {
             companyImportAssist.save(loginName);
 
@@ -168,9 +163,15 @@ public class CommercialFactoringHandler extends AbstractImportHandler<Commercial
 
                     log.info("导入商业保理-企业名单列表结束");
                 }else{
-                    log.info("导入商业保理-企业名单列表失败，数据有误");
+                    addError("用户上传的商业保理-企业名单中的数据有误，所有数据均不予入库");
+                    log.warn("用户上传的商业保理-企业名单中的数据有误，所有数据均不予入库");
+                    return;
                 }
             }
+        }else{
+            addError("用户上传的商业保理-企业名单中的数据有误，所有数据均不予入库");
+            log.warn("用户上传的商业保理-企业名单中的数据有误，所有数据均不予入库");
+            return;
         }
 
     }

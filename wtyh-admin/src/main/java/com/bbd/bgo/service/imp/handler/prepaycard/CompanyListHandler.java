@@ -107,7 +107,6 @@ public class CompanyListHandler extends AbstractImportHandler<CompanyAnalysisRes
 	public void end() throws Exception {
 		// 对企业信息进行判断，若存在，则更新，不存在则新增(针对Company表)
 		companyImportAssist.processCp(tempList);
-		errorList().addAll(companyImportAssist.getErrList());
 		for (CompanyDO companyDO : tempList) {
 			Integer riskLevel = companyDO.getRiskLevel();// 待塞入的风险等级
 			Integer analysisResult = companyDO.getAnalysisResult();// 数据库当前的风险等级(前面的processCp方法返回的)
@@ -163,9 +162,15 @@ public class CompanyListHandler extends AbstractImportHandler<CompanyAnalysisRes
 
 					log.info("导入预付卡-企业列表结束");
 				} else {
-					log.info("导入预付卡-企业列表失败，数据有误");
+					addError("用户上传的预付卡-企业列表中的数据有误，所有数据均不予入库");
+					log.warn("用户上传的预付卡-企业列表中的数据有误，所有数据均不予入库");
+					return;
 				}
 			}
+		}else{
+			addError("用户上传的预付卡-企业列表中的数据有误，所有数据均不予入库");
+			log.warn("用户上传的预付卡-企业列表中的数据有误，所有数据均不予入库");
+			return;
 		}
 
 	}

@@ -9,7 +9,7 @@
         </rowHeader>
 
         <columns>
-            <column name="企业名称" code="companyName" dataType="string" required="true" bgColor="#FFFF00"/>
+            <column name="企业名称" code="companyName" dataType="string" required="true" bgColor="#FFFF00" length="40"/>
             <column name="备案号" code="recordNumber" dataType="string" required="false" />
             <column name="所属行业" code="businessType" dataType="string" required="false" />
             <column name="风险状态(正常/潜在/已发生)" code="analysisResult" dataType="string" required="false" />
