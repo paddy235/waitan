@@ -5,12 +5,12 @@
            importHandler="com.bbd.bgo.service.imp.handler.prifund.PriFundProductTypeStatisticHandler">
         <rowHeader>
             <column mergeFirstRow="1" mergeLastRow="2" mergeFirstCol="1" mergeLastCol="3" align="LEFT"
-                    value="填写说明：&#x000A;本表格不可填写Excel公式；所有字段必填，且都是数字；"/>
+                    value="填写说明：&#x000A;本表格不可填写Excel公式；所有字段必填，且都是整数；"/>
         </rowHeader>
         <columns>
-            <column name="顾问管理" code="adviserManage" dataType="number" required="true" bgColor="#FFFF00"/>
-            <column name="受托管理" code="entrustedManage" dataType="number" required="true" bgColor="#FFFF00"/>
-            <column name="自我管理" code="selfManage" dataType="number" required="true" bgColor="#FFFF00"/>
+            <column name="顾问管理" code="adviserManage" dataType="number"  regex="\d+"  required="true" bgColor="#FFFF00"/>
+            <column name="受托管理" code="entrustedManage" dataType="number"  regex="\d+"  required="true" bgColor="#FFFF00"/>
+            <column name="自我管理" code="selfManage" dataType="number"  regex="\d+"  required="true" bgColor="#FFFF00"/>
         </columns>
     </sheet>
 </excel>

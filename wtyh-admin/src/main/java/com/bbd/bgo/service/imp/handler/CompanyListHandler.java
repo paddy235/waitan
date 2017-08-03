@@ -58,11 +58,11 @@ public class CompanyListHandler extends AbstractImportHandler<CompanyDO> {
 
     @Override
     public boolean validateRow(Map<String, String> row) throws Exception {
-/*        String companyName =row.get("name");
+        /*String companyName =row.get("name");
         if( StringUtils.isBlank( companyName ) || companyName.length() <3 ) {
             addError("企业名称格式错误");
             return false;
-        }*/
+        }
         int validCnt =0;
         String creditCode =row.get("creditCode");
         if( StringUtils.isNotBlank( creditCode ) ) {
@@ -79,7 +79,7 @@ public class CompanyListHandler extends AbstractImportHandler<CompanyDO> {
             } else {
                 addError("注册号 格式错误"); //原组织机构代码变更成验证注册号
             }
-        }
+        }*/
         return true;
     }
 

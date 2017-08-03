@@ -52,53 +52,8 @@ public class PriFundTypeStatisticHandler extends AbstractImportHandler<PriFundTy
 
     @Override
     public boolean validateRow(Map<String, String> row) throws Exception {
-        boolean rtr = true;
-        String equityInvestment = row.get("equityInvestment");
-        if (!equityInvestment.matches("^[0-9]+([.][0-9]+){0,1}$")) {
-            addError("股权投资基金格式错误");
-            rtr = false;
-        }
-        String portfolioInvestment = row.get("portfolioInvestment");
-        if (!portfolioInvestment.matches("^[0-9]+([.][0-9]+){0,1}$")) {
-            addError("证券投资基金格式错误");
-            rtr = false;
-        }
-        String vc = row.get("vc");
-        if (!vc.matches("^[0-9]+([.][0-9]+){0,1}$")) {
-            addError("VC格式错误");
-            rtr = false;
-        }
-        String fofs = row.get("fofs");
-        if (!fofs.matches("^[0-9]+([.][0-9]+){0,1}$")) {
-            addError("FOFs格式错误");
-            rtr = false;
-        }
-        String broker = row.get("broker");
-        if (!broker.matches("^[0-9]+([.][0-9]+){0,1}$")) {
-            addError("券商投资格式错误");
-            rtr = false;
-        }
-        String strategy = row.get("strategy");
-        if (!strategy.matches("^[0-9]+([.][0-9]+){0,1}$")) {
-            addError("战略投资格式错误");
-            rtr = false;
-        }
-        String angel = row.get("angel");
-        if (!angel.matches("^[0-9]+([.][0-9]+){0,1}$")) {
-            addError("天使投资格式错误");
-            rtr = false;
-        }
-        String pe = row.get("pe");
-        if (!pe.matches("^[0-9]+([.][0-9]+){0,1}$")) {
-            addError("PE格式错误");
-            rtr = false;
-        }
-        String other = row.get("other");
-        if (!other.matches("^[0-9]+([.][0-9]+){0,1}$")) {
-            addError("其他格式错误");
-            rtr = false;
-        }
-        return rtr;
+
+        return true;
     }
 
     @Override
@@ -108,6 +63,12 @@ public class PriFundTypeStatisticHandler extends AbstractImportHandler<PriFundTy
 
     @Override
     public void end() throws Exception {
+        if (errorList().size() > 0) {
+            addError("用户上传的" + caption + "中的数据有误，所有数据均不予入库");
+            log.warn("用户上传的" + caption + "中的数据有误，所有数据均不予入库");
+            return;
+        }
+
         List<String> typeList = new ArrayList<>();
         typeList.add("股权投资基金");
         typeList.add("证券投资基金");

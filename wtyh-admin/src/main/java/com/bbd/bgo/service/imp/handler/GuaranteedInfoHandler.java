@@ -51,18 +51,8 @@ public class GuaranteedInfoHandler extends AbstractImportHandler<GuaranteedInfoD
 
 	@Override
 	public boolean validateRow(Map<String, String> row) throws Exception {
-		//担保公司校验
 		String guaranteeCompany = row.get("guaranteeCompany");
 		String guaranteedCompany = row.get("guaranteedCompany");
-		if(StringUtils.isBlank( guaranteeCompany ) || guaranteeCompany.length() >40 ) {
-			addError("担保公司名称格式错误");
-			return false;
-		}
-		//被担保公司校验
-		if(StringUtils.isBlank( guaranteedCompany ) || guaranteedCompany.length() >40 ) {
-			addError("被担保公司名称格式错误");
-			return false;
-		}
 		//担保公司和被担保公司不能下相同
 		if(guaranteeCompany.equals(guaranteedCompany)){
 			addError("该担保公司和被担保公司相同");

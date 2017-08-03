@@ -9,7 +9,7 @@
         </rowHeader>
         <columns>
             <column name="机构名称" code="company_Name" dataType="string" bgColor="#FFFF00" required="true"/>
-            <column name="机构网址" code="website" dataType="string"/>
+            <column name="机构网址" code="website" dataType="string" required="true" regex="^((https|http|ftp|rtsp|mms)?:\/\/)[^\s]+"/>
             <column name="实缴资本" code="paidinCapital" dataType="number"/>
             <column name="管理基金数量" code="managedFund" dataType="number"/>
         </columns>

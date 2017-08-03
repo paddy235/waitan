@@ -1,5 +1,6 @@
 package com.bbd.wtyh.service.impl;
 
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -91,12 +92,7 @@ public class CrowdFundingServiceImpl implements CrowdFundingService {
             updateCrowdFundingCompany();
         } catch (Exception e) {
             e.printStackTrace();
-            TaskFailInfoDO taskFailInfoDO = new TaskFailInfoDO();
-            taskFailInfoDO.setTaskId(taskId);
-            taskFailInfoDO.setFailName("dataType=1");
-            taskFailInfoDO.setCreateBy("sys");
-            taskFailInfoDO.setCreateDate(new Date());
-            taskFailInfoMapper.addTaskFailInfo(taskFailInfoDO);
+            addFailTaskInfo(taskId, "平台基本情况(dataType=1)", e.getClass().getSimpleName());
             failCount++;
         }
 
@@ -105,12 +101,23 @@ public class CrowdFundingServiceImpl implements CrowdFundingService {
                 updateCrowdFundingCommon(String.valueOf(i));
             } catch (Exception e) {
                 e.printStackTrace();
-                TaskFailInfoDO taskFailInfoDO = new TaskFailInfoDO();
-                taskFailInfoDO.setTaskId(taskId);
-                taskFailInfoDO.setFailName(String.format("dataType=%s", i));
-                taskFailInfoDO.setCreateBy("sys");
-                taskFailInfoDO.setCreateDate(new Date());
-                taskFailInfoMapper.addTaskFailInfo(taskFailInfoDO);
+                String apiName = "";
+                switch (i){
+                    case 2:
+                        apiName = "业务类型分布(dataType=2)";
+                        break;
+                    case 3:
+                        apiName = "上月上海各类众筹平台新增项目数(dataType=3)";
+                        break;
+                    case 4:
+                        apiName = "上月上海各类众筹平台新增项目的投资人次(dataType=4)";
+                        break;
+                    default:
+                        apiName = "上月上海各类众筹平台新增项目数的成功筹资金额(dataType=5)";
+
+                }
+                addFailTaskInfo(taskId, apiName, e.getClass().getSimpleName());
+
                 failCount++;
             }
         }
@@ -127,30 +134,36 @@ public class CrowdFundingServiceImpl implements CrowdFundingService {
         Integer planCount = list.size();
         Integer failCount = 0;
         for (TaskFailInfoDO wangdaiTaskInfo : list) {
-            if (wangdaiTaskInfo.getFailName().equals("dataType=1")) {
+            if (wangdaiTaskInfo.getFailName().equals("平台基本情况(dataType=1)")) {
                 try {
                     updateCrowdFundingCompany();
                 } catch (Exception e) {
                     e.printStackTrace();
-                    TaskFailInfoDO taskFailInfoDO = new TaskFailInfoDO();
-                    taskFailInfoDO.setTaskId(taskId);
-                    taskFailInfoDO.setFailName("dataType=1");
-                    taskFailInfoDO.setCreateBy("sys");
-                    taskFailInfoDO.setCreateDate(new Date());
-                    taskFailInfoMapper.addTaskFailInfo(taskFailInfoDO);
+                    addFailTaskInfo(taskId, "平台基本情况(dataType=1)", e.getClass().getSimpleName());
                     failCount++;
                 }
             } else {
+                String type = wangdaiTaskInfo.getFailName().split("\\(")[1].replace(")","");
                 try {
-                    updateCrowdFundingCommon(wangdaiTaskInfo.getFailName().split("=")[1]);
+                    updateCrowdFundingCommon(type.split("=")[1]);
                 } catch (Exception e) {
                     e.printStackTrace();
-                    TaskFailInfoDO taskFailInfoDO = new TaskFailInfoDO();
-                    taskFailInfoDO.setTaskId(taskId);
-                    taskFailInfoDO.setFailName(String.format("dataType=%s", i));
-                    taskFailInfoDO.setCreateBy("sys");
-                    taskFailInfoDO.setCreateDate(new Date());
-                    taskFailInfoMapper.addTaskFailInfo(taskFailInfoDO);
+                    String apiName = "";
+                    switch (type){
+                        case "dataType=2":
+                            apiName = "业务类型分布(dataType=2)";
+                            break;
+                        case "dataType=3":
+                            apiName = "上月上海各类众筹平台新增项目数(dataType=3)";
+                            break;
+                        case "dataType=4":
+                            apiName = "上月上海各类众筹平台新增项目的投资人次(dataType=4)";
+                            break;
+                        default:
+                            apiName = "上月上海各类众筹平台新增项目数的成功筹资金额(dataType=5)";
+
+                    }
+                    addFailTaskInfo(taskId, apiName, e.getClass().getSimpleName());
                     failCount++;
                 }
             }
@@ -162,10 +175,32 @@ public class CrowdFundingServiceImpl implements CrowdFundingService {
         return taskResultDO;
     }
 
+    protected void addFailTaskInfo(Integer taskId, String api, String failReason) {
+        TaskFailInfoDO taskFailInfoDO = new TaskFailInfoDO();
+        taskFailInfoDO.setTaskId(taskId);
+        taskFailInfoDO.setFailName(api);
+        switch (failReason) {
+            case "ConnectTimeoutException":
+                taskFailInfoDO.setFailReason("众筹接口连接超时");
+                break;
+            case "JsonSyntaxException":
+                taskFailInfoDO.setFailReason("众筹接口返回数据解析失败");
+                break;
+            case "SQLException":
+                taskFailInfoDO.setFailReason("众筹入库失败");
+                break;
+            default:
+                taskFailInfoDO.setFailReason("众筹接口调用失败");
+        }
+        taskFailInfoDO.setCreateBy("sys");
+        taskFailInfoDO.setCreateDate(new Date());
+        taskFailInfoMapper.addTaskFailInfo(taskFailInfoDO);
+    }
+
     private void updateCrowdFundingCommon(String type) {
         CrowdFundingCommonDO crowdFundingCommonDO = new CrowdFundingCommonDO();
         Map map = crowdFundingDao.lastMonthType(type);
-        crowdFundingCommonDO.setReward((String) map.get("奖励众筹"));    //TODO:key为汉字不妥
+        crowdFundingCommonDO.setReward((String) map.get("奖励众筹"));
         crowdFundingCommonDO.setNonPulicEquityFinancing((String) map.get("非公开股权融资"));
         crowdFundingCommonDO.setPublicWelfare((String) map.get("公益众筹"));
         if (map.get("混合众筹") != null) {
@@ -187,7 +222,11 @@ public class CrowdFundingServiceImpl implements CrowdFundingService {
             dto.setCreateBy("sys");
             dto.setCreateDate(new Date());
 //            crowdFundingCompanyMapper.deleteByPlatName(dto.getPlatformName());
-            crowdFundingCompanyMapper.saveForDataLand(dto);
+            try {
+                crowdFundingCompanyMapper.saveForDataLand(dto);
+            } catch (Exception e) {
+                throw new SQLException();
+            }
         }
     }
 

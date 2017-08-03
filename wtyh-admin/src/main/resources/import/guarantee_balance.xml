@@ -8,8 +8,8 @@
                     value="填写说明：&#x000A;本表格不可填写Excel公式；年份、月份必填；"/>
         </rowHeader>
         <columns>
-            <column name="年份	" code="year" dataType="number" bgColor="#FFFF00" required="true"/>
-            <column name="月份" code="month" dataType="number" bgColor="#FFFF00" required="true"/>
+            <column name="年份	" code="year" dataType="number" bgColor="#FFFF00" required="true" regex="[1-9][0-9]{3}"/>
+            <column name="月份" code="month" dataType="number" bgColor="#FFFF00" required="true" regex="0?[1-9]|1[0-2]"/>
             <column name="政策类	" code="policyBalance" dataType="number"/>
             <column name="综合类	" code="compositeBalance" dataType="number"/>
             <column name="钢贸类	" code="steelBalance" dataType="number"/>
