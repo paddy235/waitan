@@ -75,11 +75,16 @@ public class CompanyImportAssist {
         //准备企业名称列表
         List<String> cNameLst =new LinkedList<>();
         for (CompanyDO cDo : tempList) {
+            boolean noErr =true;
             if( StringUtils.isBlank( cDo.getName() ) || cDo.getName().length() <3 || cDo.getName().length() >39) {
                 addError(cDo.getId(), "企业名称格式错误");
-            } else if( cDo.getCompanyType() <0 ) {
+                noErr =false;
+            }
+            if( cDo.getCompanyType() <0 ) {
                 addError(cDo.getId(), "行业类别填写错误");
-            } else {
+                noErr =false;
+            }
+            if (noErr){
                 cNameLst.add(cDo.getName());
             }
         }

@@ -4,6 +4,9 @@ import com.bbd.wtyh.cachetobean.ShanghaiAreaCode;
 import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.domain.*;
 import com.bbd.wtyh.domain.vo.ParkAndBuildingVO;
+import com.bbd.wtyh.log.user.Operation;
+import com.bbd.wtyh.log.user.UserLogRecord;
+import com.bbd.wtyh.log.user.annotation.LogRecord;
 import com.bbd.wtyh.service.CompanyService;
 import com.bbd.wtyh.service.ImgService;
 import com.bbd.wtyh.service.shiro.ParkMgtService;
@@ -134,7 +137,9 @@ public class ParkMgtController {
      */
     @RequestMapping("/delPark")
     @ResponseBody
-    public ResponseBean delPark(String parkId) {
+    @LogRecord(logMsg = "删除园区：%s", params = {"parkName"}, page = Operation.Page.PARK_BUILDING_MANAGE,
+            type = Operation.Type.del, after = true, before = false)
+    public ResponseBean delPark(String parkId,String parkName) {
         //删除园区时，需要将相关楼宇及企业一并删除
         parkMgtService.delCompanyBuildingByParkId(parkId);
         parkMgtService.delBuildingByParkId(parkId);
@@ -150,7 +155,9 @@ public class ParkMgtController {
      */
     @RequestMapping("/delBuilding")
     @ResponseBody
-    public ResponseBean delBuilding(String[] buildingId) {
+    @LogRecord(logMsg = "删除楼宇：%s", params = {"buindingName"}, page = Operation.Page.PARK_BUILDING_MANAGE,
+            type = Operation.Type.del, after = true, before = false)
+    public ResponseBean delBuilding(String[] buildingId,String[] buindingName) {
         //删除楼宇时，需要将相关企业一并删除
         parkMgtService.delCompanyByBuildingId(Arrays.asList(buildingId));
         parkMgtService.delBuildingById(Arrays.asList(buildingId));
@@ -166,7 +173,9 @@ public class ParkMgtController {
      */
     @RequestMapping("/delCompanyByCompanyId")
     @ResponseBody
-    public ResponseBean delCompanyByCompanyId(String buildingId, String[] companyList) {
+    @LogRecord(logMsg = "删除企业，楼宇名称：%s,企业列表：%s", params = {"buildingName","companyNameList"}, page = Operation.Page.PARK_BUILDING_MANAGE,
+            type = Operation.Type.del, after = true, before = false)
+    public ResponseBean delCompanyByCompanyId(String buildingId, String[] companyList,String buildingName,String[] companyNameList) {
         parkMgtService.delCompanyByCompanyId(buildingId, Arrays.asList(companyList));
         return ResponseBean.successResponse("OK");
     }
@@ -179,6 +188,8 @@ public class ParkMgtController {
      */
     @RequestMapping("/addPark")
     @ResponseBody
+    @LogRecord(logMsg = "新增园区：%s", params = {"name"}, page = Operation.Page.PARK_BUILDING_MANAGE,
+            type = Operation.Type.add, after = true, before = false)
     public ResponseBean addPark(HttpServletRequest request, ParkDO park) {
         //新增之前先查询该园区是否存在
         int i = parkMgtService.queryParkIdByName(park.getName());
@@ -205,7 +216,9 @@ public class ParkMgtController {
      */
     @RequestMapping("/addBuilding")
     @ResponseBody
-    public ResponseBean addBuilding(HttpServletRequest request, BuildingDO building) {
+    @LogRecord(logMsg = "新增楼宇,所属园区：%s，楼宇名称：%s", params = {"parkName","name"}, page = Operation.Page.PARK_BUILDING_MANAGE,
+            type = Operation.Type.add, after = true, before = false)
+    public ResponseBean addBuilding(HttpServletRequest request, BuildingDO building,String parkName) {
         //新增之前先查询该楼宇是否存在
         int i = parkMgtService.queryBuildingIdByName(building.getParkId(),building.getName());
         if(i != 0){
@@ -234,7 +247,9 @@ public class ParkMgtController {
      */
     @RequestMapping("/addCompanyBuilding")
     @ResponseBody
-    public ResponseBean addCompanyBuilding(HttpServletRequest request, String buildingId,String name,String creatBy) {
+    @LogRecord(logMsg = "新增企业，所属楼宇：%s，企业名称：%s", params = {"buildingName","name"}, page = Operation.Page.PARK_BUILDING_MANAGE,
+            type = Operation.Type.add, after = true, before = false)
+    public ResponseBean addCompanyBuilding(HttpServletRequest request, String buildingId,String name,String creatBy,String buildingName) {
         CompanyBuildingDO companyBuildingDO = new CompanyBuildingDO();
         //新增之前先查询该企业是否存在，既不能存在于company_building中，也不能不存在于company中
         CompanyDO companyDO = companyService.getCompanyByName(name);
@@ -307,6 +322,8 @@ public class ParkMgtController {
      * @return
      */
     @RequestMapping("/upLoadPic")
+    @LogRecord(logMsg = "上传图片，园区名称：%s，楼宇名称名称：%s", params = {"parkName","buildingName"}, page = Operation.Page.PARK_BUILDING_MANAGE,
+            type = Operation.Type.add, after = true, before = false)
     public @ResponseBody ResponseBean upLoadPic(HttpServletRequest request,
                            @RequestParam("file") CommonsMultipartFile file,
                            @RequestParam Integer picType,
