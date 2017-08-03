@@ -41,7 +41,7 @@ public class ParkCompanyDo {
 
 	private String background;// 企业背景
 
-	@Excel(exportName = "注册资本")
+	@Excel(exportName = "注册资本（万元）")
 	private Integer registeredCapital;//注册资本
 
 	private Integer registeredCapitalType;//注册资本类型
