@@ -138,13 +138,17 @@ public class CompanyInfoMudifyUtil {
         // 判断是否修改为线下理财
         if (!String.valueOf(CompanyInfo.TYPE_XXLC_4).equals(industry)) {
             // 通知数据平台的api
-            addTagWhite(name);
+            //addTagWhite(name);
         }
     }
 
     private void addTagWhite(String companyName) throws Exception {
+        String  url= null;//http://dataapi.bbdservice.com/api/add_tag_white/?tag=
+        if(null==url){
+            return;
+        }
         StringBuffer sb = new StringBuffer();
-        sb.append("http://dataapi.bbdservice.com/api/add_tag_white/?tag=" + TAG + "&appkey=")
+        sb.append(url + TAG + "&appkey=")
                 .append(appkey)
                 .append("&company_name=")
                 .append(companyName)
