@@ -162,9 +162,15 @@ public class CompanyListHandler extends AbstractImportHandler<CompanyAnalysisRes
 
 					log.info("导入预付卡-企业列表结束");
 				} else {
-					log.info("导入预付卡-企业列表失败，数据有误");
+					addError("用户上传的预付卡-企业列表中的数据有误，所有数据均不予入库");
+					log.warn("用户上传的预付卡-企业列表中的数据有误，所有数据均不予入库");
+					return;
 				}
 			}
+		}else{
+			addError("用户上传的预付卡-企业列表中的数据有误，所有数据均不予入库");
+			log.warn("用户上传的预付卡-企业列表中的数据有误，所有数据均不予入库");
+			return;
 		}
 
 	}
