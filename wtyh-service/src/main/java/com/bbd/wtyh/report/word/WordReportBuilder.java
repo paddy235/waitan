@@ -1065,7 +1065,8 @@ public class WordReportBuilder {
 		Map<String, Object> rstMap = new HashMap<String, Object>() {
 
 			{
-				String fileName = companyName + "-" + reportType.getName() + ".docx";
+				//String fileName = companyName + "-" + reportType.getName() + ".docx";
+				String fileName = companyName + "-" + companyType + ".docx";
 				put("fileName", fileName);
 				put("fileBytes", null);
 			}

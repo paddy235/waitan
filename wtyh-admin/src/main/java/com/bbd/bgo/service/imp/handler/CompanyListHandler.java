@@ -106,7 +106,6 @@ public class CompanyListHandler extends AbstractImportHandler<CompanyDO> {
             //有企业没有处理完
             companyImportAssist.processCp(tempList); //processCp( );
         }
-        errorList().addAll(companyImportAssist.getErrList());
         if( errorList().size() >0 ) {
             addError("用户上传的企业名单中的数据有误，所有数据均不予入库");
             log.warn("用户上传的企业名单中的数据有误，所有数据均不予入库");
