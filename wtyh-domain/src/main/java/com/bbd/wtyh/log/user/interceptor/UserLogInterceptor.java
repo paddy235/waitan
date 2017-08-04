@@ -54,6 +54,9 @@ public class UserLogInterceptor extends HandlerInterceptorAdapter {
 
 		// 请求中的全部参数
 		Map<String, String> paramMap = ParamUtil.getRequestParamMap(request);
+		if(paramMap.containsKey("password")){
+			paramMap.put("password","******");
+		}
 		// 替换占位符的具体内容数组
 		Object[] placeholderReplace = new Object[params.length];
 		for (int i = 0; i < params.length; i++) {

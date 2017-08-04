@@ -125,4 +125,15 @@
 		truncate table company_credit_fail_info
 	</update>
 
+	<select id="countCreditFailInfoBy999" parameterType="Integer" resultType="int">
+		select
+		COUNT(distinct company_id) AS total
+		from company_credit_fail_info
+		where
+		task_id = #{taskId}
+    	and result_code like '999%'
+
+
+	</select>
+
 </mapper>
