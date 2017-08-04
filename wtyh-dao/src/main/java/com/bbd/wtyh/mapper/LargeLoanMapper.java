@@ -17,6 +17,6 @@ public interface LargeLoanMapper {
 
 	int countLargeLoan();
 
-	@Select("SELECT COUNT(*) FROM company WHERE company_type = 2;")
+	@Select("SELECT COUNT(*) FROM company WHERE company_type = 2")
 	long countLoanCompany();
 }
