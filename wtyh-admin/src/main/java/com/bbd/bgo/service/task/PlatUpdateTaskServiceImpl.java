@@ -109,7 +109,11 @@ public class PlatUpdateTaskServiceImpl extends BaseServiceImpl implements PlatUp
 		}
 		dataError += updatePlatData(platInfoList);
 		logger.info("end update plat,update number:"+(dataTotal-dataError));
-
+		try {
+			platformNameInformationMapper.deleteRepeatPlat();
+		} catch (Exception e) {
+			logger.info("delete repeat plat error");
+		}
 		taskResultDO.setPlanCount(dataTotal);
 		taskResultDO.setFailCount(dataError);
 		taskResultDO.setSuccessCount(dataTotal-dataError);
