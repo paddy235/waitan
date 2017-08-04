@@ -24,4 +24,6 @@ public interface PlatformNameInformationMapper {
 	int addPlat(List<PlatformNameInformationDO> platList);
 
 	int addPlatOne(PlatformNameInformationDO plat);
+
+	int deleteRepeatPlat();
 }
