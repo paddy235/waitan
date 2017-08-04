@@ -258,11 +258,9 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 
 	private void endProcess(TaskResultDO taskResultDO,Integer taskId){
 
-		//备份成功失败名单到历史表
+		//备份失败名单到历史表
 		this.executeCUD("insert into company_credit_fail_history (company_id,company_name,organization_code,credit_code,result_code,task_id,create_by,create_date) " +
 				"SELECT company_id,company_name,organization_code,credit_code,result_code,task_id,create_by,now() FROM company_credit_fail_info WHERE task_id=?",taskId);
-		this.executeCUD("insert into company_credit_raw_history (company_id,company_name,organization_code,credit_code,task_id,create_by,create_date) " +
-				"SELECT company_id,company_name,organization_code,credit_code,task_id,MAX(create_by)create_by,MAX(now())create_date FROM company_credit_raw_info WHERE task_id=? group by company_id,company_name,organization_code,credit_code,task_id",taskId);
 
 		//统计成功失败笔数
 		int failCount=companyCreditMapper.countCreditFailInfo(taskId);
