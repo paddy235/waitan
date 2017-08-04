@@ -9,8 +9,8 @@
         </rowHeader>
 
         <columns>
-            <column name="年份" code="year" dataType="string" required="true" bgColor="#FFFF00"/>
-            <column name="企业预付金额总额（亿元）" code="amount" dataType="string" required="false" />
+            <column name="年份" code="year" dataType="string" required="true" bgColor="#FFFF00" regex="^([0-9]){4}$" />
+            <column name="企业预付金额总额（亿元）" code="amount" dataType="string" required="false" regex="^([.]|[0-9]){1,}$" />
         </columns>
 
     </sheet>

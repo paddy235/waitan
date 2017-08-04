@@ -38,6 +38,8 @@ public interface CompanyCreditMapper {
 
 	void truncateCreditFailInfo();
 
+	int countCreditFailInfoBy999(@Param("taskId") Integer taskId);
+
 
 
 }

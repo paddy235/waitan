@@ -49,7 +49,7 @@ public class CompanyImportAssist {
     }
 
     public List< Map.Entry<CompanyDO, BaseDataDO.Results> > getResultList() {
-        List< Map.Entry<CompanyDO, BaseDataDO.Results> > rstList =getUpdateList();
+        List< Map.Entry<CompanyDO, BaseDataDO.Results> > rstList =new LinkedList<>( getUpdateList() );
         rstList.addAll( getInsertList() );
         return rstList;
     }
@@ -138,6 +138,7 @@ public class CompanyImportAssist {
                     updateList.add(me);
                     cDo.setNeo(false);
                     cDo.setCompanyId(locCp.getCompanyId());
+                    cDo.setAnalysisResult( locCp.getRiskLevel() ); //供东均使用
                     cDo.setOldCompanyType( locCp.getCompanyType() );
                 }
             }

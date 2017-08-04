@@ -96,6 +96,8 @@ public class EasyExportExeclController {
     @RequestMapping(value = "/export")
     @ResponseBody
     public ResponseBean export(ExportCondition exportCondition, PageBean pageBean, HttpServletRequest request) {
+        pageBean.setCurrentPage(0);
+        pageBean.setPageSize(Math.toIntExact(pageBean.getTotalCount()));
         if (CompanyInfo.TYPE_P2P_1 == exportCondition.getIndustry()) { // 网络借贷
             return ResponseBean.successResponse(
                     genExcel(easyExportExeclService.getWangdai(exportCondition, pageBean),

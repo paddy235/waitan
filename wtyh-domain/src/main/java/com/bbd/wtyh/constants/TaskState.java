@@ -10,7 +10,7 @@ import org.quartz.Trigger;
 public enum TaskState {
 
 	NONSTARTER(1, "未开始"),
-	EXECUTING(2, "正在执行"),
+	EXECUTING(2, "执行中"),
 	SUCCESS(3, "成功"),
 	ERROR(4, "失败"),
 	STOP(5, "终止"),

@@ -3,6 +3,7 @@ package com.bbd.bgo.service.task;
 import com.bbd.bgo.quartz.TaskUtil;
 import com.bbd.wtyh.domain.TaskFailInfoDO;
 import com.bbd.wtyh.domain.TaskResultDO;
+import com.bbd.wtyh.mapper.ParkAndBuildingMgtMapper;
 import com.bbd.wtyh.mapper.TaskFailInfoMapper;
 import com.bbd.wtyh.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,8 @@ import org.springframework.stereotype.Component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -40,6 +43,8 @@ public class TimingTaskManager {
 	private CrowdFundingService crowdFundingService;
 	@Autowired
 	private PlatUpdateTaskService platUpdateTaskService;
+	@Autowired
+	private ParkAndBuildingMgtMapper parkAndBuildingMgtMapper;
 
 	private Logger logger = LoggerFactory.getLogger(TimingTaskManager.class);
 
@@ -414,6 +419,14 @@ public class TimingTaskManager {
 			isStop=true;
 		}
 		return  isStop;
+	}
+
+	/**
+	 * 定时任务，删除园区楼宇图片表中使用过的或过期的图片
+	 */
+	public void delImgByStatus(){
+		List<String> statusList = Arrays.asList("0","2");
+		parkAndBuildingMgtMapper.delImgByStatus(statusList);
 	}
 
 }
