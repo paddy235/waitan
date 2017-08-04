@@ -262,4 +262,13 @@
             company_id IN (SELECT company_id FROM company_building WHERE building_id=#{buildingId})
     </select>
 
+    <delete id="delImgByStatus" >
+        DELETE FROM
+          park_building_img
+        WHERE status in
+            <foreach item="item" index="index" collection="statusList" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+    </delete>
+
 </mapper>

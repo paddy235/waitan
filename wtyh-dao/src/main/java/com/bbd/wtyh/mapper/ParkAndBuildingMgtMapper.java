@@ -74,4 +74,6 @@ public interface ParkAndBuildingMgtMapper {
 
     List<Map<String,String>> queryBuildingList(@Param("parkId") String parkId,@Param("buildingName") String buildingName);
 
+    void delImgByStatus(List<String> statusList);
+
 }
