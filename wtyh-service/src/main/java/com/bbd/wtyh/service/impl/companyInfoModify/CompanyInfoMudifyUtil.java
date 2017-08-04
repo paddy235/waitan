@@ -142,50 +142,50 @@ public class CompanyInfoMudifyUtil {
         }
     }
 
-    private void addTagWhite(String companyName) throws Exception {
-        String  url= null;//http://dataapi.bbdservice.com/api/add_tag_white/?tag=
-        if(null==url){
-            return;
-        }
-        StringBuffer sb = new StringBuffer();
-        sb.append(url + TAG + "&appkey=")
-                .append(appkey)
-                .append("&company_name=")
-                .append(companyName)
-                .append("&bbd_qyxx_id=")
-                .append(getQyxxid(companyName));
-        try {
-            String result = new HttpTemplate().get(sb.toString());
-            JSONObject jsonObject = JSONObject.fromObject(result);
-            String message = jsonObject.getString("message");
-            if (!"ok".equalsIgnoreCase(message)) {
-                logger.error("线下理财名单数据上传错误，错误公司：" + companyName + "错误原因：" + message);
-                throw new Exception("修改行业类型失败：线下理财名单数据上传错误");
-            }
-        } catch (Exception e) {
-            logger.error("线下理财名单数据上传错误，错误公司：" + companyName + "错误原因：" + e);
-            throw new Exception("修改行业类型失败：线下理财名单数据上传错误");
-        }
-    }
-
-    private String getQyxxid(String companyName) throws Exception {
-        Map batchData = hologramQueryService.getBbdQyxxBatch(companyName);
-        if (CollectionUtils.isEmpty(batchData)) {
-            throw new Exception("修改行业类型失败：接口查询错误");
-        }
-        String msg = (String) (batchData.get("msg"));
-        if (null == msg || !msg.equals("ok")) {
-            throw new Exception("修改行业类型失败：接口查询错误");
-        }
-        List<Map> rList = (List) (batchData.get("results"));
-        if (CollectionUtils.isEmpty(rList)) {
-            throw new Exception("修改行业类型失败：接口未查询到对应数据");
-        }
-        String qyxx_id = "";
-        for (Map itr1 : rList) {
-            Map itr = (Map) (itr1.get("jbxx"));
-            qyxx_id = (String) (itr.get("qyxx_id"));
-        }
-        return qyxx_id;
-    }
+//    private void addTagWhite(String companyName) throws Exception {
+//        String  url= null;//http://dataapi.bbdservice.com/api/add_tag_white/?tag=
+//        if(null==url){
+//            return;
+//        }
+//        StringBuffer sb = new StringBuffer();
+//        sb.append(url + TAG + "&appkey=")
+//                .append(appkey)
+//                .append("&company_name=")
+//                .append(companyName)
+//                .append("&bbd_qyxx_id=")
+//                .append(getQyxxid(companyName));
+//        try {
+//            String result = new HttpTemplate().get(sb.toString());
+//            JSONObject jsonObject = JSONObject.fromObject(result);
+//            String message = jsonObject.getString("message");
+//            if (!"ok".equalsIgnoreCase(message)) {
+//                logger.error("线下理财名单数据上传错误，错误公司：" + companyName + "错误原因：" + message);
+//                throw new Exception("修改行业类型失败：线下理财名单数据上传错误");
+//            }
+//        } catch (Exception e) {
+//            logger.error("线下理财名单数据上传错误，错误公司：" + companyName + "错误原因：" + e);
+//            throw new Exception("修改行业类型失败：线下理财名单数据上传错误");
+//        }
+//    }
+//
+//    private String getQyxxid(String companyName) throws Exception {
+//        Map batchData = hologramQueryService.getBbdQyxxBatch(companyName);
+//        if (CollectionUtils.isEmpty(batchData)) {
+//            throw new Exception("修改行业类型失败：接口查询错误");
+//        }
+//        String msg = (String) (batchData.get("msg"));
+//        if (null == msg || !msg.equals("ok")) {
+//            throw new Exception("修改行业类型失败：接口查询错误");
+//        }
+//        List<Map> rList = (List) (batchData.get("results"));
+//        if (CollectionUtils.isEmpty(rList)) {
+//            throw new Exception("修改行业类型失败：接口未查询到对应数据");
+//        }
+//        String qyxx_id = "";
+//        for (Map itr1 : rList) {
+//            Map itr = (Map) (itr1.get("jbxx"));
+//            qyxx_id = (String) (itr.get("qyxx_id"));
+//        }
+//        return qyxx_id;
+//    }
 }

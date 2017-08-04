@@ -92,11 +92,11 @@ public class P2PImageServiceImpl implements P2PImageService {
         PlatListDO platListDO = findFromWangdaiPlatList(platName);  // 获取logo
 
         Map<String, Object> result = new LinkedHashMap<>();
-        result.put("logo", (null == platListDO) ? null : platListDO.getLogo_url());//logo
-        result.put("score", platRankDataDTO.getPlatRank()); // 评级
-        result.put("platname", pn.getPlat_name()); // 平台名称
-        result.put("companyName", pn.getCompany_name()); // 公司名称
-        result.put("status", platRankDataDTO.getPlat_status()); // 营业状态
+            result.put("logo", (null == platListDO) ? null : platListDO.getLogo_url());//logo
+            result.put("score", (null == platRankDataDTO) ? "" : platRankDataDTO.getPlatRank()); // 评级
+            result.put("platname", pn.getPlat_name()); // 平台名称
+            result.put("companyName", pn.getCompany_name()); // 公司名称
+            result.put("status", (null == platRankDataDTO) ? "" : platRankDataDTO.getPlat_status()); // 营业状态
         return result;
     }
 
