@@ -67,12 +67,14 @@
             company_level.out_level AS outLevel,
             company_level.inner_level AS innnerLevel,
             company_level.live_level AS liveLevel
-       FROM
-            company_level,
+      FROM
             company
-       WHERE
-            company_level.company_id = company.company_id
-            AND company.`name` = #{name}
+      LEFT JOIN
+            company_level
+      ON
+          company_level.company_id = company.company_id
+      WHERE
+         company.`name` = #{name}
     </select>
 
     <select id="countLoan" resultType="long">
