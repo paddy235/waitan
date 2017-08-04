@@ -94,13 +94,18 @@ public class CompanyListHandler extends AbstractImportHandler<CompanyAnalysisRes
 		cDo.setId(getRowNumber()); // 将行号存下
 		cDo.setRecordNumber(row.get("recordNumber"));// 备案号
 		cDo.setBusinessType(row.get("businessType"));// 所属行业
-		cDo.setRiskLevel(Integer.valueOf(row.get("analysisResult")));// 风险等级
+		String analysisResult = row.get("analysisResult");
+		Integer riskLevel = null;
+		if(!StringUtils.isEmpty(analysisResult)){
+			riskLevel = Integer.valueOf(analysisResult);
+		}
+		cDo.setRiskLevel(riskLevel);// 风险等级
 
 		// 准备新增表数据
 		// bean.setCompanyName(row.get("companyName"));
 		// bean.setCreateBy(loginName);
 		// bean.setCreateDate(sqlDate);
-		// listCompanyAnalysisResult.add(bean);
+		 listCompanyAnalysisResult.add(bean);
 	}
 
 	@Override

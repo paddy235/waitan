@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<excel key="prepay-company-list" name="预付卡-企业楼表-导入模板">
+<excel key="prepay-company-list" name="预付卡-企业列表-导入模板">
     <sheet name="Sheet1" startRow="3" entity="com.bbd.wtyh.domain.CompanyAnalysisResultDO"
            importHandler="com.bbd.bgo.service.imp.handler.prepaycard.CompanyListHandler">
         <rowHeader>
             <column mergeFirstRow="1" mergeLastRow="1" mergeFirstCol="1" mergeLastCol="4" align="LEFT"
-                    value="填写说明：企业名称必填、不能超过40个汉字"/>
+                    value="填写说明：企业名称必填、不能超过40个汉字、备案号长度为必须等于13"/>
         </rowHeader>
 
         <columns>
             <column name="企业名称" code="companyName" dataType="string" required="true" bgColor="#FFFF00" length="40"/>
-            <column name="备案号" code="recordNumber" dataType="string" required="false" />
+            <column name="备案号" code="recordNumber" dataType="string" required="false" regex="^([A-Z]|[0-9]){13}$" />
             <column name="所属行业" code="businessType" dataType="string" required="false" />
-            <column name="风险状态(正常/潜在/已发生)" code="analysisResult" dataType="string" required="false" />
+            <column name="风险状态(正常/潜在/已发生)" code="analysisResult" dataType="string" required="false" list="正常,潜在,已发生"/>
         </columns>
 
     </sheet>
