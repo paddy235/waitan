@@ -94,13 +94,18 @@ public class CompanyListHandler extends AbstractImportHandler<CompanyAnalysisRes
 		cDo.setId(getRowNumber()); // 将行号存下
 		cDo.setRecordNumber(row.get("recordNumber"));// 备案号
 		cDo.setBusinessType(row.get("businessType"));// 所属行业
-		cDo.setRiskLevel(Integer.valueOf(row.get("analysisResult")));// 风险等级
+		String analysisResult = row.get("analysisResult");
+		Integer riskLevel = null;
+		if(!StringUtils.isEmpty(analysisResult)){
+			riskLevel = Integer.valueOf(analysisResult);
+		}
+		cDo.setRiskLevel(riskLevel);// 风险等级
 
 		// 准备新增表数据
 		// bean.setCompanyName(row.get("companyName"));
 		// bean.setCreateBy(loginName);
 		// bean.setCreateDate(sqlDate);
-		// listCompanyAnalysisResult.add(bean);
+		 listCompanyAnalysisResult.add(bean);
 	}
 
 	@Override
@@ -162,9 +167,15 @@ public class CompanyListHandler extends AbstractImportHandler<CompanyAnalysisRes
 
 					log.info("导入预付卡-企业列表结束");
 				} else {
-					log.info("导入预付卡-企业列表失败，数据有误");
+					addError("用户上传的预付卡-企业列表中的数据有误，所有数据均不予入库");
+					log.warn("用户上传的预付卡-企业列表中的数据有误，所有数据均不予入库");
+					return;
 				}
 			}
+		}else{
+			addError("用户上传的预付卡-企业列表中的数据有误，所有数据均不予入库");
+			log.warn("用户上传的预付卡-企业列表中的数据有误，所有数据均不予入库");
+			return;
 		}
 
 	}

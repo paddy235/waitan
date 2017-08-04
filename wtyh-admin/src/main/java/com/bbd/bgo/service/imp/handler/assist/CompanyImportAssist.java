@@ -76,7 +76,7 @@ public class CompanyImportAssist {
         List<String> cNameLst =new LinkedList<>();
         for (CompanyDO cDo : tempList) {
             boolean noErr =true;
-            if( StringUtils.isBlank( cDo.getName() ) || cDo.getName().length() <3 || cDo.getName().length() >39) {
+            if( StringUtils.isBlank( cDo.getName() ) || cDo.getName().length() <3 || cDo.getName().length() >40) {
                 addError(cDo.getId(), "企业名称格式错误");
                 noErr =false;
             }
