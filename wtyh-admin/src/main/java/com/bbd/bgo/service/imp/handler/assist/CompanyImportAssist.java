@@ -49,7 +49,7 @@ public class CompanyImportAssist {
     }
 
     public List< Map.Entry<CompanyDO, BaseDataDO.Results> > getResultList() {
-        List< Map.Entry<CompanyDO, BaseDataDO.Results> > rstList =getUpdateList();
+        List< Map.Entry<CompanyDO, BaseDataDO.Results> > rstList =new LinkedList<>( getUpdateList() );
         rstList.addAll( getInsertList() );
         return rstList;
     }
