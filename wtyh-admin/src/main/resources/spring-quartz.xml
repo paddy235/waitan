@@ -30,7 +30,7 @@
 
     <!-- 删除过期图片 -->
     <bean id="delImgByStatusJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
-        <property name="group" value="del_img"/>
+        <property name="group" value="job_work"/>
         <property name="name" value="delImgByStatusJob"/>
 
         <property name="jobClass" value="com.bbd.wtyh.core.quartz.MethodInvokingJob"/>
@@ -45,7 +45,7 @@
     <!--  调度触发器 -->
     <bean id="delImgByStatusTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
         <property name="name" value="delImgByStatusTrigger"/>
-        <property name="group" value="del_img"/>
+        <property name="group" value="job_work"/>
         <property name="jobDetail" ref="delImgByStatusJob"/>
 
         <property name="cronExpression" value="0 0 0 * * ?"/>
