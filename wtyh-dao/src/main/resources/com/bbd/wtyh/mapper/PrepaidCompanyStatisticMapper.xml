@@ -15,9 +15,10 @@
     year, prepaid_company_number, amount, register_capital, create_by, create_date, update_by, 
     update_date
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultType="com.bbd.wtyh.domain.PrepaidCompanyStatisticDO">
     select 
-    <include refid="Base_Column_List" />
+      year as year,
+      amount as amount
     from prepaid_company_statistic
     where year = #{year,jdbcType=INTEGER}
   </select>

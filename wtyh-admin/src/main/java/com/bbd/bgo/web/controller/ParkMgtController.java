@@ -220,7 +220,7 @@ public class ParkMgtController {
             type = Operation.Type.add, after = true, before = false)
     public ResponseBean addBuilding(HttpServletRequest request, BuildingDO building,String parkName) {
         //新增之前先查询该楼宇是否存在
-        int i = parkMgtService.queryBuildingIdByName(building.getParkId(),building.getName());
+        int i = parkMgtService.queryBIdByName(building.getName());
         if(i != 0){
             return  ResponseBean.errorResponse("该楼宇已存在");
         }
@@ -254,13 +254,13 @@ public class ParkMgtController {
         //新增之前先查询该企业是否存在，既不能存在于company_building中，也不能不存在于company中
         CompanyDO companyDO = companyService.getCompanyByName(name);
         if(null == companyDO){
-            return ResponseBean.successResponse("企业不存在于企业信息表");
+            return ResponseBean.errorResponse("企业不存在于企业信息表");
         }
         Integer companyId  = companyDO.getCompanyId();
 
-        Integer companyBuildingId = parkMgtService.queryCompanyBuildingId(buildingId+"",companyId+"");
+        Integer companyBuildingId = parkMgtService.queryCBId(companyId+"");
         if(companyBuildingId != null){
-            return ResponseBean.successResponse("企业已存在于该楼宇");
+            return ResponseBean.errorResponse("企业已存在于该楼宇");
         }
         //校验完成则可新增
         companyBuildingDO.setBuildingId(Integer.valueOf(buildingId));
@@ -350,7 +350,7 @@ public class ParkMgtController {
                     img.setPicParkId(parkId);
                     Integer buildingId = parkMgtService.queryBuildingIdByName(parkId,buildingName);
                     if(buildingId == null ||buildingId == 0){
-                        return ResponseBean.successResponse("楼宇不存在");
+                        return ResponseBean.errorResponse("楼宇不存在");
                     }
                     img.setPicBuildingId(buildingId);
                 }

@@ -141,6 +141,7 @@ public class CompanyImportAssist {
                     updateList.add(me);
                     cDo.setNeo(false);
                     cDo.setCompanyId(locCp.getCompanyId());
+                    cDo.setAnalysisResult( locCp.getRiskLevel() ); //供东均使用
                     cDo.setOldCompanyType( locCp.getCompanyType() );
                 }
             }

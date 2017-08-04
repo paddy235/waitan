@@ -138,6 +138,8 @@ public class CommercialFactoringHandler extends AbstractImportHandler<Commercial
                 }
                 if (null == locCDo) {
                     isFalse = false;
+                    addError("企业名称异常");
+                    return;
                 }
                 cf.setCompanyId(locCDo.getCompanyId());
             }

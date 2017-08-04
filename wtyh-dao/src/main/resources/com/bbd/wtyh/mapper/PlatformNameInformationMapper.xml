@@ -62,4 +62,22 @@
 		values
 			(#{companyId},#{platformName},'system',CURDATE(),'system',CURDATE())
 	</insert>
+
+	<delete id="deleteRepeatPlat">
+		DELETE FROM platform_name_information
+			WHERE id IN (
+				SELECT
+					a.id
+				FROM(
+						SELECT
+							min(id) id
+						FROM
+							platform_name_information
+						GROUP BY
+							platform_name
+						HAVING
+							count(platform_name) > 1
+					) a
+			)
+	</delete>
 </mapper>
