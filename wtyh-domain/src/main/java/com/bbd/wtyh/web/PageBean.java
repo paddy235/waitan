@@ -41,7 +41,7 @@ public class PageBean<T> {
     }
 
     public Integer getOffset() {
-        return (this.offset = (getCurrentPage() - 1) * DEFAULT_PAGE_SIZE);
+        return (this.offset = (getCurrentPage() - 1) * getPageSize());
     }
 
     public void setOffset(Integer offset) {
