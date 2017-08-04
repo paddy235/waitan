@@ -93,8 +93,6 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
         taskResultDO.setPlanCount(companyList.size());
 
 		try {
-            // 先清空失败临时表
-            companyCreditMapper.truncateCreditFailInfo();
 
             // 本地模型加分项目
             final Map<String, Integer> pointMap = this.getCompanyCreditPointItems();
@@ -268,6 +266,14 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 
         taskResultDO.setSuccessCount(succCount);
         taskResultDO.setFailCount(failCount);
+
+		if(null==taskResultDO.getState()){
+			int fail999Count=companyCreditMapper.countCreditFailInfoBy999(taskId);
+			//计划笔数=成功+失败笔数 且 没有999错误，才定义为成功
+			if((failCount+succCount)==taskResultDO.getPlanCount() && 0==fail999Count){
+				taskResultDO.setState(TaskState.SUCCESS);
+			}
+		}
 
 	}
 	/**
