@@ -1,13 +1,15 @@
 package com.bbd.wtyh.domain;
 
 import javax.persistence.Column;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Table(name = "prepaid_company_statistic")
 /**
  * 预付卡统计信息
  */
+@Table(name = "prepaid_company_statistic")
 public class PrepaidCompanyStatisticDO extends BaseDO {
+    @Id
     @Column(name = "year")
     private Integer year;
 
