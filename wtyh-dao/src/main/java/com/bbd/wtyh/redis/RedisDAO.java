@@ -62,4 +62,6 @@ public interface RedisDAO {
 	public Long addSet(final String key, final String value, final Long timeout);
 
 	public Set<byte[]> getSet(final String key);
+
+	void flushAll();
 }
