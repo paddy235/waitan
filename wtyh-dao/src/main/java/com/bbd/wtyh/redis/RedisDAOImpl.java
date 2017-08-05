@@ -430,4 +430,9 @@ public class RedisDAOImpl implements RedisDAO {
 		return value;
 	}
 
+	@Override
+	public void flushAll() {
+		redisTemplate.getConnectionFactory().getConnection().flushAll();
+	}
+
 }

@@ -1,5 +1,6 @@
 package com.bbd.wtyh.mapper;
 
+import com.bbd.wtyh.domain.CompanyInfoModify.RecordInfo;
 import com.bbd.wtyh.domain.IndexDataDO;
 import com.bbd.wtyh.domain.RecruitDataDO;
 import org.apache.ibatis.annotations.Param;
@@ -19,4 +20,6 @@ public interface IndexDataMapper {
     public void update(IndexDataDO indexDataDO);
 
     List<IndexDataDO> findByPage(Map<String, Object> params);
+
+    void deleteByCompanyName(@Param("recordInfo")RecordInfo recordInfo);
 }

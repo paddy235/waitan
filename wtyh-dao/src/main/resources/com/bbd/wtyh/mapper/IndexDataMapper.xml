@@ -68,4 +68,8 @@
     where company_name = #{companyName,jdbcType=VARCHAR}
     and area = #{area,jdbcType=VARCHAR};
   </update>
+
+  <delete id="deleteByCompanyName">
+    delete from index_data where company_name = #{recordInfo.name}
+  </delete>
 </mapper>

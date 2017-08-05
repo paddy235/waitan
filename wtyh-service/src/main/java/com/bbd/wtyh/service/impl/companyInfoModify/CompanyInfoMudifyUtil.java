@@ -4,6 +4,7 @@ import com.bbd.wtyh.domain.CompanyInfoModify.CompanyInfo;
 import com.bbd.wtyh.domain.CompanyInfoModify.RecordInfo;
 import com.bbd.wtyh.domain.CompanyInfoModify.WangdaiModify;
 import com.bbd.wtyh.mapper.CompanyInfoModifyMapper;
+import com.bbd.wtyh.mapper.IndexDataMapper;
 import com.bbd.wtyh.service.*;
 import com.bbd.wtyh.web.companyInfoModify.ModifyData;
 import org.slf4j.Logger;
@@ -33,6 +34,8 @@ public class CompanyInfoMudifyUtil {
 
     @Autowired
     private RiskCompanyService riskCompanyService;  // 线下理财、交易场所
+    @Autowired
+    private IndexDataMapper indexDataMapper;
 
     @Autowired
     private HologramQueryService hologramQueryService;
@@ -95,19 +98,24 @@ public class CompanyInfoMudifyUtil {
     /**
      * 修改行业
      *
-     * @param name
-     * @param industry
      * @throws Exception
      */
-    public void modifyIndustry(String name, String industry) throws Exception {
+    private void modifyIndustry(RecordInfo recordInfo) {
         // 修改行业
-        if (StringUtils.isEmpty(industry)) {
+        if (StringUtils.isEmpty(recordInfo.getAfterIndustry())
+                || recordInfo.getBeforeIndustry() == recordInfo.getAfterIndustry()) {
             return;
         }
         // 记录企业状态变化-放在修改之前，因为要记录修改前的类型
-        companyStatusChangeService.companyStatusChange(false, name, Byte.valueOf(industry));
+        companyStatusChangeService.companyStatusChange(false, recordInfo.getName(), Byte.valueOf(recordInfo.getAfterIndustry()));
         // 修改company的行业类型
-        riskCompanyService.modifyIndustry(name, industry);
+        riskCompanyService.modifyIndustry(recordInfo.getName(), String.valueOf(recordInfo.getAfterIndustry()));
+
+        // 线下理财
+        if (CompanyInfo.TYPE_XXLC_4 == recordInfo.getBeforeIndustry()) {
+            // delete index_data
+            indexDataMapper.deleteByCompanyName(recordInfo);
+        }
     }
 
     /**
@@ -126,7 +134,15 @@ public class CompanyInfoMudifyUtil {
         // 记录行为
         p2PImageService.recordWangdai(wangdaiModify);
         // 修改行业
-        modifyIndustry(modifyData.getName(), modifyData.getIndustry());
+        RecordInfo recordInfo = new RecordInfo();
+        recordInfo.setName(modifyData.getName());
+        recordInfo.setPlatName(wangdai.getPlatName());
+        recordInfo.setBeforeLevel(wangdai.getCurrentLevel());
+        recordInfo.setAfterLevel(modifyData.getLevel());
+        recordInfo.setBeforeIndustry(CompanyInfo.TYPE_P2P_1);
+        recordInfo.setAfterIndustry(Byte.valueOf(modifyData.getIndustry()));
+        modifyIndustry(recordInfo);
+
     }
 
     /**
@@ -148,11 +164,11 @@ public class CompanyInfoMudifyUtil {
                 || CompanyInfo.TYPE_YFK_11 == recordInfo.getAfterIndustry() // 预付卡
                 ) {
             riskCompanyService.modifyOffLineLevel(recordInfo);
-        } else if(CompanyInfo.TYPE_RZZL_13 == recordInfo.getAfterIndustry()) { // 融资租赁
+        } else if (CompanyInfo.TYPE_RZZL_13 == recordInfo.getAfterIndustry()) { // 融资租赁
             financeLeaseService.addFinanceLease(recordInfo);
         }
         // 修改行业
-        modifyIndustry(modifyData.getName(), modifyData.getIndustry());
+        modifyIndustry(recordInfo);
     }
 
     /**
@@ -175,15 +191,16 @@ public class CompanyInfoMudifyUtil {
                 || CompanyInfo.TYPE_YFK_11 == recordInfo.getAfterIndustry() // 预付卡
                 ) {
             riskCompanyService.modifyOffLineLevel(recordInfo);
-        } else if(CompanyInfo.TYPE_RZZL_13 == recordInfo.getAfterIndustry()) { // 融资租赁
+        } else if (CompanyInfo.TYPE_RZZL_13 == recordInfo.getAfterIndustry()) { // 融资租赁
             financeLeaseService.addFinanceLease(recordInfo);
         }
         // 修改行业
-        modifyIndustry(modifyData.getName(), modifyData.getIndustry());
+        modifyIndustry(recordInfo);
     }
 
     /**
      * 融资租赁
+     *
      * @param modifyData
      */
     public void modifyFinanceLease(ModifyData modifyData) throws Exception {
@@ -200,15 +217,16 @@ public class CompanyInfoMudifyUtil {
                 || CompanyInfo.TYPE_YFK_11 == recordInfo.getAfterIndustry() // 预付卡
                 ) {
             riskCompanyService.modifyOffLineLevel(recordInfo);
-        } else if(CompanyInfo.TYPE_RZZL_13 == recordInfo.getAfterIndustry()) { // 融资租赁
+        } else if (CompanyInfo.TYPE_RZZL_13 == recordInfo.getAfterIndustry()) { // 融资租赁
             financeLeaseService.modifyFinanceLease(recordInfo);
         }
         // 修改行业
-        modifyIndustry(modifyData.getName(), modifyData.getIndustry());
+        modifyIndustry(recordInfo);
     }
 
     /**
      * 私募基金
+     *
      * @param modifyData
      * @throws Exception
      */
@@ -216,39 +234,42 @@ public class CompanyInfoMudifyUtil {
         CompanyInfo companyInfo = companyInfoModifyMapper.queryCompany(modifyData.getName());
         RecordInfo recordInfo = recordModify(modifyData, companyInfo);
         // 修改行业
-        modifyIndustry(modifyData.getName(), modifyData.getIndustry());
+        modifyIndustry(recordInfo);
     }
 
     /**
      * 众筹
+     *
      * @param modifyData
      */
     public void modifyCrowdfunding(ModifyData modifyData) throws Exception {
         CompanyInfo companyInfo = companyInfoModifyMapper.queryCompany(modifyData.getName());
         RecordInfo recordInfo = recordModify(modifyData, companyInfo);
         // 修改行业
-        modifyIndustry(modifyData.getName(), modifyData.getIndustry());
+        modifyIndustry(recordInfo);
     }
 
     /**
      * 典当
+     *
      * @param modifyData
      */
     public void modifyPawn(ModifyData modifyData) throws Exception {
         CompanyInfo companyInfo = companyInfoModifyMapper.queryCompany(modifyData.getName());
         RecordInfo recordInfo = recordModify(modifyData, companyInfo);
         // 修改行业
-        modifyIndustry(modifyData.getName(), modifyData.getIndustry());
+        modifyIndustry(recordInfo);
     }
 
     /**
      * 商业保理
+     *
      * @param modifyData
      */
     public void modifyBusinessInsurance(ModifyData modifyData) throws Exception {
         CompanyInfo companyInfo = companyInfoModifyMapper.queryCompany(modifyData.getName());
         RecordInfo recordInfo = recordModify(modifyData, companyInfo);
         // 修改行业
-        modifyIndustry(modifyData.getName(), modifyData.getIndustry());
+        modifyIndustry(recordInfo);
     }
 }

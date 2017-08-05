@@ -2,6 +2,7 @@ package com.bbd.wtyh.service.impl;
 
 import com.bbd.wtyh.domain.CompanyInfoModify.CompanyInfo;
 import com.bbd.wtyh.mapper.CompanyInfoModifyMapper;
+import com.bbd.wtyh.redis.RedisDAO;
 import com.bbd.wtyh.service.CompanyInfoModifyService;
 import com.bbd.wtyh.service.impl.companyInfoModify.CompanyInfoMudifyUtil;
 import com.bbd.wtyh.service.impl.companyInfoModify.CompanyInfoQueryUtil;
@@ -25,6 +26,9 @@ public class CompanyInfoModifyServiceImpl implements CompanyInfoModifyService {
 
     @Autowired
     private CompanyInfoMudifyUtil companyInfoMudifyUtil;
+
+    @Autowired
+    private RedisDAO redisDAO;
 
     @Override
     public List<String> autoComplete(String q) {
@@ -93,6 +97,7 @@ public class CompanyInfoModifyServiceImpl implements CompanyInfoModifyService {
         } else if (CompanyInfo.TYPE_SYBL_10 == companyInfoModifyMapper.queryCompany(modifyData.getName()).getIndustry()) { // 商业保理
             companyInfoMudifyUtil.modifyBusinessInsurance(modifyData);
         }
+        redisDAO.flushAll();
     }
 
     @Override
