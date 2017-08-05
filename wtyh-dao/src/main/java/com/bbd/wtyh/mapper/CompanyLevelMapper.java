@@ -3,6 +3,7 @@ package com.bbd.wtyh.mapper;
 import com.bbd.wtyh.core.entity.Pagination;
 import com.bbd.wtyh.domain.CompanyInfoModify.CompanyInfo;
 import com.bbd.wtyh.domain.CompanyInfoModify.LoanModify;
+import com.bbd.wtyh.domain.CompanyInfoModify.RecordInfo;
 import com.bbd.wtyh.domain.CompanyLevelDO;
 import com.bbd.wtyh.domain.EasyExport.LoanData;
 import com.bbd.wtyh.web.EasyExportExcel.ExportCondition;
@@ -23,7 +24,9 @@ public interface CompanyLevelMapper {
 
     void recordLoad(LoanModify loanModify);
 
-    void modifyLoad(LoanModify loanModify);
+    void modifyLoadLevel(RecordInfo recordInfo);
 
     Long countLoan(@Param(value = "exportCondition")ExportCondition exportCondition);
+
+    void addLoadLevel(@Param(value = "recordInfo")RecordInfo recordInfo);
 }

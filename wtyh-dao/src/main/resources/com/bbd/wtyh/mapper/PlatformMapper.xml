@@ -18,7 +18,4 @@
         VALUES
           (#{name}, #{platName}, #{beforeLevel},#{afterLevel}, #{beforeIndustry}, #{afterIndustry})
     </insert>
-
-
-
 </mapper>
