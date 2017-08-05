@@ -5,13 +5,15 @@
     <select id="autoComplete" resultType="string">
 			SELECT `name`
 			FROM company
-			WHERE `name` LIKE concat("%", #{q},"%") AND company_type IN (1, 2, 3, 4, 9, 11, 13)
+			WHERE `name` LIKE concat("%", #{q},"%") AND company_type IN (1, 2, 3, 4, 9, 11, 13, 6, 7, 10, 12)
 			LIMIT 0, 5
 	</select>
 
     <select id="queryCompany" resultType="com.bbd.wtyh.domain.CompanyInfoModify.CompanyInfo">
         SELECT
+            company_id AS companyId,
             `name` AS `name`,
+            risk_level AS currentLevel,
             legal_person AS legalPerson,
             registered_capital AS registeredCapital,
             company_type AS industry
@@ -19,7 +21,7 @@
             company
         WHERE
             `name` = #{name}
-            AND company_type IN (1, 2, 3, 4, 9, 11, 13)
+            AND company_type IN (1, 2, 3, 4, 9, 11, 13, 6, 7, 10, 12)
     </select>
 
     <select id="queryModifyCompany" resultType="string">
@@ -30,4 +32,19 @@
         WHERE
           `name` = #{name}
     </select>
+
+    <insert id="recordModify">
+        INSERT INTO
+            `company_modify` (`name`, `platName`,
+            `beforeLevel`, `afterLevel`,
+            `beforeOutLevel`, `beforeInnnerLevel`, `beforeLiveLevel`,
+            `afterOutLevel`, `afterInnnerLevel`, `afterLiveLevel`,
+            `beforeIndustry`, `afterIndustry`)
+        VALUES
+            (#{recordInfo.name}, #{recordInfo.platName},
+            #{recordInfo.beforeLevel}, #{recordInfo.afterLevel},
+            #{recordInfo.beforeOutLevel}, #{recordInfo.beforeInnnerLevel}, #{recordInfo.beforeLiveLevel},
+            #{recordInfo.afterOutLevel}, #{recordInfo.afterInnnerLevel},  #{recordInfo.afterLiveLevel},
+            #{recordInfo.beforeIndustry}, #{recordInfo.afterIndustry})
+    </insert>
 </mapper>

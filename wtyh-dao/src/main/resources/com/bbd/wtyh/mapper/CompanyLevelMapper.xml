@@ -88,8 +88,14 @@
             <if test="exportCondition.industry!=null">
                 and company.company_type = #{exportCondition.industry}
             </if>
-            <if test="exportCondition.currentLevel!=null">
-                and company.risk_level = #{exportCondition.currentLevel}
+            <if test="exportCondition.outLevel!=null">
+                and company_level.out_level = #{exportCondition.outLevel}
+            </if>
+            <if test="exportCondition.innnerLevel!=null">
+                and company_level.inner_level = #{exportCondition.innnerLevel}
+            </if>
+            <if test="exportCondition.liveLevel!=null">
+                and company_level.live_level = #{exportCondition.liveLevel}
             </if>
             <if test="exportCondition.registeredCapitalMin!=null">
                 and company.registered_capital >= #{exportCondition.registeredCapitalMin}
@@ -168,7 +174,7 @@
           #{beforeIndustry})
     </insert>
 
-    <update id="modifyLoad" >
+    <update id="modifyLoadLevel" >
         update company_level,company
         <set>
             company_level.out_level = #{afterOutLevel},
@@ -179,4 +185,13 @@
           company_level.company_id = company.company_id
           AND company.`name` = #{name}
     </update>
+
+    <insert id="addLoadLevel">
+        INSERT INTO
+            `company_level` (`company_id`,
+            `out_level`, `inner_level`, `live_level`)
+        VALUES
+            (#{recordInfo.companyId},
+            #{recordInfo.afterOutLevel}, #{recordInfo.afterInnnerLevel}, #{recordInfo.afterLiveLevel})
+    </insert>
 </mapper>

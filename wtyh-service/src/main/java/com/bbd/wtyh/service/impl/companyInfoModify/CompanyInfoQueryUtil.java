@@ -137,4 +137,48 @@ public class CompanyInfoQueryUtil {
         companyInfo.setIndustry(CompanyInfo.TYPE_RZZL_13);
         return companyInfo;
     }
+
+    /**
+     * 私募基金
+     * @param name
+     * @return
+     */
+    public CompanyInfo getPrivateFund(String name) {
+        CompanyInfo companyInfo = riskCompanyService.getOffLineFinanceByCompanyName(name);
+        companyInfo.setIndustry(CompanyInfo.TYPE_ZC_6);
+        return companyInfo;
+    }
+
+    /**
+     * 众筹
+     * @param name
+     * @return
+     */
+    public CompanyInfo getCrowdingFund(String name) {
+        CompanyInfo companyInfo = riskCompanyService.getOffLineFinanceByCompanyName(name);
+        companyInfo.setIndustry(CompanyInfo.TYPE_JR_7);
+        return companyInfo;
+    }
+
+    /**
+     * 典当
+     * @param name
+     * @return
+     */
+    public CompanyInfo getPawn(String name) {
+        CompanyInfo companyInfo = riskCompanyService.getOffLineFinanceByCompanyName(name);
+        companyInfo.setIndustry(CompanyInfo.TYPE_DD_12);
+        return companyInfo;
+    }
+
+    /**
+     * 商业保理
+     * @param name
+     * @return
+     */
+    public CompanyInfo getBusinessInsurance(String name) {
+        CompanyInfo companyInfo = riskCompanyService.getOffLineFinanceByCompanyName(name);
+        companyInfo.setIndustry(CompanyInfo.TYPE_SYBL_10);
+        return companyInfo;
+    }
 }
