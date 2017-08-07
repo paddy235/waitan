@@ -432,7 +432,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
             default:
                 taskFailInfoDO.setFailReason("接口调用失败");
         }
-        taskFailInfoDO.setCreateBy("sys");
+        taskFailInfoDO.setCreateBy("system");
         taskFailInfoDO.setCreateDate(new Date());
         taskFailInfoMapper.addTaskFailInfo(taskFailInfoDO);
     }
@@ -470,7 +470,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
             industryShanghaiDO.setAmount(dto.getAmount());
             industryShanghaiDO.setAreaNum(String.valueOf(dto.getArea_num()).replace("=", ":"));
             industryShanghaiDO.setDate(dto.getDate());
-            industryShanghaiDO.setCreateBy("sys");
+            industryShanghaiDO.setCreateBy("system");
             industryShanghaiDO.setCreateDate(new Date());
 //            industryShanghaiMapper.deleteByDate(dto.getDate());
             try {
@@ -491,7 +491,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
             industryCompareDO.setArea(dto.getArea());
             industryCompareDO.setAmount(dto.getAmount());
             industryCompareDO.setBalanceLoans(dto.getBalance_loans());
-            industryCompareDO.setCreateBy("sys");
+            industryCompareDO.setCreateBy("system");
             industryCompareDO.setCreateDate(new Date());
 //            industryCompareMapper.deleteByDateArea(dto.getDate(), dto.getArea());
             try {
@@ -524,7 +524,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
             platRankDataDO.setRank(dto.getRank());
             platRankDataDO.setRegisteredAddress(dto.getRegistered_address());
             platRankDataDO.setStayStillOfTotal(dto.getStay_still_of_total());
-            platRankDataDO.setCreateBy("sys");
+            platRankDataDO.setCreateBy("system");
             platRankDataDO.setCreateDate(new Date());
 //            platRankDataMapper.deleteByPlatName(dto.getPlat_name());
             try {
@@ -549,7 +549,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
             areaIndexDO.setSafety(dto.getSafety());
             areaIndexDO.setRecognition(dto.getRecognition());
             areaIndexDO.setCompetitiveness(dto.getCompetitiveness());
-            areaIndexDO.setCreateBy("sys");
+            areaIndexDO.setCreateBy("system");
             areaIndexDO.setCreateDate(new Date());
 //            areaIndexMapper.deleteByArea(dto.getArea());
             try {
@@ -573,7 +573,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
                 industryProblemDO.setDate(dto.getDate());
                 industryProblemDO.setArea(dto.getArea());
                 industryProblemDO.setProblemPlatNumber(dto.getProblem_plat_number());
-                industryProblemDO.setCreateBy("sys");
+                industryProblemDO.setCreateBy("system");
                 industryProblemDO.setCreateDate(new Date());
 
                 try {

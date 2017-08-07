@@ -12,6 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.util.Map;
 
 /**
+ * p2p监测数据落地
  * Created by lixudong on 2017/7/11.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -24,14 +25,20 @@ public class PToPMonitorServiceTest {
     @Autowired
     private OfflineFinanceService offlineFinanceService;
 
+    /**
+     * 执行p2p检测数据落地
+     */
     @Test
-    public void industryShanghaiDataLanding() {
+    public void monitorDataLanding() {
 
         Integer taskId = 11;
         TaskResultDO taskResultDO = monitorService.pToPMonitorDataLandTask(taskId);
         System.out.print(taskResultDO);
     }
 
+    /**
+     * 重新执行失败的定时任务
+     */
     @Test
     public void reExecuteTest() {
         Integer taskId = 12;
@@ -40,6 +47,9 @@ public class PToPMonitorServiceTest {
         System.out.print(taskResultDO);
     }
 
+    /**
+     * 根据线下理财数据更新风险等级
+     */
     @Test
     public void updateCompanyRiskLevelTest(){
         Integer taskId = 50;
@@ -52,6 +62,9 @@ public class PToPMonitorServiceTest {
         System.out.print(taskResultDO);
     }
 
+    /**
+     * 重新执行失败的定时任务
+     */
     @Test
     public void reExecuteCompanyRiskLevel(){
         Integer taskId = 51;

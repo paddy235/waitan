@@ -10,6 +10,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
+ * 众筹数据落地
  * Created by lixudong on 2017/7/19.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -19,15 +20,18 @@ public class CrowdFundingCompanyTest {
     private CrowdFundingService crowdFundingService;
 
 
-    @Autowired
-    private OfflineFinanceService offlineFinanceService;
-
+    /**
+     * 众筹执行数据落地任务
+     */
     @Test
     public void dataLandTask(){
         Integer taskId = 21;
         crowdFundingService.crowdFundingDataLandTask(taskId);
     }
 
+    /**
+     * 执行众筹失败的数据落地任务
+     */
     @Test
     public void reExecuteTest(){
         Integer taskId = 22;
@@ -36,17 +40,5 @@ public class CrowdFundingCompanyTest {
         System.out.print(taskResultDO);
     }
 
-
-    @Test
-    public void offlineFinanceServiceTest(){
-        Integer taskId = 66;
-        TaskResultDO taskResultDO = null;
-        try {
-            taskResultDO = offlineFinanceService.updateCompanyRiskLevel(taskId);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        System.out.print(taskResultDO);
-    }
 
 }
