@@ -21,9 +21,9 @@
 
     <select id="topProductNumber" resultMap="BaseResultMap">
         select
-        <include refid="Base_Column_List"/>
-        from product_amount
-        order by product_number desc limit 0,#{numbers};
+        pa.company_id, pa.product_number, pa.create_by, pa.create_date, pa.update_by, pa.update_date
+        from product_amount pa, company c where pa.company_id=c.company_id and c.company_type=5
+        order by pa.product_number desc limit 0,#{numbers};
 
     </select>
 </mapper>

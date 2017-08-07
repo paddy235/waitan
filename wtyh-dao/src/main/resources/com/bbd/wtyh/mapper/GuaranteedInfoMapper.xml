@@ -28,7 +28,7 @@
 
     <select id="listLargeGuarantee" resultMap="BaseResultMap">
         select guarantee_id,guaranteed_id from guaranteed_info,company e,company d
-        where guaranteed_info.guarantee_id=e.company_id and guaranteed_info.guaranteed_id=d.company_id
+        where guaranteed_info.guarantee_id=e.company_id and guaranteed_info.guaranteed_id=d.company_id and e.company_type=3
         <if test="orderByField != null">
             order by
             <choose>
