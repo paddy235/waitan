@@ -194,4 +194,8 @@
             (#{recordInfo.companyId},
             #{recordInfo.afterOutLevel}, #{recordInfo.afterInnnerLevel}, #{recordInfo.afterLiveLevel})
     </insert>
+
+    <delete id="deleteLoadLevel">
+        DELETE FROM company_level WHERE company_id=#{recordInfo.companyId}
+    </delete>
 </mapper>

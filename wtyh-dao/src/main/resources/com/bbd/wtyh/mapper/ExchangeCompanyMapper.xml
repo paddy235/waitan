@@ -157,4 +157,7 @@
 			</if>
 	</select>
 
+	<delete id="deleteByCompanyId">
+		DELETE FROM exchange_company WHERE company_id=#{recordInfo.companyId}
+	</delete>
 </mapper>
