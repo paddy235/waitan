@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.domain.*;
 import com.bbd.wtyh.domain.enums.CompanyLevel;
 import com.bbd.wtyh.excel.imp.handler.AbstractImportHandler;
@@ -40,12 +41,20 @@ public class CompanyLevelHandler extends AbstractImportHandler<CompanyLevelDO> {
 
 	private CompanyDO companyDO;
 
+	private String loginName = "";
+
 	@Override
 	public void start(HttpServletRequest request) throws Exception {
 		log.info("开始导入企业评级");
 		insertList = new ArrayList<>();
 		updateList = new ArrayList<>();
 		riskChgCoList = new ArrayList<>();
+
+		String tmpName = (String) request.getSession().getAttribute(Constants.SESSION.loginName);
+		if (null != tmpName) {
+			loginName = tmpName;
+		}
+
 	}
 
 	@Override
@@ -118,7 +127,7 @@ public class CompanyLevelHandler extends AbstractImportHandler<CompanyLevelDO> {
 	public void endRow(Map<String, String> row, CompanyLevelDO bean) throws Exception {
 		CompanyLevelDO levelDO = this.companyService.selectById(CompanyLevelDO.class, bean.getCompanyId());
 		if (levelDO == null) {
-			bean.setCreateBy("导入公司评级");
+			bean.setCreateBy(loginName);
 			bean.setCreateDate(new Date());
 			insertList.add(bean);
 			addRiskChgCo(levelDO, bean);
@@ -149,7 +158,7 @@ public class CompanyLevelHandler extends AbstractImportHandler<CompanyLevelDO> {
 		}
 
 		if (haveChange) {
-			bean.setUpdateBy("导入公司评级");
+			bean.setUpdateBy(loginName);
 			bean.setUpdateDate(new Date());
 			updateList.add(bean);
 			addRiskChgCo(levelDO, bean);
@@ -193,7 +202,7 @@ public class CompanyLevelHandler extends AbstractImportHandler<CompanyLevelDO> {
 			riskChgCoDo.setBuildingName(buildingDO.getName());
 		}
 		riskChgCoDo.setChangeDate(new Date());
-		riskChgCoDo.setCreateBy("导入公司评级");
+		riskChgCoDo.setCreateBy(loginName);
 		riskChgCoDo.setCreateDate(new Date());
 		riskChgCoDo.setUpdateBy(null);
 		riskChgCoDo.setUpdateDate(null);

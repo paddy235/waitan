@@ -21,7 +21,7 @@ public class CrowdfundData {
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     @Excel(exportName = "注册时间")
     private Date registeredDate;
-    @Excel(exportName = "注册资本")
+    @Excel(exportName = "注册资本（万元）")
     private String registeredCapital;
     @Excel(exportName = "注册地址")
     private String address = "";

@@ -1,5 +1,6 @@
 package com.bbd.bgo.service.imp.handler.xiaodai;
 
+import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.LargeLoanDO;
 import com.bbd.wtyh.excel.imp.handler.AbstractImportHandler;
@@ -32,10 +33,17 @@ public class LargeBorrowerHandler extends AbstractImportHandler<LargeLoanDO> {
 
 	private List<LargeLoanDO> insertList = null;
 
+	private String loginName = "";
+
 	@Override
 	public void start(HttpServletRequest request) throws Exception {
 		log.info("导入小贷-大额借款人开始");
 		insertList = new ArrayList<>();
+
+		String tmpName = (String) request.getSession().getAttribute(Constants.SESSION.loginName);
+		if (tmpName != null) {
+			loginName = tmpName;
+		}
 	}
 
 	@Override
@@ -86,7 +94,7 @@ public class LargeBorrowerHandler extends AbstractImportHandler<LargeLoanDO> {
 
 	@Override
 	public void endRow(Map<String, String> row, LargeLoanDO bean) throws Exception {
-		bean.setCreateBy("小贷-大额借款人导入");
+		bean.setCreateBy(loginName);
 		bean.setCreateDate(new Date());
 		insertList.add(bean);
 	}
