@@ -99,7 +99,9 @@ public class PriFundCapitalAmountHandler extends AbstractImportHandler<CapitalAm
         }
         bean.setTypeId(pft.getTypeId().intValue());
         updateList.add(bean);
-        bean.setManagedCapitalAmount( bean.getManagedCapitalAmount() *10000F );
+        if ( null !=bean.getManagedCapitalAmount() ) {
+            bean.setManagedCapitalAmount(bean.getManagedCapitalAmount() * 10000F);
+        }
         bean.setUpdateBy(loginName);
         bean.setUpdateDate(new Date());
     }
