@@ -133,8 +133,8 @@ public class CompanyInfoMudifyUtil {
         }
 
         // 小额贷款、融资担保
-        if (CompanyInfo.TYPE_XD_2 == recordInfo.getBeforeIndustry()
-                || CompanyInfo.TYPE_RZDB_3 == recordInfo.getBeforeIndustry()) {
+        if ((CompanyInfo.TYPE_XD_2 == recordInfo.getBeforeIndustry() || CompanyInfo.TYPE_RZDB_3 == recordInfo.getBeforeIndustry())
+                && !(CompanyInfo.TYPE_XD_2 == recordInfo.getAfterIndustry() || CompanyInfo.TYPE_RZDB_3 == recordInfo.getAfterIndustry())) {
             // delete index_data
             companyLevelService.deleteByCompanyId(recordInfo);
         }
