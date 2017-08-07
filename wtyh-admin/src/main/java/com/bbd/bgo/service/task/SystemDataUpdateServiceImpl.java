@@ -1,21 +1,17 @@
 package com.bbd.bgo.service.task;
 
-import com.bbd.wtyh.cachetobean.ShanghaiAreaCode;
+
 import com.bbd.wtyh.common.Pagination;
-import com.bbd.wtyh.domain.CompanyBackgroundDO;
-import com.bbd.wtyh.domain.CompanyDO;
-import com.bbd.wtyh.domain.TaskFailInfoDO;
-import com.bbd.wtyh.domain.TaskResultDO;
+import com.bbd.wtyh.domain.*;
 import com.bbd.wtyh.mapper.CompanyBackgroundMapper;
 import com.bbd.wtyh.mapper.CompanyMapper;
 import com.bbd.wtyh.mapper.TaskFailInfoMapper;
+import com.bbd.wtyh.service.AreaService;
 import com.bbd.wtyh.service.HologramQueryService;
-import com.bbd.wtyh.service.PToPMonitorService;
 import com.bbd.wtyh.service.impl.OfflineFinanceServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -24,7 +20,6 @@ import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
-import java.util.regex.Pattern;
 
 /**
  * Created by cgj on 2017/4/20.
@@ -39,7 +34,7 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService {
     private Logger logger = LoggerFactory.getLogger(OfflineFinanceServiceImpl.class);
 
     @Autowired
-    private PToPMonitorService pToPMonitorService;
+    private AreaService areaService;
 
     @Autowired
     private CompanyMapper companyMapper;
@@ -53,7 +48,6 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService {
     @Autowired
     private TaskFailInfoMapper taskFailInfoMapper;
 
-    /*@Scheduled(cron = "0 0 20 2 * ?")*/
     @Override
     public TaskResultDO updateCompanyAndBackgroundAutomaticOperate(Integer taskId) {
         this.taskId=taskId;
@@ -211,12 +205,15 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService {
                     return;
                 }
                 String company_county = (String) (itr.get("company_county"));
+                String company_province = (String) (itr.get("company_province"));
                 companyName =(String ) (itr.get("company_name"));
-                areaId = ShanghaiAreaCode.getCodeToAreaMap().get(Integer.valueOf(company_county));
-                if (null == areaId) { //区代不匹配，则不修改这一条记录
+                AreaDO areaDO = areaService.selectByCountyCodeOrProvinceName( company_county,company_province);
+                if (null == areaDO) { //区代不匹配，则不修改这一条记录
                     insertFailInfo(null,companyName,"区代匹配错误");
                     continue;
                 }
+                areaId=areaDO.getAreaId();
+
                 Object addressObj=itr.get("address");
                 if(null!=addressObj){
                     address = (String)addressObj;
