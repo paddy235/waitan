@@ -13,7 +13,7 @@
             <column name="政策类（万元）	" code="policyBalance" dataType="number"/>
             <column name="综合类	（万元）" code="compositeBalance" dataType="number"/>
             <column name="钢贸类（万元）	" code="steelBalance" dataType="number"/>
-            <column name="担保笔数" code="number" dataType="number"/>
+            <column name="担保笔数" code="number" dataType="number" regex="[1-9][0-9]*"/>
             <column name="担保责任余额（万元）" code="guaranteeBalance" dataType="number"/>
         </columns>
 
