@@ -174,10 +174,11 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService {
             }
         }
         companyNameSerial.deleteCharAt(companyNameSerial.length() - 1); //去掉最后一个逗号
+        logger.info("update company name:"+companyNameSerial.toString());
         Map batchData = hologramQueryService.getBbdQyxxBatch(companyNameSerial.toString());
         // 接口处未查询到数据
         if (CollectionUtils.isEmpty(batchData)) {
-            insertFailInfo(failNameList,null,"接口查询错误");
+            insertFailInfo(failNameList,null,"接口数据为空");
             return;
         }
         String msg = (String) (batchData.get("msg"));
