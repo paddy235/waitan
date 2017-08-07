@@ -15,6 +15,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 /**
@@ -49,7 +50,7 @@ public class CompanyImportAssist {
     }
 
     public List< Map.Entry<CompanyDO, BaseDataDO.Results> > getResultList() {
-        List< Map.Entry<CompanyDO, BaseDataDO.Results> > rstList =getUpdateList();
+        List< Map.Entry<CompanyDO, BaseDataDO.Results> > rstList =new LinkedList<>( getUpdateList() );
         rstList.addAll( getInsertList() );
         return rstList;
     }
@@ -71,12 +72,14 @@ public class CompanyImportAssist {
      *                 同样的 CompanyDo.oldCompanyType存放的是从库中取回的CompanyDo.CompanyType供天王使用。
      */
     public void processCp( List<CompanyDO> tempList ) {
-
+        if (null ==tempList) {
+            return;
+        }
         //准备企业名称列表
         List<String> cNameLst =new LinkedList<>();
         for (CompanyDO cDo : tempList) {
             boolean noErr =true;
-            if( StringUtils.isBlank( cDo.getName() ) || cDo.getName().length() <3 || cDo.getName().length() >39) {
+            if( StringUtils.isBlank( cDo.getName() ) || cDo.getName().length() <3 || cDo.getName().length() >40) {
                 addError(cDo.getId(), "企业名称格式错误");
                 noErr =false;
             }
@@ -111,7 +114,7 @@ public class CompanyImportAssist {
                 if( StringUtils.isNotEmpty( cDo.getOrganizationCode() ) && StringUtils.isNotBlank( cInfo.getJbxx().getRegno() ) &&
                         ! cDo.getOrganizationCode().equals( cInfo.getJbxx().getRegno() ) ) {
                     bCrd =false;
-                }
+            }
                 cDo.setOrganizationCode(null);
                 if (bCrd && bRegNo) { //用数据平台数据验证成功
                     if ( null ==locCp ) { //数据库中无此企业
@@ -138,6 +141,7 @@ public class CompanyImportAssist {
                     updateList.add(me);
                     cDo.setNeo(false);
                     cDo.setCompanyId(locCp.getCompanyId());
+                    cDo.setAnalysisResult( locCp.getRiskLevel() ); //供东均使用
                     cDo.setOldCompanyType( locCp.getCompanyType() );
                 }
             }
@@ -183,8 +187,12 @@ public class CompanyImportAssist {
         if ( matcher.find() ) {
             regCap = matcher.group(); new Integer(regCap);
         }*/
-        Float regA =bddRst.getJbxx().getRegcap_amount()/10000F;
-        impCp.setRegisteredCapital( regA.intValue() );
+        //Float regA =bddRst.getJbxx().getRegcap_amount()/10000F;
+        if ( null !=bddRst.getJbxx().getRegcap_amount() ) {
+            BigDecimal regA = BigDecimal.valueOf(bddRst.getJbxx().getRegcap_amount());
+            regA =regA.divide( BigDecimal.valueOf(10000D), 0, BigDecimal.ROUND_HALF_UP );
+            impCp.setRegisteredCapital( regA.intValue() );
+        }
         impCp.setRegisteredCapitalType( bddRst.getJbxx().getRegcap_currency().equals("美元") ? 2:1 );
         Date regDate =null;
         try {
@@ -200,6 +208,18 @@ public class CompanyImportAssist {
         if ( StringUtils.isNotBlank( bddRst.getJbxx().getEnterprise_status() ) ) {
             impCp.setStatus( bddRst.getJbxx().getEnterprise_status().equals("注销") ? (byte)2 : (byte)1 );
         }
+    }
+
+    public static void main(String []argc) {
+        BigDecimal regA = BigDecimal.valueOf(107000);
+        regA =regA.divide( BigDecimal.valueOf(10000D), 0, BigDecimal.ROUND_HALF_UP );
+        int aa = regA.intValue();
+        regA = BigDecimal.valueOf(105000);
+        regA =regA.divide( BigDecimal.valueOf(10000D), 0, BigDecimal.ROUND_HALF_UP );
+        aa = regA.intValue();
+        regA = BigDecimal.valueOf(104000);
+        regA =regA.divide( BigDecimal.valueOf(10000D), 0, BigDecimal.ROUND_HALF_UP );
+        aa = regA.intValue();
     }
 
     public void save(String loginName) {

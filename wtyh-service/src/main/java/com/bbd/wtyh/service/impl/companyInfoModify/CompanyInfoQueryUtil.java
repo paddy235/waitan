@@ -2,6 +2,7 @@ package com.bbd.wtyh.service.impl.companyInfoModify;
 
 import com.bbd.wtyh.domain.CompanyInfoModify.CompanyInfo;
 import com.bbd.wtyh.domain.wangDaiAPI.PlatListDO;
+import com.bbd.wtyh.mapper.CompanyInfoModifyMapper;
 import com.bbd.wtyh.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -28,6 +29,9 @@ public class CompanyInfoQueryUtil {
     @Autowired
     private FinanceLeaseService financeLeaseService;    // 融资租赁
 
+    @Autowired
+    private CompanyInfoModifyMapper companyInfoModifyMapper;
+
 
     /**
      * 网络借贷
@@ -40,32 +44,21 @@ public class CompanyInfoQueryUtil {
         PlatListDO platListDO = p2PImageService.getWangdaiCompanyList(name);
         // 2. 获取“平台名”对应的评级信息
         Map<String, Object> platFormStatus = null;
-        Map<String, Object> baseInfo = null;
         if (platListDO != null) {
             platFormStatus = p2PImageService.platFormStatus(platListDO.getPlat_name());
-            baseInfo = p2PImageService.baseInfo(platListDO.getPlat_name());
         }
 
         // 3. 返回数据
-        CompanyInfo companyInfo = new CompanyInfo();
-        companyInfo.setName(name); // 公司名称
+        CompanyInfo companyInfo = companyInfoModifyMapper.queryCompany(name);
+        companyInfo.setIndustry(CompanyInfo.TYPE_P2P_1);    // 行业
         if (platFormStatus != null) {
             companyInfo.setPlatName(String.valueOf(platFormStatus.get("platname")));    // 平台名称
-            companyInfo.setIndustry(CompanyInfo.TYPE_P2P_1);    // 行业
             companyInfo.setCurrentLevel(String.valueOf(platFormStatus.get("score")));   // 转换后的 评分：A B C D
             companyInfo.setOriginalStatus(String.valueOf(platFormStatus.get("status")));
         } else {
             companyInfo.setPlatName("");    // 平台名称
             companyInfo.setCurrentLevel("");   // 转换后的 评分：A B C D
             companyInfo.setOriginalStatus("");  // 网贷之家API原始评分："优良";"一般关注";"重点关注";"问题及停业平台";
-        }
-
-        if (baseInfo != null && !baseInfo.isEmpty()) {
-            companyInfo.setLegalPerson(String.valueOf(baseInfo.get("legalPeople")));    // 法人
-            companyInfo.setRegisteredCapital(String.valueOf(baseInfo.get("capital")));  // 注册资本
-        } else {
-            companyInfo.setLegalPerson("");    // 法人
-            companyInfo.setRegisteredCapital("");  // 注册资本
         }
         return companyInfo;
     }
@@ -142,6 +135,50 @@ public class CompanyInfoQueryUtil {
             return null;
         }
         companyInfo.setIndustry(CompanyInfo.TYPE_RZZL_13);
+        return companyInfo;
+    }
+
+    /**
+     * 私募基金
+     * @param name
+     * @return
+     */
+    public CompanyInfo getPrivateFund(String name) {
+        CompanyInfo companyInfo = riskCompanyService.getOffLineFinanceByCompanyName(name);
+        companyInfo.setIndustry(CompanyInfo.TYPE_ZC_6);
+        return companyInfo;
+    }
+
+    /**
+     * 众筹
+     * @param name
+     * @return
+     */
+    public CompanyInfo getCrowdingFund(String name) {
+        CompanyInfo companyInfo = riskCompanyService.getOffLineFinanceByCompanyName(name);
+        companyInfo.setIndustry(CompanyInfo.TYPE_JR_7);
+        return companyInfo;
+    }
+
+    /**
+     * 典当
+     * @param name
+     * @return
+     */
+    public CompanyInfo getPawn(String name) {
+        CompanyInfo companyInfo = riskCompanyService.getOffLineFinanceByCompanyName(name);
+        companyInfo.setIndustry(CompanyInfo.TYPE_DD_12);
+        return companyInfo;
+    }
+
+    /**
+     * 商业保理
+     * @param name
+     * @return
+     */
+    public CompanyInfo getBusinessInsurance(String name) {
+        CompanyInfo companyInfo = riskCompanyService.getOffLineFinanceByCompanyName(name);
+        companyInfo.setIndustry(CompanyInfo.TYPE_SYBL_10);
         return companyInfo;
     }
 }

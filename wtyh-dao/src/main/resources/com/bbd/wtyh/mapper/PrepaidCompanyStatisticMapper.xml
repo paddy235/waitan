@@ -15,9 +15,10 @@
     year, prepaid_company_number, amount, register_capital, create_by, create_date, update_by, 
     update_date
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultType="com.bbd.wtyh.domain.PrepaidCompanyStatisticDO">
     select 
-    <include refid="Base_Column_List" />
+      year as year,
+      amount as amount
     from prepaid_company_statistic
     where year = #{year,jdbcType=INTEGER}
   </select>
@@ -52,18 +53,17 @@
 
     <select id="getPerpaycardByCompanyName" resultType="com.bbd.wtyh.domain.CompanyInfoModify.CompanyInfo">
         SELECT
-            car.analysis_result analysisResult AS currentLevel,
+            car.analysis_result AS currentLevel,
             c.`name` AS `name`,
-		    c.legal_person AS legalPerson,
-		    c.registered_capital AS registeredCapital,
-		    c.registered_capital_type AS registeredCapitalType,
+            c.legal_person AS legalPerson,
+            c.registered_capital AS registeredCapital,
+            c.registered_capital_type AS registeredCapitalType
         FROM
-          company c
-        LEFT JOIN company_analysis_result car on car.company_id=c.company_id
-        where
-          c.company_type=11
-          AND c.`name` = #{name}
-
+            company c
+        LEFT JOIN company_analysis_result car ON car.company_id = c.company_id
+        WHERE
+            c.company_type = 11
+        AND c.`name` = #{name}
     </select>
   
 

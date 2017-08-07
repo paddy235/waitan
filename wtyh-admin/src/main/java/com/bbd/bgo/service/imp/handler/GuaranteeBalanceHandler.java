@@ -1,5 +1,6 @@
 package com.bbd.bgo.service.imp.handler;
 
+import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.GuaranteeBalanceDO;
 import com.bbd.wtyh.domain.GuaranteedInfoDO;
@@ -40,8 +41,14 @@ public class GuaranteeBalanceHandler extends AbstractImportHandler<GuaranteeBala
 
 	private List<GuaranteeBalanceDO> updateList = null;
 
+	private String loginName = null;
+
 	@Override
 	public void start(HttpServletRequest request) throws Exception {
+		loginName = (String) request.getSession().getAttribute(Constants.SESSION.loginName);
+		if( null ==loginName ) {
+			loginName ="";
+		}
 		log.info("开始导入融资担保-担保责任余额信息列表");
 		insertList = new ArrayList<>();
 		updateList = new ArrayList<>();
@@ -59,15 +66,17 @@ public class GuaranteeBalanceHandler extends AbstractImportHandler<GuaranteeBala
 
 	@Override
 	public void endRow(Map<String, String> row, GuaranteeBalanceDO bean) throws Exception {
-		bean.setCreateBy("导入融资担保-担保责任余额");
-		bean.setCreateDate(new Date());
 		String sqlWhere= "year=" +bean.getYear() +" AND month="
 				+bean.getMonth()+" LIMIT 1";
 		GuaranteeBalanceDO balanceDO = guaranteeService.selectOne(GuaranteeBalanceDO.class,sqlWhere);
 		if(null==balanceDO){
+			bean.setCreateBy(loginName);
+			bean.setCreateDate(new Date());
 			insertList.add(bean);
 		}else{
 			bean.setId(balanceDO.getId());
+			bean.setUpdateBy(loginName);
+			bean.setUpdateDate(new Date());
 			updateList.add(bean);
 		}
 	}

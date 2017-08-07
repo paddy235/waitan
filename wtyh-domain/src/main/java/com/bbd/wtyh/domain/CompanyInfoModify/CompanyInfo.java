@@ -1,5 +1,7 @@
 package com.bbd.wtyh.domain.CompanyInfoModify;
 
+import com.bbd.wellspring.common.service.facade.request.CompanyIdRequest;
+
 /**
  * Created by YanWenyuan on 2017/7/14.
  */
@@ -21,6 +23,7 @@ public class CompanyInfo {
     public static final byte TYPE_DD_12 = 12;
     public static final byte TYPE_RZZL_13 = 13;
 
+    private Integer companyId;
     private String name; // 公司名
     private String legalPerson; // 法人
     private String registeredCapital;   // 注册资本
@@ -36,6 +39,14 @@ public class CompanyInfo {
     private String outLevel;   // 外部评级 -
     private String innnerLevel;    // 内部评级 - 【小额贷款、融资担保】
     private String liveLevel;  // 现场检查 - 【小额贷款、融资担保】
+
+    public Integer getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Integer companyId) {
+        this.companyId = companyId;
+    }
 
     public String getPlatName() {
         return platName;

@@ -96,19 +96,24 @@ public class PlatUpdateTaskServiceImpl extends BaseServiceImpl implements PlatUp
 		}
 		this.setCompanyId(platList,platInfoList);
 		dataError = platList.size()-platInfoList.size();
-		Collections.sort(platInfoList, new Comparator<PlatformNameInformationDO>() {
-			@Override
-			public int compare(PlatformNameInformationDO o1, PlatformNameInformationDO o2) {
-				return o1.getCompanyId()-o2.getCompanyId();
-			}
-		});
+//		Collections.sort(platInfoList, new Comparator<PlatformNameInformationDO>() {
+//			@Override
+//			public int compare(PlatformNameInformationDO o1, PlatformNameInformationDO o2) {
+//				return o1.getCompanyId()-o2.getCompanyId();
+//			}
+//		});
+		Collections.sort(platInfoList,(o1,o2) -> o1.getCompanyId()-o2.getCompanyId());
 		if(null==newTaskId){
 			int delNum = this.executeCUD("delete from platform_name_information");
 			logger.info("delete plat number:"+delNum);
 		}
 		dataError += updatePlatData(platInfoList);
 		logger.info("end update plat,update number:"+(dataTotal-dataError));
-
+		try {
+			platformNameInformationMapper.deleteRepeatPlat();
+		} catch (Exception e) {
+			logger.info("delete repeat plat error");
+		}
 		taskResultDO.setPlanCount(dataTotal);
 		taskResultDO.setFailCount(dataError);
 		taskResultDO.setSuccessCount(dataTotal-dataError);
@@ -122,8 +127,10 @@ public class PlatUpdateTaskServiceImpl extends BaseServiceImpl implements PlatUp
 			platInfo=new PlatformNameInformationDO();
 			platInfo.setName(plat.getCompany_name());
 			platInfo.setPlatformName(plat.getPlat_name());
-			platInfoList.add(platInfo);
-			names.add(plat.getCompany_name());
+			if(!names.contains(plat.getCompany_name())){
+				platInfoList.add(platInfo);
+				names.add(plat.getCompany_name());
+			}
 		}
 		List<CompanyDO> comList = companyMapper.findCompanyByName(names);
 		Map<String,CompanyDO> map=new HashMap<String,CompanyDO>();

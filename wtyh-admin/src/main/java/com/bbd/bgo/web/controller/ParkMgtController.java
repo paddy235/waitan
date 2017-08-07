@@ -220,7 +220,7 @@ public class ParkMgtController {
             type = Operation.Type.add, after = true, before = false)
     public ResponseBean addBuilding(HttpServletRequest request, BuildingDO building,String parkName) {
         //新增之前先查询该楼宇是否存在
-        int i = parkMgtService.queryBuildingIdByName(building.getParkId(),building.getName());
+        int i = parkMgtService.queryBIdByName(building.getName());
         if(i != 0){
             return  ResponseBean.errorResponse("该楼宇已存在");
         }
@@ -254,13 +254,13 @@ public class ParkMgtController {
         //新增之前先查询该企业是否存在，既不能存在于company_building中，也不能不存在于company中
         CompanyDO companyDO = companyService.getCompanyByName(name);
         if(null == companyDO){
-            return ResponseBean.successResponse("企业不存在于企业信息表");
+            return ResponseBean.errorResponse("企业不存在于企业信息表");
         }
         Integer companyId  = companyDO.getCompanyId();
 
-        Integer companyBuildingId = parkMgtService.queryCompanyBuildingId(buildingId+"",companyId+"");
+        Integer companyBuildingId = parkMgtService.queryCBId(companyId+"");
         if(companyBuildingId != null){
-            return ResponseBean.successResponse("企业已存在于该楼宇");
+            return ResponseBean.errorResponse("企业已存在于该楼宇");
         }
         //校验完成则可新增
         companyBuildingDO.setBuildingId(Integer.valueOf(buildingId));
@@ -350,7 +350,7 @@ public class ParkMgtController {
                     img.setPicParkId(parkId);
                     Integer buildingId = parkMgtService.queryBuildingIdByName(parkId,buildingName);
                     if(buildingId == null ||buildingId == 0){
-                        return ResponseBean.successResponse("楼宇不存在");
+                        return ResponseBean.errorResponse("楼宇不存在");
                     }
                     img.setPicBuildingId(buildingId);
                 }
@@ -380,9 +380,6 @@ public class ParkMgtController {
     public ResponseBean updateDevPic(HttpServletRequest request,String user) throws Exception {
 
         try {
-            String macId = getMacId();
-            Integer port = request.getLocalPort();
-            String ip = macId + ":" + port;//作为服务器唯一识别码
 
             //查询状态为0的图片列表，依次更新
             List<ImgDO> list = imgService.queryImgByStatus(0);
@@ -478,64 +475,5 @@ public class ParkMgtController {
         }
     }
 
-    /**
-     * 此方法描述的是：获得服务器的MAC地址
-     */
-    public static String getMacId() {
-        String macId = "";
-        InetAddress ip = null;
-        NetworkInterface ni = null;
-        try {
-            boolean bFindIP = false;
-            Enumeration<NetworkInterface> netInterfaces = (Enumeration<NetworkInterface>) NetworkInterface
-                    .getNetworkInterfaces();
-            while (netInterfaces.hasMoreElements()) {
-                if (bFindIP) {
-                    break;
-                }
-                ni = (NetworkInterface) netInterfaces
-                        .nextElement();
-                // ----------特定情况，可以考虑用ni.getName判断
-                // 遍历所有ip
-                Enumeration<InetAddress> ips = ni.getInetAddresses();
-                while (ips.hasMoreElements()) {
-                    ip = (InetAddress) ips.nextElement();
-                    if (!ip.isLoopbackAddress() // 非127.0.0.1
-                            && ip.getHostAddress().matches(
-                            "(\\d{1,3}\\.){3}\\d{1,3}")) {
-                        bFindIP = true;
-                        break;
-                    }
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        if (null != ip) {
-            try {
-                macId = getMacFromBytes(ni.getHardwareAddress());
-            } catch (SocketException e) {
-
-            }
-        }
-        return macId;
-    }
-
-    private static String getMacFromBytes(byte[] bytes) {
-        StringBuffer mac = new StringBuffer();
-        byte currentByte;
-        boolean first = false;
-        for (byte b : bytes) {
-            if (first) {
-                mac.append("-");
-            }
-            currentByte = (byte) ((b & 240) >> 4);
-            mac.append(Integer.toHexString(currentByte));
-            currentByte = (byte) (b & 15);
-            mac.append(Integer.toHexString(currentByte));
-            first = true;
-        }
-        return mac.toString().toUpperCase();
-    }
 
 }

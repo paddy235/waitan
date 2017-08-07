@@ -50,16 +50,34 @@
 	</select>
 
 	<insert id="addPlat" parameterType="java.util.List" >
-		insert into platform_name_information (company_id,platform_name,create_by,create_date)
+		insert into platform_name_information (company_id,platform_name,create_by,create_date,update_by,update_date)
 		values
 		<foreach collection="list" item="item" index="index" separator="," >
-			(#{item.companyId},#{item.platformName},'ly',CURDATE())
+			(#{item.companyId},#{item.platformName},'system',CURDATE(),'system',CURDATE())
 		</foreach>
 	</insert>
 
 	<insert id="addPlatOne" parameterType="com.bbd.wtyh.domain.PlatformNameInformationDO" >
-		insert into platform_name_information (company_id,platform_name,create_by,create_date)
+		insert into platform_name_information (company_id,platform_name,create_by,create_date,update_by,update_date)
 		values
-			(#{companyId},#{platformName},'ly',CURDATE())
+			(#{companyId},#{platformName},'system',CURDATE(),'system',CURDATE())
 	</insert>
+
+	<delete id="deleteRepeatPlat">
+		DELETE FROM platform_name_information
+			WHERE id IN (
+				SELECT
+					a.id
+				FROM(
+						SELECT
+							min(id) id
+						FROM
+							platform_name_information
+						GROUP BY
+							platform_name
+						HAVING
+							count(platform_name) > 1
+					) a
+			)
+	</delete>
 </mapper>

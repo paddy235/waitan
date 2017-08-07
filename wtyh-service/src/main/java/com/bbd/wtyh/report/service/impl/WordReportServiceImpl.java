@@ -26,6 +26,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.*;
@@ -121,7 +122,7 @@ public class WordReportServiceImpl implements WordReportService {
                 }
                 synchronized (wrbArr) {
                     //设置企业摘要信息
-                    wrbArr[0].setCompanySummary(companyName, backgroud, analysisResultName, emReportType.getName(), statusName);
+                    wrbArr[0].setCompanySummary(companyName, backgroud, analysisResultName, reportTypeName/*emReportType.getName()*/, statusName);
                     //设置水印
                     wrbArr[0].setWaterMark(loginName);
                 }
@@ -890,7 +891,12 @@ public class WordReportServiceImpl implements WordReportService {
                                 mainStr = mainStr.substring(0, 49) + "……";
                             }
                             row.add(mainStr);
-                            row.add(re.getPubdate());
+                            String dateStr =re.getPubdate();
+                            try {
+                                LocalDateTime localDateTime =LocalDateTime.parse(dateStr.substring(0, dateStr.indexOf('+')));
+                                dateStr =localDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+                            } catch (Exception e) { dateStr =""; }
+                            row.add(dateStr);
                             row.add(re.getBbd_url());
                         }
                     }

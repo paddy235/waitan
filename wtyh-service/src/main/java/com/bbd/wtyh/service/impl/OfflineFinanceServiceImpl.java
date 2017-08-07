@@ -99,9 +99,6 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
     private TaskFailInfoMapper taskFailInfoMapper;
 
     @Autowired
-    private RealTimeMonitorService realTimeMonitorService;
-
-    @Autowired
     private CoAddOrCloseService coChgMonitorService;
 
     @Autowired
@@ -117,9 +114,16 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
     private static final String FALL = "-1";
     private final String file_type_1 = "yed";
 
-    /* @Scheduled(cron = "0 20 16 * * *") */
+    private volatile boolean isShutdown = false;//任务停止标志
+
+    @Override
+    public void stopTask() {
+        isShutdown = true;
+    }
+
     @Override
     public TaskResultDO updateCompanyRiskLevel(Integer taskId) throws Exception {
+        isShutdown=false;
         logger.info("start update company risk level");
         final Map<Integer, Integer> platRankMapData = pToPMonitorService.getPlatRankMapData();
         if (platRankMapData == null || platRankMapData.size() == 0) {
@@ -136,6 +140,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
         ExecutorService dataExecutorService = Executors.newFixedThreadPool(20);
 
         for (int i = 1; i <= total; i++) {
+
             pagination.setPageNumber(i);
             params.put("pagination", pagination);
 
@@ -144,7 +149,9 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
             if (!CollectionUtils.isEmpty(list)) {
                 for (final CompanyDO companyDO : list) {
                     try {
-                        dataExecutorService.submit(new Runnable() {
+
+                        dataExecutorService.submit(
+                            new Runnable() {
 
                             @Override
                             public void run() {
@@ -164,19 +171,29 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 
         TaskResultDO taskResultDO = new TaskResultDO();
         taskResultDO.setPlanCount(totalCount);
-        taskResultDO.setFailCount(failCount);
-        taskResultDO.setSuccessCount(totalCount - failCount);
+        if (isShutdown) {
+            taskResultDO.setFailCount(0);
+            taskResultDO.setSuccessCount(0);
+        }else{
+            taskResultDO.setFailCount(failCount);
+            taskResultDO.setSuccessCount(totalCount - failCount);
+        }
+
         logger.info("end update company risk level");
         return taskResultDO;
     }
 
     @Override
     public TaskResultDO executeFailTaskByTaskId(Integer runMode, Integer oldTaskId, Integer taskId) throws Exception {
+        isShutdown=false;
         List<TaskFailInfoDO> list = taskFailInfoMapper.getTaskFailInfoByTaskId(oldTaskId);
         final Map<Integer, Integer> platRankMapData = pToPMonitorService.getPlatRankMapData();
         Integer planCount = list.size();
         Integer failCount = 0;
         for (TaskFailInfoDO wangdaiTaskInfoDO : list) {
+            if (isShutdown) {
+                break;
+            }
             try {
                 CompanyDO companyDO = companyMapper.queryCompanyByName(wangdaiTaskInfoDO.getFailName());
                 updateCompanRiskLevel(platRankMapData, companyDO);
@@ -187,8 +204,14 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
         }
         TaskResultDO taskResultDO = new TaskResultDO();
         taskResultDO.setPlanCount(planCount);
-        taskResultDO.setFailCount(failCount);
-        taskResultDO.setSuccessCount(planCount - failCount);
+        if (isShutdown) {
+            taskResultDO.setFailCount(0);
+            taskResultDO.setSuccessCount(0);
+        }else{
+            taskResultDO.setFailCount(failCount);
+            taskResultDO.setSuccessCount(planCount - failCount);
+        }
+
         return taskResultDO;
     }
 
@@ -323,7 +346,9 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
      * @param companyDO
      */
     private void updateCompanRiskLevel(Map<Integer, Integer> platRankMapData, CompanyDO companyDO) {
-
+        if (isShutdown) {
+            return;
+        }
         if (companyInfoModify.isModify(companyDO.getName())) {
             return;
         }
@@ -379,9 +404,9 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 		 */
         // LocalDate ld = LocalDate.now();
         if (!riskLevel.equals(oldRiskLevel)) { // 只记录前一次变化的，这是最新的产品需求
-            companyMapper.updateRiskLevel(riskLevel, oldRiskLevel, companyId, "TIMER");
+            companyMapper.updateRiskLevel(riskLevel, oldRiskLevel, companyId, "system");
         } else {
-            companyMapper.updateRiskLevel(riskLevel, null, companyId, "TIMER");
+            companyMapper.updateRiskLevel(riskLevel, null, companyId, "system");
         }
 
         if (!riskLevel.equals(oldRiskLevel)) {

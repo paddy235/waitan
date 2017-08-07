@@ -98,9 +98,13 @@ public class CompanyInfoModifyController {
         rst.put("小额贷款", CompanyInfo.TYPE_XD_2);
         rst.put("融资担保", CompanyInfo.TYPE_RZDB_3);
         rst.put("线下理财", CompanyInfo.TYPE_XXLC_4);
+        rst.put("私募基金", CompanyInfo.TYPE_SMJJ_5);
+        rst.put("众筹", CompanyInfo.TYPE_ZC_6);
+        rst.put("典当", CompanyInfo.TYPE_DD_12);
         rst.put("交易场所", CompanyInfo.TYPE_JYS_9);
         rst.put("预付卡", CompanyInfo.TYPE_YFK_11);
         rst.put("融资租赁", CompanyInfo.TYPE_RZZL_13);
+        rst.put("商业保理", CompanyInfo.TYPE_SYBL_10);
         return ResponseBean.successResponse(rst);
     }
 

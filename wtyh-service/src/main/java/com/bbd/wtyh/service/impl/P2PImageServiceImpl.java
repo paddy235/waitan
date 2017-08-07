@@ -92,11 +92,11 @@ public class P2PImageServiceImpl implements P2PImageService {
         PlatListDO platListDO = findFromWangdaiPlatList(platName);  // 获取logo
 
         Map<String, Object> result = new LinkedHashMap<>();
-        result.put("logo", (null == platListDO) ? null : platListDO.getLogo_url());//logo
-        result.put("score", platRankDataDTO.getPlatRank()); // 评级
-        result.put("platname", pn.getPlat_name()); // 平台名称
-        result.put("companyName", pn.getCompany_name()); // 公司名称
-        result.put("status", platRankDataDTO.getPlat_status()); // 营业状态
+            result.put("logo", (null == platListDO) ? null : platListDO.getLogo_url());//logo
+            result.put("score", (null == platRankDataDTO) ? "" : platRankDataDTO.getPlatRank()); // 评级
+            result.put("platname", pn.getPlat_name()); // 平台名称
+            result.put("companyName", pn.getCompany_name()); // 公司名称
+            result.put("status", (null == platRankDataDTO) ? "" : platRankDataDTO.getPlat_status()); // 营业状态
         return result;
     }
 
@@ -427,7 +427,7 @@ public class P2PImageServiceImpl implements P2PImageService {
             default:
                 taskFailInfoDO.setFailReason("接口调用失败");
         }
-        taskFailInfoDO.setCreateBy("sys");
+        taskFailInfoDO.setCreateBy("system");
         taskFailInfoDO.setCreateDate(new Date());
         taskFailInfoMapper.addTaskFailInfo(taskFailInfoDO);
     }
@@ -445,7 +445,7 @@ public class P2PImageServiceImpl implements P2PImageService {
                     warningDO.setContent(warning.getContent());
                     warningDO.setDate(warning.getDate());
                     warningDO.setSource(warning.getSource());
-                    warningDO.setCreateBy("sys");
+                    warningDO.setCreateBy("system");
                     warningDO.setCreateDate(new Date());
                     yuQingWarningMapper.save(warningDO);
                 }
@@ -462,7 +462,7 @@ public class P2PImageServiceImpl implements P2PImageService {
         platListDO.setCompanyName(dto.getCompany_name());
         platListDO.setLogoUrl(dto.getLogo_url());
         platListDO.setAreaId(dto.getArea_id());
-        platListDO.setCreateBy("sys");
+        platListDO.setCreateBy("system");
         platListDO.setCreateDate(new Date());
 
 //        platformMapper.deleteByPlatName(dto.getPlat_name());
@@ -487,7 +487,7 @@ public class P2PImageServiceImpl implements P2PImageService {
                 platCoreDataDO.setDay30NetInflow(platDataDO.getDay30_net_inflow());
                 platCoreDataDO.setTop1SumAmount(platDataDO.getTop1_sum_amount());
                 platCoreDataDO.setAmountTotal(platDataDO.getAmount_total());
-                platCoreDataDO.setCreateBy("sys");
+                platCoreDataDO.setCreateBy("system");
                 platCoreDataDO.setCreateDate(new Date());
 
 //                platCoreDataMapper.deleteByPlatName(platDataDO.getPlat_name());
@@ -512,7 +512,7 @@ public class P2PImageServiceImpl implements P2PImageService {
                 radarScoreDO.setCapital(object.getCapital());
                 radarScoreDO.setPenaltyCost(object.getPenalty_cost());
                 radarScoreDO.setOperation(object.getOperation());
-                radarScoreDO.setCreateBy("sys");
+                radarScoreDO.setCreateBy("system");
                 radarScoreDO.setCreateDate(new Date());
 
  //               radarScoreMapper.deleteByPlatName(object.getPlat_name());

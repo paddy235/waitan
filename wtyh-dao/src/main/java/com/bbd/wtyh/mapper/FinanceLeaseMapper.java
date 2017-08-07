@@ -1,6 +1,7 @@
 package com.bbd.wtyh.mapper;
 
 import com.bbd.wtyh.domain.CompanyInfoModify.CompanyInfo;
+import com.bbd.wtyh.domain.CompanyInfoModify.RecordInfo;
 import com.bbd.wtyh.domain.vo.CompanyCapitalVO;
 import com.bbd.wtyh.domain.vo.FinanceLeaseStatisticVO;
 import com.bbd.wtyh.domain.vo.FinanceLeaseVO;
@@ -26,4 +27,8 @@ public interface FinanceLeaseMapper {
     public Integer queryFinanceLeaseMaxYear();
 
     CompanyInfo getTenancyByName(@Param("name") String name);
+
+    void modifyFinanceLease(@Param("recordInfo")RecordInfo recordInfo);
+
+    void addFinanceLease(@Param("recordInfo")RecordInfo recordInfo);
 }

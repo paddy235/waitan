@@ -33,7 +33,7 @@ public class CompanyListHandler extends AbstractImportHandler<CompanyAnalysisRes
 
 	private List<CompanyAnalysisResultDO> listCompanyAnalysisResult = null;
 
-	private Logger log = LoggerFactory.getLogger(com.bbd.bgo.service.imp.handler.CommercialFactoringHandler.class);
+	private Logger log = LoggerFactory.getLogger(com.bbd.bgo.service.imp.handler.CompanyListHandler.class);
 
 	String loginName = "";
 
@@ -94,50 +94,63 @@ public class CompanyListHandler extends AbstractImportHandler<CompanyAnalysisRes
 		cDo.setId(getRowNumber()); // 将行号存下
 		cDo.setRecordNumber(row.get("recordNumber"));// 备案号
 		cDo.setBusinessType(row.get("businessType"));// 所属行业
-		cDo.setRiskLevel(Integer.valueOf(row.get("analysisResult")));// 风险等级
+		String analysisResult = row.get("analysisResult");
+		Integer riskLevel = null;
+		if(!StringUtils.isEmpty(analysisResult)){
+			riskLevel = Integer.valueOf(analysisResult);
+		}
+		cDo.setRiskLevel(riskLevel);// 风险等级
 
 		// 准备新增表数据
-		// bean.setCompanyName(row.get("companyName"));
+		 bean.setName(row.get("companyName"));
 		// bean.setCreateBy(loginName);
 		// bean.setCreateDate(sqlDate);
-		// listCompanyAnalysisResult.add(bean);
+		 listCompanyAnalysisResult.add(bean);
 	}
 
 	@Override
 	public void end() throws Exception {
 		// 对企业信息进行判断，若存在，则更新，不存在则新增(针对Company表)
 		companyImportAssist.processCp(tempList);
-		for (CompanyDO companyDO : tempList) {
-			Integer riskLevel = companyDO.getRiskLevel();// 待塞入的风险等级
-			Integer analysisResult = companyDO.getAnalysisResult();// 数据库当前的风险等级(前面的processCp方法返回的)
-			// 如果两者不相等，则将新的风险等级塞入
-			if (riskLevel != null && riskLevel != analysisResult) {
-				// CompanyDO.setRiskLevel();//endRow已塞值
-				companyDO.setPreviousRiskLevel(companyDO.getAnalysisResult());// 前次风险等级(塞入值为数据库当前的风险等级)
-				// 准备风险等级变化增量表数据
-				addRiskChgCo(companyDO);
-			}
 
-		}
 		if (errorList().isEmpty()) {
 			// 更新company表
 			companyImportAssist.save(loginName);
-			// 更新风险等级变化表
-			this.companyService.insertList(riskChgCoList);
 			// 取得CompanyId
 			boolean isFalse = true;// 标记是否能正常取得更新后的company信息
 			List<Map.Entry<CompanyDO, BaseDataDO.Results>> searchList = companyImportAssist.getResultList();
+			//取得新增或修改企业的companyId
 			for (CompanyAnalysisResultDO cf : listCompanyAnalysisResult) {
 				CompanyDO locCDo = null;
 				for (Map.Entry<CompanyDO, BaseDataDO.Results> me : searchList) {
+					//
 					if (me.getKey().getName().equals(cf.getName())) {
 						locCDo = me.getKey();
 					}
 				}
 				if (null == locCDo) {
 					isFalse = false;
+					addError("企业名称异常");
+					return;
 				}
 				cf.setCompanyId(locCDo.getCompanyId());
+			}
+			//准备风险等级变化表数据
+			for (Map.Entry<CompanyDO, BaseDataDO.Results> me : searchList) {
+				CompanyDO companyDO = me.getKey();
+				Integer riskLevel = companyDO.getRiskLevel();// 待塞入的风险等级
+				Integer analysisResult = companyDO.getAnalysisResult();// 数据库当前的风险等级
+				// 如果两者不相等，则将新的风险等级塞入
+				if (riskLevel != null && riskLevel != analysisResult) {
+					// CompanyDO.setRiskLevel();//endRow已塞值
+					companyDO.setPreviousRiskLevel(companyDO.getAnalysisResult());// 前次风险等级(塞入值为数据库当前的风险等级)
+					// 准备风险等级变化增量表数据
+					addRiskChgCo(companyDO);
+				}
+			}
+			if (errorList().isEmpty()) {
+				// 更新风险等级变化表
+				this.companyService.insertList(riskChgCoList);
 			}
 
 			if (!isFalse) {
@@ -147,8 +160,7 @@ public class CompanyListHandler extends AbstractImportHandler<CompanyAnalysisRes
 				if (errorList().isEmpty()) {
 					// 遍历List,若重复则更新，否则新增
 					for (CompanyAnalysisResultDO CompanyAnalysisResultDO : listCompanyAnalysisResult) {
-						CompanyAnalysisResultDO cDO = this.companyAnalysisResultMapper
-								.selectByPrimaryKey(CompanyAnalysisResultDO.getCompanyId());
+						CompanyAnalysisResultDO cDO = this.companyAnalysisResultMapper.selectByPrimaryKey(CompanyAnalysisResultDO.getCompanyId());
 						if (cDO == null) {// 表中不存在待新增数据
 							CompanyAnalysisResultDO.setCreateBy(loginName);
 							CompanyAnalysisResultDO.setCreateDate(sqlDate);
@@ -162,9 +174,15 @@ public class CompanyListHandler extends AbstractImportHandler<CompanyAnalysisRes
 
 					log.info("导入预付卡-企业列表结束");
 				} else {
-					log.info("导入预付卡-企业列表失败，数据有误");
+					addError("用户上传的预付卡-企业列表中的数据有误，所有数据均不予入库");
+					log.warn("用户上传的预付卡-企业列表中的数据有误，所有数据均不予入库");
+					return;
 				}
 			}
+		}else{
+			addError("用户上传的预付卡-企业列表中的数据有误，所有数据均不予入库");
+			log.warn("用户上传的预付卡-企业列表中的数据有误，所有数据均不予入库");
+			return;
 		}
 
 	}
@@ -183,6 +201,7 @@ public class CompanyListHandler extends AbstractImportHandler<CompanyAnalysisRes
 	private void addRiskChgCo(CompanyDO companyDO) {
 		RiskChgCoDo riskChgCoDo = new RiskChgCoDo();
 
+		riskChgCoDo.setCompanyId(companyDO.getCompanyId());
 		riskChgCoDo.setCompanyName(companyDO.getName());
 		riskChgCoDo.setCompanyType(companyDO.getCompanyType().intValue());
 

@@ -102,6 +102,13 @@ public interface ParkMgtService{
     int queryBuildingIdByName(Integer parkId,String buildingName);
 
     /**
+     * 根据楼宇名称取得楼宇ID
+     * @param buildingName
+     * @return
+     */
+    int queryBIdByName(String buildingName);
+
+    /**
      * 园区楼宇企业数量
      * @param parkId 园区ID
      * @return
@@ -115,6 +122,13 @@ public interface ParkMgtService{
      * @return
      */
     Integer queryCompanyBuildingId(String buildingId, String companyId);
+
+    /**
+     * 取得公司ID
+     * @param companyId
+     * @return
+     */
+    Integer queryCBId(String companyId);
 
     /**
      * 新增园区
