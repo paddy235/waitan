@@ -167,14 +167,15 @@
 			c.`name` AS `name`,
 			c.legal_person AS legalPerson,
 			c.registered_capital AS registeredCapital,
-			c.registered_capital_type AS registeredCapitalType,
-			c.risk_level AS currentLevel
+			c.registered_capital_type AS registeredCapitalType
 		FROM
 			company c
 		LEFT JOIN finance_lease_risk f ON f.company_id = c.company_id
 		LEFT JOIN area a ON a.area_id = c.area_id
 		WHERE
 			c.company_type = 13
+			AND
+			f.risk_type = 1
 			AND
 			c.`name` = #{name}
 	</select>
