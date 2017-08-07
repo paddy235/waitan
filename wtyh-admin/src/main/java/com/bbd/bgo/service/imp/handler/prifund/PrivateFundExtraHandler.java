@@ -1,5 +1,6 @@
 package com.bbd.bgo.service.imp.handler.prifund;
 
+import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.GuaranteedInfoDO;
 import com.bbd.wtyh.domain.PrivateFundExtraDO;
@@ -40,8 +41,14 @@ public class PrivateFundExtraHandler extends AbstractImportHandler<PrivateFundEx
 
 	private CompanyDO companyDO;
 
+	private String loginName = null;
+
 	@Override
 	public void start(HttpServletRequest request) throws Exception {
+		loginName = (String) request.getSession().getAttribute(Constants.SESSION.loginName);
+		if( null ==loginName ) {
+			loginName ="";
+		}
 		log.info("开始导入私募企业列表");
 		insertList = new ArrayList<>();
 		updateList = new ArrayList<>();
@@ -76,11 +83,11 @@ public class PrivateFundExtraHandler extends AbstractImportHandler<PrivateFundEx
 		String sqlWhere= "company_id = " +bean.getCompanyId();
 		PrivateFundExtraDO privateFundExtra = companyService.selectOne(PrivateFundExtraDO.class,sqlWhere);
 		if(null==privateFundExtra){
-			bean.setCreateBy("导入私募企业信息");
+			bean.setCreateBy(loginName);
 			bean.setCreateDate(new Date());
 			insertList.add(bean);
 		}else{
-			bean.setUpdateBy("导入私募企业信息");
+			bean.setUpdateBy(loginName);
 			bean.setUpdateDate(new Date());
 			updateList.add(bean);
 		}

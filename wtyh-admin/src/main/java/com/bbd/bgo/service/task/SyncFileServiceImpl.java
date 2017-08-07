@@ -98,7 +98,7 @@ public class SyncFileServiceImpl extends BaseServiceImpl implements SyncFileServ
 		taskFail.setTaskId(taskId);
 		taskFail.setDataVersion(dataVersion);
 		taskFail.setFailName(dataVersion);
-		taskFail.setCreateBy("线下理财风险数据定时任务");
+		taskFail.setCreateBy("system");
 		taskFail.setCreateDate(new Date());
 		this.taskFailInfoMapper.addTaskFailInfo(taskFail);
 	}

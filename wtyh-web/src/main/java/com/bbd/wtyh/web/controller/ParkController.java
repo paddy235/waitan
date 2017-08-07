@@ -1,12 +1,13 @@
 package com.bbd.wtyh.web.controller;
 
+import java.io.*;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeSet;
+import java.util.*;
 
 import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.domain.*;
@@ -16,6 +17,8 @@ import com.bbd.wtyh.exception.ExceptionHandler;
 import com.bbd.wtyh.log.user.Operation;
 import com.bbd.wtyh.log.user.UserLogRecord;
 import com.bbd.wtyh.log.user.annotation.LogRecord;
+import com.bbd.wtyh.service.ImgService;
+import com.bbd.wtyh.util.WtyhHelper;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.apache.commons.lang3.StringUtils;
@@ -52,6 +55,13 @@ public class ParkController {
 
 	@Autowired
 	private CompanyNewsService newsSer;
+
+	@Autowired
+	private ImgService imgService;
+
+	private String PARK_DIR1 = WtyhHelper.webImgPath;//开发环境
+	private static final String PARK_DIR = "data/img/park/";
+	private static final String BUILDING_DIR = "data/img/building/";
 
 	/**
 	 *
@@ -341,6 +351,179 @@ public class ParkController {
 			return ExceptionHandler.handlerException(e);
 		}
 
+	}
+
+	/**
+	 * 更新前台园区和楼宇的图片
+	 * @return
+	 */
+	@RequestMapping("/updImgForParkAndBuilding")
+	@ResponseBody
+	public ResponseBean updImgForParkAndBuilding(HttpServletRequest request){
+
+		try {
+			String loginName = (String) request.getSession().getAttribute(Constants.SESSION.loginName);
+			if( null ==loginName ) {
+				loginName ="loginName";
+			}
+
+			String macId = getMacId();
+			Integer port = request.getLocalPort();
+			String ipServer = macId + ":" + port;//MAC地址作为服务器唯一识别码
+
+			//查询状态为1的图片列表，依次更新
+			List<ImgDO> list = imgService.queryImgByStatus(1);
+			for (ImgDO imgDO : list) {
+				// 若数据库IP为空，则表示此处为前台服务器A做更新，完成后将MAC地址写入IP字段；
+				// 若IP不为空且与传入IP不同，则表示此处为前台服务器B做更新，完成后将状态改为2，后续定时任务会删除状态为2的数据
+				String ipDB = imgDO.getIp();
+				if(StringUtils.isEmpty(ipDB)){
+					updatePic(request, imgDO);//更新图片到执行文件夹
+
+					imgDO.setIp(ipServer);
+					imgDO.setLastStatus(1);
+					imgDO.setUser(loginName);
+					imgService.updateImage(imgDO);
+				}else {
+					if(!ipDB.equals(ipServer)){
+						updatePic(request, imgDO);//更新图片到执行文件夹
+
+						//将处理过的图片数据状态更新为2
+						imgDO.setStatus(2);
+						imgDO.setLastStatus(1);
+						imgDO.setUser(loginName);
+						imgService.updateImage(imgDO);
+					}
+				}
+
+			}
+
+		} catch (Exception e) {
+//            logger.error("Method[updateDevPic],catch exception:" + e.getMessage());
+//			throw new Exception(e);
+			e.printStackTrace();
+		}
+
+		return ResponseBean.successResponse("OK");
+	}
+
+	/**
+	 * 更新图片到执行文件夹
+	 * @param request
+	 * @param img
+	 */
+	private void updatePic(HttpServletRequest request,ImgDO img){
+		String path = PARK_DIR;
+		String filePath = PARK_DIR1;
+		Integer picType = img.getPicType();
+		String folder = "park";
+		if (picType == 2) {
+			path = BUILDING_DIR;
+			folder = "building";
+		}
+		// /data/wtyh/static/wtyh-admin/build/data/img
+		if(org.apache.commons.lang3.StringUtils.isBlank(PARK_DIR1)){//正式环境
+			filePath = request.getSession().getServletContext().getRealPath("/") + File.separator + path + img.getPicName();
+		}else{//开发环境
+			filePath += File.separator + folder+ File.separator + img.getPicName();
+		}
+
+		File f = new File(filePath);
+		FileOutputStream fos = null;
+
+		try {
+			//若原图片已经被打开，是否还能直接删除？能。。。
+			if (f.exists()){
+				f.delete();
+			}
+
+			if(!f.getParentFile().exists()){
+				f.getParentFile().mkdirs();
+			}
+
+//            f.createNewFile();
+
+			fos = new FileOutputStream(f);
+			int len = 0;
+			byte[] buf = new byte[1024];
+			InputStream ins = new ByteArrayInputStream(img.getPic());
+
+			while ((len = ins.read(buf)) != -1) {
+				fos.write(buf, 0, len);
+			}
+
+			fos.flush();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (null != fos) {
+				try {
+					fos.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+
+	/**
+	 * 此方法描述的是：获得服务器的MAC地址
+	 */
+	public static String getMacId() {
+		String macId = "";
+		InetAddress ip = null;
+		NetworkInterface ni = null;
+		try {
+			boolean bFindIP = false;
+			Enumeration<NetworkInterface> netInterfaces = (Enumeration<NetworkInterface>) NetworkInterface
+					.getNetworkInterfaces();
+			while (netInterfaces.hasMoreElements()) {
+				if (bFindIP) {
+					break;
+				}
+				ni = (NetworkInterface) netInterfaces
+						.nextElement();
+				// ----------特定情况，可以考虑用ni.getName判断
+				// 遍历所有ip
+				Enumeration<InetAddress> ips = ni.getInetAddresses();
+				while (ips.hasMoreElements()) {
+					ip = (InetAddress) ips.nextElement();
+					if (!ip.isLoopbackAddress() // 非127.0.0.1
+							&& ip.getHostAddress().matches(
+							"(\\d{1,3}\\.){3}\\d{1,3}")) {
+						bFindIP = true;
+						break;
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if (null != ip) {
+			try {
+				macId = getMacFromBytes(ni.getHardwareAddress());
+			} catch (SocketException e) {
+
+			}
+		}
+		return macId;
+	}
+
+	private static String getMacFromBytes(byte[] bytes) {
+		StringBuffer mac = new StringBuffer();
+		byte currentByte;
+		boolean first = false;
+		for (byte b : bytes) {
+			if (first) {
+				mac.append("-");
+			}
+			currentByte = (byte) ((b & 240) >> 4);
+			mac.append(Integer.toHexString(currentByte));
+			currentByte = (byte) (b & 15);
+			mac.append(Integer.toHexString(currentByte));
+			first = true;
+		}
+		return mac.toString().toUpperCase();
 	}
 
 }

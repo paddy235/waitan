@@ -5,7 +5,7 @@
            importHandler="com.bbd.bgo.service.imp.handler.prifund.PriFundCapitalAmountHandler">
         <rowHeader>
             <column mergeFirstRow="1" mergeLastRow="3" mergeFirstCol="1" mergeLastCol="3" align="LEFT"
-                    value="填写说明：&#x000A;本表格不可填写Excel公式；私募机构类型必填，不能超过40个汉字，其余字段至少选填一项；&#x000A;私募机构类型仅能填：VC，FOFs，PE，券商投资，战略投资，天使投资；"/>
+                    value="填写说明：&#x000A;本表格不可填写Excel公式；私募机构类型必填，其余字段至少选填一项；&#x000A;私募机构类型仅能填：VC，FOFs，PE，券商投资，战略投资，天使投资；"/>
         </rowHeader>
         <columns>
             <column name="私募机构类型" code="typeName" dataType="string" required="true" bgColor="#FFFF00"/>

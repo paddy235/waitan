@@ -1,5 +1,6 @@
 package com.bbd.bgo.service.imp.handler;
 
+import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.domain.*;
 import com.bbd.wtyh.excel.imp.handler.AbstractImportHandler;
 import com.bbd.wtyh.service.CompanyService;
@@ -36,10 +37,16 @@ public class GuaranteedInfoHandler extends AbstractImportHandler<GuaranteedInfoD
 
 	private List<GuaranteedInfoDO> insertList = null;
 
+	private String loginName = null;
+
 	private CompanyDO guaranteeCompanyDO;
 
 	@Override
 	public void start(HttpServletRequest request) throws Exception {
+		loginName = (String) request.getSession().getAttribute(Constants.SESSION.loginName);
+		if( null ==loginName ) {
+			loginName ="";
+		}
 		log.info("开始导入融资担保-大额被担保人信息列表");
 		insertList = new ArrayList<>();
 	}
@@ -80,7 +87,7 @@ public class GuaranteedInfoHandler extends AbstractImportHandler<GuaranteedInfoD
 				+bean.getGuaranteedId()+" LIMIT 1";
 		GuaranteedInfoDO guaranteedInfo = guaranteeService.selectOne(GuaranteedInfoDO.class,sqlWhere);
 		if(null==guaranteedInfo){
-			bean.setCreateBy("导入融资担保-大额被担保人信息");
+			bean.setCreateBy(loginName);
 			bean.setCreateDate(new Date());
 			insertList.add(bean);
 		}

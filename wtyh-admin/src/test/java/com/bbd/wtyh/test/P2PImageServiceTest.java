@@ -11,6 +11,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.util.Map;
 
 /**
+ * p2p画像
  * Created by lixudong on 2017/7/20.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -20,6 +21,9 @@ public class P2PImageServiceTest {
     @Autowired
     private P2PImageService p2PImageService;
 
+    /**
+     * 执行数据落地定时任务
+     */
     @Test
     public void dataLandTest(){
         Integer taskId = 0;
@@ -27,6 +31,9 @@ public class P2PImageServiceTest {
         System.out.print(taskResultDO);
     }
 
+    /**
+     * 重新执行失败的定时任务
+     */
     @Test
     public void reExecuteTest(){
         Integer taskId = 1;

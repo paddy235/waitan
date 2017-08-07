@@ -11,7 +11,7 @@
     </insert>
 
     <update id="updateImage" parameterType="com.bbd.wtyh.domain.ImgDO">
-        UPDATE park_building_img SET pic_park_id=#{picParkId}, pic_building_id=#{picBuildingId}, `status`=#{status}, update_date=SYSDATE(), update_by=#{user} WHERE `status`=#{lastStatus} AND id=#{id}
+        UPDATE park_building_img SET pic_park_id=#{picParkId}, pic_building_id=#{picBuildingId}, ip=#{ip}, `status`=#{status}, update_date=SYSDATE(), update_by=#{user} WHERE `status`=#{lastStatus} AND id=#{id}
     </update>
 
     <select id="queryImgById" parameterType="int" resultType="com.bbd.wtyh.domain.ImgDO">
