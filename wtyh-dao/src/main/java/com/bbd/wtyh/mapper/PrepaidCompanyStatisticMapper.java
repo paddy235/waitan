@@ -22,5 +22,5 @@ public interface PrepaidCompanyStatisticMapper {
 
     void addPerpaycard(@Param(value = "recordInfo")RecordInfo recordInfo);
 
-    void deleteByCompanyId(RecordInfo recordInfo);
+    void deleteByCompanyId(@Param(value = "recordInfo")RecordInfo recordInfo);
 }
