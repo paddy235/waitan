@@ -21,4 +21,6 @@ public interface SystemDataUpdateService {
      */
     TaskResultDO updateCompanyAndBackgroundAutomaticOperate(Integer taskId);
 
+    public void stopTask();
+
 }

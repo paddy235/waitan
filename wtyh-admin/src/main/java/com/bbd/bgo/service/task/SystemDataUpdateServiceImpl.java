@@ -48,6 +48,12 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService {
     @Autowired
     private TaskFailInfoMapper taskFailInfoMapper;
 
+    private volatile boolean isShutdown = false;//任务停止标志
+
+    @Override
+    public void stopTask() {
+        isShutdown = true;
+    }
     @Override
     public TaskResultDO updateCompanyAndBackgroundAutomaticOperate(Integer taskId) {
         this.taskId=taskId;
@@ -88,8 +94,14 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService {
         }
 
         taskResultDO.setPlanCount(dataTotal);
-        taskResultDO.setFailCount(errorNum);
-        taskResultDO.setSuccessCount(dataTotal-errorNum);
+
+        if (isShutdown) {
+            taskResultDO.setFailCount(0);
+            taskResultDO.setSuccessCount(0);
+        }else {
+            taskResultDO.setFailCount(errorNum);
+            taskResultDO.setSuccessCount(dataTotal - errorNum);
+        }
 
         return taskResultDO;
     }
@@ -141,6 +153,9 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService {
 
 
     private void companyAndBackgroundUpdateThread(Pagination pagination,Integer type,Integer dataTaskId) {
+        if (isShutdown) {
+            return;
+        }
         Map<String, Object> params = new HashMap<>();
         params.put("pagination", pagination);
         StringBuffer companyNameSerial = new StringBuffer();
@@ -185,6 +200,9 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService {
             return;
         }
         for (Map itr1 : rList) {
+            if (isShutdown) {
+                return;
+            }
             Integer areaId = null;
             String companyName = null;
             String address = null;
