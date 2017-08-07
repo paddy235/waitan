@@ -31,4 +31,6 @@ public interface ExchangeCompanyMapper {
     Long countTradeMarket(@Param(value = "exportCondition")ExportCondition exportCondition);
 
     void deleteByCompanyId(@Param(value = "recordInfo")RecordInfo recordInfo);
+
+    void addExchange(@Param(value = "recordInfo")RecordInfo recordInfo);
 }

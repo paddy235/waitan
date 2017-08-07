@@ -160,4 +160,11 @@
 	<delete id="deleteByCompanyId">
 		DELETE FROM exchange_company WHERE company_id=#{recordInfo.companyId}
 	</delete>
+
+	<insert id="addExchange">
+		INSERT INTO
+			`exchange_company` (`company_id`, `type`)
+		VALUES
+			(#{recordInfo.companyId}, 2)
+	</insert>
 </mapper>

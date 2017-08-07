@@ -22,4 +22,6 @@ public interface IndexDataMapper {
     List<IndexDataDO> findByPage(Map<String, Object> params);
 
     void deleteByCompanyName(@Param("recordInfo")RecordInfo recordInfo);
+
+    void addOffLineLevel(@Param("recordInfo")RecordInfo recordInfo);
 }
