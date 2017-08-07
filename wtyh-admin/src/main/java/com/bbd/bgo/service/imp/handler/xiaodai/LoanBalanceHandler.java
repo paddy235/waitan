@@ -1,5 +1,6 @@
 package com.bbd.bgo.service.imp.handler.xiaodai;
 
+import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.domain.LoanBalanceDO;
 import com.bbd.wtyh.excel.imp.handler.AbstractImportHandler;
 import com.bbd.wtyh.service.LoanService;
@@ -32,6 +33,7 @@ public class LoanBalanceHandler extends AbstractImportHandler<LoanBalanceDO> {
 	private List<LoanBalanceDO> updateList = null;
 
 	private long loanComanyTotal;
+	private String loginName = "";
 
 	@Override
 	public void start(HttpServletRequest request) throws Exception {
@@ -39,6 +41,11 @@ public class LoanBalanceHandler extends AbstractImportHandler<LoanBalanceDO> {
 		insertList = new ArrayList<>();
 		updateList = new ArrayList<>();
 		loanComanyTotal = this.loanService.countLoanCompany();
+
+		String tmpName = (String) request.getSession().getAttribute(Constants.SESSION.loginName);
+		if (tmpName != null) {
+			loginName = tmpName;
+		}
 	}
 
 	@Override
@@ -58,7 +65,7 @@ public class LoanBalanceHandler extends AbstractImportHandler<LoanBalanceDO> {
 		int month = bean.getMonth();
 		List<LoanBalanceDO> list = this.loanService.selectAll(LoanBalanceDO.class, "year = " + year + " AND month = " + month);
 		if (list.isEmpty()) {
-			bean.setCreateBy("导入小贷-贷款余额");
+			bean.setCreateBy(loginName);
 			bean.setCreateDate(new Date());
 			this.insertList.add(bean);
 			return;
@@ -71,7 +78,7 @@ public class LoanBalanceHandler extends AbstractImportHandler<LoanBalanceDO> {
 		bean.setId(tmp.getId());
 		bean.setCreateBy(tmp.getCreateBy());
 		bean.setCreateDate(tmp.getCreateDate());
-		bean.setUpdateBy("导入小贷-贷款余额");
+		bean.setUpdateBy(loginName);
 		bean.setUpdateDate(new Date());
 		this.updateList.add(bean);
 
