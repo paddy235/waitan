@@ -31,4 +31,6 @@ public interface CompanyLevelMapper {
     void addLoadLevel(@Param(value = "recordInfo")RecordInfo recordInfo);
 
     void deleteLoadLevel(@Param(value = "recordInfo")RecordInfo recordInfo);
+
+    RecordInfo queryByCompanyId(@Param(value = "recordInfo")RecordInfo recordInfo);
 }

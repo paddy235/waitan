@@ -173,7 +173,7 @@ public class CompanyInfoMudifyUtil {
      * @param modifyData
      */
     public void modifyLoad(ModifyData modifyData) throws Exception {
-        CompanyInfo companyInfo = companyInfoQueryUtil.getLoan(modifyData.getName());
+        CompanyInfo companyInfo = companyInfoModifyMapper.queryCompany(modifyData.getName());
         RecordInfo recordInfo = recordModify(modifyData, companyInfo);
         // 修改风险等级
         if (CompanyInfo.TYPE_P2P_1 == recordInfo.getAfterIndustry()) { // 网络借贷

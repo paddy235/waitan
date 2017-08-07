@@ -198,4 +198,17 @@
     <delete id="deleteLoadLevel">
         DELETE FROM company_level WHERE company_id=#{recordInfo.companyId}
     </delete>
+
+    <select id="queryByCompanyId" resultType="com.bbd.wtyh.domain.CompanyInfoModify.RecordInfo">
+        SELECT
+            company_level.company_id AS companyId,
+            company_level.out_level AS beforeOutLevel,
+            company_level.inner_level AS beforeInnnerLevel,
+            company_level.live_level AS beforeLiveLevel
+        FROM
+          company_level
+        WHERE
+          company_level.company_id = #{recordInfo.companyId}
+    </select>
+
 </mapper>
