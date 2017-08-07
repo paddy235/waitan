@@ -380,9 +380,6 @@ public class ParkMgtController {
     public ResponseBean updateDevPic(HttpServletRequest request,String user) throws Exception {
 
         try {
-            String macId = getMacId();
-            Integer port = request.getLocalPort();
-            String ip = macId + ":" + port;//作为服务器唯一识别码
 
             //查询状态为0的图片列表，依次更新
             List<ImgDO> list = imgService.queryImgByStatus(0);
@@ -478,64 +475,5 @@ public class ParkMgtController {
         }
     }
 
-    /**
-     * 此方法描述的是：获得服务器的MAC地址
-     */
-    public static String getMacId() {
-        String macId = "";
-        InetAddress ip = null;
-        NetworkInterface ni = null;
-        try {
-            boolean bFindIP = false;
-            Enumeration<NetworkInterface> netInterfaces = (Enumeration<NetworkInterface>) NetworkInterface
-                    .getNetworkInterfaces();
-            while (netInterfaces.hasMoreElements()) {
-                if (bFindIP) {
-                    break;
-                }
-                ni = (NetworkInterface) netInterfaces
-                        .nextElement();
-                // ----------特定情况，可以考虑用ni.getName判断
-                // 遍历所有ip
-                Enumeration<InetAddress> ips = ni.getInetAddresses();
-                while (ips.hasMoreElements()) {
-                    ip = (InetAddress) ips.nextElement();
-                    if (!ip.isLoopbackAddress() // 非127.0.0.1
-                            && ip.getHostAddress().matches(
-                            "(\\d{1,3}\\.){3}\\d{1,3}")) {
-                        bFindIP = true;
-                        break;
-                    }
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        if (null != ip) {
-            try {
-                macId = getMacFromBytes(ni.getHardwareAddress());
-            } catch (SocketException e) {
-
-            }
-        }
-        return macId;
-    }
-
-    private static String getMacFromBytes(byte[] bytes) {
-        StringBuffer mac = new StringBuffer();
-        byte currentByte;
-        boolean first = false;
-        for (byte b : bytes) {
-            if (first) {
-                mac.append("-");
-            }
-            currentByte = (byte) ((b & 240) >> 4);
-            mac.append(Integer.toHexString(currentByte));
-            currentByte = (byte) (b & 15);
-            mac.append(Integer.toHexString(currentByte));
-            first = true;
-        }
-        return mac.toString().toUpperCase();
-    }
 
 }

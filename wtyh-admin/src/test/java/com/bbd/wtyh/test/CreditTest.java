@@ -7,6 +7,7 @@ import com.bbd.wtyh.domain.credit.CompanyCreditFailInfoDO;
 import com.bbd.wtyh.domain.dto.CreditInfoDTO;
 import com.bbd.wtyh.mapper.CompanyCreditRawInfoMapper;
 import com.bbd.wtyh.service.CoCreditScoreService;
+import com.bbd.wtyh.service.CompanyStatusChangeService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,8 @@ public class CreditTest {
 	private CoCreditScoreService coCreditScoreService;
 	@Autowired
 	private CompanyCreditRawInfoMapper companyCreditRawInfoMapper;
+	@Autowired
+	private CompanyStatusChangeService companyStatusChangeService;
 
 	@Test
 	public void queryfailCompanyTest() {
@@ -51,6 +54,12 @@ public class CreditTest {
 	public void getCreditInfoTest() {
 		List<CreditInfoDTO> list = coCreditScoreService.getCreditInfo("中阜投融资产管理股份有限公司", "3");
 		System.err.println(JSON.toJSONString(list, SerializerFeature.PrettyFormat, SerializerFeature.DisableCircularReferenceDetect));
+
+	}
+
+	@Test
+	public void companyStatusChangeTest() {
+		companyStatusChangeService.companyStatusChange(false,"成都数联铭品科技有限公司",Byte.valueOf("1"));
 
 	}
 

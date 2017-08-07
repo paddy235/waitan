@@ -209,7 +209,7 @@ public class FinanceLeaseServiceImpl implements FinanceLeaseService {
                     }
                     resultMap.put(companyName, financeLeasecCompanyVO);
                 } else {
-                    if (riskStatus == 1) {
+                    if (riskStatus != null && riskStatus == 1) {
                         resultMap.get(companyName).setRiskStatus("潜在");
                     }
                     if (riskType != null && riskType == 1) {
