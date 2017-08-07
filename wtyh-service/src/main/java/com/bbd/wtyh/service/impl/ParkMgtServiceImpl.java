@@ -79,6 +79,12 @@ public class ParkMgtServiceImpl implements ParkMgtService {
     }
 
     @Override
+    public Integer queryCBId(String companyId) {
+        Integer i = parkAndBuildingMgtMapper.queryCBId(companyId);
+        return i;
+    }
+
+    @Override
     public List<CompanyDO> queryCompanyByBuildingId(String buildingId) {
         List<CompanyDO> list = new ArrayList<>();
         try {
@@ -172,6 +178,17 @@ public class ParkMgtServiceImpl implements ParkMgtService {
         int i = 0000;
         try {
             i = parkAndBuildingMgtMapper.queryBuildingIdByName(parkId,buildingName);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return i;
+    }
+
+    @Override
+    public int queryBIdByName(String buildingName) {
+        int i = 0000;
+        try {
+            i = parkAndBuildingMgtMapper.queryBIdByName(buildingName);
         } catch (Exception e) {
             e.printStackTrace();
         }

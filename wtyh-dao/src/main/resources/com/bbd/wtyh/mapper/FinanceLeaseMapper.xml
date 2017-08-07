@@ -179,4 +179,19 @@
 			c.`name` = #{name}
 	</select>
 
+	<update id="modifyFinanceLease">
+		update finance_lease_risk
+		<set>
+			risk_status=#{recordInfo.afterLevel}
+		</set>
+		where company_id=#{recordInfo.companyId}
+	</update>
+
+	<insert id="addFinanceLease">
+		INSERT INTO
+		`finance_lease_risk` (`company_id`, `risk_status`)
+		VALUES
+		(#{recordInfo.companyId}, #{recordInfo.afterLevel})
+	</insert>
+
 </mapper>

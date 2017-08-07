@@ -2,6 +2,7 @@ package com.bbd.wtyh.service.impl;
 
 import com.bbd.wtyh.domain.CompanyInfoModify.CompanyInfo;
 import com.bbd.wtyh.mapper.CompanyInfoModifyMapper;
+import com.bbd.wtyh.redis.RedisDAO;
 import com.bbd.wtyh.service.CompanyInfoModifyService;
 import com.bbd.wtyh.service.impl.companyInfoModify.CompanyInfoMudifyUtil;
 import com.bbd.wtyh.service.impl.companyInfoModify.CompanyInfoQueryUtil;
@@ -25,6 +26,9 @@ public class CompanyInfoModifyServiceImpl implements CompanyInfoModifyService {
 
     @Autowired
     private CompanyInfoMudifyUtil companyInfoMudifyUtil;
+
+    @Autowired
+    private RedisDAO redisDAO;
 
     @Override
     public List<String> autoComplete(String q) {
@@ -51,13 +55,13 @@ public class CompanyInfoModifyServiceImpl implements CompanyInfoModifyService {
         } else if (CompanyInfo.TYPE_RZZL_13 == companyInfoModifyMapper.queryCompany(name).getIndustry()) { // 融资租赁
             return companyInfoQueryUtil.getTenancy(name);
         } else if (CompanyInfo.TYPE_ZC_6 == companyInfoModifyMapper.queryCompany(name).getIndustry()) { // 私募基金
-            // TODO: 2017/8/3
+            return companyInfoQueryUtil.getPrivateFund(name);
         } else if (CompanyInfo.TYPE_JR_7 == companyInfoModifyMapper.queryCompany(name).getIndustry()) { // 众筹
-            // TODO: 2017/8/3
+            return companyInfoQueryUtil.getCrowdingFund(name);
         } else if (CompanyInfo.TYPE_DD_12 == companyInfoModifyMapper.queryCompany(name).getIndustry()) { // 典当
-            // TODO: 2017/8/3
+            return companyInfoQueryUtil.getPawn(name);
         } else if (CompanyInfo.TYPE_SYBL_10 == companyInfoModifyMapper.queryCompany(name).getIndustry()) { // 商业保理
-            // TODO: 2017/8/3
+            return companyInfoQueryUtil.getBusinessInsurance(name);
         }
         return null;
     }
@@ -77,23 +81,23 @@ public class CompanyInfoModifyServiceImpl implements CompanyInfoModifyService {
         } else if (CompanyInfo.TYPE_RZDB_3 == companyInfoModifyMapper.queryCompany(modifyData.getName()).getIndustry()) { // 融资担保
             companyInfoMudifyUtil.modifyLoad(modifyData);
         } else if (CompanyInfo.TYPE_XXLC_4 == companyInfoModifyMapper.queryCompany(modifyData.getName()).getIndustry()) { // 线下理财
-            // TODO: 2017/8/3
             companyInfoMudifyUtil.modifyOffLine(modifyData);
         } else if (CompanyInfo.TYPE_JYS_9 == companyInfoModifyMapper.queryCompany(modifyData.getName()).getIndustry()) { // 交易场所
             companyInfoMudifyUtil.modifyOffLine(modifyData);
         } else if (CompanyInfo.TYPE_YFK_11 == companyInfoModifyMapper.queryCompany(modifyData.getName()).getIndustry()) { // 预付卡
             companyInfoMudifyUtil.modifyOffLine(modifyData);
         } else if (CompanyInfo.TYPE_RZZL_13 == companyInfoModifyMapper.queryCompany(modifyData.getName()).getIndustry()) { // 融资租赁
-            companyInfoMudifyUtil.modifyOffLine(modifyData);
+            companyInfoMudifyUtil.modifyFinanceLease(modifyData);
         } else if (CompanyInfo.TYPE_ZC_6 == companyInfoModifyMapper.queryCompany(modifyData.getName()).getIndustry()) { // 私募基金
-            // TODO: 2017/8/3
+            companyInfoMudifyUtil.modifyPrivateFund(modifyData);
         } else if (CompanyInfo.TYPE_JR_7 == companyInfoModifyMapper.queryCompany(modifyData.getName()).getIndustry()) { // 众筹
-            // TODO: 2017/8/3
+            companyInfoMudifyUtil.modifyCrowdfunding(modifyData);
         } else if (CompanyInfo.TYPE_DD_12 == companyInfoModifyMapper.queryCompany(modifyData.getName()).getIndustry()) { // 典当
-            // TODO: 2017/8/3
+            companyInfoMudifyUtil.modifyPawn(modifyData);
         } else if (CompanyInfo.TYPE_SYBL_10 == companyInfoModifyMapper.queryCompany(modifyData.getName()).getIndustry()) { // 商业保理
-            // TODO: 2017/8/3
+            companyInfoMudifyUtil.modifyBusinessInsurance(modifyData);
         }
+        redisDAO.flushAll();
     }
 
     @Override

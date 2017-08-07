@@ -33,7 +33,7 @@
         <property name="group" value="job_work"/>
         <property name="name" value="delImgByStatusJob"/>
 
-        <property name="jobClass" value="com.bbd.wtyh.core.quartz.MethodInvokingJob"/>
+        <property name="jobClass" value="com.bbd.bgo.quartz.MethodInvokingJob"/>
         <property name="jobDataAsMap">
             <map>
                 <entry key="targetObject" value="com.bbd.bgo.service.task.TimingTaskManager"/>

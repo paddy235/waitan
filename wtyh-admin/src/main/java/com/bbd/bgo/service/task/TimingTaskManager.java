@@ -415,7 +415,11 @@ public class TimingTaskManager {
 			// 公信数据落地
 			coCreditScoreService.colseScoreCalculate();
 			TaskUtil.stopTask(taskId,taskKey,taskGroup);
-
+			isStop=true;
+		}else if (TaskUtil.riskLevelJob[0].equals(taskKey)) {
+			// 系统数据更新-风险等级
+			offlineFinanceService.stopTask();
+			TaskUtil.stopTask(taskId,taskKey,taskGroup);
 			isStop=true;
 		}
 		return  isStop;

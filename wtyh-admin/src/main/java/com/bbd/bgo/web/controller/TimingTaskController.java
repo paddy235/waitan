@@ -5,6 +5,7 @@ package com.bbd.bgo.web.controller;
 import com.bbd.bgo.service.task.TimingTaskManager;
 import com.bbd.wtyh.constants.TaskState;
 import com.bbd.wtyh.domain.TaskFailInfoDO;
+import com.bbd.wtyh.domain.TaskSuccessFailInfoDO;
 import com.bbd.wtyh.domain.dto.TaskInfoDTO;
 import com.bbd.wtyh.domain.enums.TaskDataSource;
 import com.bbd.wtyh.excel.ExportExcel;
@@ -92,7 +93,12 @@ public class TimingTaskController {
 	@ResponseBody
 	public ResponseBean reExecuteTask(@RequestParam Integer taskId, @RequestParam String taskKey,
                                       @RequestParam String taskGroup,@RequestParam String taskName,HttpServletRequest request) {
+        TaskSuccessFailInfoDO taskDO=taskSuccessFailInfoMapper.getTaskRecentInfo(taskKey,taskGroup);
+        int state=taskDO.getState()==null?-1:taskDO.getState();
 
+        if(taskDO.getUpdateDate()==null || TaskState.EXECUTING.state()==state){
+            return ResponseBean.errorResponse("已有任务正在执行中，请稍后再试!");
+        }
         timingTaskManager.reExecuteTaskAsyn(taskId,taskKey,taskGroup);
         taskSuccessFailInfoMapper.updateReExecuteById(2,taskId);
 

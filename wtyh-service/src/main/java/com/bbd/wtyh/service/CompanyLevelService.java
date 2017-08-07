@@ -2,6 +2,7 @@ package com.bbd.wtyh.service;
 
 import com.bbd.wtyh.domain.CompanyInfoModify.CompanyInfo;
 import com.bbd.wtyh.domain.CompanyInfoModify.LoanModify;
+import com.bbd.wtyh.domain.CompanyInfoModify.RecordInfo;
 import com.bbd.wtyh.domain.EasyExport.LoanData;
 import com.bbd.wtyh.domain.dto.CompanyLevelDTO;
 import com.bbd.wtyh.web.EasyExportExcel.ExportCondition;
@@ -21,5 +22,7 @@ public interface CompanyLevelService {
 
     void recordLoad(LoanModify loanModify);
 
-    void modifyLoad(LoanModify loanModify);
+    void modifyLoadLevel(RecordInfo loanModify);
+
+    void addLoadLevel(RecordInfo recordInfo);
 }

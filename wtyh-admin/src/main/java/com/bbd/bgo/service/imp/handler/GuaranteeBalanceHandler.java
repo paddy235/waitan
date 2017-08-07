@@ -59,15 +59,17 @@ public class GuaranteeBalanceHandler extends AbstractImportHandler<GuaranteeBala
 
 	@Override
 	public void endRow(Map<String, String> row, GuaranteeBalanceDO bean) throws Exception {
-		bean.setCreateBy("导入融资担保-担保责任余额");
-		bean.setCreateDate(new Date());
 		String sqlWhere= "year=" +bean.getYear() +" AND month="
 				+bean.getMonth()+" LIMIT 1";
 		GuaranteeBalanceDO balanceDO = guaranteeService.selectOne(GuaranteeBalanceDO.class,sqlWhere);
 		if(null==balanceDO){
+			bean.setCreateBy("导入融资担保-担保责任余额");
+			bean.setCreateDate(new Date());
 			insertList.add(bean);
 		}else{
 			bean.setId(balanceDO.getId());
+			bean.setUpdateBy("导入融资担保-担保责任余额");
+			bean.setUpdateDate(new Date());
 			updateList.add(bean);
 		}
 	}

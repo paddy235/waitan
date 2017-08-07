@@ -77,5 +77,7 @@ public interface OfflineFinanceService {
 
     void saveCompanyCreditRisk();
 
+    public void stopTask();
+
 
 }

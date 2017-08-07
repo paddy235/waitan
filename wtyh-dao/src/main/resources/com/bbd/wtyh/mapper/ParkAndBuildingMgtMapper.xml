@@ -171,12 +171,20 @@
         SELECT company_id as companyId FROM company_building WHERE building_id=#{buildingId} AND company_id=#{companyId}
     </select>
 
+    <select id="queryCBId"  resultType="java.lang.Integer">
+        SELECT company_id as companyId FROM company_building WHERE company_id=#{companyId}
+    </select>
+
     <select id="queryParkIdByName" parameterType="java.lang.String" resultType="int">
         SELECT park_id as parkId FROM park WHERE `name`=#{parkName}
     </select>
 
     <select id="queryBuildingIdByName" resultType="int">
         SELECT building_id as buildingId FROM building WHERE park_id=#{parkId} AND `name`=#{buildingName}
+    </select>
+
+    <select id="queryBIdByName" resultType="int">
+        SELECT building_id as buildingId FROM building WHERE `name`=#{buildingName}
     </select>
 
     <select id="queryParkList" resultType="com.bbd.wtyh.domain.ParkDO">

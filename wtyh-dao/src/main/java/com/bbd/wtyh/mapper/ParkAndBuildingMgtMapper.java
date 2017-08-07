@@ -52,9 +52,13 @@ public interface ParkAndBuildingMgtMapper {
 
     int queryBuildingIdByName(@Param("parkId") Integer parkId,@Param("buildingName") String buildingName);
 
+    int queryBIdByName(String buildingName);
+
     List<ParkDO> queryParkList();
 
     Integer queryCompanyBuildingId(@Param("buildingId") String buildingId,@Param("companyId") String companyId);
+
+    Integer queryCBId(String companyId);
 
     int queryCompanyIdByName(String companyName);
 
@@ -74,6 +78,6 @@ public interface ParkAndBuildingMgtMapper {
 
     List<Map<String,String>> queryBuildingList(@Param("parkId") String parkId,@Param("buildingName") String buildingName);
 
-    void delImgByStatus(List<String> statusList);
+    void delImgByStatus(@Param("statusList") List<String> statusList);
 
 }

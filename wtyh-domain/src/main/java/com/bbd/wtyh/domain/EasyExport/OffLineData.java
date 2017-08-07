@@ -32,7 +32,7 @@ public class OffLineData {
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date registeredDate;
     // 注册资本
-    @Excel(exportName = "注册资本")
+    @Excel(exportName = "注册资本（万元）")
     private String registeredCapital;
     // 注册地址
     @Excel(exportName = "注册地址")
