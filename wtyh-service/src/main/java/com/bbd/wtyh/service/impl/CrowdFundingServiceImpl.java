@@ -215,9 +215,6 @@ public class CrowdFundingServiceImpl implements CrowdFundingService {
 
     private void updateCrowdFundingCompany() throws Exception {
         List<CrowdFundingCompanyDO> dtoList = crowdFundingDao.allCompanys();
-        if (dtoList == null) {
-            throw new Exception("pull data error");
-        }
         for (CrowdFundingCompanyDO dto : dtoList) {
             dto.setCreateBy("system");
             dto.setCreateDate(new Date());

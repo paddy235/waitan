@@ -71,11 +71,19 @@ public class CompanyLevelServiceImpl implements CompanyLevelService {
 
     @Override
     public void modifyLoadLevel(RecordInfo recordInfo) {
+        if (null == companyLevelMapper.queryByCompanyId(recordInfo)) {
+            addLoadLevel(recordInfo);
+        }
         companyLevelMapper.modifyLoadLevel(recordInfo);
     }
 
     @Override
     public void addLoadLevel(RecordInfo recordInfo) {
         companyLevelMapper.addLoadLevel(recordInfo);
+    }
+
+    @Override
+    public void deleteByCompanyId(RecordInfo recordInfo) {
+        companyLevelMapper.deleteLoadLevel(recordInfo);
     }
 }
