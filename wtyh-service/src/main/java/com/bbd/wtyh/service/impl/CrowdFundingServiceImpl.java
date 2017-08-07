@@ -192,7 +192,7 @@ public class CrowdFundingServiceImpl implements CrowdFundingService {
             default:
                 taskFailInfoDO.setFailReason("众筹接口调用失败");
         }
-        taskFailInfoDO.setCreateBy("sys");
+        taskFailInfoDO.setCreateBy("system");
         taskFailInfoDO.setCreateDate(new Date());
         taskFailInfoMapper.addTaskFailInfo(taskFailInfoDO);
     }
@@ -207,7 +207,7 @@ public class CrowdFundingServiceImpl implements CrowdFundingService {
             crowdFundingCommonDO.setBlend((String) map.get("混合众筹"));
         }
         crowdFundingCommonDO.setType(type);
-        crowdFundingCommonDO.setCreateBy("sys");
+        crowdFundingCommonDO.setCreateBy("system");
         crowdFundingCommonDO.setCreateDate(new Date());
 //        crowdFundingCommonMapper.deleteByType(type);
         crowdFundingCommonMapper.save(crowdFundingCommonDO);
@@ -219,7 +219,7 @@ public class CrowdFundingServiceImpl implements CrowdFundingService {
             throw new Exception("pull data error");
         }
         for (CrowdFundingCompanyDO dto : dtoList) {
-            dto.setCreateBy("sys");
+            dto.setCreateBy("system");
             dto.setCreateDate(new Date());
 //            crowdFundingCompanyMapper.deleteByPlatName(dto.getPlatformName());
             try {
