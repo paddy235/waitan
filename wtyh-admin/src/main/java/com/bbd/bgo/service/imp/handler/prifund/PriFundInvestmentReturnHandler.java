@@ -76,8 +76,8 @@ public class PriFundInvestmentReturnHandler extends AbstractImportHandler<Invest
         };
         f1.fun("lessNumber", "");
         f1.fun("betweenNumber", "");
-        f1.fun("greater_number", "");
-        f1.fun("quit_number", "");
+        f1.fun("greaterNumber", "");
+        f1.fun("quitNumber", "");
         if( validCntA[0] <1 ) {
             addError("选填参数数量不足");
             return false;
