@@ -48,8 +48,16 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService {
     @Autowired
     private TaskFailInfoMapper taskFailInfoMapper;
 
+    private volatile boolean isShutdown = false;//任务停止标志
+
+    @Override
+    public void stopTask() {
+        isShutdown = true;
+    }
+
     @Override
     public TaskResultDO updateCompanyAndBackgroundAutomaticOperate(Integer taskId) {
+        isShutdown=false;
         this.taskId=taskId;
         this.errorNum=0;
         TaskResultDO taskResultDO=new TaskResultDO();
@@ -86,16 +94,20 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService {
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
         }
-
-        taskResultDO.setPlanCount(dataTotal);
-        taskResultDO.setFailCount(errorNum);
-        taskResultDO.setSuccessCount(dataTotal-errorNum);
-
+        if (isShutdown) {
+            taskResultDO.setFailCount(0);
+            taskResultDO.setSuccessCount(0);
+        }else{
+            taskResultDO.setPlanCount(dataTotal);
+            taskResultDO.setFailCount(errorNum);
+            taskResultDO.setSuccessCount(dataTotal-errorNum);
+        }
         return taskResultDO;
     }
 
     @Override
     public TaskResultDO updateCompanyAndBackgroundManualOperate(Integer oldTaskId,Integer newTaskId){
+        isShutdown=false;
         TaskResultDO taskResultDO = new TaskResultDO();
         this.taskId=newTaskId;
         this.errorNum=0;
@@ -111,6 +123,9 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService {
             ExecutorService dataExecutorService = Executors.newFixedThreadPool(16);
             logger.info("start update company ang background");
             for (int i = 1; i <= total; i++) {
+                if (isShutdown) {
+                    break;
+                }
                 final int num = i;
                 dataExecutorService.submit(new Runnable() {
                     @Override
@@ -132,10 +147,14 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService {
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
         }
-
-        taskResultDO.setPlanCount(dataTotal);
-        taskResultDO.setFailCount(errorNum);
-        taskResultDO.setSuccessCount(dataTotal-errorNum);
+        if (isShutdown) {
+            taskResultDO.setFailCount(0);
+            taskResultDO.setSuccessCount(0);
+        }else{
+            taskResultDO.setPlanCount(dataTotal);
+            taskResultDO.setFailCount(errorNum);
+            taskResultDO.setSuccessCount(dataTotal-errorNum);
+        }
         return taskResultDO;
     }
 
