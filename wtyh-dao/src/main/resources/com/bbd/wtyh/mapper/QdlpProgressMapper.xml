@@ -26,8 +26,9 @@
 
     <select id="selectAll" resultMap="BaseResultMap">
         select
-        <include refid="Base_Column_List"/>
-        from qdlp_progress
+        qp.company_id, qp.foreign_shareholder, qp.china_shareholder, qp.quatas, qp.progress, qp.architecture, qp.create_by,
+    qp.create_date, qp.update_by, qp.update_date
+        from qdlp_progress qp, company c where qp.company_id=c.company_id and c.company_type=5
         order by index_num
     </select>
 

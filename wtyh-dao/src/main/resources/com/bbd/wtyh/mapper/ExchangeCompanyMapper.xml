@@ -6,14 +6,14 @@
 
     <select id="queryExchangeCompanyCategory" resultType="java.util.Map">
 			SELECT
-				`status`,
-				COUNT(company_id) as number
+				ec.`status`,
+				COUNT(ec.company_id) as number
 			FROM
-				exchange_company
+				exchange_company ec, company c
 			where
-				type = 1
+				type = 1 and ec.company_id=c.company_id and c.company_type=9
 			GROUP BY
-				`status`
+				ec.`status`
 	</select>
 
 	<select id="queryExchangeCompanyArea"  resultType="com.bbd.wtyh.domain.vo.ExchangeCompanyAreaVO">
@@ -27,6 +27,7 @@
 			WHERE
 				1 = 1
 			AND c.area_id > 0
+			and c.company_type=9
 			and ec.type = 1
 			GROUP BY
 				a.area_id
@@ -43,7 +44,7 @@
 			exchange_company ec
 		LEFT JOIN company c ON ec.company_id = c.company_id
 		<where>
-			1=1
+			c.company_type=9
 			<if test="status > 0">
 				and ec.`status` = #{status}
 			</if>
@@ -65,7 +66,7 @@
 		LEFT JOIN company c ON ec.company_id = c.company_id
 		LEFT JOIN area a ON c.area_id = a.area_id
 		WHERE
-			1=1
+			c.company_type=9
 		<if test="type != null and type > 0">
 			and ec.type = #{type}
 		</if>
