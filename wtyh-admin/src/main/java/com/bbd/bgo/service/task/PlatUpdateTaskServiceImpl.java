@@ -38,12 +38,13 @@ public class PlatUpdateTaskServiceImpl extends BaseServiceImpl implements PlatUp
 	private CompanyMapper companyMapper;
 
 	private Integer taskId = null;
+
 	private volatile boolean isShutdown = false;//任务停止标志
+
 	@Override
 	public void stopTask() {
 		isShutdown = true;
 	}
-
 	/**
 	 * 更新网贷平台与企业对照关系自动执行
 	 */
@@ -64,6 +65,7 @@ public class PlatUpdateTaskServiceImpl extends BaseServiceImpl implements PlatUp
 
 
 	private TaskResultDO updatePlat(Integer oldTaskId,Integer newTaskId) {
+		isShutdown=false;
 		TaskResultDO taskResultDO = new TaskResultDO();
 		if(null==newTaskId){
 			this.taskId=oldTaskId;
@@ -88,13 +90,18 @@ public class PlatUpdateTaskServiceImpl extends BaseServiceImpl implements PlatUp
 			List<TaskFailInfoDO> failList = taskFailInfoMapper.getTaskFailInfoByTaskId(oldTaskId);
 			List<String> failStrList=new ArrayList<String>();
 			for(TaskFailInfoDO fail:failList){
-
+				if (isShutdown) {
+					break;
+				}
 				failStrList.add(fail.getFailName());
 			}
 			List<String> failPlatList=new ArrayList<>();
 			dataTotal = failList.size();
 			Iterator<PlatListDO> it = platList.iterator();
 			while(it.hasNext()){
+				if (isShutdown) {
+					break;
+				}
 				PlatListDO plat = it.next();
 				if(!failStrList.contains(plat.getPlat_name())){
 					it.remove();
@@ -110,13 +117,6 @@ public class PlatUpdateTaskServiceImpl extends BaseServiceImpl implements PlatUp
 //			}
 //		});
 		Collections.sort(platInfoList,(o1,o2) -> o1.getCompanyId()-o2.getCompanyId());
-
-        if (isShutdown) {
-            taskResultDO.setPlanCount(dataTotal);
-            taskResultDO.setFailCount(0);
-            taskResultDO.setSuccessCount(0);
-        }
-
 		if(null==newTaskId){
 			int delNum = this.executeCUD("delete from platform_name_information");
 			logger.info("delete plat number:"+delNum);
@@ -128,9 +128,14 @@ public class PlatUpdateTaskServiceImpl extends BaseServiceImpl implements PlatUp
 		} catch (Exception e) {
 			logger.info("delete repeat plat error");
 		}
-		taskResultDO.setPlanCount(dataTotal);
-		taskResultDO.setFailCount(dataError);
-		taskResultDO.setSuccessCount(dataTotal-dataError);
+		if (isShutdown) {
+			taskResultDO.setFailCount(0);
+			taskResultDO.setSuccessCount(0);
+		}else{
+			taskResultDO.setPlanCount(dataTotal);
+			taskResultDO.setFailCount(dataError);
+			taskResultDO.setSuccessCount(dataTotal-dataError);
+		}
 		return taskResultDO;
 	}
 
@@ -138,9 +143,6 @@ public class PlatUpdateTaskServiceImpl extends BaseServiceImpl implements PlatUp
 		List<String> names = new ArrayList<String>();
 		PlatformNameInformationDO platInfo=null;
 		for(PlatListDO plat:platList){
-            if (isShutdown) {
-                return;
-            }
 			platInfo=new PlatformNameInformationDO();
 			platInfo.setName(plat.getCompany_name());
 			platInfo.setPlatformName(plat.getPlat_name());
@@ -152,17 +154,10 @@ public class PlatUpdateTaskServiceImpl extends BaseServiceImpl implements PlatUp
 		List<CompanyDO> comList = companyMapper.findCompanyByName(names);
 		Map<String,CompanyDO> map=new HashMap<String,CompanyDO>();
 		for(CompanyDO com:comList){
-            if (isShutdown) {
-                return;
-            }
 			map.put(com.getName(),com);
 		}
 		Iterator<PlatformNameInformationDO> it = platInfoList.iterator();
-
 		while(it.hasNext()){
-            if (isShutdown) {
-                return;
-            }
 			PlatformNameInformationDO plat = it.next();
 			if(null==map.get(plat.getName())){
 				TaskFailInfoDO fail = new TaskFailInfoDO();

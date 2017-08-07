@@ -17,4 +17,6 @@ public interface DataLoadingService {
      * 新型金融全息数据和舆情数据落地定时自动更新
      */
     TaskResultDO dataLoadingAutomaticOperate(Integer taskId);
+
+    public void stopTask();
 }

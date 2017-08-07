@@ -54,8 +54,10 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService {
     public void stopTask() {
         isShutdown = true;
     }
+
     @Override
     public TaskResultDO updateCompanyAndBackgroundAutomaticOperate(Integer taskId) {
+        isShutdown=false;
         this.taskId=taskId;
         this.errorNum=0;
         TaskResultDO taskResultDO=new TaskResultDO();
@@ -92,22 +94,20 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService {
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
         }
-
-        taskResultDO.setPlanCount(dataTotal);
-
         if (isShutdown) {
             taskResultDO.setFailCount(0);
             taskResultDO.setSuccessCount(0);
-        }else {
+        }else{
+            taskResultDO.setPlanCount(dataTotal);
             taskResultDO.setFailCount(errorNum);
-            taskResultDO.setSuccessCount(dataTotal - errorNum);
+            taskResultDO.setSuccessCount(dataTotal-errorNum);
         }
-
         return taskResultDO;
     }
 
     @Override
     public TaskResultDO updateCompanyAndBackgroundManualOperate(Integer oldTaskId,Integer newTaskId){
+        isShutdown=false;
         TaskResultDO taskResultDO = new TaskResultDO();
         this.taskId=newTaskId;
         this.errorNum=0;
@@ -123,6 +123,9 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService {
             ExecutorService dataExecutorService = Executors.newFixedThreadPool(16);
             logger.info("start update company ang background");
             for (int i = 1; i <= total; i++) {
+                if (isShutdown) {
+                    break;
+                }
                 final int num = i;
                 dataExecutorService.submit(new Runnable() {
                     @Override
@@ -144,18 +147,19 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService {
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
         }
-
-        taskResultDO.setPlanCount(dataTotal);
-        taskResultDO.setFailCount(errorNum);
-        taskResultDO.setSuccessCount(dataTotal-errorNum);
+        if (isShutdown) {
+            taskResultDO.setFailCount(0);
+            taskResultDO.setSuccessCount(0);
+        }else{
+            taskResultDO.setPlanCount(dataTotal);
+            taskResultDO.setFailCount(errorNum);
+            taskResultDO.setSuccessCount(dataTotal-errorNum);
+        }
         return taskResultDO;
     }
 
 
     private void companyAndBackgroundUpdateThread(Pagination pagination,Integer type,Integer dataTaskId) {
-        if (isShutdown) {
-            return;
-        }
         Map<String, Object> params = new HashMap<>();
         params.put("pagination", pagination);
         StringBuffer companyNameSerial = new StringBuffer();
@@ -183,10 +187,11 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService {
             }
         }
         companyNameSerial.deleteCharAt(companyNameSerial.length() - 1); //去掉最后一个逗号
+        logger.info("update company name:"+companyNameSerial.toString());
         Map batchData = hologramQueryService.getBbdQyxxBatch(companyNameSerial.toString());
         // 接口处未查询到数据
         if (CollectionUtils.isEmpty(batchData)) {
-            insertFailInfo(failNameList,null,"接口查询错误");
+            insertFailInfo(failNameList,null,"接口数据为空");
             return;
         }
         String msg = (String) (batchData.get("msg"));
