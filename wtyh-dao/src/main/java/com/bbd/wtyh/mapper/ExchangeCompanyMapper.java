@@ -2,6 +2,7 @@ package com.bbd.wtyh.mapper;
 
 import com.bbd.wtyh.core.entity.Pagination;
 import com.bbd.wtyh.domain.CompanyDO;
+import com.bbd.wtyh.domain.CompanyInfoModify.RecordInfo;
 import com.bbd.wtyh.domain.EasyExport.TradeMarketData;
 import com.bbd.wtyh.domain.vo.ExchangeCompanyAreaVO;
 import com.bbd.wtyh.domain.vo.ExchangeCompanyVO;
@@ -28,4 +29,6 @@ public interface ExchangeCompanyMapper {
                                          @Param(value = "pagination")PageBean pagination);
 
     Long countTradeMarket(@Param(value = "exportCondition")ExportCondition exportCondition);
+
+    void deleteByCompanyId(@Param(value = "recordInfo")RecordInfo recordInfo);
 }

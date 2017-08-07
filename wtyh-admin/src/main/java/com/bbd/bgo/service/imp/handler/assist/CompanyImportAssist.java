@@ -113,24 +113,34 @@ public class CompanyImportAssist {
                 }
                 if( StringUtils.isNotEmpty( cDo.getOrganizationCode() ) && StringUtils.isNotBlank( cInfo.getJbxx().getRegno() ) &&
                         ! cDo.getOrganizationCode().equals( cInfo.getJbxx().getRegno() ) ) {
-                    bCrd =false;
-            }
+                    bRegNo =false;
+                }
                 cDo.setOrganizationCode(null);
                 if (bCrd && bRegNo) { //用数据平台数据验证成功
                     if ( null ==locCp ) { //数据库中无此企业
                         //按新增处理
-                        addDataToList( true, cDo, locCp, cInfo );
+                        addDataToList( true, cDo, null, cInfo );
                     } else { //有
                         //按更新处理
                         addDataToList( false, cDo, locCp, cInfo );
                     }
                 } else { //验证失败
-                    addError(cDo.getId(), "这一条导入信息有误");
-                    continue;
+                    StringBuilder sb =new StringBuilder("企业名称和");
+                    if ( !bCrd ) {
+                        sb.append("统一信用代码");
+                    }
+                    if ( !bCrd && !bRegNo ) {
+                        sb.append("、");
+                    }
+                    if ( !bRegNo ) {
+                        sb.append("注册号");
+                    }
+                    sb.append("不匹配！");
+                    addError(cDo.getId(), sb.toString());
                 }
             } else { //数据平台无此企业
                 cDo.setOrganizationCode(null);
-                Map.Entry<CompanyDO, BaseDataDO.Results> me =new AbstractMap.SimpleEntry<>( cDo, cInfo );
+                Map.Entry<CompanyDO, BaseDataDO.Results> me =new AbstractMap.SimpleEntry<>( cDo, null );
                 if ( null ==locCp ) { //数据库中无此企业
                     //产品确认说按新增处理
                     insertList.add(me);
