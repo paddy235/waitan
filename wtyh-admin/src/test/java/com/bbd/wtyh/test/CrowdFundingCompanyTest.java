@@ -26,7 +26,8 @@ public class CrowdFundingCompanyTest {
     @Test
     public void dataLandTask(){
         Integer taskId = 21;
-        crowdFundingService.crowdFundingDataLandTask(taskId);
+        TaskResultDO taskResultDO = crowdFundingService.crowdFundingDataLandTask(taskId);
+        System.out.print(taskResultDO);
     }
 
     /**
