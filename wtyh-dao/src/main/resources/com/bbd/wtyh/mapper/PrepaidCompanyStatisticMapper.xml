@@ -65,7 +65,23 @@
             c.company_type = 11
         AND c.`name` = #{name}
     </select>
-  
 
-  
+    <update id="modifyPerpaycard" >
+        update company_analysis_result
+        <set>
+            analysis_result=#{recordInfo.afterLevel}
+        </set>
+        where `company_id`=#{recordInfo.companyId}
+    </update>
+
+    <insert id="addPerpaycard">
+        INSERT INTO
+        `company_analysis_result` (`company_id`, `analysis_result`)
+        VALUES
+        (#{recordInfo.companyId}, #{recordInfo.afterLevel})
+    </insert>
+
+    <delete id="deleteByCompanyId">
+        delete from company_analysis_result where company_id = #{recordInfo.companyId}
+    </delete>
 </mapper>

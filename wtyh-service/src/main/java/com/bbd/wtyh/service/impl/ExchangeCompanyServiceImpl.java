@@ -1,6 +1,7 @@
 package com.bbd.wtyh.service.impl;
 
 
+import com.bbd.wtyh.domain.CompanyInfoModify.RecordInfo;
 import com.bbd.wtyh.domain.EasyExport.TradeMarketData;
 import com.bbd.wtyh.domain.vo.ExchangeCompanyAreaVO;
 import com.bbd.wtyh.domain.vo.ExchangeCompanyVO;
@@ -108,5 +109,10 @@ public class ExchangeCompanyServiceImpl implements ExchangeCompanyService {
     public List<TradeMarketData> getTradeMarket(ExportCondition exportCondition, PageBean pagination) {
         pagination.setTotalCount(exchangeCompanyMapper.countTradeMarket(exportCondition));
         return exchangeCompanyMapper.getTradeMarket(exportCondition, pagination);
+    }
+
+    @Override
+    public void deleteByCompanyId(RecordInfo recordInfo) {
+        exchangeCompanyMapper.deleteByCompanyId(recordInfo);
     }
 }

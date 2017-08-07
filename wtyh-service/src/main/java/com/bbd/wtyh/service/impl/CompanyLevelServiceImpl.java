@@ -78,4 +78,9 @@ public class CompanyLevelServiceImpl implements CompanyLevelService {
     public void addLoadLevel(RecordInfo recordInfo) {
         companyLevelMapper.addLoadLevel(recordInfo);
     }
+
+    @Override
+    public void deleteByCompanyId(RecordInfo recordInfo) {
+        companyLevelMapper.deleteLoadLevel(recordInfo);
+    }
 }

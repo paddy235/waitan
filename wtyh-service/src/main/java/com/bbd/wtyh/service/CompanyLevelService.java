@@ -25,4 +25,6 @@ public interface CompanyLevelService {
     void modifyLoadLevel(RecordInfo loanModify);
 
     void addLoadLevel(RecordInfo recordInfo);
+
+    void deleteByCompanyId(RecordInfo recordInfo);
 }
