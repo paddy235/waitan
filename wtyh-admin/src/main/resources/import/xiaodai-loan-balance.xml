@@ -8,14 +8,14 @@
                     value="填写说明：本表格不可填写Excel公式；所有项必填；"/>
         </rowHeader>
         <columns>
-            <column name="年份" code="year" dataType="number" bgColor="#FFFF00" required="true" regex="[1-9][0-9]{3}"/>
+            <column name="年份" code="year" dataType="integer" bgColor="#FFFF00" required="true" regex="[1-9][0-9]{3}"/>
 
-            <column name="月份" code="month" dataType="number" bgColor="#FFFF00" required="true" regex="0?[1-9]|1[0-2]"/>
+            <column name="月份" code="month" dataType="integer" bgColor="#FFFF00" required="true" regex="0?[1-9]|1[0-2]"/>
 
-            <column name="三农余额(万元)" code="agricultureBalance" dataType="number" bgColor="#FFFF00" required="true"/>
-            <column name="小微余额(万元)" code="smallCompanyBalance" dataType="number" bgColor="#FFFF00" required="true"/>
-            <column name="贷款余额总计(万元)" code="amount" dataType="number" bgColor="#FFFF00" required="true"/>
-            <column name="贷款余额笔数" code="number" dataType="number" bgColor="#FFFF00" required="true"/>
+            <column name="三农余额(万元)" code="agricultureBalance" dataType="integer" bgColor="#FFFF00" required="true"/>
+            <column name="小微余额(万元)" code="smallCompanyBalance" dataType="integer" bgColor="#FFFF00" required="true"/>
+            <column name="贷款余额总计(万元)" code="amount" dataType="integer" bgColor="#FFFF00" required="true"/>
+            <column name="贷款余额笔数" code="number" dataType="integer" bgColor="#FFFF00" required="true"/>
         </columns>
 
     </sheet>
