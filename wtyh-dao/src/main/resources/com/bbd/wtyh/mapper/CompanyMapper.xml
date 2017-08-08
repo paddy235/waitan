@@ -71,7 +71,7 @@
    			cb.company_id=com.company_id and
    			cb.building_id=bui.building_id and
    			p.area_id=#{areaId} and
-   			com.company_type=#{type}
+   			com.company_type=#{type} and p.name=#{parkName}
 
    </select>
 

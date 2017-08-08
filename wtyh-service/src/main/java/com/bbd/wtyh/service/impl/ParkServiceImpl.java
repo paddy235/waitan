@@ -65,9 +65,9 @@ public class ParkServiceImpl extends BaseServiceImpl implements ParkService {
 	private CompanyAnalysisResultMapper carMapper;
 
 	@Override
-	public List<BuildingDO> queryBuildings(Integer areaId) {
+	public List<BuildingDO> queryBuildings(Integer areaId,String parkName) {
 
-		return buildingMapper.queryBuildings(areaId);
+		return buildingMapper.queryBuildings(areaId,parkName);
 
 	}
 
@@ -182,21 +182,21 @@ public class ParkServiceImpl extends BaseServiceImpl implements ParkService {
 	}
 
 	@Override
-	public List<CompanyTypeCountDO> businessDistribute(Integer areaId) {
+	public List<CompanyTypeCountDO> businessDistribute(Integer areaId,String parkName) {
 
 		List<CompanyTypeCountDO> ljr = new ArrayList<>();
 
-		countType(ljr, areaId, CompanyDO.TYPE_P2P_1, "网络借贷");
-		countType(ljr, areaId, CompanyDO.TYPE_XD_2, "小额贷款");
-		countType(ljr, areaId, CompanyDO.TYPE_RZDB_3, "融资担保");
-		countType(ljr, areaId, CompanyDO.TYPE_XXLC_4, "线下理财");
-		countType(ljr, areaId, CompanyDO.TYPE_SMJJ_5, "私募基金");
-		countType(ljr, areaId, CompanyDO.TYPE_ZC_6, "众筹");
-		countType(ljr, areaId, CompanyDO.TYPE_JYS_9, "交易所");
-		countType(ljr, areaId, CompanyDO.TYPE_SYBL_10, "商业保理");
-		countType(ljr, areaId, CompanyDO.TYPE_YFK_11, "预付卡");
-		countType(ljr, areaId, CompanyDO.TYPE_DD_12, "典当");
-		countType(ljr, areaId, CompanyDO.TYPE_RZZL_13, "融资租赁");
+		countType(ljr, areaId, CompanyDO.TYPE_P2P_1, "网络借贷",parkName);
+		countType(ljr, areaId, CompanyDO.TYPE_XD_2, "小额贷款",parkName);
+		countType(ljr, areaId, CompanyDO.TYPE_RZDB_3, "融资担保",parkName);
+		countType(ljr, areaId, CompanyDO.TYPE_XXLC_4, "线下理财",parkName);
+		countType(ljr, areaId, CompanyDO.TYPE_SMJJ_5, "私募基金",parkName);
+		countType(ljr, areaId, CompanyDO.TYPE_ZC_6, "众筹",parkName);
+		countType(ljr, areaId, CompanyDO.TYPE_JYS_9, "交易所",parkName);
+		countType(ljr, areaId, CompanyDO.TYPE_SYBL_10, "商业保理",parkName);
+		countType(ljr, areaId, CompanyDO.TYPE_YFK_11, "预付卡",parkName);
+		countType(ljr, areaId, CompanyDO.TYPE_DD_12, "典当",parkName);
+		countType(ljr, areaId, CompanyDO.TYPE_RZZL_13, "融资租赁",parkName);
 		// 公司类型 1:P2P 2:小贷 3:融资担保 4:线下理财 5:私募基金 6:众筹 7:金融 8:其他 9:交易所 10:商业保理
 		// 11.预付卡 12.典当 13融资租赁
 
@@ -210,21 +210,21 @@ public class ParkServiceImpl extends BaseServiceImpl implements ParkService {
 		ljrCount.setChildren(ljr);
 		bigType.add(ljrCount.setType("新型金融"));
 
-		countType(bigType, areaId, CompanyDO.TYPE_JR_7, "金融");
-		countType(bigType, areaId, CompanyDO.TYPE_QT_8, "其他");
+		countType(bigType, areaId, CompanyDO.TYPE_JR_7, "金融",parkName);
+		countType(bigType, areaId, CompanyDO.TYPE_QT_8, "其他",parkName);
 
 		return bigType;
 	}
 
-	private void countType(List<CompanyTypeCountDO> list, Integer areaId, Byte type, String name) {
-		CompanyTypeCountDO b = companyMapper.countByType(areaId, type);
+	private void countType(List<CompanyTypeCountDO> list, Integer areaId, Byte type, String name,String parkName) {
+		CompanyTypeCountDO b = companyMapper.countByType(areaId, type,parkName);
 		list.add(b.setType(name));
 
 	}
 
-	public String parkImg(Integer areaId) {
+	public String parkImg(Integer areaId,String parkName) {
 
-		return parkMapper.parkImg(areaId);
+		return parkMapper.parkImg(areaId,parkName);
 
 	}
 

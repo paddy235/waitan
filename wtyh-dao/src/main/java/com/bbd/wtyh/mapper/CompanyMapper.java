@@ -34,7 +34,7 @@ public interface CompanyMapper {
 	public InBusinessDO countByDate(@Param(value = "areaId") Integer areaId, @Param(value = "start") String start,
 			@Param(value = "end") String end);
 
-	public CompanyTypeCountDO countByType(@Param(value = "areaId") Integer areaId, @Param(value = "type") Byte type);
+	public CompanyTypeCountDO countByType(@Param(value = "areaId") Integer areaId, @Param(value = "type") Byte type, @Param("parkName") String parkName);
 
 	public List<CompanyDO> buildingCompany(@Param(value = "buildingId") Integer buildingId, @Param(value = "orderField") Integer orderField,
 			@Param(value = "descAsc") String descAsc);
