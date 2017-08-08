@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bbd.wtyh.mapper.BuildingMapper">
 
-    <select id="queryBuildings" parameterType="int" resultType="com.bbd.wtyh.domain.BuildingDO">
+    <select id="queryBuildings" resultType="com.bbd.wtyh.domain.BuildingDO">
 
 			select b.building_id buildingId,
 			       b.name,b.park_id parkId,
@@ -16,7 +16,7 @@
 			     company c
 			where c.company_id=cb.company_id and
 			      cb.building_id=b.building_id and
-			      b.park_id=p.park_id and p.area_id=#{areaId}
+			      b.park_id=p.park_id and p.area_id=#{areaId} and p.name=#{parkName}
 			      and c.company_type is not null
 			GROUP BY b.building_id ,b.name,b.park_id,b.img_url
 			ORDER BY importFocusNum DESC,commonFocusNum DESC

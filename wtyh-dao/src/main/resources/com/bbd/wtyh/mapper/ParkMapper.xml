@@ -5,7 +5,7 @@
 
 
     <select id="parkImg"  resultType="string">
-			select img_url from park p  where p.area_id=#{areaId} LIMIT 1 ;
+			select img_url from park p  where p.area_id=#{areaId} and name=#{parkName} LIMIT 1 ;
 	</select>
 
 	<select id="qeuryParkCompany"   parameterType="java.util.HashMap" resultType="com.bbd.wtyh.domain.ParkCompanyDo">

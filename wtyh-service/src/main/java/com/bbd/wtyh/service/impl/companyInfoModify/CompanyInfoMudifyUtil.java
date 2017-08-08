@@ -133,8 +133,8 @@ public class CompanyInfoMudifyUtil {
         }
 
         // 小额贷款、融资担保
-        if (CompanyInfo.TYPE_XD_2 == recordInfo.getBeforeIndustry()
-                || CompanyInfo.TYPE_RZDB_3 == recordInfo.getBeforeIndustry()) {
+        if ((CompanyInfo.TYPE_XD_2 == recordInfo.getBeforeIndustry() || CompanyInfo.TYPE_RZDB_3 == recordInfo.getBeforeIndustry())
+                && !(CompanyInfo.TYPE_XD_2 == recordInfo.getAfterIndustry() || CompanyInfo.TYPE_RZDB_3 == recordInfo.getAfterIndustry())) {
             // delete index_data
             companyLevelService.deleteByCompanyId(recordInfo);
         }
@@ -181,9 +181,12 @@ public class CompanyInfoMudifyUtil {
         } else if (CompanyInfo.TYPE_XD_2 == recordInfo.getAfterIndustry()   // 小额贷款
                 || CompanyInfo.TYPE_RZDB_3 == recordInfo.getAfterIndustry()) {  // 融资担保
             companyLevelService.modifyLoadLevel(recordInfo);
-        } else if (CompanyInfo.TYPE_XXLC_4 == recordInfo.getAfterIndustry() // 线下理财
-                || CompanyInfo.TYPE_JYS_9 == recordInfo.getAfterIndustry()) {  // 交易场所
+        } else if (CompanyInfo.TYPE_XXLC_4 == recordInfo.getAfterIndustry()) { // 线下理财
             riskCompanyService.modifyOffLineLevel(recordInfo);
+            indexDataMapper.addOffLineLevel(recordInfo);
+        } else if (CompanyInfo.TYPE_JYS_9 == recordInfo.getAfterIndustry()) {  // 交易场所
+            riskCompanyService.modifyOffLineLevel(recordInfo);
+            exchangeCompanyService.addExchange(recordInfo);
         } else if (CompanyInfo.TYPE_RZZL_13 == recordInfo.getAfterIndustry()) { // 融资租赁
             financeLeaseService.addFinanceLease(recordInfo);
         } else if (CompanyInfo.TYPE_YFK_11 == recordInfo.getAfterIndustry()) {   // 预付卡
@@ -194,7 +197,7 @@ public class CompanyInfoMudifyUtil {
     }
 
     /**
-     * 线下理财、交易场所、融资租赁
+     * 线下理财
      *
      * @param modifyData
      * @return
@@ -208,8 +211,39 @@ public class CompanyInfoMudifyUtil {
         } else if (CompanyInfo.TYPE_XD_2 == recordInfo.getAfterIndustry()   // 小额贷款
                 || CompanyInfo.TYPE_RZDB_3 == recordInfo.getAfterIndustry()) {  // 融资担保
             companyLevelService.addLoadLevel(recordInfo);
-        } else if (CompanyInfo.TYPE_XXLC_4 == recordInfo.getAfterIndustry() // 线下理财
-                || CompanyInfo.TYPE_JYS_9 == recordInfo.getAfterIndustry()) {  // 交易场所
+        } else if (CompanyInfo.TYPE_XXLC_4 == recordInfo.getAfterIndustry()) { // 线下理财
+            riskCompanyService.modifyOffLineLevel(recordInfo);
+        } else if (CompanyInfo.TYPE_JYS_9 == recordInfo.getAfterIndustry()) {  // 交易场所
+            riskCompanyService.modifyOffLineLevel(recordInfo);
+            exchangeCompanyService.addExchange(recordInfo);
+        } else if (CompanyInfo.TYPE_RZZL_13 == recordInfo.getAfterIndustry()) { // 融资租赁
+            financeLeaseService.addFinanceLease(recordInfo);
+        } else if (CompanyInfo.TYPE_YFK_11 == recordInfo.getAfterIndustry()) { // 预付卡
+            prepaidCompanyStaticService.addPerpaycard(recordInfo);
+        }
+        // 修改行业
+        modifyIndustry(recordInfo);
+    }
+
+    /**
+     * 交易场所
+     *
+     * @param modifyData
+     * @return
+     */
+    public void modifyExchange(ModifyData modifyData) {
+        CompanyInfo companyInfo = companyInfoModifyMapper.queryCompany(modifyData.getName());
+        RecordInfo recordInfo = recordModify(modifyData, companyInfo);
+        // 修改风险等级
+        if (CompanyInfo.TYPE_P2P_1 == recordInfo.getAfterIndustry()) { // 网络借贷
+            // do nothing, just record
+        } else if (CompanyInfo.TYPE_XD_2 == recordInfo.getAfterIndustry()   // 小额贷款
+                || CompanyInfo.TYPE_RZDB_3 == recordInfo.getAfterIndustry()) {  // 融资担保
+            companyLevelService.addLoadLevel(recordInfo);
+        } else if (CompanyInfo.TYPE_XXLC_4 == recordInfo.getAfterIndustry()) { // 线下理财
+            riskCompanyService.modifyOffLineLevel(recordInfo);
+            indexDataMapper.addOffLineLevel(recordInfo);
+        } else if (CompanyInfo.TYPE_JYS_9 == recordInfo.getAfterIndustry()) {  // 交易场所
             riskCompanyService.modifyOffLineLevel(recordInfo);
         } else if (CompanyInfo.TYPE_RZZL_13 == recordInfo.getAfterIndustry()) { // 融资租赁
             financeLeaseService.addFinanceLease(recordInfo);
@@ -234,9 +268,12 @@ public class CompanyInfoMudifyUtil {
         } else if (CompanyInfo.TYPE_XD_2 == recordInfo.getAfterIndustry()   // 小额贷款
                 || CompanyInfo.TYPE_RZDB_3 == recordInfo.getAfterIndustry()) {  // 融资担保
             companyLevelService.addLoadLevel(recordInfo);
-        } else if (CompanyInfo.TYPE_XXLC_4 == recordInfo.getAfterIndustry() // 线下理财
-                || CompanyInfo.TYPE_JYS_9 == recordInfo.getAfterIndustry()) {  // 交易场所
+        } else if (CompanyInfo.TYPE_XXLC_4 == recordInfo.getAfterIndustry()) { // 线下理财
             riskCompanyService.modifyOffLineLevel(recordInfo);
+            indexDataMapper.addOffLineLevel(recordInfo);
+        } else if (CompanyInfo.TYPE_JYS_9 == recordInfo.getAfterIndustry()) {  // 交易场所
+            riskCompanyService.modifyOffLineLevel(recordInfo);
+            exchangeCompanyService.addExchange(recordInfo);
         } else if (CompanyInfo.TYPE_RZZL_13 == recordInfo.getAfterIndustry()) { // 融资租赁
             financeLeaseService.modifyFinanceLease(recordInfo);
         } else if (CompanyInfo.TYPE_YFK_11 == recordInfo.getAfterIndustry()) {// 预付卡
@@ -260,9 +297,12 @@ public class CompanyInfoMudifyUtil {
         } else if (CompanyInfo.TYPE_XD_2 == recordInfo.getAfterIndustry()   // 小额贷款
                 || CompanyInfo.TYPE_RZDB_3 == recordInfo.getAfterIndustry()) {  // 融资担保
             companyLevelService.addLoadLevel(recordInfo);
-        } else if (CompanyInfo.TYPE_XXLC_4 == recordInfo.getAfterIndustry() // 线下理财
-                || CompanyInfo.TYPE_JYS_9 == recordInfo.getAfterIndustry()) {  // 交易场所
+        } else if (CompanyInfo.TYPE_XXLC_4 == recordInfo.getAfterIndustry()) { // 线下理财
             riskCompanyService.modifyOffLineLevel(recordInfo);
+            indexDataMapper.addOffLineLevel(recordInfo);
+        } else if (CompanyInfo.TYPE_JYS_9 == recordInfo.getAfterIndustry()) {  // 交易场所
+            riskCompanyService.modifyOffLineLevel(recordInfo);
+            exchangeCompanyService.addExchange(recordInfo);
         } else if (CompanyInfo.TYPE_RZZL_13 == recordInfo.getAfterIndustry()) { // 融资租赁
             financeLeaseService.modifyFinanceLease(recordInfo);
         } else if (CompanyInfo.TYPE_YFK_11 == recordInfo.getAfterIndustry()) {// 预付卡

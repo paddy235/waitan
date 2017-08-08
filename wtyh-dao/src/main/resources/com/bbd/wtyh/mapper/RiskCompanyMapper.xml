@@ -4,7 +4,7 @@
 
     <sql id="indexDataCondition">
         <where>
-            i.company_name=c.`name`
+            i.company_name=c.`name` and c.company_type=4
             <if test="area != null and area != ''">
                 AND i.area=#{area}
             </if>

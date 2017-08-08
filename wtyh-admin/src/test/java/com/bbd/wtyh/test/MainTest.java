@@ -23,6 +23,12 @@ public class MainTest {
         Integer failCount=null;
         Map map = new HashMap();
         try{
+            boolean falg=false;
+            while(!falg){
+
+                System.out.println("13");
+                falg=true;
+            }
             String formatDay="yyyy-MM-dd";
             String format="yyyy-MM-dd HH:mm:ss";
             LocalDate today = LocalDate.now();

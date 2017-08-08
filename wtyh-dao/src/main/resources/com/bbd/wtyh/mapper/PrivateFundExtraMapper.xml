@@ -41,7 +41,7 @@
         a.record_status,b.name,b.registered_date,b.registered_capital
         from private_fund_extra a,company b
         <where>
-            a.company_id=b.company_id
+            a.company_id=b.company_id and b.company_type=5
             <if test="null != recordStatus">
                and  a.record_status=#{recordStatus}
             </if>

@@ -115,4 +115,9 @@ public class ExchangeCompanyServiceImpl implements ExchangeCompanyService {
     public void deleteByCompanyId(RecordInfo recordInfo) {
         exchangeCompanyMapper.deleteByCompanyId(recordInfo);
     }
+
+    @Override
+    public void addExchange(RecordInfo recordInfo) {
+        exchangeCompanyMapper.addExchange(recordInfo);
+    }
 }

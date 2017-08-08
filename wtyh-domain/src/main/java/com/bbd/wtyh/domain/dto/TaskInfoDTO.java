@@ -71,6 +71,8 @@ public class TaskInfoDTO {
 	private Integer successCount;
 
 	private Integer failCount;
+	/** 能否终止的标志 : 1表示可中断 ,其他标志不可中断*/
+	private Integer can_stop;
 
 	/**
 	 * 获取 task id
@@ -354,6 +356,14 @@ public class TaskInfoDTO {
 
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
+	}
+
+	public Integer getCan_stop() {
+		return can_stop;
+	}
+
+	public void setCan_stop(Integer can_stop) {
+		this.can_stop = can_stop;
 	}
 
 }

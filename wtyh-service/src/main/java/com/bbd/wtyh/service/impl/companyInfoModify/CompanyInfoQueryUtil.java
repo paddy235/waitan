@@ -134,6 +134,9 @@ public class CompanyInfoQueryUtil {
         if (null == companyInfo) {
             return null;
         }
+        if (null == companyInfo.getCurrentLevel()) {
+            companyInfo.setCurrentLevel("0");
+        }
         companyInfo.setIndustry(CompanyInfo.TYPE_RZZL_13);
         return companyInfo;
     }

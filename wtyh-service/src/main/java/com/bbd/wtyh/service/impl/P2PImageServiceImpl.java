@@ -56,6 +56,8 @@ public class P2PImageServiceImpl implements P2PImageService {
     @Autowired
     private TaskFailInfoMapper taskFailInfoMapper;
 
+    private volatile boolean isShutdown = false;//任务停止标志
+
 
     private static final String PLAT_FORM_STATUS_CACHE_PRIFIX = "wtyh:P2PImage:platFormStatus";
 
@@ -321,6 +323,7 @@ public class P2PImageServiceImpl implements P2PImageService {
 
     @Override
     public TaskResultDO p2pImageDataLandTask(Integer taskId) {
+        isShutdown = false;
         logger.info("start p2pImageDataLandTask ");
         List<PlatListDO> platList = new ArrayList<>();
         try {
@@ -331,9 +334,12 @@ public class P2PImageServiceImpl implements P2PImageService {
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
         }
-        Integer platCount = platList.size();
+        Integer planCount = platList.size();
         Integer failCount = 0;
         for (PlatListDO plat : platList) {
+            if(isShutdown){
+                break;
+            }
             logger.info(String.format("start update %s data", plat.getPlat_name()));
             try {
                 //保存platList 基本信息
@@ -357,14 +363,20 @@ public class P2PImageServiceImpl implements P2PImageService {
         }
 
         TaskResultDO taskResultDO = new TaskResultDO();
-        taskResultDO.setPlanCount(platCount);
-        taskResultDO.setFailCount(failCount);
-        taskResultDO.setSuccessCount(platCount - failCount);
+        taskResultDO.setPlanCount(planCount);
+        if (isShutdown) {
+            taskResultDO.setFailCount(0);
+            taskResultDO.setSuccessCount(0);
+        }else{
+            taskResultDO.setFailCount(failCount);
+            taskResultDO.setSuccessCount(planCount - failCount);
+        }
         return taskResultDO;
     }
 
     @Override
     public TaskResultDO executeFailTaskByTaskId(Integer runMode, Integer oldTaskId, Integer taskId) {
+        isShutdown = false;
         List<TaskFailInfoDO> list = taskFailInfoMapper.getTaskFailInfoByTaskId(oldTaskId);
         List<String> platNameList = list.stream().filter(n -> n != null).map(n -> n.getFailName()).collect(Collectors.toList());
         logger.info("start executeFailTaskByTaskId ");
@@ -378,9 +390,12 @@ public class P2PImageServiceImpl implements P2PImageService {
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
         }
-        Integer platCount = platList.size();
+        Integer planCount = platList.size();
         Integer failCount = 0;
         for (PlatListDO plat : platList) {
+            if(isShutdown){
+                break;
+            }
             logger.info(String.format("start update %s data", plat.getPlat_name()));
             try {
                 //保存platList 基本信息
@@ -404,9 +419,14 @@ public class P2PImageServiceImpl implements P2PImageService {
         }
 
         TaskResultDO taskResultDO = new TaskResultDO();
-        taskResultDO.setPlanCount(platCount);
-        taskResultDO.setFailCount(failCount);
-        taskResultDO.setSuccessCount(platCount - failCount);
+        taskResultDO.setPlanCount(planCount);
+        if (isShutdown) {
+            taskResultDO.setFailCount(0);
+            taskResultDO.setSuccessCount(0);
+        }else{
+            taskResultDO.setFailCount(failCount);
+            taskResultDO.setSuccessCount(planCount - failCount);
+        }
         return taskResultDO;
     }
 
@@ -433,6 +453,9 @@ public class P2PImageServiceImpl implements P2PImageService {
     }
 
     protected void updateWangDaiYuQing(String platName) {
+        if(isShutdown){
+            return;
+        }
         try {
             YuQingDTO yuQingDTO = this.platformConsensus(platName);
             if (yuQingDTO != null) {
@@ -457,6 +480,9 @@ public class P2PImageServiceImpl implements P2PImageService {
 
 
     protected void updatePlatList(PlatListDO dto) {
+        if(isShutdown){
+            return;
+        }
         PlatformDO platListDO = new PlatformDO();
         platListDO.setPlatName(dto.getPlat_name());
         platListDO.setCompanyName(dto.getCompany_name());
@@ -471,6 +497,9 @@ public class P2PImageServiceImpl implements P2PImageService {
 
 
     protected void updatePlatCoreData(PlatListDO platListDO) throws Exception {
+        if(isShutdown){
+            return;
+        }
         try {
             PlatCoreDataDTO platDataDO = p2PImageDao.getPlatCoreData(platListDO.getPlat_name());
             if (platDataDO != null) {
@@ -501,6 +530,9 @@ public class P2PImageServiceImpl implements P2PImageService {
 
 
     protected void updateRadarScore(PlatListDO plat) throws Exception {
+        if(isShutdown){
+            return;
+        }
         try {
             RadarScoreDTO object = p2PImageDao.getRadarScore(plat.getPlat_name());
             RadarScoreDO radarScoreDO = new RadarScoreDO();
@@ -552,5 +584,10 @@ public class P2PImageServiceImpl implements P2PImageService {
     @Override
     public void recordWangdai(WangdaiModify wangdaiModify) {
         platformMapper.recordWangdai(wangdaiModify);
+    }
+
+    @Override
+    public void stopTask() {
+        isShutdown = true;
     }
 }

@@ -83,7 +83,7 @@ public class CompanyInfoModifyServiceImpl implements CompanyInfoModifyService {
         } else if (CompanyInfo.TYPE_XXLC_4 == companyInfoModifyMapper.queryCompany(modifyData.getName()).getIndustry()) { // 线下理财
             companyInfoMudifyUtil.modifyOffLine(modifyData);
         } else if (CompanyInfo.TYPE_JYS_9 == companyInfoModifyMapper.queryCompany(modifyData.getName()).getIndustry()) { // 交易场所
-            companyInfoMudifyUtil.modifyOffLine(modifyData);
+            companyInfoMudifyUtil.modifyExchange(modifyData);
         } else if (CompanyInfo.TYPE_YFK_11 == companyInfoModifyMapper.queryCompany(modifyData.getName()).getIndustry()) { // 预付卡
             companyInfoMudifyUtil.modifyPerpaycard(modifyData);
         } else if (CompanyInfo.TYPE_RZZL_13 == companyInfoModifyMapper.queryCompany(modifyData.getName()).getIndustry()) { // 融资租赁

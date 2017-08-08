@@ -54,4 +54,6 @@ public interface ExchangeCompanyService {
     List<TradeMarketData> getTradeMarket(ExportCondition exportCondition, PageBean pagination);
 
     void deleteByCompanyId(RecordInfo recordInfo);
+
+    void addExchange(RecordInfo recordInfo);
 }

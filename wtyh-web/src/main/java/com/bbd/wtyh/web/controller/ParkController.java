@@ -109,9 +109,9 @@ public class ParkController {
 	 */
 	@RequestMapping("/companyConcentration")
 	@ResponseBody
-	public ResponseBean oncentration(@RequestParam(required = true) Integer areaId) {
+	public ResponseBean oncentration(@RequestParam(required = true) Integer areaId,String parkName) {
 
-		List<BuildingDO> data = parkService.queryBuildings(areaId);
+		List<BuildingDO> data = parkService.queryBuildings(areaId,parkName);
 
 		return ResponseBean.successResponse(data);
 	}
@@ -164,9 +164,9 @@ public class ParkController {
 	 */
 	@RequestMapping("/businessDistribute")
 	@ResponseBody
-	public ResponseBean businessDistribute(@RequestParam(required = true) Integer areaId) {
+	public ResponseBean businessDistribute(@RequestParam(required = true) Integer areaId,String parkName) {
 
-		List<CompanyTypeCountDO> data = parkService.businessDistribute(areaId);
+		List<CompanyTypeCountDO> data = parkService.businessDistribute(areaId,parkName);
 		return ResponseBean.successResponse(data);
 	}
 
@@ -180,9 +180,9 @@ public class ParkController {
 	@RequestMapping("/parkImg")
 	@ResponseBody
 	@LogRecord(logMsg = "浏览【%s】园区监测页面", params = { "areaName" }, page = Operation.Page.park, after = true, before = false)
-	public ResponseBean parkImg(Integer areaId, HttpServletRequest request) {
+	public ResponseBean parkImg(Integer areaId, String parkName, HttpServletRequest request) {
 
-		Object data = parkService.parkImg(areaId);
+		Object data = parkService.parkImg(areaId,parkName);
 
 		AreaDO area = this.parkService.selectById(AreaDO.class, areaId);
 		if (area != null) {

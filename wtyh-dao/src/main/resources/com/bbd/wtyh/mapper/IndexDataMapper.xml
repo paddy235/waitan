@@ -72,4 +72,11 @@
   <delete id="deleteByCompanyName">
     delete from index_data where company_name = #{recordInfo.name}
   </delete>
+
+  <insert id="addOffLineLevel">
+    INSERT INTO
+    `index_data` (`company_name`, `area`)
+    VALUES
+    (#{recordInfo.name}, "")
+  </insert>
 </mapper>
