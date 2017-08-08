@@ -10,11 +10,11 @@
         <columns>
             <column name="年份	" code="year" dataType="number" bgColor="#FFFF00" required="true" regex="[1-9][0-9]{3}"/>
             <column name="月份" code="month" dataType="number" bgColor="#FFFF00" required="true" regex="0?[1-9]|1[0-2]"/>
-            <column name="政策类（万元）	" code="policyBalance" dataType="number"/>
-            <column name="综合类	（万元）" code="compositeBalance" dataType="number"/>
-            <column name="钢贸类（万元）	" code="steelBalance" dataType="number"/>
+            <column name="政策类（万元）	" code="policyBalance" dataType="number" regex="[1-9][0-9]*"/>
+            <column name="综合类	（万元）" code="compositeBalance" dataType="number" regex="[1-9][0-9]*"/>
+            <column name="钢贸类（万元）	" code="steelBalance" dataType="number" regex="[1-9][0-9]*"/>
             <column name="担保笔数" code="number" dataType="number" regex="[1-9][0-9]*"/>
-            <column name="担保责任余额（万元）" code="guaranteeBalance" dataType="number"/>
+            <column name="担保责任余额（万元）" code="guaranteeBalance" dataType="number" regex="[1-9][0-9]*"/>
         </columns>
 
     </sheet>
