@@ -1025,7 +1025,11 @@ public class WordReportBuilder {
 		Map<String, String> mp = new HashMap<String, String>() {
 
 			{
-				put("$$标题（企业名称及属性标签）", companyName + "（" + sBuf.toString() + "）"); // "…）"
+				if ( sBuf.length() >0 ) {
+					put("$$标题（企业名称及属性标签）", companyName + "（" + sBuf.toString() + "）"); // "…）"
+				}  else {
+					put("$$标题（企业名称及属性标签）", companyName );
+				}
 				put("$$报告生成日期", LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd")));
 				put("$$风险等级：", "风险等级：" + companyRiskResult);
 			}
@@ -1063,10 +1067,13 @@ public class WordReportBuilder {
 
 	public Map<String, Object> exportReportToBytes() throws Docx4JException {
 		Map<String, Object> rstMap = new HashMap<String, Object>() {
-
 			{
 				//String fileName = companyName + "-" + reportType.getName() + ".docx";
-				String fileName = companyName + "-" + companyType + ".docx";
+				String fileName = companyName;
+				if ( ! companyType.isEmpty() ) {
+					companyType += ( "-" + companyType );
+				}
+				companyType +=".docx";
 				put("fileName", fileName);
 				put("fileBytes", null);
 			}
