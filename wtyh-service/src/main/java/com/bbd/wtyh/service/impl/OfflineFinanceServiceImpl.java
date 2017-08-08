@@ -6,8 +6,6 @@ import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -21,6 +19,7 @@ import java.util.concurrent.TimeUnit;
 import javax.annotation.Resource;
 
 import com.bbd.wtyh.constants.RiskChgCoSource;
+import com.bbd.wtyh.core.base.BaseService;
 import com.bbd.wtyh.domain.*;
 import com.bbd.wtyh.domain.vo.*;
 import com.bbd.wtyh.mapper.*;
@@ -30,13 +29,12 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import com.bbd.higgs.utils.ListUtil;
-import com.bbd.higgs.utils.http.HttpTemplate;
 import com.bbd.wellspring.common.service.facade.relation.LineTypeEnum;
 import com.bbd.wellspring.common.service.facade.relation.NodeVoSymbolEnum;
 import com.bbd.wellspring.common.service.facade.relation.NodeVoTypeEnum;
@@ -49,7 +47,6 @@ import com.bbd.wtyh.domain.dto.RelationDTO;
 import com.bbd.wtyh.domain.dto.StaticRiskDTO;
 import com.bbd.wtyh.domain.enums.CompanyAnalysisResult;
 import com.bbd.wtyh.redis.RedisDAO;
-import com.bbd.wtyh.service.impl.relation.RegisterUniversalFilterChainImp;
 import com.bbd.wtyh.service.impl.relation.common.APIConstants;
 import com.bbd.wtyh.service.impl.relation.exception.BbdException;
 import com.bbd.wtyh.util.CalculateUtils;
@@ -103,6 +100,10 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 
     @Autowired
     private CompanyInfoModifyService companyInfoModify;
+
+    @Autowired
+    @Qualifier(value = "baseServiceImpl")
+    private BaseService baseService;
 
     @Value("${share.path}")
     private String shareDir;
@@ -449,10 +450,149 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
             Object objType = list.get(0).get("companyType");
             if (objType != null) {
                 result.put("comTypeCN", CompanyDO.companyTypeCN(Byte.parseByte(objType.toString())));
+            } else {
+                int otherCnt =0; //“其他”计数器
+                String currType ="";
+
+                //是否属于 网络借贷
+                boolean inNetLending =false;
+                PlatformDO plDo = baseService.selectOne(PlatformDO.class, "`company_name` = " +"'" +companyName +"'");
+                if ( null ==plDo ) {
+                    PlatCoreDataDO pcdDo =baseService.selectOne(PlatCoreDataDO.class, "`company_name` = " +"'" +companyName +"'");
+                    if( null !=pcdDo ) {
+                        inNetLending =true;
+                    }
+                } else {
+                    inNetLending =true;
+                }
+                if ( inNetLending ) {
+                    otherCnt++;
+                    currType ="网络借贷";
+                }
+
+                //是否属于 线下理财
+                IndexDataDO idDo =baseService.selectById(IndexDataDO.class, companyName);
+                if (null !=idDo) {
+                    otherCnt++;
+                    if ( otherCnt <2 ) {
+                        currType ="线下理财";
+                    } else {
+                        currType ="其他";
+                    }
+                }
+
+                //CompanyDO cDo1 =companyMapper.queryCompanyByName(companyName);
+                CompanyDO cDo =baseService.selectOne(CompanyDO.class, "`name` = " +"'" +companyName +"'");
+                if ( otherCnt < 2 && null != cDo && null !=cDo.getCompanyId() ) {
+                    //是否属于 交易场所
+                    ExchangeCompanyDO ecDo = baseService.selectById(ExchangeCompanyDO.class, cDo.getCompanyId());
+                    if (null != ecDo) {
+                        otherCnt++;
+                        if (otherCnt < 2) {
+                            currType = "交易场所";
+                        } else {
+                            currType = "其他";
+                        }
+                    }
+
+                    //是否属于 私募基金
+                    if (otherCnt < 2) {
+                        boolean inPrivateFund = false;
+                        QdlpProgressDO qpDo = baseService.selectById(QdlpProgressDO.class, cDo.getCompanyId());
+                        if (null != qpDo) {
+                            inPrivateFund = true;
+                        } else {
+                            QflpCompanyDO qcDo = baseService.selectById(QflpCompanyDO.class, cDo.getCompanyId());
+                            if (null != qcDo) {
+                                inPrivateFund = true;
+                            } else {
+                                ProductAmountDO paDo = baseService.selectById(ProductAmountDO.class, cDo.getCompanyId());
+                                if (null != paDo) {
+                                    inPrivateFund = true;
+                                } else {
+                                    PrivateFundExtraDO pfeDo = baseService.selectById(PrivateFundExtraDO.class, cDo.getCompanyId());
+                                    if (null != paDo) {
+                                        inPrivateFund = true;
+                                    }
+                                }
+                            }
+                        }
+                        if (inPrivateFund) {
+                            otherCnt++;
+                            if (otherCnt < 2) {
+                                currType = "私募基金";
+                            } else {
+                                currType = "其他";
+                            }
+                        }
+                    }
+
+                    //是否属于 众筹
+                    if (otherCnt < 2) {
+                        CrowdFundingCompanyDO cfcDo = baseService.selectOne(CrowdFundingCompanyDO.class, "`company_name` = " + "'" + companyName + "'");
+                        if (null != cfcDo) {
+                            otherCnt++;
+                            if (otherCnt < 2) {
+                                currType = "众筹";
+                            } else {
+                                currType = "其他";
+                            }
+                        }
+                    }
+
+                    //是否属于 融资租赁
+                    if (otherCnt < 2) {
+                        boolean inFinanceLea = false;
+                        FinanceLeaseExtraDO fleDo = baseService.selectById(FinanceLeaseExtraDO.class, cDo.getCompanyId());
+                        if (null != fleDo) {
+                            inFinanceLea = true;
+                        } else {
+                            FinanceLeaseRiskDO flrDo = baseService.selectOne(FinanceLeaseRiskDO.class, "`company_id` = " + cDo.getCompanyId());
+                            if (null != flrDo) {
+                                inFinanceLea = true;
+                            }
+                        }
+                        if (inFinanceLea) {
+                            otherCnt++;
+                            if (otherCnt < 2) {
+                                currType = "融资租赁";
+                            } else {
+                                currType = "其他";
+                            }
+                        }
+                    }
+
+                    //是否属于 商业保理
+                    if ( otherCnt <2 ) {
+                        CommercialFactoringExtraDO cfeDo = baseService.selectById(CommercialFactoringExtraDO.class, cDo.getCompanyId());
+                        if (null != cfeDo) {
+                            otherCnt++;
+                            if (otherCnt < 2) {
+                                currType = "商业保理";
+                            } else {
+                                currType = "其他";
+                            }
+                        }
+                    }
+
+                    //是否属于 预付卡
+                    if ( otherCnt <2 ) {
+                        CompanyAnalysisResultDO carDo =baseService.selectById(CompanyAnalysisResultDO.class, cDo.getCompanyId());
+                        if ( null != carDo) {
+                            otherCnt++;
+                            if (otherCnt < 2) {
+                                currType = "预付卡";
+                            } else {
+                                currType = "其他";
+                            }
+                        }
+                    }
+                }
+                result.put("comTypeCN",currType );
             }
 
             if (list.get(0).get("riskLevel") != null) {
-                result.put("analysisResult", CompanyAnalysisResult.getName(Integer.parseInt(list.get(0).get("riskLevel").toString())));
+                result.put( "analysisResult", CompanyAnalysisResult.getName(Integer.parseInt(list.get(0).get("riskLevel").toString())) );
             }
 
             String backgroudString = "";

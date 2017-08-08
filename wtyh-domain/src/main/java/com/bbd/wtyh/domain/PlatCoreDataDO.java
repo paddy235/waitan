@@ -1,10 +1,15 @@
 package com.bbd.wtyh.domain;
 
+import javax.persistence.Column;
+import javax.persistence.Table;
+
 /**
  * Created by lixudong on 2017/7/12.
  */
+@Table(name = "plat_core_data")
 public class PlatCoreDataDO extends BaseDO{
 
+    @Column(name = "plat_name")
     private String platName;
 
     private Double otherSumAmount;
@@ -15,6 +20,7 @@ public class PlatCoreDataDO extends BaseDO{
 
     private Integer borNumStayStil;
 
+    @Column(name = "company_name")
     private String companyName;
 
     private Double top10SumAmount;
