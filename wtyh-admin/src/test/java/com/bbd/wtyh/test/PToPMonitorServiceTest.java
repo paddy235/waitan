@@ -47,6 +47,11 @@ public class PToPMonitorServiceTest {
         System.out.print(taskResultDO);
     }
 
+    @Test
+    public void stopTask(){
+        monitorService.stopTask();
+    }
+
     /**
      * 根据线下理财数据更新风险等级
      */
@@ -77,5 +82,11 @@ public class PToPMonitorServiceTest {
         }
         System.out.print(taskResultDO);
     }
+
+    @Test
+    public void showDown(){
+        offlineFinanceService.stopTask();
+    }
+
 
 }

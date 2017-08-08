@@ -33,12 +33,11 @@ import java.util.*;
 @Service
 public class PToPMonitorServiceImpl implements PToPMonitorService {
 
-    private static final  String industry_shanghai = "上海网贷信息(industry_shanghai)";
+    private static final String industry_shanghai = "上海网贷信息(industry_shanghai)";
     private static final String industry_compare = "网贷数据对比(industry_compare)";
     private static final String industry_problem = "问题网贷平台(industry_problem)";
     private static final String plat_rank_data = "网贷平台数据展示(plat_rank_data)";
     private static final String area_index = "上海区域发展指数(area_index)";
-
 
 
     Logger log = LoggerFactory.getLogger(getClass());
@@ -83,6 +82,8 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
     private TaskFailInfoMapper taskFailInfoMapper;
 
     private Logger logger = LoggerFactory.getLogger(PToPMonitorServiceImpl.class);
+
+    private volatile boolean isShutdown = false;//任务停止标志
 
     @Override
     public Integer getOfflineFinanceNum(String companyName) throws Exception {
@@ -296,6 +297,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
 
     @Override
     public TaskResultDO pToPMonitorDataLandTask(Integer taskId) {
+        isShutdown = false;
         Integer planCount = 5;// 计划执行笔数。 可在任务结束时更新
         Integer failCount = 0;
         //type=industry_shanghai 数据落地
@@ -342,18 +344,27 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
         TaskResultDO taskResultDO = new TaskResultDO();
 
         taskResultDO.setPlanCount(planCount);
-        taskResultDO.setFailCount(failCount);
-        taskResultDO.setSuccessCount(planCount - failCount);
+        if (isShutdown) {
+            taskResultDO.setFailCount(0);
+            taskResultDO.setSuccessCount(0);
+        }else{
+            taskResultDO.setFailCount(failCount);
+            taskResultDO.setSuccessCount(planCount - failCount);
+        }
 
         return taskResultDO;
     }
 
     @Override
     public TaskResultDO executeFailTaskByTaskId(Integer runMode, Integer oldTaskId, Integer taskId) {
+        isShutdown = false;
         List<TaskFailInfoDO> list = taskFailInfoMapper.getTaskFailInfoByTaskId(oldTaskId);
         Integer planCount = list.size();
         Integer failCount = 0;
         for (TaskFailInfoDO wangdaiTaskInfoDO : list) {
+            if (isShutdown) {
+                break;
+            }
             switch (wangdaiTaskInfoDO.getFailName()) {
                 case industry_shanghai:
                     try {
@@ -410,9 +421,19 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
         }
         TaskResultDO taskResultDO = new TaskResultDO();
         taskResultDO.setPlanCount(planCount);
-        taskResultDO.setFailCount(failCount);
-        taskResultDO.setSuccessCount(planCount - failCount);
+        if (isShutdown) {
+            taskResultDO.setFailCount(0);
+            taskResultDO.setSuccessCount(0);
+        }else{
+            taskResultDO.setFailCount(failCount);
+            taskResultDO.setSuccessCount(planCount - failCount);
+        }
         return taskResultDO;
+    }
+
+    @Override
+    public void stopTask() {
+        isShutdown = true;
     }
 
     protected void addWangdaiTaskInfo(Integer taskId, String api, String failName) {
@@ -458,9 +479,15 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
 
 
     protected void updateIndustryShanghai() throws Exception {
+        if (isShutdown) {
+            return;
+        }
         logger.info("start update industry_shanghai date task");
         List<IndustryShanghaiDTO> dtoList = getData();
         for (IndustryShanghaiDTO dto : dtoList) {
+            if (isShutdown) {
+                break;
+            }
             IndustryShanghaiDO industryShanghaiDO = new IndustryShanghaiDO();
             industryShanghaiDO.setNewPlatNum(dto.getNew_plat_num());
             industryShanghaiDO.setInterestRate(dto.getInterest_rate());
@@ -483,9 +510,15 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
     }
 
     protected void updateIndustryCompare() throws Exception {
+        if (isShutdown) {
+            return;
+        }
         logger.info("start update industry_compare date task");
         List<IndustryCompareDTO> dtoList = getCompareData();
         for (IndustryCompareDTO dto : dtoList) {
+            if (isShutdown) {
+                break;
+            }
             IndustryCompareDO industryCompareDO = new IndustryCompareDO();
             industryCompareDO.setDate(dto.getDate());
             industryCompareDO.setArea(dto.getArea());
@@ -504,10 +537,15 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
     }
 
     protected void updatePlatRankData() throws Exception {
+        if (isShutdown) {
+            return;
+        }
         logger.info("start update plat_rank_data date task");
         List<PlatRankDataDTO> dtoList = getPlatRankData();
         for (PlatRankDataDTO dto : dtoList) {
-
+            if (isShutdown) {
+                break;
+            }
             PlatRankDataDO platRankDataDO = new PlatRankDataDO();
             platRankDataDO.setAmount(dto.getAmount());
             platRankDataDO.setAreaId(dto.getArea_id());
@@ -537,9 +575,15 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
     }
 
     protected void updateAreaIndex() throws Exception {
+        if (isShutdown) {
+            return;
+        }
         logger.info("start update area_index date task");
         List<AreaIndexDTO> dtoList = getAreaIndex();
         for (AreaIndexDTO dto : dtoList) {
+            if (isShutdown) {
+                break;
+            }
             AreaIndexDO areaIndexDO = new AreaIndexDO();
             areaIndexDO.setArea(dto.getArea());
             areaIndexDO.setRank(dto.getRank());
@@ -562,25 +606,26 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
     }
 
     protected void updateIndustryProblem() throws Exception {
+        if (isShutdown) {
+            return;
+        }
         logger.info("start update industry_problem date task");
         List<IndustryProblemDTO> dtoList = getProblemData();
-        if (dtoList == null) {
-            throw new Exception("type=industry_problem api error");
-        }
-        if (dtoList != null && dtoList.size() > 0) {
-            for (IndustryProblemDTO dto : dtoList) {
-                IndustryProblemDO industryProblemDO = new IndustryProblemDO();
-                industryProblemDO.setDate(dto.getDate());
-                industryProblemDO.setArea(dto.getArea());
-                industryProblemDO.setProblemPlatNumber(dto.getProblem_plat_number());
-                industryProblemDO.setCreateBy("system");
-                industryProblemDO.setCreateDate(new Date());
+        for (IndustryProblemDTO dto : dtoList) {
+            if(isShutdown){
+                break;
+            }
+            IndustryProblemDO industryProblemDO = new IndustryProblemDO();
+            industryProblemDO.setDate(dto.getDate());
+            industryProblemDO.setArea(dto.getArea());
+            industryProblemDO.setProblemPlatNumber(dto.getProblem_plat_number());
+            industryProblemDO.setCreateBy("system");
+            industryProblemDO.setCreateDate(new Date());
 
-                try {
-                    industryProblemMapper.save(industryProblemDO);
-                } catch (Exception e) {
-                    throw new SQLException();
-                }
+            try {
+                industryProblemMapper.save(industryProblemDO);
+            } catch (Exception e) {
+                throw new SQLException();
             }
         }
         logger.info("end update industry_problem date task");
