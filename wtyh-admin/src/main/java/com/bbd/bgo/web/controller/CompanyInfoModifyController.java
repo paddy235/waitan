@@ -83,10 +83,9 @@ public class CompanyInfoModifyController {
         rst.put(CompanyInfo.TYPE_JYS_9, offLine);
 //        // "预付卡"
         Map<String, Integer> perpay = new HashedMap();
-        perpay.put("全部", 1);
-        perpay.put("正常", 2);
-        perpay.put("已发生", 3);
-        perpay.put("潜在", 4);
+        perpay.put("正常", 4);
+        perpay.put("已发生", 2);
+        perpay.put("潜在", 3);
         rst.put(CompanyInfo.TYPE_YFK_11, perpay);
 //        // "融资租赁"
         Map<String, Integer> financeLease = new HashedMap();
