@@ -1,6 +1,7 @@
 package com.bbd.wtyh.service.impl;
 
 import com.bbd.wtyh.domain.CompanyInfoModify.CompanyInfo;
+import com.bbd.wtyh.domain.CompanyInfoModify.RecordInfo;
 import com.bbd.wtyh.domain.PrepaidCompanyDO;
 import com.bbd.wtyh.domain.PrepaidCompanyStatisticDO;
 import com.bbd.wtyh.mapper.PrepaidCompanyStatisticMapper;
@@ -35,6 +36,21 @@ public class PrepaidCompanyStaticServiceImpl implements PrepaidCompanyStaticServ
     @Override
     public CompanyInfo getPerpaycardByCompanyName(String name) {
         return pcsMapper.getPerpaycardByCompanyName(name);
+    }
+
+    @Override
+    public void modifyPerpaycard(RecordInfo recordInfo) {
+        pcsMapper.modifyPerpaycard(recordInfo);
+    }
+
+    @Override
+    public void addPerpaycard(RecordInfo recordInfo) {
+        pcsMapper.addPerpaycard(recordInfo);
+    }
+
+    @Override
+    public void deleteByCompanyId(RecordInfo recordInfo) {
+        pcsMapper.deleteByCompanyId(recordInfo);
     }
 
 }

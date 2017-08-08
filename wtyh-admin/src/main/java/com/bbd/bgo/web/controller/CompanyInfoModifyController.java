@@ -82,9 +82,16 @@ public class CompanyInfoModifyController {
 //        // "交易场所"
         rst.put(CompanyInfo.TYPE_JYS_9, offLine);
 //        // "预付卡"
-        rst.put(CompanyInfo.TYPE_YFK_11, offLine);
+        Map<String, Integer> perpay = new HashedMap();
+        perpay.put("正常", 4);
+        perpay.put("已发生", 2);
+        perpay.put("潜在", 3);
+        rst.put(CompanyInfo.TYPE_YFK_11, perpay);
 //        // "融资租赁"
-        rst.put(CompanyInfo.TYPE_RZZL_13, offLine);
+        Map<String, Integer> financeLease = new HashedMap();
+        financeLease.put("正常", 1);
+        financeLease.put("潜在", 0);
+        rst.put(CompanyInfo.TYPE_RZZL_13, financeLease);
         return ResponseBean.successResponse(rst);
     }
 

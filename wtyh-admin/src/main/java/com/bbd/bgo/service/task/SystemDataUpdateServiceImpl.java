@@ -1,21 +1,17 @@
 package com.bbd.bgo.service.task;
 
-import com.bbd.wtyh.cachetobean.ShanghaiAreaCode;
+
 import com.bbd.wtyh.common.Pagination;
-import com.bbd.wtyh.domain.CompanyBackgroundDO;
-import com.bbd.wtyh.domain.CompanyDO;
-import com.bbd.wtyh.domain.TaskFailInfoDO;
-import com.bbd.wtyh.domain.TaskResultDO;
+import com.bbd.wtyh.domain.*;
 import com.bbd.wtyh.mapper.CompanyBackgroundMapper;
 import com.bbd.wtyh.mapper.CompanyMapper;
 import com.bbd.wtyh.mapper.TaskFailInfoMapper;
+import com.bbd.wtyh.service.AreaService;
 import com.bbd.wtyh.service.HologramQueryService;
-import com.bbd.wtyh.service.PToPMonitorService;
 import com.bbd.wtyh.service.impl.OfflineFinanceServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -24,7 +20,6 @@ import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
-import java.util.regex.Pattern;
 
 /**
  * Created by cgj on 2017/4/20.
@@ -39,7 +34,7 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService {
     private Logger logger = LoggerFactory.getLogger(OfflineFinanceServiceImpl.class);
 
     @Autowired
-    private PToPMonitorService pToPMonitorService;
+    private AreaService areaService;
 
     @Autowired
     private CompanyMapper companyMapper;
@@ -53,9 +48,16 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService {
     @Autowired
     private TaskFailInfoMapper taskFailInfoMapper;
 
-    /*@Scheduled(cron = "0 0 20 2 * ?")*/
+    private volatile boolean isShutdown = false;//任务停止标志
+
+    @Override
+    public void stopTask() {
+        isShutdown = true;
+    }
+
     @Override
     public TaskResultDO updateCompanyAndBackgroundAutomaticOperate(Integer taskId) {
+        isShutdown=false;
         this.taskId=taskId;
         this.errorNum=0;
         TaskResultDO taskResultDO=new TaskResultDO();
@@ -92,16 +94,20 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService {
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
         }
-
-        taskResultDO.setPlanCount(dataTotal);
-        taskResultDO.setFailCount(errorNum);
-        taskResultDO.setSuccessCount(dataTotal-errorNum);
-
+        if (isShutdown) {
+            taskResultDO.setFailCount(0);
+            taskResultDO.setSuccessCount(0);
+        }else{
+            taskResultDO.setPlanCount(dataTotal);
+            taskResultDO.setFailCount(errorNum);
+            taskResultDO.setSuccessCount(dataTotal-errorNum);
+        }
         return taskResultDO;
     }
 
     @Override
     public TaskResultDO updateCompanyAndBackgroundManualOperate(Integer oldTaskId,Integer newTaskId){
+        isShutdown=false;
         TaskResultDO taskResultDO = new TaskResultDO();
         this.taskId=newTaskId;
         this.errorNum=0;
@@ -117,6 +123,9 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService {
             ExecutorService dataExecutorService = Executors.newFixedThreadPool(16);
             logger.info("start update company ang background");
             for (int i = 1; i <= total; i++) {
+                if (isShutdown) {
+                    break;
+                }
                 final int num = i;
                 dataExecutorService.submit(new Runnable() {
                     @Override
@@ -138,10 +147,14 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService {
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
         }
-
-        taskResultDO.setPlanCount(dataTotal);
-        taskResultDO.setFailCount(errorNum);
-        taskResultDO.setSuccessCount(dataTotal-errorNum);
+        if (isShutdown) {
+            taskResultDO.setFailCount(0);
+            taskResultDO.setSuccessCount(0);
+        }else{
+            taskResultDO.setPlanCount(dataTotal);
+            taskResultDO.setFailCount(errorNum);
+            taskResultDO.setSuccessCount(dataTotal-errorNum);
+        }
         return taskResultDO;
     }
 
@@ -174,10 +187,11 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService {
             }
         }
         companyNameSerial.deleteCharAt(companyNameSerial.length() - 1); //去掉最后一个逗号
+        logger.info("update company name:"+companyNameSerial.toString());
         Map batchData = hologramQueryService.getBbdQyxxBatch(companyNameSerial.toString());
         // 接口处未查询到数据
         if (CollectionUtils.isEmpty(batchData)) {
-            insertFailInfo(failNameList,null,"接口查询错误");
+            insertFailInfo(failNameList,null,"接口数据为空");
             return;
         }
         String msg = (String) (batchData.get("msg"));
@@ -191,6 +205,9 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService {
             return;
         }
         for (Map itr1 : rList) {
+            if (isShutdown) {
+                return;
+            }
             Integer areaId = null;
             String companyName = null;
             String address = null;
@@ -211,12 +228,15 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService {
                     return;
                 }
                 String company_county = (String) (itr.get("company_county"));
+                String company_province = (String) (itr.get("company_province"));
                 companyName =(String ) (itr.get("company_name"));
-                areaId = ShanghaiAreaCode.getCodeToAreaMap().get(Integer.valueOf(company_county));
-                if (null == areaId) { //区代不匹配，则不修改这一条记录
+                AreaDO areaDO = areaService.selectByCountyCodeOrProvinceName( company_county,company_province);
+                if (null == areaDO) { //区代不匹配，则不修改这一条记录
                     insertFailInfo(null,companyName,"区代匹配错误");
                     continue;
                 }
+                areaId=areaDO.getAreaId();
+
                 Object addressObj=itr.get("address");
                 if(null!=addressObj){
                     address = (String)addressObj;

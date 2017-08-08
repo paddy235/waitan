@@ -1,5 +1,6 @@
 package com.bbd.wtyh.service;
 
+import com.bbd.wtyh.domain.CompanyInfoModify.RecordInfo;
 import com.bbd.wtyh.domain.EasyExport.TradeMarketData;
 import com.bbd.wtyh.domain.vo.ExchangeCompanyAreaVO;
 import com.bbd.wtyh.domain.vo.ExchangeCompanyVO;
@@ -51,4 +52,8 @@ public interface ExchangeCompanyService {
     public List<ExchangeCompanyVO> exchangeCompanyListByAreaId(String areaName, String orderName, String orderType, Integer type);
 
     List<TradeMarketData> getTradeMarket(ExportCondition exportCondition, PageBean pagination);
+
+    void deleteByCompanyId(RecordInfo recordInfo);
+
+    void addExchange(RecordInfo recordInfo);
 }

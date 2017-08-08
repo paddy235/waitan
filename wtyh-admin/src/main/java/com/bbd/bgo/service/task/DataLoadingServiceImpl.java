@@ -67,8 +67,16 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 	@Autowired
 	private TaskFailInfoMapper taskFailInfoMapper;
 
+	private volatile boolean isShutdown = false;//任务停止标志
+
+	@Override
+	public void stopTask() {
+		isShutdown = true;
+	}
+
 	@Override
 	public TaskResultDO dataLoadingManualOperate(Integer oldTaskId,Integer newTaskId) {
+		isShutdown=false;
 		this.taskId = newTaskId;
 		//手动执行，查询之前任务失败记录，更新插入失败表
 		TaskResultDO taskResultDO =new TaskResultDO();
@@ -80,6 +88,9 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 			dataTotal = failList.size();
 			List<String> failFileList=new ArrayList<String>();
 			for(TaskFailInfoDO fail:failList){
+				if (isShutdown) {
+					break;
+				}
 				failFileList.add(fail.getFailName());
 			}
 			List<File> fileList=new ArrayList<File>();
@@ -88,6 +99,9 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 			List<DatasharePullFileDO> pullFileList = dataLoadingMapper.getDatasharePullFileByTaskId(pullFileTaskId);
 			if(null!=pullFileList&&pullFileList.size()>0){
 				for(DatasharePullFileDO pullFile:pullFileList){
+					if (isShutdown) {
+						break;
+					}
 					File file=new File(pullFile.getFile_url());
 					//文件存在且上次跑出错的文件
 					if(file.exists()&&failFileList.contains(file.getName())){
@@ -98,15 +112,20 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 			//operateUpdate(failTableList,Arrays.asList(file.listFiles()));
 			dataError = operateUpdate(failFileList,fileList);
 		}
-
-		taskResultDO.setPlanCount(dataTotal);
-		taskResultDO.setFailCount(dataError);
-		taskResultDO.setSuccessCount(dataTotal-dataError);
+		if (isShutdown) {
+			taskResultDO.setFailCount(0);
+			taskResultDO.setSuccessCount(0);
+		}else{
+			taskResultDO.setPlanCount(dataTotal);
+			taskResultDO.setFailCount(dataError);
+			taskResultDO.setSuccessCount(dataTotal-dataError);
+		}
 		return taskResultDO;
 	}
 
 	@Override
 	public TaskResultDO dataLoadingAutomaticOperate(Integer taskId) {
+		isShutdown=false;
 		TaskResultDO taskResultDO=new TaskResultDO();
 		Integer dataError = 0;
 		Integer dataTotal = 0;
@@ -135,10 +154,14 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 			dataLoadingMapper.saveDatasharePullFileDO(fileList);
 			dataError = operateUpdate(null,list);
 		}
-
-		taskResultDO.setPlanCount(dataTotal);
-		taskResultDO.setFailCount(dataError);
-		taskResultDO.setSuccessCount(dataTotal-dataError);
+		if (isShutdown) {
+			taskResultDO.setFailCount(0);
+			taskResultDO.setSuccessCount(0);
+		}else{
+			taskResultDO.setPlanCount(dataTotal);
+			taskResultDO.setFailCount(dataError);
+			taskResultDO.setSuccessCount(dataTotal-dataError);
+		}
 		return taskResultDO;
 	}
 

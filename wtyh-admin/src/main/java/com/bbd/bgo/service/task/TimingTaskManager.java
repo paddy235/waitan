@@ -421,6 +421,16 @@ public class TimingTaskManager {
 			offlineFinanceService.stopTask();
 			TaskUtil.stopTask(taskId,taskKey,taskGroup);
 			isStop=true;
+		}else if (TaskUtil.companyBaseInfo[0].equals(taskKey)) {
+			// 系统数据更新-企业基本信息和背景
+			systemDataUpdateService.stopTask();
+			TaskUtil.stopTask(taskId,taskKey,taskGroup);
+			isStop=true;
+		}else if (TaskUtil.platformJob[0].equals(taskKey)) {
+			// 系统数据更新-企业与网贷平台对照表
+			platUpdateTaskService.stopTask();
+			TaskUtil.stopTask(taskId,taskKey,taskGroup);
+			isStop=true;
 		}
 		return  isStop;
 	}
