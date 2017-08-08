@@ -72,7 +72,7 @@ public class ParkServiceImpl extends BaseServiceImpl implements ParkService {
 	}
 
 	@Override
-	public List<InBusinessDO> inBusiness(Integer areaId) {
+	public List<InBusinessDO> inBusiness(Integer areaId,String parkName) {
 
 		List<InBusinessDO> list = new ArrayList<>();
 
@@ -83,11 +83,11 @@ public class ParkServiceImpl extends BaseServiceImpl implements ParkService {
 		Date year3 = DateUtils.addYears(now, -3);
 		Date year1 = DateUtils.addYears(now, -1);
 
-		list.add(inBusiness("10年以上", areaId, null, DateFormatUtils.format(year10, "yyyy-MM-dd")));
-		list.add(inBusiness("5-10年", areaId, DateFormatUtils.format(year10, "yyyy-MM-dd"), DateFormatUtils.format(year5, "yyyy-MM-dd")));
-		list.add(inBusiness("3-5年", areaId, DateFormatUtils.format(year5, "yyyy-MM-dd"), DateFormatUtils.format(year3, "yyyy-MM-dd")));
-		list.add(inBusiness("1-3年", areaId, DateFormatUtils.format(year3, "yyyy-MM-dd"), DateFormatUtils.format(year1, "yyyy-MM-dd")));
-		list.add(inBusiness("1年以下", areaId, DateFormatUtils.format(year1, "yyyy-MM-dd"), DateFormatUtils.format(now, "yyyy-MM-dd")));
+		list.add(inBusiness("10年以上", areaId, null, DateFormatUtils.format(year10, "yyyy-MM-dd"),parkName));
+		list.add(inBusiness("5-10年", areaId, DateFormatUtils.format(year10, "yyyy-MM-dd"), DateFormatUtils.format(year5, "yyyy-MM-dd"),parkName));
+		list.add(inBusiness("3-5年", areaId, DateFormatUtils.format(year5, "yyyy-MM-dd"), DateFormatUtils.format(year3, "yyyy-MM-dd"),parkName));
+		list.add(inBusiness("1-3年", areaId, DateFormatUtils.format(year3, "yyyy-MM-dd"), DateFormatUtils.format(year1, "yyyy-MM-dd"),parkName));
+		list.add(inBusiness("1年以下", areaId, DateFormatUtils.format(year1, "yyyy-MM-dd"), DateFormatUtils.format(now, "yyyy-MM-dd"),parkName));
 
 		return list;
 	}
@@ -105,9 +105,9 @@ public class ParkServiceImpl extends BaseServiceImpl implements ParkService {
 	 *            时间年限止
 	 * @return InBusiness
 	 */
-	public InBusinessDO inBusiness(String dateRange, Integer areaId, String start, String end) {
+	public InBusinessDO inBusiness(String dateRange, Integer areaId, String start, String end,String parkName) {
 
-		InBusinessDO bean = companyMapper.countByDate(areaId, start, end);
+		InBusinessDO bean = companyMapper.countByDate(areaId, start, end, parkName);
 
 		bean.setDate(dateRange);
 
@@ -115,9 +115,9 @@ public class ParkServiceImpl extends BaseServiceImpl implements ParkService {
 	}
 
 	@Override
-	public String queryParkNews(Integer areaId, Integer pageSize, Integer pageNum) {
+	public String queryParkNews(Integer areaId, Integer pageSize, Integer pageNum, String parkName) {
 
-		List<String> names = companyMapper.queryCompanyNames(areaId, null);
+		List<String> names = companyMapper.queryCompanyNames(areaId, null, parkName);
 		NewsVO newsvo = getnews(names);
 		return new Gson().toJson(newsvo);
 	}
@@ -169,7 +169,7 @@ public class ParkServiceImpl extends BaseServiceImpl implements ParkService {
 	@Override
 	public String buildingNews(Integer buildingId) {
 
-		List<String> names = companyMapper.queryCompanyNames(null, buildingId);
+		List<String> names = companyMapper.queryCompanyNames(null, buildingId,null);
 
 		NewsVO newsvo = getnews(names);
 
@@ -339,7 +339,7 @@ public class ParkServiceImpl extends BaseServiceImpl implements ParkService {
 	@Override
 	public Map<String, Object> queryParkCompany(Integer areaId,Integer isNew,Integer riskLevel,
 												String backgroundName,String companyTypeName,String buildingName,
-												String companyName,Integer pageSize,Integer pageNumber) {
+												String companyName,Integer pageSize,Integer pageNumber,String parkName) {
 		Map<String, Object> result=new HashMap<>();
 		result.put("total",0);
 		result.put("list",new ArrayList<>());
@@ -354,6 +354,8 @@ public class ParkServiceImpl extends BaseServiceImpl implements ParkService {
 		}
 		//地区编号
         params.put("areaId",areaId);
+		//园区名称
+		params.put("parkName",parkName);
 		//背景名称--背景代码
         if(org.apache.commons.lang3.StringUtils.isNotBlank(backgroundName)){
 			CompanyBackgroundDO.Bg bg=CompanyBackgroundDO.Bg.getBgByName(backgroundName);

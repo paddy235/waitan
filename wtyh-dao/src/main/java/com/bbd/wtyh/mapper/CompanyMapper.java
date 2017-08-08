@@ -32,7 +32,7 @@ public interface CompanyMapper {
 	CompanyDO getCompanyById(@Param(value = "companyId") Integer companyId);
 
 	public InBusinessDO countByDate(@Param(value = "areaId") Integer areaId, @Param(value = "start") String start,
-			@Param(value = "end") String end);
+			@Param(value = "end") String end,@Param("parkName") String parkName );
 
 	public CompanyTypeCountDO countByType(@Param(value = "areaId") Integer areaId, @Param(value = "type") Byte type, @Param("parkName") String parkName);
 
@@ -52,7 +52,7 @@ public interface CompanyMapper {
 
 	CompanyDO selectByName(String companyName);
 
-	List<String> queryCompanyNames(@Param("areaId") Integer areaId, @Param("buildingId") Integer buildingId);
+	List<String> queryCompanyNames(@Param("areaId") Integer areaId, @Param("buildingId") Integer buildingId,@Param("parkName") String parkName);
 
 	List<Map<Integer, Object>> companyInfo(String companyName);
 

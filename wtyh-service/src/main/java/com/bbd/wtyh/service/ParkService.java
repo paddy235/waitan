@@ -30,7 +30,7 @@ public interface ParkService extends BaseService {
 	 *            区域id
 	 * @return List<BuildingDO>
 	 */
-	List<InBusinessDO> inBusiness(Integer areaId);
+	List<InBusinessDO> inBusiness(Integer areaId,String parkName);
 
 	/**
 	 * 根据区域id查询行业分布
@@ -53,7 +53,7 @@ public interface ParkService extends BaseService {
 	 * @author Ian.Su
 	 * @return String
 	 */
-	String queryParkNews(Integer areaId, Integer pageSize, Integer pageNum);
+	String queryParkNews(Integer areaId, Integer pageSize, Integer pageNum, String parkName);
 
 	/**
 	 * 获取园区图片
@@ -122,6 +122,6 @@ public interface ParkService extends BaseService {
 	 */
 	Map<String,Object> queryParkCompany(Integer areaId,Integer isNew,Integer riskLevel,
 										 String backgroundName,String companyTypeName,String buildingName,
-										String companyName,Integer pageSize,Integer pageNumber);
+										String companyName,Integer pageSize,Integer pageNumber,String parkName);
 
 }

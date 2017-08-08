@@ -26,6 +26,9 @@
                     building.`name` AS buildingName
         FROM park,building,company_building,company
         WHERE park.area_id=#{areaId}
+        <if test="parkName != null">
+            AND park.name=#{parkName}
+        </if>
               <if test="companyName != null">
                 AND company.name LIKE CONCAT('%',#{companyName},'%')
               </if>
@@ -50,7 +53,10 @@
             AND company.name LIKE CONCAT('%',#{companyName},'%')
         </if>
         and company_id not in (
-        select company_id from company_building where building_id in (select building_id from building where park_id=(select park_id from park where area_id=#{areaId}))
+        select company_id from company_building where building_id in (select building_id from building where park_id=(select park_id from park where area_id=#{areaId}
+        <if test="parkName != null">
+            AND name=#{parkName}
+        </if>))
         )
         ) AS base WHERE 1=1
         <if test="buildingName != null">
@@ -101,6 +107,10 @@
         building.`name` AS buildingName
         FROM park,building,company_building,company
         WHERE park.area_id=#{areaId}
+        <if test="parkName != null">
+            AND park.name=#{parkName}
+        </if>
+
         <if test="companyName != null">
             AND company.name LIKE CONCAT('%',#{companyName},'%')
         </if>
@@ -125,7 +135,11 @@
             AND company.name LIKE CONCAT('%',#{companyName},'%')
         </if>
         and company_id not in (
-        select company_id from company_building where building_id in (select building_id from building where park_id=(select park_id from park where area_id=#{areaId}))
+        select company_id from company_building where building_id in (select building_id from building where park_id=(select park_id from park where area_id=#{areaId}
+        <if test="parkName != null">
+            AND name=#{parkName}
+        </if>
+        ))
         )
         ) AS base WHERE 1=1
         <if test="buildingName != null">
