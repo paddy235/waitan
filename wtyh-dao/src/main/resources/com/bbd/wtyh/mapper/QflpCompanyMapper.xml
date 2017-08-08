@@ -22,10 +22,20 @@
   </select>
 
   <select id="selectAll" resultMap="BaseResultMap">
-    select
-    qc.company_id, qc.scale, qc.dollor_part, qc.rmb_part, qc.create_by, qc.create_date, qc.update_by, qc.update_date
-    from qflp_company qc, company c where qc.company_id=c.company_id and c.company_type=5
-    order by qc.index_num
+      select
+          qc.company_id,
+          qc.scale, 
+          qc.dollor_part,
+          qc.rmb_part,
+          qc.create_by,
+          qc.create_date,
+          qc.update_by,
+          qc.update_date
+      from
+          qflp_company qc, company c
+      where
+          qc.company_id=c.company_id and c.company_type=5
+      order by qc.index_num
   </select>
 
   <update id="update" parameterType="com.bbd.wtyh.domain.QflpCompanyDO">
