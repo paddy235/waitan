@@ -1,8 +1,12 @@
 package com.bbd.wtyh.domain;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.util.Date;
 
+@Table(name = "index_data")
 public class IndexDataDO extends BaseDO {
     private String regCapital;
 
@@ -22,6 +26,8 @@ public class IndexDataDO extends BaseDO {
 
     private Integer isRise;
 
+    @Id
+    @Column(name = "company_name")
     private String companyName;
 
     private String area;

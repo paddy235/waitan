@@ -1,6 +1,13 @@
 package com.bbd.wtyh.domain;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Table(name = "qflp_company")
 public class QflpCompanyDO extends BaseDO {
+    @Id
+    @Column(name = "company_id")
     private Integer companyId;
 
     private Float scale;
