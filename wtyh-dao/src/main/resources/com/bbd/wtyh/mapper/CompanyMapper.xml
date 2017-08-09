@@ -461,7 +461,7 @@
                 AND `name` IN <foreach item ="nam" index="index" collection="names"
                                        open="(" separator="," close=")" > #{nam} </foreach>
             </if>
-            AND `company_type` >= 0
+            AND `company_type` > 0 AND `company_type` &lt;> 7 AND `company_type` &lt;> 8
         </where>
         LIMIT 20000
     </select>

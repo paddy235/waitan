@@ -575,9 +575,9 @@ public class WordReportServiceImpl implements WordReportService {
                 //进一步分解子任务
                 MultiExeService holExe =new MultiExeService(multithreading);
                 final byte[][] newestYED ={null};
-                holExe.runThreadFun( () -> {
+                /*holExe.runThreadFun( () -> {
                     newestYED[0] = offlineFinanceService.createNewestYEDtoStream(companyName);
-                } );
+                } );*/ //关联方图谱已被产品取消
 
                 RelationDiagramVO result = offlineFinanceService.queryRealRealation(companyName, 2);
                 DrawRelatedG2 dr = new DrawRelatedG2(DrawRelatedG2.DegreeType.ONE);
