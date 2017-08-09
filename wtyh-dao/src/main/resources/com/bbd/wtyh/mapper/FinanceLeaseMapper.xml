@@ -175,8 +175,6 @@
 		WHERE
 			c.company_type = 13
 			AND
-			f.risk_type = 1
-			AND
 			c.`name` = #{name}
 	</select>
 

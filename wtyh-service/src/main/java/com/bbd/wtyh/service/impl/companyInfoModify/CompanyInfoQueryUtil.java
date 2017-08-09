@@ -6,7 +6,10 @@ import com.bbd.wtyh.mapper.CompanyInfoModifyMapper;
 import com.bbd.wtyh.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -107,6 +110,9 @@ public class CompanyInfoQueryUtil {
      */
     public CompanyInfo getTradeMarket(String name) {
         CompanyInfo companyInfo = riskCompanyService.getOffLineFinanceByCompanyName(name);
+        if (StringUtils.isEmpty(companyInfo.getCurrentLevel())) {
+            companyInfo.setCurrentLevel("4");   // 正常
+        }
         companyInfo.setIndustry(CompanyInfo.TYPE_JYS_9);
         return companyInfo;
     }
@@ -130,19 +136,27 @@ public class CompanyInfoQueryUtil {
      * @return
      */
     public CompanyInfo getTenancy(String name) {
-        CompanyInfo companyInfo = financeLeaseService.getTenancy(name);
-        if (null == companyInfo) {
+        List<CompanyInfo> companyInfos = financeLeaseService.getTenancy(name);
+        if (null == companyInfos) {
             return null;
         }
-        if (null == companyInfo.getCurrentLevel()) {
-            companyInfo.setCurrentLevel("0");
-        }
+        CompanyInfo companyInfo = new CompanyInfo();
+        companyInfo.setName(name);
+        companyInfo.setCurrentLevel("1");   // 正常
         companyInfo.setIndustry(CompanyInfo.TYPE_RZZL_13);
+        if (!CollectionUtils.isEmpty(companyInfos)) {
+            for (CompanyInfo temp : companyInfos) {
+                if (temp.getCurrentLevel() != null && Integer.valueOf(temp.getCurrentLevel()) == 1) {
+                    companyInfo.setCurrentLevel("0");   // 潜在
+                }
+            }
+        }
         return companyInfo;
     }
 
     /**
      * 私募基金
+     *
      * @param name
      * @return
      */
@@ -154,6 +168,7 @@ public class CompanyInfoQueryUtil {
 
     /**
      * 众筹
+     *
      * @param name
      * @return
      */
@@ -165,6 +180,7 @@ public class CompanyInfoQueryUtil {
 
     /**
      * 典当
+     *
      * @param name
      * @return
      */
@@ -176,6 +192,7 @@ public class CompanyInfoQueryUtil {
 
     /**
      * 商业保理
+     *
      * @param name
      * @return
      */
