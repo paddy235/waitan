@@ -1,6 +1,7 @@
 package com.bbd.bgo.service.task;
 
 import com.bbd.bgo.quartz.TaskUtil;
+import com.bbd.wtyh.constants.TaskState;
 import com.bbd.wtyh.domain.TaskFailInfoDO;
 import com.bbd.wtyh.domain.TaskInfoDO;
 import com.bbd.wtyh.domain.TaskResultDO;
@@ -10,12 +11,11 @@ import com.bbd.wtyh.service.*;
 import com.bbd.wtyh.util.ApplicationContextUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-
-import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
 
@@ -27,32 +27,23 @@ import java.util.List;
 @Component
 public class TimingTaskManager {
 
-	@Autowired
-	private SyncFileService syncFileService;
+	// SyncFileService ; 线下理财
+	// OfflineFinanceService; 风险等级
+	// SystemDataUpdateService ; 企业基本信息
+	// P2PImageService ;  网贷平台画像
+	// PToPMonitorService ; 网贷监测
+	// DataLoadingService ; 全息
+	// CrowdFundingService ; 众筹
+	// PlatUpdateTaskService ; 企业与网贷平台
 	@Autowired
 	private CoCreditScoreService coCreditScoreService;
 	@Autowired
-	private OfflineFinanceService offlineFinanceService;
-	@Autowired
-	private SystemDataUpdateService systemDataUpdateService;
-	@Autowired
-	private P2PImageService p2pImageService;
-	@Autowired
-	private PToPMonitorService p2pMonitorService;
-	@Autowired
-	private DataLoadingService dataLoadingService;
+	private ParkAndBuildingMgtMapper parkAndBuildingMgtMapper;
 	@Autowired
 	private TaskFailInfoMapper taskFailInfoMapper;
-	@Autowired
-	private CrowdFundingService crowdFundingService;
-	@Autowired
-	private PlatUpdateTaskService platUpdateTaskService;
-	@Autowired
-	private ParkAndBuildingMgtMapper parkAndBuildingMgtMapper;
 
 	private Logger logger = LoggerFactory.getLogger(TimingTaskManager.class);
 
-	private static Integer notRan = 0;
 	private static Integer canRan = 1;
 
 	/**
@@ -81,7 +72,11 @@ public class TimingTaskManager {
 			//需要传 taskId 给业务接口
 			taskResultDO = taskService.autoExecute(taskId,runMode);
 		} catch (Exception e) {
-			logger.error("riskLevelTask" + e);
+			if(null == taskResultDO){
+				taskResultDO=new TaskResultDO();
+			}
+			taskResultDO.setState(TaskState.ERROR);
+			logger.error("start-" + e);
 		} finally {
 			if(1==isShow){
 				taskEnd(taskResultDO, taskId, null, canRan);
@@ -111,7 +106,11 @@ public class TimingTaskManager {
 			taskService.resetTask();
 			taskResultDO=taskService.reExecute(oldTaskId,newTaskId,runMode);
 		}catch (Exception e) {
-			logger.error("reExecuteTask-"+taskService.getTaskKey() + e);
+			if(null == taskResultDO){
+				taskResultDO=new TaskResultDO(0,0,0);
+			}
+			taskResultDO.setState(TaskState.ERROR);
+			logger.error("reExecuteTask-" + e);
 		} finally {
 			taskEnd(taskResultDO, newTaskId, null, canRan);
 		}
@@ -191,7 +190,7 @@ public class TimingTaskManager {
 			Object obj = ApplicationContextUtil.getBean(objName);
 			taskService = (TaskService) obj;
 		} catch (Exception e) {
-			logger.error("getTaskServiceBean" + e);
+			logger.error("getTaskServiceBean-" + e);
 		}
 
 		return taskService;

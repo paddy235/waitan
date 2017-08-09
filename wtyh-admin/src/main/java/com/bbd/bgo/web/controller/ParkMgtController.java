@@ -139,7 +139,7 @@ public class ParkMgtController {
     @ResponseBody
     @LogRecord(logMsg = "删除园区：%s", params = {"parkName"}, page = Operation.Page.PARK_BUILDING_MANAGE,
             type = Operation.Type.del, after = true, before = false)
-    public ResponseBean delPark(String parkId,String parkName) {
+    public ResponseBean delPark(@RequestParam String parkId,String parkName) {
         //删除园区时，需要将相关楼宇及企业一并删除
         parkMgtService.delCompanyBuildingByParkId(parkId);
         parkMgtService.delBuildingByParkId(parkId);
@@ -157,7 +157,7 @@ public class ParkMgtController {
     @ResponseBody
     @LogRecord(logMsg = "删除楼宇：%s", params = {"buindingName"}, page = Operation.Page.PARK_BUILDING_MANAGE,
             type = Operation.Type.del, after = true, before = false)
-    public ResponseBean delBuilding(String[] buildingId,String[] buindingName) {
+    public ResponseBean delBuilding(@RequestParam String[] buildingId,String[] buindingName) {
         //删除楼宇时，需要将相关企业一并删除
         parkMgtService.delCompanyByBuildingId(Arrays.asList(buildingId));
         parkMgtService.delBuildingById(Arrays.asList(buildingId));
@@ -175,7 +175,7 @@ public class ParkMgtController {
     @ResponseBody
     @LogRecord(logMsg = "删除企业，楼宇名称：%s,企业列表：%s", params = {"buildingName","companyNameList"}, page = Operation.Page.PARK_BUILDING_MANAGE,
             type = Operation.Type.del, after = true, before = false)
-    public ResponseBean delCompanyByCompanyId(String buildingId, String[] companyList,String buildingName,String[] companyNameList) {
+    public ResponseBean delCompanyByCompanyId(@RequestParam String buildingId, @RequestParam String[] companyList,String buildingName,String[] companyNameList) {
         parkMgtService.delCompanyByCompanyId(buildingId, Arrays.asList(companyList));
         return ResponseBean.successResponse("OK");
     }
