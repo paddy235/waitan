@@ -7,6 +7,7 @@ import java.io.OutputStream;
 import java.util.Date;
 import java.util.List;
 
+import com.bbd.wtyh.constants.TaskState;
 import com.bbd.wtyh.domain.TaskFailInfoDO;
 import com.bbd.wtyh.domain.TaskResultDO;
 import com.bbd.wtyh.excel.imp.utils.FileUtil;
@@ -69,6 +70,10 @@ public class SyncFileServiceImpl extends BaseServiceImpl implements SyncFileServ
 			}
 			logger.info("--------- parse data file end -------");
 		} catch (Exception e) {
+			if(null==taskResult){
+				taskResult=new TaskResultDO(0,0,0);
+			}
+			taskResult.setState(TaskState.ERROR);
 			logger.error("处理线下理财风险数据异常。", e);
 		}
 		return taskResult;
