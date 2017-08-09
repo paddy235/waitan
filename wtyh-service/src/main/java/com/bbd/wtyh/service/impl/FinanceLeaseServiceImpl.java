@@ -279,7 +279,7 @@ public class FinanceLeaseServiceImpl implements FinanceLeaseService {
     }
 
     @Override
-    public CompanyInfo getTenancy(String name) {
+    public List<CompanyInfo> getTenancy(String name) {
         return financeLeaseMapper.getTenancyByName(name);
     }
 

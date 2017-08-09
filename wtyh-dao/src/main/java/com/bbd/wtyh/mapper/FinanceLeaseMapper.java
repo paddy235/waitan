@@ -26,9 +26,9 @@ public interface FinanceLeaseMapper {
 
     public Integer queryFinanceLeaseMaxYear();
 
-    CompanyInfo getTenancyByName(@Param("name") String name);
+    List<CompanyInfo> getTenancyByName(@Param("name") String name);
 
-    void modifyFinanceLease(@Param("recordInfo")RecordInfo recordInfo);
+    void modifyFinanceLease(@Param("recordInfo") RecordInfo recordInfo);
 
-    void addFinanceLease(@Param("recordInfo")RecordInfo recordInfo);
+    void addFinanceLease(@Param("recordInfo") RecordInfo recordInfo);
 }
