@@ -155,7 +155,7 @@ public class RoleResourceTest {
 	public void queryParkCompanyTest(){
 		//Integer areaId,Integer isNew,Integer riskLevel,String backgroundName,String companyTypeName,String buildingName,
 		//		Integer pageSize,Integer pageNumber
-		Map map=parkService.queryParkCompany(1122,null,null,null,null,null,null,5,2);
+		Map map=parkService.queryParkCompany(1122,null,null,null,null,null,null,5,2,"");
 
 		System.err.println(JSON.toJSONString(map, SerializerFeature.PrettyFormat, SerializerFeature.DisableCircularReferenceDetect));
 	}
