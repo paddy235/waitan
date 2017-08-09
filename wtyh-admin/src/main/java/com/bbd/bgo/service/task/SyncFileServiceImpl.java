@@ -48,17 +48,15 @@ public class SyncFileServiceImpl extends BaseServiceImpl implements SyncFileServ
 	private String brokerIp;
 	private String brokerUri = "/syncFile/supplyFile.do";
 
-    private volatile boolean isShutdown = false;//任务停止标志
 
     @Override
     public void stopTask() {
-        isShutdown = true;
         this.syncDataService.stopTask();
     }
 
-	@Override
+
+    @Override
 	public TaskResultDO pullFile(Integer taskId) {
-        isShutdown=false;
 		TaskResultDO taskResult = null;
 		try {
 			String dataVersion = relationDataService.getNewestDataVersion();
@@ -165,5 +163,10 @@ public class SyncFileServiceImpl extends BaseServiceImpl implements SyncFileServ
 	public void stopExecute(Integer taskId) {
         stopTask();
 	}
+
+    @Override
+    public void resetTask() {
+        syncDataService.resetShutDown();
+    }
 
 }

@@ -234,4 +234,9 @@ public class PlatUpdateTaskServiceImpl extends BaseServiceImpl implements PlatUp
 	public void stopExecute(Integer taskId) {
 		stopTask();
 	}
+
+	@Override
+	public void resetTask() {
+		this.isShutdown=false;
+	}
 }

@@ -76,6 +76,8 @@ public class TimingTaskManager {
 			if(1==isShow){
 				taskId = TaskUtil.taskStart(taskKey, taskGroup, null, runMode, null, null);
 			}
+			//初始化任务，shutdown设置为false
+			taskService.resetTask();
 			//需要传 taskId 给业务接口
 			taskResultDO = taskService.autoExecute(taskId,runMode);
 		} catch (Exception e) {
@@ -105,6 +107,8 @@ public class TimingTaskManager {
 		TaskService taskService=getTaskServiceBean(taskKey, taskGroup);
 		try {
 			newTaskId = TaskUtil.taskStart(taskService.getTaskKey(), taskService.getTaskGroup(), null, runMode, null, null);
+			//初始化任务，shutdown设置为false
+			taskService.resetTask();
 			taskResultDO=taskService.reExecute(oldTaskId,newTaskId,runMode);
 		}catch (Exception e) {
 			logger.error("reExecuteTask-"+taskService.getTaskKey() + e);

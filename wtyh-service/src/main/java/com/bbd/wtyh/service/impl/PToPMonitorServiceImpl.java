@@ -782,4 +782,9 @@ public class PToPMonitorServiceImpl implements PToPMonitorService,TaskService {
     public void stopExecute(Integer taskId) {
         stopTask();
     }
+
+    @Override
+    public void resetTask() {
+        this.isShutdown=false;
+    }
 }

@@ -615,6 +615,11 @@ public class P2PImageServiceImpl implements P2PImageService,TaskService {
     }
 
     @Override
+    public void resetTask() {
+        this.isShutdown=false;
+    }
+
+    @Override
     public void stopTask() {
         isShutdown = true;
     }

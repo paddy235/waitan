@@ -660,4 +660,9 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 	public void stopExecute(Integer taskId) {
 		stopTask();
 	}
+
+	@Override
+	public void resetTask() {
+		this.isShutdown=false;
+	}
 }

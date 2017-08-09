@@ -779,4 +779,9 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 	public void stopExecute(Integer taskId) {
 		colseScoreCalculate();
 	}
+
+    @Override
+    public void resetTask() {
+        this.isShutdown=false;
+    }
 }
