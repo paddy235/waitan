@@ -396,6 +396,11 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService,Task
     public void stopExecute(Integer taskId) {
         stopTask();
     }
+
+    @Override
+    public void resetTask() {
+        this.isShutdown=false;
+    }
 }
 
 

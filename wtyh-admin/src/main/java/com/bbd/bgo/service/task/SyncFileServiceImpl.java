@@ -7,12 +7,14 @@ import java.io.OutputStream;
 import java.util.Date;
 import java.util.List;
 
+import com.bbd.wtyh.constants.TaskState;
 import com.bbd.wtyh.domain.TaskFailInfoDO;
 import com.bbd.wtyh.domain.TaskResultDO;
 import com.bbd.wtyh.excel.imp.utils.FileUtil;
 import com.bbd.wtyh.mapper.TaskFailInfoMapper;
 import com.bbd.wtyh.service.TaskService;
 import com.bbd.wtyh.util.HttpUtil;
+import com.bbd.wtyh.util.WtyhHelper;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
@@ -31,11 +33,11 @@ import com.bbd.wtyh.service.SyncDataService;
  * @author Created by LiYao on 2017-05-18 9:53.
  */
 @Service
-public class SyncFileServiceImpl extends BaseServiceImpl implements SyncFileService,TaskService {
+public class SyncFileServiceImpl extends BaseServiceImpl implements SyncFileService, TaskService {
 
 	private static final Logger logger = LoggerFactory.getLogger(SyncFileServiceImpl.class);
 
-	private static final String PULL_FILE_SAVE_PATH = "/data1/wtyh/admin/";
+	private static final String PULL_FILE_SAVE_PATH = WtyhHelper.fileRootPath + "/admin/";
 
 	@Autowired
 	private SyncDataService syncDataService;
@@ -48,17 +50,13 @@ public class SyncFileServiceImpl extends BaseServiceImpl implements SyncFileServ
 	private String brokerIp;
 	private String brokerUri = "/syncFile/supplyFile.do";
 
-    private volatile boolean isShutdown = false;//任务停止标志
-
-    @Override
-    public void stopTask() {
-        isShutdown = true;
-        this.syncDataService.stopTask();
-    }
+	@Override
+	public void stopTask() {
+		this.syncDataService.stopTask();
+	}
 
 	@Override
 	public TaskResultDO pullFile(Integer taskId) {
-        isShutdown=false;
 		TaskResultDO taskResult = null;
 		try {
 			String dataVersion = relationDataService.getNewestDataVersion();
@@ -71,6 +69,10 @@ public class SyncFileServiceImpl extends BaseServiceImpl implements SyncFileServ
 			}
 			logger.info("--------- parse data file end -------");
 		} catch (Exception e) {
+			if (null == taskResult) {
+				taskResult = new TaskResultDO(0, 0, 0);
+			}
+			taskResult.setState(TaskState.ERROR);
 			logger.error("处理线下理财风险数据异常。", e);
 		}
 		return taskResult;
@@ -103,8 +105,7 @@ public class SyncFileServiceImpl extends BaseServiceImpl implements SyncFileServ
 		return taskResult;
 	}
 
-
-    private void taskRecord(Integer taskId, String dataVersion) {
+	private void taskRecord(Integer taskId, String dataVersion) {
 		TaskFailInfoDO taskFail = new TaskFailInfoDO();
 		taskFail.setTaskId(taskId);
 		taskFail.setDataVersion(dataVersion);
@@ -163,7 +164,12 @@ public class SyncFileServiceImpl extends BaseServiceImpl implements SyncFileServ
 
 	@Override
 	public void stopExecute(Integer taskId) {
-        stopTask();
+		stopTask();
+	}
+
+	@Override
+	public void resetTask() {
+		syncDataService.resetShutDown();
 	}
 
 }

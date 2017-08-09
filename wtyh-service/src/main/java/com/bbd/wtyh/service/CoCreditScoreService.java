@@ -1,13 +1,11 @@
 package com.bbd.wtyh.service;
 
-import com.bbd.wtyh.domain.CompanyCreditRawInfoDO;
 import com.bbd.wtyh.domain.TaskFailInfoDO;
 import com.bbd.wtyh.domain.TaskResultDO;
 import com.bbd.wtyh.domain.credit.CompanyCreditFailInfoDO;
 import com.bbd.wtyh.domain.dto.CreditInfoDTO;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * 公司信用评分接口

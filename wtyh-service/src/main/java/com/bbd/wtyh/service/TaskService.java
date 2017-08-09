@@ -16,4 +16,6 @@ public interface TaskService {
     public TaskResultDO reExecute(Integer oldTaskId, Integer newTaskId,Integer runMode);
 
     public void stopExecute(Integer taskId);
+
+    public void resetTask();
 }

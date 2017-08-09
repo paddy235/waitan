@@ -38,4 +38,8 @@ public class CoCreditServiceCloseImpl implements TaskService {
     public void stopExecute(Integer taskId) {
         coCreditScoreService.colseScoreCalculate();
     }
+
+    @Override
+    public void resetTask() {
+    }
 }

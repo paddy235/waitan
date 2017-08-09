@@ -550,15 +550,20 @@
                 <m.wtyh.web1.ip>http://10.28.100.48:8081</m.wtyh.web1.ip>
                 <m.wtyh.web2.ip>http://10.28.100.48:8082</m.wtyh.web2.ip>
 
-                <!--生成excel存放目录 -->
-                <m.export.excel.path>/data/wtyh</m.export.excel.path>
+                <!--服务器文件根路径。如果需要在服务器生成文件-->
+                <wtyh.file.root.path>/data/wtyh</wtyh.file.root.path>
+
                 <!--动态风险图存放路径(服务器上的绝对路径，后面不需要加att目录，但是Tomcat的虚拟目录里需要加att目录)  -->
-                <m.share.path>/data/wtyh/yed</m.share.path>
+                <m.share.path>${wtyh.file.root.path}/yed</m.share.path>
+
                 <!--产生图片后，传给前台的请求action，对应Tomcat虚拟目录的path，后面不需要加att，但是Tomcat的虚拟目录需要加  -->
                 <m.mapping.path>/wtyh/yed</m.mapping.path>
 
-                <update.img.web.path>/data/wtyh/static/wtyh-web/build/data/img</update.img.web.path>
-                <update.img.admin.path>/data/wtyh/static/wtyh-admin/build/data/img</update.img.admin.path>
+                <update.img.web.path>${wtyh.file.root.path}/static/wtyh-web/build/data/img</update.img.web.path>
+                <update.img.admin.path>${wtyh.file.root.path}/static/wtyh-admin/build/data/img</update.img.admin.path>
+
+                <wtyh.beijing.server.ip>http://10.28.60.15</wtyh.beijing.server.ip>
+
             </properties>
         </profile>
         <!--测试环境 模拟上海-->
@@ -590,14 +595,19 @@
                 <m.redis.password>wtyh123456</m.redis.password>
                 <m.wtyh.web1.ip>http://10.28.200.239:8080</m.wtyh.web1.ip>
                 <m.wtyh.web2.ip>http://10.28.200.239:8081</m.wtyh.web2.ip>
-                <m.export.excel.path>/home/tester/wtyh</m.export.excel.path>
+
+                <wtyh.file.root.path>/home/tester/wtyh</wtyh.file.root.path>
+
+
                 <!--动态风险图存放路径(服务器上的绝对路径，后面不需要加att目录，但是Tomcat的虚拟目录里需要加att目录)  -->
-                <m.share.path>/home/tester/wtyh/yed</m.share.path>
+                <m.share.path>${wtyh.file.root.path}/yed</m.share.path>
                 <!--产生图片后，传给前台的请求action，对应Tomcat虚拟目录的path，后面不需要加att，但是Tomcat的虚拟目录需要加  -->
                 <m.mapping.path>/wtyh/yed</m.mapping.path>
 
-                <update.img.web.path>/home/tester/wtyh/static/wtyh-web/build/data/img</update.img.web.path>
-                <update.img.admin.path>/home/tester/wtyh/static/wtyh-admin/build/data/img</update.img.admin.path>
+                <update.img.web.path>${wtyh.file.root.path}/static/wtyh-web/build/data/img</update.img.web.path>
+                <update.img.admin.path>${wtyh.file.root.path}/static/wtyh-admin/build/data/img</update.img.admin.path>
+
+                <wtyh.beijing.server.ip>http://10.28.60.15</wtyh.beijing.server.ip>
             </properties>
         </profile>
 
@@ -614,11 +624,14 @@
                 <m.redis.password>bbdredis</m.redis.password>
                 <m.wtyh.web1.ip>http://shanghaijc.bbdservice.com</m.wtyh.web1.ip>
                 <m.wtyh.web2.ip/>
-                <m.export.excel.path>/mfs/file/wtyh</m.export.excel.path>
+
+                <wtyh.file.root.path>/mfs/file/wtyh</wtyh.file.root.path>
+
                 <m.share.path>/mfs/file</m.share.path>
                 <m.mapping.path>/app/yed</m.mapping.path>
                 <update.img.web.path/>
                 <update.img.admin.path/>
+                <wtyh.beijing.server.ip>http://106.75.89.210</wtyh.beijing.server.ip>
             </properties>
         </profile>
 
@@ -634,11 +647,13 @@
                 <m.redis.password>bbdredis</m.redis.password>
                 <m.wtyh.web1.ip>http://10.10.10.1:9081</m.wtyh.web1.ip>
                 <m.wtyh.web2.ip>http://10.10.10.2:9081</m.wtyh.web2.ip>
-                <m.export.excel.path>/data1/wtyh</m.export.excel.path>
+
+                <wtyh.file.root.path>/data1/wtyh</wtyh.file.root.path>
                 <m.share.path>/usr/local/tomcat/shareDir</m.share.path>
                 <m.mapping.path>/wtyh/yed</m.mapping.path>
                 <update.img.web.path/>
                 <update.img.admin.path/>
+                <wtyh.beijing.server.ip>http://106.75.89.210</wtyh.beijing.server.ip>
             </properties>
         </profile>
     </profiles>

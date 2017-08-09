@@ -316,7 +316,7 @@ public class ParkController {
 	@RequestMapping("/downloadParkCompanyList")
 	@ResponseBody
 	public ResponseBean downloadParkCompanyList(@RequestParam Integer areaId, Integer isNew, Integer riskLevel, String backgroundName,
-			String companyTypeName, String buildingName,String companyName, HttpServletRequest request) {
+			String companyTypeName, String buildingName,String companyName, HttpServletRequest request,String parkName) {
 
 		String loginName = request.getSession().getAttribute(Constants.SESSION.loginName) + "";
 		String nowDateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss"));
@@ -335,7 +335,7 @@ public class ParkController {
 			// 按查询条件下载企业
 
 			Map<String,Object> map = parkService.queryParkCompany(areaId,
-			 isNew, riskLevel, backgroundName, companyTypeName, buildingName,companyName,null,null,null);
+			 isNew, riskLevel, backgroundName, companyTypeName, buildingName,companyName,null,null,parkName);
 
 			// 下载改园区全部企业
 			//Map<String,Object> map = parkService.queryParkCompany(areaId, null, null, null, null, null,null,null);

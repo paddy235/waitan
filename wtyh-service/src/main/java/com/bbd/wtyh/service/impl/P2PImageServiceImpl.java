@@ -326,8 +326,8 @@ public class P2PImageServiceImpl implements P2PImageService,TaskService {
     @Override
     public TaskResultDO p2pImageDataLandTask(Integer taskId) {
         isShutdown = false;
-        TaskResultDO taskResultDO = new TaskResultDO();
         logger.info("start p2pImageDataLandTask ");
+        TaskResultDO taskResultDO = new TaskResultDO();
         List<PlatListDO> platList = new ArrayList<>();
         try {
             platList = p2PImageDao.baseInfoWangDaiApi();
@@ -336,9 +336,13 @@ public class P2PImageServiceImpl implements P2PImageService,TaskService {
             }
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
+            taskResultDO.setState(TaskState.ERROR);
+            return taskResultDO;
         }
-        Integer planCount = platList.size();
+        Integer planCount = platList==null?0:platList.size();
         Integer failCount = 0;
+        taskResultDO.setPlanCount(planCount);
+
         for (PlatListDO plat : platList) {
             if(isShutdown){
                 break;
@@ -358,16 +362,15 @@ public class P2PImageServiceImpl implements P2PImageService,TaskService {
                 updateRadarScore(plat);
 
             } catch (Exception e) {
+                taskResultDO.setState(TaskState.ERROR);
                 logger.error(e.getMessage(), e);
                 addWangdaiTaskInfo(taskId,plat.getPlat_name(),e.getClass().getSimpleName());
                 failCount++;
-                taskResultDO.setState(TaskState.ERROR);
             }
             logger.info(String.format("end update %s data", plat.getPlat_name()));
         }
 
 
-        taskResultDO.setPlanCount(planCount);
         if (isShutdown) {
             taskResultDO.setFailCount(0);
             taskResultDO.setSuccessCount(0);
@@ -393,6 +396,7 @@ public class P2PImageServiceImpl implements P2PImageService,TaskService {
                 throw new Exception("dataType=plat_list 调用异常");
             }
         } catch (Exception e) {
+            taskResultDO.setState(TaskState.ERROR);
             logger.error(e.getMessage(), e);
         }
         Integer planCount = platList.size();
@@ -423,7 +427,6 @@ public class P2PImageServiceImpl implements P2PImageService,TaskService {
             }
             logger.info(String.format("end update %s data", plat.getPlat_name()));
         }
-
 
         taskResultDO.setPlanCount(planCount);
         if (isShutdown) {
@@ -617,6 +620,11 @@ public class P2PImageServiceImpl implements P2PImageService,TaskService {
     @Override
     public void stopExecute(Integer taskId) {
         stopTask();
+    }
+
+    @Override
+    public void resetTask() {
+        this.isShutdown=false;
     }
 
     @Override

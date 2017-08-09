@@ -54,6 +54,11 @@ public class SyncDataServiceImpl extends BaseServiceImpl implements SyncDataServ
 	}
 
 	@Override
+	public void resetShutDown() {
+		isShutdown = false;
+	}
+
+	@Override
 	public TaskResultDO receiveFileData(File file) throws Exception {
 		isShutdown=false;
 

@@ -1,6 +1,7 @@
 package com.bbd.bgo.service.task;
 
 import com.bbd.bgo.quartz.TaskUtil;
+import com.bbd.wtyh.constants.TaskState;
 import com.bbd.wtyh.domain.TaskFailInfoDO;
 import com.bbd.wtyh.domain.TaskInfoDO;
 import com.bbd.wtyh.domain.TaskResultDO;
@@ -14,8 +15,6 @@ import org.springframework.stereotype.Component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-
-import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
 
@@ -27,28 +26,20 @@ import java.util.List;
 @Component
 public class TimingTaskManager {
 
-	@Autowired
-	private SyncFileService syncFileService;
+	// SyncFileService ; 线下理财
+	// OfflineFinanceService; 风险等级
+	// SystemDataUpdateService ; 企业基本信息
+	// P2PImageService ;  网贷平台画像
+	// PToPMonitorService ; 网贷监测
+	// DataLoadingService ; 全息
+	// CrowdFundingService ; 众筹
+	// PlatUpdateTaskService ; 企业与网贷平台
 	@Autowired
 	private CoCreditScoreService coCreditScoreService;
 	@Autowired
-	private OfflineFinanceService offlineFinanceService;
-	@Autowired
-	private SystemDataUpdateService systemDataUpdateService;
-	@Autowired
-	private P2PImageService p2pImageService;
-	@Autowired
-	private PToPMonitorService p2pMonitorService;
-	@Autowired
-	private DataLoadingService dataLoadingService;
+	private ParkAndBuildingMgtMapper parkAndBuildingMgtMapper;
 	@Autowired
 	private TaskFailInfoMapper taskFailInfoMapper;
-	@Autowired
-	private CrowdFundingService crowdFundingService;
-	@Autowired
-	private PlatUpdateTaskService platUpdateTaskService;
-	@Autowired
-	private ParkAndBuildingMgtMapper parkAndBuildingMgtMapper;
 
 	private Logger logger = LoggerFactory.getLogger(TimingTaskManager.class);
 
@@ -76,10 +67,16 @@ public class TimingTaskManager {
 			if(1==isShow){
 				taskId = TaskUtil.taskStart(taskKey, taskGroup, null, runMode, null, null);
 			}
+			//初始化任务，shutdown设置为false
+			taskService.resetTask();
 			//需要传 taskId 给业务接口
 			taskResultDO = taskService.autoExecute(taskId,runMode);
 		} catch (Exception e) {
-			logger.error("riskLevelTask" + e);
+			if(null == taskResultDO){
+				taskResultDO=new TaskResultDO();
+			}
+			taskResultDO.setState(TaskState.ERROR);
+			logger.error("start-" + e);
 		} finally {
 			if(1==isShow){
 				taskEnd(taskResultDO, taskId, null, canRan);
@@ -105,9 +102,15 @@ public class TimingTaskManager {
 		TaskService taskService=getTaskServiceBean(taskKey, taskGroup);
 		try {
 			newTaskId = TaskUtil.taskStart(taskService.getTaskKey(), taskService.getTaskGroup(), null, runMode, null, null);
+			//初始化任务，shutdown设置为false
+			taskService.resetTask();
 			taskResultDO=taskService.reExecute(oldTaskId,newTaskId,runMode);
 		}catch (Exception e) {
-			logger.error("reExecuteTask-"+taskService.getTaskKey() + e);
+			if(null == taskResultDO){
+				taskResultDO=new TaskResultDO(0,0,0);
+			}
+			taskResultDO.setState(TaskState.ERROR);
+			logger.error("reExecuteTask-" + e);
 		} finally {
 			taskEnd(taskResultDO, newTaskId, null, canRan);
 		}
@@ -187,7 +190,7 @@ public class TimingTaskManager {
 			Object obj = ApplicationContextUtil.getBean(objName);
 			taskService = (TaskService) obj;
 		} catch (Exception e) {
-			logger.error("getTaskServiceBean" + e);
+			logger.error("getTaskServiceBean-" + e);
 		}
 
 		return taskService;

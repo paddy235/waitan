@@ -254,6 +254,9 @@ public class QuartzHandler extends BaseServiceImpl {
 
 	public void taskEnd(Integer taskId, TaskResultDO taskResultDO, String updateBy, Integer reExecute) {
 		TaskSuccessFailInfoDO taskDetail = taskDetailMapper.getTaskInfoById(taskId);
+        if(null ==taskDetail){
+            return;
+        }
 		taskDetail.setEndDate(new Date());
 		taskDetail.setPlanCount(taskResultDO.getPlanCount());
 		taskDetail.setSuccessCount(taskResultDO.getSuccessCount());
