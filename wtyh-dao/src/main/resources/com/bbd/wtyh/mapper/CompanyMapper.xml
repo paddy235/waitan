@@ -52,7 +52,8 @@
         p.park_id=bui.park_id and
         cb.company_id=com.company_id and
         cb.building_id=bui.building_id and
-        p.area_id=#{areaId}
+        p.area_id=#{areaId} and
+        p.name=#{parkName}
         <if test="#{start}!=null">
             and com.registered_date >= #{start}
         </if>
@@ -71,7 +72,7 @@
    			cb.company_id=com.company_id and
    			cb.building_id=bui.building_id and
    			p.area_id=#{areaId} and
-   			com.company_type=#{type}
+   			com.company_type=#{type} and p.name=#{parkName}
 
    </select>
 
@@ -281,7 +282,9 @@
               <if test="buildingId!=null">
               	and b.building_id=#{buildingId}
               </if>
-
+              <if test="parkName!=null">
+                and p.name=#{parkName}
+              </if>
     </select>
 
     <select id="companyInfo" parameterType="String" resultType="java.util.Map">

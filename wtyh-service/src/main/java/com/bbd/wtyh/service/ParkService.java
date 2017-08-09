@@ -21,7 +21,7 @@ public interface ParkService extends BaseService {
 	 *            区域id
 	 * @return List<BuildingDO>
 	 */
-	List<BuildingDO> queryBuildings(Integer areaId);
+	List<BuildingDO> queryBuildings(Integer areaId,String parkName);
 
 	/**
 	 * 根据区域id查询新型金融企业集中度
@@ -30,7 +30,7 @@ public interface ParkService extends BaseService {
 	 *            区域id
 	 * @return List<BuildingDO>
 	 */
-	List<InBusinessDO> inBusiness(Integer areaId);
+	List<InBusinessDO> inBusiness(Integer areaId,String parkName);
 
 	/**
 	 * 根据区域id查询行业分布
@@ -39,7 +39,7 @@ public interface ParkService extends BaseService {
 	 *            区域id
 	 * @return List<BuildingDO>
 	 */
-	List<CompanyTypeCountDO> businessDistribute(Integer areaId);
+	List<CompanyTypeCountDO> businessDistribute(Integer areaId,String parkName);
 
 	/**
 	 * 查询园区舆情
@@ -53,7 +53,7 @@ public interface ParkService extends BaseService {
 	 * @author Ian.Su
 	 * @return String
 	 */
-	String queryParkNews(Integer areaId, Integer pageSize, Integer pageNum);
+	String queryParkNews(Integer areaId, Integer pageSize, Integer pageNum, String parkName);
 
 	/**
 	 * 获取园区图片
@@ -62,7 +62,7 @@ public interface ParkService extends BaseService {
 	 *            区域id
 	 * @return String 图片地址
 	 */
-	String parkImg(Integer areaId);
+	String parkImg(Integer areaId,String parkName);
 
 	/**
 	 * 楼宇企业列表
@@ -122,6 +122,6 @@ public interface ParkService extends BaseService {
 	 */
 	Map<String,Object> queryParkCompany(Integer areaId,Integer isNew,Integer riskLevel,
 										 String backgroundName,String companyTypeName,String buildingName,
-										String companyName,Integer pageSize,Integer pageNumber);
+										String companyName,Integer pageSize,Integer pageNumber,String parkName);
 
 }

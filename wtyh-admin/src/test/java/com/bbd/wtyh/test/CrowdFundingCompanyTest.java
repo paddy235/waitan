@@ -41,5 +41,10 @@ public class CrowdFundingCompanyTest {
         System.out.print(taskResultDO);
     }
 
+    @Test
+    public void showDown(){
+        crowdFundingService.stopTask();
+    }
+
 
 }

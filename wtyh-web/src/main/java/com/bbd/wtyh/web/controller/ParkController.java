@@ -109,9 +109,9 @@ public class ParkController {
 	 */
 	@RequestMapping("/companyConcentration")
 	@ResponseBody
-	public ResponseBean oncentration(@RequestParam(required = true) Integer areaId) {
+	public ResponseBean oncentration(@RequestParam(required = true) Integer areaId,String parkName) {
 
-		List<BuildingDO> data = parkService.queryBuildings(areaId);
+		List<BuildingDO> data = parkService.queryBuildings(areaId,parkName);
 
 		return ResponseBean.successResponse(data);
 	}
@@ -125,8 +125,8 @@ public class ParkController {
 	 */
 	@RequestMapping("/inBusiness")
 	@ResponseBody
-	public ResponseBean inBusiness(@RequestParam Integer areaId) {
-		List<InBusinessDO> data = parkService.inBusiness(areaId);
+	public ResponseBean inBusiness(@RequestParam Integer areaId,String parkName) {
+		List<InBusinessDO> data = parkService.inBusiness(areaId,parkName);
 		return ResponseBean.successResponse(data);
 	}
 
@@ -139,11 +139,11 @@ public class ParkController {
 	 */
 	@RequestMapping("/news")
 	@ResponseBody
-	public ResponseBean news(@RequestParam(required = true) Integer areaId) {
+	public ResponseBean news(@RequestParam(required = true) Integer areaId, String parkName) {
 
 		Gson gson = new Gson();
 
-		String data = parkService.queryParkNews(areaId, 20, 1);
+		String data = parkService.queryParkNews(areaId, 20, 1,parkName);
 
 		NewsVO vo = gson.fromJson(data, new TypeToken<NewsVO>() {
 		}.getType());
@@ -164,9 +164,9 @@ public class ParkController {
 	 */
 	@RequestMapping("/businessDistribute")
 	@ResponseBody
-	public ResponseBean businessDistribute(@RequestParam(required = true) Integer areaId) {
+	public ResponseBean businessDistribute(@RequestParam(required = true) Integer areaId,String parkName) {
 
-		List<CompanyTypeCountDO> data = parkService.businessDistribute(areaId);
+		List<CompanyTypeCountDO> data = parkService.businessDistribute(areaId,parkName);
 		return ResponseBean.successResponse(data);
 	}
 
@@ -180,9 +180,9 @@ public class ParkController {
 	@RequestMapping("/parkImg")
 	@ResponseBody
 	@LogRecord(logMsg = "浏览【%s】园区监测页面", params = { "areaName" }, page = Operation.Page.park, after = true, before = false)
-	public ResponseBean parkImg(Integer areaId, HttpServletRequest request) {
+	public ResponseBean parkImg(Integer areaId, String parkName, HttpServletRequest request) {
 
-		Object data = parkService.parkImg(areaId);
+		Object data = parkService.parkImg(areaId,parkName);
 
 		AreaDO area = this.parkService.selectById(AreaDO.class, areaId);
 		if (area != null) {
@@ -293,7 +293,7 @@ public class ParkController {
 	@ResponseBody
 	public ResponseBean parkCompanyList(@RequestParam Integer areaId, @RequestParam Integer isNew, @RequestParam Integer riskLevel,
 			@RequestParam String backgroundName, @RequestParam String companyTypeName, @RequestParam String buildingName,
-										@RequestParam String companyName,@RequestParam Integer pageSize,@RequestParam Integer pageNumber) {
+										@RequestParam String companyName,@RequestParam Integer pageSize,@RequestParam Integer pageNumber,@RequestParam String parkName) {
 		//分页
 		if(null==pageSize || pageSize<1){
 			pageSize=20;
@@ -302,7 +302,7 @@ public class ParkController {
 			pageNumber=1;
 		}
 
-		Map<String ,Object> data = parkService.queryParkCompany(areaId, isNew, riskLevel, backgroundName, companyTypeName, buildingName,companyName,pageSize,pageNumber);
+		Map<String ,Object> data = parkService.queryParkCompany(areaId, isNew, riskLevel, backgroundName, companyTypeName, buildingName,companyName,pageSize,pageNumber,parkName);
 		return ResponseBean.successResponse(data);
 	}
 
@@ -316,7 +316,7 @@ public class ParkController {
 	@RequestMapping("/downloadParkCompanyList")
 	@ResponseBody
 	public ResponseBean downloadParkCompanyList(@RequestParam Integer areaId, Integer isNew, Integer riskLevel, String backgroundName,
-			String companyTypeName, String buildingName,String companyName, HttpServletRequest request) {
+			String companyTypeName, String buildingName,String companyName, HttpServletRequest request,String parkName) {
 
 		String loginName = request.getSession().getAttribute(Constants.SESSION.loginName) + "";
 		String nowDateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss"));
@@ -335,7 +335,7 @@ public class ParkController {
 			// 按查询条件下载企业
 
 			Map<String,Object> map = parkService.queryParkCompany(areaId,
-			 isNew, riskLevel, backgroundName, companyTypeName, buildingName,companyName,null,null);
+			 isNew, riskLevel, backgroundName, companyTypeName, buildingName,companyName,null,null,parkName);
 
 			// 下载改园区全部企业
 			//Map<String,Object> map = parkService.queryParkCompany(areaId, null, null, null, null, null,null,null);

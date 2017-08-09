@@ -9,6 +9,7 @@ import com.bbd.wtyh.log.user.UserLogRecord;
 import com.bbd.wtyh.mapper.DataLoadingMapper;
 import com.bbd.wtyh.mapper.TaskFailInfoMapper;
 import com.bbd.wtyh.mapper.TaskSuccessFailInfoMapper;
+import com.bbd.wtyh.service.TaskService;
 import com.bbd.wtyh.util.DataLoadingUtil;
 import com.bbd.wtyh.util.PullFileUtil;
 import net.sf.json.JSONObject;
@@ -31,7 +32,7 @@ import java.util.*;
  * @author Created by LiYao on 2017-05-18 9:53.
  */
 @Service
-public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadingService {
+public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadingService,TaskService {
 
 	private static final Logger logger = LoggerFactory.getLogger(DataLoadingServiceImpl.class);
 
@@ -633,4 +634,35 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 	}
 
 
+	@Override
+	public String getTaskKey() {
+		return "holographicAndOpinionJob";
+	}
+
+	@Override
+	public String getTaskGroup() {
+		return "bbd_work";
+	}
+
+	@Override
+	public TaskResultDO autoExecute(Integer taskId, Integer runMode) {
+		TaskResultDO taskResultDO = dataLoadingAutomaticOperate(taskId);
+		return taskResultDO;
+	}
+
+	@Override
+	public TaskResultDO reExecute(Integer oldTaskId, Integer newTaskId, Integer runMode) {
+		TaskResultDO taskResultDO = dataLoadingManualOperate(oldTaskId, newTaskId);
+		return taskResultDO;
+	}
+
+	@Override
+	public void stopExecute(Integer taskId) {
+		stopTask();
+	}
+
+	@Override
+	public void resetTask() {
+		this.isShutdown=false;
+	}
 }

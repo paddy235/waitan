@@ -13,4 +13,8 @@ import java.io.File;
 public interface SyncDataService {
 
 	TaskResultDO receiveFileData(File file) throws Exception;
+
+	public void stopTask();
+
+	public void resetShutDown();
 }

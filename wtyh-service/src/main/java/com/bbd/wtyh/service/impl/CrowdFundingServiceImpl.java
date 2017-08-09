@@ -10,6 +10,7 @@ import com.bbd.wtyh.dao.CrowdFundingDao;
 import com.bbd.wtyh.domain.*;
 import com.bbd.wtyh.domain.EasyExport.CrowdfundData;
 import com.bbd.wtyh.mapper.*;
+import com.bbd.wtyh.service.TaskService;
 import com.bbd.wtyh.web.EasyExportExcel.ExportCondition;
 import com.bbd.wtyh.web.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ import static y.layout.orthogonal.e.bb.i;
  * @since 2016年8月11日 下午4:13:50
  */
 @Service
-public class CrowdFundingServiceImpl implements CrowdFundingService {
+public class CrowdFundingServiceImpl implements CrowdFundingService,TaskService {
 
 
     @Autowired
@@ -49,6 +50,8 @@ public class CrowdFundingServiceImpl implements CrowdFundingService {
 
     @Autowired
     private TaskFailInfoMapper taskFailInfoMapper;
+
+    private volatile boolean isShutdown = false;//任务停止标志
 
 
     @Override
@@ -86,6 +89,7 @@ public class CrowdFundingServiceImpl implements CrowdFundingService {
 
     @Override
     public TaskResultDO crowdFundingDataLandTask(Integer taskId) {
+        isShutdown = false;
         Integer planCount = 5;
         Integer failCount = 0;
         try {
@@ -97,6 +101,9 @@ public class CrowdFundingServiceImpl implements CrowdFundingService {
         }
 
         for (int i = 2; i <= 5; i++) {
+            if(isShutdown){
+                break;
+            }
             try {
                 updateCrowdFundingCommon(String.valueOf(i));
             } catch (Exception e) {
@@ -123,17 +130,26 @@ public class CrowdFundingServiceImpl implements CrowdFundingService {
         }
         TaskResultDO taskResultDO = new TaskResultDO();
         taskResultDO.setPlanCount(planCount);
-        taskResultDO.setFailCount(failCount);
-        taskResultDO.setSuccessCount(planCount - failCount);
+        if (isShutdown) {
+            taskResultDO.setFailCount(0);
+            taskResultDO.setSuccessCount(0);
+        }else{
+            taskResultDO.setFailCount(failCount);
+            taskResultDO.setSuccessCount(planCount - failCount);
+        }
         return taskResultDO;
     }
 
     @Override
     public TaskResultDO executeFailTaskByTaskId(Integer runMode, Integer oldTaskId, Integer taskId) {
+        isShutdown = false;
         List<TaskFailInfoDO> list = taskFailInfoMapper.getTaskFailInfoByTaskId(oldTaskId);
         Integer planCount = list.size();
         Integer failCount = 0;
         for (TaskFailInfoDO wangdaiTaskInfo : list) {
+            if(isShutdown){
+                break;
+            }
             if (wangdaiTaskInfo.getFailName().equals("平台基本情况(dataType=1)")) {
                 try {
                     updateCrowdFundingCompany();
@@ -170,9 +186,19 @@ public class CrowdFundingServiceImpl implements CrowdFundingService {
         }
         TaskResultDO taskResultDO = new TaskResultDO();
         taskResultDO.setPlanCount(planCount);
-        taskResultDO.setFailCount(failCount);
-        taskResultDO.setSuccessCount(planCount - failCount);
+        if (isShutdown) {
+            taskResultDO.setFailCount(0);
+            taskResultDO.setSuccessCount(0);
+        }else{
+            taskResultDO.setFailCount(failCount);
+            taskResultDO.setSuccessCount(planCount - failCount);
+        }
         return taskResultDO;
+    }
+
+    @Override
+    public void stopTask() {
+        isShutdown = true;
     }
 
     protected void addFailTaskInfo(Integer taskId, String api, String failReason) {
@@ -198,6 +224,9 @@ public class CrowdFundingServiceImpl implements CrowdFundingService {
     }
 
     private void updateCrowdFundingCommon(String type) {
+        if(isShutdown){
+            return;
+        }
         CrowdFundingCommonDO crowdFundingCommonDO = new CrowdFundingCommonDO();
         Map map = crowdFundingDao.lastMonthType(type);
         crowdFundingCommonDO.setReward((String) map.get("奖励众筹"));
@@ -214,8 +243,14 @@ public class CrowdFundingServiceImpl implements CrowdFundingService {
     }
 
     private void updateCrowdFundingCompany() throws Exception {
+        if(isShutdown){
+            return;
+        }
         List<CrowdFundingCompanyDO> dtoList = crowdFundingDao.allCompanys();
         for (CrowdFundingCompanyDO dto : dtoList) {
+            if(isShutdown){
+                break;
+            }
             dto.setCreateBy("system");
             dto.setCreateDate(new Date());
 //            crowdFundingCompanyMapper.deleteByPlatName(dto.getPlatformName());
@@ -231,5 +266,37 @@ public class CrowdFundingServiceImpl implements CrowdFundingService {
     public List<CrowdfundData> getCrowdfund(ExportCondition exportCondition, PageBean pagination) {
         pagination.setTotalCount(crowdFundingCompanyMapper.countCrowdfund(exportCondition));
         return crowdFundingCompanyMapper.getCrowdfund(exportCondition, pagination);
+    }
+
+    @Override
+    public String getTaskKey() {
+        return "crowdFundingJob";
+    }
+
+    @Override
+    public String getTaskGroup() {
+        return "wd_work";
+    }
+
+    @Override
+    public TaskResultDO autoExecute(Integer taskId, Integer runMode) {
+        TaskResultDO taskResultDO=crowdFundingDataLandTask(taskId);
+        return taskResultDO;
+    }
+
+    @Override
+    public TaskResultDO reExecute(Integer oldTaskId, Integer newTaskId, Integer runMode) {
+        TaskResultDO taskResultDO = executeFailTaskByTaskId(runMode, oldTaskId, newTaskId);
+        return taskResultDO;
+    }
+
+    @Override
+    public void stopExecute(Integer taskId) {
+        stopTask();
+    }
+
+    @Override
+    public void resetTask() {
+        this.isShutdown=false;
     }
 }

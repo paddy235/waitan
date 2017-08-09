@@ -1,6 +1,13 @@
 package com.bbd.wtyh.domain;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Table(name = "qdlp_progress")
 public class QdlpProgressDO extends BaseDO {
+    @Id
+    @Column(name = "company_id")
     private Integer companyId;
 
     private String foreignShareholder;

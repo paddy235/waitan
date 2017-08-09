@@ -11,6 +11,7 @@ import com.bbd.wtyh.domain.TaskFailInfoDO;
 import com.bbd.wtyh.domain.TaskResultDO;
 import com.bbd.wtyh.excel.imp.utils.FileUtil;
 import com.bbd.wtyh.mapper.TaskFailInfoMapper;
+import com.bbd.wtyh.service.TaskService;
 import com.bbd.wtyh.util.HttpUtil;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.IOUtils;
@@ -30,7 +31,7 @@ import com.bbd.wtyh.service.SyncDataService;
  * @author Created by LiYao on 2017-05-18 9:53.
  */
 @Service
-public class SyncFileServiceImpl extends BaseServiceImpl implements SyncFileService {
+public class SyncFileServiceImpl extends BaseServiceImpl implements SyncFileService,TaskService {
 
 	private static final Logger logger = LoggerFactory.getLogger(SyncFileServiceImpl.class);
 
@@ -47,7 +48,14 @@ public class SyncFileServiceImpl extends BaseServiceImpl implements SyncFileServ
 	private String brokerIp;
 	private String brokerUri = "/syncFile/supplyFile.do";
 
-	@Override
+
+    @Override
+    public void stopTask() {
+        this.syncDataService.stopTask();
+    }
+
+
+    @Override
 	public TaskResultDO pullFile(Integer taskId) {
 		TaskResultDO taskResult = null;
 		try {
@@ -93,7 +101,8 @@ public class SyncFileServiceImpl extends BaseServiceImpl implements SyncFileServ
 		return taskResult;
 	}
 
-	private void taskRecord(Integer taskId, String dataVersion) {
+
+    private void taskRecord(Integer taskId, String dataVersion) {
 		TaskFailInfoDO taskFail = new TaskFailInfoDO();
 		taskFail.setTaskId(taskId);
 		taskFail.setDataVersion(dataVersion);
@@ -127,5 +136,37 @@ public class SyncFileServiceImpl extends BaseServiceImpl implements SyncFileServ
 		}
 		return file;
 	}
+
+	@Override
+	public String getTaskKey() {
+		return "offlineFinanceJob";
+	}
+
+	@Override
+	public String getTaskGroup() {
+		return "bbd_work";
+	}
+
+	@Override
+	public TaskResultDO autoExecute(Integer taskId, Integer runMode) {
+		TaskResultDO taskResultDO = pullFile(taskId);
+		return taskResultDO;
+	}
+
+	@Override
+	public TaskResultDO reExecute(Integer oldTaskId, Integer newTaskId, Integer runMode) {
+		TaskResultDO taskResultDO = rePullFile(oldTaskId, newTaskId);
+		return taskResultDO;
+	}
+
+	@Override
+	public void stopExecute(Integer taskId) {
+        stopTask();
+	}
+
+    @Override
+    public void resetTask() {
+        syncDataService.resetShutDown();
+    }
 
 }

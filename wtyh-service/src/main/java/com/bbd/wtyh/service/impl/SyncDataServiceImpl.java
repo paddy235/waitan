@@ -46,8 +46,22 @@ public class SyncDataServiceImpl extends BaseServiceImpl implements SyncDataServ
 	@Autowired
 	private OfflineFinanceService offlineFinanceService;
 
+	private volatile boolean isShutdown = false;//任务停止标志
+
+	@Override
+	public void stopTask() {
+		isShutdown = true;
+	}
+
+	@Override
+	public void resetShutDown() {
+		isShutdown = false;
+	}
+
 	@Override
 	public TaskResultDO receiveFileData(File file) throws Exception {
+		isShutdown=false;
+
 		if (file == null) {
 			return null;
 		}
@@ -63,6 +77,9 @@ public class SyncDataServiceImpl extends BaseServiceImpl implements SyncDataServ
 			final String string = lineIterator.next();
 			Future<Boolean> future = dataExecutorService.submit(() -> {
 				try {
+					if(isShutdown){
+						return false;
+					}
 					insertData(string);
 					return true;
 				} catch (Throwable t) {

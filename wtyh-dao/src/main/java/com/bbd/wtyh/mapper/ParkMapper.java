@@ -9,7 +9,7 @@ import java.util.Map;
 
 public interface ParkMapper {
    
-	public String parkImg(Integer areaId);
+	public String parkImg(@Param("areaId") Integer areaId,@Param("parkName") String parkName);
 	/**
 	 * 查询某个园区的楼宇公司
 	 * @return
