@@ -54,7 +54,7 @@ public class CompanyInfoModifyServiceImpl implements CompanyInfoModifyService {
             return companyInfoQueryUtil.getPerpaycard(name);
         } else if (CompanyInfo.TYPE_RZZL_13 == companyInfoModifyMapper.queryCompany(name).getIndustry()) { // 融资租赁
             return companyInfoQueryUtil.getTenancy(name);
-        } else if (CompanyInfo.TYPE_ZC_6 == companyInfoModifyMapper.queryCompany(name).getIndustry()) { // 私募基金
+        } else if (CompanyInfo.TYPE_SMJJ_5 == companyInfoModifyMapper.queryCompany(name).getIndustry()) { // 私募基金
             return companyInfoQueryUtil.getPrivateFund(name);
         } else if (CompanyInfo.TYPE_JR_7 == companyInfoModifyMapper.queryCompany(name).getIndustry()) { // 众筹
             return companyInfoQueryUtil.getCrowdingFund(name);
@@ -88,7 +88,7 @@ public class CompanyInfoModifyServiceImpl implements CompanyInfoModifyService {
             companyInfoMudifyUtil.modifyPerpaycard(modifyData);
         } else if (CompanyInfo.TYPE_RZZL_13 == companyInfoModifyMapper.queryCompany(modifyData.getName()).getIndustry()) { // 融资租赁
             companyInfoMudifyUtil.modifyFinanceLease(modifyData);
-        } else if (CompanyInfo.TYPE_ZC_6 == companyInfoModifyMapper.queryCompany(modifyData.getName()).getIndustry()) { // 私募基金
+        } else if (CompanyInfo.TYPE_SMJJ_5 == companyInfoModifyMapper.queryCompany(modifyData.getName()).getIndustry()) { // 私募基金
             companyInfoMudifyUtil.modifyPrivateFund(modifyData);
         } else if (CompanyInfo.TYPE_JR_7 == companyInfoModifyMapper.queryCompany(modifyData.getName()).getIndustry()) { // 众筹
             companyInfoMudifyUtil.modifyCrowdfunding(modifyData);

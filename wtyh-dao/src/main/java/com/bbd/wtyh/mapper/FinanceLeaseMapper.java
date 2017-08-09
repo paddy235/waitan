@@ -31,4 +31,6 @@ public interface FinanceLeaseMapper {
     void modifyFinanceLease(@Param("recordInfo") RecordInfo recordInfo);
 
     void addFinanceLease(@Param("recordInfo") RecordInfo recordInfo);
+
+    List<CompanyInfo> isExistFinanceLease(@Param("recordInfo")RecordInfo recordInfo);
 }
