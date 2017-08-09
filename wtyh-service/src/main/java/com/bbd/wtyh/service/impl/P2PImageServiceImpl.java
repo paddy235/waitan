@@ -611,7 +611,7 @@ public class P2PImageServiceImpl implements P2PImageService,TaskService {
 
     @Override
     public void stopExecute(Integer taskId) {
-
+        stopTask();
     }
 
     @Override

@@ -780,6 +780,6 @@ public class PToPMonitorServiceImpl implements PToPMonitorService,TaskService {
 
     @Override
     public void stopExecute(Integer taskId) {
-
+        stopTask();
     }
 }
