@@ -73,7 +73,7 @@ public class TimingTaskManager {
 			taskResultDO = taskService.autoExecute(taskId,runMode);
 		} catch (Exception e) {
 			if(null == taskResultDO){
-				taskResultDO=new TaskResultDO(0,0,0);
+				taskResultDO=new TaskResultDO();
 			}
 			taskResultDO.setState(TaskState.ERROR);
 			logger.error("start-" + e);
