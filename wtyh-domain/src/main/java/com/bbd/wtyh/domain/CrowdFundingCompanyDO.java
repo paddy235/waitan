@@ -3,9 +3,15 @@ package com.bbd.wtyh.domain;
 import com.google.gson.annotations.SerializedName;
 import org.springframework.util.StringUtils;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.Serializable;
 
+@Table(name = "qdlp_progress")
 public class CrowdFundingCompanyDO extends BaseDO implements Serializable {
+    //@Id
+    @Column(name = "company_name")
     @SerializedName("company_name")
     private String  companyName;          //公司名称
     @SerializedName("operation_address")

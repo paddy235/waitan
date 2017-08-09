@@ -32,7 +32,7 @@ public class MyTest extends BaseServiceImpl {
 
 	@Test
 	public  void queryParkCompany(){
-		Map<String, Object> map= parkService.queryParkCompany(1122,null,null,null,null,null,"上海申彤",50,1);
+		Map<String, Object> map= parkService.queryParkCompany(1122,null,null,null,null,null,"上海申彤",50,1,null);
 		//System.err.println(JSON.toJSONString(map, SerializerFeature.PrettyFormat, SerializerFeature.DisableCircularReferenceDetect));
 		ObjectMapper mapper = new ObjectMapper();
 		try {

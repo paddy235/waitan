@@ -446,6 +446,11 @@ CREATE TABLE `datashare_pull_file` (
   PRIMARY KEY (`file_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6524 DEFAULT CHARSET=utf8 COMMENT='datashare文件拉取';
 
+/*==============================================================*/
+/* Table: company                                               */
+/*==============================================================*/
+alter table company modify column address varchar(1000) ;
+
 
 
 
