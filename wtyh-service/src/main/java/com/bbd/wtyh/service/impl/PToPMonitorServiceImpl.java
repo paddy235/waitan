@@ -3,6 +3,7 @@ package com.bbd.wtyh.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.bbd.higgs.utils.http.HttpCallback;
 import com.bbd.higgs.utils.http.HttpTemplate;
+import com.bbd.wtyh.constants.TaskState;
 import com.bbd.wtyh.domain.*;
 import com.bbd.wtyh.domain.CompanyInfoModify.WangdaiModify;
 import com.bbd.wtyh.domain.dto.*;
@@ -288,6 +289,8 @@ public class PToPMonitorServiceImpl implements PToPMonitorService,TaskService {
     @Override
     public TaskResultDO pToPMonitorDataLandTask(Integer taskId) {
         isShutdown = false;
+        TaskResultDO taskResultDO = new TaskResultDO();
+
         Integer planCount = 5;// 计划执行笔数。 可在任务结束时更新
         Integer failCount = 0;
         //type=industry_shanghai 数据落地
@@ -297,6 +300,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService,TaskService {
             logger.error(e.getMessage(), e);
             addWangdaiTaskInfo(taskId, industry_shanghai, e.getClass().getSimpleName());
             failCount++;//失败条数加一
+            taskResultDO.setState(TaskState.ERROR);
             //计入任务表
         }
         //type=industry_compare 数据落地
@@ -306,6 +310,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService,TaskService {
             logger.error(e.getMessage(), e);
             addWangdaiTaskInfo(taskId, industry_compare, e.getClass().getSimpleName());
             failCount++;
+            taskResultDO.setState(TaskState.ERROR);
         }
         //type=industry_problem 数据落地
         try {
@@ -314,6 +319,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService,TaskService {
             logger.error(e.getMessage(), e);
             addWangdaiTaskInfo(taskId, industry_problem, e.getClass().getSimpleName());
             failCount++;
+            taskResultDO.setState(TaskState.ERROR);
         }
         //type = plat_rand_data 数据落地
         try {
@@ -322,6 +328,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService,TaskService {
             logger.error(e.getMessage(), e);
             addWangdaiTaskInfo(taskId, plat_rank_data, e.getClass().getSimpleName());
             failCount++;
+            taskResultDO.setState(TaskState.ERROR);
         }
         //type=area_index 数据落地
         try {
@@ -330,9 +337,8 @@ public class PToPMonitorServiceImpl implements PToPMonitorService,TaskService {
             logger.error(e.getMessage(), e);
             addWangdaiTaskInfo(taskId, area_index, e.getClass().getSimpleName());
             failCount++;
+            taskResultDO.setState(TaskState.ERROR);
         }
-        TaskResultDO taskResultDO = new TaskResultDO();
-
         taskResultDO.setPlanCount(planCount);
         if (isShutdown) {
             taskResultDO.setFailCount(0);
@@ -348,6 +354,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService,TaskService {
     @Override
     public TaskResultDO executeFailTaskByTaskId(Integer runMode, Integer oldTaskId, Integer taskId) {
         isShutdown = false;
+        TaskResultDO taskResultDO = new TaskResultDO();
         List<TaskFailInfoDO> list = taskFailInfoMapper.getTaskFailInfoByTaskId(oldTaskId);
         Integer planCount = list.size();
         Integer failCount = 0;
@@ -363,6 +370,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService,TaskService {
                         logger.error(e.getMessage(), e);
                         addWangdaiTaskInfo(taskId, industry_shanghai, e.getClass().getSimpleName());
                         failCount++;//失败条数加一
+                        taskResultDO.setState(TaskState.ERROR);
                         //计入任务表
                     }
                     break;
@@ -374,6 +382,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService,TaskService {
                         logger.error(e.getMessage(), e);
                         addWangdaiTaskInfo(taskId, industry_compare, e.getClass().getSimpleName());
                         failCount++;
+                        taskResultDO.setState(TaskState.ERROR);
                     }
                     break;
                 case industry_problem:
@@ -384,6 +393,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService,TaskService {
                         logger.error(e.getMessage(), e);
                         addWangdaiTaskInfo(taskId, industry_problem, e.getClass().getSimpleName());
                         failCount++;
+                        taskResultDO.setState(TaskState.ERROR);
                     }
                     break;
                 case plat_rank_data:
@@ -394,6 +404,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService,TaskService {
                         logger.error(e.getMessage(), e);
                         addWangdaiTaskInfo(taskId, plat_rank_data, e.getClass().getSimpleName());
                         failCount++;
+                        taskResultDO.setState(TaskState.ERROR);
                     }
                     break;
                 case area_index:
@@ -403,13 +414,13 @@ public class PToPMonitorServiceImpl implements PToPMonitorService,TaskService {
                         logger.error(e.getMessage(), e);
                         addWangdaiTaskInfo(taskId, area_index, e.getClass().getSimpleName());
                         failCount++;
+                        taskResultDO.setState(TaskState.ERROR);
                     }
                     break;
                 default:
                     continue;
             }
         }
-        TaskResultDO taskResultDO = new TaskResultDO();
         taskResultDO.setPlanCount(planCount);
         if (isShutdown) {
             taskResultDO.setFailCount(0);

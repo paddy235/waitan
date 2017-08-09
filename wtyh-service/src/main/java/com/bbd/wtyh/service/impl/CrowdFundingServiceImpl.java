@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.bbd.wtyh.constants.TaskState;
 import com.bbd.wtyh.dao.CrowdFundingDao;
 import com.bbd.wtyh.domain.*;
 import com.bbd.wtyh.domain.EasyExport.CrowdfundData;
@@ -90,6 +91,7 @@ public class CrowdFundingServiceImpl implements CrowdFundingService,TaskService 
     @Override
     public TaskResultDO crowdFundingDataLandTask(Integer taskId) {
         isShutdown = false;
+        TaskResultDO taskResultDO = new TaskResultDO();
         Integer planCount = 5;
         Integer failCount = 0;
         try {
@@ -98,6 +100,7 @@ public class CrowdFundingServiceImpl implements CrowdFundingService,TaskService 
             e.printStackTrace();
             addFailTaskInfo(taskId, "平台基本情况(dataType=1)", e.getClass().getSimpleName());
             failCount++;
+            taskResultDO.setState(TaskState.ERROR);
         }
 
         for (int i = 2; i <= 5; i++) {
@@ -124,11 +127,10 @@ public class CrowdFundingServiceImpl implements CrowdFundingService,TaskService 
 
                 }
                 addFailTaskInfo(taskId, apiName, e.getClass().getSimpleName());
-
                 failCount++;
+                taskResultDO.setState(TaskState.ERROR);
             }
         }
-        TaskResultDO taskResultDO = new TaskResultDO();
         taskResultDO.setPlanCount(planCount);
         if (isShutdown) {
             taskResultDO.setFailCount(0);
@@ -143,6 +145,7 @@ public class CrowdFundingServiceImpl implements CrowdFundingService,TaskService 
     @Override
     public TaskResultDO executeFailTaskByTaskId(Integer runMode, Integer oldTaskId, Integer taskId) {
         isShutdown = false;
+        TaskResultDO taskResultDO = new TaskResultDO();
         List<TaskFailInfoDO> list = taskFailInfoMapper.getTaskFailInfoByTaskId(oldTaskId);
         Integer planCount = list.size();
         Integer failCount = 0;
@@ -157,6 +160,7 @@ public class CrowdFundingServiceImpl implements CrowdFundingService,TaskService 
                     e.printStackTrace();
                     addFailTaskInfo(taskId, "平台基本情况(dataType=1)", e.getClass().getSimpleName());
                     failCount++;
+                    taskResultDO.setState(TaskState.ERROR);
                 }
             } else {
                 String type = wangdaiTaskInfo.getFailName().split("\\(")[1].replace(")","");
@@ -181,10 +185,10 @@ public class CrowdFundingServiceImpl implements CrowdFundingService,TaskService 
                     }
                     addFailTaskInfo(taskId, apiName, e.getClass().getSimpleName());
                     failCount++;
+                    taskResultDO.setState(TaskState.ERROR);
                 }
             }
         }
-        TaskResultDO taskResultDO = new TaskResultDO();
         taskResultDO.setPlanCount(planCount);
         if (isShutdown) {
             taskResultDO.setFailCount(0);

@@ -384,6 +384,7 @@ public class P2PImageServiceImpl implements P2PImageService,TaskService {
     @Override
     public TaskResultDO executeFailTaskByTaskId(Integer runMode, Integer oldTaskId, Integer taskId) {
         isShutdown = false;
+        TaskResultDO taskResultDO = new TaskResultDO();
         List<TaskFailInfoDO> list = taskFailInfoMapper.getTaskFailInfoByTaskId(oldTaskId);
         List<String> platNameList = list.stream().filter(n -> n != null).map(n -> n.getFailName()).collect(Collectors.toList());
         logger.info("start executeFailTaskByTaskId ");
@@ -395,6 +396,7 @@ public class P2PImageServiceImpl implements P2PImageService,TaskService {
                 throw new Exception("dataType=plat_list 调用异常");
             }
         } catch (Exception e) {
+            taskResultDO.setState(TaskState.ERROR);
             logger.error(e.getMessage(), e);
         }
         Integer planCount = platList.size();
@@ -421,11 +423,11 @@ public class P2PImageServiceImpl implements P2PImageService,TaskService {
                 logger.error(e.getMessage(), e);
                 addWangdaiTaskInfo(taskId,plat.getPlat_name(),e.getClass().getSimpleName());
                 failCount++;
+                taskResultDO.setState(TaskState.ERROR);
             }
             logger.info(String.format("end update %s data", plat.getPlat_name()));
         }
 
-        TaskResultDO taskResultDO = new TaskResultDO();
         taskResultDO.setPlanCount(planCount);
         if (isShutdown) {
             taskResultDO.setFailCount(0);
