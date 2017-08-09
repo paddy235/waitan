@@ -25,7 +25,6 @@ import java.util.List;
  * @author Created by LiYao on 2017-04-25 14:43.
  */
 @Component
-@Scope("prototype") //非单例模式
 public class TimingTaskManager {
 
 	// SyncFileService ; 线下理财

@@ -301,7 +301,7 @@ public class NaturalPersonServiceImpl implements NaturalPersonService {
                 }
                 if(kddFin) {
                     kindredFinances.add(npv);
-                    npv.setRange("类金融");
+                    npv.setRange("类金融企业");
                 } else {
                     noKindredFinances.add(npv);
                     npv.setRange("上海市");
