@@ -9,6 +9,8 @@ import com.bbd.wtyh.domain.recrut.CommonData;
 import com.bbd.wtyh.log.user.Operation;
 import com.bbd.wtyh.log.user.annotation.LogRecord;
 import com.bbd.wtyh.util.CalculateUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
@@ -24,13 +26,14 @@ import com.bbd.wtyh.web.ResponseBean;
 
 /**
  * 预付卡controller
- * 
+ *
  * @author Ian.Su
  * @since 2016年8月12日 上午9:51:25
  */
 @Controller
 @RequestMapping("/prepaid")
 public class PrepaidCompanyController {
+	private static final Logger logger = LoggerFactory.getLogger(PrepaidCompanyController.class);
 
 	@Autowired
 	private PrepaidCompanyStaticService pcsSer;
@@ -87,6 +90,9 @@ public class PrepaidCompanyController {
 		}
 		Map<String, Integer> pieMap = new TreeMap<>();
 		for (PrepaidCompanyDO pcd : list) {
+			if (pcd.getBusinessType() == null) {
+				continue;
+			}
 			Integer btNum = pieMap.get(pcd.getBusinessType());
 			if (btNum == null) {
 				btNum = 1;
