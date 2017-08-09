@@ -8,6 +8,7 @@ import com.bbd.wtyh.mapper.CompanyMapper;
 import com.bbd.wtyh.mapper.TaskFailInfoMapper;
 import com.bbd.wtyh.service.AreaService;
 import com.bbd.wtyh.service.HologramQueryService;
+import com.bbd.wtyh.service.TaskService;
 import com.bbd.wtyh.service.impl.OfflineFinanceServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +26,7 @@ import java.util.concurrent.TimeUnit;
  * Created by cgj on 2017/4/20.
  */
 @Service
-public class SystemDataUpdateServiceImpl implements SystemDataUpdateService {
+public class SystemDataUpdateServiceImpl implements SystemDataUpdateService,TaskService {
 
     private Integer taskId = null;
 
@@ -95,6 +96,7 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService {
             logger.error(e.getMessage(), e);
         }
         if (isShutdown) {
+            taskResultDO.setPlanCount(dataTotal);
             taskResultDO.setFailCount(0);
             taskResultDO.setSuccessCount(0);
         }else{
@@ -160,6 +162,9 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService {
 
 
     private void companyAndBackgroundUpdateThread(Pagination pagination,Integer type,Integer dataTaskId) {
+        if (isShutdown) {
+            return;
+        }
         Map<String, Object> params = new HashMap<>();
         params.put("pagination", pagination);
         StringBuffer companyNameSerial = new StringBuffer();
@@ -362,6 +367,34 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService {
         } else {
             return 4;
         }
+    }
+
+    @Override
+    public String getTaskKey() {
+        return "companyBaseInfoJob";
+    }
+
+    @Override
+    public String getTaskGroup() {
+        return "job_work";
+    }
+
+    @Override
+    public TaskResultDO autoExecute(Integer taskId, Integer runMode) {
+        TaskResultDO taskResultDO = updateCompanyAndBackgroundAutomaticOperate(taskId);
+        return taskResultDO;
+    }
+
+    @Override
+    public TaskResultDO reExecute(Integer oldTaskId, Integer newTaskId, Integer runMode) {
+
+        TaskResultDO taskResultDO = updateCompanyAndBackgroundManualOperate(oldTaskId, newTaskId);
+        return taskResultDO;
+    }
+
+    @Override
+    public void stopExecute(Integer taskId) {
+        stopTask();
     }
 }
 

@@ -12,6 +12,7 @@ import com.bbd.wtyh.mapper.*;
 import com.bbd.wtyh.redis.RedisDAO;
 import com.bbd.wtyh.service.P2PImageService;
 import com.bbd.wtyh.service.PToPMonitorService;
+import com.bbd.wtyh.service.TaskService;
 import com.bbd.wtyh.web.EasyExportExcel.ExportCondition;
 import com.bbd.wtyh.web.PageBean;
 import com.google.gson.JsonSyntaxException;
@@ -31,7 +32,7 @@ import java.util.stream.Collectors;
  * @since 2016.08.05
  */
 @Service("p2PImageService")
-public class P2PImageServiceImpl implements P2PImageService {
+public class P2PImageServiceImpl implements P2PImageService,TaskService {
     @Autowired
     private P2PImageDao p2PImageDao;
 
@@ -552,5 +553,32 @@ public class P2PImageServiceImpl implements P2PImageService {
     @Override
     public void recordWangdai(WangdaiModify wangdaiModify) {
         platformMapper.recordWangdai(wangdaiModify);
+    }
+
+    @Override
+    public String getTaskKey() {
+        return "p2pImageJob";
+    }
+
+    @Override
+    public String getTaskGroup() {
+        return "wd_work";
+    }
+
+    @Override
+    public TaskResultDO autoExecute(Integer taskId, Integer runMode) {
+        TaskResultDO taskResultDO=p2pImageDataLandTask(taskId);
+        return taskResultDO;
+    }
+
+    @Override
+    public TaskResultDO reExecute(Integer oldTaskId, Integer newTaskId, Integer runMode) {
+        TaskResultDO taskResultDO = executeFailTaskByTaskId(runMode, oldTaskId, newTaskId);
+        return taskResultDO;
+    }
+
+    @Override
+    public void stopExecute(Integer taskId) {
+
     }
 }

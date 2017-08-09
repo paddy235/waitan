@@ -3,6 +3,7 @@ package com.bbd.bgo.quartz;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.bbd.bgo.service.task.TimingTaskManager;
 import com.bbd.wtyh.constants.TaskState;
 import com.bbd.wtyh.domain.TaskInfoDO;
 import com.bbd.wtyh.domain.TaskResultDO;
@@ -15,11 +16,16 @@ import org.quartz.impl.triggers.CronTriggerImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.DependsOn;
+import org.springframework.core.annotation.Order;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import org.springframework.stereotype.Component;
 
 import com.bbd.wtyh.core.base.BaseServiceImpl;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.PostConstruct;
 
 /**
  * Quartz 处理器
@@ -27,6 +33,8 @@ import com.bbd.wtyh.core.base.BaseServiceImpl;
  * @author Created by LiYao on 2017-06-14 10:20.
  */
 @Component
+@DependsOn(value = {"applicationContextUtil"})
+@Order
 public class QuartzHandler extends BaseServiceImpl {
 	@Autowired
 	private TaskSuccessFailInfoMapper taskDetailMapper;//任务执行历史
@@ -36,6 +44,8 @@ public class QuartzHandler extends BaseServiceImpl {
 	private TimeZone timeZone;
 
 	private Logger logger = LoggerFactory.getLogger(QuartzHandler.class);
+
+	private String startMethod="start";
 
 	private QuartzHandler() {
 	}
@@ -99,12 +109,14 @@ public class QuartzHandler extends BaseServiceImpl {
 		}
 	}
 
+	@PostConstruct
 	public void init() {
 
         List<TaskInfoDO> taskList = this.selectAll(TaskInfoDO.class, "");
 		taskList.forEach(taskInfo -> {
 			TASK_MAP.put(taskInfo.getTaskKey() + SEPARATOR + taskInfo.getTaskGroup(), taskInfo);
 			addJob(taskInfo);
+
 		});
 		logger.info("timing task init...");
 	}
@@ -123,10 +135,6 @@ public class QuartzHandler extends BaseServiceImpl {
 		return TASK_MAP.computeIfAbsent(mapKey, (String k) -> this.selectOne(TaskInfoDO.class, where));
 	}
 
-	public void updateJob(TaskInfoDO taskInfo) {
-		this.update(taskInfo);
-		TASK_MAP.put(taskInfo.getTaskKey() + SEPARATOR + taskInfo.getTaskGroup(), taskInfo);
-	}
 
 	public void addJob(TaskInfoDO taskInfo) {
 		String name = taskInfo.getTaskKey();
@@ -135,8 +143,8 @@ public class QuartzHandler extends BaseServiceImpl {
 		String targetClass = taskInfo.getTargetClass();
 		assertStringNotNullOrEmpty(targetClass, "任务目标类不能为空");
 
-		String targetMethod = taskInfo.getTargetMethod();
-		assertStringNotNullOrEmpty(targetMethod, "任务目标方法不能为空");
+		/*String targetMethod = taskInfo.getTargetMethod();
+		assertStringNotNullOrEmpty(targetMethod, "任务目标方法不能为空");*/
 
 		String corn = taskInfo.getCron();
 		assertStringNotNullOrEmpty(corn, "corn表达式不能为空");
@@ -144,21 +152,22 @@ public class QuartzHandler extends BaseServiceImpl {
 		String group = StringUtils.defaultString(taskInfo.getTaskGroup(), Scheduler.DEFAULT_GROUP);
 
 		Scheduler scheduler = schedulerFactory.getScheduler();
-
+		try {
 		JobDetail jobDetail = JobBuilder.newJob(MethodInvokingJob.class).withIdentity(name, group).build();// 任务名，任务组，任务执行类
-		jobDetail.getJobDataMap().put("targetObject", targetClass);
-		jobDetail.getJobDataMap().put("targetMethod", targetMethod);
+		jobDetail.getJobDataMap().put("targetObject", TimingTaskManager.class);
+		jobDetail.getJobDataMap().put("targetMethod", startMethod);
+		jobDetail.getJobDataMap().put("paramClass", new Class[]{TaskInfoDO.class});
+		jobDetail.getJobDataMap().put("paramValue", new Object[]{taskInfo});
 
 		CronTriggerImpl trigger = new CronTriggerImpl();
 		trigger.setName(name);
 		trigger.setGroup(group);
 		trigger.setJobKey(jobDetail.getKey());
 		trigger.setTimeZone(timeZone);
-		try {
+
 			trigger.setCronExpression(corn);
 			scheduler.scheduleJob(jobDetail, trigger);
 
-			this.updateJob(taskInfo);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -303,28 +312,6 @@ public class QuartzHandler extends BaseServiceImpl {
 		this.update(taskInfo);
 	}
 
-	public void businessStart(String key, String group, TaskState taskState) throws Exception {
-		if (taskState == null) {
-			taskState = getTaskState(key, group);
-		}
-
-		TaskInfoDO taskInfo = this.getTaskInfo(key, group);
-		taskInfo.setState(taskState.state());
-		taskInfo.setStartDate(new Date());
-		taskInfo.setEndDate(null);
-		this.updateJob(taskInfo);
-	}
-
-	public void businessFinish(String key, String group, TaskState taskState) throws Exception {
-		if (taskState == null) {
-			taskState = getTaskState(key, group);
-		}
-
-		TaskInfoDO taskInfo = this.getTaskInfo(key, group);
-		taskInfo.setState(taskState.state());
-		taskInfo.setEndDate(new Date());
-		this.updateJob(taskInfo);
-	}
 
 	public TaskState getTaskState(String key, String group) throws Exception {
 		Scheduler scheduler = schedulerFactory.getScheduler();

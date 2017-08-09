@@ -13,6 +13,7 @@ import com.bbd.wtyh.log.user.annotation.LogRecord;
 import com.bbd.wtyh.mapper.CompanyMapper;
 import com.bbd.wtyh.mapper.PlatformNameInformationMapper;
 import com.bbd.wtyh.mapper.TaskFailInfoMapper;
+import com.bbd.wtyh.service.TaskService;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.slf4j.Logger;
@@ -27,7 +28,7 @@ import java.util.*;
  * Created by Administrator on 2017/3/20 0020.
  */
 @Service
-public class PlatUpdateTaskServiceImpl extends BaseServiceImpl implements PlatUpdateTaskService {
+public class PlatUpdateTaskServiceImpl extends BaseServiceImpl implements PlatUpdateTaskService,TaskService {
 
 	private Logger logger = LoggerFactory.getLogger(PlatUpdateTaskServiceImpl.class);
 	@Autowired
@@ -204,5 +205,33 @@ public class PlatUpdateTaskServiceImpl extends BaseServiceImpl implements PlatUp
 			logger.error("Method getPrivateFundCompanyData get Exception." + e.getMessage());
 			return null;
 		}
+	}
+
+	@Override
+	public String getTaskKey() {
+		return "platformJob";
+	}
+
+	@Override
+	public String getTaskGroup() {
+		return "job_work";
+	}
+
+	@Override
+	public TaskResultDO autoExecute(Integer taskId, Integer runMode) {
+		TaskResultDO taskResultDO = updatePlatAutomaticOperate(taskId);
+		return taskResultDO;
+	}
+
+	@Override
+	public TaskResultDO reExecute(Integer oldTaskId, Integer newTaskId, Integer runMode) {
+
+		TaskResultDO taskResultDO=updatePlatManualOperate(oldTaskId, newTaskId);
+		return taskResultDO;
+	}
+
+	@Override
+	public void stopExecute(Integer taskId) {
+		stopTask();
 	}
 }

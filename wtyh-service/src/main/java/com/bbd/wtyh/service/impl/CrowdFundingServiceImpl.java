@@ -10,6 +10,7 @@ import com.bbd.wtyh.dao.CrowdFundingDao;
 import com.bbd.wtyh.domain.*;
 import com.bbd.wtyh.domain.EasyExport.CrowdfundData;
 import com.bbd.wtyh.mapper.*;
+import com.bbd.wtyh.service.TaskService;
 import com.bbd.wtyh.web.EasyExportExcel.ExportCondition;
 import com.bbd.wtyh.web.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ import static y.layout.orthogonal.e.bb.i;
  * @since 2016年8月11日 下午4:13:50
  */
 @Service
-public class CrowdFundingServiceImpl implements CrowdFundingService {
+public class CrowdFundingServiceImpl implements CrowdFundingService,TaskService {
 
 
     @Autowired
@@ -231,5 +232,32 @@ public class CrowdFundingServiceImpl implements CrowdFundingService {
     public List<CrowdfundData> getCrowdfund(ExportCondition exportCondition, PageBean pagination) {
         pagination.setTotalCount(crowdFundingCompanyMapper.countCrowdfund(exportCondition));
         return crowdFundingCompanyMapper.getCrowdfund(exportCondition, pagination);
+    }
+
+    @Override
+    public String getTaskKey() {
+        return "crowdFundingJob";
+    }
+
+    @Override
+    public String getTaskGroup() {
+        return "wd_work";
+    }
+
+    @Override
+    public TaskResultDO autoExecute(Integer taskId, Integer runMode) {
+        TaskResultDO taskResultDO=crowdFundingDataLandTask(taskId);
+        return taskResultDO;
+    }
+
+    @Override
+    public TaskResultDO reExecute(Integer oldTaskId, Integer newTaskId, Integer runMode) {
+        TaskResultDO taskResultDO = executeFailTaskByTaskId(runMode, oldTaskId, newTaskId);
+        return taskResultDO;
+    }
+
+    @Override
+    public void stopExecute(Integer taskId) {
+
     }
 }

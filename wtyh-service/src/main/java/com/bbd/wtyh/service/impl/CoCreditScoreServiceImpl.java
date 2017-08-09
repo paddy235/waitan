@@ -13,6 +13,7 @@ import com.bbd.wtyh.domain.dto.CreditInfoDTO;
 import com.bbd.wtyh.mapper.*;
 import com.bbd.wtyh.redis.RedisDAO;
 import com.bbd.wtyh.service.CoCreditScoreService;
+import com.bbd.wtyh.service.TaskService;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -36,7 +37,7 @@ import java.util.concurrent.atomic.LongAdder;
  * @author Created by LiYao on 2017-04-25 14:54.
  */
 @Service
-public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCreditScoreService {
+public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCreditScoreService,TaskService {
 
 	@Autowired
 	CompanyCreditRawInfoMapper ccriMapper;
@@ -750,5 +751,32 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 				"INSERT INTO company_credit_fail_info (company_id,company_name,organization_code,credit_code,result_code,task_id,create_by,create_date)values(?,?,?,?,?,?,?,?)",
 				coDo.getCompanyId(), coDo.getName(), coDo.getOrganizationCode(), coDo.getCreditCode(), resultCode, taskId, "system",
 				new Date());
+	}
+
+	@Override
+	public String getTaskKey() {
+		return "shangHaiCreditJob";
+	}
+
+	@Override
+	public String getTaskGroup() {
+		return "credit_work";
+	}
+
+	@Override
+	public TaskResultDO autoExecute(Integer taskId, Integer runMode) {
+		TaskResultDO taskResultDO=creditScoreCalculate(taskId, runMode);
+		return taskResultDO;
+	}
+
+	@Override
+	public TaskResultDO reExecute(Integer oldTaskId, Integer newTaskId, Integer runMode) {
+		TaskResultDO taskResultDO=executeFailCompanyByTaskId(runMode, oldTaskId, newTaskId);
+		return taskResultDO;
+	}
+
+	@Override
+	public void stopExecute(Integer taskId) {
+		colseScoreCalculate();
 	}
 }
