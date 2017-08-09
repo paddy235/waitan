@@ -1,6 +1,7 @@
 package com.bbd.bgo.service.task;
 
 import com.bbd.bgo.quartz.TaskUtil;
+import com.bbd.wtyh.constants.TaskState;
 import com.bbd.wtyh.domain.TaskFailInfoDO;
 import com.bbd.wtyh.domain.TaskInfoDO;
 import com.bbd.wtyh.domain.TaskResultDO;
@@ -81,7 +82,8 @@ public class TimingTaskManager {
 			//需要传 taskId 给业务接口
 			taskResultDO = taskService.autoExecute(taskId,runMode);
 		} catch (Exception e) {
-			logger.error("riskLevelTask" + e);
+			taskResultDO.setState(TaskState.ERROR);
+			logger.error("start-" + e);
 		} finally {
 			if(1==isShow){
 				taskEnd(taskResultDO, taskId, null, canRan);
