@@ -41,4 +41,9 @@ public class P2PImageServiceTest {
         TaskResultDO taskResultDO = p2PImageService.executeFailTaskByTaskId(1,oldTaskId,taskId);
         System.out.print(taskResultDO);
     }
+
+    @Test
+    public void showDown(){
+        p2PImageService.stopTask();
+    }
 }

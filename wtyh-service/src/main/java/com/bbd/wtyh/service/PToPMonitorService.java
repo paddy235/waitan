@@ -100,4 +100,9 @@ public interface PToPMonitorService {
      */
     TaskResultDO executeFailTaskByTaskId(Integer runMode,Integer oldTaskId,Integer taskId);
 
+    /**
+     * 停止执行数据落地任务
+     */
+    void stopTask();
+
 }

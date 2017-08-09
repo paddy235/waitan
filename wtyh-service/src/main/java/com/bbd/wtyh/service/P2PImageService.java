@@ -122,4 +122,9 @@ public interface P2PImageService {
     List<WangdaiData> getWangdai(ExportCondition exportCondition, PageBean pagination);
 
     void recordWangdai(WangdaiModify companyInfo);
+
+    /**
+     * 手动终止正在执行的任务
+     */
+    void stopTask();
 }

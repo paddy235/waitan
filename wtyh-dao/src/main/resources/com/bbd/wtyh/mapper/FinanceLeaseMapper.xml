@@ -190,9 +190,9 @@
 
 	<insert id="addFinanceLease">
 		INSERT INTO
-		`finance_lease_risk` (`company_id`, `risk_status`)
+		`finance_lease_risk` (`company_id`, `risk_status`, `risk_type`)
 		VALUES
-		(#{recordInfo.companyId}, #{recordInfo.afterLevel})
+		(#{recordInfo.companyId}, #{recordInfo.afterLevel}, 1)
 	</insert>
 
 </mapper>
