@@ -12,4 +12,6 @@ public interface SyncFileService {
 	TaskResultDO pullFile(Integer taskId);
 
 	TaskResultDO rePullFile(Integer oldTaskId, Integer newTaskId);
+
+	public void stopTask();
 }
