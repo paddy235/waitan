@@ -1,5 +1,6 @@
 package com.bbd.wtyh.service.impl;
 
+import com.bbd.wtyh.constants.TaskState;
 import com.bbd.wtyh.dao.P2PImageDao;
 import com.bbd.wtyh.domain.*;
 import com.bbd.wtyh.domain.CompanyInfoModify.WangdaiModify;
@@ -325,6 +326,7 @@ public class P2PImageServiceImpl implements P2PImageService,TaskService {
     @Override
     public TaskResultDO p2pImageDataLandTask(Integer taskId) {
         isShutdown = false;
+        TaskResultDO taskResultDO = new TaskResultDO();
         logger.info("start p2pImageDataLandTask ");
         List<PlatListDO> platList = new ArrayList<>();
         try {
@@ -359,11 +361,12 @@ public class P2PImageServiceImpl implements P2PImageService,TaskService {
                 logger.error(e.getMessage(), e);
                 addWangdaiTaskInfo(taskId,plat.getPlat_name(),e.getClass().getSimpleName());
                 failCount++;
+                taskResultDO.setState(TaskState.ERROR);
             }
             logger.info(String.format("end update %s data", plat.getPlat_name()));
         }
 
-        TaskResultDO taskResultDO = new TaskResultDO();
+
         taskResultDO.setPlanCount(planCount);
         if (isShutdown) {
             taskResultDO.setFailCount(0);
@@ -378,6 +381,7 @@ public class P2PImageServiceImpl implements P2PImageService,TaskService {
     @Override
     public TaskResultDO executeFailTaskByTaskId(Integer runMode, Integer oldTaskId, Integer taskId) {
         isShutdown = false;
+        TaskResultDO taskResultDO = new TaskResultDO();
         List<TaskFailInfoDO> list = taskFailInfoMapper.getTaskFailInfoByTaskId(oldTaskId);
         List<String> platNameList = list.stream().filter(n -> n != null).map(n -> n.getFailName()).collect(Collectors.toList());
         logger.info("start executeFailTaskByTaskId ");
@@ -415,11 +419,12 @@ public class P2PImageServiceImpl implements P2PImageService,TaskService {
                 logger.error(e.getMessage(), e);
                 addWangdaiTaskInfo(taskId,plat.getPlat_name(),e.getClass().getSimpleName());
                 failCount++;
+                taskResultDO.setState(TaskState.ERROR);
             }
             logger.info(String.format("end update %s data", plat.getPlat_name()));
         }
 
-        TaskResultDO taskResultDO = new TaskResultDO();
+
         taskResultDO.setPlanCount(planCount);
         if (isShutdown) {
             taskResultDO.setFailCount(0);

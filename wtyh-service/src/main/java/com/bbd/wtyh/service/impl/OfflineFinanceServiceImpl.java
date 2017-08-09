@@ -19,6 +19,7 @@ import java.util.concurrent.TimeUnit;
 import javax.annotation.Resource;
 
 import com.bbd.wtyh.constants.RiskChgCoSource;
+import com.bbd.wtyh.constants.TaskState;
 import com.bbd.wtyh.core.base.BaseService;
 import com.bbd.wtyh.domain.*;
 import com.bbd.wtyh.domain.vo.*;
@@ -125,6 +126,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService,TaskServ
     @Override
     public TaskResultDO updateCompanyRiskLevel(Integer taskId) throws Exception {
         isShutdown=false;
+        TaskResultDO taskResultDO = new TaskResultDO();
         logger.info("start update company risk level");
         final Map<Integer, Integer> platRankMapData = pToPMonitorService.getPlatRankMapData();
         if (platRankMapData == null || platRankMapData.size() == 0) {
@@ -162,6 +164,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService,TaskServ
                     } catch (Exception e) {
                         failCount++;
                         addWangdaiTaskInfo(taskId, companyDO.getName(), e.getClass().getSimpleName());
+                        taskResultDO.setState(TaskState.ERROR);
                     }
                 }
             }
@@ -170,7 +173,6 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService,TaskServ
         dataExecutorService.shutdown();
         dataExecutorService.awaitTermination(1, TimeUnit.DAYS);
 
-        TaskResultDO taskResultDO = new TaskResultDO();
         taskResultDO.setPlanCount(totalCount);
         if (isShutdown) {
             taskResultDO.setFailCount(0);
@@ -187,6 +189,8 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService,TaskServ
     @Override
     public TaskResultDO executeFailTaskByTaskId(Integer runMode, Integer oldTaskId, Integer taskId) throws Exception {
         isShutdown=false;
+        TaskResultDO taskResultDO = new TaskResultDO();
+
         List<TaskFailInfoDO> list = taskFailInfoMapper.getTaskFailInfoByTaskId(oldTaskId);
         final Map<Integer, Integer> platRankMapData = pToPMonitorService.getPlatRankMapData();
         Integer planCount = list.size();
@@ -201,9 +205,9 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService,TaskServ
             } catch (Exception e) {
                 failCount++;
                 addWangdaiTaskInfo(taskId, wangdaiTaskInfoDO.getFailName(), e.getClass().getSimpleName());
+                taskResultDO.setState(TaskState.ERROR);
             }
         }
-        TaskResultDO taskResultDO = new TaskResultDO();
         taskResultDO.setPlanCount(planCount);
         if (isShutdown) {
             taskResultDO.setFailCount(0);
