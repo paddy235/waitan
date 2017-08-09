@@ -53,6 +53,11 @@ public class TaskUtil extends BaseServiceImpl {
 	public static void taskEnd(Integer taskId, TaskResultDO taskResultDO, String updateBy, Integer reExecute) {
 		if(null==taskResultDO){
 			taskResultDO= new TaskResultDO(0,0,0);
+            taskResultDO.setState(TaskState.ERROR);
+		}else{
+			taskResultDO.setPlanCount(taskResultDO.getPlanCount()==null?0:taskResultDO.getPlanCount());
+			taskResultDO.setSuccessCount(taskResultDO.getSuccessCount()==null?0:taskResultDO.getSuccessCount());
+			taskResultDO.setFailCount(taskResultDO.getFailCount()==null?0:taskResultDO.getFailCount());
 		}
 		quartzHandler.taskEnd(taskId,taskResultDO,updateBy,reExecute);
 	}

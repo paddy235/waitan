@@ -21,9 +21,19 @@ import java.util.List;
  */
 public class PullFileUtil {
 
-	private static final String PATH = "d:\\wtyh\\datashare\\";
+	private static final String PATH;
 
-	private static final String DATA_SHARE_URL = "https://10.28.100.48:8989/client/files?file=";
+	private static final String DATA_SHARE_URL;
+	private static final String BROKER_IP;
+	private static final String FILE_NAME_LIST_URI;
+
+	static {
+		PATH = WtyhHelper.pathWrap(WtyhHelper.fileRootPath + "/datashare");
+		DATA_SHARE_URL = WtyhHelper.BeijingServerIp + ":" + WtyhHelper.datashatePort + "/client/files?file=";
+		BROKER_IP = WtyhHelper.brokerIp;
+		FILE_NAME_LIST_URI = "/syncFile/pull-file-list.do?dataType=";
+	}
+
 	private static Logger logger = LoggerFactory.getLogger(PullFileUtil.class);
 
 	public static File pullFile(String fileName) throws Exception {
@@ -37,27 +47,22 @@ public class PullFileUtil {
 		return file;
 	}
 
-	private static String brokerIp = WtyhHelper.brokerIp;
-	private static String fileNameListUri = "/syncFile/pull-file-list.do?dataType=";
-
-	public static List<File> getFileList(Integer dataType) throws Exception{
+	public static List<File> getFileList(Integer dataType) throws Exception {
 		logger.info("--------- pull data file list start --------");
-		//String url = brokerIp + fileNameListUri+dataType;
-		String url="http://10.28.200.239:7778/syncFile/pull-file-list.do?dataType=1";
+		String url = BROKER_IP + FILE_NAME_LIST_URI + dataType;
 		String result = new HttpTemplate().get(url);
 		JSONObject jsonObject = JSONObject.fromObject(result);
 		Object content = jsonObject.get("content");
 		List<String> strList = JSONArray.parseArray(String.valueOf(content), String.class);
 		logger.info("--------- pull data file list end --------");
-		List<File> fileList = new ArrayList<File>();
-		for(String str:strList){
+		List<File> fileList = new ArrayList<>();
+		for (String str : strList) {
 			File file = pullFile(str);
-			if(null!=file&&file.exists()){
+			if (null != file && file.exists()) {
 				fileList.add(file);
 			}
 		}
 		return fileList;
 	}
-
 
 }
