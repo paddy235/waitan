@@ -29,7 +29,7 @@ import java.util.*;
  * @author Ian.Su
  * @since 2016年8月12日 下午2:09:15
  */
-@Service
+@Service("pToPMonitorServiceImpl")
 public class PToPMonitorServiceImpl implements PToPMonitorService,TaskService {
 
     private static final String industry_shanghai = "上海网贷信息(industry_shanghai)";
