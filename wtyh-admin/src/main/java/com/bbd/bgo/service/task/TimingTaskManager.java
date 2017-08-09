@@ -11,6 +11,7 @@ import com.bbd.wtyh.service.*;
 import com.bbd.wtyh.util.ApplicationContextUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +25,7 @@ import java.util.List;
  * @author Created by LiYao on 2017-04-25 14:43.
  */
 @Component
+@Scope("prototype") //非单例模式
 public class TimingTaskManager {
 
 	// SyncFileService ; 线下理财
@@ -43,7 +45,6 @@ public class TimingTaskManager {
 
 	private Logger logger = LoggerFactory.getLogger(TimingTaskManager.class);
 
-	private static Integer notRan = 0;
 	private static Integer canRan = 1;
 
 	/**
