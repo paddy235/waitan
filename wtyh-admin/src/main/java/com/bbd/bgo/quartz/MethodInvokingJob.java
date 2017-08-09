@@ -19,14 +19,23 @@ public class MethodInvokingJob extends QuartzJobBean {
 
 	private Class<?> targetObject;
 	private String targetMethod;
+	private Object[] paramValue;
+	private Class<?>[] paramClass;
 
 	@Override
 	public void executeInternal(JobExecutionContext jobExecutionContext) throws JobExecutionException {
 		Object otargetObject = ApplicationContextUtil.getBean(targetObject);
 		try {
-			Method m = otargetObject.getClass().getMethod(targetMethod);
-			m.setAccessible(true);
-			m.invoke(otargetObject);
+			Method m;
+			if (paramClass != null && paramValue != null && paramClass.length == paramValue.length && paramClass.length > 0) {
+				m = targetObject.getDeclaredMethod(targetMethod, paramClass);
+				m.setAccessible(true);
+				m.invoke(otargetObject, paramValue);
+			} else {
+				m = targetObject.getDeclaredMethod(targetMethod);
+				m.setAccessible(true);
+				m.invoke(otargetObject);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -46,5 +55,21 @@ public class MethodInvokingJob extends QuartzJobBean {
 
 	public void setTargetMethod(String targetMethod) {
 		this.targetMethod = targetMethod;
+	}
+
+	public Object[] getParamValue() {
+		return paramValue;
+	}
+
+	public void setParamValue(Object[] paramValue) {
+		this.paramValue = paramValue;
+	}
+
+	public Class<?>[] getParamClass() {
+		return paramClass;
+	}
+
+	public void setParamClass(Class<?>[] paramClass) {
+		this.paramClass = paramClass;
 	}
 }

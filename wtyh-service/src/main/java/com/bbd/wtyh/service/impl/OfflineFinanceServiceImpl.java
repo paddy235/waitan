@@ -64,7 +64,7 @@ import com.google.common.collect.Lists;
  * @since 2016.08.05
  */
 @Service("offlineFinanceService")
-public class OfflineFinanceServiceImpl implements OfflineFinanceService {
+public class OfflineFinanceServiceImpl implements OfflineFinanceService,TaskService {
 
     private Logger logger = LoggerFactory.getLogger(OfflineFinanceServiceImpl.class);
     @Resource
@@ -1424,5 +1424,47 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
     private String assembleRedisKey(String companyName, String fileType, String month) {
         String redis_key = companyName + APIConstants.redis_attPath + "_" + fileType + "_" + month;
         return redis_key;
+    }
+
+    @Override
+    public String getTaskKey() {
+        return "riskLevelJob";
+    }
+
+    @Override
+    public String getTaskGroup() {
+        return "job_work";
+    }
+
+    @Override
+    public TaskResultDO autoExecute(Integer taskId, Integer runMode) {
+        TaskResultDO taskResultDO= null;
+        try {
+            taskResultDO = updateCompanyRiskLevel(taskId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            return taskResultDO;
+        }
+
+    }
+
+    @Override
+    public TaskResultDO reExecute(Integer oldTaskId, Integer newTaskId, Integer runMode) {
+        TaskResultDO taskResultDO = null;
+        try {
+            taskResultDO = executeFailTaskByTaskId(runMode, oldTaskId, newTaskId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+
+            return taskResultDO;
+        }
+
+    }
+
+    @Override
+    public void stopExecute(Integer taskId) {
+        stopTask();
     }
 }

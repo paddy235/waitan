@@ -11,6 +11,7 @@ import com.bbd.wtyh.redis.RedisDAO;
 import com.bbd.wtyh.service.CompanyService;
 import com.bbd.wtyh.service.OfflineFinanceService;
 import com.bbd.wtyh.service.PToPMonitorService;
+import com.bbd.wtyh.service.TaskService;
 import com.bbd.wtyh.service.impl.relation.RegisterUniversalFilterChainImp;
 import com.bbd.wtyh.web.relationVO.RelationDiagramVO;
 import com.google.gson.Gson;
@@ -31,7 +32,7 @@ import java.util.*;
  * @since 2016年8月12日 下午2:09:15
  */
 @Service
-public class PToPMonitorServiceImpl implements PToPMonitorService {
+public class PToPMonitorServiceImpl implements PToPMonitorService,TaskService {
 
     private static final String industry_shanghai = "上海网贷信息(industry_shanghai)";
     private static final String industry_compare = "网贷数据对比(industry_compare)";
@@ -755,4 +756,30 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
 
     }
 
+    @Override
+    public String getTaskKey() {
+        return "p2pMonitorJob";
+    }
+
+    @Override
+    public String getTaskGroup() {
+        return "wd_work";
+    }
+
+    @Override
+    public TaskResultDO autoExecute(Integer taskId, Integer runMode) {
+        TaskResultDO taskResultDO = pToPMonitorDataLandTask(taskId);
+        return taskResultDO;
+    }
+
+    @Override
+    public TaskResultDO reExecute(Integer oldTaskId, Integer newTaskId, Integer runMode) {
+        TaskResultDO taskResultDO = executeFailTaskByTaskId(runMode, oldTaskId, newTaskId);
+        return taskResultDO;
+    }
+
+    @Override
+    public void stopExecute(Integer taskId) {
+
+    }
 }

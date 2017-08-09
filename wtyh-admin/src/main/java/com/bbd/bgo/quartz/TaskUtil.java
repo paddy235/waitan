@@ -1,6 +1,8 @@
 package com.bbd.bgo.quartz;
 
 import com.bbd.wtyh.constants.TaskState;
+import com.bbd.wtyh.core.base.BaseServiceImpl;
+import com.bbd.wtyh.domain.TaskInfoDO;
 import com.bbd.wtyh.domain.TaskResultDO;
 import com.bbd.wtyh.domain.TaskSuccessFailInfoDO;
 import com.bbd.wtyh.mapper.TaskSuccessFailInfoMapper;
@@ -12,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  *
  * @author Created by LiYao on 2017-06-14 14:10.
  */
-public class TaskUtil {
+public class TaskUtil extends BaseServiceImpl {
 
 	private static QuartzHandler quartzHandler = ApplicationContextUtil.getBean(QuartzHandler.class);
 	//公信数据落地任务
@@ -31,6 +33,14 @@ public class TaskUtil {
 	public static String[] platformJob= {"platformJob","job_work"};//企业与网贷平台对照表
 
 
+	public Integer getTaskId(String taskKey,String taskGroup,Integer runMode){
+		String where = "task_key = '" + taskKey + "' AND task_group = '" + taskGroup + "'";
+		TaskInfoDO taskInfoDO=this.selectOne(TaskInfoDO.class, where);
+		if(null==taskInfoDO){
+			return  null;
+		}
+		return taskStart(taskKey, taskGroup, null, runMode, null, null);
+	}
 	/**
 	 * 任务开始
 	 **/
@@ -58,5 +68,18 @@ public class TaskUtil {
 			e.printStackTrace();
 		}
 	}
+
+	public static TaskInfoDO getTaskInfoDO(String taskName,String taskGroup){
+		TaskInfoDO taskInfoDO=null;
+		try {
+			taskInfoDO= quartzHandler.getTaskInfo(taskName,taskGroup);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		return  taskInfoDO;
+	}
+
+
 
 }
