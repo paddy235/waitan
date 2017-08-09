@@ -109,6 +109,11 @@ public class ParkMgtServiceImpl implements ParkMgtService {
     }
 
     @Override
+    public void updateParkAreaId(ParkDO park) {
+        parkAndBuildingMgtMapper.updateParkAreaId(park);
+    }
+
+    @Override
     public void delParkById(String parkId) {
         try {
             parkAndBuildingMgtMapper.delParkById(parkId);

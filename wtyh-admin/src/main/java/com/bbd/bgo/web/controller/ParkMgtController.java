@@ -59,7 +59,7 @@ public class ParkMgtController {
     @ResponseBody
     public ResponseBean areaList() {
         List<Map<String, Object>> list = ShanghaiAreaCode.getAndUpdateList(false);
-        list.remove(0);
+//        list.remove(0);
         return ResponseBean.successResponse(list);
     }
 
@@ -128,6 +128,23 @@ public class ParkMgtController {
         List<CompanyDO> list = parkMgtService.queryCompanyByBuildingId(buildingId);
         return ResponseBean.successResponse(list);
     }
+
+
+    /**
+     * 修改园区
+     *
+     * @param parkDO
+     * @return
+     */
+    @RequestMapping("/updPark")
+    @ResponseBody
+    @LogRecord(logMsg = "修改园区：%s", params = {"parkName"}, page = Operation.Page.PARK_BUILDING_MANAGE,
+            type = Operation.Type.modify, after = true, before = false)
+    public ResponseBean updPark(ParkDO parkDO) {
+        parkMgtService.updateParkAreaId(parkDO);
+        return ResponseBean.successResponse("OK");
+    }
+
 
     /**
      * 删除园区
