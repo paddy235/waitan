@@ -370,6 +370,7 @@ public class CompanyInfoMudifyUtil {
         RecordInfo recordInfo = recordModify(modifyData, companyInfo);
         // 修改行业
         modifyIndustry(recordInfo);
+
     }
 
     /**

@@ -146,7 +146,7 @@ public class CompanyInfoQueryUtil {
         companyInfo.setIndustry(CompanyInfo.TYPE_RZZL_13);
         if (!CollectionUtils.isEmpty(companyInfos)) {
             for (CompanyInfo temp : companyInfos) {
-                if (temp.getCurrentLevel() != null && Integer.valueOf(temp.getCurrentLevel()) == 1) {
+                if (temp.getCurrentLevel() != null && temp.getCurrentLevel().equals("0")) {
                     companyInfo.setCurrentLevel("0");   // 潜在
                 }
             }
