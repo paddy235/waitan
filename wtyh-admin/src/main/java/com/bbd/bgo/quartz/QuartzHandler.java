@@ -75,6 +75,7 @@ public class QuartzHandler extends BaseServiceImpl {
 				}
 
 			}
+            TASK_MAP.put(key,taskInfo);
 		});
 
 		//有任务被移除

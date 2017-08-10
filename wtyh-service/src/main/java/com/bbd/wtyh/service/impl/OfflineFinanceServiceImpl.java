@@ -125,9 +125,9 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService,TaskServ
 
     @Override
     public TaskResultDO updateCompanyRiskLevel(Integer taskId) throws Exception {
+        logger.info("--- company risk level job begin ---");
         isShutdown=false;
         TaskResultDO taskResultDO = new TaskResultDO();
-        logger.info("start update company risk level");
         final Map<Integer, Integer> platRankMapData = pToPMonitorService.getPlatRankMapData();
         if (platRankMapData == null || platRankMapData.size() == 0) {
             throw new Exception("dataType=plat_rank_data Api Error");
@@ -182,12 +182,13 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService,TaskServ
             taskResultDO.setSuccessCount(totalCount - failCount);
         }
 
-        logger.info("end update company risk level");
+        logger.info("--- company risk level job end ---");
         return taskResultDO;
     }
 
     @Override
     public TaskResultDO executeFailTaskByTaskId(Integer runMode, Integer oldTaskId, Integer taskId) throws Exception {
+        logger.info("--- company risk level handle begin ---");
         isShutdown=false;
         TaskResultDO taskResultDO = new TaskResultDO();
 
@@ -216,7 +217,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService,TaskServ
             taskResultDO.setFailCount(failCount);
             taskResultDO.setSuccessCount(planCount - failCount);
         }
-
+        logger.info("--- company risk level handle end ---");
         return taskResultDO;
     }
 
@@ -454,7 +455,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService,TaskServ
             Object objType = list.get(0).get("companyType");
             if (objType != null) {
                 result.put("comTypeCN", CompanyDO.companyTypeCN(Byte.parseByte(objType.toString())));
-            } else {
+            } else {  //by cgj
                 int otherCnt =0; //“其他”计数器
                 String currType ="";
 
@@ -533,7 +534,8 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService,TaskServ
 
                     //是否属于 众筹
                     if (otherCnt < 2) {
-                        CrowdFundingCompanyDO cfcDo = baseService.selectOne(CrowdFundingCompanyDO.class, "`company_name` = " + "'" + companyName + "'");
+                        CrowdFundingCompanyDO cfcDo = baseService.selectById( CrowdFundingCompanyDO.class, cDo.getCompanyId() );
+                        //todo 今后可能要用这个表“crowd_funding_company_dataland”
                         if (null != cfcDo) {
                             otherCnt++;
                             if (otherCnt < 2) {

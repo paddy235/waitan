@@ -8,9 +8,12 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
 
-@Table(name = "qdlp_progress")
+@Table(name = "crowd_funding_company")
 public class CrowdFundingCompanyDO extends BaseDO implements Serializable {
     //@Id
+    @Id
+    @Column(name = "company_id")
+    private Integer companyId;
     @Column(name = "company_name")
     @SerializedName("company_name")
     private String  companyName;          //公司名称
@@ -28,6 +31,14 @@ public class CrowdFundingCompanyDO extends BaseDO implements Serializable {
     private String   fundedAmout;          //已筹基金
     @SerializedName("funding_business_type")
     private String  fundingBusinessTypeCN;//业务类型;
+
+    public Integer getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Integer companyId) {
+        this.companyId = companyId;
+    }
 
     public String getCompanyName() {
         return companyName;
