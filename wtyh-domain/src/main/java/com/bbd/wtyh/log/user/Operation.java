@@ -180,7 +180,7 @@ public class Operation {
 		DATA_EXPORT("数据导出", 11),
 		LOG_EXPORT("日志导出", 12),
 		INFO_REPORT("排查信息上报", 13),
-		RE_EXECUTE("再次执行", 14),
+		RE_EXECUTE("执行", 14),
 		DOWNLOAD("下载", 15),
 		IMPORT("导入", 16),
 
