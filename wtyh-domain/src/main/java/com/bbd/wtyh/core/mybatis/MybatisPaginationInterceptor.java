@@ -43,7 +43,7 @@ public class MybatisPaginationInterceptor implements Interceptor {
 			return invocation.proceed();
 		}
 		// 只处理SELECT语句
-		if (sql.toUpperCase().startsWith("SELECT")) {
+		if (!sql.toUpperCase().startsWith("SELECT")) {
 			return invocation.proceed();
 		}
 		boolean isPaging = false;
