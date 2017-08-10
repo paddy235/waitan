@@ -89,6 +89,8 @@ public class LoanBalanceHandler extends AbstractImportHandler<LoanBalanceDO> {
 		if (errorList().isEmpty()) {
 			this.loanService.insertList(insertList);
 			this.loanService.updateList(updateList);
+		} else {
+			addError("用户上传的贷款余额中的数据有误，所有数据均不予入库");
 		}
 		log.info("导入小贷-贷款余额结束");
 	}

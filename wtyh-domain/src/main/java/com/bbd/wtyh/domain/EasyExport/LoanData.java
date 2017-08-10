@@ -1,5 +1,7 @@
 package com.bbd.wtyh.domain.EasyExport;
 
+import com.bbd.wtyh.domain.CompanyDO;
+import com.bbd.wtyh.domain.enums.CompanyLevel;
 import com.bbd.wtyh.excel.annotation.Excel;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -12,14 +14,13 @@ import java.util.Date;
 public class LoanData {
     @Excel(exportName = "公司名")
     private String name;
-    @Excel(exportName = "行业")
     private Byte industry;
-    @Excel(exportName = "外部评级")
+    @Excel(exportName = "行业类别")
+    private String industryName;
     private String outLevel;
-    @Excel(exportName = "内部评级")
     private String innnerLevel;
-    @Excel(exportName = "现场检查")
     private String liveLevel;
+
     @Excel(exportName = "法人")
     private String legalPerson;
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
@@ -29,6 +30,22 @@ public class LoanData {
     private String registeredCapital;
     @Excel(exportName = "注册地址")
     private String address = "";
+
+    @Excel(exportName = "外部评级")
+    private String outLevelName;
+    @Excel(exportName = "内部评级")
+    private String innnerLevelName;
+    @Excel(exportName = "现场检查")
+    private String liveLevelName;
+
+
+    public String getIndustryName() {
+        return  CompanyDO.companyTypeCN(industry);
+    }
+
+    public void setIndustryName(String industryName) {
+        this.industryName = industryName;
+    }
 
     public String getName() {
         return name;
@@ -100,5 +117,63 @@ public class LoanData {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getOutLevelName() {
+        String name = null;
+
+        if(null != outLevel){
+            try{
+                name = CompanyLevel.getByOrdinal(Integer.valueOf(outLevel)).getValue();
+            }catch (Exception e){
+
+                name = outLevel;
+            }
+        }
+
+        return name;
+    }
+
+    public void setOutLevelName(String outLevelName) {
+        this.outLevelName = outLevelName;
+    }
+
+    public String getInnnerLevelName() {
+
+        String name = null;
+
+        if(null != innnerLevel){
+            try{
+                name = CompanyLevel.getByOrdinal(Integer.valueOf(innnerLevel)).getValue();
+            }catch (Exception e){
+
+                name = innnerLevel;
+            }
+        }
+
+        return name;
+    }
+
+    public void setInnnerLevelName(String innnerLevelName) {
+        this.innnerLevelName = innnerLevelName;
+    }
+
+    public String getLiveLevelName() {
+        String name = null;
+
+        if(null != liveLevel){
+            try{
+                name = CompanyLevel.getByOrdinal(Integer.valueOf(liveLevel)).getValue();
+            }catch (Exception e){
+
+                name = liveLevel;
+            }
+        }
+
+        return name;
+    }
+
+    public void setLiveLevelName(String liveLevelName) {
+        this.liveLevelName = liveLevelName;
     }
 }
