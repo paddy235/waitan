@@ -174,7 +174,7 @@ public class CompanyInfoQueryUtil {
      */
     public CompanyInfo getCrowdingFund(String name) {
         CompanyInfo companyInfo = riskCompanyService.getOffLineFinanceByCompanyName(name);
-        companyInfo.setIndustry(CompanyInfo.TYPE_JR_7);
+        companyInfo.setIndustry(CompanyInfo.TYPE_ZC_6);
         return companyInfo;
     }
 
