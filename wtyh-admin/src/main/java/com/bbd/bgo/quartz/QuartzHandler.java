@@ -66,16 +66,17 @@ public class QuartzHandler extends BaseServiceImpl {
 			TaskInfoDO oldDO=TASK_MAP.get(key);
 			if(null==oldDO){
 				addJob(taskInfo);
+                TASK_MAP.put(key,taskInfo);
 			}else {
 				String newCron=taskInfo.getCron();
 				if(!StringUtils.isEmpty(newCron)){
 					if(!oldDO.getCron().trim().equals(taskInfo.getCron().trim())){
 						modifyJobTime(taskInfo.getTaskKey(),taskInfo.getTaskGroup(), newCron);
+                        TASK_MAP.put(key,taskInfo);
 					}
 				}
 
 			}
-            TASK_MAP.put(key,taskInfo);
 		});
 
 		//有任务被移除
