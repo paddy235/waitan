@@ -103,6 +103,8 @@ public class LargeBorrowerHandler extends AbstractImportHandler<LargeLoanDO> {
 	public void end() throws Exception {
 		if (errorList().isEmpty()) {
 			this.companyService.insertList(insertList);
+		} else {
+			addError("用户上传的大额借款人中的数据有误，所有数据均不予入库");
 		}
 		log.info("导入小贷-大额借款人结束");
 	}

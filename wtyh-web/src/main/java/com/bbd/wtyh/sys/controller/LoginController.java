@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.Map;
 import java.util.Set;
@@ -48,7 +49,13 @@ public class LoginController {
 	@LogRecord(logMsg = "用户登录", type = Operation.Type.login, page = Operation.Page.login, after = true, before = false)
 	public Object login(@RequestParam String name, @RequestParam String password, HttpServletRequest request) {
 
-		Map map = null;
+		HttpSession httpSession = request.getSession();
+		Object obj = httpSession.getAttribute(Constants.SESSION.loginName);
+		if (obj != null) {
+			return ResponseBean.errorResponse("该浏览器已有账号登录，请更换浏览器或者退出已登陆账号");
+		}
+
+		Map map;
 		UsernamePasswordToken token = new UsernamePasswordToken(name, password);
 		token.setRememberMe(true);
 		// 获取当前的Subject
@@ -90,11 +97,11 @@ public class LoginController {
 			map.put("areaName", areaName);// 地区名称
 			map.put("pwdBeOverdue", userInfoService.testUserPasswordBeOverdue(userInfo.getForePwdUpDate()));// 密码是否过期
 			map.put("userId", userInfo.getId());// 用户ID
-			map.put("userType",userInfo.getUserType());// 用户类型
-		} catch (UnknownAccountException e) { //用户名不存在
+			map.put("userType", userInfo.getUserType());// 用户类型
+		} catch (UnknownAccountException e) { // 用户名不存在
 			e.printStackTrace();
 			return ResponseBean.errorResponse("用户名或密码不正确");
-		} catch (IncorrectCredentialsException e) { //用户类型或密码不匹配
+		} catch (IncorrectCredentialsException e) { // 用户类型或密码不匹配
 			e.printStackTrace();
 			return ResponseBean.errorResponse("用户名或密码不正确");
 		} catch (LockedAccountException e) {
