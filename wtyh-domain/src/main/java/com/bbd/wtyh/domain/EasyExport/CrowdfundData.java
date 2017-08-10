@@ -16,6 +16,8 @@ public class CrowdfundData {
     private Byte industry;
     @Excel(exportName = "行业类别")
     private String industryName;
+    @Excel(exportName = "平台名称")
+    private String platName;
     @Excel(exportName = "平台连接")
     private String url;
     @Excel(exportName = "法人")
@@ -91,5 +93,13 @@ public class CrowdfundData {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getPlatName() {
+        return platName;
+    }
+
+    public void setPlatName(String platName) {
+        this.platName = platName;
     }
 }
