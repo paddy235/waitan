@@ -27,35 +27,35 @@ public class TaskInfoDO {
 	private Integer id;
 
 	/** 任务名称 */
-	@Column(name = "task_name")
+	@Column(name = "task_name",updatable = false)
 	private String taskName;
 
 	/** 任务KEY */
-	@Column(name = "task_key")
+	@Column(name = "task_key",updatable = false)
 	private String taskKey;
 
 	/**  */
-	@Column(name = "task_group")
+	@Column(name = "task_group",updatable = false)
 	private String taskGroup;
 
 	/** 时间表达式 */
-	@Column(name = "cron")
+	@Column(name = "cron",updatable = false)
 	private String cron;
 
 	/** 时间表达式描述 */
-	@Column(name = "cron_desc")
+	@Column(name = "cron_desc",updatable = false)
 	private String cronDesc;
 
 	/** 执行目标类 */
-	@Column(name = "target_class")
+	@Column(name = "target_class",updatable = false)
 	private String targetClass;
 
 	/** 执行目标方法 */
-	@Column(name = "target_method")
+	@Column(name = "target_method",updatable = false)
 	private String targetMethod;
 
 	/** 任务描述 */
-	@Column(name = "description")
+	@Column(name = "description",updatable = false)
 	private String description;
 
 	/** 任务开始时间 */
@@ -69,7 +69,7 @@ public class TaskInfoDO {
 	private Date endDate;
 
 	/** 数据来源 */
-	@Column(name = "data_source")
+	@Column(name = "data_source",updatable = false)
 	private Integer dataSource;
 
 	/** 任务状态 */
@@ -77,7 +77,7 @@ public class TaskInfoDO {
 	private Integer state;
 
 	/** 是否显示 */
-	@Column(name = "is_show")
+	@Column(name = "is_show",updatable = false)
 	private Integer isShow;
 
 	/** 数据来源名称 */
