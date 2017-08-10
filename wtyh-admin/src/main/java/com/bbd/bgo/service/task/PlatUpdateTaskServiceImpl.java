@@ -66,6 +66,7 @@ public class PlatUpdateTaskServiceImpl extends BaseServiceImpl implements PlatUp
 
 
 	private TaskResultDO updatePlat(Integer oldTaskId,Integer newTaskId) {
+		logger.info("--- platform job begin ---");
 		isShutdown=false;
 		TaskResultDO taskResultDO = new TaskResultDO();
 		if(null==newTaskId){
@@ -137,6 +138,7 @@ public class PlatUpdateTaskServiceImpl extends BaseServiceImpl implements PlatUp
 			taskResultDO.setFailCount(dataError);
 			taskResultDO.setSuccessCount(dataTotal-dataError);
 		}
+		logger.info("--- platform job end ---");
 		return taskResultDO;
 	}
 

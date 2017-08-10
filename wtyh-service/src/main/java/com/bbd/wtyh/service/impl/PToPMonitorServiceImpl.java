@@ -288,6 +288,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService,TaskService {
 
     @Override
     public TaskResultDO pToPMonitorDataLandTask(Integer taskId) {
+        logger.info("--- p2p monitor data job begin ---");
         isShutdown = false;
         TaskResultDO taskResultDO = new TaskResultDO();
 
@@ -347,12 +348,13 @@ public class PToPMonitorServiceImpl implements PToPMonitorService,TaskService {
             taskResultDO.setFailCount(failCount);
             taskResultDO.setSuccessCount(planCount - failCount);
         }
-
+        logger.info("--- p2p monitor data job end ---");
         return taskResultDO;
     }
 
     @Override
     public TaskResultDO executeFailTaskByTaskId(Integer runMode, Integer oldTaskId, Integer taskId) {
+        logger.info("--- p2p monitor data handle begin ---");
         isShutdown = false;
         TaskResultDO taskResultDO = new TaskResultDO();
         List<TaskFailInfoDO> list = taskFailInfoMapper.getTaskFailInfoByTaskId(oldTaskId);
@@ -429,6 +431,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService,TaskService {
             taskResultDO.setFailCount(failCount);
             taskResultDO.setSuccessCount(planCount - failCount);
         }
+        logger.info("--- p2p monitor data handle end ---");
         return taskResultDO;
     }
 

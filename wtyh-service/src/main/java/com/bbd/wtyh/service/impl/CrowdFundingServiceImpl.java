@@ -14,6 +14,8 @@ import com.bbd.wtyh.mapper.*;
 import com.bbd.wtyh.service.TaskService;
 import com.bbd.wtyh.web.EasyExportExcel.ExportCondition;
 import com.bbd.wtyh.web.PageBean;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +32,7 @@ import static y.layout.orthogonal.e.bb.i;
 @Service
 public class CrowdFundingServiceImpl implements CrowdFundingService,TaskService {
 
+    private Logger logger = LoggerFactory.getLogger(CrowdFundingServiceImpl.class);
 
     @Autowired
     private CrowdFundingBusinessStatisticsMapper cfbsMapper;
@@ -53,7 +56,6 @@ public class CrowdFundingServiceImpl implements CrowdFundingService,TaskService 
     private TaskFailInfoMapper taskFailInfoMapper;
 
     private volatile boolean isShutdown = false;//任务停止标志
-
 
     @Override
     public List<NvDO> lastMonthData() {
@@ -90,6 +92,7 @@ public class CrowdFundingServiceImpl implements CrowdFundingService,TaskService 
 
     @Override
     public TaskResultDO crowdFundingDataLandTask(Integer taskId) {
+        logger.info("--- crowd data job begin ---");
         isShutdown = false;
         TaskResultDO taskResultDO = new TaskResultDO();
         Integer planCount = 5;
@@ -139,11 +142,13 @@ public class CrowdFundingServiceImpl implements CrowdFundingService,TaskService 
             taskResultDO.setFailCount(failCount);
             taskResultDO.setSuccessCount(planCount - failCount);
         }
+        logger.info("--- crowd data job end ---");
         return taskResultDO;
     }
 
     @Override
     public TaskResultDO executeFailTaskByTaskId(Integer runMode, Integer oldTaskId, Integer taskId) {
+        logger.info("--- crowd data handle begin ---");
         isShutdown = false;
         TaskResultDO taskResultDO = new TaskResultDO();
         List<TaskFailInfoDO> list = taskFailInfoMapper.getTaskFailInfoByTaskId(oldTaskId);
@@ -197,6 +202,7 @@ public class CrowdFundingServiceImpl implements CrowdFundingService,TaskService 
             taskResultDO.setFailCount(failCount);
             taskResultDO.setSuccessCount(planCount - failCount);
         }
+        logger.info("--- crowd data handle end ---");
         return taskResultDO;
     }
 

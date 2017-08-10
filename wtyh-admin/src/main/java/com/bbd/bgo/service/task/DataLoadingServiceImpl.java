@@ -77,6 +77,7 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 
 	@Override
 	public TaskResultDO dataLoadingManualOperate(Integer oldTaskId,Integer newTaskId) {
+		logger.info("--- company holographic handle begin ---");
 		isShutdown=false;
 		this.taskId = newTaskId;
 		//手动执行，查询之前任务失败记录，更新插入失败表
@@ -121,11 +122,13 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 			taskResultDO.setFailCount(dataError);
 			taskResultDO.setSuccessCount(dataTotal-dataError);
 		}
+		logger.info("--- company holographic handle end ---");
 		return taskResultDO;
 	}
 
 	@Override
 	public TaskResultDO dataLoadingAutomaticOperate(Integer taskId) {
+		logger.info("--- company holographic job begin ---");
 		isShutdown=false;
 		TaskResultDO taskResultDO=new TaskResultDO();
 		Integer dataError = 0;
@@ -163,6 +166,7 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 			taskResultDO.setFailCount(dataError);
 			taskResultDO.setSuccessCount(dataTotal-dataError);
 		}
+		logger.info("--- company holographic job end ---");
 		return taskResultDO;
 	}
 

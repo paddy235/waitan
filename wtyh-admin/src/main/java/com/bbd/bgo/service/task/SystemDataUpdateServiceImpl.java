@@ -58,6 +58,7 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService,Task
 
     @Override
     public TaskResultDO updateCompanyAndBackgroundAutomaticOperate(Integer taskId) {
+        logger.info("--- company baseInfo job begin ---");
         isShutdown=false;
         this.taskId=taskId;
         this.errorNum=0;
@@ -104,11 +105,14 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService,Task
             taskResultDO.setFailCount(errorNum);
             taskResultDO.setSuccessCount(dataTotal-errorNum);
         }
+
+        logger.info("--- company baseInfo job end ---");
         return taskResultDO;
     }
 
     @Override
     public TaskResultDO updateCompanyAndBackgroundManualOperate(Integer oldTaskId,Integer newTaskId){
+        logger.info("--- company baseInfo handle begin ---");
         isShutdown=false;
         TaskResultDO taskResultDO = new TaskResultDO();
         this.taskId=newTaskId;
@@ -157,6 +161,7 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService,Task
             taskResultDO.setFailCount(errorNum);
             taskResultDO.setSuccessCount(dataTotal-errorNum);
         }
+        logger.info("--- company baseInfo handle end ---");
         return taskResultDO;
     }
 
