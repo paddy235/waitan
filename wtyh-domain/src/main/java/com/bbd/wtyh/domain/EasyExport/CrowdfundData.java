@@ -1,5 +1,6 @@
 package com.bbd.wtyh.domain.EasyExport;
 
+import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.excel.annotation.Excel;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -12,8 +13,9 @@ import java.util.Date;
 public class CrowdfundData {
     @Excel(exportName = "公司名")
     private String name;
-    @Excel(exportName = "行业类别")
     private Byte industry;
+    @Excel(exportName = "行业类别")
+    private String industryName;
     @Excel(exportName = "平台连接")
     private String url;
     @Excel(exportName = "法人")
@@ -25,6 +27,15 @@ public class CrowdfundData {
     private String registeredCapital;
     @Excel(exportName = "注册地址")
     private String address = "";
+
+
+    public String getIndustryName() {
+        return  CompanyDO.companyTypeCN(industry);
+    }
+
+    public void setIndustryName(String industryName) {
+        this.industryName = industryName;
+    }
 
     public String getUrl() {
         return url;
