@@ -52,6 +52,12 @@ public interface ParkMgtService{
     List<Map<String,String>> queryBuildingByParkId(String parkId);
 
     /**
+     * 修改园区
+     * @param park
+     */
+    void updateParkAreaId(ParkDO park);
+
+    /**
      * 删除园区
      * @param parkId
      */

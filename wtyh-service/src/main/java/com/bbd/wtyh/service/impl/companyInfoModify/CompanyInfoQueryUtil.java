@@ -162,7 +162,7 @@ public class CompanyInfoQueryUtil {
      */
     public CompanyInfo getPrivateFund(String name) {
         CompanyInfo companyInfo = riskCompanyService.getOffLineFinanceByCompanyName(name);
-        companyInfo.setIndustry(CompanyInfo.TYPE_ZC_6);
+        companyInfo.setIndustry(CompanyInfo.TYPE_SMJJ_5);
         return companyInfo;
     }
 

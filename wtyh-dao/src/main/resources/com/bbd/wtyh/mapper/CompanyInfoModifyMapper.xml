@@ -5,7 +5,7 @@
     <select id="autoComplete" resultType="string">
 			SELECT `name`
 			FROM company
-			WHERE `name` LIKE concat("%", #{q},"%") AND company_type IN (1, 2, 3, 4, 9, 11, 13, 6, 7, 10, 12)
+			WHERE `name` LIKE concat("%", #{q},"%") AND company_type IN (1, 2, 3, 4, 5, 9, 11, 13, 6, 10, 12)
 			LIMIT 0, 5
 	</select>
 
@@ -21,7 +21,7 @@
             company
         WHERE
             `name` = #{name}
-            AND company_type IN (1, 2, 3, 4, 9, 11, 13, 6, 7, 10, 12)
+            AND company_type IN (1, 2, 3, 4, 5, 9, 11, 13, 6, 10, 12)
     </select>
 
     <select id="queryModifyCompany" resultType="string">

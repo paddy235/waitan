@@ -656,13 +656,14 @@ public class WordReportBuilder {
 	public void setRelatedPartyMappingInfo(byte[] relatedPartyMapping, byte[] oneDegreeMapping, List<List<String>> oneDegreeDistribute,
 			byte[] twoDegreeMapping, List<List<String>> twoDegreeDistribute) {
 		StringBuffer thisErrRecord = new StringBuffer();
-		StringBuffer this1ErrRecord = new StringBuffer();
+		StringBuffer this1ErrRecord ;
 
-		// 关联方图谱
+		/*// 关联方图谱
+		this1ErrRecord = new StringBuffer();
 		replaceImage(mainParagraphList, 0, "qixin_guanlianfangtupu", relatedPartyMapping, null, this1ErrRecord);
 		if (this1ErrRecord.length() > 0) {
 			thisErrRecord.append("设置关联方图谱Err: ").append(this1ErrRecord).append(" ");
-		}
+		}*/ //关联方图谱已被产品取消
 
 		// 一度关联图
 		this1ErrRecord = new StringBuffer();
@@ -1071,9 +1072,9 @@ public class WordReportBuilder {
 				//String fileName = companyName + "-" + reportType.getName() + ".docx";
 				String fileName = companyName;
 				if ( ! companyType.isEmpty() ) {
-					companyType += ( "-" + companyType );
+					fileName += ( "-" + companyType );
 				}
-				companyType +=".docx";
+				fileName +=".docx";
 				put("fileName", fileName);
 				put("fileBytes", null);
 			}

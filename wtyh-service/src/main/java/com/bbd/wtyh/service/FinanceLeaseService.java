@@ -31,4 +31,6 @@ public interface FinanceLeaseService {
     void modifyFinanceLease(RecordInfo recordInfo);
 
     void addFinanceLease(RecordInfo recordInfo);
+
+    boolean isExistFinanceLease(RecordInfo recordInfo);
 }

@@ -292,4 +292,9 @@ public class FinanceLeaseServiceImpl implements FinanceLeaseService {
     public void addFinanceLease(RecordInfo recordInfo) {
         financeLeaseMapper.addFinanceLease(recordInfo);
     }
+
+    @Override
+    public boolean isExistFinanceLease(RecordInfo recordInfo) {
+        return !financeLeaseMapper.isExistFinanceLease(recordInfo).isEmpty();
+    }
 }
