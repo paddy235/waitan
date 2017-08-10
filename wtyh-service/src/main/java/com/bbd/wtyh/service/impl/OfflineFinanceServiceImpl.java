@@ -454,7 +454,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService,TaskServ
             Object objType = list.get(0).get("companyType");
             if (objType != null) {
                 result.put("comTypeCN", CompanyDO.companyTypeCN(Byte.parseByte(objType.toString())));
-            } else {
+            } else {  //by cgj
                 int otherCnt =0; //“其他”计数器
                 String currType ="";
 
@@ -533,7 +533,8 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService,TaskServ
 
                     //是否属于 众筹
                     if (otherCnt < 2) {
-                        CrowdFundingCompanyDO cfcDo = baseService.selectOne(CrowdFundingCompanyDO.class, "`company_name` = " + "'" + companyName + "'");
+                        CrowdFundingCompanyDO cfcDo = baseService.selectById( CrowdFundingCompanyDO.class, cDo.getCompanyId() );
+                        //todo 今后可能要用这个表“crowd_funding_company_dataland”
                         if (null != cfcDo) {
                             otherCnt++;
                             if (otherCnt < 2) {
