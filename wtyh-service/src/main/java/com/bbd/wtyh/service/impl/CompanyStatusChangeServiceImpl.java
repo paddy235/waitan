@@ -48,7 +48,10 @@ public class CompanyStatusChangeServiceImpl implements CompanyStatusChangeServic
         try{
             companyStatusChangeDO=companyChange(isNew,companyName,newCompanyType);
             if(null!=companyStatusChangeDO){
-
+                //企业信息变更 过来的数据都是人工修改
+                companyStatusChangeDO.setAdjustDate(new Date());//调整日期
+                companyStatusChangeDO.setSource(3);//人工修改
+                companyStatusChangeDO.setOrderDate(companyStatusChangeDO.getAdjustDate());
                 companyStatusChangeMapper.insertOne(companyStatusChangeDO);
             }
 
