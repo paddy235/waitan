@@ -1,5 +1,6 @@
 package com.bbd.wtyh.domain.EasyExport;
 
+import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.excel.annotation.Excel;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -12,8 +13,9 @@ import java.util.Date;
 public class PrivateOfferedFundData {
     @Excel(exportName = "公司名")
     private String name;
-    @Excel(exportName = "行业类别")
     private Byte industry;
+    @Excel(exportName = "行业类别")
+    private String industryName;
     @Excel(exportName = "法人")
     private String legalPerson;
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
@@ -23,6 +25,15 @@ public class PrivateOfferedFundData {
     private String registeredCapital;
     @Excel(exportName = "注册地址")
     private String address = "";
+
+
+    public String getIndustryName() {
+        return  CompanyDO.companyTypeCN(industry);
+    }
+
+    public void setIndustryName(String industryName) {
+        this.industryName = industryName;
+    }
 
     public String getName() {
         return name;

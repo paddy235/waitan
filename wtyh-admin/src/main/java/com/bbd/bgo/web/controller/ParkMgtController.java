@@ -129,6 +129,23 @@ public class ParkMgtController {
         return ResponseBean.successResponse(list);
     }
 
+
+    /**
+     * 修改园区
+     *
+     * @param parkDO
+     * @return
+     */
+    @RequestMapping("/updPark")
+    @ResponseBody
+    @LogRecord(logMsg = "修改园区：%s", params = {"parkName"}, page = Operation.Page.PARK_BUILDING_MANAGE,
+            type = Operation.Type.modify, after = true, before = false)
+    public ResponseBean updPark(ParkDO parkDO) {
+        parkMgtService.updateParkAreaId(parkDO);
+        return ResponseBean.successResponse("OK");
+    }
+
+
     /**
      * 删除园区
      *

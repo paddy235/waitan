@@ -1,5 +1,8 @@
 package com.bbd.wtyh.domain.EasyExport;
 
+import com.bbd.wtyh.domain.CompanyBackgroundDO;
+import com.bbd.wtyh.domain.CompanyDO;
+import com.bbd.wtyh.domain.enums.CompanyAnalysisResult;
 import com.bbd.wtyh.excel.annotation.Excel;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -14,14 +17,17 @@ public class OffLineData {
     @Excel(exportName = "公司名")
     private String name;
     // 行业类别
-    @Excel(exportName = "行业类别")
     private Byte industry;
+    @Excel(exportName = "行业类别")
+    private String industryName;
     // 企业背景
+    private String background;
     @Excel(exportName = "企业背景")
-    private Byte background;
+    private String backgroundName;// 企业背景名称
     // 风险等级
-    @Excel(exportName = "风险等级")
     private String currentLevel;
+    @Excel(exportName = "风险等级")
+    private String currentLevelName = "";
     // 风险值
     // TODO: 2017/7/19
     // 法人
@@ -40,6 +46,14 @@ public class OffLineData {
 
 
 
+    public String getIndustryName() {
+        return  CompanyDO.companyTypeCN(industry);
+    }
+
+    public void setIndustryName(String industryName) {
+        this.industryName = industryName;
+    }
+
     public String getName() {
         return name;
     }
@@ -56,11 +70,11 @@ public class OffLineData {
         this.industry = industry;
     }
 
-    public Byte getBackground() {
+    public String getBackground() {
         return background;
     }
 
-    public void setBackground(Byte background) {
+    public void setBackground(String background) {
         this.background = background;
     }
 
@@ -102,5 +116,39 @@ public class OffLineData {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getCurrentLevelName() {
+        String name = "" ;
+        if(null != currentLevel){
+            try{
+                name = CompanyAnalysisResult.getName(Integer.valueOf(currentLevel));
+            }catch (Exception e){}
+        }
+
+        return name;
+    }
+
+    public void setCurrentLevelName(String currentLevelName) {
+        this.currentLevelName = currentLevelName;
+    }
+
+    public String getBackgroundName() {
+        if (null == background || background.equals("")) {
+            return "";
+        }
+        String[] bg = background.split(",");
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < bg.length; i++) {
+            if (i != 0) {
+                sb.append(",");
+            }
+            sb.append(CompanyBackgroundDO.Bg.getBg(Byte.valueOf(bg[i])).CN);
+        }
+        return sb.toString();
+    }
+
+    public void setBackgroundName(String backgroundName) {
+        this.backgroundName = backgroundName;
     }
 }

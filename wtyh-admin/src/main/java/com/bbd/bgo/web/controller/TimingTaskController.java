@@ -186,6 +186,9 @@ public class TimingTaskController {
         boolean isStop=false;
         isStop=timingTaskManager.stopTask(taskId,taskKey,taskGroup);
 
+        UserLogRecord.record("终止定时任务【" + taskName + "-" + taskId + "]", Operation.Type.RE_EXECUTE, Operation.Page.timingTask,
+                Operation.System.back, request);
+
         return ResponseBean.successResponse(isStop);
     }
 }

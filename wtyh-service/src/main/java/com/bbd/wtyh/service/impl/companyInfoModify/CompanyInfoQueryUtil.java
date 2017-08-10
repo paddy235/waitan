@@ -146,7 +146,7 @@ public class CompanyInfoQueryUtil {
         companyInfo.setIndustry(CompanyInfo.TYPE_RZZL_13);
         if (!CollectionUtils.isEmpty(companyInfos)) {
             for (CompanyInfo temp : companyInfos) {
-                if (temp.getCurrentLevel() != null && Integer.valueOf(temp.getCurrentLevel()) == 1) {
+                if (temp.getCurrentLevel() != null && temp.getCurrentLevel().equals("0")) {
                     companyInfo.setCurrentLevel("0");   // 潜在
                 }
             }
@@ -162,7 +162,7 @@ public class CompanyInfoQueryUtil {
      */
     public CompanyInfo getPrivateFund(String name) {
         CompanyInfo companyInfo = riskCompanyService.getOffLineFinanceByCompanyName(name);
-        companyInfo.setIndustry(CompanyInfo.TYPE_ZC_6);
+        companyInfo.setIndustry(CompanyInfo.TYPE_SMJJ_5);
         return companyInfo;
     }
 
@@ -174,7 +174,7 @@ public class CompanyInfoQueryUtil {
      */
     public CompanyInfo getCrowdingFund(String name) {
         CompanyInfo companyInfo = riskCompanyService.getOffLineFinanceByCompanyName(name);
-        companyInfo.setIndustry(CompanyInfo.TYPE_JR_7);
+        companyInfo.setIndustry(CompanyInfo.TYPE_ZC_6);
         return companyInfo;
     }
 

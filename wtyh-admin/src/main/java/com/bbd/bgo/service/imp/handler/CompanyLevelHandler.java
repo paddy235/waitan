@@ -218,6 +218,8 @@ public class CompanyLevelHandler extends AbstractImportHandler<CompanyLevelDO> {
 			this.companyService.insertList(insertList);
 			this.companyService.updateList(updateList, false, false);
 			this.companyService.insertList(riskChgCoList);
+		} else {
+			addError("用户上传的企业评级中的数据有误，所有数据均不予入库");
 		}
 		log.info("导入企业评级结束");
 	}

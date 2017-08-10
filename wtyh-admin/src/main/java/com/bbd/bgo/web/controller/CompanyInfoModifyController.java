@@ -2,6 +2,7 @@ package com.bbd.bgo.web.controller;
 
 import com.bbd.wtyh.domain.CompanyInfoModify.CompanyInfo;
 import com.bbd.wtyh.domain.enums.CompanyLevel;
+import com.bbd.wtyh.domain.enums.WangDaiRiskLevel;
 import com.bbd.wtyh.service.CompanyInfoModifyService;
 import com.bbd.wtyh.web.ResponseBean;
 import com.bbd.wtyh.web.companyInfoModify.ModifyData;
@@ -62,12 +63,7 @@ public class CompanyInfoModifyController {
     public ResponseBean risk() {
         Map<Byte, Map> rst = new HashMap<>();
         // "网络借贷"
-        Map<String, String> wangdai = new HashedMap();
-        wangdai.put("优良", "优良");
-        wangdai.put("一般关注", "一般关注");
-        wangdai.put("重点关注", "重点关注");
-        wangdai.put("问题及停业平台", "问题及停业平台");
-        rst.put(CompanyInfo.TYPE_P2P_1, wangdai);
+        rst.put(CompanyInfo.TYPE_P2P_1, WangDaiRiskLevel.getMap());
 //        // "小额贷款"
         rst.put(CompanyInfo.TYPE_XD_2, CompanyLevel.getMap());
 //        // "融资担保"

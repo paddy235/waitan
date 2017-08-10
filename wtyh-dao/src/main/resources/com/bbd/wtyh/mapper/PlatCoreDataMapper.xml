@@ -23,12 +23,14 @@
             company.registered_date AS registeredDate,
             company.registered_capital AS registeredCapital,
             company.registered_capital_type AS registeredCapitalType,
-            company.address AS address
+            company.address AS address,
+            company.risk_level AS currentLevel,
+            platform_name_information.platform_name AS platName
         FROM
             company,
-            company_background
+            platform_name_information
         WHERE
-            company.company_id = company_background.company_id
+            company.company_id = platform_name_information.company_id
             <if test="exportCondition.industry!=null">
                 and company.company_type = #{exportCondition.industry}
             </if>
@@ -58,9 +60,9 @@
           COUNT(1)
         FROM
             company,
-            company_background
+            platform_name_information
         WHERE
-            company.company_id = company_background.company_id
+            company.company_id = platform_name_information.company_id
             <if test="exportCondition.industry!=null">
                 and company.company_type = #{exportCondition.industry}
             </if>

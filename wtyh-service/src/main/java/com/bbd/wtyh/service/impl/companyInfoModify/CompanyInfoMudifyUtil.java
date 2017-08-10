@@ -262,22 +262,32 @@ public class CompanyInfoMudifyUtil {
     public void modifyFinanceLease(ModifyData modifyData) throws Exception {
         CompanyInfo companyInfo = companyInfoModifyMapper.queryCompany(modifyData.getName());
         RecordInfo recordInfo = recordModify(modifyData, companyInfo);
-        // 修改风险等级
-        if (CompanyInfo.TYPE_P2P_1 == recordInfo.getAfterIndustry()) { // 网络借贷
-            // do nothing, just record
-        } else if (CompanyInfo.TYPE_XD_2 == recordInfo.getAfterIndustry()   // 小额贷款
-                || CompanyInfo.TYPE_RZDB_3 == recordInfo.getAfterIndustry()) {  // 融资担保
-            companyLevelService.addLoadLevel(recordInfo);
-        } else if (CompanyInfo.TYPE_XXLC_4 == recordInfo.getAfterIndustry()) { // 线下理财
-            riskCompanyService.modifyOffLineLevel(recordInfo);
-            indexDataMapper.addOffLineLevel(recordInfo);
-        } else if (CompanyInfo.TYPE_JYS_9 == recordInfo.getAfterIndustry()) {  // 交易场所
-            riskCompanyService.modifyOffLineLevel(recordInfo);
-            exchangeCompanyService.addExchange(recordInfo);
-        } else if (CompanyInfo.TYPE_RZZL_13 == recordInfo.getAfterIndustry()) { // 融资租赁
-            financeLeaseService.modifyFinanceLease(recordInfo);
-        } else if (CompanyInfo.TYPE_YFK_11 == recordInfo.getAfterIndustry()) {// 预付卡
-            prepaidCompanyStaticService.addPerpaycard(recordInfo);
+        // 判断风险等级是否发生变化
+        if ((recordInfo.getBeforeLevel() != recordInfo.getAfterLevel()
+                || (recordInfo.getBeforeOutLevel() != recordInfo.getAfterOutLevel())
+                || (recordInfo.getBeforeInnnerLevel() != recordInfo.getAfterInnnerLevel())
+                || (recordInfo.getBeforeLiveLevel() != recordInfo.getAfterLiveLevel()))) {
+            // 修改风险等级
+            if (CompanyInfo.TYPE_P2P_1 == recordInfo.getAfterIndustry()) { // 网络借贷
+                // do nothing, just record
+            } else if (CompanyInfo.TYPE_XD_2 == recordInfo.getAfterIndustry()   // 小额贷款
+                    || CompanyInfo.TYPE_RZDB_3 == recordInfo.getAfterIndustry()) {  // 融资担保
+                companyLevelService.addLoadLevel(recordInfo);
+            } else if (CompanyInfo.TYPE_XXLC_4 == recordInfo.getAfterIndustry()) { // 线下理财
+                riskCompanyService.modifyOffLineLevel(recordInfo);
+                indexDataMapper.addOffLineLevel(recordInfo);
+            } else if (CompanyInfo.TYPE_JYS_9 == recordInfo.getAfterIndustry()) {  // 交易场所
+                riskCompanyService.modifyOffLineLevel(recordInfo);
+                exchangeCompanyService.addExchange(recordInfo);
+            } else if (CompanyInfo.TYPE_RZZL_13 == recordInfo.getAfterIndustry()) { // 融资租赁
+                if (!financeLeaseService.isExistFinanceLease(recordInfo)) {
+                    financeLeaseService.addFinanceLease(recordInfo);
+                } else {
+                    financeLeaseService.modifyFinanceLease(recordInfo);
+                }
+            } else if (CompanyInfo.TYPE_YFK_11 == recordInfo.getAfterIndustry()) {// 预付卡
+                prepaidCompanyStaticService.addPerpaycard(recordInfo);
+            }
         }
         // 修改行业
         modifyIndustry(recordInfo);
@@ -313,6 +323,29 @@ public class CompanyInfoMudifyUtil {
     }
 
     /**
+     * 私募基金、众筹、典当、商业保理
+     */
+    private void modifyLevelBeforeWithoutLevel(RecordInfo recordInfo) {
+        // 修改风险等级
+        if (CompanyInfo.TYPE_P2P_1 == recordInfo.getAfterIndustry()) { // 网络借贷
+            // do nothing, just record
+        } else if (CompanyInfo.TYPE_XD_2 == recordInfo.getAfterIndustry()   // 小额贷款
+                || CompanyInfo.TYPE_RZDB_3 == recordInfo.getAfterIndustry()) {  // 融资担保
+            companyLevelService.addLoadLevel(recordInfo);
+        } else if (CompanyInfo.TYPE_XXLC_4 == recordInfo.getAfterIndustry()) { // 线下理财
+            riskCompanyService.modifyOffLineLevel(recordInfo);
+            indexDataMapper.addOffLineLevel(recordInfo);
+        } else if (CompanyInfo.TYPE_JYS_9 == recordInfo.getAfterIndustry()) {  // 交易场所
+            riskCompanyService.modifyOffLineLevel(recordInfo);
+            exchangeCompanyService.addExchange(recordInfo);
+        } else if (CompanyInfo.TYPE_RZZL_13 == recordInfo.getAfterIndustry()) { // 融资租赁
+            financeLeaseService.addFinanceLease(recordInfo);
+        } else if (CompanyInfo.TYPE_YFK_11 == recordInfo.getAfterIndustry()) {// 预付卡
+            prepaidCompanyStaticService.addPerpaycard(recordInfo);
+        }
+    }
+
+    /**
      * 私募基金
      *
      * @param modifyData
@@ -321,6 +354,8 @@ public class CompanyInfoMudifyUtil {
     public void modifyPrivateFund(ModifyData modifyData) throws Exception {
         CompanyInfo companyInfo = companyInfoModifyMapper.queryCompany(modifyData.getName());
         RecordInfo recordInfo = recordModify(modifyData, companyInfo);
+        // 修改风险等级
+        modifyLevelBeforeWithoutLevel(recordInfo);
         // 修改行业
         modifyIndustry(recordInfo);
     }
@@ -335,6 +370,7 @@ public class CompanyInfoMudifyUtil {
         RecordInfo recordInfo = recordModify(modifyData, companyInfo);
         // 修改行业
         modifyIndustry(recordInfo);
+
     }
 
     /**
@@ -345,6 +381,8 @@ public class CompanyInfoMudifyUtil {
     public void modifyPawn(ModifyData modifyData) throws Exception {
         CompanyInfo companyInfo = companyInfoModifyMapper.queryCompany(modifyData.getName());
         RecordInfo recordInfo = recordModify(modifyData, companyInfo);
+        // 修改风险等级
+        modifyLevelBeforeWithoutLevel(recordInfo);
         // 修改行业
         modifyIndustry(recordInfo);
     }
@@ -357,6 +395,8 @@ public class CompanyInfoMudifyUtil {
     public void modifyBusinessInsurance(ModifyData modifyData) throws Exception {
         CompanyInfo companyInfo = companyInfoModifyMapper.queryCompany(modifyData.getName());
         RecordInfo recordInfo = recordModify(modifyData, companyInfo);
+        // 修改风险等级
+        modifyLevelBeforeWithoutLevel(recordInfo);
         // 修改行业
         modifyIndustry(recordInfo);
     }

@@ -178,6 +178,16 @@
 			c.`name` = #{name}
 	</select>
 
+	<select id="isExistFinanceLease" resultType="com.bbd.wtyh.domain.CompanyInfoModify.CompanyInfo">
+		SELECT
+			company_id AS companyId,
+			risk_status AS currentLevel
+		FROM
+			finance_lease_risk
+		WHERE
+			company_id = #{recordInfo.companyId}
+	</select>
+
 	<update id="modifyFinanceLease">
 		update finance_lease_risk
 		<set>

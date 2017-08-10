@@ -5,15 +5,18 @@
 
     <select id="queryParkAndBuilding" parameterType="java.lang.String" resultType="com.bbd.wtyh.domain.vo.ParkAndBuildingVO">
         SELECT
+          a.area_id as areaId,
+          a.`name` as areaName,
           p.`name` as parkName,
           p.`park_id` as parkId,
           b.`name` as buildingName,
           b.`building_id` as buildingId,
           DATE_FORMAT(p.create_date,'%Y.%c.%d') as createDate
         FROM
-          park p, building b
+          park p, building b, area a
         <where>
             p.park_id=b.park_id
+            and p.area_id=a.area_id
             <if test="parkId != null and parkId != ''">
                 and p.park_id=#{parkId}
             </if>
@@ -36,6 +39,10 @@
 
     <update id="updateParkImgUrl" parameterType="com.bbd.wtyh.domain.ParkDO">
         UPDATE park SET img_url=#{imgUrl}, update_date=SYSDATE(),update_by=#{updateBy} WHERE park_id=#{parkId}
+    </update>
+
+    <update id="updateParkAreaId" parameterType="com.bbd.wtyh.domain.ParkDO">
+        UPDATE park SET area_id=#{areaId}, update_date=SYSDATE(),update_by=#{updateBy} WHERE park_id=#{parkId}
     </update>
 
     <update id="updateBuildingImgUrl" parameterType="com.bbd.wtyh.domain.BuildingDO">
@@ -70,6 +77,9 @@
 
     <select id="queryBuildingCompanyNumber" parameterType="java.lang.String" resultType="com.bbd.wtyh.domain.vo.ParkAndBuildingVO">
         SELECT
+            a.area_id as areaId,
+            a.`name` as areaName,
+            p.`name` as parkName,
             o.name as buildingName,
             o.building_id as buildingId,
             o.park_id as parkId,
@@ -98,8 +108,10 @@
             )
             as finCompanyCount
         FROM
-            building o
+            building o,park p,area a
         WHERE
+            o.park_id=p.park_id and
+            p.area_id=a.area_id and
             o.park_id = #{parkId}
     </select>
 

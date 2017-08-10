@@ -75,7 +75,8 @@
             company.registered_date AS registeredDate,
             company.registered_capital AS registeredCapital,
             company.registered_capital_type AS registeredCapitalType,
-            company.address AS address
+            company.address AS address,
+            crowd_funding_company.platform_name AS platName
         FROM
             company,
             crowd_funding_company

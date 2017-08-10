@@ -1,5 +1,7 @@
 package com.bbd.wtyh.domain.EasyExport;
 
+import com.bbd.wtyh.domain.CompanyDO;
+import com.bbd.wtyh.domain.enums.WangDaiRiskLevel;
 import com.bbd.wtyh.excel.annotation.Excel;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -12,12 +14,14 @@ import java.util.Date;
 public class WangdaiData {
     @Excel(exportName="公司名")
     private String name;
-    @Excel(exportName="行业类别")
     private Byte industry;
+    @Excel(exportName="行业类别")
+    private String industryName;
     @Excel(exportName="平台名称")
-    private Byte platName;
-    @Excel(exportName="风险等级")
+    private String platName;
     private String currentLevel = "";
+    @Excel(exportName="风险等级")
+    private String currentLevelName = "";
     @Excel(exportName="风险值")
     private String score = "";
     @Excel(exportName="法人")
@@ -46,16 +50,24 @@ public class WangdaiData {
         this.industry = industry;
     }
 
-    public Byte getPlatName() {
+    public String getPlatName() {
         return platName;
     }
 
-    public void setPlatName(Byte platName) {
+    public void setPlatName(String platName) {
         this.platName = platName;
     }
 
     public String getScore() {
-        return score;
+
+        String name = "" ;
+        if(null != currentLevel){
+            try{
+                name = WangDaiRiskLevel.getRiskScore(Integer.valueOf(currentLevel));
+            }catch (Exception e){}
+        }
+
+        return name;
     }
 
     public void setScore(String score) {
@@ -100,5 +112,28 @@ public class WangdaiData {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getIndustryName() {
+        return  CompanyDO.companyTypeCN(industry);
+    }
+
+    public void setIndustryName(String industryName) {
+        this.industryName = industryName;
+    }
+
+    public String getCurrentLevelName() {
+        String name = "" ;
+        if(null != currentLevel){
+            try{
+                name = WangDaiRiskLevel.getRiskDesc(Integer.valueOf(currentLevel));
+            }catch (Exception e){}
+        }
+
+        return name;
+    }
+
+    public void setCurrentLevelName(String currentLevelName) {
+        this.currentLevelName = currentLevelName;
     }
 }
