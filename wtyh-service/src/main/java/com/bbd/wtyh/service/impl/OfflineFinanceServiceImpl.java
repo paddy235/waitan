@@ -125,9 +125,9 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService,TaskServ
 
     @Override
     public TaskResultDO updateCompanyRiskLevel(Integer taskId) throws Exception {
+        logger.info("--- company risk level job begin ---");
         isShutdown=false;
         TaskResultDO taskResultDO = new TaskResultDO();
-        logger.info("start update company risk level");
         final Map<Integer, Integer> platRankMapData = pToPMonitorService.getPlatRankMapData();
         if (platRankMapData == null || platRankMapData.size() == 0) {
             throw new Exception("dataType=plat_rank_data Api Error");
@@ -182,12 +182,13 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService,TaskServ
             taskResultDO.setSuccessCount(totalCount - failCount);
         }
 
-        logger.info("end update company risk level");
+        logger.info("--- company risk level job end ---");
         return taskResultDO;
     }
 
     @Override
     public TaskResultDO executeFailTaskByTaskId(Integer runMode, Integer oldTaskId, Integer taskId) throws Exception {
+        logger.info("--- company risk level handle begin ---");
         isShutdown=false;
         TaskResultDO taskResultDO = new TaskResultDO();
 
@@ -216,7 +217,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService,TaskServ
             taskResultDO.setFailCount(failCount);
             taskResultDO.setSuccessCount(planCount - failCount);
         }
-
+        logger.info("--- company risk level handle end ---");
         return taskResultDO;
     }
 

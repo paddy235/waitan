@@ -3,6 +3,8 @@ package com.bbd.wtyh.service.impl;
 import com.bbd.wtyh.domain.TaskResultDO;
 import com.bbd.wtyh.service.CoCreditScoreService;
 import com.bbd.wtyh.service.TaskService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +13,9 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class CoCreditServiceCloseImpl implements TaskService {
+
+    private Logger logger = LoggerFactory.getLogger(CoCreditServiceCloseImpl.class);
+
     @Autowired
     CoCreditScoreService coCreditScoreService;
     @Override
@@ -25,7 +30,9 @@ public class CoCreditServiceCloseImpl implements TaskService {
 
     @Override
     public TaskResultDO autoExecute(Integer taskId, Integer runMode) {
+        logger.info("--- credit close job begin ---");
         coCreditScoreService.colseScoreCalculate();
+        logger.info("--- credit close job end ---");
         return null;
     }
 

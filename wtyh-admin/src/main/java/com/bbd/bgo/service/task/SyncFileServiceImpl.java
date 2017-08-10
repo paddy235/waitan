@@ -57,6 +57,7 @@ public class SyncFileServiceImpl extends BaseServiceImpl implements SyncFileServ
 
 	@Override
 	public TaskResultDO pullFile(Integer taskId) {
+		logger.info("--- offline data job begin ---");
 		TaskResultDO taskResult = null;
 		try {
 			String dataVersion = relationDataService.getNewestDataVersion();
@@ -75,11 +76,13 @@ public class SyncFileServiceImpl extends BaseServiceImpl implements SyncFileServ
 			taskResult.setState(TaskState.ERROR);
 			logger.error("处理线下理财风险数据异常。", e);
 		}
+		logger.info("--- offline data job end ---");
 		return taskResult;
 	}
 
 	@Override
 	public TaskResultDO rePullFile(Integer oldTaskId, Integer newTaskId) {
+		logger.info("--- offline data handle begin ---");
 		TaskResultDO taskResult = null;
 		try {
 			List<TaskFailInfoDO> taskFailList = taskFailInfoMapper.getTaskFailInfoByTaskId(oldTaskId);
@@ -101,7 +104,7 @@ public class SyncFileServiceImpl extends BaseServiceImpl implements SyncFileServ
 		} catch (Exception e) {
 			logger.error("处理线下理财风险数据异常。", e);
 		}
-
+		logger.info("--- offline data handle end ---");
 		return taskResult;
 	}
 

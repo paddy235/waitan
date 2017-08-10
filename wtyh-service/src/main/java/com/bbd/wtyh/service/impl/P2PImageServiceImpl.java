@@ -325,8 +325,8 @@ public class P2PImageServiceImpl implements P2PImageService,TaskService {
 
     @Override
     public TaskResultDO p2pImageDataLandTask(Integer taskId) {
+        logger.info("--- p2p image data job begin ---");
         isShutdown = false;
-        logger.info("start p2pImageDataLandTask ");
         TaskResultDO taskResultDO = new TaskResultDO();
         List<PlatListDO> platList = new ArrayList<>();
         try {
@@ -378,16 +378,17 @@ public class P2PImageServiceImpl implements P2PImageService,TaskService {
             taskResultDO.setFailCount(failCount);
             taskResultDO.setSuccessCount(planCount - failCount);
         }
+        logger.info("--- p2p image data job end ---");
         return taskResultDO;
     }
 
     @Override
     public TaskResultDO executeFailTaskByTaskId(Integer runMode, Integer oldTaskId, Integer taskId) {
+        logger.info("--- p2p image data handle begin ---");
         isShutdown = false;
         TaskResultDO taskResultDO = new TaskResultDO();
         List<TaskFailInfoDO> list = taskFailInfoMapper.getTaskFailInfoByTaskId(oldTaskId);
         List<String> platNameList = list.stream().filter(n -> n != null).map(n -> n.getFailName()).collect(Collectors.toList());
-        logger.info("start executeFailTaskByTaskId ");
         List<PlatListDO> platList = new ArrayList<>();
         try {
             platList = p2PImageDao.baseInfoWangDaiApi();
@@ -436,6 +437,7 @@ public class P2PImageServiceImpl implements P2PImageService,TaskService {
             taskResultDO.setFailCount(failCount);
             taskResultDO.setSuccessCount(planCount - failCount);
         }
+        logger.info("--- p2p image data handle end ---");
         return taskResultDO;
     }
 

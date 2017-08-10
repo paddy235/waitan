@@ -76,6 +76,7 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 
 	@Override
 	public TaskResultDO creditScoreCalculate(Integer taskId, Integer runMode) {
+		LOGGER.info("--- credit data job begin ---");
 		TaskResultDO taskResultDO = new TaskResultDO();
 		CreditConfig.read();
 		int isHandle = 0;// 0正常执行 1自动重试 //正常执行isHandle设置为0,会将失败企业记录到失败表
@@ -116,6 +117,7 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 			endProcess(taskResultDO, taskId);
 
 		}
+		LOGGER.info("--- credit data job end ---");
 		return taskResultDO;
 	}
 
@@ -178,6 +180,7 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 	 */
 	@Override
 	public TaskResultDO executeFailCompanyByTaskId(Integer runMode, Integer oldTaskId, Integer taskId) {
+		LOGGER.info("--- credit data handle begin ---");
 		TaskResultDO taskResultDO = new TaskResultDO();
 		CreditConfig.read();
 		List<CompanyDO> companyList = this.queryFailCompanyByTaskId(oldTaskId);
@@ -205,6 +208,7 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 			endProcess(taskResultDO, taskId);
 
 		}
+		LOGGER.info("--- credit data handle end ---");
 		return taskResultDO;
 
 	}
