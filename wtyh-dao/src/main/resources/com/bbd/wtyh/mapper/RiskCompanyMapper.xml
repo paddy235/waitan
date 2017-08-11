@@ -148,6 +148,8 @@
             LEFT JOIN
             ( SELECT company_id,GROUP_CONCAT(background)background FROM company_background GROUP BY company_id ) AS company_background
             ON company.company_id=company_background.company_id
+            LEFT JOIN index_data
+            ON company.name= index_data.company_name
         WHERE
           1=1
             <if test="exportCondition.industry!=null">
@@ -183,12 +185,15 @@
             company.registered_date AS registeredDate,
             company.registered_capital AS registeredCapital,
             company.registered_capital_type AS registeredCapitalType,
-            company.address AS address
+            company.address AS address,
+            index_data.static_risk_index AS staticRiskIndex
         FROM
           company
             LEFT JOIN
             ( SELECT company_id,GROUP_CONCAT(background)background FROM company_background GROUP BY company_id ) AS company_background
             ON company.company_id=company_background.company_id
+            LEFT JOIN index_data
+            ON company.name= index_data.company_name
         WHERE
           1=1
             <if test="exportCondition.industry!=null">
