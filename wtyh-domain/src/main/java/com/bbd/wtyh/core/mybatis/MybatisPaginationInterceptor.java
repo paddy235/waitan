@@ -37,13 +37,13 @@ public class MybatisPaginationInterceptor implements Interceptor {
 		// 获取当前要执行的Sql语句，也就是我们直接在Mapper映射语句中写的Sql语句
 		String sql = MyBatisUtil.ridSqlBlank(boundSql.getSql());
 
-		// 用于处理insert时，将反正的key值与@Id标注的字段对应
+		// 用于处理insert时，将返回的key值与@Id标注的字段对应
 		if (sql.toUpperCase().startsWith("INSERT")) {
 			keyProperties(delegate, pagParme);
 			return invocation.proceed();
 		}
 		// 只处理SELECT语句
-		if (sql.toUpperCase().startsWith("SELECT")) {
+		if (!sql.toUpperCase().startsWith("SELECT")) {
 			return invocation.proceed();
 		}
 		boolean isPaging = false;
@@ -175,7 +175,7 @@ public class MybatisPaginationInterceptor implements Interceptor {
 		if (MyBatisUtil.isJoinQuery(sql)) {
 			return this.mysqlLimitPageSql(page, sql);
 		} else {
-			return this.mysqlPageSql(page, sql, connection);
+			return this.mysqlSubqueryPageSql(page, sql, connection);
 		}
 	}
 
@@ -195,7 +195,16 @@ public class MybatisPaginationInterceptor implements Interceptor {
 		return sqlBuilder.toString();
 	}
 
-	private String mysqlPageSql(Pagination page, String sql, Connection connection) throws Exception {
+	/**
+	 * Mysql数据库的子查询分页语句
+	 * 
+	 * @param page
+	 * @param sql
+	 * @param connection
+	 * @return
+	 * @throws Exception
+	 */
+	private String mysqlSubqueryPageSql(Pagination page, String sql, Connection connection) throws Exception {
 
 		String tableSet = MyBatisUtil.getTableSetFromSql(sql).trim();
 		// 获取别名
@@ -225,10 +234,15 @@ public class MybatisPaginationInterceptor implements Interceptor {
 
 		int offset = (page.getPageIndex() - 1) * page.getPageSize();
 
+		/**
+		 * SELECT company_name FROM test1 t1 JOIN (SELECT id as id FROM test1
+		 * ORDER BY company_name limit 736817,20) as t2 ON t2.id = t1.id;
+		 */
 		StringBuilder sqlBuilder = new StringBuilder("SELECT ");
-		sqlBuilder.append(selectSet).append(" FROM ").append(tableName).append(" ").append(alias).append(" JOIN ").append(" (SELECT ")
-				.append(idName).append(" AS id ").append(from).append(" LIMIT ").append(offset).append(",").append(page.getPageSize())
-				.append(") t2 ON t2.id = t1.").append(idName);
+		sqlBuilder.append(selectSet).append(" FROM ").append(tableName).append(" ").append(alias);
+		sqlBuilder.append(" JOIN ").append(" (SELECT ").append(idName).append(" AS id ");
+		sqlBuilder.append(from).append(" LIMIT ").append(offset).append(",");
+		sqlBuilder.append(page.getPageSize()).append(") t2 ON t2.id = t1.").append(idName);
 
 		return sqlBuilder.toString();
 	}

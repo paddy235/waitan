@@ -1,0 +1,26 @@
+{
+    "success": true,
+    "content": [
+        {
+            "date": "10年以上",
+            "count": 10
+        },
+        {
+            "date": "5-10年",
+            "count": 2
+        },
+        {
+            "date": "3-5年",
+            "count": 3
+        },
+        {
+            "date": "1-3年",
+            "count": 
+        },
+        {
+            "date": "1年以下",
+            "count": 3
+        }
+    ],
+    "msg": ""
+}

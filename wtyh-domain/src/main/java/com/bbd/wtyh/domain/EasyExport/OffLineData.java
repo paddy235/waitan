@@ -6,6 +6,7 @@ import com.bbd.wtyh.domain.enums.CompanyAnalysisResult;
 import com.bbd.wtyh.excel.annotation.Excel;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import java.util.Arrays;
 import java.util.Date;
 
 /**
@@ -29,7 +30,8 @@ public class OffLineData {
     @Excel(exportName = "风险等级")
     private String currentLevelName = "";
     // 风险值
-    // TODO: 2017/7/19
+    @Excel(exportName = "风险分值")
+    private String staticRiskIndex;
     // 法人
     @Excel(exportName = "法人")
     private String legalPerson;
@@ -44,6 +46,15 @@ public class OffLineData {
     @Excel(exportName = "注册地址")
     private String address = "";
 
+
+
+    public String getStaticRiskIndex() {
+        return staticRiskIndex;
+    }
+
+    public void setStaticRiskIndex(String staticRiskIndex) {
+        this.staticRiskIndex = staticRiskIndex;
+    }
 
 
     public String getIndustryName() {
@@ -138,6 +149,7 @@ public class OffLineData {
             return "";
         }
         String[] bg = background.split(",");
+        Arrays.sort(bg);
         StringBuffer sb = new StringBuffer();
         for (int i = 0; i < bg.length; i++) {
             if (i != 0) {

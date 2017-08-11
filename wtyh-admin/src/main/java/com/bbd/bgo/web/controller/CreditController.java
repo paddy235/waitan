@@ -26,7 +26,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by suyin on 2016/8/27.
+ * 企业变化监测-风险变化企业
+ *
+ * @author Created by sun on 2017-04-19 16:03.
  */
 @Controller
 @RequestMapping("/credit")
@@ -41,29 +43,17 @@ public class CreditController {
 	@Autowired
 	private CompanyCreditInformationMapper companyCreditInformationMapper;
 
-	private static String TASK_NAME = "shangHaiCreditJob";
-	private static String TASK_GROUP = "credit_work";
 
 	@RequestMapping("/execCredit")
 	@ResponseBody
 	public ResponseBean creditScoreCalculate() {
 		Integer taskId;
-		Integer planCount = null;// 计划执行笔数。 可在任务结束时更新
-		Integer successCount = null;
-		Integer failCount = null;
-        TaskResultDO taskResultDO=null;
-
-		String dataVersion = null;// 有版本号的传版本号，没有的不传，根据自己的业务规则定
+        TaskResultDO taskResultDO;
 		Integer runMode = 0;// 运行方式：0 自动执行， 1 手动执行
-		taskId = TaskUtil.taskStart("shangHaiCreditJob", "credit_work", dataVersion, runMode, null, null);
+		taskId = TaskUtil.taskStart("shangHaiCreditJob", "credit_work", null, runMode, null, null);
 
         taskResultDO = coCreditScoreService.creditScoreCalculate(taskId, runMode);
 
-		if (null != taskResultDO) {
-			planCount = taskResultDO.getPlanCount();
-			successCount = taskResultDO.getSuccessCount();
-			failCount = taskResultDO.getFailCount();
-		}
 		TaskUtil.taskEnd(taskId, taskResultDO, null, 1);
 
 		return ResponseBean.successResponse(taskResultDO);
@@ -74,22 +64,14 @@ public class CreditController {
 	public ResponseBean execFailCompanyByTaskId(Integer taskId, HttpServletRequest request) {
 
 		String loginName = (String) request.getSession().getAttribute(Constants.SESSION.loginName);
-        TaskResultDO taskResultDO=null;
+        TaskResultDO taskResultDO;
 		Integer newTaskId;
-		Integer planCount = null;// 计划执行笔数。 可在任务结束时更新
-		Integer successCount = null;
-		Integer failCount = null;
-		String dataVersion = null;// 有版本号的传版本号，没有的不传，根据自己的业务规则定
 		Integer runMode = 1;// 运行方式：0 自动执行， 1 手动执行
 
-		newTaskId = TaskUtil.taskStart("shangHaiCreditJob", "credit_work", dataVersion, runMode, planCount, loginName);
+		newTaskId = TaskUtil.taskStart("shangHaiCreditJob", "credit_work", null, runMode, null, loginName);
 
         taskResultDO = coCreditScoreService.executeFailCompanyByTaskId(runMode, taskId, newTaskId);
-		if (null != taskResultDO) {
-            planCount = taskResultDO.getPlanCount();
-            successCount = taskResultDO.getSuccessCount();
-            failCount = taskResultDO.getFailCount();
-		}
+
 		TaskUtil.taskEnd(newTaskId, taskResultDO, loginName, 1);
 
 		return ResponseBean.successResponse(taskResultDO);
@@ -97,7 +79,7 @@ public class CreditController {
 
 	@RequestMapping("/getCompany")
 	@ResponseBody
-	public ResponseBean getCompany(String companyName, HttpServletRequest request) {
+	public ResponseBean getCompany(String companyName) {
 
 		try {
 			if (StringUtils.isEmpty(companyName)) {
