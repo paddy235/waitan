@@ -207,7 +207,7 @@ public class P2PImageDaoImpl implements P2PImageDao {
         if (baseDataDO != null) {
             return baseDataDO;
         } else {
-            String baseURL = bbdQyxxURL + "?company=" + companyName + "&ak=" + bbdQyxxAK;
+            String baseURL = bbdQyxxURL + "?company=" + companyName + "&appkey=" + bbdQyxxAK;
             HttpTemplate httpTemplate = new HttpTemplate();
             try {
                 return httpTemplate.get(baseURL, new HttpCallback<BaseDataDO>() {
@@ -237,9 +237,9 @@ public class P2PImageDaoImpl implements P2PImageDao {
      */
     @Override
     public ZuZhiJiGoudmDO baseInfoZuZhiJiGou(String companyName) {
-        //        String url = zuZhiJiGouURL+"?company="+companyName+"&ak="+zuZhiJiGouURL;
-        String URL = "http://dataom.api.bbdservice.com/api/bbd_zuzhijigoudm/?company=" + companyName
-                + "&ak=605f60df40668579e939515fef710d2b";
+        String URL = zuZhiJiGouURL+"?company=" + companyName + "&appkey=" + zuZhiJiGouAK;
+//        String URL = "http://dataom.api.bbdservice.com/api/bbd_zuzhijigoudm/?company=" + companyName
+//                + "&ak=605f60df40668579e939515fef710d2b";
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
             return httpTemplate.get(URL, new HttpCallback<ZuZhiJiGoudmDO>() {

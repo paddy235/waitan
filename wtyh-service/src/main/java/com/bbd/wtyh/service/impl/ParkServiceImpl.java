@@ -143,7 +143,7 @@ public class ParkServiceImpl extends BaseServiceImpl implements ParkService {
 				list.add(new BasicNameValuePair("ktype", "" + ktype));
 				list.add(new BasicNameValuePair("page", "1"));
 				list.add(new BasicNameValuePair("pageSize", "20"));
-				list.add(new BasicNameValuePair("ak", ak));
+				list.add(new BasicNameValuePair("appkey", ak));
 				try {
 					result = new HttpTemplate().post(batchNewsUrl, list);
 					log.info("舆情：" + batchNewsUrl + " 返回值为:" + result);
