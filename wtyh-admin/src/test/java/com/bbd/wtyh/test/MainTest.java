@@ -3,6 +3,7 @@ package com.bbd.wtyh.test;
 
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.commons.lang3.time.DateUtils;
+import org.quartz.impl.triggers.CronTriggerImpl;
 import org.springframework.scheduling.support.CronSequenceGenerator;
 
 import java.time.LocalDate;
@@ -11,6 +12,8 @@ import java.time.temporal.TemporalAdjusters;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Created by Administrator on 2017/6/30 0030.
@@ -23,7 +26,36 @@ public class MainTest {
         Integer failCount=null;
         Map map = new HashMap();
         try{
-            boolean falg=false;
+
+            String corn="0 30 18 ? * 7";
+            String corn2="0 30 18 ? * 6";
+            CronTriggerImpl trigger = new CronTriggerImpl();
+            trigger.setCronExpression(corn);
+            System.out.println(DateFormatUtils.format(trigger.getFireTimeAfter(new Date()),"yyyy-MM-dd   HH:mm:ss"));
+
+            CronSequenceGenerator cronSequenceGenerator = new CronSequenceGenerator(corn);
+            System.out.println(DateFormatUtils.format(cronSequenceGenerator.next(new Date()),"yyyy-MM-dd   HH:mm:ss"));
+            /*ExecutorService fixedThreadPool = Executors.newFixedThreadPool(3);
+            int k=0;
+            for (int i = 0; i < 10; i++) {
+                k++;
+                final int t = k;
+                System.out.println("t==:"+ t+" k==:"+ k);
+                final int index = i;
+                System.out.println(index);
+                fixedThreadPool.execute(new Runnable() {
+                    public void run() {
+                        try {
+
+                            Thread.sleep(10000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            }
+            fixedThreadPool.shutdown();*/
+            /*boolean falg=false;
             while(!falg){
 
                 System.out.println("13");
@@ -56,12 +88,8 @@ public class MainTest {
             }else{
                 System.out.println("从前一天任务接着执行");
             }
+*/
 
-            /*map.put("planCount",10);
-            reSetResultCount( planCount, successCount, failCount, map);
-            System.out.println(planCount);
-            System.out.println(successCount);
-            System.out.println(failCount);*/
 
         }catch (Exception e){
             e.printStackTrace();

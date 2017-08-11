@@ -10,11 +10,11 @@ import com.bbd.wtyh.mapper.TimingTaskMapper;
 import com.bbd.wtyh.service.TimingTaskService;
 import net.sf.cglib.beans.BeanCopier;
 import org.apache.commons.lang3.StringUtils;
+import org.quartz.impl.triggers.CronTriggerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.support.CronSequenceGenerator;
-import org.springframework.scheduling.support.TaskUtils;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -57,13 +57,18 @@ public class TimingTaskServiceImpl  extends BaseServiceImpl implements TimingTas
         }
         List<TaskInfoDTO> list =new ArrayList<>();
         List<TaskInfoDO> taskList = this.selectAll(TaskInfoDO.class,query.toString());
-        CronSequenceGenerator cronSequenceGenerator ;
+        CronTriggerImpl trigger = new CronTriggerImpl();
         BeanCopier beanCopier = BeanCopier.create(TaskInfoDO.class, TaskInfoDTO.class, false);
 
         for(TaskInfoDO taskInfoDO:taskList){
+            try {
+                //lastMinute spring的5是周五，Quartz的6是周五
+                trigger.setCronExpression(taskInfoDO.getCron());
+                taskInfoDO.setNextStartDate(trigger.getFireTimeAfter(new Date()));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
 
-            cronSequenceGenerator = new CronSequenceGenerator(taskInfoDO.getCron());
-            taskInfoDO.setNextStartDate(cronSequenceGenerator.next(new Date()));//lastMinute 我这里是上一分钟的date类型对象
             TaskInfoDTO taskInfoDTO= new TaskInfoDTO();
             beanCopier.copy(taskInfoDO,taskInfoDTO,null);
             taskInfoDTO.setReExecute(0);
