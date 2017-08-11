@@ -59,7 +59,9 @@ public class ParkMgtController {
     @ResponseBody
     public ResponseBean areaList() {
         List<Map<String, Object>> list = ShanghaiAreaCode.getAndUpdateList(false);
-        list.remove(0);
+        if(list.size()>0){
+            list.remove(0);
+        }
         return ResponseBean.successResponse(list);
     }
 
