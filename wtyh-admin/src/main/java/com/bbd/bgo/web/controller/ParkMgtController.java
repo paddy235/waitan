@@ -7,6 +7,7 @@ import com.bbd.wtyh.domain.vo.ParkAndBuildingVO;
 import com.bbd.wtyh.log.user.Operation;
 import com.bbd.wtyh.log.user.UserLogRecord;
 import com.bbd.wtyh.log.user.annotation.LogRecord;
+import com.bbd.wtyh.mapper.AreaMapper;
 import com.bbd.wtyh.service.CompanyService;
 import com.bbd.wtyh.service.ImgService;
 import com.bbd.wtyh.service.shiro.ParkMgtService;
@@ -45,6 +46,8 @@ public class ParkMgtController {
     private ParkMgtService parkMgtService;
     @Autowired
     private CompanyService companyService;
+    @Autowired
+    private AreaMapper areaMapper;
 
     private String PARK_DIR1 = WtyhHelper.adminImgPath;//开发环境
     private static final String PARK_DIR = "data/img/park/";
@@ -58,10 +61,12 @@ public class ParkMgtController {
     @RequestMapping("/areaList")
     @ResponseBody
     public ResponseBean areaList() {
-        List<Map<String, Object>> list = ShanghaiAreaCode.getAndUpdateList(false);
-        if(list.size()>0){
-            list.remove(0);
-        }
+        //因公用方法不稳定，暂时注释到公用方法
+//        List<Map<String, Object>> list = ShanghaiAreaCode.getAndUpdateList(false);
+//        if(list.size()>0){
+//            list.remove(0);
+//        }
+        List list = areaMapper.areaListByCity(104);
         return ResponseBean.successResponse(list);
     }
 
