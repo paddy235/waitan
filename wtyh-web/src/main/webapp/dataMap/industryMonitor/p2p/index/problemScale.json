@@ -1,0 +1,39 @@
+{
+    "success": true,
+    "content": [
+        {
+            "createBy": null,
+            "createDate": null,
+            "updateBy": null,
+            "updateDate": null,
+            "buildingId": 1,
+            "name": "国家开发银行大厦",
+            "parkId": 1,
+            "finComNum": 25,
+            "finComRatio": null
+        },
+        {
+            "createBy": null,
+            "createDate": null,
+            "updateBy": null,
+            "updateDate": null,
+            "buildingId": 2,
+            "name": "金融大厦",
+            "parkId": 1,
+            "finComNum": 622,
+            "finComRatio": null
+        },
+        {
+            "createBy": null,
+            "createDate": null,
+            "updateBy": null,
+            "updateDate": null,
+            "buildingId": 2,
+            "name": "金融大厦",
+            "parkId": 1,
+            "finComNum": 222,
+            "finComRatio": null
+        }
+    ],
+    "msg": ""
+}

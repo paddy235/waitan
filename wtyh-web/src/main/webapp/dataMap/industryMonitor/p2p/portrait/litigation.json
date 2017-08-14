@@ -1,0 +1,45 @@
+{
+    "success": true,
+    "content": [
+        {
+            "createBy": null,
+            "createDate": null,
+            "updateBy": null,
+            "updateDate": null,
+            "newsId": 1,
+            "companyId": 1,
+            "title": "公司破产",
+            "content": "好公司",
+            "fromSite": "百度",
+            "date": 1470412800000,
+            "url": "http://www.baidu.com"
+        },
+        {
+            "createBy": null,
+            "createDate": null,
+            "updateBy": null,
+            "updateDate": null,
+            "newsId": 2,
+            "companyId": 1,
+            "title": "范德萨",
+            "content": "发生大火撒花地方好地方多杀多",
+            "fromSite": "google",
+            "date": 1470240000000,
+            "url": "www.sougou.com"
+        },
+        {
+            "createBy": null,
+            "createDate": null,
+            "updateBy": null,
+            "updateDate": null,
+            "newsId": 2,
+            "companyId": 1,
+            "title": "xxoo",
+            "content": "来呀！怕你个卵！！",
+            "fromSite": "google",
+            "date": 1470240000000,
+            "url": "www.sougou.com"
+        }
+    ],
+    "msg": ""
+}

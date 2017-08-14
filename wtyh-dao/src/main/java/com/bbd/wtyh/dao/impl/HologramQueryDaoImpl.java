@@ -181,7 +181,7 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
      */
     @Override
     public SearchComanyDO search(String company, int page_no, int page_size) {
-        String api = searchCompanyURL + "?query=" + company + "&type=company&ak=" + searchCompanyAK + "&page_no=" + page_no + "&page_size=" + page_size;
+        String api = searchCompanyURL + "?query=" + company + "&type=company&appkey=" + searchCompanyAK + "&page_no=" + page_no + "&page_size=" + page_size;
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
             return httpTemplate.get(api, new HttpCallback<SearchComanyDO>() {
@@ -204,7 +204,7 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
 
     @Override
     public CompanySearch2DO companySearch2(String query, Map<String, String>parameters) {
-        StringBuffer sbApi =new StringBuffer( searchCompanyURL + "?ak=" + searchCompanyAK + "&query=" + query );
+        StringBuffer sbApi =new StringBuffer( searchCompanyURL + "?appkey=" + searchCompanyAK + "&query=" + query );
         if( null != parameters && parameters.size() >0 ) {
             for (Map.Entry ety :parameters.entrySet() ) {
                 sbApi.append("&").append(ety.getKey()).append("=").append(ety.getValue());
@@ -236,7 +236,7 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
      */
     @Override
     public BaseDataDO outlineMsg(String companyName) {
-        String coreDataDealURL = bbdQyxxURL + "?company=" + companyName + "&ak=" + bbdQyxxAK;
+        String coreDataDealURL = bbdQyxxURL + "?company=" + companyName + "&appkey=" + bbdQyxxAK;
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
             return httpTemplate.get(coreDataDealURL, new HttpCallback<BaseDataDO>() {
@@ -261,7 +261,7 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
      * 企业logo信息
      */
     public BBDLogoDO bbdLogo(String company) {
-        String coreDataDealURL = bbdLogoURL + "?company=" + company + "&ak=" + bbdLogoAK;
+        String coreDataDealURL = bbdLogoURL + "?company=" + company + "&appkey=" + bbdLogoAK;
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
             return httpTemplate.get(coreDataDealURL, new HttpCallback<BBDLogoDO>() {
@@ -327,7 +327,7 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
      */
     @Override
     public BaseDataDO businessInfo(String companyName) {
-        String coreDataDealURL = bbdQyxxURL + "?company=" + companyName + "&ak=" + bbdQyxxAK;
+        String coreDataDealURL = bbdQyxxURL + "?company=" + companyName + "&appkey=" + bbdQyxxAK;
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
             return httpTemplate.get(coreDataDealURL, new HttpCallback<BaseDataDO>() {
@@ -381,7 +381,7 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
      */
     @Override
     public BaseDataDO shareholdersSenior(String companyName) {
-        String coreDataDealURL = bbdQyxxURL + "?company=" + companyName + "&ak=" + bbdQyxxAK;
+        String coreDataDealURL = bbdQyxxURL + "?company=" + companyName + "&appkey=" + bbdQyxxAK;
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
             return httpTemplate.get(coreDataDealURL, new HttpCallback<BaseDataDO>() {
@@ -409,7 +409,7 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
      */
     @Override
     public BaseDataDO companyQyxxDataApi(String companyName) {
-        String coreDataDealURL = dataApiBbdQyxxURL + "?company=" + companyName + "&ak=" + bbdQyxxAK;
+        String coreDataDealURL = dataApiBbdQyxxURL + "?company=" + companyName + "&appkey=" + bbdQyxxAK;
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
             return httpTemplate.get(coreDataDealURL, new HttpCallback<BaseDataDO>() {
@@ -437,7 +437,7 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
      */
     @Override
     public OpenCourtAnnouncementDO openCourtAnnouncement(String company) {
-        String api = openCourtAnnouncementURL + "?company=" + company + "&ak=" + openCourtAnnouncementAK;
+        String api = openCourtAnnouncementURL + "?company=" + company + "&appkey=" + openCourtAnnouncementAK;
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
             return httpTemplate.get(api, new HttpCallback<OpenCourtAnnouncementDO>() {
@@ -470,7 +470,7 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
 
     @Override
     public JudgeDocDO judgeDoc(String company) {
-        String api = judgeDocURL + "?company=" + company + "&ak=" + judgeDocAK;
+        String api = judgeDocURL + "?company=" + company + "&appkey=" + judgeDocAK;
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
             return httpTemplate.get(api, new HttpCallback<JudgeDocDO>() {
@@ -492,7 +492,7 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
 
     @Override
     public DebtorDO debtor(String company) {
-        String api = debtorURL + "?company=" + company + "&ak=" + debtorAK;
+        String api = debtorURL + "?company=" + company + "&appkey=" + debtorAK;
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
             return httpTemplate.get(api, new HttpCallback<DebtorDO>() {
@@ -514,7 +514,7 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
 
     @Override
     public NoCreditDebtorDO noCreditDebtor(String company) {
-        String api = noCreditDebtorURL + "?company=" + company + "&ak=" + noCreditDebtorAK;
+        String api = noCreditDebtorURL + "?company=" + company + "&appkey=" + noCreditDebtorAK;
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
             return httpTemplate.get(api, new HttpCallback<NoCreditDebtorDO>() {
@@ -536,7 +536,7 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
 
     @Override
     public CourtAnnouncementDO courtAnnouncement(String company) {
-        String api = courtAnnouncementURL + "?company=" + company + "&ak=" + courtAnnouncementAK;
+        String api = courtAnnouncementURL + "?company=" + company + "&appkey=" + courtAnnouncementAK;
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
             return httpTemplate.get(api, new HttpCallback<CourtAnnouncementDO>() {
@@ -558,7 +558,7 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
 
     @Override
     public RecruitDataDO getRecruitData(String company, String timeTag) {
-        String api = recruitURL + timeTag + "&value=" + company + "&ak=" + recruitAK;
+        String api = recruitURL + timeTag + "&value=" + company + "&appkey=" + recruitAK;
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
             return httpTemplate.get(api, new HttpCallback<RecruitDataDO>() {

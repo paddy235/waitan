@@ -24,7 +24,7 @@ public class ShanghaiAreaCode {
 		userInfoMapper = ApplicationContextUtil.getContext().getBean(UserInfoMapper.class);
 
 		// 首次从数据库中取出区域代码表
-		updateList(null);
+		updateList( );
 		updateCnt++;
 	}
 
@@ -33,48 +33,33 @@ public class ShanghaiAreaCode {
 
 	private static Map<Integer, Integer> codeToAreaMap; // 区代到本系统的areaId
 
-	/**
-	 *
-	 * @param areaCodeListIn
-	 *            为null时自己读取数据库更新，否则通过外部表更新
-	 */
-	public static void updateList(List<Map<String, Object>> areaCodeListIn) {
-		if (null == areaCodeListIn) {
-			try {
-				list = userInfoMapper.selectShanghaiAreaCodeTable();
-				if (null != list) {
-					for (Map<String, Object> iter : list) {
-						if (null != iter.get("areaId") && 104 == (Integer) iter.get("areaId")) {
-							iter.put("cityName", "上海全区");
-							break;
-						}
+	private static synchronized void updateList( ) {
+		try {
+			list = userInfoMapper.selectShanghaiAreaCodeTable();
+			if (null != list) {
+				for (Map<String, Object> iter : list) {
+					if (null != iter.get("areaId") && 104 == (Integer) iter.get("areaId")) {
+						iter.put("cityName", "上海全区");
+						break;
 					}
 				}
-			} catch (Exception e) {
-				list = new ArrayList<Map<String, Object>>() {
-
-					{
-						add(new HashMap<String, Object>() {
-
-							{
-								put("areaId", (Integer) (104));
-								put("cityName", "上海全区");
-							}
-						});
-					}
-				};
 			}
-			list.add(0, new HashMap<String, Object>() {
-
-				{
-					put("areaId", (Integer) (0));
-					put("cityName", "全部");
-					// put("nationDistrictCode", (Integer)0); //
-				}
-			});
-		} else {
-			list = areaCodeListIn;
+		} catch (Exception e) {
+			list = new ArrayList<Map<String, Object>>() {{
+				add(new HashMap<String, Object>() {{
+					put("areaId", (Integer) (104));
+					put("cityName", "上海全区");
+				}});
+			}};
 		}
+		list.add(0, new HashMap<String, Object>() {
+			{
+				put("areaId", (Integer) (0));
+				put("cityName", "全部");
+				// put("nationDistrictCode", (Integer)0); //
+			}
+		});
+
 		map = new HashMap<>();
 		codeToAreaMap = new HashMap<>();
 		for (Map<String, Object> itr : list) { // 构造一个区域代码名称字典
@@ -98,14 +83,17 @@ public class ShanghaiAreaCode {
 	 * @return
 	 */
 	static public List<Map<String, Object>> getAndUpdateList(boolean isImm) {
-		if (isImm || 0 == updateCnt) {
-			updateList(null);
+		if (isImm || 0 == updateCnt || null ==list || list.isEmpty()) {
+			updateList( );
 		}
 		updateCnt++;
 		return list;
 	}
 
 	public static List<Map<String, Object>> quickGetList() {
+		if ( null ==list || list.isEmpty()) {
+			updateList( );
+		}
 		return list;
 	}
 
