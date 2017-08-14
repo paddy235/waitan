@@ -19,7 +19,7 @@ public class WtyhHelper {
 	public static String adminImgPath = "";
 	public static String webImgPath = "";
 	public static String BeijingServerIp = "";
-	public static String datashatePort = "";
+	public static String datashateIp = "";
 	public static String fileRootPath = "";
 
 	static {
@@ -41,7 +41,7 @@ public class WtyhHelper {
 		adminImgPath = bundle.getString("wtyh.admin.update.img.path");
 		webImgPath = bundle.getString("wtyh.web.update.img.path");
 		BeijingServerIp = bundle.getString("wtyh.beijing.server.ip");
-		datashatePort = bundle.getString("wtyh.datashare.port");
+		datashateIp = bundle.getString("wtyh.datashare.ip");
 		fileRootPath = bundle.getString("wtyh.file.root.path");
 
 	}
