@@ -28,10 +28,7 @@ import java.io.*;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
-import java.util.Arrays;
-import java.util.Enumeration;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Barney on 2017/7/6.
@@ -66,7 +63,24 @@ public class ParkMgtController {
 //        if(list.size()>0){
 //            list.remove(0);
 //        }
-        List list = areaMapper.areaListByCity(104);
+
+        List<AreaDO> list = new ArrayList();
+        try {
+            list = areaMapper.areaListByCity(104);
+            if (null != list) {
+                for (AreaDO areaDO : list) {
+                    if (null != areaDO.getAreaId() && 104 == areaDO.getAreaId()) {
+                        areaDO.setCityName("上海全区");
+                        break;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            AreaDO areaDO = new AreaDO();
+            areaDO.setCityName("上海全区");
+            areaDO.setAreaId(104);
+            list.add(areaDO);
+        }
         return ResponseBean.successResponse(list);
     }
 
