@@ -7,6 +7,7 @@ import com.bbd.wtyh.domain.vo.ParkAndBuildingVO;
 import com.bbd.wtyh.log.user.Operation;
 import com.bbd.wtyh.log.user.UserLogRecord;
 import com.bbd.wtyh.log.user.annotation.LogRecord;
+import com.bbd.wtyh.mapper.AreaMapper;
 import com.bbd.wtyh.service.CompanyService;
 import com.bbd.wtyh.service.ImgService;
 import com.bbd.wtyh.service.shiro.ParkMgtService;
@@ -27,10 +28,7 @@ import java.io.*;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
-import java.util.Arrays;
-import java.util.Enumeration;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Barney on 2017/7/6.
@@ -45,6 +43,8 @@ public class ParkMgtController {
     private ParkMgtService parkMgtService;
     @Autowired
     private CompanyService companyService;
+    @Autowired
+    private AreaMapper areaMapper;
 
     private String PARK_DIR1 = WtyhHelper.adminImgPath;//开发环境
     private static final String PARK_DIR = "data/img/park/";
@@ -58,9 +58,28 @@ public class ParkMgtController {
     @RequestMapping("/areaList")
     @ResponseBody
     public ResponseBean areaList() {
-        List<Map<String, Object>> list = ShanghaiAreaCode.getAndUpdateList(false);
-        if(list.size()>0){
-            list.remove(0);
+        //因公用方法不稳定，暂时注释到公用方法
+//        List<Map<String, Object>> list = ShanghaiAreaCode.getAndUpdateList(false);
+//        if(list.size()>0){
+//            list.remove(0);
+//        }
+
+        List<AreaDO> list = new ArrayList();
+        try {
+            list = areaMapper.areaListByCity(104);
+            if (null != list) {
+                for (AreaDO areaDO : list) {
+                    if (null != areaDO.getAreaId() && 104 == areaDO.getAreaId()) {
+                        areaDO.setCityName("上海全区");
+                        break;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            AreaDO areaDO = new AreaDO();
+            areaDO.setCityName("上海全区");
+            areaDO.setAreaId(104);
+            list.add(areaDO);
         }
         return ResponseBean.successResponse(list);
     }

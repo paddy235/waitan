@@ -58,6 +58,13 @@ public class P2PImageDaoImpl implements P2PImageDao {
     @Autowired
     private RedisDAO redisDAO;
 
+    @Value("${api.court.openCourtAnnouncement.url}")
+    private String ktggURL;
+
+    @Value("${api.court.openCourtAnnouncement.ak}")
+    private String ktggAppKey;
+
+
     @Override
     public YuQingDTO platformConsensus(String platName) {
         String yuqingURL = url + "?dataType=yuqing" + "&plat_name=" + platName;
@@ -83,9 +90,7 @@ public class P2PImageDaoImpl implements P2PImageDao {
 
     @Override
     public Map<String, Object> lawsuitMsg(String company) {
-        String URL = String.format(
-                "http://dataom.api.bbdservice.com/api/bbd_ktgg/?company=%s&ak=ee372b938ef17a245f6b781beec4499e",
-                company);
+        String URL = ktggURL + "?appkey=" + ktggAppKey + "&company=" + company;
         HttpTemplate httpTemplate = new HttpTemplate();
         final Map<String, Object> data = new HashMap<>();
         try {

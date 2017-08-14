@@ -188,7 +188,11 @@ public class CompanyInfoMudifyUtil {
             riskCompanyService.modifyOffLineLevel(recordInfo);
             exchangeCompanyService.addExchange(recordInfo);
         } else if (CompanyInfo.TYPE_RZZL_13 == recordInfo.getAfterIndustry()) { // 融资租赁
-            financeLeaseService.addFinanceLease(recordInfo);
+            if (!financeLeaseService.isExistFinanceLease(recordInfo)) {
+                financeLeaseService.addFinanceLease(recordInfo);
+            } else {
+                financeLeaseService.modifyFinanceLease(recordInfo);
+            }
         } else if (CompanyInfo.TYPE_YFK_11 == recordInfo.getAfterIndustry()) {   // 预付卡
             prepaidCompanyStaticService.addPerpaycard(recordInfo);
         }
@@ -217,7 +221,11 @@ public class CompanyInfoMudifyUtil {
             riskCompanyService.modifyOffLineLevel(recordInfo);
             exchangeCompanyService.addExchange(recordInfo);
         } else if (CompanyInfo.TYPE_RZZL_13 == recordInfo.getAfterIndustry()) { // 融资租赁
-            financeLeaseService.addFinanceLease(recordInfo);
+            if (!financeLeaseService.isExistFinanceLease(recordInfo)) {
+                financeLeaseService.addFinanceLease(recordInfo);
+            } else {
+                financeLeaseService.modifyFinanceLease(recordInfo);
+            }
         } else if (CompanyInfo.TYPE_YFK_11 == recordInfo.getAfterIndustry()) { // 预付卡
             prepaidCompanyStaticService.addPerpaycard(recordInfo);
         }
@@ -246,7 +254,11 @@ public class CompanyInfoMudifyUtil {
         } else if (CompanyInfo.TYPE_JYS_9 == recordInfo.getAfterIndustry()) {  // 交易场所
             riskCompanyService.modifyOffLineLevel(recordInfo);
         } else if (CompanyInfo.TYPE_RZZL_13 == recordInfo.getAfterIndustry()) { // 融资租赁
-            financeLeaseService.addFinanceLease(recordInfo);
+            if (!financeLeaseService.isExistFinanceLease(recordInfo)) {
+                financeLeaseService.addFinanceLease(recordInfo);
+            } else {
+                financeLeaseService.modifyFinanceLease(recordInfo);
+            }
         } else if (CompanyInfo.TYPE_YFK_11 == recordInfo.getAfterIndustry()) { // 预付卡
             prepaidCompanyStaticService.addPerpaycard(recordInfo);
         }
@@ -314,7 +326,12 @@ public class CompanyInfoMudifyUtil {
             riskCompanyService.modifyOffLineLevel(recordInfo);
             exchangeCompanyService.addExchange(recordInfo);
         } else if (CompanyInfo.TYPE_RZZL_13 == recordInfo.getAfterIndustry()) { // 融资租赁
-            financeLeaseService.modifyFinanceLease(recordInfo);
+            if (!financeLeaseService.isExistFinanceLease(recordInfo)) {
+                financeLeaseService.addFinanceLease(recordInfo);
+            } else {
+                financeLeaseService.modifyFinanceLease(recordInfo);
+            }
+//            financeLeaseService.modifyFinanceLease(recordInfo);
         } else if (CompanyInfo.TYPE_YFK_11 == recordInfo.getAfterIndustry()) {// 预付卡
             prepaidCompanyStaticService.modifyPerpaycard(recordInfo);
         }
@@ -339,7 +356,11 @@ public class CompanyInfoMudifyUtil {
             riskCompanyService.modifyOffLineLevel(recordInfo);
             exchangeCompanyService.addExchange(recordInfo);
         } else if (CompanyInfo.TYPE_RZZL_13 == recordInfo.getAfterIndustry()) { // 融资租赁
-            financeLeaseService.addFinanceLease(recordInfo);
+            if (!financeLeaseService.isExistFinanceLease(recordInfo)) {
+                financeLeaseService.addFinanceLease(recordInfo);
+            } else {
+                financeLeaseService.modifyFinanceLease(recordInfo);
+            }
         } else if (CompanyInfo.TYPE_YFK_11 == recordInfo.getAfterIndustry()) {// 预付卡
             prepaidCompanyStaticService.addPerpaycard(recordInfo);
         }
