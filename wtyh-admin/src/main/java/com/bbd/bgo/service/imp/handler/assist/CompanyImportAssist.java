@@ -307,15 +307,18 @@ public class CompanyImportAssist {
                 }
                 newCom.setAreaId( areaSv.selectByCountyCodeOrProvinceName( qbDo.getCompany_county(),
                         qbDo.getCompany_province() ).getAreaId() );
+
                 if( StringUtils.isNotBlank( qbDo.getAddress() ) ) {
-                    qbDo.setAddress(qbDo.getAddress());
+                    newCom.setAddress( qbDo.getAddress() );
                 }
                 if ( null !=qbDo.getRegcap_amount() ) {
                     BigDecimal regA = BigDecimal.valueOf(qbDo.getRegcap_amount());
                     regA =regA.divide( BigDecimal.valueOf(10000D), 0, BigDecimal.ROUND_HALF_UP );
                     newCom.setRegisteredCapital( regA.intValue() );
                 }
-                newCom.setRegisteredCapitalType( qbDo.getRegcap_currency().equals("美元") ? 2:1 );
+                if (  StringUtils.isNotBlank( qbDo.getRegcap_currency() ) ) {
+                    newCom.setRegisteredCapitalType(qbDo.getRegcap_currency().equals("美元") ? 2 : 1);
+                }
                 if (  null !=qbDo.getEsdate() ) {
                     newCom.setRegisteredDate(qbDo.getEsdate());
                 }
@@ -328,6 +331,8 @@ public class CompanyImportAssist {
                 if ( StringUtils.isNotBlank( qbDo.getEnterprise_status() ) ) {
                     newCom.setStatus( qbDo.getEnterprise_status().equals("注销") ? (byte)2 : (byte)1 );
                 }
+                newCom.setCreateBy("system");
+                newCom.setCreateDate(new Date());
                 cSv.insert(newCom);
             }
         }
