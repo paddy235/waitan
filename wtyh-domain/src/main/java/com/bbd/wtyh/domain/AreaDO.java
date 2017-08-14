@@ -34,6 +34,8 @@ public class AreaDO extends BaseDO {
 	@Column
 	private String name;
 
+	private String cityName;//用作后台园区管理行政区列表显示用
+
 	@Column(name = "parent_id")
 	private Integer parentId;
 
@@ -42,6 +44,14 @@ public class AreaDO extends BaseDO {
 
 	@Column(name = "province_id")
 	private Integer provinceId;
+
+	public String getCityName() {
+		return cityName;
+	}
+
+	public void setCityName(String cityName) {
+		this.cityName = cityName;
+	}
 
 	public Integer getAreaId() {
 		return areaId;

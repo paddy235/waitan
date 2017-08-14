@@ -29,7 +29,7 @@ public class PullFileUtil {
 
 	static {
 		PATH = WtyhHelper.pathWrap(WtyhHelper.fileRootPath + "/datashare");
-		DATA_SHARE_URL = WtyhHelper.BeijingServerIp + ":" + WtyhHelper.datashatePort + "/client/files?file=";
+		DATA_SHARE_URL = WtyhHelper.datashateIp + "/client/files?file=";
 		BROKER_IP = WtyhHelper.brokerIp;
 		FILE_NAME_LIST_URI = "/syncFile/pull-file-list.do?dataType=";
 	}
