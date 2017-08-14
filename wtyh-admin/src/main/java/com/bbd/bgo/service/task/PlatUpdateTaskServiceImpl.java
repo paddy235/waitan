@@ -4,6 +4,7 @@ package com.bbd.bgo.service.task;
 import com.bbd.higgs.utils.http.HttpTemplate;
 import com.bbd.wtyh.core.base.BaseServiceImpl;
 import com.bbd.wtyh.domain.CompanyDO;
+import com.bbd.wtyh.domain.CompanyInfoModify.CompanyInfo;
 import com.bbd.wtyh.domain.PlatformNameInformationDO;
 import com.bbd.wtyh.domain.TaskFailInfoDO;
 import com.bbd.wtyh.domain.TaskResultDO;
@@ -14,6 +15,8 @@ import com.bbd.wtyh.mapper.CompanyMapper;
 import com.bbd.wtyh.mapper.PlatformNameInformationMapper;
 import com.bbd.wtyh.mapper.TaskFailInfoMapper;
 import com.bbd.wtyh.service.TaskService;
+import com.bbd.wtyh.service.impl.companyInfoModify.CompanyInfoMudifyUtil;
+import com.bbd.wtyh.web.companyInfoModify.ModifyData;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.slf4j.Logger;
@@ -37,6 +40,8 @@ public class PlatUpdateTaskServiceImpl extends BaseServiceImpl implements PlatUp
 	private TaskFailInfoMapper taskFailInfoMapper;
 	@Autowired
 	private CompanyMapper companyMapper;
+	@Autowired
+	private CompanyInfoMudifyUtil companyInfoMudifyUtil;
 
 	private Integer taskId = null;
 
@@ -171,9 +176,34 @@ public class PlatUpdateTaskServiceImpl extends BaseServiceImpl implements PlatUp
 				it.remove();
 			}else{
 				plat.setCompanyId(map.get(plat.getName()).getCompanyId());
+
+				//拉下网贷数据的时候，将Company表中的company_type修改为1(若本身为1则不做任何处理?仍要做记录)
+				Byte industryBefore = map.get(plat.getName()).getCompanyType();//数据库中的行业，亦是修改前行业
+				ModifyData modifyData = new ModifyData();
+				modifyData.setName(map.get(plat.getName()).getName());
+				modifyData.setLevel(map.get(plat.getName()).getRiskLevel()+"");
+				modifyData.setIndustry(CompanyInfo.TYPE_P2P_1+"");//修改后固定为网贷
+				modify(modifyData,industryBefore);
+
+
 			}
 		}
 	}
+
+	public void modify(ModifyData modifyData,Byte industryBefore){
+		try {
+			if (CompanyInfo.TYPE_P2P_1 == industryBefore) { // 网络借贷转网络借贷
+				companyInfoMudifyUtil.modifyWangdai(modifyData);
+			} else { // 其它转网络借贷
+				companyInfoMudifyUtil.modifyTimingTask(modifyData);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			logger.info(e.getMessage());
+		}
+
+	}
+
 
 
 	public Integer updatePlatData(List<PlatformNameInformationDO> platInfoList){

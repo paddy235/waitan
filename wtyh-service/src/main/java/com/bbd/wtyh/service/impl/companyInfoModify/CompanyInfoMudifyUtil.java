@@ -168,6 +168,20 @@ public class CompanyInfoMudifyUtil {
     }
 
     /**
+     * 留给定时任务-企业与网贷平台对照表更新-更新企业类型专用
+     *
+     * @param modifyData
+     */
+    public void modifyTimingTask(ModifyData modifyData) throws Exception {
+        CompanyInfo companyInfo = companyInfoModifyMapper.queryCompany(modifyData.getName());
+        RecordInfo recordInfo = recordModify(modifyData, companyInfo);
+        // 修改风险等级
+        // 因修改后皆为网贷，故不做风险等级修改
+        // 修改行业
+        modifyIndustry(recordInfo);
+    }
+
+    /**
      * 小额贷款、融资担保
      *
      * @param modifyData
