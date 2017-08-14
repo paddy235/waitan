@@ -3,17 +3,18 @@ package com.bbd.wtyh.mapper;
 import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.OfflineFinancialRecordDO;
 import com.bbd.wtyh.domain.dataLoading.*;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
-
+import java.util.Map;
 
 /**
-* 数据落地
-* @author ZhaoHongWen
-* @since 2016年8月21日 下午1:52:45
-*/
+ * 数据落地
+ * 
+ * @author ZhaoHongWen
+ * @since 2016年8月21日 下午1:52:45
+ */
 public interface DataLoadingMapper {
-
 
 	int saveDishonestyDO(List<DishonestyDO> dishonestyList);
 
@@ -37,11 +38,15 @@ public interface DataLoadingMapper {
 
 	int saveRecruitIndexDO(List<RecruitIndexDO> recruitIndexList);
 
-	int saveDatasharePullFileDO(List<DatasharePullFileDO> fileList);
-
 	int saveOfflineFinancialRecordDO(List<OfflineFinancialRecordDO> recordList);
 
 	List<DatasharePullFileDO> getDatasharePullFileByTaskId(Integer taskId);
 
 	List<QyxxBasicDO> getCompanyBasicInfoInNames(List<CompanyDO> CompanyList);
+
+	@Select("SELECT file_name AS fileName,data_version AS dataVersion FROM datashare_pull_file WHERE is_pull = FALSE")
+	List<Map<String, String>> noPullFileNameList();
+
+	@Select("SELECT IFNULL(MAX(data_version),0) FROM datashare_pull_file")
+	Integer maxDataVersion();
 }

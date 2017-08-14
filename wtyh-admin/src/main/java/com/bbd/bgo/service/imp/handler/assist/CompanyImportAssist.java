@@ -3,6 +3,7 @@ package com.bbd.bgo.service.imp.handler.assist;
 import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.bbdAPI.BaseDataDO;
 import com.bbd.wtyh.domain.bbdAPI.IndustryCodeDO;
+import com.bbd.wtyh.domain.dataLoading.QyxxBasicDO;
 import com.bbd.wtyh.excel.imp.entity.ImportError;
 import com.bbd.wtyh.excel.imp.entity.Sheet;
 import com.bbd.wtyh.service.AreaService;
@@ -61,7 +62,6 @@ public class CompanyImportAssist {
          ImportError error = new ImportError(sheet.getName(), rowNum, 0, msg);
          errList.add(error);
     }
-
 
     /**
      * 准备用于新增和更新的数据，如果对应的行有错误，同样样会标记出来
@@ -158,6 +158,8 @@ public class CompanyImportAssist {
         }
         tempList.clear();
     }
+
+
 
     //插入或更新、客户导入的、从本地库查询的、来自数据平台
     private void addDataToList( boolean isIns, CompanyDO impCp, CompanyDO locCp, BaseDataDO.Results bddRst ) {
@@ -260,5 +262,74 @@ public class CompanyImportAssist {
 
     public List<ImportError> getErrList() {
         return errList;
+    }
+
+    public static void insertCompany( List<QyxxBasicDO> dataList ) {
+        if ( null ==dataList || dataList.isEmpty() ) {
+            return;
+        }
+        /*int pageSz =1000;
+        int maxPage = dataList.size()/pageSz;
+        if ( 0 != dataList.size()%pageSz ) {
+            maxPage++;
+        }
+        for ( int idx =0; idx <maxPage; idx++ ) {
+            int thisPgSz =pageSz;
+            if( (idx +1)*pageSz >dataList.size() ) {
+                thisPgSz =dataList.size()%pageSz;
+            }
+            List<QyxxBasicDO> thisList =dataList.subList(idx *pageSz, idx *pageSz +thisPgSz);
+        }*/
+        CompanyService cSv = ApplicationContextUtil.getBean(CompanyServiceImpl.class);
+        AreaService areaSv = ApplicationContextUtil.getBean(AreaService.class);
+        for ( QyxxBasicDO qbDo : dataList ) {
+            if( StringUtils.isBlank( qbDo.getCompany_name() ) ) {
+                continue;
+            }
+            CompanyDO locCp =cSv.getCompanyByName( qbDo.getCompany_name() );
+            if ( null ==locCp ) {
+                CompanyDO newCom =new CompanyDO();
+                newCom.setNeo(true);
+                newCom.setCompanyId(null);
+                newCom.setOrganizationCode(null);
+                newCom.setName(qbDo.getCompany_name());
+                if( StringUtils.isNotBlank( qbDo.getCredit_code() ) ) {
+                    newCom.setCreditCode( qbDo.getCredit_code() );
+                }
+                /*if( StringUtils.isNotBlank( qbDo.getCompany_gis_lon() ) ) {
+                    impCp.setLongitude(new Double(bddRst.getJbxx().getCompany_gis_lon()));
+                }
+                if( StringUtils.isNotBlank( bddRst.getJbxx().getCompany_gis_lat() ) ) {
+                    impCp.setLatitude(new Double(bddRst.getJbxx().getCompany_gis_lat()));
+                }*/
+                if( StringUtils.isNotBlank( qbDo.getFrname() ) ) {
+                    newCom.setLegalPerson( qbDo.getFrname() );
+                }
+                newCom.setAreaId( areaSv.selectByCountyCodeOrProvinceName( qbDo.getCompany_county(),
+                        qbDo.getCompany_province() ).getAreaId() );
+                if( StringUtils.isNotBlank( qbDo.getAddress() ) ) {
+                    qbDo.setAddress(qbDo.getAddress());
+                }
+                if ( null !=qbDo.getRegcap_amount() ) {
+                    BigDecimal regA = BigDecimal.valueOf(qbDo.getRegcap_amount());
+                    regA =regA.divide( BigDecimal.valueOf(10000D), 0, BigDecimal.ROUND_HALF_UP );
+                    newCom.setRegisteredCapital( regA.intValue() );
+                }
+                newCom.setRegisteredCapitalType( qbDo.getRegcap_currency().equals("美元") ? 2:1 );
+                if (  null !=qbDo.getEsdate() ) {
+                    newCom.setRegisteredDate(qbDo.getEsdate());
+                }
+                if( StringUtils.isNotBlank( qbDo.getCompany_type() ) ) {
+                    newCom.setRegisteredType( qbDo.getCompany_type() );
+                }
+                if ( StringUtils.isNotBlank( qbDo.getCompany_industry() ) ) {
+                    newCom.setBusinessType( IndustryCodeDO.getValueByNameStr( qbDo.getCompany_industry() ) );
+                }
+                if ( StringUtils.isNotBlank( qbDo.getEnterprise_status() ) ) {
+                    newCom.setStatus( qbDo.getEnterprise_status().equals("注销") ? (byte)2 : (byte)1 );
+                }
+                cSv.insert(newCom);
+            }
+        }
     }
 }

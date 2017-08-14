@@ -134,8 +134,10 @@ public interface CompanyMapper {
 	 * 更新企业基本信息
 	 *
 	 */
-	@Update("UPDATE company SET `area_id` =#{areaId}, `address` =#{address}, `credit_code` =#{creditCode}, `longitude` =#{longitude}, `latitude` =#{latitude}, `legal_person` =#{legalPerson},`registered_capital` =#{registeredCapital}," +
-			" `registered_capital_type` =#{registeredCapitalType}, `registered_date` =#{registeredDate}, `registered_type` =#{registeredType}, `status` =#{status} ,update_date=CURDATE(),update_by='TIMER' WHERE `name` =#{companyName};")
+	@Update("UPDATE company SET `area_id` =#{areaId}, `address` =#{address}, `credit_code` =#{creditCode}, `longitude` =#{longitude}," +
+	 	" `latitude` =#{latitude}, `legal_person` =#{legalPerson},`registered_capital` =#{registeredCapital}," +
+	 	 " `registered_capital_type` =#{registeredCapitalType}, `registered_date` =#{registeredDate}, `registered_type` =#{registeredType}," +
+	 	  " `status` =#{status} ,update_date=CURDATE(),update_by='TIMER' WHERE `name` =#{companyName};")
 	void updateBasicInfo(@Param("companyName") String companyName, @Param("areaId") Integer areaId, @Param("address") String address,
 						     @Param("creditCode") String creditCode,@Param("longitude") Double longitude,@Param("latitude") Double latitude,
 							 @Param("legalPerson") String legalPerson,@Param("registeredCapital") Integer registeredCapital,
