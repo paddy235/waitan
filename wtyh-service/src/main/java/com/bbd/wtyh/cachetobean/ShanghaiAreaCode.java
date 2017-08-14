@@ -24,20 +24,22 @@ public class ShanghaiAreaCode {
 		userInfoMapper = ApplicationContextUtil.getContext().getBean(UserInfoMapper.class);
 
 		// 首次从数据库中取出区域代码表
-		updateList( );
-		updateCnt++;
+		/*updateList( );
+		updateCnt++;*/
 	}
 
 	private static List<Map<String, Object>> list; // 区域代码表
 	private static Map<Integer, String> map; // 区域代码字典
-
 	private static Map<Integer, Integer> codeToAreaMap; // 区代到本系统的areaId
 
-	private static synchronized void updateList( ) {
+	private static  void updateList( ) {
+		List<Map<String, Object>> tList;
+		Map<Integer, String> tMap;
+		Map<Integer, Integer> tCodeToAreaMap;
 		try {
-			list = userInfoMapper.selectShanghaiAreaCodeTable();
-			if (null != list) {
-				for (Map<String, Object> iter : list) {
+			tList = userInfoMapper.selectShanghaiAreaCodeTable();
+			if (null != tList) {
+				for (Map<String, Object> iter : tList) {
 					if (null != iter.get("areaId") && 104 == (Integer) iter.get("areaId")) {
 						iter.put("cityName", "上海全区");
 						break;
@@ -45,14 +47,14 @@ public class ShanghaiAreaCode {
 				}
 			}
 		} catch (Exception e) {
-			list = new ArrayList<Map<String, Object>>() {{
+			tList = new ArrayList<Map<String, Object>>() {{
 				add(new HashMap<String, Object>() {{
 					put("areaId", (Integer) (104));
 					put("cityName", "上海全区");
 				}});
 			}};
 		}
-		list.add(0, new HashMap<String, Object>() {
+		tList.add(0, new HashMap<String, Object>() {
 			{
 				put("areaId", (Integer) (0));
 				put("cityName", "全部");
@@ -60,19 +62,22 @@ public class ShanghaiAreaCode {
 			}
 		});
 
-		map = new HashMap<>();
-		codeToAreaMap = new HashMap<>();
-		for (Map<String, Object> itr : list) { // 构造一个区域代码名称字典
+		tMap = new HashMap<>();
+		tCodeToAreaMap = new HashMap<>();
+		for (Map<String, Object> itr : tList) { // 构造一个区域代码名称字典
 			Integer areaId = (Integer) itr.get("areaId");
-			map.put(areaId, (String) itr.get("cityName"));
+			tMap.put(areaId, (String) itr.get("cityName"));
 			if (0 != areaId) {
-				codeToAreaMap.put((Integer) itr.get("nationDistrictCode"), (Integer) itr.get("areaId") );
+				tCodeToAreaMap.put((Integer) itr.get("nationDistrictCode"), (Integer) itr.get("areaId") );
 				if( ((String)(itr.get("cityName"))).equals("崇明区") ) { //将老版本的崇明县的国家区县代码对应到系统的区域代码中
-					codeToAreaMap.put(310230, (Integer) itr.get("areaId") );
+					tCodeToAreaMap.put(310230, (Integer) itr.get("areaId") );
 				}
 				itr.remove("nationDistrictCode");
 			}
 		}
+		list = tList;
+		map = tMap;
+		codeToAreaMap = tCodeToAreaMap;
 	}
 
 	/**
@@ -91,18 +96,28 @@ public class ShanghaiAreaCode {
 	}
 
 	public static List<Map<String, Object>> quickGetList() {
-		if ( null ==list || list.isEmpty()) {
+		if ( 0 == updateCnt || null ==list || list.isEmpty()) {
 			updateList( );
+			updateCnt++;
 		}
 		return list;
 	}
 
 	public static Map<Integer, String> getMap() {
+		if ( 0 == updateCnt || null ==map || map.isEmpty()) {
+			updateList( );
+			updateCnt++;
+		}
+		updateList( );
 		return map;
 	}
 
 	/** 区代到本系统的areaId */
 	public static Map<Integer, Integer> getCodeToAreaMap() {
+		if ( 0 == updateCnt || null ==codeToAreaMap || codeToAreaMap.isEmpty()) {
+			updateList( );
+			updateCnt++;
+		}
 		return codeToAreaMap;
 	}
 }
