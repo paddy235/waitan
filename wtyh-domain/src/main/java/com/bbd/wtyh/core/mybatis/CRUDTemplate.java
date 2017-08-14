@@ -58,7 +58,7 @@ public class CRUDTemplate {
 		}
 
 		if (where.trim().length() > 0) {
-			sql.WHERE(where);
+			sql.WHERE(refactorSql(where));
 		}
 		return sql.toString() + limit;
 	}
@@ -193,6 +193,11 @@ public class CRUDTemplate {
 	 */
 	public String refactorSql(Map<?, ?> map) {
 		String sql = (String) map.get("sql");
+		return refactorSql(sql);
+
+	}
+
+	private String refactorSql(String sql) {
 		if (!StringUtils.contains(sql, "?")) {
 			return sql;
 		}
@@ -206,7 +211,7 @@ public class CRUDTemplate {
 
 		StringBuilder sb = new StringBuilder(sql.length() + strs.length * 11 - strs.length);
 		for (int i = 0; i < strs.length; i++) {
-			sb.append(strs[i]).append("#{param[").append(i).append("]}");
+			sb.append(strs[i]).append("#{params[").append(i).append("]}");
 		}
 
 		return sql.replace(questionMark, sb.toString());

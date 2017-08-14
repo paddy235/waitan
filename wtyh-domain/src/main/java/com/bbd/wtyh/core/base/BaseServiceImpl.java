@@ -20,8 +20,8 @@ public class BaseServiceImpl implements BaseService {
 	private GeneralMapper generalMapper;
 
 	@Override
-	public <T> T selectOne(Class<T> clazz, String where) {
-		List<T> list = this.selectAll(clazz, where);
+	public <T> T selectOne(Class<T> clazz, String where, Object... params) {
+		List<T> list = this.selectAll(clazz, where, params);
 		if (list == null || list.isEmpty()) {
 			return null;
 		}
@@ -41,13 +41,13 @@ public class BaseServiceImpl implements BaseService {
 	}
 
 	@Override
-	public <T> List<T> selectAll(Class<T> clazz, String where) {
-		return generalMapper.baseSelectAll(clazz, where);
+	public <T> List<T> selectAll(Class<T> clazz, String where, Object... params) {
+		return generalMapper.baseSelectAll(clazz, where, params);
 	}
 
 	@Override
-	public <T> List<T> selectByPage(Class<T> clazz, Pagination pagination, String where) {
-		return generalMapper.baseSelectByPage(clazz, pagination, where);
+	public <T> List<T> selectByPage(Class<T> clazz, Pagination pagination, String where, Object... params) {
+		return generalMapper.baseSelectByPage(clazz, pagination, where, params);
 	}
 
 	@Override

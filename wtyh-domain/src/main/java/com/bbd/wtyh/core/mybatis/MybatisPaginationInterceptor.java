@@ -65,7 +65,7 @@ public class MybatisPaginationInterceptor implements Interceptor {
 			// 拦截到的prepare方法参数是一个Connection对象
 			Connection connection = (Connection) invocation.getArgs()[0];
 
-			this.setTotalRecord(sql, connection, pagination);
+			this.setTotalRecord(sql, connection, pagination, obj);
 
 			// 获取分页Sql语句
 			String pageSql = this.getPageSql(pagination, sql, connection);
@@ -109,7 +109,7 @@ public class MybatisPaginationInterceptor implements Interceptor {
 	 * @param connection
 	 * @param page
 	 */
-	private void setTotalRecord(String originalSql, Connection connection, Pagination page) {
+	private void setTotalRecord(String originalSql, Connection connection, Pagination page, Object paramObj) {
 
 		PreparedStatement preparedStatement = null;
 		ResultSet rs = null;
@@ -119,8 +119,19 @@ public class MybatisPaginationInterceptor implements Interceptor {
 
 			int fromIndex = originalSql.toUpperCase().indexOf("FROM");
 			String countSql = "SELECT COUNT(*) AS TOTAL " + originalSql.substring(fromIndex);
-
 			preparedStatement = connection.prepareStatement(countSql);
+
+			if (countSql.contains("?") && paramObj instanceof Map<?, ?>) {
+				Map<?, ?> paramMap = (Map<?, ?>) paramObj;
+				Object[] params = (Object[]) paramMap.get("params");
+				if (params != null) {
+					for (int i = 0; i < params.length; i++) {
+						preparedStatement.setObject(i + 1, params[i]);
+					}
+				}
+
+			}
+
 			rs = preparedStatement.executeQuery();
 			if (rs.next()) {
 				int totalRecord = rs.getInt("TOTAL");

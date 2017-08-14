@@ -15,19 +15,27 @@ public interface BaseService {
 	 * 根据条件查询一条，不支持实体类包含子类的
 	 *
 	 * @param clazz
+	 *            对象class
 	 * @param where
+	 *            where条件，支持?占位符
+	 * @param params
+	 *            参数值
 	 * @return
 	 */
-	<T> T selectOne(Class<T> clazz, String where);
+	<T> T selectOne(Class<T> clazz, String where, Object... params);
 
 	/**
 	 * 根据条件查询全部，不支持实体类包含子类的
 	 *
 	 * @param clazz
+	 *            对象class
 	 * @param where
+	 *            where条件，支持?占位符
+	 * @param params
+	 *            参数值
 	 * @return
 	 */
-	<T> List<T> selectAll(Class<T> clazz, String where);
+	<T> List<T> selectAll(Class<T> clazz, String where, Object... params);
 
 	/**
 	 * 根据ID查询，不支持实体类包含子类的
@@ -47,9 +55,10 @@ public interface BaseService {
 	 *            分页组件
 	 * @param where
 	 *            查询条件
+	 * @param params
 	 * @return
 	 */
-	<T> List<T> selectByPage(Class<T> clazz, Pagination pagination, String where);
+	<T> List<T> selectByPage(Class<T> clazz, Pagination pagination, String where, Object... params);
 
 	/**
 	 * 插入一条数据

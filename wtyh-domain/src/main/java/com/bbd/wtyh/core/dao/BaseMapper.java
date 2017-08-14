@@ -21,7 +21,7 @@ public interface BaseMapper {
 	 * @return
 	 */
 	@SelectProvider(type = CRUDTemplate.class, method = "select")
-	<T> List<T> baseSelectAll(@Param("clazz") Class<T> clazz, @Param("where") String where);
+	<T> List<T> baseSelectAll(@Param("clazz") Class<T> clazz, @Param("where") String where, @Param("params") Object... params);
 
 	/**
 	 * 根据ID查询实体类
@@ -45,7 +45,8 @@ public interface BaseMapper {
 	 * @return
 	 */
 	@SelectProvider(type = CRUDTemplate.class, method = "select")
-	<T> List<T> baseSelectByPage(@Param("clazz") Class<T> clazz, @Param("pagination") Pagination pagination, @Param("where") String where);
+	<T> List<T> baseSelectByPage(@Param("clazz") Class<T> clazz, @Param("pagination") Pagination pagination, @Param("where") String where,
+			@Param("params") Object... params);
 
 	/**
 	 * 插入一条数据
@@ -89,11 +90,11 @@ public interface BaseMapper {
 	<T> int update(@Param("bean") T obj, @Param("ignoreNull") boolean ignoreNull, @Param("ignoreEmpty") boolean ignoreEmpty);
 
 	@InsertProvider(type = CRUDTemplate.class, method = "refactorSql")
-	int executeInsert(@Param("sql") String sql, @Param("param") Object... param);
+	int executeInsert(@Param("sql") String sql, @Param("params") Object... param);
 
 	@DeleteProvider(type = CRUDTemplate.class, method = "refactorSql")
-	int executeDelete(@Param("sql") String sql, @Param("param") Object... param);
+	int executeDelete(@Param("sql") String sql, @Param("params") Object... param);
 
 	@UpdateProvider(type = CRUDTemplate.class, method = "refactorSql")
-	int executeUpdate(@Param("sql") String sql, @Param("param") Object... param);
+	int executeUpdate(@Param("sql") String sql, @Param("params") Object... param);
 }
