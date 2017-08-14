@@ -85,8 +85,8 @@ public class CompanyInfoModifyController {
         rst.put(CompanyInfo.TYPE_YFK_11, perpay);
 //        // "融资租赁"
         Map<String, Integer> financeLease = new HashedMap();
-        financeLease.put("正常", 1);
-        financeLease.put("潜在", 0);
+        financeLease.put("正常", 0);
+        financeLease.put("潜在", 1);
         rst.put(CompanyInfo.TYPE_RZZL_13, financeLease);
         return ResponseBean.successResponse(rst);
     }
