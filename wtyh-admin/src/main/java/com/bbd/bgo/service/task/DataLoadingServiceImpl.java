@@ -1,5 +1,6 @@
 package com.bbd.bgo.service.task;
 
+import com.bbd.bgo.service.imp.handler.assist.CompanyImportAssist;
 import com.bbd.wtyh.core.base.BaseServiceImpl;
 import com.bbd.wtyh.domain.TaskFailInfoDO;
 import com.bbd.wtyh.domain.TaskResultDO;
@@ -463,6 +464,7 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 					}
 				} else if (o instanceof QyxxBasicDO) {
 					List<QyxxBasicDO> dataList = (List<QyxxBasicDO>) list;
+					CompanyImportAssist.insertCompany(list); //将其中的新企业添加到company表
 					if (pointsDataLimit < size) {
 						int part = size / pointsDataLimit;// 分批数
 						for (int i = 0; i < part; i++) {
