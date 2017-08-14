@@ -29,7 +29,7 @@
 
     <select id="listLargeLoan" resultMap="BaseResultMap">
         select lender_id,borrower_id from large_loan,company l,company b
-        where large_loan.borrower_id=b.company_id and large_loan.lender_id=l.company_id and b.company_type=2
+        where large_loan.borrower_id=b.company_id and large_loan.lender_id=l.company_id and l.company_type=2
         <if test="orderByField != null">
             order by
             <choose>
