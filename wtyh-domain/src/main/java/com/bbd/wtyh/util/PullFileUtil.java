@@ -26,13 +26,13 @@ public class PullFileUtil {
 	private static final String PATH;
 
 	private static final String DATA_SHARE_URL;
-	private static final String BROKER_IP = "http://127.0.0.1:7778";
+	private static final String BROKER_IP;
 	private static final String FILE_NAME_LIST_URI;
 
 	static {
 		PATH = WtyhHelper.pathWrap(WtyhHelper.fileRootPath + "/datashare");
 		DATA_SHARE_URL = WtyhHelper.datashateIp + "/client/files?file=";
-		// BROKER_IP = WtyhHelper.brokerIp;
+		BROKER_IP = WtyhHelper.brokerIp;
 		FILE_NAME_LIST_URI = "/syncFile/pull-file-list.do?dataType=";
 	}
 
