@@ -59,7 +59,7 @@ public class HttpUtil {
 	}
 
 	public static String post(String url, Map<String, String> header, Map<String, Object> params, int timeoutSecond) throws Exception {
-		HttpEntity httpEntity = httpPostEntity(url, header, params, timeoutSecond, null);
+		HttpEntity httpEntity = httpPostEntity(url, header, params, timeoutSecond);
 		return EntityUtils.toString(httpEntity);
 	}
 
@@ -81,7 +81,7 @@ public class HttpUtil {
 
 	public static <T> T post(String url, Map<String, String> header, Map<String, Object> params, int timeoutSecond, Class<T> clazz)
 			throws Exception {
-		HttpEntity httpEntity = httpPostEntity(url, header, params, timeoutSecond, clazz);
+		HttpEntity httpEntity = httpPostEntity(url, header, params, timeoutSecond);
 		if (clazz.equals(InputStream.class)) {
 			return (T) httpEntity.getContent();
 		}
@@ -92,8 +92,8 @@ public class HttpUtil {
 		return JSON.parseObject(str, clazz);
 	}
 
-	private static HttpEntity httpPostEntity(String url, Map<String, String> header, Map<String, Object> params, int timeoutSecond,
-			Class<?> clazz) throws Exception {
+	private static HttpEntity httpPostEntity(String url, Map<String, String> header, Map<String, Object> params, int timeoutSecond)
+			throws Exception {
 		HttpEntityEnclosingRequestBase httpRequest = new HttpPost(url);
 		// 构建请求参数
 		if (params != null && !params.isEmpty()) {
@@ -104,7 +104,7 @@ public class HttpUtil {
 			}
 			httpRequest.setEntity(new UrlEncodedFormEntity(paramList));
 		}
-		return httpEntity(httpRequest, url, header, params, timeoutSecond, clazz);
+		return httpEntity(httpRequest, url, header, params, timeoutSecond);
 	}
 
 	/******************************************************** get ************************************************************/
@@ -125,7 +125,7 @@ public class HttpUtil {
 	}
 
 	public static String get(String url, Map<String, String> header, Map<String, Object> params, int timeoutSecond) throws Exception {
-		HttpEntity httpEntity = httpGetEntity(url, header, params, timeoutSecond, null);
+		HttpEntity httpEntity = httpGetEntity(url, header, params, timeoutSecond);
 		return EntityUtils.toString(httpEntity);
 	}
 
@@ -151,7 +151,7 @@ public class HttpUtil {
 
 	public static <T> T get(String url, Map<String, String> header, Map<String, Object> params, int timeoutSecond, Class<T> clazz)
 			throws Exception {
-		HttpEntity httpEntity = httpGetEntity(url, header, params, timeoutSecond, clazz);
+		HttpEntity httpEntity = httpGetEntity(url, header, params, timeoutSecond);
 		if (clazz.equals(InputStream.class)) {
 			return (T) httpEntity.getContent();
 		}
@@ -162,8 +162,8 @@ public class HttpUtil {
 		return JSON.parseObject(str, clazz);
 	}
 
-	private static HttpEntity httpGetEntity(String url, Map<String, String> header, Map<String, Object> params, int timeoutSecond,
-			Class<?> clazz) throws Exception {
+	private static HttpEntity httpGetEntity(String url, Map<String, String> header, Map<String, Object> params, int timeoutSecond)
+			throws Exception {
 		// 构建请求参数
 		StringBuilder sb = new StringBuilder(url);
 		if (params != null && !params.isEmpty()) {
@@ -179,7 +179,7 @@ public class HttpUtil {
 		}
 		url = sb.toString();
 		HttpGet httpRequest = new HttpGet(url);
-		return httpEntity(httpRequest, url, header, params, timeoutSecond, clazz);
+		return httpEntity(httpRequest, url, header, params, timeoutSecond);
 	}
 
 	protected static HttpClientBuilder createHttpClientBuilder(String url, boolean addProxy) throws Exception {
@@ -211,18 +211,8 @@ public class HttpUtil {
 		return httpClientBuilder;
 	}
 
-	protected static void closeHttpResource(CloseableHttpClient closeableHttpClient, CloseableHttpResponse closeableHttpResponse)
-			throws Exception {
-		if (closeableHttpResponse != null) {
-			closeableHttpResponse.close();
-		}
-		if (closeableHttpClient != null) {
-			closeableHttpClient.close();
-		}
-	}
-
 	private static HttpEntity httpEntity(HttpRequestBase httpRequest, String url, Map<String, String> header, Map<String, Object> params,
-			int timeoutSecond, Class<?> clazz) throws Exception {
+			int timeoutSecond) throws Exception {
 		HttpClientBuilder httpClientBuilder = createHttpClientBuilder(url, true);
 
 		RequestConfig.Builder requestConfigBuilder = RequestConfig.custom();
@@ -236,18 +226,10 @@ public class HttpUtil {
 		}
 		httpRequest.setConfig(requestConfigBuilder.build());
 
-		CloseableHttpClient closeableHttpClient = null;
-		CloseableHttpResponse closeableHttpResponse = null;
-		try {
-			closeableHttpClient = httpClientBuilder.build();
-			closeableHttpResponse = closeableHttpClient.execute(httpRequest);
-			logger.debug("execute {} request。url:{};params:{};header:{}", httpRequest.getMethod(), url, params, header);
-			return closeableHttpResponse.getEntity();
-		} finally {
-			if (!InputStream.class.equals(clazz)) {
-				closeHttpResource(closeableHttpClient, closeableHttpResponse);
-			}
-		}
+		CloseableHttpClient closeableHttpClient = httpClientBuilder.build();
+		CloseableHttpResponse closeableHttpResponse = closeableHttpClient.execute(httpRequest);
+		logger.debug("execute {} request。url:{};params:{};header:{}", httpRequest.getMethod(), url, params, header);
+		return closeableHttpResponse.getEntity();
 	}
 
 }
