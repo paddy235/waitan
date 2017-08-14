@@ -200,8 +200,8 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 				fileList.add(file);
 			}
 
-			dataError = this.operateUpdate(failList, fileList);
 			this.insertList(pullFileList);
+			dataError = this.operateUpdate(failList, fileList);
 		}
 		if (isShutdown) {
 			taskResultDO.setFailCount(0);
