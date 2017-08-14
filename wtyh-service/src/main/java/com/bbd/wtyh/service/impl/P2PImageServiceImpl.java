@@ -336,7 +336,11 @@ public class P2PImageServiceImpl implements P2PImageService,TaskService {
             }
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
+            taskResultDO.setPlanCount(1);
+            taskResultDO.setSuccessCount(0);
+            taskResultDO.setFailCount(1);
             taskResultDO.setState(TaskState.ERROR);
+            addWangdaiTaskInfo(taskId,"网贷平台列表(plat_list)",e.getClass().getSimpleName());
             return taskResultDO;
         }
         Integer planCount = platList==null?0:platList.size();
