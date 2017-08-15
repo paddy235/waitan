@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "c4f6e663f9faa2c54443"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "5f4f98bc6f2abd6e3833"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -56694,7 +56694,7 @@
 	                                ),
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    { width: '10%' },
+	                                    { width: '12%' },
 	                                    _react2.default.createElement(_Input2.default, {
 	                                        placeholder: '\u7528\u6237\u540D',
 	                                        className: 'username',
@@ -56736,17 +56736,17 @@
 	                                ),
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    { width: '13%' },
+	                                    { width: '7%' },
 	                                    '\u8054\u7CFB\u65B9\u5F0F'
 	                                ),
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    { width: '8%' },
+	                                    { width: '7%' },
 	                                    '\u521B\u5EFA\u8005'
 	                                ),
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    { width: '8%' },
+	                                    { width: '10%' },
 	                                    _react2.default.createElement(_Select2.default, {
 	                                        defaultText: '\u7528\u6237\u72B6\u6001',
 	                                        options: this.state.userStatusOptions,
@@ -56768,7 +56768,7 @@
 	                                ),
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    { width: '8%' },
+	                                    { width: '10%' },
 	                                    _react2.default.createElement(_Select2.default, {
 	                                        options: this.state.areaOptions,
 	                                        onSelected: this.handleAreaSelected,
@@ -56780,7 +56780,7 @@
 	                                _react2.default.createElement(
 	                                    'th',
 	                                    {
-	                                        width: '15%',
+	                                        width: '16%',
 	                                        style: {
 	                                            textAlign: 'center'
 	                                        } },
@@ -57014,7 +57014,7 @@
 
 
 	// module
-	exports.push([module.id, ".userSet_root {\n  width: 100%;\n  background-color: #091d3b; }\n  .userSet_root .mainTitle_opr {\n    height: 58px; }\n  .userSet_root .areaSelect {\n    float: left; }\n  .userSet_root .label {\n    float: left;\n    margin-top: 4px;\n    font-size: 14px; }\n  .userSet_root .passwordNotifer {\n    float: left;\n    font-weight: bold;\n    font-size: 14px;\n    color: #fff; }\n    .userSet_root .passwordNotifer .bbdInput_root {\n      display: inline-block; }\n      .userSet_root .passwordNotifer .bbdInput_root input {\n        text-align: center;\n        padding-left: 0; }\n  .userSet_root .buttonBox {\n    float: left;\n    width: 110px;\n    margin-left: 20px; }\n    .userSet_root .buttonBox.reset {\n      margin-right: 30px; }\n      .userSet_root .buttonBox.reset > button {\n        background-color: #03577A; }\n  .userSet_root .buttonEditPassword {\n    width: 50px; }\n    .userSet_root .buttonEditPassword button {\n      background-color: #02668C;\n      color: #fff; }\n\n.userSet_list {\n  background-color: #1b3c59;\n  min-height: 500px; }\n  .userSet_list table th {\n    text-align: left; }\n  .userSet_list table td {\n    text-align: left; }\n  .userSet_list .bbdSelect_root {\n    width: 120px;\n    min-width: 120px; }\n    .userSet_list .bbdSelect_root .valuePanel {\n      border: none;\n      background-color: #1b3c59; }\n      .userSet_list .bbdSelect_root .valuePanel i {\n        right: 0; }\n    .userSet_list .bbdSelect_root .optionWrapper {\n      width: 120px;\n      height: 100px; }\n  .userSet_list .bbdInputPreSuffix_root {\n    display: inline-block; }\n  .userSet_list .contactBox {\n    text-align: left; }\n  .userSet_list .contact span {\n    display: block;\n    margin: 3px 0; }\n    .userSet_list .contact span i {\n      display: inline-block;\n      width: 24px;\n      text-align: center;\n      color: #00b7ee; }\n    .userSet_list .contact span em {\n      display: inline-block;\n      height: 14px;\n      font-style: normal;\n      padding-left: 5px; }\n  .userSet_list .more i {\n    display: inline-block;\n    padding: 0 5px;\n    font-size: 24px;\n    color: #00b7ee;\n    cursor: pointer; }\n  .userSet_list .delTip {\n    color: #702120; }\n\n.userSet_pagination {\n  position: relative;\n  padding: 20px 0; }\n  .userSet_pagination .pagination {\n    width: 850px;\n    margin: 0 auto; }\n\n.userSet_paginationNum {\n  float: left;\n  margin: 10px 0 0 14px;\n  font-size: 16px;\n  color: #fff;\n  font-style: normal; }\n  .userSet_paginationNum strong {\n    font-size: 16px;\n    color: #00b7ee; }\n\n.userEdit_root {\n  color: #fff; }\n\n.userEdit_wrapper {\n  background-color: #091d3b;\n  border: 1px solid #044666;\n  padding: 40px; }\n\n.userEdit_formArea {\n  width: 900px;\n  margin: 0 auto; }\n  .userEdit_formArea button {\n    width: 130px;\n    float: left;\n    margin-left: 30px;\n    height: 44px;\n    background: #04628A;\n    border: none;\n    color: #fff;\n    border-radius: 6px;\n    font-family: \"Microsoft Yahei\"; }\n    .userEdit_formArea button.cancel {\n      background: #8899AA;\n      float: none; }\n    .userEdit_formArea button.confirm {\n      background: #00B7EE;\n      float: none;\n      margin-left: 20px; }\n    .userEdit_formArea button:active {\n      background-color: #0574a3; }\n    .userEdit_formArea button:focus {\n      outline: none; }\n  .userEdit_formArea button[disabled] {\n    cursor: not-allowed;\n    filter: grayscale(0.7); }\n\n.userView_root {\n  margin-bottom: 30px; }\n  .userView_root .returnTo {\n    font-size: 12px;\n    color: white; }\n    .userView_root .returnTo .iconfont {\n      font-size: 12px;\n      margin-right: 5px;\n      color: #00A6D8; }\n  .userView_root .content {\n    background-color: #1B3C59;\n    border: 1px solid #03688F;\n    padding: 15px; }\n  .userView_root .contentMain {\n    width: 900px;\n    margin: 0 auto; }\n  .userView_root .operation {\n    font-size: 16px;\n    line-height: 40px; }\n    .userView_root .operation .fieldLabel {\n      color: #00B7EE; }\n    .userView_root .operation:after {\n      display: block;\n      content: '';\n      width: 77%;\n      border-bottom: 1px solid #29597A; }\n    .userView_root .operation a.iconButton {\n      margin-right: 15px;\n      color: #00B7EE; }\n      .userView_root .operation a.iconButton:hover {\n        color: #22ccff; }\n      .userView_root .operation a.iconButton:first-child {\n        margin-left: 40px; }\n  .userView_root .generalFields {\n    margin-top: 20px; }\n\n.form_root .fieldRow {\n  margin-bottom: 10px; }\n  .form_root .fieldRow:after {\n    content: '';\n    display: block;\n    clear: both;\n    height: 0;\n    visibility: hidden; }\n\n.form_root .fieldLabel {\n  width: 16.7%;\n  line-height: 40px;\n  float: left;\n  text-align: right;\n  color: #8899AA;\n  font-size: 16px;\n  font-weight: bold; }\n  .form_root .fieldLabel.required span:before {\n    content: '* ';\n    color: #FF7800; }\n\n.form_root .fieldRowRight {\n  float: left;\n  margin-left: 15px;\n  width: 80%; }\n\n.form_root .bbdInput_input {\n  height: 40px;\n  line-height: 40px;\n  box-sizing: border-box; }\n\n.form_root div.errorMsg, .form_root div.errorMsg-psw {\n  color: #FF6802;\n  margin: 0.5em 0; }\n", ""]);
+	exports.push([module.id, ".userSet_root {\n  width: 100%;\n  background-color: #091d3b; }\n  .userSet_root .mainTitle_opr {\n    height: 58px; }\n  .userSet_root .areaSelect {\n    float: left; }\n  .userSet_root .label {\n    float: left;\n    margin-top: 4px;\n    font-size: 14px; }\n  .userSet_root .passwordNotifer {\n    float: left;\n    font-weight: bold;\n    font-size: 14px;\n    color: #fff; }\n    .userSet_root .passwordNotifer .bbdInput_root {\n      display: inline-block; }\n      .userSet_root .passwordNotifer .bbdInput_root input {\n        text-align: center;\n        padding-left: 0; }\n  .userSet_root .buttonBox {\n    float: left;\n    width: 110px;\n    margin-left: 20px; }\n    .userSet_root .buttonBox.reset {\n      margin-right: 30px; }\n      .userSet_root .buttonBox.reset > button {\n        background-color: #03577A; }\n  .userSet_root .buttonEditPassword {\n    width: 50px; }\n    .userSet_root .buttonEditPassword button {\n      background-color: #02668C;\n      color: #fff; }\n\n.userSet_list {\n  background-color: #1b3c59;\n  min-height: 500px; }\n  .userSet_list table th {\n    text-align: left;\n    padding: 0 2px; }\n  .userSet_list table td {\n    text-align: left;\n    word-wrap: break-word;\n    word-break: break-all;\n    padding: 0 2px; }\n  .userSet_list .bbdSelect_root {\n    width: 120px;\n    min-width: 120px; }\n    .userSet_list .bbdSelect_root .valuePanel {\n      border: none;\n      background-color: #1b3c59; }\n      .userSet_list .bbdSelect_root .valuePanel i {\n        right: 0; }\n    .userSet_list .bbdSelect_root .optionWrapper {\n      width: 120px;\n      height: 100px; }\n  .userSet_list .bbdInputPreSuffix_root {\n    display: inline-block; }\n  .userSet_list .contactBox {\n    text-align: left; }\n  .userSet_list .contact span {\n    display: block;\n    margin: 3px 0; }\n    .userSet_list .contact span i {\n      display: inline-block;\n      width: 24px;\n      text-align: center;\n      color: #00b7ee; }\n    .userSet_list .contact span em {\n      display: inline-block;\n      height: 14px;\n      font-style: normal;\n      padding-left: 5px; }\n  .userSet_list .more i {\n    display: inline-block;\n    padding: 0 5px;\n    font-size: 24px;\n    color: #00b7ee;\n    cursor: pointer; }\n  .userSet_list .delTip {\n    color: #702120; }\n\n.userSet_pagination {\n  position: relative;\n  padding: 20px 0; }\n  .userSet_pagination .pagination {\n    width: 850px;\n    margin: 0 auto; }\n\n.userSet_paginationNum {\n  float: left;\n  margin: 10px 0 0 14px;\n  font-size: 16px;\n  color: #fff;\n  font-style: normal; }\n  .userSet_paginationNum strong {\n    font-size: 16px;\n    color: #00b7ee; }\n\n.userEdit_root {\n  color: #fff; }\n\n.userEdit_wrapper {\n  background-color: #091d3b;\n  border: 1px solid #044666;\n  padding: 40px; }\n\n.userEdit_formArea {\n  width: 900px;\n  margin: 0 auto; }\n  .userEdit_formArea button {\n    width: 130px;\n    float: left;\n    margin-left: 30px;\n    height: 44px;\n    background: #04628A;\n    border: none;\n    color: #fff;\n    border-radius: 6px;\n    font-family: \"Microsoft Yahei\"; }\n    .userEdit_formArea button.cancel {\n      background: #8899AA;\n      float: none; }\n    .userEdit_formArea button.confirm {\n      background: #00B7EE;\n      float: none;\n      margin-left: 20px; }\n    .userEdit_formArea button:active {\n      background-color: #0574a3; }\n    .userEdit_formArea button:focus {\n      outline: none; }\n  .userEdit_formArea button[disabled] {\n    cursor: not-allowed;\n    filter: grayscale(0.7); }\n\n.userView_root {\n  margin-bottom: 30px; }\n  .userView_root .returnTo {\n    font-size: 12px;\n    color: white; }\n    .userView_root .returnTo .iconfont {\n      font-size: 12px;\n      margin-right: 5px;\n      color: #00A6D8; }\n  .userView_root .content {\n    background-color: #1B3C59;\n    border: 1px solid #03688F;\n    padding: 15px; }\n  .userView_root .contentMain {\n    width: 900px;\n    margin: 0 auto; }\n  .userView_root .operation {\n    font-size: 16px;\n    line-height: 40px; }\n    .userView_root .operation .fieldLabel {\n      color: #00B7EE; }\n    .userView_root .operation:after {\n      display: block;\n      content: '';\n      width: 77%;\n      border-bottom: 1px solid #29597A; }\n    .userView_root .operation a.iconButton {\n      margin-right: 15px;\n      color: #00B7EE; }\n      .userView_root .operation a.iconButton:hover {\n        color: #22ccff; }\n      .userView_root .operation a.iconButton:first-child {\n        margin-left: 40px; }\n  .userView_root .generalFields {\n    margin-top: 20px; }\n\n.form_root .fieldRow {\n  margin-bottom: 10px; }\n  .form_root .fieldRow:after {\n    content: '';\n    display: block;\n    clear: both;\n    height: 0;\n    visibility: hidden; }\n\n.form_root .fieldLabel {\n  width: 16.7%;\n  line-height: 40px;\n  float: left;\n  text-align: right;\n  color: #8899AA;\n  font-size: 16px;\n  font-weight: bold; }\n  .form_root .fieldLabel.required span:before {\n    content: '* ';\n    color: #FF7800; }\n\n.form_root .fieldRowRight {\n  float: left;\n  margin-left: 15px;\n  width: 80%; }\n\n.form_root .bbdInput_input {\n  height: 40px;\n  line-height: 40px;\n  box-sizing: border-box; }\n\n.form_root div.errorMsg, .form_root div.errorMsg-psw {\n  color: #FF6802;\n  margin: 0.5em 0; }\n", ""]);
 
 	// exports
 
@@ -57628,7 +57628,11 @@
 	    _createClass(Select, [{
 	        key: 'componentWillReceiveProps',
 	        value: function componentWillReceiveProps(nextProps) {
-	            var selected = nextProps.selected;
+	            var isText = nextProps.isText,
+	                selected = nextProps.selected,
+	                selectText = nextProps.selectText;
+
+	            var selectedVal = isText ? selectText : nextProps.selected;
 	            var selectedOption = null;
 	            var _iteratorNormalCompletion = true;
 	            var _didIteratorError = false;
@@ -57638,9 +57642,10 @@
 	                for (var _iterator = nextProps.options[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
 	                    var v = _step.value;
 
-	                    if (v.value === selected) {
+	                    var val = nextProps.isText ? v.text : v.value;
+	                    if (val === selectedVal) {
 	                        selectedOption = v;
-	                        // break;
+	                        break;
 	                    }
 	                }
 	            } catch (err) {
@@ -58273,7 +58278,7 @@
 	            _react2.default.createElement(
 	                'div',
 	                { className: 'fieldRowRight' },
-	                _react2.default.createElement(_Select2.default, { selected: userType, options: userTypeOptions, onSelected: onUserTypeChange, disabled: !!props.disabled, style: { width: 376 } })
+	                _react2.default.createElement(_Select2.default, { defaultText: '\u8BF7\u9009\u62E9', selected: userType, options: userTypeOptions, onSelected: onUserTypeChange, disabled: !!props.disabled, style: { width: 376 } })
 	            )
 	        ),
 	        props.children,
@@ -59928,7 +59933,7 @@
 
 
 	// module
-	exports.push([module.id, ".roleList {\n  height: 80px;\n  overflow-y: scroll; }\n  .roleList .role {\n    float: left;\n    margin-bottom: 20px;\n    width: 50%;\n    font-size: 14px;\n    height: 20px; }\n", ""]);
+	exports.push([module.id, ".roleList {\n  height: 80px;\n  overflow-y: auto; }\n  .roleList .role {\n    float: left;\n    margin-bottom: 20px;\n    width: 50%;\n    font-size: 14px;\n    height: 20px; }\n", ""]);
 
 	// exports
 
@@ -65235,7 +65240,7 @@
 
 
 	// module
-	exports.push([module.id, ".companyWatch_root {\n  margin-top: 44px; }\n  .companyWatch_root .filter {\n    margin: 0 15px; }\n    .companyWatch_root .filter_group {\n      padding-top: 30px;\n      border-bottom: 1px solid #03577A; }\n      .companyWatch_root .filter_group:last-child {\n        border-bottom: none; }\n    .companyWatch_root .filter_name {\n      width: 120px;\n      color: #89A;\n      font-weight: bold;\n      text-align: right;\n      float: left;\n      font-size: 14px; }\n    .companyWatch_root .filter_option {\n      width: 70%;\n      float: left;\n      margin-left: 10px;\n      color: #fff; }\n      .companyWatch_root .filter_option > label {\n        display: block;\n        float: left;\n        width: 140px;\n        margin-bottom: 30px; }\n    .companyWatch_root .filter .select {\n      width: 100px;\n      float: left; }\n    .companyWatch_root .filter .datePicker {\n      float: left;\n      width: 200px; }\n      .companyWatch_root .filter .datePicker .date__root {\n        height: 40px;\n        line-height: 40px;\n        border: 1px solid #526B82; }\n      .companyWatch_root .filter .datePicker .date__showDate {\n        line-height: 40px; }\n    .companyWatch_root .filter .buttons {\n      float: right; }\n      .companyWatch_root .filter .buttons > .button-okay, .companyWatch_root .filter .buttons > .button-reset {\n        float: left;\n        margin-left: 20px;\n        width: 100px; }\n  .companyWatch_root .button-okay {\n    background-color: #00B7EE; }\n  .companyWatch_root .button-reset {\n    background-color: #03577A; }\n\n.fl {\n  float: left; }\n\n.fr {\n  float: right; }\n\n.companyWatch_box {\n  background-color: #1B3C59;\n  border: 1px solid #03688F; }\n\n.companyWatch_nav {\n  height: 50px;\n  border-bottom: 1px solid #03688F; }\n  .companyWatch_nav > a {\n    display: block;\n    height: 50px;\n    line-height: 50px;\n    float: left;\n    color: #0E81AB;\n    padding: 0 35px;\n    font-size: 16px; }\n    .companyWatch_nav > a.active {\n      color: #00B7EE;\n      font-weight: bold;\n      border-bottom: 1px solid #00B7EE; }\n\n.companyWatch_content {\n  color: #fff;\n  min-height: 200px; }\n  .companyWatch_content .info {\n    margin: 15px;\n    margin-left: 30px; }\n    .companyWatch_content .info .count {\n      font-size: 16px;\n      margin-top: 20px; }\n      .companyWatch_content .info .count strong {\n        font-weight: bold;\n        color: #00B7EE; }\n  .companyWatch_content table.bbdTable_root th {\n    text-align: left;\n    font-weight: bold; }\n    .companyWatch_content table.bbdTable_root th:first-child {\n      text-indent: 30px; }\n  .companyWatch_content table.bbdTable_root a {\n    color: white; }\n  .companyWatch_content table.bbdTable_root thead tr {\n    border-bottom: 2px solid #03577A; }\n  .companyWatch_content table.bbdTable_root tbody tr:hover {\n    background-color: #03688F; }\n  .companyWatch_content table.bbdTable_root td {\n    text-align: left; }\n    .companyWatch_content table.bbdTable_root td.nice {\n      text-indent: 2em; }\n    .companyWatch_content table.bbdTable_root td:first-child {\n      text-align: center; }\n  .companyWatch_content table.bbdTable_root .sortable {\n    cursor: pointer;\n    position: relative;\n    display: inline-block; }\n    .companyWatch_content table.bbdTable_root .sortable:after {\n      position: absolute;\n      top: 0;\n      right: -20px;\n      content: '\\E60C';\n      font-family: \"iconfont\" !important;\n      font-size: 14px;\n      font-style: normal;\n      -webkit-font-smoothing: antialiased;\n      -moz-osx-font-smoothing: grayscale; }\n    .companyWatch_content table.bbdTable_root .sortable.sort-down:after {\n      content: '\\E64E'; }\n    .companyWatch_content table.bbdTable_root .sortable.sort-up:after {\n      content: '\\E607'; }\n  .companyWatch_content .bbdSelect_root {\n    width: 120px;\n    min-width: 120px; }\n    .companyWatch_content .bbdSelect_root .valuePanel {\n      border: none;\n      background-color: #1b3c59; }\n      .companyWatch_content .bbdSelect_root .valuePanel i {\n        right: 0; }\n    .companyWatch_content .bbdSelect_root .optionWrapper {\n      width: 120px;\n      height: 100px; }\n    .companyWatch_content .bbdSelect_root.buildingSelect {\n      width: 200px; }\n      .companyWatch_content .bbdSelect_root.buildingSelect .optionWrapper {\n        width: 100%;\n        height: auto;\n        min-height: 90px;\n        max-height: 240px; }\n  .companyWatch_content .danger {\n    color: #FF0000; }\n  .companyWatch_content .safe {\n    color: #32B16C; }\n  .companyWatch_content .warn {\n    color: #EBC900; }\n  .companyWatch_content .bad {\n    color: #000000; }\n\n.companyWatch_pagination {\n  position: relative;\n  padding: 20px 0; }\n  .companyWatch_pagination .pagination {\n    width: 1000px;\n    margin: 0 auto; }\n", ""]);
+	exports.push([module.id, ".companyWatch_root {\n  margin-top: 44px; }\n  .companyWatch_root .filter {\n    margin: 0 15px; }\n    .companyWatch_root .filter_group {\n      padding-top: 30px;\n      border-bottom: 1px solid #03577A; }\n      .companyWatch_root .filter_group:last-child {\n        border-bottom: none; }\n    .companyWatch_root .filter_name {\n      width: 120px;\n      color: #89A;\n      font-weight: bold;\n      text-align: right;\n      float: left;\n      font-size: 14px; }\n    .companyWatch_root .filter_option {\n      width: 70%;\n      float: left;\n      margin-left: 10px;\n      color: #fff; }\n      .companyWatch_root .filter_option > label {\n        display: block;\n        float: left;\n        width: 140px;\n        margin-bottom: 30px; }\n    .companyWatch_root .filter .select {\n      width: 100px;\n      float: left; }\n    .companyWatch_root .filter .datePicker {\n      float: left;\n      width: 200px; }\n      .companyWatch_root .filter .datePicker .date__root {\n        height: 40px;\n        line-height: 40px;\n        border: 1px solid #526B82; }\n      .companyWatch_root .filter .datePicker .date__showDate {\n        line-height: 40px; }\n    .companyWatch_root .filter .buttons {\n      float: right; }\n      .companyWatch_root .filter .buttons > .button-okay, .companyWatch_root .filter .buttons > .button-reset {\n        float: left;\n        margin-left: 20px;\n        width: 100px; }\n  .companyWatch_root .button-okay {\n    background-color: #00B7EE; }\n  .companyWatch_root .button-reset {\n    background-color: #03577A; }\n\n.fl {\n  float: left; }\n\n.fr {\n  float: right; }\n\n.companyWatch_box {\n  background-color: #1B3C59;\n  border: 1px solid #03688F; }\n\n.companyWatch_nav {\n  height: 50px;\n  border-bottom: 1px solid #03688F; }\n  .companyWatch_nav > a {\n    display: block;\n    height: 50px;\n    line-height: 50px;\n    float: left;\n    color: #0E81AB;\n    padding: 0 35px;\n    font-size: 16px; }\n    .companyWatch_nav > a.active {\n      color: #00B7EE;\n      font-weight: bold;\n      border-bottom: 1px solid #00B7EE; }\n\n.companyWatch_content {\n  color: #fff;\n  min-height: 200px; }\n  .companyWatch_content .info {\n    margin: 15px;\n    margin-left: 30px; }\n    .companyWatch_content .info .count {\n      font-size: 16px;\n      margin-top: 20px; }\n      .companyWatch_content .info .count strong {\n        font-weight: bold;\n        color: #00B7EE; }\n  .companyWatch_content table.bbdTable_root th {\n    text-align: left;\n    font-weight: bold; }\n    .companyWatch_content table.bbdTable_root th:first-child {\n      text-align: center; }\n  .companyWatch_content table.bbdTable_root a {\n    color: white; }\n  .companyWatch_content table.bbdTable_root thead tr {\n    border-bottom: 2px solid #03577A; }\n  .companyWatch_content table.bbdTable_root tbody tr:hover {\n    background-color: #03688F; }\n  .companyWatch_content table.bbdTable_root td {\n    text-align: left; }\n    .companyWatch_content table.bbdTable_root td.nice {\n      text-indent: 2em; }\n    .companyWatch_content table.bbdTable_root td:first-child {\n      text-align: center; }\n  .companyWatch_content table.bbdTable_root .sortable {\n    cursor: pointer;\n    position: relative;\n    display: inline-block; }\n    .companyWatch_content table.bbdTable_root .sortable:after {\n      position: absolute;\n      top: 0;\n      right: -20px;\n      content: '\\E60C';\n      font-family: \"iconfont\" !important;\n      font-size: 14px;\n      font-style: normal;\n      -webkit-font-smoothing: antialiased;\n      -moz-osx-font-smoothing: grayscale; }\n    .companyWatch_content table.bbdTable_root .sortable.sort-down:after {\n      content: '\\E64E'; }\n    .companyWatch_content table.bbdTable_root .sortable.sort-up:after {\n      content: '\\E607'; }\n  .companyWatch_content .bbdSelect_root {\n    width: 120px;\n    min-width: 120px; }\n    .companyWatch_content .bbdSelect_root .valuePanel {\n      border: none;\n      background-color: #1b3c59; }\n      .companyWatch_content .bbdSelect_root .valuePanel i {\n        right: 0; }\n    .companyWatch_content .bbdSelect_root .optionWrapper {\n      width: 120px;\n      height: 100px; }\n    .companyWatch_content .bbdSelect_root.buildingSelect {\n      width: 200px; }\n      .companyWatch_content .bbdSelect_root.buildingSelect .optionWrapper {\n        width: 100%;\n        height: auto;\n        min-height: 90px;\n        max-height: 240px; }\n  .companyWatch_content .danger {\n    color: #FF0000; }\n  .companyWatch_content .safe {\n    color: #32B16C; }\n  .companyWatch_content .warn {\n    color: #EBC900; }\n  .companyWatch_content .bad {\n    color: #000000; }\n\n.companyWatch_pagination {\n  position: relative;\n  padding: 20px 0; }\n  .companyWatch_pagination .pagination {\n    width: 1000px;\n    margin: 0 auto; }\n", ""]);
 
 	// exports
 
@@ -69762,9 +69767,13 @@
 
 	var _Modal2 = _interopRequireDefault(_Modal);
 
-	var _index = __webpack_require__(800);
+	var _index = __webpack_require__(779);
 
 	var _index2 = _interopRequireDefault(_index);
+
+	var _index3 = __webpack_require__(800);
+
+	var _index4 = _interopRequireDefault(_index3);
 
 	var _util = __webpack_require__(685);
 
@@ -69801,8 +69810,8 @@
 	                deleteBuildName = _this$state.deleteBuildName,
 	                allBuildName = _this$state.allBuildName;
 
-	            var allId = allBuildId.join(',').split(',');
-	            var allName = allBuildName.join(',').split(',');
+	            var allId = allBuildId.length ? allBuildId.join(',').split(',') : [];
+	            var allName = allBuildName.length ? allBuildName.join(',').split(',') : [];
 	            var checked = target.checked,
 	                value = target.value,
 	                name = target.name;
@@ -70013,6 +70022,11 @@
 	    }, {
 	        key: 'showModel',
 	        value: function showModel(flag, id, name) {
+	            var deleteBuild = this.state.deleteBuild;
+	            if (flag && !id && !deleteBuild.length) {
+	                _index2.default.warning('未选中任何楼宇');
+	                return;
+	            }
 	            this.setState({
 	                delVisible: flag,
 	                buildingId: id,
@@ -70153,7 +70167,7 @@
 	                                    _react2.default.createElement(
 	                                        'th',
 	                                        { width: '22%', className: 'text-left' },
-	                                        _react2.default.createElement(_index2.default, {
+	                                        _react2.default.createElement(_index4.default, {
 	                                            placeholder: '\u8BF7\u8F93\u5165\u697C\u5B87\u540D\u79F0\u641C\u7D22',
 	                                            suffix: 'icon-search',
 	                                            value: this.state.buildingVal,
@@ -70231,7 +70245,7 @@
 	                                                        return _this6.handleEdit(item.parkName, item.parkId);
 	                                                    } }),
 	                                                _react2.default.createElement('i', {
-	                                                    title: '=\u5220\u9664',
+	                                                    title: '\u5220\u9664',
 	                                                    className: 'iconfont icon-del',
 	                                                    onClick: function onClick() {
 	                                                        return _this6.showModel(true, item.buildingId, item.buildingName);
@@ -70862,14 +70876,15 @@
 	        value: function handleDelete() {
 	            var _props$location$query = this.props.location.query,
 	                areaId = _props$location$query.areaId,
-	                parkName = _props$location$query.parkName;
+	                parkName = _props$location$query.parkName,
+	                parkId = _props$location$query.parkId;
 
 	            _util2.default.ajax({
 	                type: 'get',
 	                url: '/park-mgt/delPark.do',
 	                dataType: 'json',
 	                data: {
-	                    parkId: areaId,
+	                    parkId: parkId,
 	                    parkName: parkName
 	                },
 	                success: function success(res) {
@@ -71172,6 +71187,10 @@
 
 	var _util2 = _interopRequireDefault(_util);
 
+	var _index = __webpack_require__(779);
+
+	var _index2 = _interopRequireDefault(_index);
+
 	var _Upload = __webpack_require__(793);
 
 	var _Upload2 = _interopRequireDefault(_Upload);
@@ -71215,8 +71234,8 @@
 	                deleteBuildName = _this$state.deleteBuildName,
 	                allBuildName = _this$state.allBuildName;
 
-	            var allId = allBuildId.join(',').split(',');
-	            var allName = allBuildName.join(',').split(',');
+	            var allId = allBuildId.length ? allBuildId.join(',').split(',') : [];
+	            var allName = allBuildName.length ? allBuildName.join(',').split(',') : [];
 	            var checked = target.checked,
 	                value = target.value,
 	                name = target.name;
@@ -71247,7 +71266,7 @@
 	        _this.state = {
 	            parkOptions: [], // 园区下拉框数据
 	            parkStatus: Number(_this.props.location.query.areaId),
-	            parkText: _this.props.location.query.parkName,
+	            parkText: _this.props.location.query.areaName,
 	            selectImg: '', // 选择上传的图片
 	            parkName: '',
 	            deleteBuild: [], // 需要删除的楼宇列表
@@ -71533,6 +71552,11 @@
 	    }, {
 	        key: 'showModel',
 	        value: function showModel(flag, id, name) {
+	            var deleteBuild = this.state.deleteBuild;
+	            if (flag && !id && !deleteBuild.length) {
+	                _index2.default.warning('未选中任何楼宇');
+	                return;
+	            }
 	            this.setState({
 	                delVisible: flag,
 	                buildingId: id,
@@ -71560,7 +71584,7 @@
 	            } else if (deleteBuild.length === 0) {
 	                checkAll = false;
 	            }
-	            var newBuildUrl = '/parkManage/newBuilding?parkId=' + parkId;
+	            var newBuildUrl = '/parkManage/newBuilding?parkId=' + parkId + '&parkName=' + parkName;
 	            return _react2.default.createElement(
 	                'div',
 	                { className: 'parkDetail_root parkEdit_root' },
@@ -76985,6 +77009,10 @@
 
 	var _Select2 = _interopRequireDefault(_Select);
 
+	var _index = __webpack_require__(779);
+
+	var _index2 = _interopRequireDefault(_index);
+
 	var _Input = __webpack_require__(715);
 
 	var _Input2 = _interopRequireDefault(_Input);
@@ -77409,8 +77437,8 @@
 	                deleteCompanyName = _this$state.deleteCompanyName,
 	                allCompanyName = _this$state.allCompanyName;
 
-	            var allId = allCompanyId.join(',').split(',');
-	            var allName = allCompanyName.join(',').split(',');
+	            var allId = allCompanyId.length ? allCompanyId.join(',').split(',') : [];
+	            var allName = allCompanyName.length ? allCompanyName.join(',').split(',') : [];
 	            var checked = target.checked,
 	                value = target.value,
 	                name = target.name;
@@ -77684,6 +77712,11 @@
 	    }, {
 	        key: 'showModel',
 	        value: function showModel(flag, id, name) {
+	            var deleteCompany = this.state.deleteCompany;
+	            if (flag && !id && !deleteCompany.length) {
+	                _index2.default.warning('未选中任何企业');
+	                return;
+	            }
 	            this.setState({
 	                delVisible: flag,
 	                companyId: id,
@@ -78043,17 +78076,21 @@
 	        _this.parkSelected = function (val, name, text) {
 	            _this.setState({
 	                parkStatus: val,
-	                parkText: text
+	                parkName: text
 	            }, function () {
 	                // this.getParkList();
 	            });
 	        };
 
+	        var _this$props$location$ = _this.props.location.query,
+	            parkId = _this$props$location$.parkId,
+	            parkName = _this$props$location$.parkName;
+
 	        _this.state = {
 	            buildName: '',
 	            parkOptions: [],
-	            parkStatus: Number(_this.props.location.query.parkId) || '',
-	            parkText: '',
+	            parkStatus: Number(parkId) || '',
+	            parkName: parkName || '',
 	            uploadVisible: false,
 	            isUpLoad: false, // 是否上传中
 	            selectImg: '', // 选择上传的图片
@@ -78086,11 +78123,23 @@
 	                dataType: 'json',
 	                success: function success(res) {
 	                    if (res.success) {
-	                        var parkOptions = res.content.map(function (v) {
-	                            return { value: v.parkId === 0 ? '' : v.parkId, text: v.name };
-	                        });
+	                        var _state = _this2.state,
+	                            parkStatus = _state.parkStatus,
+	                            parkName = _state.parkName;
+
+	                        var parkOptions = [];
+	                        for (var i = 0, len = res.content.length; i < len; ++i) {
+	                            var item = res.content[i];
+	                            parkOptions.push({ value: item.parkId === 0 ? '' : item.parkId, text: item.name });
+	                            if (parkName) {
+	                                if (item.name === parkName) {
+	                                    parkStatus = item.parkId;
+	                                }
+	                            }
+	                        }
 	                        _this2.setState({
-	                            parkOptions: parkOptions
+	                            parkOptions: parkOptions,
+	                            parkStatus: parkStatus
 	                        });
 	                    }
 	                }
@@ -78110,10 +78159,10 @@
 	            if (this.state.isUpLoad) {
 	                return;
 	            }
-	            var _state = this.state,
-	                parkStatus = _state.parkStatus,
-	                buildName = _state.buildName,
-	                selectImg = _state.selectImg;
+	            var _state2 = this.state,
+	                parkStatus = _state2.parkStatus,
+	                buildName = _state2.buildName,
+	                selectImg = _state2.selectImg;
 
 	            if (!buildName) {
 	                _index2.default.warning('楼宇名称不能为空');
@@ -78137,7 +78186,7 @@
 	                    parkId: this.state.parkStatus,
 	                    create_by: userName,
 	                    name: this.state.buildName,
-	                    parkName: this.state.parkText
+	                    parkName: this.state.parkName
 	                },
 	                success: function success(res) {
 	                    if (res.success) {
@@ -78165,7 +78214,7 @@
 	            var selectImg = this.state.selectImg;
 	            var userName = sessionStorage.getItem('userName');
 	            fd.append('file', selectImg);
-	            fd.append('parkName', this.state.parkText);
+	            fd.append('parkName', this.state.parkName);
 	            fd.append('buildingName', this.state.buildName);
 	            fd.append('picType', 2);
 	            fd.append('user', userName);
@@ -78259,7 +78308,9 @@
 	        value: function render() {
 	            var _this6 = this;
 
-	            var parkStatus = this.state.parkStatus;
+	            var _state3 = this.state,
+	                parkStatus = _state3.parkStatus,
+	                parkName = _state3.parkName;
 
 	            return _react2.default.createElement(
 	                'div',
@@ -78487,7 +78538,8 @@
 	            isUpLoad: false, // 是否上传中
 	            selectImg: '', // 选择上传的图片
 	            tipText: '',
-	            parkName: ''
+	            parkName: '', // 当前输入框的园区名
+	            toPageParkName: '' // 跳转时的园区名，（只有当保存园区后，立即点击新增楼宇，才会把园区名传过去）
 	        };
 	        _this.selectFile = _this.selectFile.bind(_this);
 	        _this.uploadimg = _this.uploadimg.bind(_this);
@@ -78632,10 +78684,16 @@
 	                    user: userName
 	                },
 	                success: function success(res) {
-	                    var text = res.success ? '上传成功' : res.msg;
+	                    var text = res.msg;
+	                    var toPageParkName = '';
+	                    if (res.success) {
+	                        text = '上传成功';
+	                        toPageParkName = _this5.state.parkName;
+	                    }
 	                    _this5.setState({
 	                        tipText: text,
-	                        uploadVisible: true
+	                        uploadVisible: true,
+	                        toPageParkName: toPageParkName
 	                    });
 	                }
 	            });
@@ -78679,10 +78737,12 @@
 	    }, {
 	        key: 'inputChange',
 	        value: function inputChange(e, ecomplete) {
+	            var _setState;
+
 	            e = e.target ? e : ecomplete;
 	            var name = e.target.name;
 	            var v = e.target.value;
-	            this.setState(_defineProperty({}, name, v));
+	            this.setState((_setState = {}, _defineProperty(_setState, name, v), _defineProperty(_setState, 'toPageParkName', ''), _setState));
 	        }
 	    }, {
 	        key: 'render',
@@ -78695,7 +78755,8 @@
 	                parkStatus = _state2.parkStatus,
 	                isUpLoad = _state2.isUpLoad,
 	                uploadVisible = _state2.uploadVisible,
-	                tipText = _state2.tipText;
+	                tipText = _state2.tipText,
+	                toPageParkName = _state2.toPageParkName;
 
 	            return _react2.default.createElement(
 	                'div',
@@ -78790,7 +78851,7 @@
 	                                _react2.default.createElement(
 	                                    _Button2.default,
 	                                    { className: 'new-btn', onClick: function onClick() {
-	                                            return _this6.topage('/parkManage/newBuilding?areaId=' + parkStatus);
+	                                            return _this6.topage('/parkManage/newBuilding?parkName=' + toPageParkName);
 	                                        } },
 	                                    '\u65B0\u589E\u697C\u5B87'
 	                                )
