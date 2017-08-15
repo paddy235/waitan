@@ -459,6 +459,9 @@ public class HologramQueryServiceImpl implements HologramQueryService {
         CompanySearch2DO cs2 = hologramQueryDao.companySearch2(nalName, parameters);
         long dltSec = (new Date()).getTime() - start.getTime();
         if (null == cs2 || cs2.getErr_code() == null || !(cs2.getErr_code().equals("0"))) {
+            if ( cs2.getErr_code() != null ) {
+                logger.error("dataapi--searchCompany2--Err_code[{}]", cs2.getErr_code());
+            }
             return csList;
         }
         csList.addAll(cs2.getRdata());
@@ -489,6 +492,9 @@ public class HologramQueryServiceImpl implements HologramQueryService {
                 par.put("page_no", "" + idx);
                 CompanySearch2DO cs2x = hologramQueryDao.companySearch2(nalName, par);
                 if (null == cs2x || cs2x.getErr_code() == null || !(cs2x.getErr_code().equals("0"))) {
+                    if ( cs2.getErr_code() != null ) {
+                        logger.error("dataapi--searchCompany2--Err_code[{}]", cs2.getErr_code());
+                    }
                     //logger.info("companySearch2--nalName--End--idxIn1[{}]--cs2x ==null", idx);
                     return;
                 }
