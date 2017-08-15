@@ -59,6 +59,15 @@ public class BaseDataDO implements Serializable{
         private String content_before_change;
         private String content_after_change;
         private String change_date;
+        private String bbd_qyxx_id;
+
+        public String getBbd_qyxx_id() {
+            return bbd_qyxx_id;
+        }
+
+        public void setBbd_qyxx_id(String bbd_qyxx_id) {
+            this.bbd_qyxx_id = bbd_qyxx_id;
+        }
 
         public Bgxx() {
         }
