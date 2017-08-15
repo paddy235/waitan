@@ -640,8 +640,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService,TaskServ
         List<BaseDataDO.Results> resultsList = (null == baseDataDO) ? null : baseDataDO.getResults();
         String unikey = "";
         if (!CollectionUtils.isEmpty(resultsList)) {
-            if (!CollectionUtils.isEmpty(resultsList.get(0).getBgxx()))
-                unikey = resultsList.get(0).getBgxx().get(0).getBbd_qyxx_id();
+            unikey = resultsList.get(0).getJbxx().getBbd_qyxx_id();
         } else {
             return relationDiagramVO;
         }

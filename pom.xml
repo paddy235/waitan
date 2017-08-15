@@ -551,13 +551,13 @@
                 <m.wtyh.web2.ip>http://10.28.100.48:8082</m.wtyh.web2.ip>
 
                 <!--服务器文件根路径。如果需要在服务器生成文件-->
-                <wtyh.file.root.path>D:\\shareDir</wtyh.file.root.path>
+                <wtyh.file.root.path>/data/wtyh</wtyh.file.root.path>
 
                 <!--动态风险图存放路径(服务器上的绝对路径，后面不需要加att目录，但是Tomcat的虚拟目录里需要加att目录)  -->
-                <m.share.path>D:\\shareDir</m.share.path>
+                <m.share.path>${wtyh.file.root.path}/yed</m.share.path>
 
                 <!--产生图片后，传给前台的请求action，对应Tomcat虚拟目录的path，后面不需要加att，但是Tomcat的虚拟目录需要加  -->
-                <m.mapping.path>D:\\shareDir</m.mapping.path>
+                <m.mapping.path>/wtyh/yed</m.mapping.path>
 
                 <update.img.web.path>${wtyh.file.root.path}/static/wtyh-web/build/data/img</update.img.web.path>
                 <update.img.admin.path>${wtyh.file.root.path}/static/wtyh-admin/build/data/img</update.img.admin.path>
