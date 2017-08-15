@@ -559,7 +559,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService,TaskService {
             if (wangdaiModify != null) {
                 platRankDataDO.setPlatStatus(wangdaiModify.getAfterLevel());
             } else {
-                platRankDataDO.setPlatStatus(dto.getPlatRank());
+                platRankDataDO.setPlatStatus(dto.getPlat_status());
 
             }
             platRankDataDO.setRank(dto.getRank());

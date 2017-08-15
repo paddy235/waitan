@@ -13,9 +13,9 @@
     </delete>
 
     <select id="getWangdaiModify" parameterType="java.lang.String" resultType="com.bbd.wtyh.domain.CompanyInfoModify.WangdaiModify">
-        select name,platName,afterLevel
-        from company_modify
-        where beforeIndustry = 1 and platName = #{platName} limit 1
+        SELECT `name`,platName,afterLevel
+        FROM company_modify
+        WHERE beforeIndustry = 1 AND platName = #{platName} ORDER BY `create` DESC  LIMIT 1
     </select>
 
 </mapper>
