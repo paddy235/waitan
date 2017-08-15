@@ -153,6 +153,7 @@ public class CompanyInfoMudifyUtil {
         wangdaiModify.setBeforeLevel(wangdai.getCurrentLevel());
         wangdaiModify.setAfterLevel(modifyData.getLevel());
         wangdaiModify.setBeforeIndustry(CompanyInfo.TYPE_P2P_1);
+        wangdaiModify.setAfterIndustry(Byte.valueOf(modifyData.getIndustry()));
         // 记录行为
         p2PImageService.recordWangdai(wangdaiModify);
         // 修改行业
