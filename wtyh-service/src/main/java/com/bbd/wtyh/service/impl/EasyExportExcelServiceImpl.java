@@ -42,6 +42,9 @@ public class EasyExportExcelServiceImpl implements EasyExportExeclService {
     @Autowired
     private MortgageService mortgageService;    // 典当
 
+    @Autowired
+    private FinanceLeaseService financeLeaseService;    //融资租赁
+
     @Override
     public List<WangdaiData> getWangdai(ExportCondition exportCondition, PageBean pageBean) {
         // TODO: 2017/7/21
@@ -74,8 +77,8 @@ public class EasyExportExcelServiceImpl implements EasyExportExeclService {
     }
 
     @Override
-    public List<PrivateOfferedFundData> getTenancy(ExportCondition exportCondition, PageBean pageBean) {
-        return privateFundService.getPrivateOfferedFund(exportCondition, pageBean);
+    public List<FinanceLeaseData> getTenancy(ExportCondition exportCondition, PageBean pageBean) {
+        return financeLeaseService.getFinanceLease(exportCondition, pageBean);
     }
 
     @Override

@@ -20,7 +20,7 @@ public interface EasyExportExeclService {
 
     List<PrivateOfferedFundData> getPerpaycard(ExportCondition exportCondition, PageBean pagination);
 
-    List<PrivateOfferedFundData> getTenancy(ExportCondition exportCondition, PageBean pagination);
+    List<FinanceLeaseData> getTenancy(ExportCondition exportCondition, PageBean pagination);
 
     List<PrivateOfferedFundData> getPrivateOfferedFund(ExportCondition exportCondition, PageBean pagination);
 

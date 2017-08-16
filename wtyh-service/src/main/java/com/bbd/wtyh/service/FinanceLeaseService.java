@@ -2,7 +2,10 @@ package com.bbd.wtyh.service;
 
 import com.bbd.wtyh.domain.CompanyInfoModify.CompanyInfo;
 import com.bbd.wtyh.domain.CompanyInfoModify.RecordInfo;
+import com.bbd.wtyh.domain.EasyExport.FinanceLeaseData;
 import com.bbd.wtyh.domain.vo.FinanceLeasecCompanyVO;
+import com.bbd.wtyh.web.EasyExportExcel.ExportCondition;
+import com.bbd.wtyh.web.PageBean;
 import com.bbd.wtyh.web.XAxisSeriesBarsLineBean;
 
 import java.util.List;
@@ -33,4 +36,6 @@ public interface FinanceLeaseService {
     void addFinanceLease(RecordInfo recordInfo);
 
     boolean isExistFinanceLease(RecordInfo recordInfo);
+
+    public List<FinanceLeaseData> getFinanceLease(ExportCondition exportCondition, PageBean pagination);
 }
