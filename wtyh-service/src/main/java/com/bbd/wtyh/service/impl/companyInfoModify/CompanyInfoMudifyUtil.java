@@ -206,7 +206,7 @@ public class CompanyInfoMudifyUtil {
             companyLevelService.modifyLoadLevel(recordInfo);
         } else if (CompanyInfo.TYPE_XXLC_4 == recordInfo.getAfterIndustry()) { // 线下理财
             riskCompanyService.modifyOffLineLevel(recordInfo);
-            indexDataMapper.addOffLineLevel(recordInfo);
+//            indexDataMapper.addOffLineLevel(recordInfo);//传入数据不全，新增后会有问题
         } else if (CompanyInfo.TYPE_JYS_9 == recordInfo.getAfterIndustry()) {  // 交易场所
             riskCompanyService.modifyOffLineLevel(recordInfo);
             exchangeCompanyService.addExchange(recordInfo);
@@ -285,7 +285,7 @@ public class CompanyInfoMudifyUtil {
             companyLevelService.addLoadLevel(recordInfo);
         } else if (CompanyInfo.TYPE_XXLC_4 == recordInfo.getAfterIndustry()) { // 线下理财
             riskCompanyService.modifyOffLineLevel(recordInfo);
-            indexDataMapper.addOffLineLevel(recordInfo);
+//            indexDataMapper.addOffLineLevel(recordInfo);
         } else if (CompanyInfo.TYPE_JYS_9 == recordInfo.getAfterIndustry()) {  // 交易场所
             riskCompanyService.modifyOffLineLevel(recordInfo);
         } else if (CompanyInfo.TYPE_RZZL_13 == recordInfo.getAfterIndustry()) { // 融资租赁
@@ -328,7 +328,7 @@ public class CompanyInfoMudifyUtil {
                 companyLevelService.addLoadLevel(recordInfo);
             } else if (CompanyInfo.TYPE_XXLC_4 == recordInfo.getAfterIndustry()) { // 线下理财
                 riskCompanyService.modifyOffLineLevel(recordInfo);
-                indexDataMapper.addOffLineLevel(recordInfo);
+//                indexDataMapper.addOffLineLevel(recordInfo);
             } else if (CompanyInfo.TYPE_JYS_9 == recordInfo.getAfterIndustry()) {  // 交易场所
                 riskCompanyService.modifyOffLineLevel(recordInfo);
                 exchangeCompanyService.addExchange(recordInfo);
@@ -368,7 +368,7 @@ public class CompanyInfoMudifyUtil {
             companyLevelService.addLoadLevel(recordInfo);
         } else if (CompanyInfo.TYPE_XXLC_4 == recordInfo.getAfterIndustry()) { // 线下理财
             riskCompanyService.modifyOffLineLevel(recordInfo);
-            indexDataMapper.addOffLineLevel(recordInfo);
+//            indexDataMapper.addOffLineLevel(recordInfo);
         } else if (CompanyInfo.TYPE_JYS_9 == recordInfo.getAfterIndustry()) {  // 交易场所
             riskCompanyService.modifyOffLineLevel(recordInfo);
             exchangeCompanyService.addExchange(recordInfo);
@@ -404,7 +404,7 @@ public class CompanyInfoMudifyUtil {
             companyLevelService.addLoadLevel(recordInfo);
         } else if (CompanyInfo.TYPE_XXLC_4 == recordInfo.getAfterIndustry()) { // 线下理财
             riskCompanyService.modifyOffLineLevel(recordInfo);
-            indexDataMapper.addOffLineLevel(recordInfo);
+//            indexDataMapper.addOffLineLevel(recordInfo);
         } else if (CompanyInfo.TYPE_JYS_9 == recordInfo.getAfterIndustry()) {  // 交易场所
             riskCompanyService.modifyOffLineLevel(recordInfo);
             exchangeCompanyService.addExchange(recordInfo);
