@@ -93,11 +93,6 @@ public class CompanyInfoMudifyUtil {
             recordInfo.setAfterOutLevel(modifyData.getOutLevel());
             recordInfo.setAfterInnnerLevel(modifyData.getInnnerLevel());
             recordInfo.setAfterLiveLevel(modifyData.getLiveLevel());
-        } else if (CompanyInfo.TYPE_SMJJ_5 == Byte.valueOf(modifyData.getIndustry())   // 私募基金
-                || CompanyInfo.TYPE_ZC_6 == Byte.valueOf(modifyData.getIndustry())    // 众筹
-                || CompanyInfo.TYPE_SYBL_10 == Byte.valueOf(modifyData.getIndustry())   // 商业保理
-                || CompanyInfo.TYPE_DD_12 == Byte.valueOf(modifyData.getIndustry())) { // 典当
-            recordInfo.setAfterLevel(null);
         }
         companyInfoModifyMapper.recordModify(recordInfo);
         return recordInfo;
@@ -166,12 +161,10 @@ public class CompanyInfoMudifyUtil {
         recordInfo.setName(modifyData.getName());
         recordInfo.setPlatName(wangdai.getPlatName());
         recordInfo.setBeforeLevel(wangdai.getCurrentLevel());
-        recordInfo.setAfterLevel(null);//从网贷转网贷，riskLevel无须修改(本身即应为空)
+        recordInfo.setAfterLevel(modifyData.getLevel());
         recordInfo.setBeforeIndustry(CompanyInfo.TYPE_P2P_1);
         recordInfo.setAfterIndustry(Byte.valueOf(modifyData.getIndustry()));
         modifyIndustry(recordInfo);
-        //清空风险等级
-        riskCompanyService.modifyLevel(recordInfo.getName(),recordInfo.getAfterLevel());
 
     }
 
@@ -184,8 +177,7 @@ public class CompanyInfoMudifyUtil {
         CompanyInfo companyInfo = companyInfoModifyMapper.queryCompany(modifyData.getName());
         RecordInfo recordInfo = recordModify(modifyData, companyInfo);
         // 修改风险等级
-        // 因修改后皆为网贷，故不做风险等级修改--暂时还是清空风险等级
-        riskCompanyService.modifyLevel(recordInfo.getName(),recordInfo.getAfterLevel());
+        // 因修改后皆为网贷，故不做风险等级修改
         // 修改行业
         modifyIndustry(recordInfo);
     }
@@ -218,12 +210,6 @@ public class CompanyInfoMudifyUtil {
             }
         } else if (CompanyInfo.TYPE_YFK_11 == recordInfo.getAfterIndustry()) {   // 预付卡
             prepaidCompanyStaticService.addPerpaycard(recordInfo);
-        } else if (CompanyInfo.TYPE_SMJJ_5 == recordInfo.getAfterIndustry()   // 私募基金
-                || CompanyInfo.TYPE_ZC_6 == recordInfo.getAfterIndustry()    // 众筹
-                || CompanyInfo.TYPE_SYBL_10 == recordInfo.getAfterIndustry()   // 商业保理
-                || CompanyInfo.TYPE_DD_12 == recordInfo.getAfterIndustry()) { // 典当
-            //这几种行业没有风险值，故从别的行业转过来的时候需要将风险值设空
-            riskCompanyService.modifyLevel(recordInfo.getName(),recordInfo.getAfterLevel());
         }
         // 修改行业
         modifyIndustry(recordInfo);
@@ -257,12 +243,6 @@ public class CompanyInfoMudifyUtil {
             }
         } else if (CompanyInfo.TYPE_YFK_11 == recordInfo.getAfterIndustry()) { // 预付卡
             prepaidCompanyStaticService.addPerpaycard(recordInfo);
-        } else if (CompanyInfo.TYPE_SMJJ_5 == recordInfo.getAfterIndustry()   // 私募基金
-                || CompanyInfo.TYPE_ZC_6 == recordInfo.getAfterIndustry()    // 众筹
-                || CompanyInfo.TYPE_SYBL_10 == recordInfo.getAfterIndustry()   // 商业保理
-                || CompanyInfo.TYPE_DD_12 == recordInfo.getAfterIndustry()) { // 典当
-            //这几种行业没有风险值，故从别的行业转过来的时候需要将风险值设空
-            riskCompanyService.modifyLevel(recordInfo.getName(),recordInfo.getAfterLevel());
         }
         // 修改行业
         modifyIndustry(recordInfo);
@@ -296,12 +276,6 @@ public class CompanyInfoMudifyUtil {
             }
         } else if (CompanyInfo.TYPE_YFK_11 == recordInfo.getAfterIndustry()) { // 预付卡
             prepaidCompanyStaticService.addPerpaycard(recordInfo);
-        } else if (CompanyInfo.TYPE_SMJJ_5 == recordInfo.getAfterIndustry()   // 私募基金
-                || CompanyInfo.TYPE_ZC_6 == recordInfo.getAfterIndustry()    // 众筹
-                || CompanyInfo.TYPE_SYBL_10 == recordInfo.getAfterIndustry()   // 商业保理
-                || CompanyInfo.TYPE_DD_12 == recordInfo.getAfterIndustry()) { // 典当
-            //这几种行业没有风险值，故从别的行业转过来的时候需要将风险值设空
-            riskCompanyService.modifyLevel(recordInfo.getName(),recordInfo.getAfterLevel());
         }
         // 修改行业
         modifyIndustry(recordInfo);
@@ -340,12 +314,6 @@ public class CompanyInfoMudifyUtil {
                 }
             } else if (CompanyInfo.TYPE_YFK_11 == recordInfo.getAfterIndustry()) {// 预付卡
                 prepaidCompanyStaticService.addPerpaycard(recordInfo);
-            } else if (CompanyInfo.TYPE_SMJJ_5 == recordInfo.getAfterIndustry()   // 私募基金
-                    || CompanyInfo.TYPE_ZC_6 == recordInfo.getAfterIndustry()    // 众筹
-                    || CompanyInfo.TYPE_SYBL_10 == recordInfo.getAfterIndustry()   // 商业保理
-                    || CompanyInfo.TYPE_DD_12 == recordInfo.getAfterIndustry()) { // 典当
-                //这几种行业没有风险值，故从别的行业转过来的时候需要将风险值设空
-                riskCompanyService.modifyLevel(recordInfo.getName(),recordInfo.getAfterLevel());
             }
         }
         // 修改行业
@@ -381,12 +349,6 @@ public class CompanyInfoMudifyUtil {
 //            financeLeaseService.modifyFinanceLease(recordInfo);
         } else if (CompanyInfo.TYPE_YFK_11 == recordInfo.getAfterIndustry()) {// 预付卡
             prepaidCompanyStaticService.modifyPerpaycard(recordInfo);
-        } else if (CompanyInfo.TYPE_SMJJ_5 == recordInfo.getAfterIndustry()   // 私募基金
-                || CompanyInfo.TYPE_ZC_6 == recordInfo.getAfterIndustry()    // 众筹
-                || CompanyInfo.TYPE_SYBL_10 == recordInfo.getAfterIndustry()   // 商业保理
-                || CompanyInfo.TYPE_DD_12 == recordInfo.getAfterIndustry()) { // 典当
-            //这几种行业没有风险值，故从别的行业转过来的时候需要将风险值设空
-            riskCompanyService.modifyLevel(recordInfo.getName(),recordInfo.getAfterLevel());
         }
         // 修改行业
         modifyIndustry(recordInfo);
@@ -416,12 +378,6 @@ public class CompanyInfoMudifyUtil {
             }
         } else if (CompanyInfo.TYPE_YFK_11 == recordInfo.getAfterIndustry()) {// 预付卡
             prepaidCompanyStaticService.addPerpaycard(recordInfo);
-        }else if (CompanyInfo.TYPE_SMJJ_5 == recordInfo.getAfterIndustry()   // 私募基金
-                || CompanyInfo.TYPE_ZC_6 == recordInfo.getAfterIndustry()    // 众筹
-                || CompanyInfo.TYPE_SYBL_10 == recordInfo.getAfterIndustry()   // 商业保理
-                || CompanyInfo.TYPE_DD_12 == recordInfo.getAfterIndustry()) { // 典当
-            //这几种行业没有风险值，即使是相互转换，也在清空一次风险等级，确保之前的错误数据，存档后可以正确
-            riskCompanyService.modifyLevel(recordInfo.getName(),recordInfo.getAfterLevel());
         }
     }
 
@@ -448,8 +404,6 @@ public class CompanyInfoMudifyUtil {
     public void modifyCrowdfunding(ModifyData modifyData) throws Exception {
         CompanyInfo companyInfo = companyInfoModifyMapper.queryCompany(modifyData.getName());
         RecordInfo recordInfo = recordModify(modifyData, companyInfo);
-        //虽然众筹和网贷需要数据落地才能修改，暂时还是清空风险等级
-        riskCompanyService.modifyLevel(recordInfo.getName(),recordInfo.getAfterLevel());
         // 修改行业
         modifyIndustry(recordInfo);
 
