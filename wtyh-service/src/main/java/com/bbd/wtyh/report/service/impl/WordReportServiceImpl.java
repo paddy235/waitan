@@ -112,7 +112,7 @@ public class WordReportServiceImpl implements WordReportService {
                 return convertErrInfo("E3");//Template file is not found !
             }
             final WordReportBuilder[] wrbArr = {null};
-            MultiExeService.ThreadFun newWrb = ()->{
+            jes.runThreadFun( ()->{
                 try {
                     synchronized (wrbArr) {
                         wrbArr[0] = new WordReportBuilder(templateFileURL.getFile(), emReportType);
@@ -126,8 +126,7 @@ public class WordReportServiceImpl implements WordReportService {
                     //设置水印
                     wrbArr[0].setWaterMark(loginName);
                 }
-            };
-            jes.runThreadFun(newWrb);
+            } );
 
             //设置企业风险信息
             if( WordReportBuilder.ReportType.OFFLINE_FINANCING == emReportType ) {
@@ -191,7 +190,7 @@ public class WordReportServiceImpl implements WordReportService {
                                     for (int iCnt = timeOuts; iCnt > 0; iCnt--) {
                                         if (null != wrbArr[0]) {
                                             synchronized (wrbArr) {
-                                                wrbArr[0].setStaticRiskTable(staticRiskTable);
+                                                wrbArr[0].setStaticRiskTable( staticRiskTable, dataVersionList.get(0) );
                                             }
                                             break;
                                         }
@@ -494,14 +493,18 @@ public class WordReportServiceImpl implements WordReportService {
                                 //处理股东信息 和 股东出资信息
                                 List<BaseDataDO.Gdxx> gdXx = results.getGdxx();
                                 if (gdXx != null && gdXx.size() > 0) {
+                                    int idx =0;
                                     for (BaseDataDO.Gdxx gdObj : gdXx) {
+                                        idx++;
                                         List<String> gdLine = new ArrayList<>();
                                         gdList.add(gdLine);
+                                        gdLine.add("" +idx);
                                         gdLine.add(gdObj.getShareholder_name());
                                         gdLine.add(gdObj.getShareholder_type());
                                         //出资信息
                                         List<String> czLine = new ArrayList<>();
                                         czList.add(czLine);
+                                        czLine.add("" +idx);
                                         czLine.add(gdObj.getShareholder_name());
                                         czLine.add(gdObj.getSubscribed_capital()); //认缴
                                         czLine.add(gdObj.getPaid_contribution()); //实缴
@@ -525,9 +528,12 @@ public class WordReportServiceImpl implements WordReportService {
                                         }
                                         baMap.put(baObj.getName(), val);
                                     }
+                                    int idx =0;
                                     for (Map.Entry<String, String> entry : baMap.entrySet()) {
+                                        idx++;
                                         List<String> baLine = new ArrayList<>();
                                         baList.add(baLine);
+                                        baLine.add("" +idx);
                                         baLine.add(entry.getKey());
                                         baLine.add(entry.getValue());
                                     }
@@ -537,9 +543,12 @@ public class WordReportServiceImpl implements WordReportService {
                                 //处理变更信息
                                 List<BaseDataDO.Bgxx> bgXx = results.getBgxx();
                                 if (bgXx != null && bgXx.size() > 0) {
+                                    int idx =0;
                                     for (BaseDataDO.Bgxx bgObj : bgXx) {
+                                        idx++;
                                         List<String> bgLine = new ArrayList<>();
                                         bgList.add(bgLine);
+                                        bgLine.add("" +idx);
                                         bgLine.add(bgObj.getChange_items());
                                         bgLine.add(bgObj.getContent_before_change());
                                         bgLine.add(bgObj.getContent_after_change());
@@ -621,9 +630,12 @@ public class WordReportServiceImpl implements WordReportService {
                         if (comList == null) {
                             continue;
                         }
+                        int iIdx =0;
                         for (String comName : comNames) {
+                            iIdx++;
                             List<String> low = new ArrayList<>();
                             distribute.add(low);
+                            low.add("" +iIdx);
                             low.add(comName);
                             for (CompanyDO cd : (List<CompanyDO>)(comList[0])) {
                                 if (comName.equals(cd.getName())) {
@@ -676,9 +688,12 @@ public class WordReportServiceImpl implements WordReportService {
                     if (recruitDO != null) {
                         List<RecruitDO.Recruit> recruits = recruitDO.getResults();
                         if (recruits != null) {
+                            int idx =0;
                             for (RecruitDO.Recruit rec : recruits) {
+                                idx++;
                                 List<String> row = new ArrayList<>();
                                 recruitInfoList.add(row);
+                                row.add("" +idx); //idx
                                 row.add(rec.getJob_title()); //职位
                                 row.add(rec.getEducation_required()); //最低学历
                                 row.add(rec.getSalary()); //薪资
