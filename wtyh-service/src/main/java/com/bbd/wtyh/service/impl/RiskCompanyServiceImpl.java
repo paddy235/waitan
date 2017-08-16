@@ -57,8 +57,8 @@ public class RiskCompanyServiceImpl implements RiskCompanyService {
                     } else {
                     }
                 }
-//            } else {
-//                scannerList = list;
+            } else {
+                scannerList = list;
             }
 //            redisDAO.addObject(key, scannerList, Constants.REDIS_5, List.class); // 保留5天
 //        }
