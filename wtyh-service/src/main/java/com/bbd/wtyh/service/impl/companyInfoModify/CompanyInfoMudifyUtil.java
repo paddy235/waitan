@@ -176,7 +176,7 @@ public class CompanyInfoMudifyUtil {
     }
 
     /**
-     * 留给定时任务-企业与网贷平台对照表更新-更新企业类型专用
+     * 留给定时任务-企业与网贷平台对照表更新 and 众筹数更新-更新企业类型专用
      *
      * @param modifyData
      */
