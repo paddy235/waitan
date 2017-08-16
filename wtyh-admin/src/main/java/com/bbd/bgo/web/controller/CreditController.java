@@ -110,7 +110,9 @@ public class CreditController {
 
 			UserLogRecord.record("搜索["+companyName+"]", Operation.Type.query, Operation.Page.creditDataManager,
 					Operation.System.back, request);
-
+			if(null == list || list.size()==0){
+				return ResponseBean.errorResponse("该企业无数据");
+			}
 			return ResponseBean.successResponse(list);
 		} catch (Exception e) {
 			return ResponseBean.errorResponse("数据错误");
