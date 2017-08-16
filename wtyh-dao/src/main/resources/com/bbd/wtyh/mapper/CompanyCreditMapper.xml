@@ -59,7 +59,7 @@
 		SELECT
 		`task_id` AS taskId,
 		`company_name` AS failName,
-		a.code_des AS failReason
+		CONCAT(a.code_value,':', a.code_des)  AS failReason
 		FROM
 		company_credit_fail_history LEFT JOIN
     	(select * from sys_code where code_group='credit_center' ) as a
