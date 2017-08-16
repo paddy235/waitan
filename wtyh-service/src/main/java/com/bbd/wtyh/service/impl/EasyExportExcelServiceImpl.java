@@ -9,6 +9,7 @@
 package com.bbd.wtyh.service.impl;
 
 import com.bbd.wtyh.domain.EasyExport.*;
+import com.bbd.wtyh.domain.enums.WangDaiRiskLevel;
 import com.bbd.wtyh.service.*;
 import com.bbd.wtyh.web.EasyExportExcel.ExportCondition;
 import com.bbd.wtyh.web.PageBean;
@@ -48,6 +49,11 @@ public class EasyExportExcelServiceImpl implements EasyExportExeclService {
     @Override
     public List<WangdaiData> getWangdai(ExportCondition exportCondition, PageBean pageBean) {
         // TODO: 2017/7/21
+        String curLevel=exportCondition.getCurrentLevel();
+        if(null!=curLevel){
+
+            exportCondition.setCurrentLevel(WangDaiRiskLevel.getRiskType(curLevel)+"");
+        }
         return p2PImageService.getWangdai(exportCondition, pageBean);
     }
 

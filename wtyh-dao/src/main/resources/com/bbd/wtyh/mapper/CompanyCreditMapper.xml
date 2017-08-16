@@ -72,15 +72,16 @@
 
     <select id="getCreditCompany" parameterType="String" resultType="com.bbd.wtyh.domain.dto.CreditInfoDTO">
         select
-        distinct company_id as companyId,
-                company_name as name
-        from company_credit_raw_info
+         company_id as companyId,
+        `name`
+        from company
         where
         1=1
         <if test="companyName!=null" >
-          AND company_name like CONCAT('%',#{companyName},'%')
+          AND `name` like CONCAT('%',#{companyName},'%')
         </if>
-        order by company_name
+        order by `name`
+        LIMIT 0,10
     </select>
 
     <select id="getCreditInfo" parameterType="String" resultType="com.bbd.wtyh.domain.dto.CreditInfoDTO">

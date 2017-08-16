@@ -3,7 +3,7 @@
 <mapper namespace="com.bbd.wtyh.mapper.BuildingMapper">
 
     <select id="queryBuildings" resultType="com.bbd.wtyh.domain.BuildingDO">
-
+      select * from (
 			select b.building_id buildingId,
 			       b.name,b.park_id parkId,
 			       b.img_url imgUrl ,
@@ -19,7 +19,22 @@
 			      b.park_id=p.park_id and p.area_id=#{areaId} and p.name=#{parkName}
 			      and c.company_type is not null
 			GROUP BY b.building_id ,b.name,b.park_id,b.img_url
-			ORDER BY importFocusNum DESC,commonFocusNum DESC
+
+			union all
+
+            select b.building_id buildingId,
+                    b.name,b.park_id parkId,
+                    b.img_url imgUrl ,
+                    0 total ,
+                    0 finComNum,
+                    0 importFocusNum,
+                    0 commonFocusNum
+                    from building b,park p
+                    where
+                    b.park_id=p.park_id and p.area_id=#{areaId} and p.name=#{parkName}
+                and b.building_id not in(select distinct cb.building_id from company_building cb ,company c
+                where c.company_id=cb.company_id  and c.company_type is not null)
+            )as ccc ORDER BY importFocusNum DESC,commonFocusNum DESC,total desc
 	</select>
 
 
