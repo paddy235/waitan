@@ -80,6 +80,9 @@ public class WordReportBuilder {
 	/** 企业风险级别 */
 	private String companyRiskResult = "";
 
+	/** 风险数据版本 */
+	private String riskDataVer ="";
+
 	/** 企业类型：网络借贷、线下理财、小额贷款、其他。。。 */
 	private String companyType = "";
 
@@ -150,7 +153,7 @@ public class WordReportBuilder {
 					put("实际控制人风险", "27.8");
 					put("公司扩张风险", "33.9");
 				}
-			});
+			}, "20090101");
 			wrb.setDynamicRiskTable(new HashMap<String, String>() {
 
 				{
@@ -294,9 +297,7 @@ public class WordReportBuilder {
 	 * @param companyStatus
 	 *            企业状态（中文名称）
 	 */
-	public void setCompanySummary(String companyName, List companyBackground, // mock：
-																				// new
-																				// ArrayList<String>(){{add("民营企业");add("非上市公司");}}
+	public void setCompanySummary(String companyName, List companyBackground, // mock：new ArrayList<String>(){{add("民营企业");add("非上市公司");}}
 			String companyRiskResult, String companyType, String companyStatus) {
 		if (StringUtils.isNotEmpty(companyName)) {
 			this.companyName = companyName;
@@ -362,10 +363,11 @@ public class WordReportBuilder {
 	 * @param staticRiskTable
 	 *            map类型，key值包含最左这一列的所有项目
 	 */
-	public void setStaticRiskTable(Map<String, String> staticRiskTable) {
+	public void setStaticRiskTable( Map<String, String> staticRiskTable, String riskDataVersion ) {
 		if (reportType != ReportType.OFFLINE_FINANCING) {
 			return;
 		}
+		riskDataVer =riskDataVersion;
 		StringBuffer thisErrRecord = new StringBuffer();
 		setTableSecondColumn(mainParagraphList, 0, "fengxianxinxi_jingtaifengxianbiao", staticRiskTable, 0, thisErrRecord);
 		if (thisErrRecord.length() > 0) {
@@ -1022,9 +1024,9 @@ public class WordReportBuilder {
 		if (StringUtils.isNotBlank(companyType)) {
 			sBuf.append(companyType); // .append( "、" );
 		}
+
 		// 替换一些零散的标签
 		Map<String, String> mp = new HashMap<String, String>() {
-
 			{
 				if ( sBuf.length() >0 ) {
 					put("$$标题（企业名称及属性标签）", companyName + "（" + sBuf.toString() + "）"); // "…）"
@@ -1032,6 +1034,11 @@ public class WordReportBuilder {
 					put("$$标题（企业名称及属性标签）", companyName );
 				}
 				put("$$报告生成日期", LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd")));
+				if ( StringUtils.isNotBlank(riskDataVer) ) {
+					put("$$风险信息", "风险信息（" + riskDataVer + "）");
+				} else {
+					put("$$风险信息", "风险信息");
+				}
 				put("$$风险等级：", "风险等级：" + companyRiskResult);
 			}
 		};

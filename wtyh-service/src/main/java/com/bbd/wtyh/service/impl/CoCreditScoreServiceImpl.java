@@ -571,7 +571,7 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 	 * @param pointMap
 	 */
 	private List<String> getCreditFromShangHai(CompanyDO coDo, Map<String, Integer> pointMap, Integer taskId, int isHandle) {
-		String xmlData = XyptWebServiceUtil.getCreditInfo(coDo.getName(), null, null);
+		String xmlData = XyptWebServiceUtil.getCreditInfo(coDo.getName(), "", "");
 		if (StringUtils.isBlank(xmlData)) {
 			// 正常执行记录到失败表，自动重试不需要再次记录到失败表
 			if (0 == isHandle) {

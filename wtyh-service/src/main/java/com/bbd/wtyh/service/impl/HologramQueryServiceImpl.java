@@ -255,6 +255,11 @@ public class HologramQueryServiceImpl implements HologramQueryService {
         recruitPeopleDistributeDO.setMsg("ok");
         List list = new ArrayList();
         RecruitDataDO recruitDataDO = hologramQueryDao.getRecruitData(company, timeTag);
+        if ( recruitDataDO.getErr_code() !=0  ) {
+            logger.error("bbd_kpi_recruit is failling:[{}]", recruitDataDO.getMsg() );
+            recruitPeopleDistributeDO.setMsg("error");
+            return recruitPeopleDistributeDO;
+        }
         if (CollectionUtils.isEmpty(recruitDataDO.getResults().get(0).getIndustry_ratio())) {
             timeTag = DateUtils.formatDate(org.apache.commons.lang3.time.DateUtils.addMonths(new Date(),-2));
             recruitDataDO = hologramQueryDao.getRecruitData(company, timeTag);
@@ -282,6 +287,11 @@ public class HologramQueryServiceImpl implements HologramQueryService {
         recruitPeopleSalaryDO.setMsg("ok");
         List list = new ArrayList();
         RecruitDataDO recruitDataDO = hologramQueryDao.getRecruitData(company, timeTag);
+        if ( recruitDataDO.getErr_code() !=0  ) {
+            logger.error("bbd_kpi_recruit is failling:[{}]", recruitDataDO.getMsg() );
+            recruitPeopleSalaryDO.setMsg("error");
+            return recruitPeopleSalaryDO;
+        }
         if (CollectionUtils.isEmpty(recruitDataDO.getResults().get(0).getSalary_ratio())) {
             timeTag = DateUtils.formatDate(org.apache.commons.lang3.time.DateUtils.addMonths(new Date(),-2));
             recruitDataDO = hologramQueryDao.getRecruitData(company, timeTag);
