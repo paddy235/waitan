@@ -2,6 +2,7 @@ package com.bbd.wtyh.service.impl;
 
 import com.bbd.higgs.utils.ListUtil;
 import com.bbd.higgs.utils.http.HttpTemplate;
+import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.core.base.BaseServiceImpl;
 import com.bbd.wtyh.domain.*;
 import com.bbd.wtyh.domain.vo.NewsVO;
@@ -23,6 +24,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.io.*;
+import java.net.*;
 import java.util.*;
 
 /**
@@ -63,6 +66,11 @@ public class ParkServiceImpl extends BaseServiceImpl implements ParkService {
 
 	@Autowired
 	private CompanyAnalysisResultMapper carMapper;
+
+	@Autowired
+	private AreaMapper areaMapper;
+
+	private String httpProxy = System.getenv("http_proxy");
 
 	@Override
 	public List<BuildingDO> queryBuildings(Integer areaId,String parkName) {
@@ -138,16 +146,18 @@ public class ParkServiceImpl extends BaseServiceImpl implements ParkService {
 
 			log.info("園區舆情公司爲：" + ns.toString());
 			if (!StringUtils.isEmpty(names)) {
-				List<NameValuePair> list = new ArrayList<>();
-				list.add(new BasicNameValuePair("keys", ns.toString()));
-				list.add(new BasicNameValuePair("ktype", "" + ktype));
-				list.add(new BasicNameValuePair("page", "1"));
-				list.add(new BasicNameValuePair("pageSize", "20"));
-				list.add(new BasicNameValuePair("appkey", ak));
+//				List<NameValuePair> list = new ArrayList<>();
+//				list.add(new BasicNameValuePair("keys", ns.toString()));
+//				list.add(new BasicNameValuePair("ktype", "" + ktype));
+//				list.add(new BasicNameValuePair("page", "1"));
+//				list.add(new BasicNameValuePair("pageSize", "20"));
+//				list.add(new BasicNameValuePair("appkey", ak));
+				StringBuilder builder = new StringBuilder("keys=").append(ns);
+				builder.append("&ktype=").append(ktype).append("&page=1&pageSize=20&appkey=").append(ak);
 				try {
-					result = new HttpTemplate().post(batchNewsUrl, list);
+//					result = new HttpTemplate().post(batchNewsUrl, list);
+					result = this.sendPost(batchNewsUrl, builder.toString());
 					log.info("舆情：" + batchNewsUrl + " 返回值为:" + result);
-
 					NewsVO vo = gson.fromJson(result, new TypeToken<NewsVO>() {
 					}.getType());
 					newsvo.addNewsVO(vo);
@@ -388,6 +398,13 @@ public class ParkServiceImpl extends BaseServiceImpl implements ParkService {
 		if(null!=companyName){
 			params.put("companyName",companyName);
 		}
+		//临时方案20170816：如果园区名称不属于某个行政区，就不查询该园区所属行政区的注册企业。例如虹桥商务区
+		List<AreaDO> areaDOs=this.areaMapper.areaListByName(Constants.SH_AREAID,parkName);
+		if(null==areaDOs || areaDOs.size()==0 ){
+			params.put("regCompany",null);
+		}else{
+			params.put("regCompany","1");
+		}
 		int total=this.parkMapper.qeuryParkCompanyCount(params);
 		result.put("total",total);
 		result.put("list",this.parkMapper.qeuryParkCompany(params));
@@ -436,6 +453,62 @@ public class ParkServiceImpl extends BaseServiceImpl implements ParkService {
 		} else {
 			return 4; // 4:正常(绿)
 		}
+	}
+
+	/**
+	 * HttpTemplate中的post是个伪post，这里写个原生的---By Barney
+	 *
+	 * @param url 请求地址
+	 * @param param 参数，e.g.---aaa=3&bbb=4
+     * @return
+     */
+	private String sendPost(String url, String param) {
+		OutputStreamWriter out = null;
+		BufferedReader in = null;
+		String result = "";
+		try {
+			URL realUrl = new URL(url);
+			HttpURLConnection conn = null;
+			if(!StringUtils.isEmpty(httpProxy)){ // 使用代理模式
+				URI proxyURI = new URI(httpProxy);
+				Proxy proxy = new Proxy(Proxy.Type.DIRECT.HTTP, new InetSocketAddress(proxyURI.getHost(), proxyURI.getPort()));
+				conn = (HttpURLConnection) realUrl.openConnection(proxy);
+			}else{
+				conn = (HttpURLConnection) realUrl.openConnection();
+			}
+			/* post请求设置 */
+			conn.setDoOutput(true);
+			conn.setDoInput(true);
+			conn.setRequestMethod("POST");
+
+			// 设置通用的请求属性
+			conn.setRequestProperty("accept", "*/*");
+			conn.setRequestProperty("connection", "Keep-Alive");
+			conn.setRequestProperty("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
+			conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+
+			conn.connect();
+
+			out = new OutputStreamWriter(conn.getOutputStream(), "utf-8");
+			out.write(param);
+			// 清流
+			out.flush();
+			in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "utf-8"));
+			String line;
+			while ((line = in.readLine()) != null) {
+				result += line;
+			}
+		} catch (Exception e) {
+		} finally{
+			try{
+				if(out != null)
+					out.close();
+				if(in != null)
+					in.close();
+			} catch(IOException ex){
+			}
+		}
+		return result;
 	}
 
 }

@@ -9,11 +9,15 @@ import java.util.Map;
 import com.bbd.wtyh.constants.TaskState;
 import com.bbd.wtyh.dao.CrowdFundingDao;
 import com.bbd.wtyh.domain.*;
+import com.bbd.wtyh.domain.CompanyInfoModify.CompanyInfo;
 import com.bbd.wtyh.domain.EasyExport.CrowdfundData;
 import com.bbd.wtyh.mapper.*;
+import com.bbd.wtyh.service.CompanyService;
 import com.bbd.wtyh.service.TaskService;
+import com.bbd.wtyh.service.impl.companyInfoModify.CompanyInfoMudifyUtil;
 import com.bbd.wtyh.web.EasyExportExcel.ExportCondition;
 import com.bbd.wtyh.web.PageBean;
+import com.bbd.wtyh.web.companyInfoModify.ModifyData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,6 +58,12 @@ public class CrowdFundingServiceImpl implements CrowdFundingService,TaskService 
 
     @Autowired
     private TaskFailInfoMapper taskFailInfoMapper;
+
+    @Autowired
+    private  CompanyService companyService;
+
+    @Autowired
+    private CompanyInfoMudifyUtil companyInfoMudifyUtil;
 
     private volatile boolean isShutdown = false;//任务停止标志
 
@@ -266,11 +276,34 @@ public class CrowdFundingServiceImpl implements CrowdFundingService,TaskService 
 //            crowdFundingCompanyMapper.deleteByPlatName(dto.getPlatformName());
             try {
                 crowdFundingCompanyMapper.saveForDataLand(dto);
+                //拉下众筹数据的时候，将Company表中的company_type修改为6
+                CompanyDO companyDO = companyService.getCompanyByName(dto.getCompanyName());
+                if(companyDO != null && !StringUtils.isEmpty(companyDO.getName())){
+                    ModifyData modifyData = new ModifyData();
+                    modifyData.setName(companyDO.getName());
+                    modifyData.setLevel(null);//修改后无风险等级
+                    modifyData.setIndustry(CompanyInfo.TYPE_ZC_6+"");//修改后固定为众筹
+                    modify(modifyData);//
+                }
+
             } catch (Exception e) {
                 throw new SQLException();
             }
         }
     }
+
+    public void modify(ModifyData modifyData){
+        try {
+
+            companyInfoMudifyUtil.modifyTimingTask(modifyData);
+
+        }catch(Exception e){
+            e.printStackTrace();
+            logger.info(e.getMessage());
+        }
+
+    }
+
 
     @Override
     public List<CrowdfundData> getCrowdfund(ExportCondition exportCondition, PageBean pagination) {

@@ -26,6 +26,8 @@ public interface AreaMapper{
 
 	List<AreaDO> areaListByCity(@Param("cityId") Integer cityId);
 
+	List<AreaDO> areaListByName(@Param("cityId") Integer cityId,@Param("areaName") String areaName );
+
 	
 	/**
 	*
