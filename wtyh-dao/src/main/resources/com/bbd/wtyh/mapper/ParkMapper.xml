@@ -35,6 +35,7 @@
               AND  park.park_id=building.park_id
               AND building.building_id=company_building.building_id
               AND company_building.company_id=company.company_id
+        <if test="regCompany != null">
         UNION ALL
         select company.company_id AS companyId,
         company.`name` AS companyName,
@@ -58,6 +59,7 @@
             AND name=#{parkName}
         </if>))
         )
+        </if>
         ) AS base WHERE 1=1
         <if test="buildingName != null">
           AND base.buildingName LIKE CONCAT('%',#{buildingName},'%')
@@ -117,6 +119,7 @@
         AND  park.park_id=building.park_id
         AND building.building_id=company_building.building_id
         AND company_building.company_id=company.company_id
+        <if test="regCompany != null">
         UNION ALL
         select company.company_id AS companyId,
         company.`name` AS companyName,
@@ -141,6 +144,7 @@
         </if>
         ))
         )
+        </if>
         ) AS base WHERE 1=1
         <if test="buildingName != null">
             AND base.buildingName LIKE CONCAT('%',#{buildingName},'%')

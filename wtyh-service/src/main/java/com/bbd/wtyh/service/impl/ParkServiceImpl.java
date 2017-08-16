@@ -2,6 +2,7 @@ package com.bbd.wtyh.service.impl;
 
 import com.bbd.higgs.utils.ListUtil;
 import com.bbd.higgs.utils.http.HttpTemplate;
+import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.core.base.BaseServiceImpl;
 import com.bbd.wtyh.domain.*;
 import com.bbd.wtyh.domain.vo.NewsVO;
@@ -65,6 +66,9 @@ public class ParkServiceImpl extends BaseServiceImpl implements ParkService {
 
 	@Autowired
 	private CompanyAnalysisResultMapper carMapper;
+
+	@Autowired
+	private AreaMapper areaMapper;
 
 	private String httpProxy = System.getenv("http_proxy");
 
@@ -393,6 +397,13 @@ public class ParkServiceImpl extends BaseServiceImpl implements ParkService {
 		//企业名称
 		if(null!=companyName){
 			params.put("companyName",companyName);
+		}
+		//临时方案20170816：如果园区名称不属于某个行政区，就不查询该园区所属行政区的注册企业。例如虹桥商务区
+		List<AreaDO> areaDOs=this.areaMapper.areaListByName(Constants.SH_AREAID,parkName);
+		if(null==areaDOs || areaDOs.size()==0 ){
+			params.put("regCompany",null);
+		}else{
+			params.put("regCompany","1");
 		}
 		int total=this.parkMapper.qeuryParkCompanyCount(params);
 		result.put("total",total);

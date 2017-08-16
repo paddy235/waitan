@@ -12,6 +12,16 @@
 
 	</select>
 
+	<select id="areaListByName"  resultType="com.bbd.wtyh.domain.AreaDO" >
+		select area_id areaId, name cityName from area
+		<if test="cityId != null">
+			where city_id=#{cityId}
+		</if>
+		<if test="areaName != null">
+			and  name=#{areaName}
+		</if>
+	</select>
+
     <select id="areaList"  resultType="com.bbd.wtyh.domain.AreaDO" >
 			select area_id areaId, name from park
 			<if test="areaId != null">
