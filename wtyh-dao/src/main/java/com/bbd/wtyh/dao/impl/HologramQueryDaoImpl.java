@@ -43,12 +43,6 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
     @Value("${api.court.searchCompany.ak}")
     private String searchCompanyAK;
 
-    @Value("${api.baidu.batch.news.url}")
-    private String baiduYuQingURL;     // 百度舆情
-
-    @Value("${api.baidu.batch.news.ak}")
-    private String baiduYuqingAK;
-
     @Value("${api.court.openCourtAnnouncement.url}")
     private String openCourtAnnouncementURL;    // 开庭公告
 
@@ -142,9 +136,11 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
     @Autowired
     private RedisDAO redisDAO;
 
+    @Value("${api.bbdZuzhiJiGoudm.url}")
+    private String zuZhiJiGouURL;
 
-
-
+    @Value("${api.bbdZuzhiJiGoudm.ak}")
+    private String zuZhiJiGouAK;
 
     public String getCompanyNews() {
 
@@ -236,7 +232,7 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
      */
     @Override
     public BaseDataDO outlineMsg(String companyName) {
-        String coreDataDealURL = bbdQyxxURL + "?company=" + companyName + "&appkey=" + bbdQyxxAK;
+        String coreDataDealURL = bbdQyxxURL + "?internal=true&company=" + companyName + "&appkey=" + bbdQyxxAK;
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
             return httpTemplate.get(coreDataDealURL, new HttpCallback<BaseDataDO>() {
@@ -327,7 +323,7 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
      */
     @Override
     public BaseDataDO businessInfo(String companyName) {
-        String coreDataDealURL = bbdQyxxURL + "?company=" + companyName + "&appkey=" + bbdQyxxAK;
+        String coreDataDealURL = bbdQyxxURL + "?internal=true&company=" + companyName + "&appkey=" + bbdQyxxAK;
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
             return httpTemplate.get(coreDataDealURL, new HttpCallback<BaseDataDO>() {
@@ -352,8 +348,7 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
      * 基本信息--组织机构代码api
      */
     public ZuZhiJiGoudmDO baseInfoZuZhiJiGou(String companyName) {
-//        String url = zuZhiJiGouURL+"?company="+companyName+"&ak="+zuZhiJiGouURL;
-        String URL = "http://dataom.api.bbdservice.com/api/bbd_zuzhijigoudm/?company="+companyName+"&ak=605f60df40668579e939515fef710d2b";
+        String URL = zuZhiJiGouURL + "?company=" + companyName + "&appkey=" + zuZhiJiGouAK;
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
             return httpTemplate.get(URL, new HttpCallback<ZuZhiJiGoudmDO>() {
@@ -381,7 +376,7 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
      */
     @Override
     public BaseDataDO shareholdersSenior(String companyName) {
-        String coreDataDealURL = bbdQyxxURL + "?company=" + companyName + "&appkey=" + bbdQyxxAK;
+        String coreDataDealURL = bbdQyxxURL + "?internal=true&company=" + companyName + "&appkey=" + bbdQyxxAK;
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
             return httpTemplate.get(coreDataDealURL, new HttpCallback<BaseDataDO>() {
