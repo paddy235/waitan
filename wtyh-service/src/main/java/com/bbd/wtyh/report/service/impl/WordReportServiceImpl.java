@@ -219,7 +219,7 @@ public class WordReportServiceImpl implements WordReportService {
                                 currM = LocalDate.now().minusMonths(1);
                                 currentMonth = currM.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
                             }
-                            currM = currM.minusYears(1); //当前月份前推一年
+                            LocalDate currMinusY1 =currM.minusYears(1).plusDays(1); //当前月份前推一年减一天
                             String compareMonth = null;
                             LocalDate compM = LocalDate.now();
                             for (int idx = 1; idx < dataVersionList.size(); idx++) {
@@ -228,7 +228,7 @@ public class WordReportServiceImpl implements WordReportService {
                                 } catch (DateTimeParseException de) {
                                     compM = LocalDate.now(); //使下一步的判断条件为假
                                 }
-                                if (compM.isBefore(currM)) {
+                                if (compM.isBefore(currMinusY1)) {
                                     compareMonth = dataVersionList.get(idx);
                                     break;
                                 }
@@ -407,8 +407,8 @@ public class WordReportServiceImpl implements WordReportService {
                                         lStr.add(Integer.toString(idx + 1)); //序号
                                         lStr.add(yw.getTitle()); //标题
                                         String summary = yw.getContent();
-                                        if (summary != null && summary.length() > 25) {
-                                            summary = summary.substring(0, 25) + "……";
+                                        if (summary != null && summary.length() > 45) {
+                                            summary = summary.substring(0, 45) + "……";
                                         }
                                         lStr.add(summary); //“摘要”
                                         lStr.add(yw.getDate()); //发布时间
@@ -648,7 +648,7 @@ public class WordReportServiceImpl implements WordReportService {
                                     break;
                                 }
                             }
-                            if (low.size() == 1) {
+                            if (low.size() == 2) {
                                 low.add("——");
                             }
                         }
@@ -913,9 +913,18 @@ public class WordReportServiceImpl implements WordReportService {
                             row.add(mainStr);
                             String dateStr =re.getPubdate();
                             try {
-                                LocalDateTime localDateTime =LocalDateTime.parse(dateStr.substring(0, dateStr.indexOf('+')));
+                                LocalDateTime localDateTime =LocalDateTime.parse( dateStr,
+                                        DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss") );
                                 dateStr =localDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
                             } catch (Exception e) { dateStr =""; }
+                            if ( StringUtils.isBlank(dateStr) ) {
+                                try {
+                                    LocalDateTime localDateTime = LocalDateTime.parse(dateStr.substring(0, dateStr.indexOf('+')));
+                                    dateStr = localDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+                                } catch (Exception e) {
+                                    dateStr = "";
+                                }
+                            }
                             row.add(dateStr);
                             row.add(re.getBbd_url());
                         }

@@ -28,20 +28,21 @@ public class RiskCompanyServiceImpl implements RiskCompanyService {
     private static final int SCANNER_COUNT = 1000;
     @Autowired
     private RedisDAO redisDAO;
-    private static final String SCANNER_PREFIX_KEY = "scanner_";
-    private static final String TOP_PREFIX_KEY = "top_";
+//    private static final String SCANNER_PREFIX_KEY = "scanner_";
+//    private static final String TOP_PREFIX_KEY = "top_";
 
     @Override
     @SuppressWarnings("unchecked")
     public List<RiskCompanyInfoDO> getScanner(Map<String, Object> params) {
-        String key = SCANNER_PREFIX_KEY + params.get("area") + "_" + params.get("minRegCapital") + "_"
-                + params.get("maxRegCapital") + "_" + params.get("companyQualification") + "_"
-                + params.get("minReviewTime") + "_" + params.get("maxReviewTime") + "_"
-                + params.get("riskLevel") + "_" + params.get("areaId");
+//        String key = SCANNER_PREFIX_KEY + params.get("area") + "_" + params.get("minRegCapital") + "_"
+//                + params.get("maxRegCapital") + "_" + params.get("companyQualification") + "_"
+//                + params.get("minReviewTime") + "_" + params.get("maxReviewTime") + "_"
+//                + params.get("riskLevel") + "_" + params.get("areaId");
 
-        List<RiskCompanyInfoDO> scannerList = (List<RiskCompanyInfoDO>) redisDAO.getObject(key);
+//        List<RiskCompanyInfoDO> scannerList = (List<RiskCompanyInfoDO>) redisDAO.getObject(key);
+        List<RiskCompanyInfoDO> scannerList = null;
 
-        if (null == scannerList || scannerList.size() == 0) {
+//        if (null == scannerList || scannerList.size() == 0) {
             int realCount = riskCompanyMapper.getScannerCount(params);
             int result = realCount / SCANNER_COUNT;
             List<RiskCompanyInfoDO> list = riskCompanyMapper.getScanner(params);
@@ -56,11 +57,11 @@ public class RiskCompanyServiceImpl implements RiskCompanyService {
                     } else {
                     }
                 }
-            } else {
-                scannerList = list;
+//            } else {
+//                scannerList = list;
             }
-            redisDAO.addObject(key, scannerList, Constants.REDIS_5, List.class); // 保留5天
-        }
+//            redisDAO.addObject(key, scannerList, Constants.REDIS_5, List.class); // 保留5天
+//        }
         return scannerList;
     }
 
@@ -68,17 +69,17 @@ public class RiskCompanyServiceImpl implements RiskCompanyService {
     @SuppressWarnings("unchecked")
     public List<RiskCompanyInfoDO> getTop(Map<String, Object> params) {
         // + ((Pagination) params.get("pagination")).getPageNumber()
-        String key = TOP_PREFIX_KEY + params.get("area") + "_" + params.get("minRegCapital") + "_"
-                + params.get("maxRegCapital") + "_" + params.get("companyQualification") + "_"
-                + params.get("minReviewTime") + "_" + params.get("maxReviewTime") + "_" + params.get("sortType") + "_"
-                + "_" + params.get("riskLevel");
-        List<RiskCompanyInfoDO> list = ((List<RiskCompanyInfoDO>) redisDAO.getObject(key));
-        list = riskCompanyMapper.getTop(params);
-        if (ListUtil.isEmpty(list)) {
-            list = riskCompanyMapper.getTop(params);
-            if (ListUtil.isNotEmpty(list))
-                redisDAO.addObject(key, list, Constants.REDIS_5, List.class); // 保留5天
-        }
+//        String key = TOP_PREFIX_KEY + params.get("area") + "_" + params.get("minRegCapital") + "_"
+//                + params.get("maxRegCapital") + "_" + params.get("companyQualification") + "_"
+//                + params.get("minReviewTime") + "_" + params.get("maxReviewTime") + "_" + params.get("sortType") + "_"
+//                + "_" + params.get("riskLevel");
+//        List<RiskCompanyInfoDO> list = ((List<RiskCompanyInfoDO>) redisDAO.getObject(key));
+        List<RiskCompanyInfoDO> list = riskCompanyMapper.getTop(params);
+//        if (ListUtil.isEmpty(list)) {
+//            list = riskCompanyMapper.getTop(params);
+//            if (ListUtil.isNotEmpty(list))
+//                redisDAO.addObject(key, list, Constants.REDIS_5, List.class); // 保留5天
+//        }
         return list;
     }
 
