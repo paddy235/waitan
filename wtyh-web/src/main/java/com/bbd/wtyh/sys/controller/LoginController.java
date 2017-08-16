@@ -99,13 +99,13 @@ public class LoginController {
 			map.put("userId", userInfo.getId());// 用户ID
 			map.put("userType", userInfo.getUserType());// 用户类型
 		} catch (UnknownAccountException e) { // 用户名不存在
-			e.printStackTrace();
+			//e.printStackTrace();
 			return ResponseBean.errorResponse("用户名或密码不正确");
 		} catch (IncorrectCredentialsException e) { // 用户类型或密码不匹配
-			e.printStackTrace();
+			//e.printStackTrace();
 			return ResponseBean.errorResponse("用户名或密码不正确");
 		} catch (LockedAccountException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			return ResponseBean.errorResponse("此用户已被锁定，请联系管理员处理");
 		} catch (Exception e) {
 			e.printStackTrace();

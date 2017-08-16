@@ -360,15 +360,16 @@ public class WordReportServiceImpl implements WordReportService {
                             PlatDataDO data = p2PImageDao.getPlatData(platName);
                             if (null != data) {
                                 List<PlatDataDO.PlatDataSixMonth> plat_data_six_month = data.getPlat_data_six_month();
-                                LocalDate deadline = LocalDate.now().minusDays(15);
+                                //LocalDate deadline = LocalDate.now().minusDays(15);
+                                int idx =0;
                                 for (PlatDataDO.PlatDataSixMonth pdSm : plat_data_six_month) {
-                                    LocalDate compDay;
+                                    /*LocalDate compDay;
                                     try {
                                         compDay = LocalDate.parse(pdSm.getDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
                                     } catch (DateTimeParseException de) {
                                         compDay = LocalDate.now(); //使下一步的判断条件为假
                                     }
-                                    if (compDay.isAfter(deadline)) {
+                                    if (compDay.isAfter(deadline))*/ {
                                         ListValToVal_funIf1 lVtv = (String date, double srcVal, double dev, int scale,
                                                                     List<List<String>> desList) -> {
                                             BigDecimal bD = BigDecimal.valueOf(srcVal).divide(BigDecimal.valueOf(dev),
@@ -381,6 +382,10 @@ public class WordReportServiceImpl implements WordReportService {
                                         lVtv.fun(pdSm.getDate(), pdSm.getDay_amount(), 1D, 1, transferQuantityTrend);
                                         lVtv.fun(pdSm.getDate(), pdSm.getDay_interest_rate(), 1D, 1, interestRateTrend);
                                         lVtv.fun(pdSm.getDate(), pdSm.getDay_money_stock(), 1D, 1, loanBalance);
+                                    }
+                                    idx++;
+                                    if ( idx >=30 ) { //最近30份数据，产品田曲已确认 20170816
+                                        break;
                                     }
                                 }
                             } else {
