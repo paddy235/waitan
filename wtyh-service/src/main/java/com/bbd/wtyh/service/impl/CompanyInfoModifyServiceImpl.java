@@ -7,6 +7,7 @@ import com.bbd.wtyh.service.CompanyInfoModifyService;
 import com.bbd.wtyh.service.impl.companyInfoModify.CompanyInfoMudifyUtil;
 import com.bbd.wtyh.service.impl.companyInfoModify.CompanyInfoQueryUtil;
 import com.bbd.wtyh.web.companyInfoModify.ModifyData;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -77,8 +78,28 @@ public class CompanyInfoModifyServiceImpl implements CompanyInfoModifyService {
         if (CompanyInfo.TYPE_P2P_1 == companyInfoModifyMapper.queryCompany(modifyData.getName()).getIndustry()) { // 网络借贷
             companyInfoMudifyUtil.modifyWangdai(modifyData);
         } else if (CompanyInfo.TYPE_XD_2 == companyInfoModifyMapper.queryCompany(modifyData.getName()).getIndustry()) { // 小额贷款
+            //以''空字串的形式更新SQL会报错
+            if(StringUtils.isEmpty(modifyData.getOutLevel())){
+                modifyData.setOutLevel(null);
+            }
+            if(StringUtils.isEmpty(modifyData.getInnnerLevel())){
+                modifyData.setInnnerLevel(null);
+            }
+            if(StringUtils.isEmpty(modifyData.getLiveLevel())){
+                modifyData.setLiveLevel(null);
+            }
             companyInfoMudifyUtil.modifyLoad(modifyData);
         } else if (CompanyInfo.TYPE_RZDB_3 == companyInfoModifyMapper.queryCompany(modifyData.getName()).getIndustry()) { // 融资担保
+            //以''空字串的形式更新SQL会报错
+            if(StringUtils.isEmpty(modifyData.getOutLevel())){
+                modifyData.setOutLevel(null);
+            }
+            if(StringUtils.isEmpty(modifyData.getInnnerLevel())){
+                modifyData.setInnnerLevel(null);
+            }
+            if(StringUtils.isEmpty(modifyData.getLiveLevel())){
+                modifyData.setLiveLevel(null);
+            }
             companyInfoMudifyUtil.modifyLoad(modifyData);
         } else if (CompanyInfo.TYPE_XXLC_4 == companyInfoModifyMapper.queryCompany(modifyData.getName()).getIndustry()) { // 线下理财
             companyInfoMudifyUtil.modifyOffLine(modifyData);
