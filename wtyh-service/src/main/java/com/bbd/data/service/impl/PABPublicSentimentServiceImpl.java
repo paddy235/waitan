@@ -1,5 +1,6 @@
 package com.bbd.data.service.impl;
 
+import com.bbd.data.mapper.PABPublicSentimentMapper;
 import com.bbd.data.service.PABPublicSentimentService;
 import com.bbd.higgs.utils.ListUtil;
 import com.bbd.higgs.utils.http.HttpTemplate;
@@ -11,10 +12,13 @@ import com.bbd.wtyh.mapper.CompanyMapper;
 import com.bbd.wtyh.mapper.ParkMapper;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.io.BufferedReader;
@@ -31,6 +35,7 @@ import java.util.List;
 @Service
 public class PABPublicSentimentServiceImpl implements PABPublicSentimentService {
 
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
     private ParkMapper parkMapper;
     @Autowired
@@ -47,80 +52,113 @@ public class PABPublicSentimentServiceImpl implements PABPublicSentimentService 
     private String dataomUrl;
     @Autowired
     private BuildingMapper buildingMapper;
+    @Autowired
+    private PABPublicSentimentMapper pabPublicSentimentMapper;
 
     private String httpProxy = System.getenv("http_proxy");
+    private static final String NEWS_TYPES = "qyxg_shanghai_fta,qyxg_national_economy";
+    private static final Integer DEFAULT_PAGE_SIZE = 50;
 
     @Override
-    // @Scheduled(cron = "0/10 * * * * ?")
-    public void saveParkPublicSentiment() {
-        List<ParkDO> parkList = parkMapper.queryAllPark();
-        if (ListUtil.isNotEmpty(parkList)) {
-            parkList.forEach((ParkDO park) -> {
-                List<String> companyNameList = companyMapper.queryCompanyNames(park.getAreaId(), null, park.getName());
-                NewsVO newsVO = this.queryBatchNews(companyNameList);
-                if (null == newsVO || 0 == newsVO.getRsize()) {
-                    newsVO = this.queryTypeNews();
-                    // TODO 新增园区舆情
-                } else {
-                    // TODO 直接新增园区舆情
-                }
-            });
+    @Scheduled(cron = "0 30 0 * * ? ")
+    @Transactional(rollbackFor = Exception.class)
+    public void saveParkPublicSentiment() throws Exception {
+        try {
+            List<ParkDO> parkList = parkMapper.queryAllPark();
+            if (ListUtil.isNotEmpty(parkList)) {
+                parkList.forEach((ParkDO park) -> {
+                    List<String> companyNameList = companyMapper.queryCompanyNames(park.getAreaId(), null, park.getName());
+                    if (ListUtil.isNotEmpty(companyNameList)) {
+                        NewsVO newsVO = this.queryBatchNews(companyNameList);
+                        if (null == newsVO || ListUtil.isEmpty(newsVO.getResults())) {
+                            newsVO = this.queryTypeNews();
+                        }
+                        if (null == newsVO || ListUtil.isEmpty(newsVO.getResults()))
+                            return;
+                        newsVO.getResults().forEach((NewsVO.Result r) -> {
+                            r.setArea_id(park.getAreaId());
+                            r.setPark(park.getName());
+                            pabPublicSentimentMapper.addParkPublicSentiment(r);
+                        });
+                    }
+                });
+            }
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            throw new Exception(e);
         }
     }
 
     @Override
-    // @Scheduled(cron = "0/10 * * * * ?")
-    public void saveBuildingPublicSentiment() {
-        List<BuildingDO> buildingList = buildingMapper.queryAllBuilding();
-        if (ListUtil.isNotEmpty(buildingList)) {
-            buildingList.forEach((BuildingDO building) -> {
-                List<String> companyNameList = companyMapper.queryCompanyNames(null, building.getBuildingId(), null);
-                NewsVO newsVO = this.queryBatchNews(companyNameList);
-                if (null == newsVO || 0 == newsVO.getRsize()) {
-                    NewsVO vo = new NewsVO();
-                    vo.addNewsVO(findNews("qyxg_shanghai_finance_office",7));
-                    vo.addNewsVO(findNews("qyxg_weiyangwang",6));
-                    vo.addNewsVO(findNews("qyxg_chinesefinancialnews",20 - vo.getRsize()));
-                    // TODO 新增楼宇舆情
-                } else {
-                    // TODO 直接新增楼宇舆情
-                }
-            });
+    @Scheduled(cron = "0 30 0 * * ? ")
+    @Transactional(rollbackFor = Exception.class)
+    public void saveBuildingPublicSentiment() throws Exception {
+        try {
+            List<BuildingDO> buildingList = buildingMapper.queryAllBuilding();
+            if (ListUtil.isNotEmpty(buildingList)) {
+                buildingList.forEach((BuildingDO building) -> {
+                    List<String> companyNameList = companyMapper.queryCompanyNames(null, building.getBuildingId(), null);
+                    if (ListUtil.isNotEmpty(companyNameList)) {
+                        NewsVO newsVO = this.queryBatchNews(companyNameList);
+                        if (null == newsVO || ListUtil.isEmpty(newsVO.getResults())) {
+                            newsVO = new NewsVO();
+                            newsVO.addNewsVO(findNews("qyxg_shanghai_finance_office", 7));
+                            newsVO.addNewsVO(findNews("qyxg_weiyangwang", 6));
+                            if (ListUtil.isEmpty(newsVO.getResults()))
+                                newsVO.addNewsVO(findNews("qyxg_chinesefinancialnews", 20));
+                            else
+                                newsVO.addNewsVO(findNews("qyxg_chinesefinancialnews",20 - newsVO.getResults().size()));
+                        }
+                        if (ListUtil.isEmpty(newsVO.getResults()))
+                            return;
+                        newsVO.getResults().forEach((NewsVO.Result r) -> {
+                            r.setBuilding_id(building.getBuildingId());
+                            pabPublicSentimentMapper.addBuildingPublicSentiment(r);
+                        });
+                    }
+                });
+            }
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            throw new Exception(e);
         }
     }
 
     /**
-     * 批量舆情查询
+     * 批量舆情检索
      *
      * @param list
      * @return
      */
     private NewsVO queryBatchNews(List<String> list) {
-        String result = null;
+        if (ListUtil.isEmpty(list) || StringUtils.isEmpty(batchNewsUrl))
+            return null;
+        String result = "";
         Gson gson = new Gson();
         NewsVO newsVO = new NewsVO();
-        if (ListUtil.isNotEmpty(list)) {
-            int size = list.size();
-            for (int i = 0; i < size;) {
-                StringBuilder buffer = new StringBuilder();
-                List<String> subNameList = list.subList(i, (i += 100) < size ? i : size);
-                for (String name : subNameList) {
-                    buffer.append(buffer.length() > 0 ? "," : "").append(name);
-                }
+        int size = list.size();
+        for (int i = 0; i < size;) {
+            StringBuilder buffer = new StringBuilder();
+            List<String> subNameList = list.subList(i, (i += 100) < size ? i : size);
+            for (String name : subNameList) {
+                buffer.append(buffer.length() > 0 ? "," : "").append(name);
+            }
 
-                StringBuilder builder = new StringBuilder("keys=").append(buffer);
-                builder.append("&ktype=").append(ktype).append("&page=1&pageSize=20&appkey=").append(appkey);
-                try {
-                    result = this.sendPost(batchNewsUrl, builder.toString());
-                    NewsVO vo = gson.fromJson(result, new TypeToken<NewsVO>(){}.getType());
-                    newsVO.addNewsVO(vo);
-                    if (null != newsVO.getResults() && newsVO.getResults().size() >= 20) {
-                        newsVO.setResults(newsVO.getResults().subList(0, 20));
-                        break;
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
+            StringBuilder builder = new StringBuilder("keys=").append(buffer);
+            builder.append("&ktype=").append(ktype).append("&page=1&pageSize=20&appkey=").append(appkey);
+            try {
+                result = this.sendPost(batchNewsUrl, builder.toString());
+                if (StringUtils.isEmpty(result))
+                    return null;
+                NewsVO vo = gson.fromJson(result, new TypeToken<NewsVO>(){}.getType());
+                newsVO.addNewsVO(vo);
+                if (ListUtil.isNotEmpty(newsVO.getResults()) && newsVO.getResults().size() >= 20) {
+                    newsVO.setResults(newsVO.getResults().subList(0, 20));
+                    break;
                 }
+            } catch (Exception e) {
+                logger.error(e.getMessage(), e);
+                return null;
             }
         }
         return newsVO;
@@ -135,6 +173,8 @@ public class PABPublicSentimentServiceImpl implements PABPublicSentimentService 
      * @return
      */
     private String sendPost(String url, String params) {
+        if (StringUtils.isEmpty(url))
+            return null;
         OutputStreamWriter out = null;
         BufferedReader in = null;
         String result = "";
@@ -153,7 +193,7 @@ public class PABPublicSentimentServiceImpl implements PABPublicSentimentService 
             conn.setDoInput(true);
             conn.setRequestMethod("POST");
 
-            // 设置通用的请求属性
+            /* 设置通用的请求属性 */
             conn.setRequestProperty("accept", "*/*");
             conn.setRequestProperty("connection", "Keep-Alive");
             conn.setRequestProperty("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
@@ -162,7 +202,8 @@ public class PABPublicSentimentServiceImpl implements PABPublicSentimentService 
             conn.connect();
 
             out = new OutputStreamWriter(conn.getOutputStream(), "utf-8");
-            out.write(params);
+            if (!StringUtils.isEmpty(params))
+                out.write(params);
             // 清流
             out.flush();
             in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "utf-8"));
@@ -171,6 +212,8 @@ public class PABPublicSentimentServiceImpl implements PABPublicSentimentService 
                 result += line;
             }
         } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return result;
         } finally{
             try{
                 if(null != out)
@@ -178,25 +221,36 @@ public class PABPublicSentimentServiceImpl implements PABPublicSentimentService 
                 if(null != in)
                     in.close();
             } catch(IOException ex){
+                logger.error(ex.getMessage(), ex);
             }
         }
         return result;
     }
 
+    /**
+     * 根据类型检索舆情
+     *
+     * @return
+     */
     public NewsVO queryTypeNews() {
-        String url = String.format(yuqingUrl, "qyxg_shanghai_fta,qyxg_national_economy", 50);
+        if (StringUtils.isEmpty(yuqingUrl))
+            return null;
+        String url = String.format(yuqingUrl, NEWS_TYPES, DEFAULT_PAGE_SIZE);
         try {
             String result = new HttpTemplate().get(url);
+            if (StringUtils.isEmpty(result))
+                return null;
             Gson gson = new Gson();
-            NewsVO vo = gson.fromJson(result,new TypeToken<NewsVO>(){}.getType());
+            NewsVO vo = gson.fromJson(result, new TypeToken<NewsVO>(){}.getType());
 
-            if(null != vo && null != vo.getResults()){
+            if(null != vo && ListUtil.isNotEmpty(vo.getResults())){
                 Iterator<NewsVO.Result> it = vo.getResults().iterator();
                 while (it.hasNext()) {
                     NewsVO.Result rt = it.next();
-                    if("qyxg_financial_times".equals(rt.getBbd_type()) && !"金融".equals(rt.getPlate())){
+                    /* 特殊类型判断 */
+                    if("qyxg_financial_times".equals(rt.getBbd_type()) && !"金融".equals(rt.getPlate())) {
                         it.remove();
-                    } else if ("qyxg_sinafinance".equals(rt.getBbd_type()) && !"宏观经济".equals(rt.getPlate())&& !"金融新闻".equals(rt.getPlate())&& !"国内财经".equals(rt.getPlate())){
+                    } else if ("qyxg_sinafinance".equals(rt.getBbd_type()) && !"宏观经济".equals(rt.getPlate())&& !"金融新闻".equals(rt.getPlate())&& !"国内财经".equals(rt.getPlate())) {
                         it.remove();
                     } else {}
                 }
@@ -205,18 +259,33 @@ public class PABPublicSentimentServiceImpl implements PABPublicSentimentService 
             }
             return vo;
         } catch (Exception e) {
-            return new NewsVO();
+            logger.error(e.getMessage(), e);
+            return null;
         }
     }
 
+    /**
+     * 根据关键字检索舆情
+     *
+     * @param key 检索关键字
+     * @param size 返回舆情数量
+     * @return
+     */
     public NewsVO findNews(String key, Integer size) {
+        if (StringUtils.isEmpty(key) || StringUtils.isEmpty(dataomUrl))
+            return null;
+        if (null == size)
+            size = 20;
         String url = String.format(dataomUrl, key, size);
         try {
             String result = new HttpTemplate().get(url);
+            if (StringUtils.isEmpty(result))
+                return null;
             Gson gson = new Gson();
-            NewsVO vo = gson.fromJson(result,new TypeToken<NewsVO>(){}.getType());
+            NewsVO vo = gson.fromJson(result, new TypeToken<NewsVO>(){}.getType());
             return vo;
         } catch (Exception e) {
+            logger.error(e.getMessage(), e);
             return null;
         }
     }

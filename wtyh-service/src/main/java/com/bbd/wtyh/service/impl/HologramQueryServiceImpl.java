@@ -189,8 +189,8 @@ public class HologramQueryServiceImpl implements HologramQueryService {
     }
 
     @Override
-    public List<OpenCourtAnnouncementDO.Results> openCourtAnnouncement(String company) {
-        OpenCourtAnnouncementDO courtAnnouncementDO = hologramQueryDao.openCourtAnnouncement(company);
+    public List<OpenCourtAnnouncementDO.Results> openCourtAnnouncement(String company, Integer page, Integer pageSize) {
+        OpenCourtAnnouncementDO courtAnnouncementDO = hologramQueryDao.openCourtAnnouncement(company,page,pageSize);
         if(null==courtAnnouncementDO){
             return null;
         }
@@ -198,24 +198,24 @@ public class HologramQueryServiceImpl implements HologramQueryService {
     }
 
     @Override
-    public List<JudgeDocDO.Results> judgeDoc(String company) {
-        JudgeDocDO courtAnnouncementDO = hologramQueryDao.judgeDoc(company);
+    public List<JudgeDocDO.Results> judgeDoc(String company, Integer page, Integer pageSize) {
+        JudgeDocDO courtAnnouncementDO = hologramQueryDao.judgeDoc(company,page,pageSize);
         return courtAnnouncementDO.getResults();
     }
 
     @Override
-    public DebtorDO debtor(String company) {
-        return hologramQueryDao.debtor(company);
+    public DebtorDO debtor(String company, Integer page, Integer pageSize) {
+        return hologramQueryDao.debtor(company,page,pageSize);
     }
 
     @Override
-    public NoCreditDebtorDO noCreditDebtor(String company) {
-        return hologramQueryDao.noCreditDebtor(company);
+    public NoCreditDebtorDO noCreditDebtor(String company, Integer page, Integer pageSize) {
+        return hologramQueryDao.noCreditDebtor(company,page,pageSize);
     }
 
     @Override
-    public CourtAnnouncementDO courtAnnouncement(String company) {
-        return hologramQueryDao.courtAnnouncement(company);
+    public CourtAnnouncementDO courtAnnouncement(String company, Integer page, Integer pageSize) {
+        return hologramQueryDao.courtAnnouncement(company,page,pageSize);
     }
 
     @Override

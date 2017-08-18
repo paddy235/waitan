@@ -431,8 +431,11 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
      * @return
      */
     @Override
-    public OpenCourtAnnouncementDO openCourtAnnouncement(String company) {
+    public OpenCourtAnnouncementDO openCourtAnnouncement(String company, Integer page, Integer pageSize) {
         String api = openCourtAnnouncementURL + "?company=" + company + "&appkey=" + openCourtAnnouncementAK;
+        if(null!=page && null!=pageSize){
+            api = openCourtAnnouncementURL + "?company=" + company + "&appkey=" + openCourtAnnouncementAK+"&page="+page+"&pageSize="+pageSize;
+        }
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
             return httpTemplate.get(api, new HttpCallback<OpenCourtAnnouncementDO>() {
@@ -464,8 +467,11 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
     }
 
     @Override
-    public JudgeDocDO judgeDoc(String company) {
+    public JudgeDocDO judgeDoc(String company, Integer page, Integer pageSize) {
         String api = judgeDocURL + "?company=" + company + "&appkey=" + judgeDocAK;
+        if(null!=page && null!=pageSize){
+            api = judgeDocURL + "?company=" + company + "&appkey=" + judgeDocAK+"&page="+page+"&pageSize="+pageSize;
+        }
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
             return httpTemplate.get(api, new HttpCallback<JudgeDocDO>() {
@@ -486,8 +492,11 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
     }
 
     @Override
-    public DebtorDO debtor(String company) {
+    public DebtorDO debtor(String company, Integer page, Integer pageSize) {
         String api = debtorURL + "?company=" + company + "&appkey=" + debtorAK;
+        if(null!=page && null!=pageSize){
+            api = debtorURL + "?company=" + company + "&appkey=" + debtorAK+"&page="+page+"&pageSize="+pageSize;
+        }
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
             return httpTemplate.get(api, new HttpCallback<DebtorDO>() {
@@ -508,8 +517,11 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
     }
 
     @Override
-    public NoCreditDebtorDO noCreditDebtor(String company) {
+    public NoCreditDebtorDO noCreditDebtor(String company, Integer page, Integer pageSize) {
         String api = noCreditDebtorURL + "?company=" + company + "&appkey=" + noCreditDebtorAK;
+        if(null!=page && null!=pageSize){
+            api = noCreditDebtorURL + "?company=" + company + "&appkey=" + noCreditDebtorAK+"&page="+page+"&pageSize="+pageSize;
+        }
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
             return httpTemplate.get(api, new HttpCallback<NoCreditDebtorDO>() {
@@ -530,8 +542,11 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
     }
 
     @Override
-    public CourtAnnouncementDO courtAnnouncement(String company) {
+    public CourtAnnouncementDO courtAnnouncement(String company, Integer page, Integer pageSize) {
         String api = courtAnnouncementURL + "?company=" + company + "&appkey=" + courtAnnouncementAK;
+        if(null!=page && null!=pageSize){
+            api = courtAnnouncementURL + "?company=" + company + "&appkey=" + courtAnnouncementAK+"&page="+page+"&pageSize="+pageSize;
+        }
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
             return httpTemplate.get(api, new HttpCallback<CourtAnnouncementDO>() {

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bbd.data.mapper.PABPublicSentimentMapper">
+
+    <insert id="addParkPublicSentiment">
+        INSERT INTO park_public_sentiment VALUES(null, #{area_id}, #{park}, SYSDATE(), #{news_site}, #{search_key}, #{author}, #{main}, #{plate}, #{news_title}, #{bbd_type}, #{bbd_url}, #{pubdate}, #{status}, 'SYSTEM', SYSDATE(), 'SYSTEM', SYSDATE())
+    </insert>
+
+    <insert id="addBuildingPublicSentiment">
+        INSERT INTO building_public_sentiment VALUES(null, #{building_id}, SYSDATE(), #{news_site}, #{search_key}, #{author}, #{main}, #{plate}, #{news_title}, #{bbd_type}, #{bbd_url}, #{pubdate}, #{status}, 'SYSTEM', SYSDATE(), 'SYSTEM', SYSDATE())
+    </insert>
+
+</mapper>

@@ -86,6 +86,34 @@ public class NewsVO {
         private String aBstract;//: null,
         private String author;//: "新浪财经"
 
+        private int area_id;
+        private String park;
+        private int building_id;
+
+        public int getBuilding_id() {
+            return building_id;
+        }
+
+        public void setBuilding_id(int building_id) {
+            this.building_id = building_id;
+        }
+
+        public int getArea_id() {
+            return area_id;
+        }
+
+        public void setArea_id(int area_id) {
+            this.area_id = area_id;
+        }
+
+        public String getPark() {
+            return park;
+        }
+
+        public void setPark(String park) {
+            this.park = park;
+        }
+
         public String get_id() {
             return _id;
         }

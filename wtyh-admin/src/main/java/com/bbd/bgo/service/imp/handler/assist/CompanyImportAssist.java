@@ -72,6 +72,10 @@ public class CompanyImportAssist {
      *                 同样的 CompanyDo.oldCompanyType存放的是从库中取回的CompanyDo.CompanyType供天王使用。
      */
     public void processCp( List<CompanyDO> tempList ) {
+        processCp( tempList, false );
+    }
+
+    public void processCp( List<CompanyDO> tempList, boolean onlyAppend ) {
         if (null ==tempList) {
             return;
         }
@@ -159,8 +163,6 @@ public class CompanyImportAssist {
         tempList.clear();
     }
 
-
-
     //插入或更新、客户导入的、从本地库查询的、来自数据平台
     private void addDataToList( boolean isIns, CompanyDO impCp, CompanyDO locCp, BaseDataDO.Results bddRst ) {
         Map.Entry<CompanyDO, BaseDataDO.Results> me =new AbstractMap.SimpleEntry<>( impCp, bddRst );
@@ -235,6 +237,7 @@ public class CompanyImportAssist {
     }
 
     public void save(String loginName) {
+        /* 产品需求变更，不再做更新处理
         //update
         for ( Map.Entry<CompanyDO, BaseDataDO.Results> me : updateList ) {
             me.getKey().setUpdateBy(loginName);
@@ -243,7 +246,7 @@ public class CompanyImportAssist {
             //todo 以下放天王和其他同事的方法 ：
             //企业状态变化
             companyStatusChangeService.companyStatusChange(false, me.getKey(),me.getValue());
-        }
+        }*/
         //insert
         for ( Map.Entry<CompanyDO, BaseDataDO.Results> me : insertList ) {
             me.getKey().setCreateBy(loginName);
