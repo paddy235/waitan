@@ -1,104 +1,166 @@
 package com.bbd.wtyh.domain;
 
+import javax.persistence.Id;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 /**
- * Created by lixudong on 2017/7/11.
+ * 
+ * Created by lixudong on 2017/7/11. <br>
+ * By the LiYao modify on 2017-08-18.
  */
+@Entity
+@Table(name = "plat_rank_data")
 public class PlatRankDataDO extends BaseDO {
-    private String platName;//平台名称
-    private int rank;//排名
-    private double amount;
-    private double incomeRate;
-    private double loanPeriod;
-    private double stayStillOfTotal;
-    private String platStatus;
-    private String registeredAddress;
-    private String areaId;
 
-    public String getPlatName() {
-        return platName;
-    }
+	/** ID */
+	@Id
+	@Column(name = "id")
+	private Integer id;
 
-    public void setPlatName(String platName) {
-        this.platName = platName;
-    }
+	/** 平台名称 */
+	@Column(name = "plat_name")
+	private String platName;
 
-    public int getRank() {
-        return rank;
-    }
+	/** 排名 */
+	@Column(name = "rank")
+	private int rank;
 
-    public void setRank(int rank) {
-        this.rank = rank;
-    }
+	/** 成交量 */
+	@Column(name = "amount")
+	private double amount;
 
-    public double getAmount() {
-        return amount;
-    }
+	/** 平均利率 */
+	@Column(name = "income_rate")
+	private double incomeRate;
 
-    public void setAmount(double amount) {
-        this.amount = amount;
-    }
+	/** 平均借款期限 */
+	@Column(name = "loan_period")
+	private double loanPeriod;
 
-    public double getIncomeRate() {
-        return incomeRate;
-    }
+	/** 累计待还金额 */
+	@Column(name = "stay_still_of_total")
+	private double stayStillOfTotal;
 
-    public void setIncomeRate(double incomeRate) {
-        this.incomeRate = incomeRate;
-    }
+	/** 平台状态 */
+	@Column(name = "plat_status")
+	private String platStatus;
 
-    public double getLoanPeriod() {
-        return loanPeriod;
-    }
+	/** 注册地址 */
+	@Column(name = "registered_address")
+	private String registeredAddress;
 
-    public void setLoanPeriod(double loanPeriod) {
-        this.loanPeriod = loanPeriod;
-    }
+	/** 地区id */
+	@Column(name = "area_id")
+	private String areaId;
 
-    public double getStayStillOfTotal() {
-        return stayStillOfTotal;
-    }
+	@Override
+	public String toString() {
+		return "PlatRankDataDO{" + "platName='" + platName + '\'' + ", rank=" + rank + ", amount=" + amount + ", incomeRate=" + incomeRate
+				+ ", loanPeriod=" + loanPeriod + ", stayStillOfTotal=" + stayStillOfTotal + ", platStatus='" + platStatus + '\''
+				+ ", registeredAddress='" + registeredAddress + '\'' + ", areaId='" + areaId + '\'' + '}';
+	}
 
-    public void setStayStillOfTotal(double stayStillOfTotal) {
-        this.stayStillOfTotal = stayStillOfTotal;
-    }
+	public String getPlatRank() {
+		final String RANK_A = "优良";
+		final String RANK_B = "一般关注";
+		final String RANK_C = "重点关注";
+		final String RANK_D = "问题及停业平台";
 
-    public String getPlatStatus() {
-        return platStatus;
-    }
+		switch (this.platStatus) {
+		case RANK_A:
+			return "A";
+		case RANK_B:
+			return "B";
+		case RANK_C:
+			return "C";
+		case RANK_D:
+			return "D";
+		default:
+			return "\\";
+		}
+	}
 
-    public void setPlatStatus(String platStatus) {
-        this.platStatus = platStatus;
-    }
+	@Override
+	public Integer getId() {
+		return id;
+	}
 
-    public String getRegisteredAddress() {
-        return registeredAddress;
-    }
+	@Override
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public void setRegisteredAddress(String registeredAddress) {
-        this.registeredAddress = registeredAddress;
-    }
+	public String getPlatName() {
+		return platName;
+	}
 
-    public String getAreaId() {
-        return areaId;
-    }
+	public void setPlatName(String platName) {
+		this.platName = platName;
+	}
 
-    public void setAreaId(String areaId) {
-        this.areaId = areaId;
-    }
+	public int getRank() {
+		return rank;
+	}
 
-    @Override
-    public String toString() {
-        return "PlatRankDataDO{" +
-                "platName='" + platName + '\'' +
-                ", rank=" + rank +
-                ", amount=" + amount +
-                ", incomeRate=" + incomeRate +
-                ", loanPeriod=" + loanPeriod +
-                ", stayStillOfTotal=" + stayStillOfTotal +
-                ", platStatus='" + platStatus + '\'' +
-                ", registeredAddress='" + registeredAddress + '\'' +
-                ", areaId='" + areaId + '\'' +
-                '}';
-    }
+	public void setRank(int rank) {
+		this.rank = rank;
+	}
+
+	public double getAmount() {
+		return amount;
+	}
+
+	public void setAmount(double amount) {
+		this.amount = amount;
+	}
+
+	public double getIncomeRate() {
+		return incomeRate;
+	}
+
+	public void setIncomeRate(double incomeRate) {
+		this.incomeRate = incomeRate;
+	}
+
+	public double getLoanPeriod() {
+		return loanPeriod;
+	}
+
+	public void setLoanPeriod(double loanPeriod) {
+		this.loanPeriod = loanPeriod;
+	}
+
+	public double getStayStillOfTotal() {
+		return stayStillOfTotal;
+	}
+
+	public void setStayStillOfTotal(double stayStillOfTotal) {
+		this.stayStillOfTotal = stayStillOfTotal;
+	}
+
+	public String getPlatStatus() {
+		return platStatus;
+	}
+
+	public void setPlatStatus(String platStatus) {
+		this.platStatus = platStatus;
+	}
+
+	public String getRegisteredAddress() {
+		return registeredAddress;
+	}
+
+	public void setRegisteredAddress(String registeredAddress) {
+		this.registeredAddress = registeredAddress;
+	}
+
+	public String getAreaId() {
+		return areaId;
+	}
+
+	public void setAreaId(String areaId) {
+		this.areaId = areaId;
+	}
 }

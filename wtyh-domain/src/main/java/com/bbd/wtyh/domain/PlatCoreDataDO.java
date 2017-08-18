@@ -1,151 +1,167 @@
 package com.bbd.wtyh.domain;
 
 import javax.persistence.Column;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
+ * 
  * Created by lixudong on 2017/7/12.
  */
 @Table(name = "plat_core_data")
-public class PlatCoreDataDO extends BaseDO{
+public class PlatCoreDataDO extends BaseDO {
 
-    @Column(name = "plat_name")
-    private String platName;
+	@Id
+	private Integer id;
 
-    private Double otherSumAmount;
+	@Column(name = "plat_name")
+	private String platName;
 
-    private Double interestRate;
+	@Column(name = "other_sum_amount")
+	private Double otherSumAmount;
 
-    private Integer bidNumStayStil;
+	@Column(name = "interest_rate")
+	private Double interestRate;
 
-    private Integer borNumStayStil;
+	@Column(name = "bid_num_stay_stil")
+	private int bidNumStayStil;
 
-    @Column(name = "company_name")
-    private String companyName;
+	@Column(name = "bor_num_stay_stil")
+	private Integer borNumStayStil;
 
-    private Double top10SumAmount;
+	@Column(name = "company_name")
+	private String companyName;
 
-    private Double moneyStock;
+	@Column(name = "top10_sum_amount")
+	private Double top10SumAmount;
 
-    private Double day30NetInflow;
+	@Column(name = "money_stock")
+	private Double moneyStock;
 
-    private Double top1SumAmount;
+	@Column(name = "day30_net_inflow")
+	private Double day30NetInflow;
 
-    private Double amountTotal;
+	@Column(name = "top1_sum_amount")
+	private Double top1SumAmount;
 
-    private String platDataSixMonth;
+	@Column(name = "amount_total")
+	private Double amountTotal;
 
-    public String getPlatName() {
-        return platName;
-    }
+	@Column(name = "plat_data_six_month")
+	private String platDataSixMonth;
 
-    public void setPlatName(String platName) {
-        this.platName = platName;
-    }
+	@Override
+	public String toString() {
+		return "PlatCoreDataDO{" + "platName='" + platName + '\'' + ", otherSumAmount=" + otherSumAmount + ", interestRate=" + interestRate
+				+ ", bidNumStayStil=" + bidNumStayStil + ", borNumStayStil=" + borNumStayStil + ", companyName='" + companyName + '\''
+				+ ", top10SumAmount=" + top10SumAmount + ", moneyStock=" + moneyStock + ", day30NetInflow=" + day30NetInflow
+				+ ", top1SumAmount=" + top1SumAmount + ", amountTotal=" + amountTotal + ", platDataSixMonth='" + platDataSixMonth + '\''
+				+ '}';
+	}
 
-    public Double getOtherSumAmount() {
-        return otherSumAmount;
-    }
+	@Override
+	public Integer getId() {
+		return id;
+	}
 
-    public void setOtherSumAmount(Double otherSumAmount) {
-        this.otherSumAmount = otherSumAmount;
-    }
+	@Override
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public Double getInterestRate() {
-        return interestRate;
-    }
+	public String getPlatName() {
+		return platName;
+	}
 
-    public void setInterestRate(Double interestRate) {
-        this.interestRate = interestRate;
-    }
+	public void setPlatName(String platName) {
+		this.platName = platName;
+	}
 
-    public Integer getBidNumStayStil() {
-        return bidNumStayStil;
-    }
+	public Double getOtherSumAmount() {
+		return otherSumAmount;
+	}
 
-    public void setBidNumStayStil(Integer bidNumStayStil) {
-        this.bidNumStayStil = bidNumStayStil;
-    }
+	public void setOtherSumAmount(Double otherSumAmount) {
+		this.otherSumAmount = otherSumAmount;
+	}
 
-    public Integer getBorNumStayStil() {
-        return borNumStayStil;
-    }
+	public Double getInterestRate() {
+		return interestRate;
+	}
 
-    public void setBorNumStayStil(Integer borNumStayStil) {
-        this.borNumStayStil = borNumStayStil;
-    }
+	public void setInterestRate(Double interestRate) {
+		this.interestRate = interestRate;
+	}
 
-    public String getCompanyName() {
-        return companyName;
-    }
+	public int getBidNumStayStil() {
+		return bidNumStayStil;
+	}
 
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
-    }
+	public void setBidNumStayStil(int bidNumStayStil) {
+		this.bidNumStayStil = bidNumStayStil;
+	}
 
-    public Double getTop10SumAmount() {
-        return top10SumAmount;
-    }
+	public Integer getBorNumStayStil() {
+		return borNumStayStil;
+	}
 
-    public void setTop10SumAmount(Double top10SumAmount) {
-        this.top10SumAmount = top10SumAmount;
-    }
+	public void setBorNumStayStil(Integer borNumStayStil) {
+		this.borNumStayStil = borNumStayStil;
+	}
 
-    public Double getMoneyStock() {
-        return moneyStock;
-    }
+	public String getCompanyName() {
+		return companyName;
+	}
 
-    public void setMoneyStock(Double moneyStock) {
-        this.moneyStock = moneyStock;
-    }
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
 
-    public Double getDay30NetInflow() {
-        return day30NetInflow;
-    }
+	public Double getTop10SumAmount() {
+		return top10SumAmount;
+	}
 
-    public void setDay30NetInflow(Double day30NetInflow) {
-        this.day30NetInflow = day30NetInflow;
-    }
+	public void setTop10SumAmount(Double top10SumAmount) {
+		this.top10SumAmount = top10SumAmount;
+	}
 
-    public Double getTop1SumAmount() {
-        return top1SumAmount;
-    }
+	public Double getMoneyStock() {
+		return moneyStock;
+	}
 
-    public void setTop1SumAmount(Double top1SumAmount) {
-        this.top1SumAmount = top1SumAmount;
-    }
+	public void setMoneyStock(Double moneyStock) {
+		this.moneyStock = moneyStock;
+	}
 
-    public Double getAmountTotal() {
-        return amountTotal;
-    }
+	public Double getDay30NetInflow() {
+		return day30NetInflow;
+	}
 
-    public void setAmountTotal(Double amountTotal) {
-        this.amountTotal = amountTotal;
-    }
+	public void setDay30NetInflow(Double day30NetInflow) {
+		this.day30NetInflow = day30NetInflow;
+	}
 
-    public String getPlatDataSixMonth() {
-        return platDataSixMonth;
-    }
+	public Double getTop1SumAmount() {
+		return top1SumAmount;
+	}
 
-    public void setPlatDataSixMonth(String platDataSixMonth) {
-        this.platDataSixMonth = platDataSixMonth;
-    }
+	public void setTop1SumAmount(Double top1SumAmount) {
+		this.top1SumAmount = top1SumAmount;
+	}
 
-    @Override
-    public String toString() {
-        return "PlatCoreDataDO{" +
-                "platName='" + platName + '\'' +
-                ", otherSumAmount=" + otherSumAmount +
-                ", interestRate=" + interestRate +
-                ", bidNumStayStil=" + bidNumStayStil +
-                ", borNumStayStil=" + borNumStayStil +
-                ", companyName='" + companyName + '\'' +
-                ", top10SumAmount=" + top10SumAmount +
-                ", moneyStock=" + moneyStock +
-                ", day30NetInflow=" + day30NetInflow +
-                ", top1SumAmount=" + top1SumAmount +
-                ", amountTotal=" + amountTotal +
-                ", platDataSixMonth='" + platDataSixMonth + '\'' +
-                '}';
-    }
+	public Double getAmountTotal() {
+		return amountTotal;
+	}
+
+	public void setAmountTotal(Double amountTotal) {
+		this.amountTotal = amountTotal;
+	}
+
+	public String getPlatDataSixMonth() {
+		return platDataSixMonth;
+	}
+
+	public void setPlatDataSixMonth(String platDataSixMonth) {
+		this.platDataSixMonth = platDataSixMonth;
+	}
 }
