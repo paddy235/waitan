@@ -31,7 +31,7 @@ import java.util.*;
  * @since 2016年8月12日 下午2:09:15
  */
 @Service("pToPMonitorServiceImpl")
-public class PToPMonitorServiceImpl implements PToPMonitorService,TaskService {
+public class PToPMonitorServiceImpl implements PToPMonitorService, TaskService {
 
     private static final String industry_shanghai = "上海网贷信息(industry_shanghai)";
     private static final String industry_compare = "网贷数据对比(industry_compare)";
@@ -74,16 +74,16 @@ public class PToPMonitorServiceImpl implements PToPMonitorService,TaskService {
 
     private Logger logger = LoggerFactory.getLogger(PToPMonitorServiceImpl.class);
 
-    private volatile boolean isShutdown = false;//任务停止标志
+    private volatile boolean isShutdown = false;// 任务停止标志
 
     @Override
     public Integer getOfflineFinanceNum(String companyName) throws Exception {
         if (companyName.equals("上海陆家嘴国际金融资产交易市场股份有限公司")) {
             return 0;
         }
-        //Map<String, List> relationMap = relatedCompanyService.queryRelation(companyName, dataVersion, 1);
-        RelationDiagramVO relationDiagramVO = offlinefinanceservice.queryRealRealation(companyName,
-                1);
+        // Map<String, List> relationMap =
+        // relatedCompanyService.queryRelation(companyName, dataVersion, 1);
+        RelationDiagramVO relationDiagramVO = offlinefinanceservice.queryRealRealation(companyName, 1);
         List<RelationDiagramVO.PointVO> pointList = relationDiagramVO.getPointList();
         if (org.apache.commons.collections.CollectionUtils.isEmpty(pointList)) {
             return 0;
@@ -114,6 +114,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService,TaskService {
         String url = this.finSerUrl + "?dataType=industry_compare";
         HttpTemplate httpTemplate = new HttpTemplate();
         return httpTemplate.get(url, new HttpCallback<List<IndustryCompareDTO>>() {
+
             @Override
             public boolean valid() {
                 return true;
@@ -132,6 +133,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService,TaskService {
         String url = this.finSerUrl + "?dataType=area_index";
         HttpTemplate httpTemplate = new HttpTemplate();
         return httpTemplate.get(url, new HttpCallback<List<AreaIndexDTO>>() {
+
             @Override
             public boolean valid() {
                 return true;
@@ -150,6 +152,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService,TaskService {
         String url = this.finSerUrl + "?dataType=plat_rank_data";
         HttpTemplate httpTemplate = new HttpTemplate();
         return httpTemplate.get(url, new HttpCallback<List<PlatRankDataDTO>>() {
+
             @Override
             public boolean valid() {
                 return true;
@@ -157,7 +160,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService,TaskService {
 
             @Override
             public List<PlatRankDataDTO> parse(String result) {
-                //System.out.println(result);
+                // System.out.println(result);
                 return JSON.parseArray(result, PlatRankDataDTO.class);
             }
         });
@@ -172,6 +175,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService,TaskService {
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
             list = httpTemplate.get(url, new HttpCallback<List<PlatRankDataDTO>>() {
+
                 @Override
                 public boolean valid() {
                     return true;
@@ -220,6 +224,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService,TaskService {
         }
         HttpTemplate httpTemplate = new HttpTemplate();
         return httpTemplate.get(url, new HttpCallback<List<IndustryShanghaiDTO>>() {
+
             @Override
             public boolean valid() {
                 return true;
@@ -230,9 +235,9 @@ public class PToPMonitorServiceImpl implements PToPMonitorService,TaskService {
 
                 Gson gson = new Gson();
 
-                List<IndustryShanghaiDTO> list = gson.fromJson(result,
-                        new TypeToken<List<IndustryShanghaiDTO>>() {
-                        }.getType());
+                List<IndustryShanghaiDTO> list = gson.fromJson(result, new TypeToken<List<IndustryShanghaiDTO>>() {
+                }.getType());
+
                 IndustryShanghaiDTO ja = null;
                 IndustryShanghaiDTO zb = null;
                 return list;
@@ -247,6 +252,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService,TaskService {
         String url = this.finSerUrl + "?dataType=industry_problem";
         HttpTemplate httpTemplate = new HttpTemplate();
         return httpTemplate.get(url, new HttpCallback<List<IndustryProblemDTO>>() {
+
             @Override
             public boolean valid() {
                 return true;
@@ -261,7 +267,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService,TaskService {
     }
 
     @Override
-    public List<PlatCompanyDTO> getPlatList() throws Exception { //by cgj
+    public List<PlatCompanyDTO> getPlatList() throws Exception { // by cgj
         String url = this.finSerUrl + "?dataType=plat_list";
         if (StringUtils.isEmpty(this.finSerUrl)) {
             url = "http://121.40.187.134:5002/financial_services" + "?dataType=plat_list";
@@ -269,6 +275,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService,TaskService {
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
             return httpTemplate.get(url, new HttpCallback<List<PlatCompanyDTO>>() {
+
                 @Override
                 public boolean valid() {
                     return true;
@@ -285,7 +292,6 @@ public class PToPMonitorServiceImpl implements PToPMonitorService,TaskService {
         }
     }
 
-
     @Override
     public TaskResultDO pToPMonitorDataLandTask(Integer taskId) {
         logger.info("--- p2p monitor data job begin ---");
@@ -294,17 +300,17 @@ public class PToPMonitorServiceImpl implements PToPMonitorService,TaskService {
 
         Integer planCount = 5;// 计划执行笔数。 可在任务结束时更新
         Integer failCount = 0;
-        //type=industry_shanghai 数据落地
+        // type=industry_shanghai 数据落地
         try {
             updateIndustryShanghai();
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             addWangdaiTaskInfo(taskId, industry_shanghai, e.getClass().getSimpleName());
-            failCount++;//失败条数加一
+            failCount++;// 失败条数加一
             taskResultDO.setState(TaskState.ERROR);
-            //计入任务表
+            // 计入任务表
         }
-        //type=industry_compare 数据落地
+        // type=industry_compare 数据落地
         try {
             updateIndustryCompare();
         } catch (Exception e) {
@@ -313,7 +319,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService,TaskService {
             failCount++;
             taskResultDO.setState(TaskState.ERROR);
         }
-        //type=industry_problem 数据落地
+        // type=industry_problem 数据落地
         try {
             updateIndustryProblem();
         } catch (Exception e) {
@@ -322,7 +328,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService,TaskService {
             failCount++;
             taskResultDO.setState(TaskState.ERROR);
         }
-        //type = plat_rand_data 数据落地
+        // type = plat_rand_data 数据落地
         try {
             updatePlatRankData();
         } catch (Exception e) {
@@ -331,7 +337,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService,TaskService {
             failCount++;
             taskResultDO.setState(TaskState.ERROR);
         }
-        //type=area_index 数据落地
+        // type=area_index 数据落地
         try {
             updateAreaIndex();
         } catch (Exception e) {
@@ -344,7 +350,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService,TaskService {
         if (isShutdown) {
             taskResultDO.setFailCount(0);
             taskResultDO.setSuccessCount(0);
-        }else{
+        } else {
             taskResultDO.setFailCount(failCount);
             taskResultDO.setSuccessCount(planCount - failCount);
         }
@@ -365,69 +371,69 @@ public class PToPMonitorServiceImpl implements PToPMonitorService,TaskService {
                 break;
             }
             switch (wangdaiTaskInfoDO.getFailName()) {
-                case industry_shanghai:
-                    try {
-                        updateIndustryShanghai();
-                    } catch (Exception e) {
-                        logger.error(e.getMessage(), e);
-                        addWangdaiTaskInfo(taskId, industry_shanghai, e.getClass().getSimpleName());
-                        failCount++;//失败条数加一
-                        taskResultDO.setState(TaskState.ERROR);
-                        //计入任务表
-                    }
-                    break;
-                case industry_compare:
-                    //type=industry_compare 数据落地
-                    try {
-                        updateIndustryCompare();
-                    } catch (Exception e) {
-                        logger.error(e.getMessage(), e);
-                        addWangdaiTaskInfo(taskId, industry_compare, e.getClass().getSimpleName());
-                        failCount++;
-                        taskResultDO.setState(TaskState.ERROR);
-                    }
-                    break;
-                case industry_problem:
-                    //type=industry_problem 数据落地
-                    try {
-                        updateIndustryProblem();
-                    } catch (Exception e) {
-                        logger.error(e.getMessage(), e);
-                        addWangdaiTaskInfo(taskId, industry_problem, e.getClass().getSimpleName());
-                        failCount++;
-                        taskResultDO.setState(TaskState.ERROR);
-                    }
-                    break;
-                case plat_rank_data:
-                    //type = plat_rand_data 数据落地
-                    try {
-                        updatePlatRankData();
-                    } catch (Exception e) {
-                        logger.error(e.getMessage(), e);
-                        addWangdaiTaskInfo(taskId, plat_rank_data, e.getClass().getSimpleName());
-                        failCount++;
-                        taskResultDO.setState(TaskState.ERROR);
-                    }
-                    break;
-                case area_index:
-                    try {
-                        updateAreaIndex();
-                    } catch (Exception e) {
-                        logger.error(e.getMessage(), e);
-                        addWangdaiTaskInfo(taskId, area_index, e.getClass().getSimpleName());
-                        failCount++;
-                        taskResultDO.setState(TaskState.ERROR);
-                    }
-                    break;
-                default:
-                    continue;
+            case industry_shanghai:
+                try {
+                    updateIndustryShanghai();
+                } catch (Exception e) {
+                    logger.error(e.getMessage(), e);
+                    addWangdaiTaskInfo(taskId, industry_shanghai, e.getClass().getSimpleName());
+                    failCount++;// 失败条数加一
+                    taskResultDO.setState(TaskState.ERROR);
+                    // 计入任务表
+                }
+                break;
+            case industry_compare:
+                // type=industry_compare 数据落地
+                try {
+                    updateIndustryCompare();
+                } catch (Exception e) {
+                    logger.error(e.getMessage(), e);
+                    addWangdaiTaskInfo(taskId, industry_compare, e.getClass().getSimpleName());
+                    failCount++;
+                    taskResultDO.setState(TaskState.ERROR);
+                }
+                break;
+            case industry_problem:
+                // type=industry_problem 数据落地
+                try {
+                    updateIndustryProblem();
+                } catch (Exception e) {
+                    logger.error(e.getMessage(), e);
+                    addWangdaiTaskInfo(taskId, industry_problem, e.getClass().getSimpleName());
+                    failCount++;
+                    taskResultDO.setState(TaskState.ERROR);
+                }
+                break;
+            case plat_rank_data:
+                // type = plat_rand_data 数据落地
+                try {
+                    updatePlatRankData();
+                } catch (Exception e) {
+                    logger.error(e.getMessage(), e);
+                    addWangdaiTaskInfo(taskId, plat_rank_data, e.getClass().getSimpleName());
+                    failCount++;
+                    taskResultDO.setState(TaskState.ERROR);
+                }
+                break;
+            case area_index:
+                try {
+                    updateAreaIndex();
+                } catch (Exception e) {
+                    logger.error(e.getMessage(), e);
+                    addWangdaiTaskInfo(taskId, area_index, e.getClass().getSimpleName());
+                    failCount++;
+                    taskResultDO.setState(TaskState.ERROR);
+                }
+                break;
+            default:
+                continue;
             }
         }
         taskResultDO.setPlanCount(planCount);
         if (isShutdown) {
             taskResultDO.setFailCount(0);
             taskResultDO.setSuccessCount(0);
-        }else{
+        } else {
             taskResultDO.setFailCount(failCount);
             taskResultDO.setSuccessCount(planCount - failCount);
         }
@@ -445,24 +451,25 @@ public class PToPMonitorServiceImpl implements PToPMonitorService,TaskService {
         taskFailInfoDO.setTaskId(taskId);
         taskFailInfoDO.setFailName(api);
         switch (failName) {
-            case "ConnectTimeoutException":
-                taskFailInfoDO.setFailReason("接口连接超时");
-                break;
-            case "JsonSyntaxException":
-                taskFailInfoDO.setFailReason("接口返回数据解析失败");
-                break;
-            case "SQLException":
-                taskFailInfoDO.setFailReason("入库失败");
-                break;
-            default:
-                taskFailInfoDO.setFailReason("接口调用失败");
+        case "ConnectTimeoutException":
+            taskFailInfoDO.setFailReason("接口连接超时");
+            break;
+        case "JsonSyntaxException":
+            taskFailInfoDO.setFailReason("接口返回数据解析失败");
+            break;
+        case "SQLException":
+            taskFailInfoDO.setFailReason("入库失败");
+            break;
+        default:
+            taskFailInfoDO.setFailReason("接口调用失败");
         }
         taskFailInfoDO.setCreateBy("system");
         taskFailInfoDO.setCreateDate(new Date());
         taskFailInfoMapper.addTaskFailInfo(taskFailInfoDO);
     }
 
-    public List<PlatCompanyDTO> searchPlatListByCompanyName(String companyName) { //by cgj
+    public List<PlatCompanyDTO> searchPlatListByCompanyName(String companyName) { // by
+                                                                                  // cgj
         List platList = new ArrayList<PlatCompanyDTO>();
         if (StringUtils.isBlank(companyName)) {
             return platList;
@@ -479,7 +486,6 @@ public class PToPMonitorServiceImpl implements PToPMonitorService,TaskService {
         }
         return platList;
     }
-
 
     protected void updateIndustryShanghai() throws Exception {
         if (isShutdown) {
@@ -502,7 +508,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService,TaskService {
             industryShanghaiDO.setDate(dto.getDate());
             industryShanghaiDO.setCreateBy("system");
             industryShanghaiDO.setCreateDate(new Date());
-//            industryShanghaiMapper.deleteByDate(dto.getDate());
+            // industryShanghaiMapper.deleteByDate(dto.getDate());
             try {
                 industryShanghaiMapper.save(industryShanghaiDO);
             } catch (Exception e) {
@@ -529,7 +535,8 @@ public class PToPMonitorServiceImpl implements PToPMonitorService,TaskService {
             industryCompareDO.setBalanceLoans(dto.getBalance_loans());
             industryCompareDO.setCreateBy("system");
             industryCompareDO.setCreateDate(new Date());
-//            industryCompareMapper.deleteByDateArea(dto.getDate(), dto.getArea());
+            // industryCompareMapper.deleteByDateArea(dto.getDate(),
+            // dto.getArea());
             try {
                 industryCompareMapper.save(industryCompareDO);
             } catch (Exception e) {
@@ -567,7 +574,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService,TaskService {
             platRankDataDO.setStayStillOfTotal(dto.getStay_still_of_total());
             platRankDataDO.setCreateBy("system");
             platRankDataDO.setCreateDate(new Date());
-//            platRankDataMapper.deleteByPlatName(dto.getPlat_name());
+            // platRankDataMapper.deleteByPlatName(dto.getPlat_name());
             try {
                 platRankDataMapper.save(platRankDataDO);
             } catch (Exception e) {
@@ -598,7 +605,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService,TaskService {
             areaIndexDO.setCompetitiveness(dto.getCompetitiveness());
             areaIndexDO.setCreateBy("system");
             areaIndexDO.setCreateDate(new Date());
-//            areaIndexMapper.deleteByArea(dto.getArea());
+            // areaIndexMapper.deleteByArea(dto.getArea());
             try {
                 areaIndexMapper.save(areaIndexDO);
             } catch (Exception e) {
@@ -615,7 +622,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService,TaskService {
         logger.info("start update industry_problem date task");
         List<IndustryProblemDTO> dtoList = getProblemData();
         for (IndustryProblemDTO dto : dtoList) {
-            if(isShutdown){
+            if (isShutdown) {
                 break;
             }
             IndustryProblemDO industryProblemDO = new IndustryProblemDO();
@@ -634,7 +641,6 @@ public class PToPMonitorServiceImpl implements PToPMonitorService,TaskService {
         logger.info("end update industry_problem date task");
     }
 
-
     @Override
     public String getTaskKey() {
         return "p2pMonitorJob";
@@ -647,14 +653,12 @@ public class PToPMonitorServiceImpl implements PToPMonitorService,TaskService {
 
     @Override
     public TaskResultDO autoExecute(Integer taskId, Integer runMode) {
-        TaskResultDO taskResultDO = pToPMonitorDataLandTask(taskId);
-        return taskResultDO;
+        return pToPMonitorDataLandTask(taskId);
     }
 
     @Override
     public TaskResultDO reExecute(Integer oldTaskId, Integer newTaskId, Integer runMode) {
-        TaskResultDO taskResultDO = executeFailTaskByTaskId(runMode, oldTaskId, newTaskId);
-        return taskResultDO;
+        return executeFailTaskByTaskId(runMode, oldTaskId, newTaskId);
     }
 
     @Override
@@ -664,6 +668,6 @@ public class PToPMonitorServiceImpl implements PToPMonitorService,TaskService {
 
     @Override
     public void resetTask() {
-        this.isShutdown=false;
+        this.isShutdown = false;
     }
 }

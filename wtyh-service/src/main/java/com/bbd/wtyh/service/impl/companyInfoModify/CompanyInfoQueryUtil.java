@@ -4,10 +4,10 @@ import com.bbd.wtyh.domain.CompanyInfoModify.CompanyInfo;
 import com.bbd.wtyh.domain.wangDaiAPI.PlatListDO;
 import com.bbd.wtyh.mapper.CompanyInfoModifyMapper;
 import com.bbd.wtyh.service.*;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
-import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Map;
@@ -17,29 +17,30 @@ import java.util.Map;
  */
 @Component
 public class CompanyInfoQueryUtil {
-    @Autowired
-    private P2PImageService p2PImageService;    // 网络借贷
 
     @Autowired
-    private CompanyLevelService companyLevelService;    // 小额贷款、融资担保
+    private P2PImageService p2PImageService; // 网络借贷
 
     @Autowired
-    private RiskCompanyService riskCompanyService;  // 线下理财、交易场所
+    private CompanyLevelService companyLevelService; // 小额贷款、融资担保
+
+    @Autowired
+    private RiskCompanyService riskCompanyService; // 线下理财、交易场所
 
     @Autowired
     private PrepaidCompanyStaticService prepaidCompanyStaticService; // 预付卡
 
     @Autowired
-    private FinanceLeaseService financeLeaseService;    // 融资租赁
+    private FinanceLeaseService financeLeaseService; // 融资租赁
 
     @Autowired
     private CompanyInfoModifyMapper companyInfoModifyMapper;
 
-
     /**
      * 网络借贷
      *
-     * @param name 公司名称
+     * @param name
+     *            公司名称
      * @return
      */
     public CompanyInfo getWangdaiInfo(String name) {
@@ -53,23 +54,31 @@ public class CompanyInfoQueryUtil {
 
         // 3. 返回数据
         CompanyInfo companyInfo = companyInfoModifyMapper.queryCompany(name);
-        companyInfo.setIndustry(CompanyInfo.TYPE_P2P_1);    // 行业
+        companyInfo.setIndustry(CompanyInfo.TYPE_P2P_1); // 行业
         if (platFormStatus != null) {
-            companyInfo.setPlatName(String.valueOf(platFormStatus.get("platname")));    // 平台名称
-            companyInfo.setCurrentLevel(String.valueOf(platFormStatus.get("score")));   // 转换后的 评分：A B C D
-            companyInfo.setOriginalStatus(String.valueOf(platFormStatus.get("status")));
+            companyInfo.setPlatName(obj2String(platFormStatus.get("platname"))); // 平台名称
+            companyInfo.setCurrentLevel(obj2String(platFormStatus.get("score"))); // 转换后的
+            companyInfo.setOriginalStatus(obj2String(platFormStatus.get("status")));
         } else {
-            companyInfo.setPlatName("");    // 平台名称
-            companyInfo.setCurrentLevel("");   // 转换后的 评分：A B C D
-            companyInfo.setOriginalStatus("");  // 网贷之家API原始评分："优良";"一般关注";"重点关注";"问题及停业平台";
+            companyInfo.setPlatName(""); // 平台名称
+            companyInfo.setCurrentLevel(""); // 转换后的 评分：A B C D
+            companyInfo.setOriginalStatus(""); // 网贷之家API原始评分："优良";"一般关注";"重点关注";"问题及停业平台";
         }
         return companyInfo;
+    }
+
+    private String obj2String(Object obj) {
+        if (obj == null) {
+            return null;
+        }
+        return obj.toString();
     }
 
     /**
      * 小额贷款
      *
-     * @param name 公司名称
+     * @param name
+     *            公司名称
      * @return
      */
     public CompanyInfo getLoan(String name) {
@@ -111,7 +120,7 @@ public class CompanyInfoQueryUtil {
     public CompanyInfo getTradeMarket(String name) {
         CompanyInfo companyInfo = riskCompanyService.getOffLineFinanceByCompanyName(name);
         if (StringUtils.isEmpty(companyInfo.getCurrentLevel())) {
-            companyInfo.setCurrentLevel("4");   // 正常
+            companyInfo.setCurrentLevel("4"); // 正常
         }
         companyInfo.setIndustry(CompanyInfo.TYPE_JYS_9);
         return companyInfo;
@@ -142,12 +151,12 @@ public class CompanyInfoQueryUtil {
         }
         CompanyInfo companyInfo = new CompanyInfo();
         companyInfo.setName(name);
-        companyInfo.setCurrentLevel("1");   // 正常
+        companyInfo.setCurrentLevel("1"); // 正常
         companyInfo.setIndustry(CompanyInfo.TYPE_RZZL_13);
         if (!CollectionUtils.isEmpty(companyInfos)) {
             for (CompanyInfo temp : companyInfos) {
                 if (temp.getCurrentLevel() != null && temp.getCurrentLevel().equals("0")) {
-                    companyInfo.setCurrentLevel("0");   // 潜在
+                    companyInfo.setCurrentLevel("0"); // 潜在
                 }
             }
         }
