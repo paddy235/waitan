@@ -9,6 +9,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
+import com.bbd.data.service.PABPublicSentimentService;
 import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.domain.*;
 import com.bbd.wtyh.domain.vo.NewsVO;
@@ -58,6 +59,8 @@ public class ParkController {
 
 	@Autowired
 	private ImgService imgService;
+	@Autowired
+	private PABPublicSentimentService pabPublicSentimentService;
 
 	private String PARK_DIR1 = WtyhHelper.webImgPath;//开发环境
 	private static final String PARK_DIR = "data/img/park/";
@@ -140,19 +143,17 @@ public class ParkController {
 	@RequestMapping("/news")
 	@ResponseBody
 	public ResponseBean news(@RequestParam(required = true) Integer areaId, String parkName) {
-
+//		NewsVO newsVO = pabPublicSentimentService.queryParkPublicSentiment(areaId, parkName);
+//		return ResponseBean.successResponse(new Gson().toJson(newsVO));
 		Gson gson = new Gson();
-
 		String data = parkService.queryParkNews(areaId, 20, 1,parkName);
-
 		NewsVO vo = gson.fromJson(data, new TypeToken<NewsVO>() {
 		}.getType());
 		if (vo == null || vo.getRsize() == 0) {
 			vo = newsSer.mutilTypeNews("qyxg_shanghai_fta,qyxg_national_economy", 20);
 			data = gson.toJson(vo);
 		}
-
-		return ResponseBean.successResponse(data);
+		return ResponseBean.successResponse(new Gson().toJson(vo));
 	}
 
 	/**
@@ -261,10 +262,10 @@ public class ParkController {
 	@RequestMapping("/buildingNews")
 	@ResponseBody
 	public ResponseBean buildingNews(@RequestParam Integer buildingId) {
-
 		String data = parkService.buildingNews(buildingId);
-
 		return ResponseBean.successResponse(data);
+//		NewsVO newsVO = pabPublicSentimentService.queryBuildingPublicSentiment(buildingId);
+//		return ResponseBean.successResponse(new Gson().toJson(newsVO));
 	}
 
 	/**

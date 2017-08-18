@@ -2,6 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bbd.data.mapper.PABPublicSentimentMapper">
 
+    <resultMap type="com.bbd.wtyh.domain.vo.NewsVO$Result" id="newsResult">
+        <id property="_id" column="id" />
+        <result property="area_id" column="area_id"/>
+        <result property="building_id" column="building_id"/>
+        <result property="park" column="park"/>
+        <result property="news_site" column="news_site"/>
+        <result property="search_key" column="search_key"/>
+        <result property="author" column="author"/>
+        <result property="main" column="main"/>
+        <result property="plate" column="plate"/>
+        <result property="news_title" column="news_title"/>
+        <result property="bbd_type" column="bbd_type"/>
+        <result property="bbd_url" column="bbd_url"/>
+        <result property="pubdate" column="pubdate"/>
+        <result property="status" column="status"/>
+    </resultMap>
+
     <insert id="addParkPublicSentiment">
         INSERT INTO park_public_sentiment VALUES(null, #{area_id}, #{park}, SYSDATE(), #{news_site}, #{search_key}, #{author}, #{main}, #{plate}, #{news_title}, #{bbd_type}, #{bbd_url}, #{pubdate}, #{status}, 'SYSTEM', SYSDATE(), 'SYSTEM', SYSDATE())
     </insert>
@@ -9,5 +26,35 @@
     <insert id="addBuildingPublicSentiment">
         INSERT INTO building_public_sentiment VALUES(null, #{building_id}, SYSDATE(), #{news_site}, #{search_key}, #{author}, #{main}, #{plate}, #{news_title}, #{bbd_type}, #{bbd_url}, #{pubdate}, #{status}, 'SYSTEM', SYSDATE(), 'SYSTEM', SYSDATE())
     </insert>
+
+    <select id="queryParkPublicSentiment" parameterType="java.util.Map" resultMap="newsResult">
+        SELECT
+          id, area_id, park, news_site, search_key, author, main, plate, news_title, bbd_type, bbd_url, pubdate, status
+        FROM park_public_sentiment
+        WHERE area_id=#{areaId} and park=#{parkName} and DATEDIFF(SYSDATE(),get_date) IN (0, 1, 2)
+        ORDER BY id DESC
+        LIMIT 0, 20
+    </select>
+
+    <select id="queryParkPublicSentimentCount" parameterType="java.util.Map" resultType="int">
+        SELECT count(1)
+        FROM park_public_sentiment
+        WHERE area_id=#{areaId} and park=#{parkName} and DATEDIFF(SYSDATE(),get_date) IN (0, 1, 2)
+    </select>
+
+    <select id="queryBuildingPublicSentiment" parameterType="int" resultMap="newsResult">
+        SELECT
+        id, building_id, news_site, search_key, author, main, plate, news_title, bbd_type, bbd_url, pubdate, status
+        FROM building_public_sentiment
+        WHERE building_id=#{buildingId} and DATEDIFF(SYSDATE(),get_date) IN (0, 1, 2)
+        ORDER BY id DESC
+        LIMIT 0, 20
+    </select>
+
+    <select id="queryBuildingPublicSentimentCount" parameterType="int" resultType="int">
+        SELECT count(1)
+        FROM building_public_sentiment
+        WHERE building_id=#{buildingId} and DATEDIFF(SYSDATE(),get_date) IN (0, 1, 2)
+    </select>
 
 </mapper>
