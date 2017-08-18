@@ -2,6 +2,7 @@ package com.bbd.wtyh.mapper;
 
 
 import com.bbd.wtyh.domain.ParkCompanyDo;
+import com.bbd.wtyh.domain.ParkDO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -21,5 +22,11 @@ public interface ParkMapper {
 	 * @return
 	 */
 	int qeuryParkCompanyCount(Map<String, Object> params);
+
+	/**
+	 * 查询所有园区信息
+	 * @return
+     */
+	List<ParkDO> queryAllPark();
    
 }

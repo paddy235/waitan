@@ -18,4 +18,7 @@ public interface BuildingMapper {
     List<CompanyGroupByAreaDO> companyGroupByArea();
 
     List<CountCompanyByAreaDO> countCompanyByArea();
+
+    List<BuildingDO> queryAllBuilding();
+
 }
