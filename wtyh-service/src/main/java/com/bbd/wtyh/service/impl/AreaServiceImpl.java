@@ -117,7 +117,7 @@ public class AreaServiceImpl extends BaseServiceImpl implements AreaService {
 	@Override
 	public AreaDO selectByCountyCodeOrProvinceName( String countyCode, String provinceName ) {
 		AreaDO ad =new AreaDO();
-		if ( countyCode.matches("^([0-9]){6}$") ) {
+		if ( StringUtils.isNotBlank(countyCode) && countyCode.matches("^([0-9]){6}$") ) {
 			ad =this.selectOne(AreaDO.class, "`nation_district_code` ='" +countyCode +"'" );
 			if( null !=ad ) {
 				return ad;
