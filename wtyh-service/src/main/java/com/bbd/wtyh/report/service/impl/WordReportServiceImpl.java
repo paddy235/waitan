@@ -750,7 +750,7 @@ public class WordReportServiceImpl implements WordReportService {
                 MultiExeService lawExe =new MultiExeService(multithreading);
                 List<List<String>> noCreditDebtor = new LinkedList<>();
                 lawExe.runThreadFun( () -> {
-                    NoCreditDebtorDO ncd = hologramQueryService.noCreditDebtor(companyName);
+                    NoCreditDebtorDO ncd = hologramQueryService.noCreditDebtor(companyName,null,null);
                     if (ncd != null) {
                         List<NoCreditDebtorDO.Results> resList = ncd.getResults();
                         if (resList != null) {
@@ -771,7 +771,7 @@ public class WordReportServiceImpl implements WordReportService {
 
                 List<List<String>> debtor = new LinkedList<>();
                 lawExe.runThreadFun( () -> {
-                    DebtorDO de = hologramQueryService.debtor(companyName);
+                    DebtorDO de = hologramQueryService.debtor(companyName,null,null);
                     if (de != null) {
                         List<DebtorDO.Results> resList = de.getResults();
                         if (resList != null) {
@@ -793,7 +793,7 @@ public class WordReportServiceImpl implements WordReportService {
 
                 List<List<String>> judgeDoc = new LinkedList<>();
                 lawExe.runThreadFun( () -> {
-                    List<JudgeDocDO.Results> jdList = hologramQueryService.judgeDoc(companyName);
+                    List<JudgeDocDO.Results> jdList = hologramQueryService.judgeDoc(companyName,null,null);
                     if (jdList != null) {
                         Integer idx = 0;
                         for (JudgeDocDO.Results re : jdList) {
@@ -814,7 +814,7 @@ public class WordReportServiceImpl implements WordReportService {
 
                 List<List<String>> courtAnnouncement = new LinkedList<>();
                 lawExe.runThreadFun( () -> {
-                    CourtAnnouncementDO ca = hologramQueryService.courtAnnouncement(companyName);
+                    CourtAnnouncementDO ca = hologramQueryService.courtAnnouncement(companyName,null,null);
                     if (ca != null) {
                         List<CourtAnnouncementDO.Results> resList = ca.getResults();
                         if (resList != null) {
@@ -835,7 +835,7 @@ public class WordReportServiceImpl implements WordReportService {
 
                 List<List<String>> openCourt = new LinkedList<>();
                 //（最后这一组直接由当前线程跑）
-                List<OpenCourtAnnouncementDO.Results> loc = hologramQueryService.openCourtAnnouncement(companyName);
+                List<OpenCourtAnnouncementDO.Results> loc = hologramQueryService.openCourtAnnouncement(companyName,null,null);
                 if (loc != null) {
                     Integer idx = 0;
                     for (OpenCourtAnnouncementDO.Results re : loc) {
