@@ -170,6 +170,14 @@
         </if>
     </select>
 
-
+    <select id="queryAllPark" resultType="com.bbd.wtyh.domain.ParkDO">
+        SELECT
+            park_id as parkId,
+            `name` as `name`,
+            area_id as areaId,
+            img_url as imgUrl
+        FROM
+            park
+    </select>
 
 </mapper>

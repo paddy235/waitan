@@ -62,4 +62,12 @@ public enum WangDaiRiskLevel {
 		}
 		return null;
 	}
+	public static Integer getRiskType(String desc) {
+		for (WangDaiRiskLevel wangDaiRiskLevel : WangDaiRiskLevel.values()) {
+			if ( wangDaiRiskLevel.desc.equals(desc)) {
+				return wangDaiRiskLevel.type();
+			}
+		}
+		return null;
+	}
 }

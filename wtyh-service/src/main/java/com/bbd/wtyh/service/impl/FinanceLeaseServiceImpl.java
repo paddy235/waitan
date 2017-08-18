@@ -3,6 +3,7 @@ package com.bbd.wtyh.service.impl;
 
 import com.bbd.wtyh.domain.CompanyInfoModify.CompanyInfo;
 import com.bbd.wtyh.domain.CompanyInfoModify.RecordInfo;
+import com.bbd.wtyh.domain.EasyExport.FinanceLeaseData;
 import com.bbd.wtyh.domain.vo.CompanyCapitalVO;
 import com.bbd.wtyh.domain.vo.FinanceLeaseStatisticVO;
 import com.bbd.wtyh.domain.vo.FinanceLeaseVO;
@@ -10,6 +11,8 @@ import com.bbd.wtyh.domain.vo.FinanceLeasecCompanyVO;
 import com.bbd.wtyh.mapper.FinanceLeaseMapper;
 import com.bbd.wtyh.service.FinanceLeaseService;
 import com.bbd.wtyh.util.CalculateUtils;
+import com.bbd.wtyh.web.EasyExportExcel.ExportCondition;
+import com.bbd.wtyh.web.PageBean;
 import com.bbd.wtyh.web.XAxisSeriesBarsLineBean;
 import org.apache.commons.collections.map.HashedMap;
 import org.slf4j.Logger;
@@ -296,5 +299,11 @@ public class FinanceLeaseServiceImpl implements FinanceLeaseService {
     @Override
     public boolean isExistFinanceLease(RecordInfo recordInfo) {
         return !financeLeaseMapper.isExistFinanceLease(recordInfo).isEmpty();
+    }
+
+    @Override
+    public List<FinanceLeaseData> getFinanceLease(ExportCondition exportCondition, PageBean pagination) {
+        pagination.setTotalCount(financeLeaseMapper.countFinanceLease(exportCondition));
+        return financeLeaseMapper.getFinanceLease(exportCondition, pagination);
     }
 }

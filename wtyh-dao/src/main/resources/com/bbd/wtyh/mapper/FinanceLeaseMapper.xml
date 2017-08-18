@@ -203,4 +203,77 @@
 		(#{recordInfo.companyId}, #{recordInfo.afterLevel}, 1)
 	</insert>
 
+	<select id="getFinanceLease" parameterType="com.bbd.wtyh.web.EasyExportExcel.ExportCondition" resultType="com.bbd.wtyh.domain.EasyExport.FinanceLeaseData">
+		SELECT
+		company.`name` AS `name`,
+		company.company_type AS industry,
+		company.legal_person AS legalPerson,
+		company.registered_date AS registeredDate,
+		company.registered_capital AS registeredCapital,
+		company.registered_capital_type AS registeredCapitalType,
+		company.address AS address
+		FROM
+		company
+		LEFT JOIN
+			(select company_id, max(risk_status) AS  risk_status from finance_lease_risk where risk_status=1 GROUP BY company_id ) as a
+			on company.company_id=a.company_id
+		WHERE
+		1=1
+		<if test="exportCondition.industry!=null">
+			and company.company_type = #{exportCondition.industry}
+		</if>
+		<if test="exportCondition.currentLevel!=null">
+			and IFNULL(a.risk_status,0) = #{exportCondition.currentLevel}
+		</if>
+		<if test="exportCondition.registeredCapitalMin!=null">
+			and company.registered_capital >= #{exportCondition.registeredCapitalMin}
+		</if>
+		<if test="exportCondition.registeredCapitalMax!=null">
+			and #{exportCondition.registeredCapitalMax} >= company.registered_capital
+		</if>
+		<if test="exportCondition.registeredDateMin!=null">
+			and company.registered_date >= #{exportCondition.registeredDateMin}
+		</if>
+		<if test="exportCondition.registeredDateMax!=null">
+			and #{exportCondition.registeredDateMax} >= company.registered_date
+		</if>
+		<if test="exportCondition.areaId!=null">
+			and company.area_id = #{exportCondition.areaId}
+		</if>
+		LIMIT #{pagination.offset}, #{pagination.pageSize}
+	</select>
+
+	<select id="countFinanceLease" resultType="long">
+		SELECT
+		COUNT(1)
+		FROM
+		company
+		LEFT JOIN
+		(select company_id, max(risk_status) AS  risk_status from finance_lease_risk where risk_status=1 GROUP BY company_id ) as a
+		on company.company_id=a.company_id
+		WHERE
+		1=1
+		<if test="exportCondition.industry!=null">
+			and company.company_type = #{exportCondition.industry}
+		</if>
+		<if test="exportCondition.currentLevel!=null">
+			and IFNULL(a.risk_status,0) = #{exportCondition.currentLevel}
+		</if>
+		<if test="exportCondition.registeredCapitalMin!=null">
+			and company.registered_capital >= #{exportCondition.registeredCapitalMin}
+		</if>
+		<if test="exportCondition.registeredCapitalMax!=null">
+			and #{exportCondition.registeredCapitalMax} >= company.registered_capital
+		</if>
+		<if test="exportCondition.registeredDateMin!=null">
+			and company.registered_date >= #{exportCondition.registeredDateMin}
+		</if>
+		<if test="exportCondition.registeredDateMax!=null">
+			and #{exportCondition.registeredDateMax} >= company.registered_date
+		</if>
+		<if test="exportCondition.areaId!=null">
+			and company.area_id = #{exportCondition.areaId}
+		</if>
+	</select>
+
 </mapper>

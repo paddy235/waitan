@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bbd.data.mapper.PABPublicSentimentMapper">
+
+    <insert id="addParkPublicSentiment" parameterType="com.bbd.wtyh.domain.vo.NewsVO.Result">
+        INSERT INTO park_public_sentiment VALUES(#{area_id}, #{park}, SYSDATE(), #{news_site}, #{search_key}, #{author}, #{main}, #{plate}, #{abstract}, #{picture}, #{news_title}, #{bbd_type}, #{bbd_url}, #{pubdate}, #{status}, 'SYSTEM', SYSDATE(), 'SYSTEM', SYSDATE())
+    </insert>
+
+</mapper>

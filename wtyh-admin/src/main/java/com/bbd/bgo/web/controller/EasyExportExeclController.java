@@ -58,6 +58,7 @@ public class EasyExportExeclController {
     @ResponseBody
     public ResponseBean area() {
         Map<String, String> area = easyExportExeclService.area();
+        area.remove("上海市");
         return ResponseBean.successResponse(area);
     }
 
