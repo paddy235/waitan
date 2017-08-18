@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.io.BufferedReader;
@@ -59,53 +60,67 @@ public class PABPublicSentimentServiceImpl implements PABPublicSentimentService 
     private static final Integer DEFAULT_PAGE_SIZE = 50;
 
     @Override
-    @Scheduled(cron = "0 28 11 * * ? ")
-    public void saveParkPublicSentiment() {
-        List<ParkDO> parkList = parkMapper.queryAllPark();
-        if (ListUtil.isNotEmpty(parkList)) {
-            parkList.forEach((ParkDO park) -> {
-                List<String> companyNameList = companyMapper.queryCompanyNames(park.getAreaId(), null, park.getName());
-                if (ListUtil.isNotEmpty(companyNameList)) {
-                    NewsVO newsVO = this.queryBatchNews(companyNameList);
-                    if (null == newsVO || ListUtil.isEmpty(newsVO.getResults())) {
-                        newsVO = this.queryTypeNews();
-                        // TODO 新增园区舆情
-                    } else {
-                        // TODO 直接新增园区舆情
+    @Scheduled(cron = "0 30 0 * * ? ")
+    @Transactional(rollbackFor = Exception.class)
+    public void saveParkPublicSentiment() throws Exception {
+        try {
+            List<ParkDO> parkList = parkMapper.queryAllPark();
+            if (ListUtil.isNotEmpty(parkList)) {
+                parkList.forEach((ParkDO park) -> {
+                    List<String> companyNameList = companyMapper.queryCompanyNames(park.getAreaId(), null, park.getName());
+                    if (ListUtil.isNotEmpty(companyNameList)) {
+                        NewsVO newsVO = this.queryBatchNews(companyNameList);
+                        if (null == newsVO || ListUtil.isEmpty(newsVO.getResults())) {
+                            newsVO = this.queryTypeNews();
+                        }
+                        if (null == newsVO || ListUtil.isEmpty(newsVO.getResults()))
+                            return;
                         newsVO.getResults().forEach((NewsVO.Result r) -> {
                             r.setArea_id(park.getAreaId());
                             r.setPark(park.getName());
                             pabPublicSentimentMapper.addParkPublicSentiment(r);
                         });
                     }
-                }
-            });
+                });
+            }
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            throw new Exception(e);
         }
     }
 
     @Override
-    // @Scheduled(cron = "0/10 * * * * ?")
-    public void saveBuildingPublicSentiment() {
-        List<BuildingDO> buildingList = buildingMapper.queryAllBuilding();
-        if (ListUtil.isNotEmpty(buildingList)) {
-            buildingList.forEach((BuildingDO building) -> {
-                List<String> companyNameList = companyMapper.queryCompanyNames(null, building.getBuildingId(), null);
-                if (ListUtil.isNotEmpty(companyNameList)) {
-                    NewsVO newsVO = this.queryBatchNews(companyNameList);
-                    if (null == newsVO || ListUtil.isEmpty(newsVO.getResults())) {
-                        NewsVO vo = new NewsVO();
-                        vo.addNewsVO(findNews("qyxg_shanghai_finance_office", 7));
-                        vo.addNewsVO(findNews("qyxg_weiyangwang", 6));
-                        if (ListUtil.isEmpty(vo.getResults()))
-                            vo.addNewsVO(findNews("qyxg_chinesefinancialnews", 20));
-                        else
-                            vo.addNewsVO(findNews("qyxg_chinesefinancialnews",20 - vo.getResults().size()));
-                        // TODO 新增楼宇舆情
-                    } else {
-                        // TODO 直接新增楼宇舆情
+    @Scheduled(cron = "0 30 0 * * ? ")
+    @Transactional(rollbackFor = Exception.class)
+    public void saveBuildingPublicSentiment() throws Exception {
+        try {
+            List<BuildingDO> buildingList = buildingMapper.queryAllBuilding();
+            if (ListUtil.isNotEmpty(buildingList)) {
+                buildingList.forEach((BuildingDO building) -> {
+                    List<String> companyNameList = companyMapper.queryCompanyNames(null, building.getBuildingId(), null);
+                    if (ListUtil.isNotEmpty(companyNameList)) {
+                        NewsVO newsVO = this.queryBatchNews(companyNameList);
+                        if (null == newsVO || ListUtil.isEmpty(newsVO.getResults())) {
+                            newsVO = new NewsVO();
+                            newsVO.addNewsVO(findNews("qyxg_shanghai_finance_office", 7));
+                            newsVO.addNewsVO(findNews("qyxg_weiyangwang", 6));
+                            if (ListUtil.isEmpty(newsVO.getResults()))
+                                newsVO.addNewsVO(findNews("qyxg_chinesefinancialnews", 20));
+                            else
+                                newsVO.addNewsVO(findNews("qyxg_chinesefinancialnews",20 - newsVO.getResults().size()));
+                        }
+                        if (ListUtil.isEmpty(newsVO.getResults()))
+                            return;
+                        newsVO.getResults().forEach((NewsVO.Result r) -> {
+                            r.setBuilding_id(building.getBuildingId());
+                            pabPublicSentimentMapper.addBuildingPublicSentiment(r);
+                        });
                     }
-                }
-            });
+                });
+            }
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            throw new Exception(e);
         }
     }
 

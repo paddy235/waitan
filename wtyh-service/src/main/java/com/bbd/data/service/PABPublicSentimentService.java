@@ -5,8 +5,8 @@ package com.bbd.data.service;
  */
 public interface PABPublicSentimentService {
 
-    void saveParkPublicSentiment();
+    void saveParkPublicSentiment() throws Exception;
 
-    void saveBuildingPublicSentiment();
+    void saveBuildingPublicSentiment() throws Exception;
 
 }

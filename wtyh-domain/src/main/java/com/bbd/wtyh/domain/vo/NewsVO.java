@@ -88,6 +88,15 @@ public class NewsVO {
 
         private int area_id;
         private String park;
+        private int building_id;
+
+        public int getBuilding_id() {
+            return building_id;
+        }
+
+        public void setBuilding_id(int building_id) {
+            this.building_id = building_id;
+        }
 
         public int getArea_id() {
             return area_id;

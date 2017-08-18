@@ -11,4 +11,6 @@ public interface PABPublicSentimentMapper {
 
     void addParkPublicSentiment(NewsVO.Result result);
 
+    void addBuildingPublicSentiment(NewsVO.Result result);
+
 }
