@@ -184,10 +184,10 @@ public class HologramQueryController {
 	public ResponseBean openCourtAnnouncement(@RequestParam(required = true) String company,
 											  @RequestParam(required = true) Integer page,
 											  @RequestParam(required = true) Integer pageSize) {
-		List<OpenCourtAnnouncementDO.Results> result = hologramQueryService.openCourtAnnouncement(company,page,pageSize);
+		OpenCourtAnnouncementDO result = hologramQueryService.openCourtAnnouncement1(company,page,pageSize);
 		//数据平台超时,返回null,会对前端取results的JS有影响
 		if(null==result){
-			result=new ArrayList();
+			result=new OpenCourtAnnouncementDO();
 		}
 		return ResponseBean.successResponse(result);
 	}
@@ -202,7 +202,10 @@ public class HologramQueryController {
 	public ResponseBean judgeDoc(@RequestParam(required = true) String company,
 								 @RequestParam(required = true) Integer page,
 								 @RequestParam(required = true) Integer pageSize) {
-		List<JudgeDocDO.Results> result = hologramQueryService.judgeDoc(company,page,pageSize);
+		JudgeDocDO result = hologramQueryService.judgeDoc1(company,page,pageSize);
+		if(null==result){
+			result=new JudgeDocDO();
+		}
 		return ResponseBean.successResponse(result);
 	}
 
