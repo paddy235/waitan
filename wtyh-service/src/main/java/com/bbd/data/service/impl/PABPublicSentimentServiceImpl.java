@@ -1,5 +1,6 @@
 package com.bbd.data.service.impl;
 
+import com.bbd.data.mapper.PABPublicSentimentMapper;
 import com.bbd.data.service.PABPublicSentimentService;
 import com.bbd.higgs.utils.ListUtil;
 import com.bbd.higgs.utils.http.HttpTemplate;
@@ -50,13 +51,15 @@ public class PABPublicSentimentServiceImpl implements PABPublicSentimentService 
     private String dataomUrl;
     @Autowired
     private BuildingMapper buildingMapper;
+    @Autowired
+    private PABPublicSentimentMapper pabPublicSentimentMapper;
 
     private String httpProxy = System.getenv("http_proxy");
     private static final String NEWS_TYPES = "qyxg_shanghai_fta,qyxg_national_economy";
     private static final Integer DEFAULT_PAGE_SIZE = 50;
 
     @Override
-    // @Scheduled(cron = "0/10 * * * * ?")
+    @Scheduled(cron = "0 28 11 * * ? ")
     public void saveParkPublicSentiment() {
         List<ParkDO> parkList = parkMapper.queryAllPark();
         if (ListUtil.isNotEmpty(parkList)) {
@@ -69,6 +72,11 @@ public class PABPublicSentimentServiceImpl implements PABPublicSentimentService 
                         // TODO 新增园区舆情
                     } else {
                         // TODO 直接新增园区舆情
+                        newsVO.getResults().forEach((NewsVO.Result r) -> {
+                            r.setArea_id(park.getAreaId());
+                            r.setPark(park.getName());
+                            pabPublicSentimentMapper.addParkPublicSentiment(r);
+                        });
                     }
                 }
             });
