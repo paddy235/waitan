@@ -1,5 +1,6 @@
 package com.bbd.wtyh.domain.EasyExport;
 
+import com.bbd.wtyh.constants.RegisteredCapitalType;
 import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.excel.annotation.Excel;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -27,6 +28,9 @@ public class CrowdfundData {
     private Date registeredDate;
     @Excel(exportName = "注册资本（万元）")
     private String registeredCapital;
+    private Integer registeredCapitalType;
+    @Excel(exportName="注册资本类型")
+    private String registeredCapitalTypeName;
     @Excel(exportName = "注册地址")
     private String address = "";
 
@@ -101,5 +105,29 @@ public class CrowdfundData {
 
     public void setPlatName(String platName) {
         this.platName = platName;
+    }
+
+    public Integer getRegisteredCapitalType() {
+        return registeredCapitalType;
+    }
+
+    public void setRegisteredCapitalType(Integer registeredCapitalType) {
+        this.registeredCapitalType = registeredCapitalType;
+    }
+
+    public String getRegisteredCapitalTypeName() {
+        String name="";
+        if(null==registeredCapitalType){
+            return  name;
+        }
+        try {
+            name = RegisteredCapitalType.desc(registeredCapitalType);
+
+        }catch (Exception e){}
+        return name;
+    }
+
+    public void setRegisteredCapitalTypeName(String registeredCapitalTypeName) {
+        this.registeredCapitalTypeName = registeredCapitalTypeName;
     }
 }
