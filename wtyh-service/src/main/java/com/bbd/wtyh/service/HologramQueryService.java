@@ -65,11 +65,26 @@ public interface HologramQueryService {
     List<OpenCourtAnnouncementDO.Results> openCourtAnnouncement(String company, Integer page, Integer pageSize);
 
     /**
+     * 企业信息详情-诉讼记录
+     *
+     * @return
+     * @param company
+     */
+    OpenCourtAnnouncementDO openCourtAnnouncement1(String company, Integer page, Integer pageSize);
+
+    /**
      * 企业信息详情-诉讼记录 - 裁判文书
      * @param company
      * @return
      */
     List<JudgeDocDO.Results> judgeDoc(String company, Integer page, Integer pageSize);
+
+    /**
+     * 企业信息详情-诉讼记录 - 裁判文书
+     * @param company
+     * @return
+     */
+    JudgeDocDO judgeDoc1(String company, Integer page, Integer pageSize);
 
     /**
      * 企业信息详情-诉讼记录 - 被执行人

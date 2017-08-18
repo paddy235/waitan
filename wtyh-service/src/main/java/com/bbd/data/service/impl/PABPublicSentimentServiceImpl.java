@@ -26,8 +26,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.*;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by Barney on 2017/8/17.
@@ -60,7 +59,7 @@ public class PABPublicSentimentServiceImpl implements PABPublicSentimentService 
     private static final Integer DEFAULT_PAGE_SIZE = 50;
 
     @Override
-    @Scheduled(cron = "0 30 0 * * ? ")
+//    @Scheduled(cron = "0 30 0 * * ? ")
     @Transactional(rollbackFor = Exception.class)
     public void saveParkPublicSentiment() throws Exception {
         try {
@@ -90,7 +89,7 @@ public class PABPublicSentimentServiceImpl implements PABPublicSentimentService 
     }
 
     @Override
-    @Scheduled(cron = "0 30 0 * * ? ")
+//    @Scheduled(cron = "0 30 0 * * ? ")
     @Transactional(rollbackFor = Exception.class)
     public void saveBuildingPublicSentiment() throws Exception {
         try {
@@ -122,6 +121,43 @@ public class PABPublicSentimentServiceImpl implements PABPublicSentimentService 
             logger.error(e.getMessage(), e);
             throw new Exception(e);
         }
+    }
+
+    @Override
+    public NewsVO queryParkPublicSentiment(int areaId, String parkName) {
+        /* 组装参数 */
+        Map<String, Object> params = new HashMap<>();
+        params.put("areaId", areaId);
+        params.put("parkName", parkName);
+
+        int count = pabPublicSentimentMapper.queryParkPublicSentimentCount(params);
+        if (count <= 0)
+            return null;
+        // TODO 注意这里最多只请求20条数据
+        List<NewsVO.Result> list = pabPublicSentimentMapper.queryParkPublicSentiment(params);
+
+        NewsVO newsVO = new NewsVO();
+        newsVO.setMsg("成功获取园区舆情信息。");
+        newsVO.setRsize(list.size());
+        newsVO.setTotal(count);
+        newsVO.setResults(list);
+        return newsVO;
+    }
+
+    @Override
+    public NewsVO queryBuildingPublicSentiment(int buildingId) {
+        int count = pabPublicSentimentMapper.queryBuildingPublicSentimentCount(buildingId);
+        if (count <= 0)
+            return null;
+        // TODO 注意这里最多只请求20条数据
+        List<NewsVO.Result> list = pabPublicSentimentMapper.queryBuildingPublicSentiment(buildingId);
+
+        NewsVO newsVO = new NewsVO();
+        newsVO.setMsg("成功获取楼宇舆情信息。");
+        newsVO.setRsize(list.size());
+        newsVO.setTotal(count);
+        newsVO.setResults(list);
+        return newsVO;
     }
 
     /**
