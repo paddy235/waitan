@@ -75,7 +75,9 @@
     </aop:config>
 
 
-    <bean id="myBatisResultIntercept" class="com.bbd.wtyh.core.mybatis.MybatisResultInterceptor"/>
+    <bean id="myBatisResultIntercept" class="com.bbd.wtyh.core.mybatis.MybatisResultInterceptor">
+        <property name="interceptMethods" value="baseSelectAll,baseSelectByPage,baseSelectById"/>
+    </bean>
     <bean id="mybatisPaginationInterceptor" class="com.bbd.wtyh.core.mybatis.MybatisPaginationInterceptor"/>
 
 
