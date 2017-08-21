@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
+import com.bbd.higgs.utils.ListUtil;
 import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.domain.wangDaiAPI.CrowdFundingStatisticsDTO;
 import com.bbd.wtyh.log.user.Operation;
@@ -181,10 +182,12 @@ public class CrowdFundingController {
 	@RequestMapping("/allCompanys")
 	@ResponseBody
 	public ResponseBean allCompanys() {
-
 		List<CrowdFundingCompanyDO> list = crowdFundingSer.allCompanys();
-
 		return ResponseBean.successResponse(list == null ? new ArrayList<>() : list);
+//		List<CrowdFundingCompanyDO> list = crowdFundingSer.queryBaseOfPlat();
+//		if (ListUtil.isEmpty(list))
+//			list = crowdFundingSer.allCompanys();
+//		return ResponseBean.successResponse(null == list ? new ArrayList<>() : list);
 	}
 
 	/**

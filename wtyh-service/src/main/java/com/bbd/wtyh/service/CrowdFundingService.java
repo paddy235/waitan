@@ -55,4 +55,6 @@ public interface CrowdFundingService {
 
 	Map<String, String> queryStatisticsData(String type);
 
+	List<CrowdFundingCompanyDO> queryBaseOfPlat();
+
 }

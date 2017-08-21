@@ -26,4 +26,6 @@ public interface CrowdFundingCompanyMapper {
                                      @Param(value = "pagination")PageBean pagination);
 
     Long countCrowdfund(@Param(value = "exportCondition")ExportCondition exportCondition);
+
+    List<CrowdFundingCompanyDO> queryBaseOfPlat();
 }
