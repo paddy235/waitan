@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "5f4f98bc6f2abd6e3833"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "0955cb8ec5ac00c9bb1c"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -52469,12 +52469,11 @@
 	        var rand = function rand(min, max) {
 	            return Math.floor(Math.max(min, Math.random() * (max + 1)));
 	        };
-	        var len = rand(8, 11); // 长度为8-16 
+	        var len = rand(8, 11); // 长度为8-12
 	        var pw = '';
 	        for (var i = 0; i < len; ++i) {
 	            var strpos = rand(0, 62);
 	            pw += text.charAt(strpos);
-	            // pw += text[strpos].charAt(rand(0, text[strpos].length));
 	        }
 	        pw += rand(0, 9);
 	        return pw;
@@ -57628,11 +57627,8 @@
 	    _createClass(Select, [{
 	        key: 'componentWillReceiveProps',
 	        value: function componentWillReceiveProps(nextProps) {
-	            var isText = nextProps.isText,
-	                selected = nextProps.selected,
-	                selectText = nextProps.selectText;
+	            var selected = nextProps.selected;
 
-	            var selectedVal = isText ? selectText : nextProps.selected;
 	            var selectedOption = null;
 	            var _iteratorNormalCompletion = true;
 	            var _didIteratorError = false;
@@ -57642,8 +57638,7 @@
 	                for (var _iterator = nextProps.options[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
 	                    var v = _step.value;
 
-	                    var val = nextProps.isText ? v.text : v.value;
-	                    if (val === selectedVal) {
+	                    if (v.value === selected) {
 	                        selectedOption = v;
 	                        break;
 	                    }
@@ -81335,24 +81330,25 @@
 	};
 
 	var industryTable = { // 不同行业所有的头
-	    '典当': ['序号', '公司名称', '法定代表人', '注册时间', '注册资本', '注册地址', '行业类别'],
-	    '融资租赁': ['序号', '公司名称', '法定代表人', '注册时间', '注册资本', '注册地址', '行业类别'],
-	    '预付卡': ['序号', '公司名称', '法定代表人', '注册时间', '注册资本', '注册地址', '行业类别'],
-	    '交易场所': ['序号', '公司名称', '法定代表人', '注册时间', '注册资本', '注册地址', '行业类别'],
-	    '私募基金': ['序号', '公司名称', '法定代表人', '注册时间', '注册资本', '注册地址', '行业类别'],
-	    '商业保理': ['序号', '公司名称', '法定代表人', '注册时间', '注册资本', '注册地址', '行业类别'],
-	    '众筹': ['序号', '公司名称', '法定代表人', '注册时间', '注册资本', '注册地址', '行业类别', '众筹平台', '平台链接'],
-	    '线下理财': ['序号', '公司名称', '法定代表人', '注册时间', '注册资本', '注册地址', '行业类别', '风险等级', '风险分值', '企业背景'],
-	    '小额贷款': ['序号', '公司名称', '法定代表人', '注册时间', '注册资本', '注册地址', '行业类别', '外部评级', '内部评级', '现场检查'],
-	    '融资担保': ['序号', '公司名称', '法定代表人', '注册时间', '注册资本', '注册地址', '行业类别', '外部评级', '内部评级', '现场检查'],
-	    '网络借贷': ['序号', '公司名称', '法定代表人', '注册时间', '注册资本', '注册地址', '行业类别', '风险等级', '风险分值', '平台名称']
+	    '典当': ['序号', '公司名称', '法定代表人', '注册时间', '注册资本', '注册资本类型', '注册地址', '行业类别'],
+	    '融资租赁': ['序号', '公司名称', '法定代表人', '注册时间', '注册资本', '注册资本类型', '注册地址', '行业类别'],
+	    '预付卡': ['序号', '公司名称', '法定代表人', '注册时间', '注册资本', '注册资本类型', '注册地址', '行业类别'],
+	    '交易场所': ['序号', '公司名称', '法定代表人', '注册时间', '注册资本', '注册资本类型', '注册地址', '行业类别'],
+	    '私募基金': ['序号', '公司名称', '法定代表人', '注册时间', '注册资本', '注册资本类型', '注册地址', '行业类别'],
+	    '商业保理': ['序号', '公司名称', '法定代表人', '注册时间', '注册资本', '注册资本类型', '注册地址', '行业类别'],
+	    '众筹': ['序号', '公司名称', '法定代表人', '注册时间', '注册资本', '注册资本类型', '注册地址', '行业类别', '众筹平台', '平台链接'],
+	    '线下理财': ['序号', '公司名称', '法定代表人', '注册时间', '注册资本', '注册资本类型', '注册地址', '行业类别', '风险等级', '风险分值', '企业背景'],
+	    '小额贷款': ['序号', '公司名称', '法定代表人', '注册时间', '注册资本', '注册资本类型', '注册地址', '行业类别', '外部评级', '内部评级', '现场检查'],
+	    '融资担保': ['序号', '公司名称', '法定代表人', '注册时间', '注册资本', '注册资本类型', '注册地址', '行业类别', '外部评级', '内部评级', '现场检查'],
+	    '网络借贷': ['序号', '公司名称', '法定代表人', '注册时间', '注册资本', '注册资本类型', '注册地址', '行业类别', '风险等级', '风险分值', '平台名称']
 	};
 	var exportData = { // 表头对应的属性
 	    '序号': { name: '序号', key: 'index', width: '5%' },
 	    '公司名称': { name: '公司名称', key: 'name', width: '16%', className: 'text-left' },
 	    '法定代表人': { name: '法定代表人', key: 'legalPerson', width: '8%', className: 'text-left' },
 	    '注册时间': { name: '注册时间', key: 'registeredDate', width: '8%' },
-	    '注册资本': { name: '注册资本(人民币)', key: 'registeredCapital', width: '12%' },
+	    '注册资本': { name: '注册资本', key: 'registeredCapital', width: '12%' },
+	    '注册资本类型': { name: '注册资本类型', key: 'registeredCapitalTypeName', width: '10%' },
 	    '注册地址': { name: '注册地址', key: 'address', width: '', className: 'text-left address' },
 	    '行业类别': { name: '行业类别', key: 'industryName', width: '8%' },
 	    '风险等级': { name: '风险等级', key: 'currentLevelName', width: '8%' },
@@ -81377,7 +81373,7 @@
 	            totalWidth += parseInt(data.width, 10) || 0;
 	        }
 	    });
-	    result[5] ? result[5].width = 100 - totalWidth + '%' : void 0;
+	    result[6] ? result[6].width = 100 - totalWidth + '%' : void 0;
 	    return result;
 	};
 
