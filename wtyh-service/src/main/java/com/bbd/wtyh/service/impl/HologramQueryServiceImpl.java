@@ -237,7 +237,10 @@ public class HologramQueryServiceImpl implements HologramQueryService {
         recruitPeopleNumberDO.setMsg("ok");
         List list = new ArrayList();
         RecruitDataDO recruitDataDO = hologramQueryDao.getRecruitData(company, timeTag);
-
+        if ( recruitDataDO.getErr_code() !=0  ) {
+            recruitPeopleNumberDO.setMsg(recruitDataDO.getMsg());
+            return recruitPeopleNumberDO;
+        }
         if (CollectionUtils.isEmpty(recruitDataDO.getResults().get(0).getIndex())) {
             timeTag = DateUtils.formatDate(org.apache.commons.lang3.time.DateUtils.addMonths(new Date(),-2));
             recruitDataDO = hologramQueryDao.getRecruitData(company, timeTag);
