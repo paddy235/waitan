@@ -568,7 +568,7 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
 
     @Override
     public RecruitDataDO getRecruitData(String company, String timeTag) {
-        String api = recruitURL + timeTag + "&value=" + company + "&appkey=" + recruitAK;
+        String api = recruitURL + timeTag + "&value=" + company + "&ak=" + recruitAK;
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
             return httpTemplate.get(api, new HttpCallback<RecruitDataDO>() {
