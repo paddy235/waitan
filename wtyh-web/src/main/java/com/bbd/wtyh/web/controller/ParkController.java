@@ -10,6 +10,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import com.bbd.data.service.PABPublicSentimentService;
+import com.bbd.higgs.utils.ListUtil;
 import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.domain.*;
 import com.bbd.wtyh.domain.vo.NewsVO;
@@ -20,6 +21,7 @@ import com.bbd.wtyh.log.user.UserLogRecord;
 import com.bbd.wtyh.log.user.annotation.LogRecord;
 import com.bbd.wtyh.service.ImgService;
 import com.bbd.wtyh.util.WtyhHelper;
+import com.bbd.wtyh.util.relation.ListUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.apache.commons.lang3.StringUtils;
@@ -143,17 +145,21 @@ public class ParkController {
 	@RequestMapping("/news")
 	@ResponseBody
 	public ResponseBean news(@RequestParam(required = true) Integer areaId, String parkName) {
-//		NewsVO newsVO = pabPublicSentimentService.queryParkPublicSentiment(areaId, parkName);
-//		return ResponseBean.successResponse(new Gson().toJson(newsVO));
 		Gson gson = new Gson();
 		String data = parkService.queryParkNews(areaId, 20, 1,parkName);
-		NewsVO vo = gson.fromJson(data, new TypeToken<NewsVO>() {
-		}.getType());
-		if (vo == null || vo.getRsize() == 0) {
+		NewsVO vo = gson.fromJson(data, new TypeToken<NewsVO>(){}.getType());
+		if (vo == null || vo.getRsize() == 0)
 			vo = newsSer.mutilTypeNews("qyxg_shanghai_fta,qyxg_national_economy", 20);
-			data = gson.toJson(vo);
-		}
 		return ResponseBean.successResponse(new Gson().toJson(vo));
+//		NewsVO newsVO = pabPublicSentimentService.queryParkPublicSentiment(areaId, parkName);
+//		if (null != newsVO && ListUtil.isNotEmpty(newsVO.getResults()))
+//			return ResponseBean.successResponse(new Gson().toJson(newsVO));
+//		Gson gson = new Gson();
+//		String data = parkService.queryParkNews(areaId, 20, 1,parkName);
+//		NewsVO vo = gson.fromJson(data, new TypeToken<NewsVO>(){}.getType());
+//		if (vo == null || vo.getRsize() == 0)
+//			vo = newsSer.mutilTypeNews("qyxg_shanghai_fta,qyxg_national_economy", 20);
+//		return ResponseBean.successResponse(new Gson().toJson(vo));
 	}
 
 	/**
@@ -265,7 +271,10 @@ public class ParkController {
 		String data = parkService.buildingNews(buildingId);
 		return ResponseBean.successResponse(data);
 //		NewsVO newsVO = pabPublicSentimentService.queryBuildingPublicSentiment(buildingId);
-//		return ResponseBean.successResponse(new Gson().toJson(newsVO));
+//		if (null != newsVO && ListUtils.isNotEmpty(newsVO.getResults())) {
+//			return ResponseBean.successResponse(new Gson().toJson(newsVO));
+//		}
+//		return ResponseBean.successResponse(parkService.buildingNews(buildingId));
 	}
 
 	/**

@@ -12,4 +12,16 @@
         DELETE FROM crowd_funding_common WHERE `type`=#{type}
     </delete>
 
+    <select id="queryStatisticsData" resultType="java.util.Map" parameterType="java.lang.String">
+        SELECT
+            reward AS '奖励众筹',
+            non_pulic_equity_financing AS '非公开股权融资',
+            public_welfare AS '公益众筹',
+            blend AS '混合众筹'
+        FROM
+            crowd_funding_common
+        WHERE `type`=#{type}
+        ORDER BY create_date DESC limit 1
+    </select>
+
 </mapper>

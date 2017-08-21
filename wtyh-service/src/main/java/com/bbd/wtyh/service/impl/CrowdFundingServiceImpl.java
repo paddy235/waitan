@@ -221,6 +221,11 @@ public class CrowdFundingServiceImpl implements CrowdFundingService,TaskService 
         isShutdown = true;
     }
 
+    @Override
+    public Map<String, String> queryStatisticsData(String type) {
+        return crowdFundingCommonMapper.queryStatisticsData(type);
+    }
+
     protected void addFailTaskInfo(Integer taskId, String api, String failReason) {
         TaskFailInfoDO taskFailInfoDO = new TaskFailInfoDO();
         taskFailInfoDO.setTaskId(taskId);
