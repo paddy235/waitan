@@ -125,22 +125,26 @@ public class CompanyImportAssist {
                         //按新增处理
                         addDataToList( true, cDo, null, cInfo );
                     } else { //有
-                        //按更新处理
-                        addDataToList( false, cDo, locCp, cInfo );
+                        if( ! onlyAppend ) {
+                            //按更新处理
+                            addDataToList(false, cDo, locCp, cInfo);
+                        }
                     }
                 } else { //验证失败
-                    StringBuilder sb =new StringBuilder("企业名称和");
-                    if ( !bCrd ) {
-                        sb.append("统一信用代码");
+                    if( onlyAppend && null ==locCp ) {
+                        StringBuilder sb =new StringBuilder("企业名称和");
+                        if ( !bCrd ) {
+                            sb.append("统一信用代码");
+                        }
+                        if ( !bCrd && !bRegNo ) {
+                            sb.append("、");
+                        }
+                        if ( !bRegNo ) {
+                            sb.append("注册号");
+                        }
+                        sb.append("不匹配！");
+                        addError(cDo.getId(), sb.toString());
                     }
-                    if ( !bCrd && !bRegNo ) {
-                        sb.append("、");
-                    }
-                    if ( !bRegNo ) {
-                        sb.append("注册号");
-                    }
-                    sb.append("不匹配！");
-                    addError(cDo.getId(), sb.toString());
                 }
             } else { //数据平台无此企业
                 cDo.setOrganizationCode(null);

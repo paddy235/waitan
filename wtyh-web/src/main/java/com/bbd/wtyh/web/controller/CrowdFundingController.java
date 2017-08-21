@@ -36,6 +36,8 @@ public class CrowdFundingController {
 	@Autowired
 	private CrowdFundingService crowdFundingSer;
 
+	private static final String[] ARR_DATA_TYPE = { "2", "3", "4", "5" };
+
 	/**
 	 * 业务类型分布
 	 *
@@ -46,11 +48,8 @@ public class CrowdFundingController {
 	@ResponseBody
 	@LogRecord(logMsg = "浏览众筹页面", page = Operation.Page.crowdFunding)
 	public ResponseBean distribute() {
-
 		PieChartBean<String, NameValuePair> p = new PieChartBean<>();
-
 		Map<String, String> map = crowdFundingSer.lastMonthType(Constants.CROWD_DISTRIBUTE);
-
 		if (map == null) {
 			return ResponseBean.successResponse(p);
 		}
@@ -58,8 +57,18 @@ public class CrowdFundingController {
 			p.getLegend().add(key);
 			p.getSeries().add(new BasicNameValuePair(key, "" + map.get(key)));
 		}
-
 		return ResponseBean.successResponse(p);
+//		PieChartBean<String, NameValuePair> pcb = new PieChartBean<>();
+//		Map<String, String> map = crowdFundingSer.queryStatisticsData(ARR_DATA_TYPE[0]);
+//		if (null == map || map.size() == 0)
+//			map = crowdFundingSer.lastMonthType(Constants.CROWD_DISTRIBUTE);
+//		if (null == map || map.size() == 0)
+//			return ResponseBean.successResponse(pcb);
+//		for (String key : map.keySet()) {
+//			pcb.getLegend().add(key);
+//			pcb.getSeries().add(new BasicNameValuePair(key, map.get(key)));
+//		}
+//		return ResponseBean.successResponse(pcb);
 	}
 
 	/**
@@ -71,11 +80,8 @@ public class CrowdFundingController {
 	@RequestMapping("/newlyProject")
 	@ResponseBody
 	public ResponseBean newlyProject() {
-
 		HistogramBean<String, String> hb = new HistogramBean<>();
-
 		Map<String, String> map = crowdFundingSer.lastMonthType(Constants.CROWD_NEWLY_PROJECT);
-
 		if (map == null) {
 			return ResponseBean.successResponse(hb);
 		}
@@ -84,8 +90,19 @@ public class CrowdFundingController {
 			hb.getxAxis().add(key);
 			hb.getseries().add(map.get(key));
 		}
-
 		return ResponseBean.successResponse(hb);
+//		HistogramBean<String, String> hb = new HistogramBean<>();
+//		Map<String, String> map = crowdFundingSer.queryStatisticsData(ARR_DATA_TYPE[1]);
+//		if (null == map || map.size() == 0)
+//			map = crowdFundingSer.lastMonthType(Constants.CROWD_NEWLY_PROJECT);
+//		if (null == map || map.size() == 0)
+//			return ResponseBean.successResponse(hb);
+//		hb.setTitle(Calendar.MONTH + "月上海各类众筹平台新增项目数");
+//		for (String key : map.keySet()) {
+//			hb.getxAxis().add(key);
+//			hb.getseries().add(map.get(key));
+//		}
+//		return ResponseBean.successResponse(hb);
 	}
 
 	/**
@@ -97,22 +114,29 @@ public class CrowdFundingController {
 	@RequestMapping("/newlyPeople")
 	@ResponseBody
 	public ResponseBean newlyPeople() {
-
 		HistogramBean<String, String> hb = new HistogramBean<>();
-
 		Map<String, String> map = crowdFundingSer.lastMonthType(Constants.CROWD_NEWLY_PEOPLE);
-
 		if (map == null) {
 			return ResponseBean.successResponse(hb);
 		}
 		hb.setTitle(Calendar.MONTH + "月上海各类众筹平台新增项目投资人次");
-
 		for (String key : map.keySet()) {
 			hb.getxAxis().add(key);
 			hb.getseries().add(map.get(key));
 		}
-
 		return ResponseBean.successResponse(hb);
+//		HistogramBean<String, String> hb = new HistogramBean<>();
+//		Map<String, String> map = crowdFundingSer.queryStatisticsData(ARR_DATA_TYPE[3]);
+//		if (null == map || map.size() == 0)
+//			 map = crowdFundingSer.lastMonthType(Constants.CROWD_NEWLY_PEOPLE);
+//		if (null == map || map.size() == 0)
+//			return ResponseBean.successResponse(hb);
+//		hb.setTitle(Calendar.MONTH + "月上海各类众筹平台新增项目投资人次");
+//		for (String key : map.keySet()) {
+//			hb.getxAxis().add(key);
+//			hb.getseries().add(map.get(key));
+//		}
+//		return ResponseBean.successResponse(hb);
 	}
 
 	/**
@@ -123,22 +147,29 @@ public class CrowdFundingController {
 	@RequestMapping("/newlyAmount")
 	@ResponseBody
 	public ResponseBean newlyAmount() {
-
 		HistogramBean<String, String> hb = new HistogramBean<>();
-
 		Map<String, String> map = crowdFundingSer.lastMonthType(Constants.CROWD_NEWLY_AMOUNT);
-
 		if (map == null) {
 			return ResponseBean.successResponse(hb);
 		}
 		hb.setTitle(Calendar.MONTH + "月上海各类众筹平台新增项目数的成功筹资金额");
-
 		for (String key : map.keySet()) {
 			hb.getxAxis().add(key);
 			hb.getseries().add(map.get(key));
 		}
-
 		return ResponseBean.successResponse(hb);
+//		HistogramBean<String, String> hb = new HistogramBean<>();
+//		Map<String, String> map = crowdFundingSer.queryStatisticsData(ARR_DATA_TYPE[2]);
+//		if (null == map || map.size() == 0)
+//			map = crowdFundingSer.lastMonthType(Constants.CROWD_NEWLY_AMOUNT);
+//		if (null == map || map.size() == 0)
+//			return ResponseBean.successResponse(hb);
+//		hb.setTitle(Calendar.MONTH + "月上海各类众筹平台新增项目数的成功筹资金额");
+//		for (String key : map.keySet()) {
+//			hb.getxAxis().add(key);
+//			hb.getseries().add(map.get(key));
+//		}
+//		return ResponseBean.successResponse(hb);
 	}
 
 	/**
