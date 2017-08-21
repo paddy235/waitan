@@ -385,12 +385,12 @@ public class HologramQueryController {
 		result.put( "shareholderSeniorTotal", set.size() );
 		//诉讼记录
 		Integer lawsuitTotal =0;
-		List<OpenCourtAnnouncementDO.Results> loc = hologramQueryService.openCourtAnnouncement(company,null,null);
-		Integer openCourtNum =( null==loc ? 0 : loc.size() ); //加上开庭公告数
+		OpenCourtAnnouncementDO loc = hologramQueryService.openCourtAnnouncement1(company,null,null);
+		Integer openCourtNum =( null==loc ? 0 : loc.getTotal() ); //加上开庭公告数
 		result.put("lawsuitTotal_openCourt" ,openCourtNum);
 		lawsuitTotal +=openCourtNum;
-		List<JudgeDocDO.Results> jd= hologramQueryService.judgeDoc(company,null,null);
-		Integer judgeDocNum= ( null ==jd ? 0 : jd.size() ); //加上裁判文书数
+		JudgeDocDO jd= hologramQueryService.judgeDoc1(company,null,null);
+		Integer judgeDocNum= ( null ==jd ? 0 : jd.getTotal() ); //加上裁判文书数
 		result.put("lawsuitTotal_judgeDoc" ,judgeDocNum);
 		lawsuitTotal +=judgeDocNum;
 		DebtorDO de = hologramQueryService.debtor(company,null,null);
@@ -466,12 +466,12 @@ public class HologramQueryController {
 		//诉讼记录
 		Map<String, Integer> result = new HashMap<>();
 		Integer lawsuitTotal =0;
-		List<OpenCourtAnnouncementDO.Results> loc = hologramQueryService.openCourtAnnouncement(company,null,null);
-		Integer openCourtNum =( null==loc ? 0 : loc.size() ); //加上开庭公告数
+		OpenCourtAnnouncementDO loc = hologramQueryService.openCourtAnnouncement1(company,null,null);
+		Integer openCourtNum =( null==loc ? 0 : loc.getTotal() ); //加上开庭公告数
 		result.put("lawsuitTotal_openCourt" ,openCourtNum);
 		lawsuitTotal +=openCourtNum;
-		List<JudgeDocDO.Results> jd= hologramQueryService.judgeDoc(company,null,null);
-		Integer judgeDocNum= ( null ==jd ? 0 : jd.size() ); //加上裁判文书数
+		JudgeDocDO jd= hologramQueryService.judgeDoc1(company,null,null);
+		Integer judgeDocNum= ( null ==jd ? 0 : jd.getTotal() ); //加上裁判文书数
 		result.put("lawsuitTotal_judgeDoc" ,judgeDocNum);
 		lawsuitTotal +=judgeDocNum;
 		DebtorDO de = hologramQueryService.debtor(company,null,null);
