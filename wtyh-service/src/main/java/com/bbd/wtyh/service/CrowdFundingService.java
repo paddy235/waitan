@@ -53,4 +53,6 @@ public interface CrowdFundingService {
 	 */
 	void stopTask();
 
+	Map<String, String> queryStatisticsData(String type);
+
 }
