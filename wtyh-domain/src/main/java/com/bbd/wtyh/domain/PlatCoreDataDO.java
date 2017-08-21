@@ -24,7 +24,7 @@ public class PlatCoreDataDO extends BaseDO {
 	private Double interestRate;
 
 	@Column(name = "bid_num_stay_stil")
-	private int bidNumStayStil;
+	private Integer bidNumStayStil;
 
 	@Column(name = "bor_num_stay_stil")
 	private Integer borNumStayStil;
@@ -93,11 +93,11 @@ public class PlatCoreDataDO extends BaseDO {
 		this.interestRate = interestRate;
 	}
 
-	public int getBidNumStayStil() {
+	public Integer getBidNumStayStil() {
 		return bidNumStayStil;
 	}
 
-	public void setBidNumStayStil(int bidNumStayStil) {
+	public void setBidNumStayStil(Integer bidNumStayStil) {
 		this.bidNumStayStil = bidNumStayStil;
 	}
 

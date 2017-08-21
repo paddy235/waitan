@@ -62,7 +62,7 @@ public class P2PImageServiceImpl implements P2PImageService,TaskService {
 
 
     private static final String PLAT_FORM_STATUS_CACHE_PRIFIX = "wtyh:P2PImage:platFormStatus";
-
+    private static String PLAT_LIST_NAME="网贷平台列表(plat_list)";
     private Logger logger = LoggerFactory.getLogger(P2PImageServiceImpl.class);
 
     @Override
@@ -340,7 +340,7 @@ public class P2PImageServiceImpl implements P2PImageService,TaskService {
             taskResultDO.setSuccessCount(0);
             taskResultDO.setFailCount(1);
             taskResultDO.setState(TaskState.ERROR);
-            addWangdaiTaskInfo(taskId,"网贷平台列表(plat_list)",e.getClass().getSimpleName());
+            addWangdaiTaskInfo(taskId,PLAT_LIST_NAME,e.getClass().getSimpleName());
             return taskResultDO;
         }
         Integer planCount = platList==null?0:platList.size();
@@ -396,13 +396,21 @@ public class P2PImageServiceImpl implements P2PImageService,TaskService {
         List<PlatListDO> platList = new ArrayList<>();
         try {
             platList = p2PImageDao.baseInfoWangDaiApi();
-            platList = platList.stream().filter(n -> platNameList.contains(n.getPlat_name())).collect(Collectors.toList());
             if (platList == null) {
                 throw new Exception("dataType=plat_list 调用异常");
             }
+            if (!(null != platNameList && platNameList.size()==1 && PLAT_LIST_NAME.equals(platNameList.get(0)))){
+                platList = platList.stream().filter(n -> platNameList.contains(n.getPlat_name())).collect(Collectors.toList());
+            }
+
         } catch (Exception e) {
-            taskResultDO.setState(TaskState.ERROR);
             logger.error(e.getMessage(), e);
+            taskResultDO.setPlanCount(1);
+            taskResultDO.setSuccessCount(0);
+            taskResultDO.setFailCount(1);
+            taskResultDO.setState(TaskState.ERROR);
+            addWangdaiTaskInfo(taskId,PLAT_LIST_NAME,e.getClass().getSimpleName());
+            return taskResultDO;
         }
         Integer planCount = platList.size();
         Integer failCount = 0;
