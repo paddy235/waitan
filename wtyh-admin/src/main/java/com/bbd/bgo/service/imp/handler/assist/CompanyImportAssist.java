@@ -122,6 +122,11 @@ public class CompanyImportAssist {
                 cDo.setOrganizationCode(null);
                 if (bCrd && bRegNo) { //用数据平台数据验证成功
                     if ( null ==locCp ) { //数据库中无此企业
+                        if ( StringUtils.isNotBlank( cDo.getCreditCode() ) &&
+                            !(cDo.getCreditCode().matches("^([A-Z]|[0-9]){18}$") ) ) {
+                            addError(cDo.getId(), "统一信用代码格式错误");
+                            continue;
+                        }
                         //按新增处理
                         addDataToList( true, cDo, null, cInfo );
                     } else { //有

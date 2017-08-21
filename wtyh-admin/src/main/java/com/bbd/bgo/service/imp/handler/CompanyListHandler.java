@@ -97,14 +97,14 @@ public class CompanyListHandler extends AbstractImportHandler<CompanyDO> {
         if( tempList.size() <200 ) {
             return;
         }
-        companyImportAssist.processCp(tempList); //processCp( );
+        companyImportAssist.processCp(tempList,true);
     }
 
     @Override
     public void end() throws Exception {
         if ( tempList.size() >0 ) {
             //有企业没有处理完
-            companyImportAssist.processCp(tempList); //processCp( );
+            companyImportAssist.processCp(tempList, true);
         }
         if( errorList().size() >0 ) {
             addError("用户上传的企业名单中的数据有误，所有数据均不予入库");
