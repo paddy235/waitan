@@ -1,17 +1,50 @@
 package com.bbd.wtyh.domain;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  * Created by lixudong on 2017/7/13.
  */
-public class RadarScoreDO extends BaseDO{
+@Entity
+@Table(name = "radar_score")
+public class RadarScoreDO extends BaseDO {
 
+    @Id
+    private Integer id;
+
+    @Column(name = "plat_name")
     private String platName;
-    private double infoDisclosure;//信息披露
-    private double fluidity;//流动性
-    private double dispersion;//分散度
-    private double capital;//资本充足
-    private double penaltyCost;//违约成本
-    private double operation;//运营能力
+
+    @Column(name = "info_disclosure")
+    private double infoDisclosure;// 信息披露
+
+    @Column
+    private double fluidity;// 流动性
+
+    @Column
+    private double dispersion;// 分散度
+
+    @Column
+    private double capital;// 资本充足
+
+    @Column(name = "penalty_cost")
+    private double penaltyCost;// 违约成本
+
+    @Column
+    private double operation;// 运营能力
+
+    @Override
+    public Integer getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getPlatName() {
         return platName;
@@ -71,14 +104,7 @@ public class RadarScoreDO extends BaseDO{
 
     @Override
     public String toString() {
-        return "RadarScoreDO{" +
-                "platName='" + platName + '\'' +
-                ", infoDisclosure=" + infoDisclosure +
-                ", fluidity=" + fluidity +
-                ", dispersion=" + dispersion +
-                ", capital=" + capital +
-                ", penaltyCost=" + penaltyCost +
-                ", operation=" + operation +
-                '}';
+        return "RadarScoreDO{" + "platName='" + platName + '\'' + ", infoDisclosure=" + infoDisclosure + ", fluidity=" + fluidity
+                + ", dispersion=" + dispersion + ", capital=" + capital + ", penaltyCost=" + penaltyCost + ", operation=" + operation + '}';
     }
 }
