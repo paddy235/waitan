@@ -29,7 +29,6 @@ public class UserRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(
             PrincipalCollection principalCollection) {
-        System.out.println("角色权限检查");
         //获取当前登入的用户名
         String userName=(String)principalCollection.getPrimaryPrincipal();
         if(!StringUtils.isEmpty(userName)){
