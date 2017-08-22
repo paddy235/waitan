@@ -7,10 +7,10 @@ import com.bbd.wtyh.domain.vo.NewsVO;
  */
 public interface PABPublicSentimentService {
 
-    @SuppressWarnings("unused")
+    @SuppressWarnings(value = "unused")
     void saveParkPublicSentiment() throws Exception;
 
-    @SuppressWarnings("unused")
+    @SuppressWarnings(value = "unused")
     void saveBuildingPublicSentiment() throws Exception;
 
     NewsVO queryParkPublicSentiment(int areaId, String parkName);
