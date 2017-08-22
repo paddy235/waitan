@@ -33,7 +33,7 @@ public class CompanyImportAssist {
     private CompanyStatusChangeService companyStatusChangeService =ApplicationContextUtil.getBean(CompanyStatusChangeService.class);
 
     /**
-     *
+     * aa
      * @param errList 来自AbstractImportHandler的errorList();
      * @param sheet 来自AbstractImportHandler的getSheet();
      */
