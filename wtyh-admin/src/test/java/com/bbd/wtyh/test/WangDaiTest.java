@@ -34,6 +34,8 @@ public class WangDaiTest extends BaseServiceImpl {
     private String url_plat_exist="http://121.40.187.134:5002/financial_services?dataType=yuqing&plat_name=";
 
     private String url_plat_core="http://121.40.187.134:5002/financial_services?dataType=plat_data&plat_name=";
+
+    private String crowd="http://121.40.187.134:5002/crowfunding?dataType=1";
     @Test
     public void test(){
         ResultsDO resultsDO=this.getPlatList();
@@ -46,6 +48,26 @@ public class WangDaiTest extends BaseServiceImpl {
             this.executeCUD("INSERT INTO test_wangdai_info(plat_name,plat_status) values('"+wangDaiInfoDO.getPlat_name()+"','"+wangDaiInfoDO.getPlat_status()+"')");
         }
         System.out.println("---wang dai info ---");
+    }
+
+    @Test
+    public void crowdTest(){
+        System.out.println("---crowd---");
+        CrowdDO resultsDO=this.getCrowdList();
+        for(CrowdDO.cdDO cd:resultsDO.results){
+            this.executeCUD("INSERT INTO test_crowd(platform_name,company_name,funding_business_type,success_number,funded_amout,registration_address,operation_address,website_url) " +
+                    "values('"+cd.getPlatform_name()
+                    +"','"+cd.getCompany_name()
+                    +"','"+cd.getFunding_business_type()
+                    +"','"+cd.getSuccess_number()
+                    +"','"+cd.getFunded_amout()
+                    +"','"+cd.getRegistration_address()
+                    +"','"+cd.getOperation_address()
+                    +"',?"
+                    +")",cd.getWebsite_url());
+        }
+        System.out.println("---crowd end---");
+
     }
 
     @Test
@@ -95,6 +117,19 @@ public class WangDaiTest extends BaseServiceImpl {
 
     }
 
+    public CrowdDO getCrowdList() {
+        try {
+            String result = new HttpTemplate().get(crowd);
+            Gson gson = new Gson();
+            CrowdDO resultsDO = gson.fromJson("{\"results\":"+result+"}",new TypeToken<CrowdDO>(){}.getType());
+
+            return resultsDO;
+        } catch (Exception e) {
+            logger.error("Method getPrivateFundCompanyData get Exception." + e.getMessage());
+            return null;
+        }
+    }
+
     public ResultsDO getPlatList() {
         try {
             String result = new HttpTemplate().get(url);
@@ -123,6 +158,114 @@ public class WangDaiTest extends BaseServiceImpl {
 
 
 
+    @Table()
+    public static class CrowdDO{
+
+        private List<cdDO> results;
+
+        public List<cdDO> getResults() {
+            return results;
+        }
+
+        public void setResults(List<cdDO> results) {
+            this.results = results;
+        }
+
+        public static  class  cdDO{
+
+            private String platform_name;
+            private String company_name;
+            private String funding_business_type;
+            private String success_number;
+            private String funded_amout;
+            private String registration_address;
+            private String operation_address;
+            private String website_url;
+
+            public String getPlatform_name() {
+                return platform_name;
+            }
+
+            public void setPlatform_name(String platform_name) {
+                this.platform_name = platform_name;
+            }
+
+            public String getCompany_name() {
+                return company_name;
+            }
+
+            public void setCompany_name(String company_name) {
+                this.company_name = company_name;
+            }
+
+            public String getFunding_business_type() {
+                if("\\".equals(funding_business_type)){
+                    funding_business_type="";
+                }
+                return funding_business_type;
+            }
+
+            public void setFunding_business_type(String funding_business_type) {
+                this.funding_business_type = funding_business_type;
+            }
+
+            public String getSuccess_number() {
+                if("\\".equals(success_number)){
+                    success_number="";
+                }
+                return success_number;
+            }
+
+            public void setSuccess_number(String success_number) {
+                this.success_number = success_number;
+            }
+
+            public String getFunded_amout() {
+                if("\\".equals(funded_amout)){
+                    funded_amout="";
+                }
+                return funded_amout;
+            }
+
+            public void setFunded_amout(String funded_amout) {
+                this.funded_amout = funded_amout;
+            }
+
+            public String getRegistration_address() {
+                if("\\".equals(registration_address)){
+                    registration_address="";
+                }
+                return registration_address;
+            }
+
+            public void setRegistration_address(String registration_address) {
+                this.registration_address = registration_address;
+            }
+
+            public String getOperation_address() {
+                if("\\".equals(operation_address)){
+                    return "\\\\";
+                }
+                return operation_address;
+            }
+
+            public void setOperation_address(String operation_address) {
+                this.operation_address = operation_address;
+            }
+
+            public String getWebsite_url() {
+                if("\\".equals(website_url)){
+                    website_url="";
+                }
+                return website_url;
+            }
+
+            public void setWebsite_url(String website_url) {
+
+                this.website_url = website_url;
+            }
+        }
+    }
 
     @Table()
     public static class ResultsDO{
