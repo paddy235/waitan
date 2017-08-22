@@ -226,6 +226,11 @@ public class CrowdFundingServiceImpl implements CrowdFundingService,TaskService 
         return crowdFundingCommonMapper.queryStatisticsData(type);
     }
 
+    @Override
+    public List<CrowdFundingCompanyDO> queryBaseOfPlat() {
+        return crowdFundingCompanyMapper.queryBaseOfPlat();
+    }
+
     protected void addFailTaskInfo(Integer taskId, String api, String failReason) {
         TaskFailInfoDO taskFailInfoDO = new TaskFailInfoDO();
         taskFailInfoDO.setTaskId(taskId);

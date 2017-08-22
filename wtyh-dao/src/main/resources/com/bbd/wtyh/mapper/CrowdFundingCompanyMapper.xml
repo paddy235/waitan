@@ -136,4 +136,19 @@
                 and company.area_id = #{exportCondition.areaId}
             </if>
     </select>
+
+    <select id="queryBaseOfPlat" resultType="com.bbd.wtyh.domain.CrowdFundingCompanyDO">
+        select
+            company_name AS companyName,
+            platform_name AS platformName,
+            website_url AS websiteUrl,
+            funding_business_type AS fundingBusinessTypeCN,
+            success_number AS successNumber,
+            funded_amout AS fundedAmout,
+            operation_address AS address,
+            registration_address AS areaName
+        from crowd_funding_company_dataland
+        where create_date=(SELECT MAX(create_date) from crowd_funding_company_dataland)
+    </select>
+
 </mapper>
