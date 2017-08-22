@@ -1,6 +1,6 @@
 package com.bbd.wtyh.web.controller;
 
-
+import com.bbd.wtyh.domain.PlatCoreDataDO;
 import com.bbd.wtyh.domain.wangDaiAPI.PlatDataDO;
 import com.bbd.wtyh.service.OfflineFinanceService;
 import com.bbd.wtyh.service.P2PImageService;
@@ -28,6 +28,7 @@ import java.util.Map;
  */
 @Controller
 public class RelationController {
+
     @Autowired
     private OfflineFinanceService offlinefinanceservice;
     @Autowired
@@ -42,28 +43,27 @@ public class RelationController {
 
     @SuppressWarnings("rawtypes")
     @RequestMapping(value = "/queryDynamicPicData")
-    public
-    @ResponseBody
-    Map<String, List> queryDynamicPicData(HttpServletRequest request) {
+    public @ResponseBody Map<String, List> queryDynamicPicData(HttpServletRequest request) {
         try {
             String companyName = request.getParameter("companyName");
             // p2p 平台名称 传入，查询 公司名称
             String plat_name = request.getParameter("platName");
             if (plat_name != null) {
-                PlatDataDO platData = p2PImageService.getPlatData(plat_name);
-                companyName = platData == null ? "" : ((platData.getCompany_name() == null) ? "" : platData.getCompany_name());
+                PlatCoreDataDO platData = p2PImageService.getPlatCoreData(plat_name);
+                companyName = platData == null ? "" : ((platData.getCompanyName() == null) ? "" : platData.getCompanyName());
             }
             String dataVersion = request.getParameter("dataVersion");
             Integer degree = Integer.valueOf(request.getParameter("degree"));
             if (StringUtils.isNullOrEmpty(dataVersion)) {
                 dataVersion = (String) request.getSession().getAttribute("defaultVersion");
             }
-            RelationDiagramVO relationDiagramVO=offlinefinanceservice.queryRealRealation(companyName, degree);
-            Map<String, List> map=new HashedMap();
+            RelationDiagramVO relationDiagramVO = offlinefinanceservice.queryRealRealation(companyName, degree);
+            Map<String, List> map = new HashedMap();
             map.put("pointList", relationDiagramVO.getPointList());
             map.put("lineList", relationDiagramVO.getLineList());
             return map;
-            //return registerUniversalFilterChainImp.queryRelation(companyName, dataVersion, degree);
+            // return registerUniversalFilterChainImp.queryRelation(companyName,
+            // dataVersion, degree);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -71,18 +71,14 @@ public class RelationController {
     }
 
     /**
-     * 动态关联方 目标公司数据基本信息
-     * 目标公司名称
-     * 被查询公司名称
+     * 动态关联方 目标公司数据基本信息 目标公司名称 被查询公司名称
      *
      * @return
      * @throws Exception
      */
-    @SuppressWarnings({"rawtypes"})
+    @SuppressWarnings({ "rawtypes" })
     @RequestMapping("relatedPartyStatistics.do")
-    public
-    @ResponseBody
-    AjaxVO relatedPartyStatistics(HttpServletRequest request) throws Exception {
+    public @ResponseBody AjaxVO relatedPartyStatistics(HttpServletRequest request) throws Exception {
         String origCompanyName = request.getParameter("origCompanyName");
         String dataVersion = request.getParameter("dataVersion");
         String tarCompanyName = request.getParameter("tarCompanyName");
@@ -93,7 +89,8 @@ public class RelationController {
         AjaxVO ajax = new AjaxVO();
         Map<String, List> map = registerUniversalFilterChainImp.queryRelation(origCompanyName, dataVersion, degree);
         if (null != map) {
-            CompanyDataStatisticsVO routeList = searchAPIandRelatedPartyService.relatedPartyStatistics(origCompanyName, tarCompanyName, map.get("lineList"));
+            CompanyDataStatisticsVO routeList = searchAPIandRelatedPartyService.relatedPartyStatistics(origCompanyName, tarCompanyName,
+                    map.get("lineList"));
             if (null != routeList) {
                 ajax.setSuccess(1);
                 ajax.setObj(routeList);
