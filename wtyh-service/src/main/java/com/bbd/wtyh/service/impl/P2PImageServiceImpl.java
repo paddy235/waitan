@@ -133,16 +133,43 @@ public class P2PImageServiceImpl extends BaseServiceImpl implements P2PImageServ
 
     @Override
     public Map<String, Object> radarScore(String platName) {
-        PlatDataDO platData = p2PImageDao.getPlatData(platName);
-        if (null == platData) {
+
+        RadarScoreDO scoreDO = this.selectOne(RadarScoreDO.class, "plat_name = ? ORDER BY create_date DESC LIMIT 1", platName);
+        if (scoreDO == null) {
             return null;
         }
-        Map<String, Object> data = p2PImageDao.radarScore(platName);
-        if (null == data || data.size() == 0) {
+        Map<String, Object> source = new LinkedHashMap<>();
+        source.put("运营能力", scoreDO.getOperation());
+        source.put("违约成本", scoreDO.getPenaltyCost());
+        source.put("分散度", scoreDO.getDispersion());
+        source.put("资本充足", scoreDO.getCapital());
+        source.put("流动性", scoreDO.getFluidity());
+        source.put("信息披露", scoreDO.getInfoDisclosure());
+        // 数据格式化
+        Map<String, Object> result = new HashMap<>();
+        List<Map<String, Object>> indicator = new ArrayList<>();
+        for (Map.Entry<String, Object> entry : source.entrySet()) {
+            Map<String, Object> score = new HashMap<>();
+            score.put("name", entry.getKey());
+            score.put("max", entry.getValue());
+            indicator.add(score);
+        }
+        List<List<Object>> series = new ArrayList<>();
+        List<Object> serie = new ArrayList<>();
+        serie.add(source.get("运营能力"));
+        serie.add(source.get("违约成本"));
+        serie.add(source.get("分散度"));
+        serie.add(source.get("资本充足"));
+        serie.add(source.get("流动性"));
+        serie.add(source.get("信息披露"));
+        series.add(serie);
+        result.put("indicator", indicator);
+        result.put("series", series);
+        result.put("code", "1");
+        if (result.size() == 0) {
             return null;
         }
-        data.put("sumScore", platData.getPlat_score());
-        return data;
+        return result;
     }
 
     @Override
