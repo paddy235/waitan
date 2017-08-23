@@ -4,9 +4,11 @@ import com.alibaba.fastjson.JSON;
 import com.bbd.higgs.utils.http.HttpCallback;
 import com.bbd.higgs.utils.http.HttpTemplate;
 import com.bbd.wtyh.constants.TaskState;
+import com.bbd.wtyh.core.base.BaseService;
 import com.bbd.wtyh.domain.*;
 import com.bbd.wtyh.domain.CompanyInfoModify.WangdaiModify;
 import com.bbd.wtyh.domain.dto.*;
+import com.bbd.wtyh.domain.wangDaiAPI.PlatListDO;
 import com.bbd.wtyh.mapper.*;
 import com.bbd.wtyh.service.CompanyService;
 import com.bbd.wtyh.service.OfflineFinanceService;
@@ -19,6 +21,7 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -76,6 +79,10 @@ public class PToPMonitorServiceImpl implements PToPMonitorService, TaskService {
 
     private volatile boolean isShutdown = false;// 任务停止标志
 
+    @Autowired
+    @Qualifier(value = "baseServiceImpl")
+    private BaseService baseService;
+
     @Override
     public Integer getOfflineFinanceNum(String companyName) throws Exception {
         if (companyName.equals("上海陆家嘴国际金融资产交易市场股份有限公司")) {
@@ -129,7 +136,10 @@ public class PToPMonitorServiceImpl implements PToPMonitorService, TaskService {
 
     @Override
     public List<AreaIndexDTO> getAreaIndex() throws Exception {
-
+        List<AreaIndexDTO> aInxList =areaIndexMapper.getAreaIndexFromDb();
+        if ( ! CollectionUtils.isEmpty(aInxList) ) {
+            return aInxList;
+        }
         String url = this.finSerUrl + "?dataType=area_index";
         HttpTemplate httpTemplate = new HttpTemplate();
         return httpTemplate.get(url, new HttpCallback<List<AreaIndexDTO>>() {
@@ -148,7 +158,18 @@ public class PToPMonitorServiceImpl implements PToPMonitorService, TaskService {
     }
 
     @Override
+    public List<PlatRankDataDTO> getPlatRankDataFromDb() {
+        return platRankDataMapper.getPlatRankData();
+    }
+
+    @Override
     public List<PlatRankDataDTO> getPlatRankData() throws Exception {
+        //先从本地库取
+        List<PlatRankDataDTO> list =platRankDataMapper.getPlatRankData();
+        if ( ! CollectionUtils.isEmpty(list) ) {
+            return list;
+        }
+        //没有的话再直接去线上拿
         String url = this.finSerUrl + "?dataType=plat_rank_data";
         HttpTemplate httpTemplate = new HttpTemplate();
         return httpTemplate.get(url, new HttpCallback<List<PlatRankDataDTO>>() {
@@ -217,7 +238,15 @@ public class PToPMonitorServiceImpl implements PToPMonitorService, TaskService {
 
     @Override
     public List<IndustryShanghaiDTO> getData() throws Exception {
+        /*//先从本地库取
+        List<IndustryShanghaiDTO> list =industryShanghaiMapper.getIndustryShanghaiFromDb();
+        if ( ! CollectionUtils.isEmpty(list) ) {
+            return list;
+        }*/
+        return getDataFromNet();
+    }
 
+    public List<IndustryShanghaiDTO> getDataFromNet() throws Exception {
         String url = this.finSerUrl + "?dataType=industry_shanghai";
         if (StringUtils.isEmpty(this.finSerUrl)) {
             url = "121.40.187.134:5002/financial_services?dataType=industry_shanghai";
@@ -243,7 +272,6 @@ public class PToPMonitorServiceImpl implements PToPMonitorService, TaskService {
                 return list;
             }
         });
-
     }
 
     @Override
@@ -492,7 +520,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService, TaskService {
             return;
         }
         logger.info("start update industry_shanghai date task");
-        List<IndustryShanghaiDTO> dtoList = getData();
+        List<IndustryShanghaiDTO> dtoList = getDataFromNet();
         for (IndustryShanghaiDTO dto : dtoList) {
             if (isShutdown) {
                 break;
@@ -509,11 +537,8 @@ public class PToPMonitorServiceImpl implements PToPMonitorService, TaskService {
             industryShanghaiDO.setCreateBy("system");
             industryShanghaiDO.setCreateDate(new Date());
             // industryShanghaiMapper.deleteByDate(dto.getDate());
-            try {
-                industryShanghaiMapper.save(industryShanghaiDO);
-            } catch (Exception e) {
-                throw new SQLException();
-            }
+
+            industryShanghaiMapper.save(industryShanghaiDO);
         }
         logger.info("end update industry_shanghai date task");
     }

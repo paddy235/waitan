@@ -433,7 +433,7 @@ public class PToPMonitorController {
 		for (PlatRankDataDTO dto : list) {
 			Map<String, Object> rst = new HashMap<>();
 			Map<String, Object> platSt = new HashMap<>();
-			platSt.put("plat_status", dto.getPlat_status());//取平台状态的时候使用
+			platSt.put( "plat_status", dto.getPlat_status() );//取平台状态的时候使用
 
 			rst.put("rank", dto.getRank());
 			rst.put("plat_name", dto.getPlat_name());
