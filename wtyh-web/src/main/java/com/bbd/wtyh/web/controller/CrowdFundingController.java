@@ -77,7 +77,7 @@ public class CrowdFundingController {
 			map = crowdFundingSer.lastMonthType(Constants.CROWD_NEWLY_PROJECT);
 		if (null == map || map.size() == 0)
 			return ResponseBean.successResponse(hb);
-		hb.setTitle(Calendar.MONTH + "月上海各类众筹平台新增项目数");
+		hb.setTitle((Calendar.getInstance().get(Calendar.MONTH) + 1) + "月上海各类众筹平台新增项目数");
 		for (String key : map.keySet()) {
 			hb.getxAxis().add(key);
 			hb.getseries().add(map.get(key));
@@ -100,7 +100,7 @@ public class CrowdFundingController {
 			 map = crowdFundingSer.lastMonthType(Constants.CROWD_NEWLY_PEOPLE);
 		if (null == map || map.size() == 0)
 			return ResponseBean.successResponse(hb);
-		hb.setTitle(Calendar.MONTH + "月上海各类众筹平台新增项目投资人次");
+		hb.setTitle((Calendar.getInstance().get(Calendar.MONTH) + 1) + "月上海各类众筹平台新增项目投资人次");
 		for (String key : map.keySet()) {
 			hb.getxAxis().add(key);
 			hb.getseries().add(map.get(key));
@@ -122,7 +122,7 @@ public class CrowdFundingController {
 			map = crowdFundingSer.lastMonthType(Constants.CROWD_NEWLY_AMOUNT);
 		if (null == map || map.size() == 0)
 			return ResponseBean.successResponse(hb);
-		hb.setTitle(Calendar.MONTH + "月上海各类众筹平台新增项目数的成功筹资金额");
+		hb.setTitle((Calendar.getInstance().get(Calendar.MONTH) + 1) + "月上海各类众筹平台新增项目数的成功筹资金额");
 		for (String key : map.keySet()) {
 			hb.getxAxis().add(key);
 			hb.getseries().add(map.get(key));
