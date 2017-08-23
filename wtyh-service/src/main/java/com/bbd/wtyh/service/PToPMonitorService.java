@@ -45,6 +45,13 @@ public interface PToPMonitorService {
      */
     public List<PlatRankDataDTO> getPlatRankData() throws Exception;
 
+
+    /**
+     * 从本地数据库查询网贷平台列表
+     * @return
+     */
+    List<PlatRankDataDTO> getPlatRankDataFromDb();
+
     /**
      * 网贷平台企业光谱数据
      *

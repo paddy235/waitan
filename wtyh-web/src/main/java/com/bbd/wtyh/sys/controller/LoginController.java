@@ -109,6 +109,7 @@ public class LoginController {
 			return ResponseBean.errorResponse("此用户已被锁定，请联系管理员处理");
 		} catch (Exception e) {
 			e.printStackTrace();
+			logger.error("" , e);
 			return ResponseBean.errorResponse("系统异常");
 		}
 		return ResponseBean.successResponse(map);

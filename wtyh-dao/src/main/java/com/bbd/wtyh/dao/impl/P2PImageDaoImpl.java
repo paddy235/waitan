@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.bbd.wtyh.domain.wangDaiAPI.*;
+import com.bbd.wtyh.mapper.PlatRankDataMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
@@ -27,6 +28,7 @@ import com.bbd.wtyh.mapper.PlatformNameInformationMapper;
 import com.bbd.wtyh.redis.RedisDAO;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import org.springframework.util.CollectionUtils;
 
 /**
  * p2p检测平台dao层实现类
@@ -174,11 +176,19 @@ public class P2PImageDaoImpl implements P2PImageDao {
         return result;
     }
 
+
+    @Autowired
+    private PlatRankDataMapper platRankDataMapper;
+
     /**
      * 基本信息--网贷接口数据
      */
     @Override
     public List<PlatListDO> baseInfoWangDaiApi() {
+        List<PlatListDO> platList =platRankDataMapper.getPlatListFromDb();
+        if ( ! CollectionUtils.isEmpty(platList) ) {
+            return platList;
+        }
         String platFormName = url + "?dataType=plat_list";
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
