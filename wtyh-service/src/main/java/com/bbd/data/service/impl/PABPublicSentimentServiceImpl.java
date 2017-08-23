@@ -10,6 +10,7 @@ import com.bbd.wtyh.domain.vo.NewsVO;
 import com.bbd.wtyh.mapper.BuildingMapper;
 import com.bbd.wtyh.mapper.CompanyMapper;
 import com.bbd.wtyh.mapper.ParkMapper;
+import com.bbd.wtyh.util.relation.ListUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.slf4j.Logger;
@@ -59,13 +60,15 @@ public class PABPublicSentimentServiceImpl implements PABPublicSentimentService 
     private static final Integer DEFAULT_PAGE_SIZE = 50;
 
     @Override
-//    @Scheduled(cron = "0 30 0 * * ? ")
+    @Scheduled(cron = "0 30 0 * * ?")
     @Transactional(rollbackFor = Exception.class)
     public void saveParkPublicSentiment() throws Exception {
         try {
             List<ParkDO> parkList = parkMapper.queryAllPark();
             if (ListUtil.isNotEmpty(parkList)) {
                 parkList.forEach((ParkDO park) -> {
+                    if (null == park || StringUtils.isEmpty(park.getAreaId()) || StringUtils.isEmpty(park.getName()))
+                        return;
                     List<String> companyNameList = companyMapper.queryCompanyNames(park.getAreaId(), null, park.getName());
                     if (ListUtil.isNotEmpty(companyNameList)) {
                         NewsVO newsVO = this.queryBatchNews(companyNameList);
@@ -89,13 +92,15 @@ public class PABPublicSentimentServiceImpl implements PABPublicSentimentService 
     }
 
     @Override
-//    @Scheduled(cron = "0 30 0 * * ? ")
+    @Scheduled(cron = "0 30 0 * * ?")
     @Transactional(rollbackFor = Exception.class)
     public void saveBuildingPublicSentiment() throws Exception {
         try {
             List<BuildingDO> buildingList = buildingMapper.queryAllBuilding();
             if (ListUtil.isNotEmpty(buildingList)) {
                 buildingList.forEach((BuildingDO building) -> {
+                    if (null == building || StringUtils.isEmpty(building.getBuildingId()))
+                        return;
                     List<String> companyNameList = companyMapper.queryCompanyNames(null, building.getBuildingId(), null);
                     if (ListUtil.isNotEmpty(companyNameList)) {
                         NewsVO newsVO = this.queryBatchNews(companyNameList);
@@ -125,6 +130,8 @@ public class PABPublicSentimentServiceImpl implements PABPublicSentimentService 
 
     @Override
     public NewsVO queryParkPublicSentiment(int areaId, String parkName) {
+        if (areaId <= 0 || StringUtils.isEmpty(parkName))
+            return null;
         /* 组装参数 */
         Map<String, Object> params = new HashMap<>();
         params.put("areaId", areaId);
@@ -138,7 +145,7 @@ public class PABPublicSentimentServiceImpl implements PABPublicSentimentService 
 
         NewsVO newsVO = new NewsVO();
         newsVO.setMsg("成功获取园区舆情信息。");
-        newsVO.setRsize(list.size());
+        newsVO.setRsize(ListUtils.isEmpty(list) ? 0 : list.size());
         newsVO.setTotal(count);
         newsVO.setResults(list);
         return newsVO;
@@ -146,6 +153,8 @@ public class PABPublicSentimentServiceImpl implements PABPublicSentimentService 
 
     @Override
     public NewsVO queryBuildingPublicSentiment(int buildingId) {
+        if (buildingId <= 0)
+            return null;
         int count = pabPublicSentimentMapper.queryBuildingPublicSentimentCount(buildingId);
         if (count <= 0)
             return null;
@@ -154,7 +163,7 @@ public class PABPublicSentimentServiceImpl implements PABPublicSentimentService 
 
         NewsVO newsVO = new NewsVO();
         newsVO.setMsg("成功获取楼宇舆情信息。");
-        newsVO.setRsize(list.size());
+        newsVO.setRsize(ListUtils.isEmpty(list) ? 0 : list.size());
         newsVO.setTotal(count);
         newsVO.setResults(list);
         return newsVO;

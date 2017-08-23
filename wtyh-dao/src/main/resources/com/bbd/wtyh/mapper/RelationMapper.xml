@@ -3,15 +3,26 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bbd.wtyh.mapper.RelationMapper">
 
-    <insert id="addRelation" parameterType="java.util.List">
-        INSERT INTO tbl_relation(target_company, investors, investee, relationship, investors_no, investee_no, full_line, create_by, create_date, update_date) VALUES
+    <insert id="addLine" parameterType="java.util.List">
+        INSERT INTO tbl_line(queried_company,orig,orig_name,target,target_name,is_full_line,`type`,relationship,orig_level,tar_level, create_by, create_date, update_date) VALUES
         <foreach collection="list" separator="," item="item">
-            (#{item.targetCompany}, #{item.investors}, #{item.investee}, #{item.relationship}, #{item.investorsNo}, #{item.investeeNo}, #{item.fullLine}, 'system', SYSDATE(), SYSDATE())
+            (#{item.queriedCompany}, #{item.orig}, #{item.origName}, #{item.target}, #{item.targetName}, #{item.isFullLine}, #{item.type}, #{item.relationship}, #{item.origLevel}, #{item.tarLevel}, 'system', SYSDATE(), SYSDATE())
         </foreach>
     </insert>
 
-    <delete id="delRelationByTarget" parameterType="java.lang.String">
-        DELETE FROM tbl_relation WHERE target_company=#{targetCompany}
+    <delete id="delLineByTarget" parameterType="java.lang.String">
+        DELETE FROM tbl_line WHERE queried_company=#{queriedCompany}
+    </delete>
+
+    <insert id="addPoint" parameterType="java.util.List">
+        INSERT INTO tbl_point(queried_company, `name`, cname, `level`, is_person, is_son_com, create_by, create_date, update_date) VALUES
+        <foreach collection="list" separator="," item="item">
+            (#{item.queriedCompany}, #{item.name}, #{item.cname}, #{item.level}, #{item.isPerson}, #{item.isSonCom}, 'system', SYSDATE(), SYSDATE())
+        </foreach>
+    </insert>
+
+    <delete id="delPointByTarget" parameterType="java.lang.String">
+        DELETE FROM tbl_point WHERE queried_company=#{queriedCompany}
     </delete>
 
 </mapper>

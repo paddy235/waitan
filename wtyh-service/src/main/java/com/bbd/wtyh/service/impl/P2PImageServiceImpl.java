@@ -1,6 +1,7 @@
 package com.bbd.wtyh.service.impl;
 
 import com.bbd.wtyh.constants.TaskState;
+import com.bbd.wtyh.core.base.BaseServiceImpl;
 import com.bbd.wtyh.dao.P2PImageDao;
 import com.bbd.wtyh.domain.*;
 import com.bbd.wtyh.domain.CompanyInfoModify.WangdaiModify;
@@ -17,6 +18,7 @@ import com.bbd.wtyh.service.TaskService;
 import com.bbd.wtyh.web.EasyExportExcel.ExportCondition;
 import com.bbd.wtyh.web.PageBean;
 import com.google.gson.JsonSyntaxException;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +35,8 @@ import java.util.stream.Collectors;
  * @since 2016.08.05
  */
 @Service("p2PImageService")
-public class P2PImageServiceImpl implements P2PImageService,TaskService {
+public class P2PImageServiceImpl extends BaseServiceImpl implements P2PImageService, TaskService {
+
     @Autowired
     private P2PImageDao p2PImageDao;
 
@@ -58,64 +61,40 @@ public class P2PImageServiceImpl implements P2PImageService,TaskService {
     @Autowired
     private TaskFailInfoMapper taskFailInfoMapper;
 
-    private volatile boolean isShutdown = false;//任务停止标志
-
+    private volatile boolean isShutdown = false;// 任务停止标志
 
     private static final String PLAT_FORM_STATUS_CACHE_PRIFIX = "wtyh:P2PImage:platFormStatus";
-    private static String PLAT_LIST_NAME="网贷平台列表(plat_list)";
+
     private Logger logger = LoggerFactory.getLogger(P2PImageServiceImpl.class);
 
     @Override
-    public PlatDataDO getPlatData(String platName) {
-        PlatDataDO pn = p2PImageDao.getPlatData(platName);
-        return pn;
+    public PlatCoreDataDO getPlatCoreData(String platName) {
+        if (StringUtils.isBlank(platName)) {
+            return null;
+        }
+        return this.selectOne(PlatCoreDataDO.class, "plat_name = ? ORDER BY create_date DESC LIMIT 1", platName);
     }
-
 
     @Override
     public Map<String, Object> platFormStatus(String platName) {
-        PlatDataDO pn = p2PImageDao.getPlatData(platName);  // 查询网贷API
+        if (StringUtils.isBlank(platName)) {
+            return null;
+        }
+        String where = "plat_name = ? ORDER BY create_date DESC LIMIT 1";
+        PlatformDO pn = this.selectOne(PlatformDO.class, where, platName);
         if (null == pn) {
             return null;
         }
 
-        Map<String, Map<String, Object>> platSts = (Map<String, Map<String, Object>>) redisDAO.getObject(PLAT_FORM_STATUS_CACHE_PRIFIX);
-        PlatRankDataDTO platRankDataDTO = null;
-        if (null != platSts) {
-            Map<String, Object> platSt = (Map) platSts.get(platName);
-            if (null != platSt) {
-                platRankDataDTO = new PlatRankDataDTO();
-                platRankDataDTO.setPlat_status((null != platSt.get("plat_status")) ? (String) platSt.get("plat_status") : null);
-            }
-        }
-        //缓存取不到，就取实时数据
-        if (null == platRankDataDTO) {
-            platRankDataDTO = findFromWangdaiPlatRankData(platName);
-        }
-
-        PlatListDO platListDO = findFromWangdaiPlatList(platName);  // 获取logo
+        PlatRankDataDO rankData = this.selectOne(PlatRankDataDO.class, where, platName);
 
         Map<String, Object> result = new LinkedHashMap<>();
-            result.put("logo", (null == platListDO) ? null : platListDO.getLogo_url());//logo
-            result.put("score", (null == platRankDataDTO) ? "" : platRankDataDTO.getPlatRank()); // 评级
-            result.put("platname", pn.getPlat_name()); // 平台名称
-            result.put("companyName", pn.getCompany_name()); // 公司名称
-            result.put("status", (null == platRankDataDTO) ? "" : platRankDataDTO.getPlat_status()); // 营业状态
+        result.put("logo", pn.getLogoUrl());// logo
+        result.put("score", (null == rankData) ? "" : rankData.getPlatRank()); // 评级
+        result.put("platname", pn.getPlatName()); // 平台名称
+        result.put("companyName", pn.getCompanyName()); // 公司名称
+        result.put("status", (null == rankData) ? "" : rankData.getPlatStatus()); // 营业状态
         return result;
-    }
-
-    @Override
-    public PlatRankDataDTO findFromWangdaiPlatRankData(String platName) {
-        Map<String, PlatRankDataDTO> wangdaiPlatRankData = new HashMap<>();
-        try {
-            for (PlatRankDataDTO platRankDataDTO : pToPMonitorService.getPlatRankData()) {
-                wangdaiPlatRankData.put(platRankDataDTO.getPlat_name(), platRankDataDTO);
-            }
-            return wangdaiPlatRankData.get(platName);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new PlatRankDataDTO();
-        }
     }
 
     @Override
@@ -144,7 +123,7 @@ public class P2PImageServiceImpl implements P2PImageService,TaskService {
         if (null == platDataDO) {
             return null;
         }
-//        System.out.println("13"+platDataDO.getCompany_name());
+        // System.out.println("13"+platDataDO.getCompany_name());
         Map<String, Object> result = p2PImageDao.lawsuitMsg(platDataDO.getCompany_name());
         if (null == result || result.size() == 0) {
             return null;
@@ -154,16 +133,43 @@ public class P2PImageServiceImpl implements P2PImageService,TaskService {
 
     @Override
     public Map<String, Object> radarScore(String platName) {
-        PlatDataDO platData = p2PImageDao.getPlatData(platName);
-        if (null == platData) {
+
+        RadarScoreDO scoreDO = this.selectOne(RadarScoreDO.class, "plat_name = ? ORDER BY create_date DESC LIMIT 1", platName);
+        if (scoreDO == null) {
             return null;
         }
-        Map<String, Object> data = p2PImageDao.radarScore(platName);
-        if (null == data || data.size() == 0) {
+        Map<String, Object> source = new LinkedHashMap<>();
+        source.put("运营能力", scoreDO.getOperation());
+        source.put("违约成本", scoreDO.getPenaltyCost());
+        source.put("分散度", scoreDO.getDispersion());
+        source.put("资本充足", scoreDO.getCapital());
+        source.put("流动性", scoreDO.getFluidity());
+        source.put("信息披露", scoreDO.getInfoDisclosure());
+        // 数据格式化
+        Map<String, Object> result = new HashMap<>();
+        List<Map<String, Object>> indicator = new ArrayList<>();
+        for (Map.Entry<String, Object> entry : source.entrySet()) {
+            Map<String, Object> score = new HashMap<>();
+            score.put("name", entry.getKey());
+            score.put("max", entry.getValue());
+            indicator.add(score);
+        }
+        List<List<Object>> series = new ArrayList<>();
+        List<Object> serie = new ArrayList<>();
+        serie.add(source.get("运营能力"));
+        serie.add(source.get("违约成本"));
+        serie.add(source.get("分散度"));
+        serie.add(source.get("资本充足"));
+        serie.add(source.get("流动性"));
+        serie.add(source.get("信息披露"));
+        series.add(serie);
+        result.put("indicator", indicator);
+        result.put("series", series);
+        result.put("code", "1");
+        if (result.size() == 0) {
             return null;
         }
-        data.put("sumScore", platData.getPlat_score());
-        return data;
+        return result;
     }
 
     @Override
@@ -340,45 +346,44 @@ public class P2PImageServiceImpl implements P2PImageService,TaskService {
             taskResultDO.setSuccessCount(0);
             taskResultDO.setFailCount(1);
             taskResultDO.setState(TaskState.ERROR);
-            addWangdaiTaskInfo(taskId,PLAT_LIST_NAME,e.getClass().getSimpleName());
+            addWangdaiTaskInfo(taskId, "网贷平台列表(plat_list)", e.getClass().getSimpleName());
             return taskResultDO;
         }
-        Integer planCount = platList==null?0:platList.size();
+        Integer planCount = platList == null ? 0 : platList.size();
         Integer failCount = 0;
         taskResultDO.setPlanCount(planCount);
 
         for (PlatListDO plat : platList) {
-            if(isShutdown){
+            if (isShutdown) {
                 break;
             }
             logger.info(String.format("start update %s data", plat.getPlat_name()));
             try {
-                //保存platList 基本信息
+                // 保存platList 基本信息
                 updatePlatList(plat);
 
-                //保存平台核心数据
+                // 保存平台核心数据
                 updatePlatCoreData(plat);
 
-                //保存舆情数据
+                // 保存舆情数据
                 updateWangDaiYuQing(plat.getPlat_name());
 
-                //保存雷达数据
+                // 保存雷达数据
                 updateRadarScore(plat);
 
             } catch (Exception e) {
                 taskResultDO.setState(TaskState.ERROR);
                 logger.error(e.getMessage(), e);
-                addWangdaiTaskInfo(taskId,plat.getPlat_name(),e.getClass().getSimpleName());
+                addWangdaiTaskInfo(taskId, plat.getPlat_name(), e.getClass().getSimpleName());
                 failCount++;
             }
             logger.info(String.format("end update %s data", plat.getPlat_name()));
         }
 
-
         if (isShutdown) {
             taskResultDO.setFailCount(0);
             taskResultDO.setSuccessCount(0);
-        }else{
+        } else {
             taskResultDO.setFailCount(failCount);
             taskResultDO.setSuccessCount(planCount - failCount);
         }
@@ -396,45 +401,37 @@ public class P2PImageServiceImpl implements P2PImageService,TaskService {
         List<PlatListDO> platList = new ArrayList<>();
         try {
             platList = p2PImageDao.baseInfoWangDaiApi();
+            platList = platList.stream().filter(n -> platNameList.contains(n.getPlat_name())).collect(Collectors.toList());
             if (platList == null) {
                 throw new Exception("dataType=plat_list 调用异常");
             }
-            if (!(null != platNameList && platNameList.size()==1 && PLAT_LIST_NAME.equals(platNameList.get(0)))){
-                platList = platList.stream().filter(n -> platNameList.contains(n.getPlat_name())).collect(Collectors.toList());
-            }
-
         } catch (Exception e) {
-            logger.error(e.getMessage(), e);
-            taskResultDO.setPlanCount(1);
-            taskResultDO.setSuccessCount(0);
-            taskResultDO.setFailCount(1);
             taskResultDO.setState(TaskState.ERROR);
-            addWangdaiTaskInfo(taskId,PLAT_LIST_NAME,e.getClass().getSimpleName());
-            return taskResultDO;
+            logger.error(e.getMessage(), e);
         }
         Integer planCount = platList.size();
         Integer failCount = 0;
         for (PlatListDO plat : platList) {
-            if(isShutdown){
+            if (isShutdown) {
                 break;
             }
             logger.info(String.format("start update %s data", plat.getPlat_name()));
             try {
-                //保存platList 基本信息
+                // 保存platList 基本信息
                 updatePlatList(plat);
 
-                //保存平台核心数据
+                // 保存平台核心数据
                 updatePlatCoreData(plat);
 
-                //保存舆情数据
+                // 保存舆情数据
                 updateWangDaiYuQing(plat.getPlat_name());
 
-                //保存雷达数据
+                // 保存雷达数据
                 updateRadarScore(plat);
 
             } catch (Exception e) {
                 logger.error(e.getMessage(), e);
-                addWangdaiTaskInfo(taskId,plat.getPlat_name(),e.getClass().getSimpleName());
+                addWangdaiTaskInfo(taskId, plat.getPlat_name(), e.getClass().getSimpleName());
                 failCount++;
                 taskResultDO.setState(TaskState.ERROR);
             }
@@ -445,7 +442,7 @@ public class P2PImageServiceImpl implements P2PImageService,TaskService {
         if (isShutdown) {
             taskResultDO.setFailCount(0);
             taskResultDO.setSuccessCount(0);
-        }else{
+        } else {
             taskResultDO.setFailCount(failCount);
             taskResultDO.setSuccessCount(planCount - failCount);
         }
@@ -458,17 +455,17 @@ public class P2PImageServiceImpl implements P2PImageService,TaskService {
         taskFailInfoDO.setTaskId(taskId);
         taskFailInfoDO.setFailName(api);
         switch (failName) {
-            case "ConnectTimeoutException":
-                taskFailInfoDO.setFailReason("接口连接超时");
-                break;
-            case "JsonSyntaxException":
-                taskFailInfoDO.setFailReason("接口返回数据解析失败");
-                break;
-            case "SQLException":
-                taskFailInfoDO.setFailReason("入库失败");
-                break;
-            default:
-                taskFailInfoDO.setFailReason("接口调用失败");
+        case "ConnectTimeoutException":
+            taskFailInfoDO.setFailReason("接口连接超时");
+            break;
+        case "JsonSyntaxException":
+            taskFailInfoDO.setFailReason("接口返回数据解析失败");
+            break;
+        case "SQLException":
+            taskFailInfoDO.setFailReason("入库失败");
+            break;
+        default:
+            taskFailInfoDO.setFailReason("接口调用失败");
         }
         taskFailInfoDO.setCreateBy("system");
         taskFailInfoDO.setCreateDate(new Date());
@@ -476,7 +473,7 @@ public class P2PImageServiceImpl implements P2PImageService,TaskService {
     }
 
     protected void updateWangDaiYuQing(String platName) {
-        if(isShutdown){
+        if (isShutdown) {
             return;
         }
         try {
@@ -501,9 +498,8 @@ public class P2PImageServiceImpl implements P2PImageService,TaskService {
         }
     }
 
-
     protected void updatePlatList(PlatListDO dto) {
-        if(isShutdown){
+        if (isShutdown) {
             return;
         }
         PlatformDO platListDO = new PlatformDO();
@@ -514,13 +510,12 @@ public class P2PImageServiceImpl implements P2PImageService,TaskService {
         platListDO.setCreateBy("system");
         platListDO.setCreateDate(new Date());
 
-//        platformMapper.deleteByPlatName(dto.getPlat_name());
+        // platformMapper.deleteByPlatName(dto.getPlat_name());
         platformMapper.save(platListDO);
     }
 
-
     protected void updatePlatCoreData(PlatListDO platListDO) throws Exception {
-        if(isShutdown){
+        if (isShutdown) {
             return;
         }
         try {
@@ -542,7 +537,7 @@ public class P2PImageServiceImpl implements P2PImageService,TaskService {
                 platCoreDataDO.setCreateBy("system");
                 platCoreDataDO.setCreateDate(new Date());
 
-//                platCoreDataMapper.deleteByPlatName(platDataDO.getPlat_name());
+                // platCoreDataMapper.deleteByPlatName(platDataDO.getPlat_name());
                 platCoreDataMapper.save(platCoreDataDO);
             }
         } catch (JsonSyntaxException e) {
@@ -551,9 +546,8 @@ public class P2PImageServiceImpl implements P2PImageService,TaskService {
 
     }
 
-
     protected void updateRadarScore(PlatListDO plat) throws Exception {
-        if(isShutdown){
+        if (isShutdown) {
             return;
         }
         try {
@@ -570,7 +564,7 @@ public class P2PImageServiceImpl implements P2PImageService,TaskService {
                 radarScoreDO.setCreateBy("system");
                 radarScoreDO.setCreateDate(new Date());
 
- //               radarScoreMapper.deleteByPlatName(object.getPlat_name());
+                // radarScoreMapper.deleteByPlatName(object.getPlat_name());
                 radarScoreMapper.save(radarScoreDO);
             }
         } catch (JsonSyntaxException e) {
@@ -621,7 +615,7 @@ public class P2PImageServiceImpl implements P2PImageService,TaskService {
 
     @Override
     public TaskResultDO autoExecute(Integer taskId, Integer runMode) {
-        TaskResultDO taskResultDO=p2pImageDataLandTask(taskId);
+        TaskResultDO taskResultDO = p2pImageDataLandTask(taskId);
         return taskResultDO;
     }
 
@@ -638,7 +632,7 @@ public class P2PImageServiceImpl implements P2PImageService,TaskService {
 
     @Override
     public void resetTask() {
-        this.isShutdown=false;
+        this.isShutdown = false;
     }
 
     @Override

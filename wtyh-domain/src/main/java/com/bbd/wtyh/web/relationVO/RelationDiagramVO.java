@@ -48,6 +48,8 @@ public class RelationDiagramVO {
 		public static final String COMPANY_FLAG = "0";
 		public static final String PERSON_FLAG = "1";
 
+		/** 落地数据使用字段 */
+		private String queriedCompany;
 		/** 关联方ID */
 		private String name;
 		/** 关联方名称 */
@@ -58,6 +60,14 @@ public class RelationDiagramVO {
 		private String isPerson;
 		/** 是否为子公司（0：否；1：是） */
 		private String isSonCom;
+
+		public String getQueriedCompany() {
+			return queriedCompany;
+		}
+
+		public void setQueriedCompany(String queriedCompany) {
+			this.queriedCompany = queriedCompany;
+		}
 
 		public String getName() {
 			return name;
@@ -107,6 +117,9 @@ public class RelationDiagramVO {
 		@Excel(exportName = "序号")
 		private int num;
 
+		/** 落地数据使用字段 */
+		private String queriedCompany;
+
 		/** 源 */
 		private String orig;
 
@@ -145,6 +158,14 @@ public class RelationDiagramVO {
 
 		public void setNum(int num) {
 			this.num = num;
+		}
+
+		public String getQueriedCompany() {
+			return queriedCompany;
+		}
+
+		public void setQueriedCompany(String queriedCompany) {
+			this.queriedCompany = queriedCompany;
 		}
 
 		public String getOrig() {

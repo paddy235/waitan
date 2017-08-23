@@ -2,10 +2,9 @@ package com.bbd.wtyh.service;
 
 import com.bbd.wtyh.domain.CompanyInfoModify.WangdaiModify;
 import com.bbd.wtyh.domain.EasyExport.WangdaiData;
+import com.bbd.wtyh.domain.PlatCoreDataDO;
 import com.bbd.wtyh.domain.PlatformNameInformationDO;
 import com.bbd.wtyh.domain.TaskResultDO;
-import com.bbd.wtyh.domain.dto.PlatRankDataDTO;
-import com.bbd.wtyh.domain.wangDaiAPI.PlatDataDO;
 import com.bbd.wtyh.domain.wangDaiAPI.PlatListDO;
 import com.bbd.wtyh.domain.wangDaiAPI.YuQingDTO;
 import com.bbd.wtyh.web.EasyExportExcel.ExportCondition;
@@ -27,7 +26,7 @@ public interface P2PImageService {
      *
      * @return
      */
-    public PlatDataDO getPlatData(String platName);
+    PlatCoreDataDO getPlatCoreData(String platName);
 
     /**
      * P2P检测平台状态信息
@@ -37,21 +36,15 @@ public interface P2PImageService {
     Map<String, Object> platFormStatus(String platName);
 
     /**
-     * 网贷之家列表，获取 网贷之家 分级什么的
-     * @param platName
-     * @return
-     */
-    PlatRankDataDTO findFromWangdaiPlatRankData(String platName);
-
-    /**
-     * 从网贷之家的  平台列表   找出指定的平台
-     * @param platName
+     * 从网贷之家的 平台列表 找出指定的平台
+     *
      * @return
      */
     PlatListDO findFromWangdaiPlatList(String platName);
 
     /**
-     * 获取 网贷之家 平台列表  list
+     * 获取 网贷之家 平台列表 list
+     *
      * @return
      */
     Map<String, PlatListDO> getWangdaiPlatList();
@@ -100,22 +93,22 @@ public interface P2PImageService {
      */
     List<PlatformNameInformationDO> associatedCompanys(String platName);
 
-
     /**
      * 平台画像相关接口数据落地
+     *
      * @return
      */
     TaskResultDO p2pImageDataLandTask(Integer taskId);
 
     /**
      * 重新执行数据落地失败任务
+     *
      * @param runMode
      * @param oldTaskId
      * @param taskId
      * @return
      */
     TaskResultDO executeFailTaskByTaskId(Integer runMode, Integer oldTaskId, Integer taskId);
-
 
     PlatListDO getWangdaiCompanyList(String name);
 

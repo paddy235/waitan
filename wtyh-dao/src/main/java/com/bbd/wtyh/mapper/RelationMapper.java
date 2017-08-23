@@ -1,6 +1,7 @@
 package com.bbd.wtyh.mapper;
 
-import com.bbd.wtyh.domain.RelationDO;
+
+import com.bbd.wtyh.web.relationVO.RelationDiagramVO;
 
 import java.util.List;
 
@@ -9,8 +10,12 @@ import java.util.List;
  */
 public interface RelationMapper {
     
-    void addRelation(List<RelationDO> list);
+    void addLine( List<RelationDiagramVO.LineVO> list);
 
-    void delRelationByTarget(String targetCompany);
+    void delLineByTarget(String queriedCompany);
+
+    void addPoint(List<RelationDiagramVO.PointVO> list);
+
+    void delPointByTarget(String queriedCompany);
 
 }

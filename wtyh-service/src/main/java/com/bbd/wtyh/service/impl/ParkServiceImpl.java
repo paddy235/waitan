@@ -325,7 +325,6 @@ public class ParkServiceImpl extends BaseServiceImpl implements ParkService {
 		List<CompanyAnalysisResultDO> other_234 = new ArrayList();
 
 		for (CompanyAnalysisResultDO car : list) {
-			log.info("企业名称：" + car.getName());
 			if (car.getAnalysisResult() != null && car.getAnalysisResult() == 1) {
 				black_1.add(car);
 			} /*else {

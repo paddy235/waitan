@@ -145,21 +145,15 @@ public class ParkController {
 	@RequestMapping("/news")
 	@ResponseBody
 	public ResponseBean news(@RequestParam(required = true) Integer areaId, String parkName) {
+		NewsVO newsVO = pabPublicSentimentService.queryParkPublicSentiment(areaId, parkName);
+		if (null != newsVO && ListUtil.isNotEmpty(newsVO.getResults()))
+			return ResponseBean.successResponse(new Gson().toJson(newsVO));
 		Gson gson = new Gson();
 		String data = parkService.queryParkNews(areaId, 20, 1,parkName);
 		NewsVO vo = gson.fromJson(data, new TypeToken<NewsVO>(){}.getType());
 		if (vo == null || vo.getRsize() == 0)
 			vo = newsSer.mutilTypeNews("qyxg_shanghai_fta,qyxg_national_economy", 20);
 		return ResponseBean.successResponse(new Gson().toJson(vo));
-//		NewsVO newsVO = pabPublicSentimentService.queryParkPublicSentiment(areaId, parkName);
-//		if (null != newsVO && ListUtil.isNotEmpty(newsVO.getResults()))
-//			return ResponseBean.successResponse(new Gson().toJson(newsVO));
-//		Gson gson = new Gson();
-//		String data = parkService.queryParkNews(areaId, 20, 1,parkName);
-//		NewsVO vo = gson.fromJson(data, new TypeToken<NewsVO>(){}.getType());
-//		if (vo == null || vo.getRsize() == 0)
-//			vo = newsSer.mutilTypeNews("qyxg_shanghai_fta,qyxg_national_economy", 20);
-//		return ResponseBean.successResponse(new Gson().toJson(vo));
 	}
 
 	/**
@@ -268,13 +262,11 @@ public class ParkController {
 	@RequestMapping("/buildingNews")
 	@ResponseBody
 	public ResponseBean buildingNews(@RequestParam Integer buildingId) {
-		String data = parkService.buildingNews(buildingId);
-		return ResponseBean.successResponse(data);
-//		NewsVO newsVO = pabPublicSentimentService.queryBuildingPublicSentiment(buildingId);
-//		if (null != newsVO && ListUtils.isNotEmpty(newsVO.getResults())) {
-//			return ResponseBean.successResponse(new Gson().toJson(newsVO));
-//		}
-//		return ResponseBean.successResponse(parkService.buildingNews(buildingId));
+		NewsVO newsVO = pabPublicSentimentService.queryBuildingPublicSentiment(buildingId);
+		if (null != newsVO && ListUtils.isNotEmpty(newsVO.getResults())) {
+			return ResponseBean.successResponse(new Gson().toJson(newsVO));
+		}
+		return ResponseBean.successResponse(parkService.buildingNews(buildingId));
 	}
 
 	/**
