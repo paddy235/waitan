@@ -19,8 +19,6 @@ import com.bbd.wtyh.exception.ExceptionHandler;
 import com.bbd.wtyh.log.user.Operation;
 import com.bbd.wtyh.log.user.UserLogRecord;
 import com.bbd.wtyh.log.user.annotation.LogRecord;
-import com.bbd.wtyh.report.util.DrawRelated;
-import com.bbd.wtyh.report.util.DrawRelatedG2;
 import com.bbd.wtyh.service.*;
 import org.apache.commons.collections.map.HashedMap;
 import org.slf4j.Logger;
@@ -203,7 +201,7 @@ public class OfflineFinanceController {
 					request);
 
 			// 数据落地
-			relationService.addRelation(lineList, companyName);
+			relationService.addRelation(result, companyName);
 
 			return ResponseBean.successResponse(exportExcel.getDownloadURL());
 		} catch (Exception e) {
