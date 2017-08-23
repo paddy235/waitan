@@ -60,7 +60,7 @@ public class PABPublicSentimentServiceImpl implements PABPublicSentimentService 
     private static final Integer DEFAULT_PAGE_SIZE = 50;
 
     @Override
-    @Scheduled(cron = "0 30 0 * * ? ")
+    @Scheduled(cron = "0 30 0 * * ?")
     @Transactional(rollbackFor = Exception.class)
     public void saveParkPublicSentiment() throws Exception {
         try {
@@ -92,7 +92,7 @@ public class PABPublicSentimentServiceImpl implements PABPublicSentimentService 
     }
 
     @Override
-    @Scheduled(cron = "0 30 0 * * ? ")
+    @Scheduled(cron = "0 30 0 * * ?")
     @Transactional(rollbackFor = Exception.class)
     public void saveBuildingPublicSentiment() throws Exception {
         try {
