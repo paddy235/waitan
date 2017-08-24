@@ -83,8 +83,11 @@ public class OfflineFinanceDaoImpl implements OfflineFinanceDao {
         RelationDiagramVO diagramVO= new RelationDiagramVO();
         try {
             List  lineVOList = offlineFinanceMapper.queryLineByName(companyName,degree);
+            if(CollectionUtils.isEmpty(lineVOList)){
+                return null;
+            }
             List  pointVOList = offlineFinanceMapper.queryPointByName(companyName,degree);
-            if(CollectionUtils.isEmpty(lineVOList) || CollectionUtils.isEmpty(pointVOList)){
+            if(CollectionUtils.isEmpty(pointVOList)){
                 return null;
             }
             diagramVO.setLineList(lineVOList);
