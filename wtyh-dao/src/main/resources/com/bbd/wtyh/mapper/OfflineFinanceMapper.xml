@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bbd.wtyh.mapper.OfflineFinanceMapper">
+    <select id="queryPointByName" resultType="com.bbd.wtyh.web.relationVO.PointVO">
+        select
+            `name`,
+            `cname`,
+            `level`,
+            `is_person` AS isPerson,
+            `is_son_com` AS isSonCom
+        from tbl_point
+        where queried_company=#{companyName} and `level` &lt;=#{degree}
+    </select>
+
+    <select id="queryLineByName" resultType="com.bbd.wtyh.web.relationVO.LineVO">
+         select
+          `orig` ,
+          `orig_name` AS origName,
+          `target` ,
+          `target_name` AS targetName,
+          `is_full_line` AS isFullLine,
+          `type` ,
+          `relationship` ,
+          `orig_level` AS origLevel,
+          `tar_level` AS tarLevel
+        from tbl_line
+        where queried_company=#{companyName}  and  orig_level&lt;=#{degree} and tar_level&lt;=#{degree}
+    </select>
+</mapper>

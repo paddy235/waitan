@@ -635,6 +635,11 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService,TaskServ
 
     @Override
     public RelationDiagramVO queryRealRealation(String companyName, Integer degree) {
+        //先从数据库取关联方
+        RelationDiagramVO diagramVO = offlineFinanceDao.queryRealationFromDb(companyName,degree);
+        if(null != diagramVO){
+            return diagramVO;
+        }
         RelationDiagramVO relationDiagramVO = new RelationDiagramVO();
         BaseDataDO baseDataDO = p2PImageDao.baseInfoBBDData(companyName);
         List<BaseDataDO.Results> resultsList = (null == baseDataDO) ? null : baseDataDO.getResults();
@@ -662,6 +667,15 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService,TaskServ
         relationDiagramVO.setLineList(getLineList((Map<String, NodeVO>) map.get("pointDegree"), lineVOs));
         // 处理点集合
         relationDiagramVO.setPointList((List<RelationDiagramVO.PointVO>) map.get("pointList"));
+        return relationDiagramVO;
+    }
+
+
+    @Override
+    public RelationDiagramVO queryRealationFromDb(String companyName, Integer degree) {
+
+        RelationDiagramVO relationDiagramVO = new RelationDiagramVO();
+
         return relationDiagramVO;
     }
 

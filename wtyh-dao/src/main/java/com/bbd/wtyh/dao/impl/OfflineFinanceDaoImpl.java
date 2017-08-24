@@ -5,16 +5,22 @@ import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.dao.OfflineFinanceDao;
 import com.bbd.wtyh.domain.dto.RelationDTO;
 import com.bbd.wtyh.domain.dto.RelationRealDTO;
+import com.bbd.wtyh.mapper.OfflineFinanceMapper;
 import com.bbd.wtyh.redis.RedisDAO;
 import com.bbd.wtyh.util.relation.URLEncoder;
+import com.bbd.wtyh.web.relationVO.LineVO;
+import com.bbd.wtyh.web.relationVO.RelationDiagramVO;
 import com.bbd.wtyh.web.relationVO.SubGraphVO;
 import com.google.gson.Gson;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 
 /**
@@ -32,10 +38,13 @@ public class OfflineFinanceDaoImpl implements OfflineFinanceDao {
     private String relationUrl;
 
     @Autowired
-    private RedisDAO                      redisDAO;
+    private RedisDAO    redisDAO;
 
     @Autowired
     private HttpTemplate httpTemplate;
+
+    @Autowired
+    private OfflineFinanceMapper offlineFinanceMapper;
 
     @Override
     public RelationDTO queryRealation(String companyName, String dateVersion) {
@@ -56,7 +65,7 @@ public class OfflineFinanceDaoImpl implements OfflineFinanceDao {
     @Override
     public SubGraphVO queryRealTimeRelation(String unikey, String degree) {
         try {
-            LOGGER.info("request_url" + relationRealUrl + "?unikey=" + unikey + "&degree=" + degree);
+            LOGGER.info("request_url:" + relationRealUrl + "?unikey=" + unikey + "&degree=" + degree);
             String response = httpTemplate.get(relationRealUrl + "?unikey=" + unikey + "&degree=" + degree);
             LOGGER.debug("request_result:" + response);
             Gson gson = new Gson();
@@ -67,5 +76,23 @@ public class OfflineFinanceDaoImpl implements OfflineFinanceDao {
             LOGGER.error(e.getMessage(), e);
         }
         return null;
+    }
+
+    @Override
+    public RelationDiagramVO queryRealationFromDb(String companyName, Integer degree){
+        RelationDiagramVO diagramVO= new RelationDiagramVO();
+        try {
+            List  lineVOList = offlineFinanceMapper.queryLineByName(companyName,degree);
+            List  pointVOList = offlineFinanceMapper.queryPointByName(companyName,degree);
+            if(CollectionUtils.isEmpty(lineVOList) || CollectionUtils.isEmpty(pointVOList)){
+                return null;
+            }
+            diagramVO.setLineList(lineVOList);
+            diagramVO.setPointList(pointVOList);
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage(), e);
+            return null;
+        }
+        return diagramVO;
     }
 }
