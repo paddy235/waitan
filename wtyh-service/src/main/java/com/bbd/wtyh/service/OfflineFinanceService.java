@@ -33,6 +33,13 @@ public interface OfflineFinanceService {
      */
     RelationDiagramVO queryRealRealation(String companyName, Integer degree);
     /**
+     * 下载关联方图谱
+     *
+     * @param companyName 公司名称
+     * @param degree      纬度
+     */
+    RelationDiagramVO downloadRealRealation(String companyName, Integer degree);
+    /**
      * 从数据库查询关联方信息
      *
      * @param companyName 公司名称

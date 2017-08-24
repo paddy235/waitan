@@ -174,7 +174,7 @@ public class OfflineFinanceController {
 	@ResponseBody
 	public ResponseBean exportRelatedData(@RequestParam String companyName, HttpServletRequest request) {
 		try {
-			RelationDiagramVO result = offlineFinanceService.queryRealRealation(companyName, 3);
+			RelationDiagramVO result = offlineFinanceService.downloadRealRealation(companyName, 3);
 			List<RelationDiagramVO.LineVO> lineList = result.getLineList();
 			if (CollectionUtils.isEmpty(lineList)) {
 				return ResponseBean.errorResponse(companyName + "：没有关联方数据！");
