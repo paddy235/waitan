@@ -18,11 +18,14 @@ public interface IndustryShanghaiMapper {
 
      void deleteByDate(@Param("date") String date);
 
-     /*@Select("SELECT * FROM (SELECT * FROM area_index ORDER BY create_date DESC LIMIT 99999999999999) T" +
-             " GROUP BY T.area ORDER BY T.rank")
+     @Select("SELECT * FROM industry_shanghai ORDER BY create_date DESC LIMIT 6")
      @Results({
-             @Result(column = "competitiveness", property = "competitiveness"),
-             @Result(column = "area", property = "area")
+             @Result(column = "total_plat_num", property = "total_plat_num"),
+             @Result(column = "new_plat_num", property = "new_plat_num"),
+             @Result(column = "interest_rate", property = "interest_rate"),
+             @Result(column = "borrowed_num", property = "borrowed_num"),
+             @Result(column = "invest_num", property = "invest_num"),
+             @Result(column = "area_num", property = "areaNumJs")
      })
-     List<IndustryShanghaiDTO> getIndustryShanghaiFromDb();*/
+     List<IndustryShanghaiDTO> getIndustryShanghaiFromDb();
 }

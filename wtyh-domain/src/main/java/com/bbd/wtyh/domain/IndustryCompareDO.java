@@ -1,10 +1,15 @@
 package com.bbd.wtyh.domain;
 
+import javax.persistence.Column;
+import javax.persistence.Table;
+
 /**
  * Created by lixudong on 2017/7/11.
  */
+@Table(name = "industry_compare")
 public class IndustryCompareDO extends BaseDO{
 
+    @Column(name = "date")
     private String date;
     private String area;
     private double amount;//成交量

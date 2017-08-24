@@ -336,7 +336,7 @@ public class P2PImageServiceImpl extends BaseServiceImpl implements P2PImageServ
         TaskResultDO taskResultDO = new TaskResultDO();
         List<PlatListDO> platList = new ArrayList<>();
         try {
-            platList = p2PImageDao.baseInfoWangDaiApi();
+            platList = p2PImageDao.baseInfoWangDaiApiFromNet();
             if (platList == null) {
                 throw new Exception("dataType=plat_list 调用异常");
             }
@@ -400,7 +400,7 @@ public class P2PImageServiceImpl extends BaseServiceImpl implements P2PImageServ
         List<String> platNameList = list.stream().filter(n -> n != null).map(n -> n.getFailName()).collect(Collectors.toList());
         List<PlatListDO> platList = new ArrayList<>();
         try {
-            platList = p2PImageDao.baseInfoWangDaiApi();
+            platList = p2PImageDao.baseInfoWangDaiApiFromNet();
             platList = platList.stream().filter(n -> platNameList.contains(n.getPlat_name())).collect(Collectors.toList());
             if (platList == null) {
                 throw new Exception("dataType=plat_list 调用异常");

@@ -2,9 +2,13 @@ package com.bbd.wtyh.domain;
 
 import com.bbd.wtyh.domain.BaseDO;
 
+import javax.persistence.Column;
+import javax.persistence.Table;
+
 /**
  * Created by lixudong on 2017/7/11.
  */
+@Table(name = "industry_shanghai")
 public class IndustryShanghaiDO extends BaseDO{
 
     private int newPlatNum;
@@ -21,6 +25,7 @@ public class IndustryShanghaiDO extends BaseDO{
 
     private String areaNum;
 
+    @Column(name = "date")
     private String date;
 
     public int getNewPlatNum() {

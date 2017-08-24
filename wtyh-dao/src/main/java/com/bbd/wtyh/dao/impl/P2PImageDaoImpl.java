@@ -189,6 +189,11 @@ public class P2PImageDaoImpl implements P2PImageDao {
         if ( ! CollectionUtils.isEmpty(platList) ) {
             return platList;
         }
+        return baseInfoWangDaiApiFromNet();
+    }
+
+    @Override
+    public List<PlatListDO> baseInfoWangDaiApiFromNet() {
         String platFormName = url + "?dataType=plat_list";
         HttpTemplate httpTemplate = new HttpTemplate();
         try {

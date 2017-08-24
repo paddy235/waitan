@@ -8,7 +8,6 @@ import com.bbd.wtyh.core.base.BaseService;
 import com.bbd.wtyh.domain.*;
 import com.bbd.wtyh.domain.CompanyInfoModify.WangdaiModify;
 import com.bbd.wtyh.domain.dto.*;
-import com.bbd.wtyh.domain.wangDaiAPI.PlatListDO;
 import com.bbd.wtyh.mapper.*;
 import com.bbd.wtyh.service.CompanyService;
 import com.bbd.wtyh.service.OfflineFinanceService;
@@ -117,16 +116,20 @@ public class PToPMonitorServiceImpl implements PToPMonitorService, TaskService {
 
     @Override
     public List<IndustryCompareDTO> getCompareData() throws Exception {
-
+        List<IndustryCompareDTO> aInxList =industryCompareMapper.getIndustryCompareFromDb();
+        if ( ! CollectionUtils.isEmpty(aInxList) ) {
+            return aInxList;
+        }
+        return getCompareDataFromNet();
+    }
+    public List<IndustryCompareDTO> getCompareDataFromNet() throws Exception {
         String url = this.finSerUrl + "?dataType=industry_compare";
         HttpTemplate httpTemplate = new HttpTemplate();
         return httpTemplate.get(url, new HttpCallback<List<IndustryCompareDTO>>() {
-
             @Override
             public boolean valid() {
                 return true;
             }
-
             @Override
             public List<IndustryCompareDTO> parse(String result) {
                 return JSON.parseArray(result, IndustryCompareDTO.class);
@@ -140,6 +143,10 @@ public class PToPMonitorServiceImpl implements PToPMonitorService, TaskService {
         if ( ! CollectionUtils.isEmpty(aInxList) ) {
             return aInxList;
         }
+        return getAreaIndexFromNet();
+    }
+
+    public List<AreaIndexDTO> getAreaIndexFromNet() throws Exception {
         String url = this.finSerUrl + "?dataType=area_index";
         HttpTemplate httpTemplate = new HttpTemplate();
         return httpTemplate.get(url, new HttpCallback<List<AreaIndexDTO>>() {
@@ -154,8 +161,8 @@ public class PToPMonitorServiceImpl implements PToPMonitorService, TaskService {
                 return JSON.parseArray(result, AreaIndexDTO.class);
             }
         });
-
     }
+
 
     @Override
     public List<PlatRankDataDTO> getPlatRankDataFromDb() {
@@ -170,6 +177,10 @@ public class PToPMonitorServiceImpl implements PToPMonitorService, TaskService {
             return list;
         }
         //没有的话再直接去线上拿
+        return getPlatRankDataFromNet();
+    }
+
+    public List<PlatRankDataDTO> getPlatRankDataFromNet() throws Exception {
         String url = this.finSerUrl + "?dataType=plat_rank_data";
         HttpTemplate httpTemplate = new HttpTemplate();
         return httpTemplate.get(url, new HttpCallback<List<PlatRankDataDTO>>() {
@@ -185,7 +196,6 @@ public class PToPMonitorServiceImpl implements PToPMonitorService, TaskService {
                 return JSON.parseArray(result, PlatRankDataDTO.class);
             }
         });
-
     }
 
     @Override
@@ -238,11 +248,12 @@ public class PToPMonitorServiceImpl implements PToPMonitorService, TaskService {
 
     @Override
     public List<IndustryShanghaiDTO> getData() throws Exception {
-        /*//先从本地库取
+        //先从本地库取
         List<IndustryShanghaiDTO> list =industryShanghaiMapper.getIndustryShanghaiFromDb();
         if ( ! CollectionUtils.isEmpty(list) ) {
             return list;
-        }*/
+        }
+        //没取到，再从线上取
         return getDataFromNet();
     }
 
@@ -276,6 +287,15 @@ public class PToPMonitorServiceImpl implements PToPMonitorService, TaskService {
 
     @Override
     public List<IndustryProblemDTO> getProblemData() throws Exception {
+        //先从本地库取
+        List<IndustryProblemDTO> list =industryProblemMapper.getIndustryProblemFromDb();
+        if ( ! CollectionUtils.isEmpty(list) ) {
+            return list;
+        }
+        //没取到，再从线上取
+        return getProblemDataFromNet();
+    }
+    public List<IndustryProblemDTO> getProblemDataFromNet() throws Exception {
 
         String url = this.finSerUrl + "?dataType=industry_problem";
         HttpTemplate httpTemplate = new HttpTemplate();
@@ -291,7 +311,6 @@ public class PToPMonitorServiceImpl implements PToPMonitorService, TaskService {
                 return JSON.parseArray(result, IndustryProblemDTO.class);
             }
         });
-
     }
 
     @Override
@@ -525,6 +544,10 @@ public class PToPMonitorServiceImpl implements PToPMonitorService, TaskService {
             if (isShutdown) {
                 break;
             }
+            IndustryShanghaiDO exist =baseService.selectOne( IndustryShanghaiDO.class, "`date` = '" +dto.getDate() +"'" );
+            if ( null !=exist ) {
+                continue; //若有存在，则不再插入
+            }
             IndustryShanghaiDO industryShanghaiDO = new IndustryShanghaiDO();
             industryShanghaiDO.setNewPlatNum(dto.getNew_plat_num());
             industryShanghaiDO.setInterestRate(dto.getInterest_rate());
@@ -537,8 +560,11 @@ public class PToPMonitorServiceImpl implements PToPMonitorService, TaskService {
             industryShanghaiDO.setCreateBy("system");
             industryShanghaiDO.setCreateDate(new Date());
             // industryShanghaiMapper.deleteByDate(dto.getDate());
-
-            industryShanghaiMapper.save(industryShanghaiDO);
+            try {
+                industryShanghaiMapper.save(industryShanghaiDO);
+            } catch (Exception e) {
+                throw new SQLException();
+            }
         }
         logger.info("end update industry_shanghai date task");
     }
@@ -548,10 +574,15 @@ public class PToPMonitorServiceImpl implements PToPMonitorService, TaskService {
             return;
         }
         logger.info("start update industry_compare date task");
-        List<IndustryCompareDTO> dtoList = getCompareData();
+        List<IndustryCompareDTO> dtoList = getCompareDataFromNet();
         for (IndustryCompareDTO dto : dtoList) {
             if (isShutdown) {
                 break;
+            }
+            IndustryCompareDO exist =baseService.selectOne( IndustryCompareDO.class, "`date` = '" +dto.getDate()
+                    +"' AND `area` = '" +dto.getArea() +"'" );
+            if ( null !=exist ) {
+                continue; //若有存在，则不再插入
             }
             IndustryCompareDO industryCompareDO = new IndustryCompareDO();
             industryCompareDO.setDate(dto.getDate());
@@ -576,7 +607,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService, TaskService {
             return;
         }
         logger.info("start update plat_rank_data date task");
-        List<PlatRankDataDTO> dtoList = getPlatRankData();
+        List<PlatRankDataDTO> dtoList = getPlatRankDataFromNet();
         for (PlatRankDataDTO dto : dtoList) {
             if (isShutdown) {
                 break;
@@ -614,7 +645,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService, TaskService {
             return;
         }
         logger.info("start update area_index date task");
-        List<AreaIndexDTO> dtoList = getAreaIndex();
+        List<AreaIndexDTO> dtoList = getAreaIndexFromNet();
         for (AreaIndexDTO dto : dtoList) {
             if (isShutdown) {
                 break;
@@ -645,10 +676,15 @@ public class PToPMonitorServiceImpl implements PToPMonitorService, TaskService {
             return;
         }
         logger.info("start update industry_problem date task");
-        List<IndustryProblemDTO> dtoList = getProblemData();
+        List<IndustryProblemDTO> dtoList = getProblemDataFromNet();
         for (IndustryProblemDTO dto : dtoList) {
             if (isShutdown) {
                 break;
+            }
+            IndustryProblemDO exist =baseService.selectOne( IndustryProblemDO.class, "`date` = '" +dto.getDate()
+                +"' AND `area` = '" +dto.getArea() +"'" );
+            if ( null !=exist ) {
+                continue; //若有存在，则不再插入
             }
             IndustryProblemDO industryProblemDO = new IndustryProblemDO();
             industryProblemDO.setDate(dto.getDate());

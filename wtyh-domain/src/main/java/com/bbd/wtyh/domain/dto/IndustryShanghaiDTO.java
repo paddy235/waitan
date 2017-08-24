@@ -5,6 +5,9 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 /**
 * 上海网贷行业整体数据
 * @author Ian.Su
@@ -46,6 +49,8 @@ public class IndustryShanghaiDTO implements Serializable {
      * 上海P2P月投资人数
      * */
     private Map<String, Integer> area_num;
+    private String areaNumJs;
+
 
     private String              year;
 
@@ -59,6 +64,16 @@ public class IndustryShanghaiDTO implements Serializable {
 
     public void setArea_num(Map<String, Integer> area_num) {
         this.area_num = area_num;
+    }
+
+    public String getAreaNumJs() {
+        return areaNumJs;
+    }
+
+    public void setAreaNumJs(String areaNumJs) {
+        this.areaNumJs = areaNumJs;
+        Gson gson =new Gson();
+        this.area_num =gson.fromJson( areaNumJs, (new TypeToken<Map<String, Integer>>() { }).getType() );
     }
 
     public String getYear() {

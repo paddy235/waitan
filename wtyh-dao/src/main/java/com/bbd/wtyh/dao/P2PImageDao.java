@@ -28,6 +28,7 @@ public interface P2PImageDao {
     Map<String, Object> radarScore(String plat_name);
 
     List<PlatListDO> baseInfoWangDaiApi();
+    List<PlatListDO> baseInfoWangDaiApiFromNet();
 
     BaseDataDO baseInfoBBDData(String companyName);
 
