@@ -1,27 +1,22 @@
 package com.bbd.wtyh.service.impl;
 
 import com.bbd.higgs.utils.http.HttpTemplate;
+import com.bbd.wtyh.domain.dataLoading.QyxgYuqingDO;
 import com.bbd.wtyh.domain.vo.NewsVO;
-import com.bbd.wtyh.mapper.CompanyMapper;
-import com.bbd.wtyh.redis.RedisDAO;
+import com.bbd.wtyh.mapper.YuQingMapper;
 import com.bbd.wtyh.service.CompanyNewsService;
-import com.bbd.wtyh.service.DataomApiBbdservice;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import net.sf.cglib.beans.BeanCopier;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author tracy zhou
@@ -32,10 +27,6 @@ public class CompanyNewsServiceImpl implements CompanyNewsService {
 
     private Logger logger = LoggerFactory.getLogger(getClass());
 
-    @Autowired
-    private RedisDAO redisDAO;
-    @Autowired
-    private CompanyMapper companyMapper;
 
     @Value("${api.baidu.batch.news.ak}")
     private String ak;
@@ -56,19 +47,57 @@ public class CompanyNewsServiceImpl implements CompanyNewsService {
     @Value("${api.yuqing.url}")
     private String apiYuqingUrl;
 
-
     @Autowired
-    private DataomApiBbdservice dataomApiBbdservice;
+    private YuQingMapper yuQingMapper;
 
+
+    public NewsVO getNewsFromDb(String types,Integer len ){
+        NewsVO vo = null;
+        List<QyxgYuqingDO> yuqingDOList;
+        try{
+            String[] typesArr = new String[0];
+            if(types!=null){
+                typesArr=types.split(",");
+            }
+            yuqingDOList=yuQingMapper.getYuQingFromDbByType(Arrays.asList(typesArr),len);
+            if(!CollectionUtils.isEmpty(yuqingDOList)){
+                vo = new NewsVO();
+                vo.setMsg("ok");
+                vo.setTotal(yuqingDOList.size());
+                vo.setRsize(vo.getTotal());
+                List<NewsVO.Result> results=new ArrayList<>();
+                BeanCopier beanCopier = BeanCopier.create(QyxgYuqingDO.class, NewsVO.Result.class, false);
+
+                for(QyxgYuqingDO yuqingDO:yuqingDOList){
+                    NewsVO.Result r= new NewsVO.Result();
+                    beanCopier.copy(yuqingDO,r,null);
+                    results.add(r);
+                }
+                vo.setResults(results);
+            }
+        }catch(Exception e){
+            logger.error("getNewsFromDb : "+e);
+            vo=null;
+        }
+        return  vo;
+    }
 
     public NewsVO mutilTypeNews(String types,Integer size){
+        int len=size + 30;
         long start = System.currentTimeMillis();
-        String url = String.format(apiYuqingUrl,types,size + 30);
-
+        String url = String.format(apiYuqingUrl,types,len);
+        NewsVO vo ;
         try {
-            String result = new HttpTemplate().get(url);
-            Gson gson = new Gson();
-            NewsVO vo = gson.fromJson(result,new TypeToken<NewsVO>(){}.getType());
+            //先从数据库取舆情
+            vo = getNewsFromDb( types, size );
+            if(null == vo){
+            //数据库没有，从接口取舆情
+                String result = new HttpTemplate().get(url);
+                Gson gson = new Gson();
+                vo = gson.fromJson(result,new TypeToken<NewsVO>(){}.getType());
+
+            }
+
             logger.info("舆情请求耗时：{}ms,url地址为：{}",System.currentTimeMillis()-start,url);
 
             if(vo!=null && vo.getResults()!=null){

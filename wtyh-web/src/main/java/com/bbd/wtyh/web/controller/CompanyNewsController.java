@@ -26,9 +26,9 @@ public class CompanyNewsController {
 	@ResponseBody
 	public ResponseBean getCompanyNews() {
 
-		NewsVO vo = companyNewsService.mutilTypeNews("qxyg_weiyangwang," +
-				                                     "qxyg_shanghai_finance," +
-				                                     "qxyg_chinesefinance," +
+		NewsVO vo = companyNewsService.mutilTypeNews("qyxg_weiyangwang," +
+				                                     "qyxg_shanghai_finance," +
+				                                     "qyxg_chinesefinance," +
 				                                     "qyxg_financial_times," +
 				                                     "qyxg_sinafinance," +
 				                                     "qyxg_national_economy",20);

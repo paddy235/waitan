@@ -2,7 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bbd.wtyh.mapper.YuQingMapper">
-
+	<resultMap id="BaseResultMap" type="com.bbd.wtyh.domain.dataLoading.QyxgYuqingDO">
+		<result column="bbd_dotime" jdbcType="DATE" property="bbd_dotime" />
+		<result column="bbd_source" jdbcType="VARCHAR" property="bbd_source" />
+		<result column="bbd_type" jdbcType="VARCHAR" property="bbd_type" />
+		<result column="bbd_uptime" jdbcType="VARCHAR" property="bbd_uptime" />
+		<result column="bbd_url" jdbcType="VARCHAR" property="bbd_url" />
+		<result column="bbd_xgxx_id" jdbcType="VARCHAR" property="bbd_xgxx_id" />
+		<result column="comment_num" jdbcType="VARCHAR" property="comment_num" />
+		<result column="news_site" jdbcType="VARCHAR" property="news_site" />
+		<result column="news_title" jdbcType="VARCHAR" property="news_title" />
+		<result column="search_key" jdbcType="VARCHAR" property="search_key" />
+		<result column="table_name" jdbcType="VARCHAR" property="table_name" />
+		<result column="transfer_num" jdbcType="VARCHAR" property="transfer_num" />
+	</resultMap>
 	<insert id="save" parameterType="com.bbd.wtyh.domain.wangDaiAPI.YuQingDO">
 		INSERT INTO `yuqing` (`plat_name`, `score`, `warning`, `create_by`, `create_date`, `update_by`, `update_date`)
 		VALUES (#{platName}, #{score}, #{warning}, #{createBy}, #{createDate}, #{updateBy}, #{updateDate});
@@ -11,6 +24,38 @@
 	<delete id="deleteByPlatName" parameterType="java.lang.String">
 		DELETE FROM yuqing WHERE `plat_name`=#{platName}
 	</delete>
+
+	<select id="getYuQingFromDbByType"  resultMap="BaseResultMap">
+		SELECT
+		  `abstract` ,
+		  `author` ,
+		  `bbd_dotime`,
+		  `bbd_source` ,
+		  `bbd_type` ,
+		  `bbd_uptime` ,
+		  `bbd_url` ,
+		  `bbd_xgxx_id` ,
+		  `comment_num` ,
+		  `main` ,
+		  `news_site` ,
+		  `news_title` ,
+		  `plate` ,
+		  `pubdate` ,
+		  `rowkey` ,
+		  `search_key` ,
+		  `status` ,
+		  `table_name` ,
+		  `transfer_num`
+		FROM qyxg_yuqing
+		WHERE
+		bbd_type IN
+		<foreach item="item" index="index" collection="types" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+		ORDER BY pubdate DESC
+		LIMIT #{len}
+
+	</select>
 
 
 </mapper>
