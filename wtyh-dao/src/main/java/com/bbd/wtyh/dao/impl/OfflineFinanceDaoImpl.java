@@ -80,7 +80,7 @@ public class OfflineFinanceDaoImpl implements OfflineFinanceDao {
 
     @Override
     public RelationDiagramVO queryRealationFromDb(String companyName, Integer degree){
-        RelationDiagramVO diagramVO= new RelationDiagramVO();
+        RelationDiagramVO diagramVO ;
         try {
             List  lineVOList = offlineFinanceMapper.queryLineByName(companyName,degree);
             if(CollectionUtils.isEmpty(lineVOList)){
@@ -90,6 +90,7 @@ public class OfflineFinanceDaoImpl implements OfflineFinanceDao {
             if(CollectionUtils.isEmpty(pointVOList)){
                 return null;
             }
+            diagramVO= new RelationDiagramVO();
             diagramVO.setLineList(lineVOList);
             diagramVO.setPointList(pointVOList);
         } catch (Exception e) {
