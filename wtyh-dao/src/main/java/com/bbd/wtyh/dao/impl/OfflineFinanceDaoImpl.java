@@ -80,15 +80,23 @@ public class OfflineFinanceDaoImpl implements OfflineFinanceDao {
 
     @Override
     public RelationDiagramVO queryRealationFromDb(String companyName, Integer degree){
-        RelationDiagramVO diagramVO= new RelationDiagramVO();
+        RelationDiagramVO diagramVO ;
         try {
-            List  lineVOList = offlineFinanceMapper.queryLineByName(companyName,degree);
+            //注意，这里返回的是relationVO.LineVO  和  relationVO.PointVO，装入到 RelationDiagramVO
+            //其他地方需要使用的时候，需要重新装换。
             List  pointVOList = offlineFinanceMapper.queryPointByName(companyName,degree);
-            if(CollectionUtils.isEmpty(lineVOList) || CollectionUtils.isEmpty(pointVOList)){
+            if(CollectionUtils.isEmpty(pointVOList)){
                 return null;
             }
-            diagramVO.setLineList(lineVOList);
+
+            List lineVOList = offlineFinanceMapper.queryLineByName(companyName,degree);
+            if(CollectionUtils.isEmpty(lineVOList)){
+                return null;
+            }
+            diagramVO= new RelationDiagramVO();
             diagramVO.setPointList(pointVOList);
+            diagramVO.setLineList(lineVOList);
+
         } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
             return null;
