@@ -68,6 +68,9 @@ public class PlatRankDataDO extends BaseDO {
 		final String RANK_C = "重点关注";
 		final String RANK_D = "问题及停业平台";
 
+		if ( null ==this.platStatus ) {
+			return "\\";
+		}
 		switch (this.platStatus) {
 		case RANK_A:
 			return "A";
