@@ -11,6 +11,7 @@ import java.util.Set;
 
 import com.bbd.wtyh.domain.wangDaiAPI.*;
 import com.bbd.wtyh.mapper.PlatRankDataMapper;
+import com.bbd.wtyh.mapper.PlatformMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
@@ -178,14 +179,14 @@ public class P2PImageDaoImpl implements P2PImageDao {
 
 
     @Autowired
-    private PlatRankDataMapper platRankDataMapper;
+    private PlatformMapper platformMapper;
 
     /**
      * 基本信息--网贷接口数据
      */
     @Override
     public List<PlatListDO> baseInfoWangDaiApi() {
-        List<PlatListDO> platList =platRankDataMapper.getPlatListFromDb();
+        List<PlatListDO> platList =platformMapper.getPlatListFromDb();
         if ( ! CollectionUtils.isEmpty(platList) ) {
             return platList;
         }

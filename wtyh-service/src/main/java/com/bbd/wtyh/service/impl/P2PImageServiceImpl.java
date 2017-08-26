@@ -99,7 +99,8 @@ public class P2PImageServiceImpl extends BaseServiceImpl implements P2PImageServ
 
     @Override
     public PlatListDO findFromWangdaiPlatList(String platName) {
-        return getWangdaiPlatList().get(platName);
+        return platformMapper.queryPlatByPlatName(platName);
+        //return getWangdaiPlatList().get(platName);
     }
 
     @Override

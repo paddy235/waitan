@@ -35,13 +35,4 @@ public interface PlatRankDataMapper {
     })
     List<PlatRankDataDTO> getPlatRankData();
 
-    @Select("SELECT * FROM (SELECT * FROM plat_list ORDER BY create_date DESC LIMIT 99999999999999) T" +
-            " GROUP BY T.plat_name")
-    @Results({
-            @Result(column = "plat_name", property = "plat_name"),
-            @Result(column = "company_name", property = "company_name"),
-            @Result(column = "logo_url", property = "logo_url"),
-            @Result(column = "area_id", property = "area_id")
-    })
-    List<PlatListDO> getPlatListFromDb();
 }
