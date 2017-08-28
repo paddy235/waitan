@@ -17,6 +17,7 @@ import com.bbd.wtyh.service.TaskService;
 import com.bbd.wtyh.web.EasyExportExcel.ExportCondition;
 import com.bbd.wtyh.web.PageBean;
 import com.google.gson.JsonSyntaxException;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -111,7 +112,30 @@ public class P2PImageServiceImpl extends BaseServiceImpl implements P2PImageServ
 
     @Override
     public YuQingDTO platformConsensus(String platName) {
-        return p2PImageDao.platformConsensus(platName);
+
+        List<YuQingWarningDO> list = this.selectAll(YuQingWarningDO.class, "plat_name = ?", platName);
+
+        if (CollectionUtils.isEmpty(list)) {
+            return null;
+        }
+
+        YuQingDTO yuQingDTO = new YuQingDTO();
+
+        List<YuQingDTO.Warning> warningList = new ArrayList<>(list.size());
+
+        list.forEach(yuQingWarningDO -> {
+            yuQingDTO.setPlat_name(yuQingWarningDO.getPlatName());
+            yuQingDTO.setScore(yuQingWarningDO.getScore());
+
+            YuQingDTO.Warning warning = new YuQingDTO.Warning();
+            warning.setTitle(yuQingWarningDO.getTitle());
+            warning.setContent(yuQingWarningDO.getContent());
+            warning.setSource(yuQingWarningDO.getSource());
+            warning.setDate(yuQingWarningDO.getDate());
+            warningList.add(warning);
+        });
+        yuQingDTO.setWarning(warningList);
+        return yuQingDTO;
     }
 
     @Override
@@ -457,7 +481,7 @@ public class P2PImageServiceImpl extends BaseServiceImpl implements P2PImageServ
             return;
         }
         try {
-            YuQingDTO yuQingDTO = this.platformConsensus(platName);
+            YuQingDTO yuQingDTO = p2PImageDao.platformConsensus(platName);
             if (yuQingDTO != null) {
                 yuQingWarningMapper.delByPlatName(yuQingDTO.getPlat_name());
                 for (YuQingDTO.Warning warning : yuQingDTO.getWarning()) {

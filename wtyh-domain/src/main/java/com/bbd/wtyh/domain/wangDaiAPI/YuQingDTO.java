@@ -7,7 +7,7 @@ public class YuQingDTO {
     private String score;
     private List<Warning> warning;
 
-    public class Warning {
+    public static class Warning {
         private String title;
         private String content;
         private String source;

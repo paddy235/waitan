@@ -1,21 +1,22 @@
 package com.bbd.wtyh.domain.bbdAPI;
 
 import com.google.gson.annotations.SerializedName;
-import org.springframework.util.StringUtils;
 
 import java.util.List;
 
 /**
+ * 
  * Created by YanWenyuan on 2016/8/13.
  */
 public class BaiDuYuQingDO {
+
     // TODO
     private String msg;
     private Integer rsize;
     private String total;
     private List<Results> results;
 
-    public class  Results {
+    public static class Results {
 
         private String news_title;
         private String news_site;
@@ -25,7 +26,6 @@ public class BaiDuYuQingDO {
         private String main;
         private String bbd_url;
         private String bbd_type;
-
 
         public String getBbd_url() {
             return bbd_url;
@@ -42,8 +42,6 @@ public class BaiDuYuQingDO {
         public void setBbd_type(String bbd_type) {
             this.bbd_type = bbd_type;
         }
-
-
 
         public String getNews_title() {
             return news_title;
