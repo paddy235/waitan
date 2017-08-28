@@ -115,8 +115,9 @@ public class P2PImageServiceImpl extends BaseServiceImpl implements P2PImageServ
 
         List<YuQingWarningDO> list = this.selectAll(YuQingWarningDO.class, "plat_name = ?", platName);
 
+        // 本地没有数据则走接口获取
         if (CollectionUtils.isEmpty(list)) {
-            return null;
+            return p2PImageDao.platformConsensus(platName);
         }
 
         YuQingDTO yuQingDTO = new YuQingDTO();
