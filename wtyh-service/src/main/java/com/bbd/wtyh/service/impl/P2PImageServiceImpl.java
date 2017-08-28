@@ -158,7 +158,7 @@ public class P2PImageServiceImpl extends BaseServiceImpl implements P2PImageServ
 
         RadarScoreDO scoreDO = this.selectOne(RadarScoreDO.class, "plat_name = ? ORDER BY create_date DESC LIMIT 1", platName);
         if (scoreDO == null) {
-            return null;
+            return p2PImageDao.radarScore(platName);
         }
         Map<String, Object> source = new LinkedHashMap<>();
         source.put("运营能力", scoreDO.getOperation());
@@ -188,9 +188,6 @@ public class P2PImageServiceImpl extends BaseServiceImpl implements P2PImageServ
         result.put("indicator", indicator);
         result.put("series", series);
         result.put("code", "1");
-        if (result.size() == 0) {
-            return null;
-        }
         return result;
     }
 
