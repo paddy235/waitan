@@ -115,8 +115,9 @@ public class P2PImageServiceImpl extends BaseServiceImpl implements P2PImageServ
 
         List<YuQingWarningDO> list = this.selectAll(YuQingWarningDO.class, "plat_name = ?", platName);
 
+        // 本地没有数据则走接口获取
         if (CollectionUtils.isEmpty(list)) {
-            return null;
+            return p2PImageDao.platformConsensus(platName);
         }
 
         YuQingDTO yuQingDTO = new YuQingDTO();
@@ -157,7 +158,7 @@ public class P2PImageServiceImpl extends BaseServiceImpl implements P2PImageServ
 
         RadarScoreDO scoreDO = this.selectOne(RadarScoreDO.class, "plat_name = ? ORDER BY create_date DESC LIMIT 1", platName);
         if (scoreDO == null) {
-            return null;
+            return p2PImageDao.radarScore(platName);
         }
         Map<String, Object> source = new LinkedHashMap<>();
         source.put("运营能力", scoreDO.getOperation());
@@ -187,9 +188,6 @@ public class P2PImageServiceImpl extends BaseServiceImpl implements P2PImageServ
         result.put("indicator", indicator);
         result.put("series", series);
         result.put("code", "1");
-        if (result.size() == 0) {
-            return null;
-        }
         return result;
     }
 
@@ -246,7 +244,7 @@ public class P2PImageServiceImpl extends BaseServiceImpl implements P2PImageServ
     public Map<String, Object> coreDataInfo(String platName) {
         PlatCoreDataDO platCoreDataDO = this.getPlatCoreData(platName);
         if (platCoreDataDO == null) {
-            return null;
+            return p2PImageDao.coreDataInfo(platName);
         }
 
         Map<String, Object> data = new LinkedHashMap<>();
