@@ -107,8 +107,8 @@ public class P2PImageServiceImpl extends BaseServiceImpl implements P2PImageServ
     public Map<String, PlatListDO> getWangdaiPlatList() {
         Map<String, PlatListDO> wangdaiPlatList = new HashMap<>();
         for (PlatListDO platListDO : p2PImageDao.baseInfoWangDaiApi()) {
-            String name=platListDO.getCompany_name();
-            if(null == name){
+            String name = platListDO.getCompany_name();
+            if (null == name) {
                 continue;
             }
             platListDO.setCompany_name(name.trim());
@@ -195,12 +195,16 @@ public class P2PImageServiceImpl extends BaseServiceImpl implements P2PImageServ
 
     @Override
     public Map<String, Object> baseInfo(String platName) {
+        // 所有平台列表 plantName --> PlatListDO
         Map<String, PlatListDO> wangdaiList = getWangdaiPlatList();
+        // 公司名称
         String companyName = findCompanyNameFromDbThenAPI(platName, wangdaiList);
+        // 基本信息，来自全息数据？
         BaseDataDO baseDataDO = p2PImageDao.baseInfoBBDData(companyName);
         if (null == baseDataDO) {
             return null;
         }
+        // 组织机构数据
         ZuZhiJiGoudmDO zuZhiJiGoudmDO = p2PImageDao.baseInfoZuZhiJiGou(companyName);
         if (null == zuZhiJiGoudmDO) {
             return null;
@@ -224,10 +228,23 @@ public class P2PImageServiceImpl extends BaseServiceImpl implements P2PImageServ
 
     @Override
     public Map<String, Object> coreDataInfo(String platName) {
-        Map<String, Object> data = p2PImageDao.coreDataInfo(platName);
-        if (null == data || data.size() == 0) {
+        if (StringUtils.isBlank(platName)) {
             return null;
         }
+        PlatCoreDataDO platCoreDataDO = selectOne(PlatCoreDataDO.class, "plat_name = ? ORDER BY create_date DESC LIMIT 1", platName);
+        if (platCoreDataDO == null) {
+            return null;
+        }
+
+        Map<String, Object> data = new LinkedHashMap<>();
+        data.put("amount_total", platCoreDataDO.getAmountTotal());
+        data.put("money_stock", platCoreDataDO.getMoneyStock());
+        data.put("interest_rate", platCoreDataDO.getInterestRate());
+        data.put("month_net_inflow", platCoreDataDO.getDay30NetInflow());
+        data.put("bid_num_stay_stil", platCoreDataDO.getBidNumStayStil());
+        data.put("bor_num_stay_stil", platCoreDataDO.getBorNumStayStil());
+        data.put("top1_sum_amount", platCoreDataDO.getTop1SumAmount());
+        data.put("top10_sum_amount", platCoreDataDO.getTop10SumAmount());
         return data;
     }
 
