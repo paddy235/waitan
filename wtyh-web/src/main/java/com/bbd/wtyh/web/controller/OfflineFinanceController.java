@@ -137,23 +137,6 @@ public class OfflineFinanceController {
 		try {
 			RelationDiagramVO result = offlineFinanceService.queryRealRealation(companyName, degreesLevel);
 
-			// test-start
-			/*
-			 * DrawRelated dr =new DrawRelated();
-			 * dr.drawRelated(dr.relationDiagramVoToNodeList(result),
-			 * dr.relationDiagramVoToLineList(result));
-			 * dr.saveFile("C:\\Users\\Administrator\\Desktop\\img_"
-			 * +companyName +degreesLevel +".png");
-			 */
-			/*
-			 * DrawRelatedG2 dr2 =new
-			 * DrawRelatedG2(DrawRelatedG2.DegreeType.findDegreeTypeByVal(
-			 * degreesLevel)); dr2.drawRelatedG2(result);
-			 * dr2.saveFile("C:\\Users\\Administrator\\Desktop\\img_"
-			 * +companyName +degreesLevel +".png");
-			 */
-			// test-end
-
 			return ResponseBean.successResponse(result);
 		} catch (Exception e) {
 			logger.error("RelationController->queryDynamicPicDataTwo", e);

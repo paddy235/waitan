@@ -638,6 +638,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService,TaskServ
         //先从数据库取关联方
         RelationDiagramVO diagramVO = offlineFinanceDao.queryRealationFromDb(companyName,degree);
         if(null != diagramVO){
+            diagramVO.setSource("local");
             return diagramVO;
         }
         RelationDiagramVO relationDiagramVO = new RelationDiagramVO();
@@ -667,6 +668,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService,TaskServ
         relationDiagramVO.setLineList(getLineList((Map<String, NodeVO>) map.get("pointDegree"), lineVOs));
         // 处理点集合
         relationDiagramVO.setPointList((List<RelationDiagramVO.PointVO>) map.get("pointList"));
+        relationDiagramVO.setSource("service");
         return relationDiagramVO;
     }
 

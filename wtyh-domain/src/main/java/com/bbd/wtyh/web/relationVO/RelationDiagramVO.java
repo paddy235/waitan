@@ -15,9 +15,17 @@ import java.util.List;
  */
 public class RelationDiagramVO {
 
+	private String source;
 	private List<PointVO> pointList = Collections.emptyList();
 	private List<LineVO> lineList = Collections.emptyList();
 
+	public String getSource() {
+		return source;
+	}
+
+	public void setSource(String source) {
+		this.source = source;
+	}
 	public List<PointVO> getPointList() {
 		return pointList;
 	}
