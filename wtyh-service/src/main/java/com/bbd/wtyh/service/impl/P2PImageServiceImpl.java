@@ -247,7 +247,7 @@ public class P2PImageServiceImpl extends BaseServiceImpl implements P2PImageServ
     public Map<String, Object> coreDataInfo(String platName) {
         PlatCoreDataDO platCoreDataDO = this.getPlatCoreData(platName);
         if (platCoreDataDO == null) {
-            return null;
+            return p2PImageDao.coreDataInfo(platName);
         }
 
         Map<String, Object> data = new LinkedHashMap<>();
