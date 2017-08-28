@@ -1,35 +1,66 @@
 package com.bbd.wtyh.domain.dataLoading;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Date;
 
 /**
+ *
  * Created by wangchenge on 2016/8/21 0021.
  */
+@Table(name = "qyxg_yuqing")
 public class QyxgYuqingDO {
+
+    @Id
+    @Column(name = "yuqing_id")
     private Integer id;
-    private String _id;//唯一id
+
+    @Column(name = "abstract")
     private String articleAbstract;//文章摘要
+    @Column
     private String author;//作者名称
+    @Column
     private Date bbd_dotime;//日期
+    @Column
     private String bbd_source;//数据源
+    @Column
     private String bbd_type;//表类型
+    @Column
     private Integer bbd_uptime;//时间戳
+    @Column
     private String bbd_url;//网页链接
+    @Column
     private String bbd_xgxx_id;//相关信息唯一ID
+    @Column
     private Integer comment_num;//评论数
+    @Column
     private String main;//原文
+    @Column
     private String news_site;//网站
+    @Column
     private String news_title;//标题
+    @Column
     private String picture;//正文图片
+    @Column
     private String plate;//所属网站板块
+    @Column
     private Date pubdate;//发布时间
+    @Column
     private String rowkey;//rowkey
+    @Column
     private String search_key;//搜索关键字
+    @Column
     private Integer status;//status
+    @Column
     private String table_name;//table_name
+    @Column
     private Integer transfer_num;//转发量
+    @Column
     private Date create_time;
+    @Column
     private String bbd_qyxx_id;//企业唯一ID
+    @Column
     private Integer task_id;
 
     public QyxgYuqingDO() {
@@ -41,14 +72,6 @@ public class QyxgYuqingDO {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String get_id() {
-        return _id;
-    }
-
-    public void set_id(String _id) {
-        this._id = _id;
     }
 
     public String getArticleAbstract() {
