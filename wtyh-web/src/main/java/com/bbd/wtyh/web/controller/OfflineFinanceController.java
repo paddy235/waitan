@@ -109,17 +109,8 @@ public class OfflineFinanceController {
 			if (StringUtils.isEmpty(companyName)) {
 				return ResponseBean.errorResponse("companyName参数为空");
 			}
-
-			if (StringUtils.isEmpty(dataVersion)) {
-				List<String> dataVersionList = relationDataService.queryDateVersion(companyName, null);
-				if (!CollectionUtils.isEmpty(dataVersionList)) {
-					dataVersion = dataVersionList.get(0);
-				}
-			} else {
-				dataVersion = getDataVersionString(companyName, dataVersion);
-			}
-
-			RelationDiagramVO result = offlineFinanceService.queryRelation(companyName, dataVersion, degreesLevel);
+            //与全息关联方保持一致
+			RelationDiagramVO result = offlineFinanceService.queryRealRealation(companyName, Integer.valueOf(degreesLevel));
 			if (result == null) {
 				logger.error("无关联方图谱信息 --> 公司[" + companyName + "], dateVersion[" + dataVersion + "],关联度[" + degreesLevel + "]");
 			}
@@ -252,7 +243,7 @@ public class OfflineFinanceController {
 
 	/**
 	 * 静态风险指数列表 currentDate 2016-04-07
-	 * 
+	 *
 	 * @param request
 	 * @return
 	 */
@@ -557,7 +548,7 @@ public class OfflineFinanceController {
 
 	/**
 	 * 更新index_data静态风险指数+本地模型
-	 * 
+	 *
 	 * @return
 	 */
 	@RequestMapping("updateIndexData.do")
@@ -569,7 +560,7 @@ public class OfflineFinanceController {
 
 	/**
 	 * 更新static_risk_data静态风险指数+本地模型
-	 * 
+	 *
 	 * @return
 	 */
 	@RequestMapping("updateStaticRiskData.do")
@@ -581,7 +572,7 @@ public class OfflineFinanceController {
 
 	/**
 	 * 保存本地模型分数
-	 * 
+	 *
 	 * @return
 	 */
 	@RequestMapping("saveCompanyCreditRisk.do")
