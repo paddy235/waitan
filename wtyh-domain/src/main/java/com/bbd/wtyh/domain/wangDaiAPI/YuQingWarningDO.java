@@ -2,17 +2,47 @@ package com.bbd.wtyh.domain.wangDaiAPI;
 
 import com.bbd.wtyh.domain.BaseDO;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
+ *
  * Created by lixudong on 2017/7/9.
  */
-public class YuQingWarningDO  extends BaseDO {
+@Table(name = "yuqing_warning")
+public class YuQingWarningDO extends BaseDO {
 
+    @Id
+    private Integer id;
+
+    @Column(name = "plat_name")
     private String platName;
+
+    @Column
     private String score;
+
+    @Column
     private String title;
+
+    @Column
     private String content;
+
+    @Column
     private String source;
+
+    @Column
     private String date;
+
+    @Override
+    public Integer getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getPlatName() {
         return platName;
@@ -56,14 +86,8 @@ public class YuQingWarningDO  extends BaseDO {
 
     @Override
     public String toString() {
-        return "YuQingWarningDO{" +
-                "platName='" + platName + '\'' +
-                ", score='" + score + '\'' +
-                ", title='" + title + '\'' +
-                ", content='" + content + '\'' +
-                ", source='" + source + '\'' +
-                ", date='" + date + '\'' +
-                '}';
+        return "YuQingWarningDO{" + "platName='" + platName + '\'' + ", score='" + score + '\'' + ", title='" + title + '\'' + ", content='"
+                + content + '\'' + ", source='" + source + '\'' + ", date='" + date + '\'' + '}';
     }
 
     public String getScore() {
