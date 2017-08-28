@@ -257,6 +257,11 @@ public class P2PImageServiceImpl extends BaseServiceImpl implements P2PImageServ
         return parsePlatDataSixMonth(plat_name, 14, "day_interest_rate");
     }
 
+    @Override
+    public List<List<String>> coreDataLoadOverage(String plat_name) {
+        return parsePlatDataSixMonth(plat_name, 14, "day_money_stock");
+    }
+
     /**
      * 解析近6个月每日详情数据
      * 
@@ -293,35 +298,6 @@ public class P2PImageServiceImpl extends BaseServiceImpl implements P2PImageServ
         List<List<String>> result = new ArrayList<>();
         result.add(days);
         result.add(amounts);
-        return result;
-    }
-
-    @Override
-    public List<List<String>> coreDataLoadOverage(String plat_name) {
-        // 处理数据转换
-        PlatDataDO data = p2PImageDao.getPlatData(plat_name);
-        if (null == data) {
-            return null;
-        }
-        List<PlatDataDO.PlatDataSixMonth> platDataSixMonth = data.getPlat_data_six_month();
-        List<String> days = new ArrayList<>();
-        List<String> loanOverages = new ArrayList<>();
-        for (PlatDataDO.PlatDataSixMonth pdsm : platDataSixMonth) {
-            days.add(pdsm.getDate());
-            BigDecimal dayAmount = new BigDecimal(String.valueOf(pdsm.getDay_money_stock()));
-            loanOverages.add(dayAmount.toPlainString());
-        }
-        List<String> days1 = new ArrayList<>();
-        List<String> loanOverages1 = new ArrayList<>();
-        for (int i = 0; i < 15; i++) {
-            days1.add(days.get(i));
-            loanOverages1.add(loanOverages.get(i));
-        }
-        Collections.reverse(days1);
-        Collections.reverse(loanOverages1);
-        List<List<String>> result = new ArrayList<>();
-        result.add(days1);
-        result.add(loanOverages1);
         return result;
     }
 
