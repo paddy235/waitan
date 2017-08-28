@@ -228,10 +228,7 @@ public class P2PImageServiceImpl extends BaseServiceImpl implements P2PImageServ
 
     @Override
     public Map<String, Object> coreDataInfo(String platName) {
-        if (StringUtils.isBlank(platName)) {
-            return null;
-        }
-        PlatCoreDataDO platCoreDataDO = selectOne(PlatCoreDataDO.class, "plat_name = ? ORDER BY create_date DESC LIMIT 1", platName);
+        PlatCoreDataDO platCoreDataDO = this.getPlatCoreData(platName);
         if (platCoreDataDO == null) {
             return null;
         }
