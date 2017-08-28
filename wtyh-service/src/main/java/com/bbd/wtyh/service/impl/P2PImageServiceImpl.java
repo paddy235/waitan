@@ -10,12 +10,9 @@ import com.bbd.wtyh.domain.CompanyInfoModify.WangdaiModify;
 import com.bbd.wtyh.domain.EasyExport.WangdaiData;
 import com.bbd.wtyh.domain.bbdAPI.BaseDataDO;
 import com.bbd.wtyh.domain.bbdAPI.ZuZhiJiGoudmDO;
-import com.bbd.wtyh.domain.dto.PlatRankDataDTO;
 import com.bbd.wtyh.domain.wangDaiAPI.*;
 import com.bbd.wtyh.mapper.*;
-import com.bbd.wtyh.redis.RedisDAO;
 import com.bbd.wtyh.service.P2PImageService;
-import com.bbd.wtyh.service.PToPMonitorService;
 import com.bbd.wtyh.service.TaskService;
 import com.bbd.wtyh.web.EasyExportExcel.ExportCondition;
 import com.bbd.wtyh.web.PageBean;
@@ -43,12 +40,6 @@ public class P2PImageServiceImpl extends BaseServiceImpl implements P2PImageServ
     private P2PImageDao p2PImageDao;
 
     @Autowired
-    private PToPMonitorService pToPMonitorService;
-
-    @Autowired
-    private RedisDAO redisDAO;
-
-    @Autowired
     private YuQingWarningMapper yuQingWarningMapper;
 
     @Autowired
@@ -65,8 +56,7 @@ public class P2PImageServiceImpl extends BaseServiceImpl implements P2PImageServ
 
     private volatile boolean isShutdown = false;// 任务停止标志
 
-    private static final String PLAT_FORM_STATUS_CACHE_PRIFIX = "wtyh:P2PImage:platFormStatus";
-
+    // private static final String PLAT_FORM_STATUS_CACHE_PRIFIX = "wtyh:P2PImage:platFormStatus";
     private Logger logger = LoggerFactory.getLogger(P2PImageServiceImpl.class);
 
     @Override
@@ -184,7 +174,7 @@ public class P2PImageServiceImpl extends BaseServiceImpl implements P2PImageServ
         PlatformNameInformationDO platformNameInformationDO = p2PImageDao.hasOrNotCompany(platName);
         PlatListDO platListDO = wangdaiList.get(platName);
 
-        String companyName = "";
+        String companyName;
         if (null != platformNameInformationDO) {
             companyName = platformNameInformationDO.getName();
         } else if (null != platListDO) {
@@ -324,7 +314,7 @@ public class P2PImageServiceImpl extends BaseServiceImpl implements P2PImageServ
         logger.info("--- p2p image data job begin ---");
         isShutdown = false;
         TaskResultDO taskResultDO = new TaskResultDO();
-        List<PlatListDO> platList = new ArrayList<>();
+        List<PlatListDO> platList;
         try {
             platList = p2PImageDao.baseInfoWangDaiApiFromNet();
             if (platList == null) {
@@ -387,7 +377,7 @@ public class P2PImageServiceImpl extends BaseServiceImpl implements P2PImageServ
         isShutdown = false;
         TaskResultDO taskResultDO = new TaskResultDO();
         List<TaskFailInfoDO> list = taskFailInfoMapper.getTaskFailInfoByTaskId(oldTaskId);
-        List<String> platNameList = list.stream().filter(n -> n != null).map(n -> n.getFailName()).collect(Collectors.toList());
+        List<String> platNameList = list.stream().filter(Objects::nonNull).map(TaskFailInfoDO::getFailName).collect(Collectors.toList());
         List<PlatListDO> platList = new ArrayList<>();
         try {
             platList = p2PImageDao.baseInfoWangDaiApiFromNet();
@@ -605,14 +595,12 @@ public class P2PImageServiceImpl extends BaseServiceImpl implements P2PImageServ
 
     @Override
     public TaskResultDO autoExecute(Integer taskId, Integer runMode) {
-        TaskResultDO taskResultDO = p2pImageDataLandTask(taskId);
-        return taskResultDO;
+        return p2pImageDataLandTask(taskId);
     }
 
     @Override
     public TaskResultDO reExecute(Integer oldTaskId, Integer newTaskId, Integer runMode) {
-        TaskResultDO taskResultDO = executeFailTaskByTaskId(runMode, oldTaskId, newTaskId);
-        return taskResultDO;
+        return executeFailTaskByTaskId(runMode, oldTaskId, newTaskId);
     }
 
     @Override
