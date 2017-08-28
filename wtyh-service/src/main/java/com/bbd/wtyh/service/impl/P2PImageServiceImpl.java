@@ -249,6 +249,17 @@ public class P2PImageServiceImpl extends BaseServiceImpl implements P2PImageServ
 
     @Override
     public List<List<String>> coreDataDealTrend(String platName) {
+        return parsePlatDataSixMonth(platName, 14, "day_amount");
+    }
+
+    /**
+     * 解析近6个月每日详情数据
+     * 
+     * @param platName 平台数据
+     * @param startNum 取前多少条数据，如果大于总条数则等于总条数
+     * @param jsonKey 具体数据KEY
+     */
+    private List<List<String>> parsePlatDataSixMonth(String platName, int startNum, String jsonKey) {
         PlatCoreDataDO platCoreDataDO = this.getPlatCoreData(platName);
         if (platCoreDataDO == null) {
             return null;
@@ -262,16 +273,15 @@ public class P2PImageServiceImpl extends BaseServiceImpl implements P2PImageServ
         List<String> days = new ArrayList<>();
         List<String> amounts = new ArrayList<>();
 
-        int start = 14; // 取前15条
-        if (jsonArray.size() < start) {
-            start = jsonArray.size();
+        if (jsonArray.size() < startNum) {
+            startNum = jsonArray.size();
         }
         // 倒序取，省得后面排序
-        for (int i = start; i >= 0; i--) {
+        for (int i = startNum; i >= 0; i--) {
             JSONObject json = jsonArray.getJSONObject(i);
             days.add(json.getString("date"));
 
-            BigDecimal dayAmount = json.getBigDecimal("day_amount");
+            BigDecimal dayAmount = json.getBigDecimal(jsonKey);
             amounts.add(dayAmount.toPlainString());
         }
 
