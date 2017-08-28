@@ -1,5 +1,7 @@
 package com.bbd.wtyh.service.impl;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.bbd.wtyh.constants.TaskState;
 import com.bbd.wtyh.core.base.BaseServiceImpl;
 import com.bbd.wtyh.dao.P2PImageDao;
@@ -247,29 +249,35 @@ public class P2PImageServiceImpl extends BaseServiceImpl implements P2PImageServ
 
     @Override
     public List<List<String>> coreDataDealTrend(String platName) {
-        PlatDataDO data = p2PImageDao.getPlatData(platName);
-        if (null == data) {
+        PlatCoreDataDO platCoreDataDO = this.getPlatCoreData(platName);
+        if (platCoreDataDO == null) {
             return null;
         }
-        List<PlatDataDO.PlatDataSixMonth> platDataSixMonth = data.getPlat_data_six_month();
+        String platDataSixMonthStr = platCoreDataDO.getPlatDataSixMonth();
+        if (StringUtils.isBlank(platDataSixMonthStr)) {
+            return null;
+        }
+
+        JSONArray jsonArray = JSONArray.parseArray(platDataSixMonthStr);
         List<String> days = new ArrayList<>();
         List<String> amounts = new ArrayList<>();
-        for (PlatDataDO.PlatDataSixMonth pdsm : platDataSixMonth) {
-            days.add(pdsm.getDate());
-            BigDecimal dayAmount = new BigDecimal(String.valueOf(pdsm.getDay_amount()));
+
+        int start = 14; // 取前15条
+        if (jsonArray.size() < start) {
+            start = jsonArray.size();
+        }
+        // 倒序取，省得后面排序
+        for (int i = start; i >= 0; i--) {
+            JSONObject json = jsonArray.getJSONObject(i);
+            days.add(json.getString("date"));
+
+            BigDecimal dayAmount = json.getBigDecimal("day_amount");
             amounts.add(dayAmount.toPlainString());
         }
+
         List<List<String>> result = new ArrayList<>();
-        List<String> days1 = new ArrayList<>();
-        List<String> amounts1 = new ArrayList<>();
-        for (int i = 0; i < 15; i++) {
-            days1.add(days.get(i));
-            amounts1.add(amounts.get(i));
-        }
-        Collections.reverse(days1);
-        Collections.reverse(amounts1);
-        result.add(days1);
-        result.add(amounts1);
+        result.add(days);
+        result.add(amounts);
         return result;
     }
 
