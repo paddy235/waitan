@@ -32,7 +32,7 @@ import java.util.List;
  * Created by Barney on 2017/8/17.
  */
 @Service
-public class PABPublicSentimentServiceImpl implements PABPublicSentimentService {
+public class PABSentimentTaskServiceImpl implements PABSentimentTaskService {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
@@ -59,7 +59,7 @@ public class PABPublicSentimentServiceImpl implements PABPublicSentimentService 
     private static final Integer DEFAULT_PAGE_SIZE = 50;
 
     @Override
-    @Scheduled(cron = "0 30 0 * * ?")
+    @Scheduled(cron = "0 6 10 * * ?")
     @Transactional(rollbackFor = Exception.class)
     public void saveParkPublicSentiment() throws Exception {
         try {
