@@ -59,7 +59,7 @@ public class PABSentimentTaskServiceImpl implements PABSentimentTaskService {
     private static final Integer DEFAULT_PAGE_SIZE = 50;
 
     @Override
-    @Scheduled(cron = "0 6 10 * * ?")
+    @Scheduled(cron = "0 30 0 * * ?")
     @Transactional(rollbackFor = Exception.class)
     public void saveParkPublicSentiment() throws Exception {
         try {
