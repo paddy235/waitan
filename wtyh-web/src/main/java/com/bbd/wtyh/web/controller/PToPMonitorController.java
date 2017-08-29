@@ -429,7 +429,7 @@ public class PToPMonitorController {
 		List<Map> rst1 = new ArrayList<>();
 		Map<String,Map<String,Object>> platSts = new HashMap<>();
 
-		Map<String, PlatListDO> wangdaiPlatList = p2PImageService.getWangdaiPlatList();
+		//Map<String, PlatListDO> wangdaiPlatList = p2PImageService.getWangdaiPlatList();
 		for (PlatRankDataDTO dto : list) {
 			Map<String, Object> rst = new HashMap<>();
 			Map<String, Object> platSt = new HashMap<>();
@@ -447,11 +447,12 @@ public class PToPMonitorController {
 			rst.put("plat_status", dto.getPlat_status());
 			rst.put("area_id", dto.getArea_id());
 			rst.put("registered_address", dto.getRegistered_address());
-			if (wangdaiPlatList.get(dto.getPlat_name()) == null) {// 处理空指针异常
+			String companyName =p2PImageService.findCompanyNameFromDbThenAPI(dto.getPlat_name(), null);
+			if (companyName == null) {// 处理空指针异常
 				rst.put("OffLineFinanceNum", 0);
 			} else {
 				rst.put("OffLineFinanceNum", pToPMonitorService
-						.getOfflineFinanceNum(p2PImageService.findCompanyNameFromDbThenAPI(dto.getPlat_name(), wangdaiPlatList)));
+						.getOfflineFinanceNum(companyName));
 			}
 
 			rst1.add(rst);
@@ -474,9 +475,9 @@ public class PToPMonitorController {
 		if (Strings.isNullOrEmpty(platName)) {
 			return ResponseBean.errorResponse("platName must be not null");
 		}
-		Map<String, PlatListDO> wangdaiPlatList = p2PImageService.getWangdaiPlatList();
+		//Map<String, PlatListDO> wangdaiPlatList = p2PImageService.getWangdaiPlatList();
 		return ResponseBean.successResponse(
-				shareholderRiskService.getRelatedCompany(p2PImageService.findCompanyNameFromDbThenAPI(platName, wangdaiPlatList)).asMap());
+				shareholderRiskService.getRelatedCompany(p2PImageService.findCompanyNameFromDbThenAPI(platName, null)).asMap());
 	}
 
 	/**
