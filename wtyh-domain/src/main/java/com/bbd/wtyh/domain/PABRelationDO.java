@@ -3,18 +3,10 @@ package com.bbd.wtyh.domain;
 /**
  * Created by Barney on 2017/8/29.
  */
-public class ParkRangeDO extends BaseDO {
+public class PABRelationDO extends BaseDO {
 
-    private Integer userId;
     private Integer parkId;
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
+    private Integer buildingId;
 
     public Integer getParkId() {
         return parkId;
@@ -22,6 +14,14 @@ public class ParkRangeDO extends BaseDO {
 
     public void setParkId(Integer parkId) {
         this.parkId = parkId;
+    }
+
+    public Integer getBuildingId() {
+        return buildingId;
+    }
+
+    public void setBuildingId(Integer buildingId) {
+        this.buildingId = buildingId;
     }
 
 }

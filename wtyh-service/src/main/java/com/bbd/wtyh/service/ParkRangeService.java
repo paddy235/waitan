@@ -9,9 +9,9 @@ import java.util.List;
  */
 public interface ParkRangeService {
 
-    void addParkRange(List<ParkRangeDO> list) throws Exception;
+    void addParkRange(List<ParkRangeDO> list);
 
-    void delParkRangeByUserId(Integer userId) throws Exception;
+    void delParkRangeByUserId(Integer userId);
 
     List<ParkRangeDO> queryParkRangeByUserId(Integer userId);
 }
