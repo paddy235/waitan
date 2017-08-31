@@ -56,7 +56,7 @@ public class PullFileUtil {
     }
 
     public static List<Map<String, String>> getFileList(Integer dataType, Integer dataVersion) {
-        logger.info("--------- pull data file list start ,dataVersion:", dataVersion);
+        logger.info("--------- pull data file list start ,dataVersion:{}", dataVersion);
         String url = BROKER_IP + FILE_NAME_LIST_URI + dataType + "&dataVersion=" + dataVersion;
 
         String result;
@@ -79,7 +79,7 @@ public class PullFileUtil {
             Map<String, String> map = content.getObject(i, Map.class);
             fileNameList.add(map);
         }
-        logger.info("--------- pull data file list end, total:{} ,dataVersion:", fileNameList.size(), dataVersion);
+        logger.info("--------- pull data file list end, total:{} ,dataVersion:{}", fileNameList.size(), dataVersion);
         return fileNameList;
     }
 
