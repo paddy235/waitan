@@ -7,6 +7,7 @@ import com.bbd.wtyh.core.base.BaseServiceImpl;
 import com.bbd.wtyh.dao.P2PImageDao;
 import com.bbd.wtyh.domain.*;
 import com.bbd.wtyh.domain.CompanyInfoModify.WangdaiModify;
+import com.bbd.wtyh.domain.EasyExport.WaiTanData;
 import com.bbd.wtyh.domain.EasyExport.WangdaiData;
 import com.bbd.wtyh.domain.bbdAPI.BaseDataDO;
 import com.bbd.wtyh.domain.bbdAPI.ZuZhiJiGoudmDO;
@@ -603,6 +604,12 @@ public class P2PImageServiceImpl extends BaseServiceImpl implements P2PImageServ
     public List<WangdaiData> getWangdai(ExportCondition exportCondition, PageBean pageBean) {
         pageBean.setTotalCount(platCoreDataMapper.countWangdai(exportCondition));
         return platCoreDataMapper.getWangdai(exportCondition, pageBean);
+    }
+
+    @Override
+    public List<WaiTanData> getWaiTanOther(ExportCondition exportCondition, PageBean pageBean) {
+        pageBean.setTotalCount(platCoreDataMapper.countWaiTanOther(exportCondition));
+        return platCoreDataMapper.getWaiTanOther(exportCondition, pageBean);
     }
 
     @Override

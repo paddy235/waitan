@@ -41,9 +41,6 @@ public class EasyExportExcelServiceImpl implements EasyExportExeclService {
     private CrowdFundingService crowdFundingService;    // 众筹
 
     @Autowired
-    private MortgageService mortgageService;    // 典当
-
-    @Autowired
     private FinanceLeaseService financeLeaseService;    //融资租赁
 
     @Override
@@ -55,6 +52,11 @@ public class EasyExportExcelServiceImpl implements EasyExportExeclService {
             exportCondition.setCurrentLevel(WangDaiRiskLevel.getRiskType(curLevel)+"");
         }
         return p2PImageService.getWangdai(exportCondition, pageBean);
+    }
+
+    @Override
+    public List<WaiTanData> getWaiTanOther(ExportCondition exportCondition, PageBean pageBean) {
+        return p2PImageService.getWaiTanOther(exportCondition, pageBean);
     }
 
     @Override
