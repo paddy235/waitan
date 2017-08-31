@@ -1,6 +1,7 @@
 package com.bbd.wtyh.service;
 
 import com.bbd.wtyh.domain.CompanyInfoModify.WangdaiModify;
+import com.bbd.wtyh.domain.EasyExport.WaiTanData;
 import com.bbd.wtyh.domain.EasyExport.WangdaiData;
 import com.bbd.wtyh.domain.PlatCoreDataDO;
 import com.bbd.wtyh.domain.PlatformNameInformationDO;
@@ -113,6 +114,8 @@ public interface P2PImageService {
     PlatListDO getWangdaiCompanyList(String name);
 
     List<WangdaiData> getWangdai(ExportCondition exportCondition, PageBean pagination);
+
+    List<WaiTanData> getWaiTanOther(ExportCondition exportCondition, PageBean pagination);
 
     void recordWangdai(WangdaiModify companyInfo);
 

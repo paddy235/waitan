@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bbd.wtyh.mapper.PABRelationMapper">
+
+	<insert id="addPABRelation" parameterType="com.bbd.wtyh.domain.PABRelationDO">
+		INSERT INTO park_and_building_relation(park_id, building_id, create_by, create_date, update_by, update_date) VALUES(#{parkId}, #{buildingId}, #{createBy}, SYSDATE(), #{updateBy}, SYSDATE())
+	</insert>
+
+	<delete id="delPABRelationByParkId" parameterType="int">
+		DELETE FROM park_and_building_relation WHERE park_id=#{parkId}
+	</delete>
+
+</mapper>

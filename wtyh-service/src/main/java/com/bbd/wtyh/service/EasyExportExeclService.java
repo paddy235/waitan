@@ -10,6 +10,8 @@ import java.util.Map;
 public interface EasyExportExeclService {
     List<WangdaiData> getWangdai(ExportCondition exportCondition, PageBean pagination);
 
+    List<WaiTanData> getWaiTanOther(ExportCondition exportCondition, PageBean pagination);
+
     List<LoanData> getLoan(ExportCondition exportCondition, PageBean pagination);
 
     List<LoanData> getGuarantee(ExportCondition exportCondition, PageBean pagination);

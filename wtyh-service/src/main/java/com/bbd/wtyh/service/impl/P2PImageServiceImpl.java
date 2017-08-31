@@ -7,6 +7,7 @@ import com.bbd.wtyh.core.base.BaseServiceImpl;
 import com.bbd.wtyh.dao.P2PImageDao;
 import com.bbd.wtyh.domain.*;
 import com.bbd.wtyh.domain.CompanyInfoModify.WangdaiModify;
+import com.bbd.wtyh.domain.EasyExport.WaiTanData;
 import com.bbd.wtyh.domain.EasyExport.WangdaiData;
 import com.bbd.wtyh.domain.bbdAPI.BaseDataDO;
 import com.bbd.wtyh.domain.bbdAPI.ZuZhiJiGoudmDO;
@@ -194,7 +195,12 @@ public class P2PImageServiceImpl extends BaseServiceImpl implements P2PImageServ
     @Override
     public String findCompanyNameFromDbThenAPI(String platName, Map<String, PlatListDO> wangdaiList) {
         PlatformNameInformationDO platformNameInformationDO = p2PImageDao.hasOrNotCompany(platName);
-        PlatListDO platListDO = wangdaiList.get(platName);
+        PlatListDO platListDO;
+        if( null == wangdaiList ) {
+            platListDO = platformMapper.queryPlatByPlatName(platName);
+        } else {
+            platListDO = wangdaiList.get(platName);
+        }
 
         String companyName;
         if (null != platformNameInformationDO) {
@@ -210,9 +216,9 @@ public class P2PImageServiceImpl extends BaseServiceImpl implements P2PImageServ
     @Override
     public Map<String, Object> baseInfo(String platName) {
         // 所有平台列表 plantName --> PlatListDO
-        Map<String, PlatListDO> wangdaiList = getWangdaiPlatList();
+        //Map<String, PlatListDO> wangdaiList = getWangdaiPlatList();
         // 公司名称
-        String companyName = findCompanyNameFromDbThenAPI(platName, wangdaiList);
+        String companyName = findCompanyNameFromDbThenAPI(platName, null);
         // 基本信息，来自全息数据？
         BaseDataDO baseDataDO = p2PImageDao.baseInfoBBDData(companyName);
         if (null == baseDataDO) {
@@ -598,6 +604,12 @@ public class P2PImageServiceImpl extends BaseServiceImpl implements P2PImageServ
     public List<WangdaiData> getWangdai(ExportCondition exportCondition, PageBean pageBean) {
         pageBean.setTotalCount(platCoreDataMapper.countWangdai(exportCondition));
         return platCoreDataMapper.getWangdai(exportCondition, pageBean);
+    }
+
+    @Override
+    public List<WaiTanData> getWaiTanOther(ExportCondition exportCondition, PageBean pageBean) {
+        pageBean.setTotalCount(platCoreDataMapper.countWaiTanOther(exportCondition));
+        return platCoreDataMapper.getWaiTanOther(exportCondition, pageBean);
     }
 
     @Override
