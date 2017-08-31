@@ -282,7 +282,7 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
                         recruitIndexList.add(recruitIndex);
                     }
                 } catch (Exception e) {
-                    logger.error("operateUpdate: "+ e);
+                    logger.error("全息落地数据格式错误:{},\r\n--Exception：", s, e);
                     fail = new TaskFailInfoDO();
                     fail.setFailReason("数据格式错误");
                     setFailDo(fail, file.getName());
