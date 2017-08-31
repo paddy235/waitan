@@ -1,9 +1,13 @@
 package com.bbd.wtyh.util;
 
 import com.alibaba.fastjson.JSONArray;
+import com.bbd.wtyh.core.utils.ReflectUtil;
 import com.bbd.wtyh.domain.dataLoading.*;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.*;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -106,6 +110,25 @@ public class DataLoadingUtil {
             List<ZhixingDO> dataList10 = JSONArray.parseArray(dataStr, ZhixingDO.class);
             zhixingList.addAll(dataList10);
             break;
+        }
+    }
+
+    public static void batchSetField(Integer taskId, String bbdId, String companyName, List<?>... lists) {
+        if (lists == null || lists.length == 0) {
+            return;
+        }
+        for (List<?> list : lists) {
+            if (list == null || list.isEmpty()) {
+                continue;
+            }
+            for (Object obj : list) {
+                if (obj == null) {
+                    continue;
+                }
+                ReflectUtil.setFieldValue(obj, "task_id", taskId);
+                ReflectUtil.setFieldValue(obj, "bbd_qyxx_id", bbdId);
+                ReflectUtil.setFieldValue(obj, "company_name", companyName);
+            }
         }
     }
 }

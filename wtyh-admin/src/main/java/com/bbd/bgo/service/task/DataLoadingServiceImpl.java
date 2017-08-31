@@ -12,7 +12,6 @@ import com.bbd.wtyh.service.TaskService;
 import com.bbd.wtyh.util.DataLoadingUtil;
 import com.bbd.wtyh.util.PullFileUtil;
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -152,7 +151,7 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
             List<File> fileList = new ArrayList<>();
             List<DatasharePullFileDO> pullFileList = new ArrayList<>();
 
-            logger.info("拉取全息数据文件开始,total：{}", fileNameList.size());
+            logger.info("拉取全息数据文件开始, total：{}", fileNameList.size());
 
             for (Map<String, String> map : historyFileNameList) {
 
@@ -181,7 +180,7 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
                 pullFile.setFile_url(file.getAbsolutePath());
                 fileList.add(file);
             }
-            logger.info("开始拉取文件,total：{},success：", fileNameList.size(), pullFileList.size());
+            logger.info("拉取全息数据文件结束, total：{},success：{}", fileNameList.size(), pullFileList.size());
             this.insertList(pullFileList);
             dataError = this.operateUpdate(failList, fileList);
         }
@@ -250,31 +249,12 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
                         JSONObject jsonData = JSONObject.parseObject(data);
 
                         String dataStr = jsonData.getString(tn);
-                        String taskId = String.valueOf(this.taskId);
-
-                        // 拼装一段字符串，替换原JSON串的 }，变相追加元素。
-                        StringBuilder sb = new StringBuilder(
-                                49 + StringUtils.length(taskId) + StringUtils.length(qyxxId) + StringUtils.length(companyName));
-
-                        sb.append(",\"task_id\":\"").append(taskId).append("\"");
-
-                        if (StringUtils.isNotBlank(qyxxId)) {
-                            sb.append(",\"bbd_qyxx_id\":\"").append(qyxxId).append("\"");
-                        }
-                        if (StringUtils.isNotBlank(companyName)) {
-                            sb.append(",\"company_name\":\"").append(companyName).append("\"");
-                        }
-                        sb.append("}");
-
-                        // [{"a":"1"}] --> [{"a":"1","b":"2"}]
-                        dataStr = dataStr.replaceAll("}", sb.toString());
-
-                        // 数据格式清洗
-                        dataStr = dataStr.replaceAll("\\\\\"", "\"");
-                        dataStr = dataStr.replaceAll("\"\\{", "{").replaceAll("}\"", "}");
 
                         DataLoadingUtil.addJsonDataToList(tn, dataStr, disList, ktggList, yuQingList, basicList, baxxList, gdxxList,
                                 zhuanliList, rmfyggList, zgcpwswList, zhixingList);
+
+                        DataLoadingUtil.batchSetField(this.taskId, qyxxId, companyName, disList, ktggList, yuQingList, basicList, baxxList,
+                                gdxxList, zhuanliList, rmfyggList, zgcpwswList, zhixingList);
                     } else {
                         String[] recruits = s.split("\\u0001");
                         RecruitIndexDO recruitIndex = new RecruitIndexDO();
@@ -287,7 +267,7 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
                         recruitIndexList.add(recruitIndex);
                     }
                 } catch (Exception e) {
-                    logger.error("全息落地数据格式错误:{} \r\n--fileName:{}\r\n--Exception：", s, file.getName(), e);
+                    logger.error("\r\n全息落地数据格式错误:{} \r\n--fileName:{}\r\n--Exception：", s, file.getName(), e);
                     fail = new TaskFailInfoDO();
                     fail.setFailReason("数据格式错误");
                     setFailDo(fail, file.getName());
