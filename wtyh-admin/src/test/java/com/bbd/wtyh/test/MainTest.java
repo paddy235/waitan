@@ -2,6 +2,7 @@ package com.bbd.wtyh.test;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.bbd.wtyh.domain.dataLoading.QyxxBasicDO;
 import com.bbd.wtyh.domain.dataLoading.ZgcpwswDO;
 import org.apache.commons.lang3.StringUtils;
 
@@ -15,7 +16,7 @@ public class MainTest {
 
     public static void main(String[] args) {
 
-        String str = "{\"tn\": \"zgcpwsw\", \"bbd_qyxx_id\": \"d8a3f22d829f47d7867d6c65020ddb06\", \"data\": {\"zgcpwsw\": [{\"is_nolle_prosequi\": \"是\", \"bbd_version\": null, \"casecode\": \"（2017）津72民初443号\", \"litigant_type\": null, \"bbd_dotime\": \"2017-07-28\", \"def_other_related\": null, \"bbd_source\": null, \"bbd_xgxx_id\": \"79286ed7f1b6482a58e66a5f65231821\", \"def_litigant\": \"万享供应链管理（上海）有限公司\", \"court_litigant\": \"刘树立\", \"litigant\": null, \"sentence_date\": \"2017-07-11\", \"id\": \"38402070\", \"caseout_come\": \"原告撤诉\", \"ju_proc\": \"一审\", \"litigation_status\": \"{\\\"万享供应链管理（上海）有限公司\\\": \\\"被告\\\", \\\"北京泛亚利华国际投资咨询有限公司\\\": \\\"原告\\\"}\", \"title\": \"北京泛亚利华国际投资咨询有限公司与万享供应链管理（上海）有限公司货运代理合同纠纷一审民事裁定书\", \"judgmen_result\": \"裁定如下：\\n准许原告北京泛亚利华国际投资咨询有限公司撤诉。\\n案件受理费376元，减半收取计188元，由原告北京泛亚利华国际投资咨询有限公司负担。\", \"pro_other_related\": null, \"case_type\": \"民事一审案件\", \"company_name\": null, \"bbd_type\": \"qyxg_zgcpwsw_app\", \"main\": \"原告：北京泛亚利华国际投资咨询有限公司。住所地：北京市东城区广渠门大街90号新裕商务大厦A座601室。\\n法定代表人：陈燕，该公司总经理。\\n被告：万享供应链管理（上海）有限公司。住所地：上海市浦东新区张杨路3611弄6号907、906室。\\n原告北京泛亚利华国际投资咨询有限公司与被告万享供应链管理（上海）有限公司货运代理合同纠纷一案，本院于2017年7月4日立案。原告北京泛亚利华国际投资咨询有限公司于2017年7月7日向本院提出撤诉申请。\\n本院认为，原告撤回对被告的起诉符合我国民事法律的有关规定，且不损害国家公共利益和其他公民或组织的利益。\\n依照《中华人民共和国民事诉讼法》第一百四十五条第一款规定，裁定如下：\\n准许原告北京泛亚利华国际投资咨询有限公司撤诉。\\n案件受理费376元，减半收取计188元，由原告北京泛亚利华国际投资咨询有限公司负担。\\n代理审判员　　刘树立\\n二〇一七年七月十一日\\n书　记　员　　刘　晓\", \"applicable_law\": \"《中华人民共和国民事诉讼法》第一百四十五条第一款\", \"action_cause\": \"货运代理合同纠纷\", \"bbd_uptime\": \"1501171200\", \"rel_doc_url\": null, \"update\": \"2017-07-26\", \"court_acceptance_fee\": \"188元\", \"trial_court\": \"天津海事法院\", \"doc_type\": \"裁定书\", \"data_source\": \"裁判文书网APP\", \"rel_doc\": null, \"pro_litigant\": \"北京泛亚利华国际投资咨询有限公司\", \"create_time\": \"2017-07-28 05:39:41\", \"rawdata\": null, \"historycase\": null, \"is_beneficial\": \"{\\\"万享供应链管理（上海）有限公司\\\": \\\"其他\\\", \\\"北京泛亚利华国际投资咨询有限公司\\\": \\\"其他\\\"}\", \"bbd_url\": \"http://wenshu.court.gov.cn/content/content?DocID=2e44c071-6746-4df9-a92d-a7bc0092330c\"}]}, \"company_name\": \"万享供应链管理（上海）有限公司\"}";
+        String str = "{\"tn\": \"qyxx_basic\", \"bbd_qyxx_id\": \"1bf7e41bf5d948ad85271b8771455fe5\", \"data\": {\"qyxx_basic\": [{\"operating_period\": null, \"regno\": \"310108000594243\", \"company_regorg\": \"310007\", \"parent_firm\": null, \"ipo_company\": null, \"company_type\": \"有限责任公司（自然人独资）\", \"approval_date\": \"2015-04-02\", \"create_time\": \"2017-03-19 15:58:24\", \"esdate\": \"2015-04-02\", \"realcap_amount\": null, \"credit_code\": \"913101083324845904\", \"regcap\": \"200万人民币\", \"id\": null, \"enterprise_status\": \"存续（在营、开业、在册）\", \"invest_cap\": null, \"openfrom\": \"2015-04-02\", \"regorg\": \"静安区市场监督管理局\", \"frname\": \"李勇\", \"bbd_qyxx_id\": \"1bf7e41bf5d948ad85271b8771455fe5\", \"company_county\": \"310108\", \"operate_scope\": \"在信息、通讯、计算机科技专业领域内从事技术开发、技术咨询、技术转让、技术服务，投资咨询，投资管理，实业投资，企业管理咨询，通讯设备、机电设备、电子产品、电子元器件的销售。【依法须经批准的项目，经相关部门批准后方可开展经营活动】\", \"regcap_currency\": \"人民币\", \"regcapcur\": null, \"bbd_type\": \"shanghai\", \"company_industry\": \"M\", \"regno_or_creditcode\": null, \"type\": \"上海\", \"revoke_date\": null, \"company_name\": \"上海效同信息科技有限公司\", \"form\": null, \"bbd_history_name\": \"[{\\\"change_date\\\": \\\"2016年01月26日\\\", \\\"company_name\\\": \\\"上海效通投资咨询有限公司\\\"}]\", \"bbd_uptime\": \"1489903619\", \"bbd_dotime\": \"2017-03-19\", \"investcap_amount\": null, \"regcap_amount\": \"2000000.0\", \"address\": \"上海市闸北区江场三路250号628室\", \"opento\": \"2045-04-01\", \"company_enterprise_status\": \"存续\", \"company_province\": \"上海\", \"company_currency\": null, \"realcap_currency\": null, \"cancel_date\": null, \"investcap_currency\": null, \"realcap\": null, \"frname_id\": \"0bade39b6e7ed9c5eeb8370f5a15cab7\", \"frname_compid\": \"1\", \"company_companytype\": \"1151\"}]}, \"company_name\": \"上海效同信息科技有限公司\"}";
 
         JSONObject jsonObject = JSONObject.parseObject(str);
         String data = jsonObject.getString("data");
@@ -45,9 +46,9 @@ public class MainTest {
         dataStr = dataStr.replaceAll("}", sb.toString());
         dataStr = dataStr.replaceAll("\\\\\"", "\"");
         dataStr = dataStr.replaceAll("\"\\{", "{").replaceAll("}\"", "}");
-        System.out.println(dataStr);
+        dataStr = dataStr.replaceAll("\"\\[", "[").replaceAll("]\"", "]");
 
-        List<ZgcpwswDO> list = JSONArray.parseArray(dataStr, ZgcpwswDO.class);
+        List<QyxxBasicDO> list = JSONArray.parseArray(dataStr, QyxxBasicDO.class);
         System.out.println(list.size());
     }
 

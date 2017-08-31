@@ -292,6 +292,9 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
                 setFailDo(fail, file.getName());
                 failList.add(fail);
                 // 出错跳出循环
+            } finally {
+                list.clear();
+                System.gc();
             }
         }
         if (failList.size() > 0) {

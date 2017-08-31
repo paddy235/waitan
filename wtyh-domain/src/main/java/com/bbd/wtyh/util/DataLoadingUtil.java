@@ -3,11 +3,8 @@ package com.bbd.wtyh.util;
 import com.alibaba.fastjson.JSONArray;
 import com.bbd.wtyh.core.utils.ReflectUtil;
 import com.bbd.wtyh.domain.dataLoading.*;
-import org.apache.commons.lang3.StringUtils;
 
 import java.io.*;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,23 +28,24 @@ public class DataLoadingUtil {
 
     // 文件转化为string集合
     public static List<String> txt2String(File file) {
-        List<String> list = new ArrayList<String>();
+        List<String> list = new ArrayList<>();
         if (null == file || !file.exists()) {
             return null;
         }
         BufferedReader br = null;
         try {
             br = new BufferedReader(new FileReader(file));
-            String s = null;
+            String s;
             while ((s = br.readLine()) != null) {// 使用readLine方法，一次读一行
                 list.add(s);
             }
         } catch (Exception e) {
-            list = null;
             e.printStackTrace();
         } finally {
             try {
-                br.close();
+                if (br != null) {
+                    br.close();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
