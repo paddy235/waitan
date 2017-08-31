@@ -114,64 +114,101 @@ public class EasyExportExeclController {
     @RequestMapping(value = "/export")
     @ResponseBody
     public ResponseBean export(ExportCondition exportCondition, PageBean pageBean, HttpServletRequest request) {
+        if (StringUtils.isEmpty(exportCondition.getIndustry())) {
+            return ResponseBean.errorResponse("行业参数不可空");
+        }
         pageBean.setCurrentPage(0);
         pageBean.setPageSize(Math.toIntExact(pageBean.getTotalCount()));
-        if (CompanyInfo.TYPE_P2P_1 == exportCondition.getIndustry()) { // 网络借贷
-            return ResponseBean.successResponse(
-                    genExcel(easyExportExeclService.getWangdai(exportCondition, pageBean),
-                            "网络借贷", request
-                    ));
-        } else if (CompanyInfo.TYPE_XD_2 == exportCondition.getIndustry()) { // 小额贷款
-            return ResponseBean.successResponse(
-                    genExcel(easyExportExeclService.getLoan(exportCondition, pageBean),
-                            "小额贷款", request
-                    ));
-        } else if (CompanyInfo.TYPE_RZDB_3 == exportCondition.getIndustry()) { // 融资担保
-            return ResponseBean.successResponse(
-                    genExcel(easyExportExeclService.getGuarantee(exportCondition, pageBean),
-                            "融资担保", request
-                    ));
-        } else if (CompanyInfo.TYPE_XXLC_4 == exportCondition.getIndustry()) { // 线下理财
-            return ResponseBean.successResponse(
-                    genExcel(easyExportExeclService.getOffLineFinance(exportCondition, pageBean),
-                            "线下理财", request
-                    ));
-        } else if (CompanyInfo.TYPE_JYS_9 == exportCondition.getIndustry()) { // 交易场所
-            return ResponseBean.successResponse(
-                    genExcel(easyExportExeclService.getTradeMarket(exportCondition, pageBean),
-                            "交易场所", request
-                    ));
-        } else if (CompanyInfo.TYPE_YFK_11 == exportCondition.getIndustry()) { // 预付卡
-            return ResponseBean.successResponse(
-                    genExcel(easyExportExeclService.getPerpaycard(exportCondition, pageBean),
-                            "预付卡", request
-                    ));
-        } else if (CompanyInfo.TYPE_RZZL_13 == exportCondition.getIndustry()) { // 融资租赁
-            return ResponseBean.successResponse(
-                    genExcel(easyExportExeclService.getTenancy(exportCondition, pageBean),
-                            "融资租赁", request
-                    ));
-        } else if (CompanyInfo.TYPE_SMJJ_5 == exportCondition.getIndustry()) { // 私募基金
-            return ResponseBean.successResponse(
-                    genExcel(easyExportExeclService.getPrivateOfferedFund(exportCondition, pageBean),
-                            "私募基金", request
-                    ));
-        } else if (CompanyInfo.TYPE_ZC_6 == exportCondition.getIndustry()) { // 众筹
-            return ResponseBean.successResponse(
-                    genExcel(easyExportExeclService.getCrowdfund(exportCondition, pageBean),
-                            "众筹", request
-                    ));
-        } else if (CompanyInfo.TYPE_DD_12 == exportCondition.getIndustry()) { // 典当
-            return ResponseBean.successResponse(
-                    genExcel(easyExportExeclService.getPawn(exportCondition, pageBean),
-                            "典当", request
-                    ));
-        } else if (CompanyInfo.TYPE_SYBL_10 == exportCondition.getIndustry()) { // 商业保理
-            return ResponseBean.successResponse(
-                    genExcel(easyExportExeclService.getInsurance(exportCondition, pageBean),
-                            "商业保理", request
-                    ));
+        switch (exportCondition.getIndustry()){
+            case CompanyInfo.TYPE_P2P_1:
+                return ResponseBean.successResponse(
+                        genExcel(easyExportExeclService.getWangdai(exportCondition, pageBean),
+                                "网络借贷", request
+                        ));
+            case CompanyInfo.TYPE_XD_2:
+                return ResponseBean.successResponse(
+                        genExcel(easyExportExeclService.getLoan(exportCondition, pageBean),
+                                "小额贷款", request
+                        ));
+            case CompanyInfo.TYPE_RZDB_3:
+                return ResponseBean.successResponse(
+                        genExcel(easyExportExeclService.getGuarantee(exportCondition, pageBean),
+                                "融资担保", request
+                        ));
+            case CompanyInfo.TYPE_XXLC_4:
+                return ResponseBean.successResponse(
+                        genExcel(easyExportExeclService.getOffLineFinance(exportCondition, pageBean),
+                                "线下理财", request
+                        ));
+            case CompanyInfo.TYPE_SMJJ_5:
+                return ResponseBean.successResponse(
+                        genExcel(easyExportExeclService.getPrivateOfferedFund(exportCondition, pageBean),
+                                "私募基金", request
+                        ));
+            case CompanyInfo.TYPE_ZC_6:
+                return ResponseBean.successResponse(
+                        genExcel(easyExportExeclService.getCrowdfund(exportCondition, pageBean),
+                                "众筹", request
+                        ));
+            case CompanyInfo.TYPE_JYS_9:
+                return ResponseBean.successResponse(
+                        genExcel(easyExportExeclService.getTradeMarket(exportCondition, pageBean),
+                                "交易场所", request
+                        ));
+            case CompanyInfo.TYPE_SYBL_10:
+                return ResponseBean.successResponse(
+                        genExcel(easyExportExeclService.getInsurance(exportCondition, pageBean),
+                                "商业保理", request
+                        ));
+            case CompanyInfo.TYPE_YFK_11:
+                return ResponseBean.successResponse(
+                        genExcel(easyExportExeclService.getPerpaycard(exportCondition, pageBean),
+                                "预付卡", request
+                        ));
+            case CompanyInfo.TYPE_DD_12:
+                return ResponseBean.successResponse(
+                        genExcel(easyExportExeclService.getPawn(exportCondition, pageBean),
+                                "典当", request
+                        ));
+            case CompanyInfo.TYPE_RZZL_13:
+                return ResponseBean.successResponse(
+                        genExcel(easyExportExeclService.getTenancy(exportCondition, pageBean),
+                                "融资租赁", request
+                        ));
+            case CompanyInfo.TYPE_WT_30:// 外滩网络借贷
+                return ResponseBean.successResponse(
+                        genExcel(easyExportExeclService.getWaiTanOther(exportCondition, pageBean),
+                                "外滩网络借贷", request
+                        ));
+            case CompanyInfo.TYPE_WT_31:// 外滩众筹
+                return ResponseBean.successResponse(
+                        genExcel(easyExportExeclService.getWaiTanOther(exportCondition, pageBean),
+                                "外滩众筹", request
+                        ));
+            case CompanyInfo.TYPE_WT_32:// 外滩网银
+                return ResponseBean.successResponse(
+                        genExcel(easyExportExeclService.getWaiTanOther(exportCondition, pageBean),
+                                "外滩网银", request
+                        ));
+            case CompanyInfo.TYPE_WT_33:// 外滩支付
+                return ResponseBean.successResponse(
+                        genExcel(easyExportExeclService.getWaiTanOther(exportCondition, pageBean),
+                                "外滩支付", request
+                        ));
+            case CompanyInfo.TYPE_WT_34:// 外滩预付卡
+                return ResponseBean.successResponse(
+                        genExcel(easyExportExeclService.getWaiTanOther(exportCondition, pageBean),
+                                "外滩预付卡", request
+                        ));
+            case CompanyInfo.TYPE_WT_35:// 外滩融资租赁
+                return ResponseBean.successResponse(
+                        genExcel(easyExportExeclService.getWaiTanOther(exportCondition, pageBean),
+                                "外滩融资租赁", request
+                        ));
+
+            default :break;
         }
+
         return ResponseBean.errorResponse("错误的行业参数");
     }
 
