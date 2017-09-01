@@ -148,7 +148,7 @@
             #{item.case_type}, #{item.casecode}, #{item.caseout_come}, #{item.company_name},
             #{item.court_acceptance_fee}, #{item.court_litigant}, #{item.data_source}, #{item.def_litigant},
             #{item.def_other_related}, #{item.doc_type},
-            #{item.historycase}, #{item.ju_proc}, #{item.litigant}, #{item.litigant_types}, #{item.main},
+            #{item.historycase}, #{item.ju_proc}, #{item.litigant}, #{item.litigant_type}, #{item.main},
             #{item.pro_litigant}, #{item.pro_other_related}, #{item.rawdata},
             #{item.rel_doc}, #{item.rel_doc_url}, #{item.sentence_date}, #{item.title}, #{item.trial_court},
             #{item.task_id})

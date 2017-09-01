@@ -110,17 +110,6 @@ public class DataLoadingUtil {
         case ZGCPWSW:
             List<ZgcpwswDO> dataList9 = JSONArray.parseArray(dataStr, ZgcpwswDO.class);
             DataLoadingUtil.batchSetField(taskId, qyxxId, companyName, dataList9);
-
-            for (ZgcpwswDO zg : dataList9) {
-                List<String> types = zg.getLitigant_type();
-                StringBuilder sb = new StringBuilder();
-                if (null != types) {
-                    for (String type : types) {
-                        sb.append(type);
-                    }
-                }
-                zg.setLitigant_types(sb.toString());
-            }
             zgcpwswList.addAll(dataList9);
             break;
         case ZHIXING:
