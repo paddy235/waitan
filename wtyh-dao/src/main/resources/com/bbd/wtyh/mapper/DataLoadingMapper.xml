@@ -212,6 +212,19 @@
             #{item.name}
         </foreach>
     </select>
+    
+    <select id="wangdaiBaseInfo" resultType="java.util.Map">
+        SELECT
+	        company_name AS companyName,
+	        frname AS legalPeople,
+	        regcap AS capital,
+	        address AS address,
+	        esdate AS openedTime,
+	        approval_date AS verifiedTime,
+	        regorg AS registerOffice
+        FROM qyxx_basic WHERE company_name = #{companyName} ORDER BY basic_id DESC LIMIT 1;
+
+    </select>
 
 </mapper>
 

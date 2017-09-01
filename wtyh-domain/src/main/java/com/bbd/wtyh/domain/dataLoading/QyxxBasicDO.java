@@ -3,9 +3,11 @@ package com.bbd.wtyh.domain.dataLoading;
 import java.util.Date;
 
 /**
+ * 
  * Created by wangchenge on 2016/8/21 0021.
  */
 public class QyxxBasicDO {
+
     private Integer id;
     private String address;//'地址'
     private Date approval_date;//'核准日期'

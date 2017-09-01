@@ -56,6 +56,9 @@ public class P2PImageServiceImpl extends BaseServiceImpl implements P2PImageServ
     @Autowired
     private TaskFailInfoMapper taskFailInfoMapper;
 
+    @Autowired
+    private DataLoadingMapper dataLoadingMapper;
+
     private volatile boolean isShutdown = false;// 任务停止标志
 
     // private static final String PLAT_FORM_STATUS_CACHE_PRIFIX = "wtyh:P2PImage:platFormStatus";
@@ -225,34 +228,41 @@ public class P2PImageServiceImpl extends BaseServiceImpl implements P2PImageServ
 
     @Override
     public Map<String, Object> baseInfo(String platName) {
-        // 所有平台列表 plantName --> PlatListDO
-        //Map<String, PlatListDO> wangdaiList = getWangdaiPlatList();
-        // 公司名称
-        String companyName = findCompanyNameFromDbThenAPI(platName, null);
-        // 基本信息，来自全息数据？
-        BaseDataDO baseDataDO = p2PImageDao.baseInfoBBDData(companyName);
-        if (null == baseDataDO) {
+        PlatformDO platDataDO = this.getPlatListData(platName);
+        if (null == platDataDO || StringUtils.isBlank(platDataDO.getCompanyName())) {
             return null;
         }
+        String companyName = platDataDO.getCompanyName();
+
         // 组织机构数据
         ZuZhiJiGoudmDO zuZhiJiGoudmDO = p2PImageDao.baseInfoZuZhiJiGou(companyName);
         if (null == zuZhiJiGoudmDO) {
             return null;
         }
-        Map<String, Object> map = new HashMap<>();
-        for (BaseDataDO.Results result : baseDataDO.getResults()) {
-            map.put("legalPeople", result.getJbxx().getFrname());
-            map.put("capital", result.getJbxx().getRegcap());
-            map.put("address", result.getJbxx().getAddress());
-            map.put("openedTime", result.getJbxx().getEsdate());
-            map.put("verifiedTime", result.getJbxx().getApproval_date());
-            map.put("registerOffice", result.getJbxx().getRegorg());
+        // 本地取数
+        Map<String, Object> map = dataLoadingMapper.wangdaiBaseInfo(companyName);
+        // 本地无数据，则取接口
+        if (map == null || map.isEmpty()) {
+            BaseDataDO baseDataDO = p2PImageDao.baseInfoBBDData(companyName);
+            if (null == baseDataDO) {
+                return null;
+            }
+            map = new HashMap<>();
+            for (BaseDataDO.Results result : baseDataDO.getResults()) {
+                map.put("legalPeople", result.getJbxx().getFrname());
+                map.put("capital", result.getJbxx().getRegcap());
+                map.put("address", result.getJbxx().getAddress());
+                map.put("openedTime", result.getJbxx().getEsdate());
+                map.put("verifiedTime", result.getJbxx().getApproval_date());
+                map.put("registerOffice", result.getJbxx().getRegorg());
+            }
         }
+
         for (ZuZhiJiGoudmDO.Result result : zuZhiJiGoudmDO.getResults()) {
             map.put("companyCode", result.getJgdm());
         }
+
         map.put("platName", platName);
-        map.put("companyName", companyName);
         return map;
     }
 

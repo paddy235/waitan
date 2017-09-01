@@ -23,12 +23,18 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * 
  * Created by zhaohongwen on 2017/7/5.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:spring-config.xml" })
 public class DataLoadingUpateTest {
 
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
+
+    @Autowired
+    @Qualifier(value = "baseServiceImpl")
+    private BaseService baseService;
     @Autowired
     private DataLoadingService dataLoadingTaskService;
 
@@ -41,11 +47,6 @@ public class DataLoadingUpateTest {
         //自动执行
         //dataLoadingTaskService.dataLoadingAutomaticOperate(4);
     }
-
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
-    @Autowired
-    @Qualifier(value = "baseServiceImpl")
-    private BaseService baseService;
 
     /**
      * 删除全息数据订阅名单
@@ -123,6 +124,7 @@ public class DataLoadingUpateTest {
             return companyName;
         }
 
+        @SuppressWarnings("unused")
         public void setCompanyName(String companyName) {
             this.companyName = companyName;
         }
