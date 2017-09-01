@@ -140,17 +140,27 @@ public class P2PImageServiceImpl extends BaseServiceImpl implements P2PImageServ
         return yuQingDTO;
     }
 
+    private PlatformDO getPlatListData(String platName) {
+        if (StringUtils.isBlank(platName)) {
+            return null;
+        }
+        return this.selectOne(PlatformDO.class, "plat_name = ? ORDER BY create_date DESC LIMIT 1", platName);
+    }
+
     @Override
     public Map<String, Object> lawsuitMsg(String platName) {
-        PlatDataDO platDataDO = p2PImageDao.getPlatData(platName);
+        PlatformDO platDataDO = this.getPlatListData(platName);
         if (null == platDataDO) {
             return null;
         }
-        // System.out.println("13"+platDataDO.getCompany_name());
-        Map<String, Object> result = p2PImageDao.lawsuitMsg(platDataDO.getCompany_name());
-        if (null == result || result.size() == 0) {
-            return null;
+
+        String companyName = platDataDO.getCompanyName();
+        Long total = platformMapper.countKtgg(companyName);
+        if (total == null || total == 0) {
+            return p2PImageDao.lawsuitMsg(companyName);
         }
+        Map<String, Object> result = new HashMap<>(1);
+        result.put("total", total);
         return result;
     }
 
@@ -196,7 +206,7 @@ public class P2PImageServiceImpl extends BaseServiceImpl implements P2PImageServ
     public String findCompanyNameFromDbThenAPI(String platName, Map<String, PlatListDO> wangdaiList) {
         PlatformNameInformationDO platformNameInformationDO = p2PImageDao.hasOrNotCompany(platName);
         PlatListDO platListDO;
-        if( null == wangdaiList ) {
+        if (null == wangdaiList) {
             platListDO = platformMapper.queryPlatByPlatName(platName);
         } else {
             platListDO = wangdaiList.get(platName);
