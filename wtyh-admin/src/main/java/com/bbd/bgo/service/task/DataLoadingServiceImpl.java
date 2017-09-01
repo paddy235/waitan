@@ -386,7 +386,7 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
             return updateNum;
         }
         Object o = list.get(0);
-        int pointsDataLimit = 125;// 限制条数
+        int pointsDataLimit = 100;// 限制条数
         Integer size = list.size();
         if (o instanceof DishonestyDO) {
             List<DishonestyDO> dataList = (List<DishonestyDO>) list;
