@@ -53,45 +53,64 @@ public class DataLoadingUtil {
         return list;
     }
 
-    public static void addJsonDataToList(String tn, String dataStr, List<DishonestyDO> disList, List<KtggDO> ktggList,
-            List<QyxgYuqingDO> yuQingList, List<QyxxBasicDO> basicList, List<QyxxBaxxDO> baxxList, List<QyxxGdxxDO> gdxxList,
-            List<QyxxZhuanliDO> zhuanliList, List<RmfyggDO> rmfyggList, List<ZgcpwswDO> zgcpwswList, List<ZhixingDO> zhixingList) {
+    public static void addJsonDataToList(String tn, String dataStr, Integer taskId, String qyxxId, String companyName,
+            List<DishonestyDO> disList, List<KtggDO> ktggList, List<QyxgYuqingDO> yuQingList, List<QyxxBasicDO> basicList,
+            List<QyxxBaxxDO> baxxList, List<QyxxGdxxDO> gdxxList, List<QyxxZhuanliDO> zhuanliList, List<RmfyggDO> rmfyggList,
+            List<ZgcpwswDO> zgcpwswList, List<ZhixingDO> zhixingList) {
         switch (tn) {
         case DISHONESTY:
             List<DishonestyDO> dataList1 = JSONArray.parseArray(dataStr, DishonestyDO.class);
+
+            DataLoadingUtil.batchSetField(taskId, qyxxId, companyName, dataList1);
+
             disList.addAll(dataList1);
             break;
         case KTGG:
             List<KtggDO> dataList2 = JSONArray.parseArray(dataStr, KtggDO.class);
+            DataLoadingUtil.batchSetField(taskId, qyxxId, companyName, dataList2);
             ktggList.addAll(dataList2);
             break;
         case QYXG_YUQING:
             dataStr = dataStr.replaceAll("abstract", "articleAbstract");
             List<QyxgYuqingDO> dataList3 = JSONArray.parseArray(dataStr, QyxgYuqingDO.class);
+            DataLoadingUtil.batchSetField(taskId, qyxxId, companyName, dataList3);
+
             yuQingList.addAll(dataList3);
             break;
         case QYXX__BASIC:
             List<QyxxBasicDO> dataList4 = JSONArray.parseArray(dataStr, QyxxBasicDO.class);
+            DataLoadingUtil.batchSetField(taskId, qyxxId, companyName, dataList4);
+
             basicList.addAll(dataList4);
             break;
         case QYXX_BAXX:
             List<QyxxBaxxDO> dataList5 = JSONArray.parseArray(dataStr, QyxxBaxxDO.class);
+            DataLoadingUtil.batchSetField(taskId, qyxxId, companyName, dataList5);
+
             baxxList.addAll(dataList5);
             break;
         case QYXX_GDXX:
             List<QyxxGdxxDO> dataList6 = JSONArray.parseArray(dataStr, QyxxGdxxDO.class);
+            DataLoadingUtil.batchSetField(taskId, qyxxId, companyName, dataList6);
+
             gdxxList.addAll(dataList6);
             break;
         case QYXX_ZHUANLI:
             List<QyxxZhuanliDO> dataList7 = JSONArray.parseArray(dataStr, QyxxZhuanliDO.class);
+            DataLoadingUtil.batchSetField(taskId, qyxxId, companyName, dataList7);
+
             zhuanliList.addAll(dataList7);
             break;
         case RMFYGG:
             List<RmfyggDO> dataList8 = JSONArray.parseArray(dataStr, RmfyggDO.class);
+            DataLoadingUtil.batchSetField(taskId, qyxxId, companyName, dataList8);
+
             rmfyggList.addAll(dataList8);
             break;
         case ZGCPWSW:
             List<ZgcpwswDO> dataList9 = JSONArray.parseArray(dataStr, ZgcpwswDO.class);
+            DataLoadingUtil.batchSetField(taskId, qyxxId, companyName, dataList9);
+
             for (ZgcpwswDO zg : dataList9) {
                 List<String> types = zg.getLitigant_type();
                 StringBuilder sb = new StringBuilder();
@@ -106,27 +125,24 @@ public class DataLoadingUtil {
             break;
         case ZHIXING:
             List<ZhixingDO> dataList10 = JSONArray.parseArray(dataStr, ZhixingDO.class);
+            DataLoadingUtil.batchSetField(taskId, qyxxId, companyName, dataList10);
+
             zhixingList.addAll(dataList10);
             break;
         }
     }
 
-    public static void batchSetField(Integer taskId, String bbdId, String companyName, List<?>... lists) {
-        if (lists == null || lists.length == 0) {
+    public static void batchSetField(Integer taskId, String bbdId, String companyName, List<?> list) {
+        if (list == null || list.isEmpty()) {
             return;
         }
-        for (List<?> list : lists) {
-            if (list == null || list.isEmpty()) {
+        for (Object obj : list) {
+            if (obj == null) {
                 continue;
             }
-            for (Object obj : list) {
-                if (obj == null) {
-                    continue;
-                }
-                ReflectUtil.setFieldValue(obj, "task_id", taskId);
-                ReflectUtil.setFieldValue(obj, "bbd_qyxx_id", bbdId);
-                ReflectUtil.setFieldValue(obj, "company_name", companyName);
-            }
+            ReflectUtil.setFieldValue(obj, "task_id", taskId);
+            ReflectUtil.setFieldValue(obj, "bbd_qyxx_id", bbdId);
+            ReflectUtil.setFieldValue(obj, "company_name", companyName);
         }
     }
 }

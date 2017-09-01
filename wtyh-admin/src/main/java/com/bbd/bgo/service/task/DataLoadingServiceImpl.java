@@ -250,11 +250,9 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 
                         String dataStr = jsonData.getString(tn);
 
-                        DataLoadingUtil.addJsonDataToList(tn, dataStr, disList, ktggList, yuQingList, basicList, baxxList, gdxxList,
-                                zhuanliList, rmfyggList, zgcpwswList, zhixingList);
+                        DataLoadingUtil.addJsonDataToList(tn, dataStr, this.taskId, qyxxId, companyName, disList, ktggList, yuQingList,
+                                basicList, baxxList, gdxxList, zhuanliList, rmfyggList, zgcpwswList, zhixingList);
 
-                        DataLoadingUtil.batchSetField(this.taskId, qyxxId, companyName, disList, ktggList, yuQingList, basicList, baxxList,
-                                gdxxList, zhuanliList, rmfyggList, zgcpwswList, zhixingList);
                     } else {
                         String[] recruits = s.split("\\u0001");
                         RecruitIndexDO recruitIndex = new RecruitIndexDO();
