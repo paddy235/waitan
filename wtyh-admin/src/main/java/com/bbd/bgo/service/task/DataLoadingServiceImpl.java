@@ -275,16 +275,16 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
                 }
             }
             // 手动控制事务，异常跑出回滚事务
-            DefaultTransactionDefinition def = new DefaultTransactionDefinition();
-            def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRES_NEW);// 事物隔离级别，开启新事务
-            TransactionStatus status = transactionManager.getTransaction(def); // 获得事务状态
+            //            DefaultTransactionDefinition def = new DefaultTransactionDefinition();
+            //            def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRES_NEW);// 事物隔离级别，开启新事务
+            //            TransactionStatus status = transactionManager.getTransaction(def); // 获得事务状态
             try {
                 insertData(disList, ktggList, yuQingList, basicList, baxxList, gdxxList, zhuanliList, rmfyggList, zgcpwswList, zhixingList,
                         recruitIndexList);
-                transactionManager.commit(status);
+                //                transactionManager.commit(status);
             } catch (Exception e) {
                 logger.error("", e);
-                transactionManager.rollback(status);
+                //                transactionManager.rollback(status);
                 fail = new TaskFailInfoDO();
                 fail.setFailReason("数据插入错误");
                 setFailDo(fail, file.getName());
@@ -386,7 +386,7 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
             return updateNum;
         }
         Object o = list.get(0);
-        int pointsDataLimit = 500;// 限制条数
+        int pointsDataLimit = 1000;// 限制条数
         Integer size = list.size();
         if (o instanceof DishonestyDO) {
             List<DishonestyDO> dataList = (List<DishonestyDO>) list;
