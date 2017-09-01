@@ -6,7 +6,6 @@ import com.bbd.wtyh.domain.enums.WangDaiRiskLevel;
 import com.bbd.wtyh.service.CompanyInfoModifyService;
 import com.bbd.wtyh.web.ResponseBean;
 import com.bbd.wtyh.web.companyInfoModify.ModifyData;
-import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -69,7 +68,7 @@ public class CompanyInfoModifyController {
 //        // "融资担保"
         rst.put(CompanyInfo.TYPE_RZDB_3, CompanyLevel.getMap());
 //        // "线下理财"
-        Map<String, Integer> offLine = new HashedMap();
+        Map<String, Integer> offLine = new HashMap<>();
         offLine.put("已出风险", 1);
         offLine.put("重点关注", 2);
         offLine.put("一般关注", 3);
@@ -78,13 +77,13 @@ public class CompanyInfoModifyController {
 //        // "交易场所"
         rst.put(CompanyInfo.TYPE_JYS_9, offLine);
 //        // "预付卡"
-        Map<String, Integer> perpay = new HashedMap();
+        Map<String, Integer> perpay = new HashMap<>();
         perpay.put("正常", 4);
         perpay.put("已发生", 2);
         perpay.put("潜在", 3);
         rst.put(CompanyInfo.TYPE_YFK_11, perpay);
 //        // "融资租赁"
-        Map<String, Integer> financeLease = new HashedMap();
+        Map<String, Integer> financeLease = new HashMap<>();
         financeLease.put("正常", 0);
         financeLease.put("潜在", 1);
         rst.put(CompanyInfo.TYPE_RZZL_13, financeLease);
