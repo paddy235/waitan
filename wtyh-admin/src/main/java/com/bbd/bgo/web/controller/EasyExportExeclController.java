@@ -50,11 +50,11 @@ public class EasyExportExeclController {
         rst.put("典当", CompanyInfo.TYPE_DD_12);
         rst.put("融资租赁", CompanyInfo.TYPE_RZZL_13);
         rst.put("外滩网络借贷", CompanyInfo.TYPE_WT_30);
-//        rst.put("外滩众筹", CompanyInfo.TYPE_WT_31);
-//        rst.put("外滩网银", CompanyInfo.TYPE_WT_32);
-//        rst.put("外滩支付", CompanyInfo.TYPE_WT_33);
-//        rst.put("外滩预付卡", CompanyInfo.TYPE_WT_34);
-//        rst.put("外滩融资租赁", CompanyInfo.TYPE_WT_35);
+        rst.put("外滩众筹", CompanyInfo.TYPE_WT_31);
+        rst.put("外滩网银", CompanyInfo.TYPE_WT_32);
+        rst.put("外滩支付", CompanyInfo.TYPE_WT_33);
+        rst.put("外滩预付卡", CompanyInfo.TYPE_WT_34);
+        rst.put("外滩融资租赁", CompanyInfo.TYPE_WT_35);
         return ResponseBean.successResponse(rst);
     }
 
