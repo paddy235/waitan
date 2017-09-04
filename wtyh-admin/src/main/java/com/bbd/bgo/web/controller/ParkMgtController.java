@@ -386,6 +386,9 @@ public class ParkMgtController {
                 ImgDO img = new ImgDO();
                 InputStream ins = file.getInputStream();
                 img.setPic(IOUtils.toByteArray(ins));
+                if (null != file && null != file.getOriginalFilename() && !"".equals(file.getOriginalFilename()) && null != path && !"".equals(path) &&
+                        ((path + file.getOriginalFilename()).equals(ParkDO.DEFAULT_PARK_IMG) || (path + file.getOriginalFilename()).equals(BuildingDO.DEFAULT_BUILDING_IMG)))
+                    return ResponseBean.errorResponse("默认图片已占用该文件名，请修改文件名后在进行上传操作，谢谢！");
                 img.setPicName(file.getOriginalFilename());
                 img.setPicUrl(path + file.getOriginalFilename());
                 img.setPicType(picType);
@@ -403,7 +406,6 @@ public class ParkMgtController {
                 img.setCreateBy(user);
 
                 int id = imgService.addImage(img);
-                System.out.println("当前id：" + id);
                 ins.close();
             }
         } catch (Exception e) {
