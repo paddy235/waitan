@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<excel key="company-batch-modify" name="企业批量变更-导入模板">
+
+    <sheet name="Sheet1" startRow="9" entity="com.bbd.wtyh.domain.dto.CoBatchModifyDTO"
+           importHandler="com.bbd.bgo.service.imp.handler.company.modify.BatchModifyHandler">
+
+        <property name="writeExplain" value-ref="com.bbd.bgo.service.imp.handler.company.modify.Clues.writeExplain"/>
+        <rowHeader>
+            <column mergeFirstRow="1" mergeLastRow="8" mergeFirstCol="1" mergeLastCol="8" align="LEFT"
+                    value-ref="writeExplain"/>
+        </rowHeader>
+
+
+        <!--风险状态限制列表-->
+        <property name="riskLevel" value-ref="com.bbd.bgo.service.imp.handler.company.modify.Clues.riskLevelLimit"/>
+        <!--企业评级限制列表-->
+        <property name="riskRating" value-ref="com.bbd.bgo.service.imp.handler.company.modify.Clues.riskRatingLimit"/>
+        <!--企业类型限制列表-->
+        <property name="companyType" value-ref="com.bbd.bgo.service.imp.handler.company.modify.Clues.companyTypeLimit"/>
+
+        <columns>
+            <column name="公司名称" code="companyName" dataType="string" bgColor="#FFFF00" required="true" length="gitgit40"/>
+
+            <column name="统一社会信用代码" code="creditCode" dataType="string" regex="^([A-Z]|[0-9]){18}$"/>
+            <column name="注册号" code="regNum" dataType="string"/>
+
+            <column name="行业类型" code="companyType" dataType="string" bgColor="#FFFF00" required="true"
+                    list-ref="companyType"/>
+
+            <column name="风险状态" code="riskLevel" dataType="string" list-ref="riskLevel"/>
+            <column name="外部评级" code="outLevel" dataType="string" list-ref="riskRating"/>
+            <column name="内部评级" code="innerLevel" dataType="string" list-ref="riskRating"/>
+            <column name="现场检查" code="liveLevel" dataType="string" list-ref="riskRating"/>
+        </columns>
+    </sheet>
+</excel>

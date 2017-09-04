@@ -12,41 +12,41 @@ import java.util.Map;
  */
 public enum PrepaidCoRiskLevel {
 
-	NORMAL(1, "正常"),
-	LATENT(2, "潜在"),
-	HAPPEN(3, "已发生");
+    NORMAL(1, "正常"),
+    LATENT(2, "潜在"),
+    HAPPEN(3, "已发生");
 
-	private int type;
-	private String desc;
+    private int type;
+    private String desc;
 
-	PrepaidCoRiskLevel(int type, String desc) {
-		this.type = type;
-		this.desc = desc;
-	}
+    PrepaidCoRiskLevel(int type, String desc) {
+        this.type = type;
+        this.desc = desc;
+    }
 
-	public static List<Map<String, Object>> getListMap() {
-		PrepaidCoRiskLevel[] levels = PrepaidCoRiskLevel.values();
-		List<Map<String, Object>> riskList = new ArrayList<>();
-		Map<String, Object> map = new HashMap<>();
-		map.put("type", 0);
-		map.put("desc", "全部状态");
-		riskList.add(map);
-		for (PrepaidCoRiskLevel rl : levels) {
+    public int type() {
+        return this.type;
+    }
 
-			map = new HashMap<>();
-			map.put("type", rl.type());
-			map.put("desc", rl.desc());
-			riskList.add(map);
-		}
-		return riskList;
-	}
+    public String desc() {
+        return this.desc;
+    }
 
-	public int type() {
-		return this.type;
-	}
+    public static List<Map<String, Object>> getListMap() {
+        PrepaidCoRiskLevel[] levels = PrepaidCoRiskLevel.values();
+        List<Map<String, Object>> riskList = new ArrayList<>();
+        Map<String, Object> map = new HashMap<>();
+        map.put("type", 0);
+        map.put("desc", "全部状态");
+        riskList.add(map);
+        for (PrepaidCoRiskLevel rl : levels) {
 
-	public String desc() {
-		return this.desc;
-	}
+            map = new HashMap<>();
+            map.put("type", rl.type());
+            map.put("desc", rl.desc());
+            riskList.add(map);
+        }
+        return riskList;
+    }
 
 }
