@@ -23,6 +23,7 @@ public class Constants {
 	// 关联方-动态计算
 	public static final String REDIS_KEY_RELATION_URL = "REDIS_KEY_RELATION_URL";
 	public static final String REDIS_KEY_NATURAL_PERSON_LIST = "REDIS_KEY_NATURAL_PERSON_LIST";
+	public static final String REDIS_KEY_NATURAL_PERSON_LIST_ALL_TYPE = "REDIS_KEY_NATURAL_PERSON_LIST_ALL_TYPE";
 	public static final String REDIS_KEY_COMPANY_CREDIT_POINT_ITEMS = "BASE_INFO_COMPANY_CREDIT_POINT_ITEMS";
 	public static final String characterCode = "utf-8";
 	public static final String REDIS_KEY_BUSINESS_CHART_SHOW_P2P = "REDIS_KEY_BUSINESS_CHART_SHOW_P2P";
