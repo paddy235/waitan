@@ -7,6 +7,7 @@ import com.bbd.wtyh.core.base.BaseServiceImpl;
 import com.bbd.wtyh.dao.P2PImageDao;
 import com.bbd.wtyh.domain.*;
 import com.bbd.wtyh.domain.CompanyInfoModify.WangdaiModify;
+import com.bbd.wtyh.domain.EasyExport.WaiTanData;
 import com.bbd.wtyh.domain.EasyExport.WangdaiData;
 import com.bbd.wtyh.domain.bbdAPI.BaseDataDO;
 import com.bbd.wtyh.domain.bbdAPI.ZuZhiJiGoudmDO;
@@ -54,6 +55,9 @@ public class P2PImageServiceImpl extends BaseServiceImpl implements P2PImageServ
 
     @Autowired
     private TaskFailInfoMapper taskFailInfoMapper;
+
+    @Autowired
+    private DataLoadingMapper dataLoadingMapper;
 
     private volatile boolean isShutdown = false;// 任务停止标志
 
@@ -139,17 +143,27 @@ public class P2PImageServiceImpl extends BaseServiceImpl implements P2PImageServ
         return yuQingDTO;
     }
 
+    private PlatformDO getPlatListData(String platName) {
+        if (StringUtils.isBlank(platName)) {
+            return null;
+        }
+        return this.selectOne(PlatformDO.class, "plat_name = ? ORDER BY create_date DESC LIMIT 1", platName);
+    }
+
     @Override
     public Map<String, Object> lawsuitMsg(String platName) {
-        PlatDataDO platDataDO = p2PImageDao.getPlatData(platName);
+        PlatformDO platDataDO = this.getPlatListData(platName);
         if (null == platDataDO) {
             return null;
         }
-        // System.out.println("13"+platDataDO.getCompany_name());
-        Map<String, Object> result = p2PImageDao.lawsuitMsg(platDataDO.getCompany_name());
-        if (null == result || result.size() == 0) {
-            return null;
+
+        String companyName = platDataDO.getCompanyName();
+        Long total = platformMapper.countKtgg(companyName);
+        if (total == null || total == 0) {
+            return p2PImageDao.lawsuitMsg(companyName);
         }
+        Map<String, Object> result = new HashMap<>(1);
+        result.put("total", total);
         return result;
     }
 
@@ -195,7 +209,7 @@ public class P2PImageServiceImpl extends BaseServiceImpl implements P2PImageServ
     public String findCompanyNameFromDbThenAPI(String platName, Map<String, PlatListDO> wangdaiList) {
         PlatformNameInformationDO platformNameInformationDO = p2PImageDao.hasOrNotCompany(platName);
         PlatListDO platListDO;
-        if( null == wangdaiList ) {
+        if (null == wangdaiList) {
             platListDO = platformMapper.queryPlatByPlatName(platName);
         } else {
             platListDO = wangdaiList.get(platName);
@@ -214,34 +228,41 @@ public class P2PImageServiceImpl extends BaseServiceImpl implements P2PImageServ
 
     @Override
     public Map<String, Object> baseInfo(String platName) {
-        // 所有平台列表 plantName --> PlatListDO
-        //Map<String, PlatListDO> wangdaiList = getWangdaiPlatList();
-        // 公司名称
-        String companyName = findCompanyNameFromDbThenAPI(platName, null);
-        // 基本信息，来自全息数据？
-        BaseDataDO baseDataDO = p2PImageDao.baseInfoBBDData(companyName);
-        if (null == baseDataDO) {
+        PlatformDO platDataDO = this.getPlatListData(platName);
+        if (null == platDataDO || StringUtils.isBlank(platDataDO.getCompanyName())) {
             return null;
         }
+        String companyName = platDataDO.getCompanyName();
+
         // 组织机构数据
         ZuZhiJiGoudmDO zuZhiJiGoudmDO = p2PImageDao.baseInfoZuZhiJiGou(companyName);
         if (null == zuZhiJiGoudmDO) {
             return null;
         }
-        Map<String, Object> map = new HashMap<>();
-        for (BaseDataDO.Results result : baseDataDO.getResults()) {
-            map.put("legalPeople", result.getJbxx().getFrname());
-            map.put("capital", result.getJbxx().getRegcap());
-            map.put("address", result.getJbxx().getAddress());
-            map.put("openedTime", result.getJbxx().getEsdate());
-            map.put("verifiedTime", result.getJbxx().getApproval_date());
-            map.put("registerOffice", result.getJbxx().getRegorg());
+        // 本地取数
+        Map<String, Object> map = dataLoadingMapper.wangdaiBaseInfo(companyName);
+        // 本地无数据，则取接口
+        if (map == null || map.isEmpty()) {
+            BaseDataDO baseDataDO = p2PImageDao.baseInfoBBDData(companyName);
+            if (null == baseDataDO) {
+                return null;
+            }
+            map = new HashMap<>();
+            for (BaseDataDO.Results result : baseDataDO.getResults()) {
+                map.put("legalPeople", result.getJbxx().getFrname());
+                map.put("capital", result.getJbxx().getRegcap());
+                map.put("address", result.getJbxx().getAddress());
+                map.put("openedTime", result.getJbxx().getEsdate());
+                map.put("verifiedTime", result.getJbxx().getApproval_date());
+                map.put("registerOffice", result.getJbxx().getRegorg());
+            }
         }
+
         for (ZuZhiJiGoudmDO.Result result : zuZhiJiGoudmDO.getResults()) {
             map.put("companyCode", result.getJgdm());
         }
+
         map.put("platName", platName);
-        map.put("companyName", companyName);
         return map;
     }
 
@@ -603,6 +624,12 @@ public class P2PImageServiceImpl extends BaseServiceImpl implements P2PImageServ
     public List<WangdaiData> getWangdai(ExportCondition exportCondition, PageBean pageBean) {
         pageBean.setTotalCount(platCoreDataMapper.countWangdai(exportCondition));
         return platCoreDataMapper.getWangdai(exportCondition, pageBean);
+    }
+
+    @Override
+    public List<WaiTanData> getWaiTanOther(ExportCondition exportCondition, PageBean pageBean) {
+        pageBean.setTotalCount(platCoreDataMapper.countWaiTanOther(exportCondition));
+        return platCoreDataMapper.getWaiTanOther(exportCondition, pageBean);
     }
 
     @Override

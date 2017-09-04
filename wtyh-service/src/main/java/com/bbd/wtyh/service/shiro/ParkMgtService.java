@@ -61,31 +61,13 @@ public interface ParkMgtService{
      * 删除园区
      * @param parkId
      */
-    void delParkById(String parkId);
-
-    /**
-     * 删除楼宇
-     * @param parkId
-     */
-    void delBuildingByParkId(String parkId);
+    void delParkById(String parkId) throws Exception;
 
     /**
      * 删除楼宇
      * @param buildingId
      */
-    void delBuildingById(List<String> buildingId);
-
-    /**
-     * 删除企业
-     * @param parkId
-     */
-    void delCompanyBuildingByParkId(String parkId);
-
-    /**
-     * 删除企业
-     * @param buildingId
-     */
-    void delCompanyByBuildingId(List<String> buildingId);
+    void delBuildingById(List<String> buildingId) throws Exception;
 
     /**
      * 根据企业ID删除企业
@@ -146,7 +128,7 @@ public interface ParkMgtService{
      * 新增楼宇
      * @param building
      */
-    void addBuilding(BuildingDO building);
+    void addBuilding(BuildingDO building) throws Exception;
 
     /**
      * 新增楼宇企业

@@ -179,10 +179,13 @@ public class ParkMgtController {
             type = Operation.Type.del, after = true, before = false)
     public ResponseBean delPark(@RequestParam String parkId,String parkName) {
         //删除园区时，需要将相关楼宇及企业一并删除
-        parkMgtService.delCompanyBuildingByParkId(parkId);
-        parkMgtService.delBuildingByParkId(parkId);
-        parkMgtService.delParkById(parkId);
-        return ResponseBean.successResponse("OK");
+        try {
+            parkMgtService.delParkById(parkId);
+            return ResponseBean.successResponse("OK");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseBean.errorResponse(e.getMessage());
+        }
     }
 
     /**
@@ -197,9 +200,14 @@ public class ParkMgtController {
             type = Operation.Type.del, after = true, before = false)
     public ResponseBean delBuilding(@RequestParam String[] buildingId,String[] buindingName) {
         //删除楼宇时，需要将相关企业一并删除
-        parkMgtService.delCompanyByBuildingId(Arrays.asList(buildingId));
-        parkMgtService.delBuildingById(Arrays.asList(buildingId));
-        return ResponseBean.successResponse("OK");
+        try {
+            parkMgtService.delBuildingById(Arrays.asList(buildingId));
+            return ResponseBean.successResponse("OK");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseBean.errorResponse(e.getMessage());
+        }
+
     }
 
     /**
@@ -256,7 +264,7 @@ public class ParkMgtController {
     @ResponseBody
     @LogRecord(logMsg = "新增楼宇,所属园区：%s，楼宇名称：%s", params = {"parkName","name"}, page = Operation.Page.PARK_BUILDING_MANAGE,
             type = Operation.Type.add, after = true, before = false)
-    public ResponseBean addBuilding(HttpServletRequest request, BuildingDO building,String parkName) {
+    public ResponseBean addBuilding(HttpServletRequest request, BuildingDO building,String parkName) throws Exception {
         //新增之前先查询该楼宇是否存在
         int i = parkMgtService.queryBIdByName(building.getName());
         if(i != 0){
@@ -378,6 +386,9 @@ public class ParkMgtController {
                 ImgDO img = new ImgDO();
                 InputStream ins = file.getInputStream();
                 img.setPic(IOUtils.toByteArray(ins));
+                if (null != file && null != file.getOriginalFilename() && !"".equals(file.getOriginalFilename()) && null != path && !"".equals(path) &&
+                        ((path + file.getOriginalFilename()).equals(ParkDO.DEFAULT_PARK_IMG) || (path + file.getOriginalFilename()).equals(BuildingDO.DEFAULT_BUILDING_IMG)))
+                    return ResponseBean.errorResponse("默认图片已占用该文件名，请修改文件名后在进行上传操作，谢谢！");
                 img.setPicName(file.getOriginalFilename());
                 img.setPicUrl(path + file.getOriginalFilename());
                 img.setPicType(picType);
@@ -395,7 +406,6 @@ public class ParkMgtController {
                 img.setCreateBy(user);
 
                 int id = imgService.addImage(img);
-                System.out.println("当前id：" + id);
                 ins.close();
             }
         } catch (Exception e) {

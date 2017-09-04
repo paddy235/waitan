@@ -1,14 +1,13 @@
 package com.bbd.wtyh.domain.dataLoading;
 
-import y.util.D;
-
 import java.util.Date;
-import java.util.List;
 
 /**
+ * 
  * Created by wangchenge on 2016/8/21 0021.
  */
 public class ZgcpwswDO {
+
     private Integer id;
     private String bbd_qyxx_id;//企业唯一ID
     private String action_cause;//案由
@@ -32,8 +31,7 @@ public class ZgcpwswDO {
     private String historycase;//历审案例
     private String ju_proc;//审理程序
     private String litigant;//当事人
-    private List<String> litigant_type;//当事人类型
-    private String litigant_types;//当事人类型
+    private String litigant_type;//当事人类型
     private String main;//文书内容
     private String pro_litigant;//起诉方当事人
     private String pro_other_related;//起诉方其他相关人
@@ -46,6 +44,7 @@ public class ZgcpwswDO {
     private String update;//'更新时间
     private Date create_time;
     private Integer task_id;
+
     public ZgcpwswDO() {
     }
 
@@ -321,20 +320,12 @@ public class ZgcpwswDO {
         this.create_time = create_time;
     }
 
-    public List<String> getLitigant_type() {
+    public String getLitigant_type() {
         return litigant_type;
     }
 
-    public void setLitigant_type(List<String> litigant_type) {
+    public void setLitigant_type(String litigant_type) {
         this.litigant_type = litigant_type;
-    }
-
-    public String getLitigant_types() {
-        return litigant_types;
-    }
-
-    public void setLitigant_types(String litigant_types) {
-        this.litigant_types = litigant_types;
     }
 
     public Integer getTask_id() {

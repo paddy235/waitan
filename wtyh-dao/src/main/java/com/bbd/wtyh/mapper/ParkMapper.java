@@ -28,5 +28,13 @@ public interface ParkMapper {
 	 * @return
      */
 	List<ParkDO> queryAllPark();
+
+	/**
+	 * 根据行政区编码或用户ID查询园区
+	 *
+	 * @param params
+	 * @return
+	 */
+	List<ParkDO> queryParkList(Map<String, Object> params);
    
 }

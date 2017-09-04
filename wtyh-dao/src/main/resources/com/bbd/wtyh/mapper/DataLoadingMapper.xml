@@ -57,7 +57,7 @@
         regcap_currency,regcapcur,regno,regno_or_creditcode,regorg,revoke_date,type,frname_compid,create_time,task_id)
         VALUES
         <foreach collection="list" item="item" index="index" separator=",">
-            (#{item.id}, #{item.address}, #{item.approval_date}, #{item.bbd_dotime}, #{item.bbd_history_names},
+            (#{item.id}, #{item.address}, #{item.approval_date}, #{item.bbd_dotime}, #{item.bbd_history_name},
             #{item.bbd_qyxx_id}, #{item.bbd_type}, #{item.bbd_uptime}, #{item.cancel_date}, #{item.company_companytype},
             #{item.company_county}, #{item.company_currency}, #{item.company_enterprise_status},
             #{item.company_industry}, #{item.company_name},#{item.company_province}, #{item.company_regorg},
@@ -148,7 +148,7 @@
             #{item.case_type}, #{item.casecode}, #{item.caseout_come}, #{item.company_name},
             #{item.court_acceptance_fee}, #{item.court_litigant}, #{item.data_source}, #{item.def_litigant},
             #{item.def_other_related}, #{item.doc_type},
-            #{item.historycase}, #{item.ju_proc}, #{item.litigant}, #{item.litigant_types}, #{item.main},
+            #{item.historycase}, #{item.ju_proc}, #{item.litigant}, #{item.litigant_type}, #{item.main},
             #{item.pro_litigant}, #{item.pro_other_related}, #{item.rawdata},
             #{item.rel_doc}, #{item.rel_doc_url}, #{item.sentence_date}, #{item.title}, #{item.trial_court},
             #{item.task_id})
@@ -211,6 +211,19 @@
         <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
             #{item.name}
         </foreach>
+    </select>
+    
+    <select id="wangdaiBaseInfo" resultType="java.util.Map">
+        SELECT
+	        company_name AS companyName,
+	        frname AS legalPeople,
+	        regcap AS capital,
+	        address AS address,
+	        esdate AS openedTime,
+	        approval_date AS verifiedTime,
+	        regorg AS registerOffice
+        FROM qyxx_basic WHERE company_name = #{companyName} ORDER BY basic_id DESC LIMIT 1;
+
     </select>
 
 </mapper>

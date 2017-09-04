@@ -85,4 +85,75 @@
                 and company.area_id = #{exportCondition.areaId}
             </if>
     </select>
+
+
+    <select id="getWaiTanOther"  resultType="com.bbd.wtyh.domain.EasyExport.WaiTanData">
+        SELECT
+        company.`name` AS `name`,
+        t_tag.tag AS industry,
+        company.legal_person AS legalPerson,
+        company.registered_date AS registeredDate,
+        company.registered_capital AS registeredCapital,
+        company.registered_capital_type AS registeredCapitalType,
+        company.address AS address
+        FROM
+        company,
+        (select company_name,GROUP_CONCAT(tag)as tag from company_tag
+        where EXISTS (SELECT 1 FROM company_tag as t1 where tag=#{exportCondition.industry} and t1.company_name=company_tag.company_name)
+        GROUP BY company_name )as t_tag
+        WHERE
+        company.`name`=t_tag.company_name
+
+        <if test="exportCondition.currentLevel!=null">
+            and company.risk_level = #{exportCondition.currentLevel}
+        </if>
+        <if test="exportCondition.registeredCapitalMin!=null">
+            and company.registered_capital >= #{exportCondition.registeredCapitalMin}
+        </if>
+        <if test="exportCondition.registeredCapitalMax!=null">
+            and #{exportCondition.registeredCapitalMax} >= company.registered_capital
+        </if>
+        <if test="exportCondition.registeredDateMin!=null">
+            and company.registered_date >= #{exportCondition.registeredDateMin}
+        </if>
+        <if test="exportCondition.registeredDateMax!=null">
+            and #{exportCondition.registeredDateMax} >= company.registered_date
+        </if>
+        <if test="exportCondition.areaId!=null">
+            and company.area_id = #{exportCondition.areaId}
+        </if>
+        LIMIT #{pageBean.offset}, #{pageBean.pageSize}
+    </select>
+
+    <select id="countWaiTanOther" resultType="long">
+        SELECT
+        COUNT(1)
+        FROM
+        company,
+        (select company_name,GROUP_CONCAT(tag)as tag from company_tag
+        where EXISTS (SELECT 1 FROM company_tag as t1 where tag=#{exportCondition.industry} and t1.company_name=company_tag.company_name)
+        GROUP BY company_name )as t_tag
+        WHERE
+        company.`name`=t_tag.company_name
+
+        <if test="exportCondition.currentLevel!=null">
+            and company.risk_level = #{exportCondition.currentLevel}
+        </if>
+        <if test="exportCondition.registeredCapitalMin!=null">
+            and company.registered_capital >= #{exportCondition.registeredCapitalMin}
+        </if>
+        <if test="exportCondition.registeredCapitalMax!=null">
+            and #{exportCondition.registeredCapitalMax} >= company.registered_capital
+        </if>
+        <if test="exportCondition.registeredDateMin!=null">
+            and company.registered_date >= #{exportCondition.registeredDateMin}
+        </if>
+        <if test="exportCondition.registeredDateMax!=null">
+            and #{exportCondition.registeredDateMax} >= company.registered_date
+        </if>
+        <if test="exportCondition.areaId!=null">
+            and company.area_id = #{exportCondition.areaId}
+        </if>
+    </select>
+
 </mapper>

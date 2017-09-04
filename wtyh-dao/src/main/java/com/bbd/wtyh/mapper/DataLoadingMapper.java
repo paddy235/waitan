@@ -3,6 +3,7 @@ package com.bbd.wtyh.mapper;
 import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.OfflineFinancialRecordDO;
 import com.bbd.wtyh.domain.dataLoading.*;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -16,37 +17,40 @@ import java.util.Map;
  */
 public interface DataLoadingMapper {
 
-	int saveDishonestyDO(List<DishonestyDO> dishonestyList);
+    int saveDishonestyDO(List<DishonestyDO> dishonestyList);
 
-	int saveKtggDO(List<KtggDO> ktggList);
+    int saveKtggDO(List<KtggDO> ktggList);
 
-	int saveQyxgYuqingDO(List<QyxgYuqingDO> qyxgYuqingList);
+    int saveQyxgYuqingDO(List<QyxgYuqingDO> qyxgYuqingList);
 
-	int saveQyxxBasicDO(List<QyxxBasicDO> qyxxBasicList);
+    int saveQyxxBasicDO(List<QyxxBasicDO> qyxxBasicList);
 
-	int saveQyxxBaxxDO(List<QyxxBaxxDO> qyxxBaxxList);
+    int saveQyxxBaxxDO(List<QyxxBaxxDO> qyxxBaxxList);
 
-	int saveQyxxGdxxDO(List<QyxxGdxxDO> qyxxGdxxList);
+    int saveQyxxGdxxDO(List<QyxxGdxxDO> qyxxGdxxList);
 
-	int saveQyxxZhuanliDO(List<QyxxZhuanliDO> qyxxZhuanliList);
+    int saveQyxxZhuanliDO(List<QyxxZhuanliDO> qyxxZhuanliList);
 
-	int saveRmfyggDO(List<RmfyggDO> rmfyggList);
+    int saveRmfyggDO(List<RmfyggDO> rmfyggList);
 
-	int saveZgcpwswDO(List<ZgcpwswDO> zgcpwswDOList);
+    int saveZgcpwswDO(List<ZgcpwswDO> zgcpwswDOList);
 
-	int saveZhixingDO(List<ZhixingDO> zhixingList);
+    int saveZhixingDO(List<ZhixingDO> zhixingList);
 
-	int saveRecruitIndexDO(List<RecruitIndexDO> recruitIndexList);
+    int saveRecruitIndexDO(List<RecruitIndexDO> recruitIndexList);
 
-	int saveOfflineFinancialRecordDO(List<OfflineFinancialRecordDO> recordList);
+    int saveOfflineFinancialRecordDO(List<OfflineFinancialRecordDO> recordList);
 
-	List<DatasharePullFileDO> getDatasharePullFileByTaskId(Integer taskId);
+    List<DatasharePullFileDO> getDatasharePullFileByTaskId(Integer taskId);
 
-	List<QyxxBasicDO> getCompanyBasicInfoInNames(List<CompanyDO> CompanyList);
+    List<QyxxBasicDO> getCompanyBasicInfoInNames(List<CompanyDO> CompanyList);
 
-	@Select("SELECT file_name AS fileName,data_version AS dataVersion FROM datashare_pull_file WHERE is_pull = FALSE")
-	List<Map<String, String>> noPullFileNameList();
+    @Select("SELECT file_name AS fileName,data_version AS dataVersion FROM datashare_pull_file WHERE is_pull = FALSE")
+    List<Map<String, String>> noPullFileNameList();
 
-	@Select("SELECT IFNULL(MAX(data_version),0) FROM datashare_pull_file")
-	Integer maxDataVersion();
+    @Select("SELECT IFNULL(MAX(data_version),0) FROM datashare_pull_file")
+    Integer maxDataVersion();
+
+    Map<String, Object> wangdaiBaseInfo(@Param("companyName") String companyName);
+
 }

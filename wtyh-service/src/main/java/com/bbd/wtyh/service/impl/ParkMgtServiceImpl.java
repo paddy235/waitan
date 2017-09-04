@@ -1,15 +1,18 @@
 package com.bbd.wtyh.service.impl;
 
-import com.bbd.wtyh.domain.BuildingDO;
-import com.bbd.wtyh.domain.CompanyBuildingDO;
-import com.bbd.wtyh.domain.CompanyDO;
-import com.bbd.wtyh.domain.ParkDO;
+import com.bbd.higgs.utils.ListUtil;
+import com.bbd.higgs.utils.StringUtils;
+import com.bbd.wtyh.domain.*;
 import com.bbd.wtyh.domain.vo.ParkAndBuildingVO;
 import com.bbd.wtyh.mapper.ParkAndBuildingMgtMapper;
+import com.bbd.wtyh.service.PABRelationService;
+import com.bbd.wtyh.service.ParkRangeService;
 import com.bbd.wtyh.service.shiro.ParkMgtService;
 import org.apache.commons.collections.map.HashedMap;
+import org.apache.poi.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +25,10 @@ import java.util.Map;
 public class ParkMgtServiceImpl implements ParkMgtService {
     @Autowired
     private ParkAndBuildingMgtMapper parkAndBuildingMgtMapper;
+    @Autowired
+    private ParkRangeService parkRangeService;
+    @Autowired
+    private PABRelationService pabRelationService;
 
     @Override
     public List<ParkDO> queryParkList() {
@@ -37,27 +44,22 @@ public class ParkMgtServiceImpl implements ParkMgtService {
 
     @Override
     public List<Map<String, String>> queryBuildingList(String parkId, String buildingName) {
-        List<Map<String, String>> list = new ArrayList<>();
         try {
-            buildingName = "%"+buildingName+"%";
-            list = parkAndBuildingMgtMapper.queryBuildingList(parkId,buildingName);
+             return parkAndBuildingMgtMapper.queryBuildingList(parkId,buildingName);
         } catch (Exception e) {
             e.printStackTrace();
-            return list;
         }
-        return list;
+        return null;
     }
 
     @Override
     public List<ParkAndBuildingVO> queryParkAndBuilding(String parkId,String buildingName) {
-        List<ParkAndBuildingVO> list = new ArrayList<>();
         try {
-            list = parkAndBuildingMgtMapper.queryParkAndBuilding(parkId,buildingName);
+            return parkAndBuildingMgtMapper.queryParkAndBuilding(parkId,buildingName);
         } catch (Exception e) {
             e.printStackTrace();
-            return list;
         }
-        return list;
+        return null;
     }
 
     @Override
@@ -114,47 +116,34 @@ public class ParkMgtServiceImpl implements ParkMgtService {
     }
 
     @Override
-    public void delParkById(String parkId) {
-        try {
-            parkAndBuildingMgtMapper.delParkById(parkId);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void delBuildingByParkId(String parkId) {
-        try {
-            parkAndBuildingMgtMapper.delBuildingByParkId(parkId);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void delBuildingById(List<String> buildingId) {
-        try {
-            parkAndBuildingMgtMapper.delBuildingById(buildingId);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void delCompanyBuildingByParkId(String parkId) {
+    @Transactional(rollbackFor = Exception.class)
+    public void delParkById(String parkId) throws Exception {
         try {
             parkAndBuildingMgtMapper.delCompanyBuildingByParkId(parkId);
+            parkAndBuildingMgtMapper.delBuildingByParkId(parkId);
+            parkAndBuildingMgtMapper.delParkById(parkId);
+
+            pabRelationService.delPABRelationByParkId(Integer.parseInt(parkId));
+            parkRangeService.delParkRangeByParkId(Integer.parseInt(parkId));
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new Exception(e.getMessage(), e);
         }
     }
 
     @Override
-    public void delCompanyByBuildingId(List<String> buildingId) {
+    @Transactional(rollbackFor = Exception.class)
+    public void delBuildingById(List<String> buildingId) throws Exception {
         try {
             parkAndBuildingMgtMapper.delCompanyByBuildingId(buildingId);
+            parkAndBuildingMgtMapper.delBuildingById(buildingId);
+
+            if (ListUtil.isNotEmpty(buildingId)) {
+                buildingId.forEach((String id) -> {
+                    pabRelationService.delPABRelationByBuildingId(Integer.parseInt(id));
+                });
+            }
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new Exception(e.getMessage(), e);
         }
     }
 
@@ -191,18 +180,20 @@ public class ParkMgtServiceImpl implements ParkMgtService {
 
     @Override
     public int queryBIdByName(String buildingName) {
-        int i = 0000;
         try {
-            i = parkAndBuildingMgtMapper.queryBIdByName(buildingName);
+            String s = parkAndBuildingMgtMapper.queryBIdByName(buildingName);
+            return StringUtils.isNullOrEmpty(s) ? 0 : Integer.parseInt(s);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return i;
+        return 0;
     }
 
     @Override
     public BuildingDO queryBuildingByParkAndBuilding(String parkId, String buildingId) {
         BuildingDO buildingDO = parkAndBuildingMgtMapper.queryBuildingByParkAndBuilding(parkId,buildingId);
+        if (null != buildingDO && StringUtils.isNullOrEmpty(buildingDO.getImgUrl()))
+            buildingDO.setImgUrl(BuildingDO.DEFAULT_BUILDING_IMG);
         return buildingDO;
     }
 
@@ -216,11 +207,18 @@ public class ParkMgtServiceImpl implements ParkMgtService {
     }
 
     @Override
-    public void addBuilding(BuildingDO building) {
+    @Transactional(rollbackFor = Exception.class)
+    public void addBuilding(BuildingDO building) throws Exception {
         try {
             parkAndBuildingMgtMapper.addBuilding(building);
+            PABRelationDO pabDO = new PABRelationDO();
+            pabDO.setBuildingId(building.getBuildingId());
+            pabDO.setCreateBy(building.getCreateBy());
+            pabDO.setUpdateBy(building.getUpdateBy());
+            pabDO.setParkId(building.getParkId());
+            pabRelationService.addPABRelation(pabDO);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new Exception(e.getMessage(), e);
         }
     }
 
@@ -236,6 +234,9 @@ public class ParkMgtServiceImpl implements ParkMgtService {
     @Override
     public ParkDO queryParkById(String parkId) {
         ParkDO parkDO = parkAndBuildingMgtMapper.queryParkById(parkId);
+        /* 使用默认图片 */
+        if (null != parkDO && StringUtils.isNullOrEmpty(parkDO.getImgUrl()))
+            parkDO.setImgUrl(ParkDO.DEFAULT_PARK_IMG);
         return parkDO;
     }
 

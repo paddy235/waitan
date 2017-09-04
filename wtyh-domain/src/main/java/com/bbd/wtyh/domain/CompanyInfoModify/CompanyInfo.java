@@ -1,6 +1,5 @@
 package com.bbd.wtyh.domain.CompanyInfoModify;
 
-import com.bbd.wellspring.common.service.facade.request.CompanyIdRequest;
 
 /**
  * Created by YanWenyuan on 2017/7/14.
@@ -22,6 +21,13 @@ public class CompanyInfo {
     public static final byte TYPE_YFK_11 = 11;
     public static final byte TYPE_DD_12 = 12;
     public static final byte TYPE_RZZL_13 = 13;
+
+    public static final byte TYPE_WT_30 = 30;//外滩网络借贷
+    public static final byte TYPE_WT_31 = 31;//外滩众筹
+    public static final byte TYPE_WT_32 = 32;//外滩网银
+    public static final byte TYPE_WT_33 = 33;//外滩支付
+    public static final byte TYPE_WT_34 = 34;//外滩预付卡
+    public static final byte TYPE_WT_35 = 35;//外滩融资租赁
 
     private Integer companyId;
     private String name; // 公司名
@@ -134,5 +140,54 @@ public class CompanyInfo {
 
     public void setLiveLevel(String liveLevel) {
         this.liveLevel = liveLevel;
+    }
+
+    public static String companyTypeCN(Byte industry) {
+        if (null == industry) {
+            return "";
+        }
+        switch (industry) {
+            case TYPE_P2P_1:
+                return "网络借贷";
+            case TYPE_XD_2:
+                return "小额贷款";
+            case TYPE_RZDB_3:
+                return "融资担保";
+            case TYPE_XXLC_4:
+                return "线下理财";
+            case TYPE_SMJJ_5:
+                return "私募基金";
+            case TYPE_ZC_6:
+                return "众筹";
+            case TYPE_JR_7:
+                return "金融";
+            case TYPE_QT_8:
+                return "其他";
+            case TYPE_JYS_9:
+                return "交易场所";
+            case TYPE_SYBL_10:
+                return "商业保理";
+            case TYPE_YFK_11:
+                return "预付卡";
+            case TYPE_DD_12:
+                return "典当";
+            case TYPE_RZZL_13:
+                return "融资租赁";
+            case TYPE_WT_30:
+                return "外滩网络借贷";
+            case TYPE_WT_31:
+                return "外滩众筹";
+            case TYPE_WT_32:
+                return "外滩网银";
+            case TYPE_WT_33:
+                return "外滩支付";
+            case TYPE_WT_34:
+                return "外滩预付卡";
+            case TYPE_WT_35:
+                return "外滩融资租赁";
+            default:
+                return "";
+
+        }
     }
 }

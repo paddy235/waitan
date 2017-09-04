@@ -12,7 +12,6 @@ import com.bbd.wtyh.service.TaskService;
 import com.bbd.wtyh.util.DataLoadingUtil;
 import com.bbd.wtyh.util.PullFileUtil;
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -152,6 +151,8 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
             List<File> fileList = new ArrayList<>();
             List<DatasharePullFileDO> pullFileList = new ArrayList<>();
 
+            logger.info("拉取全息数据文件开始, total：{}", fileNameList.size());
+
             for (Map<String, String> map : historyFileNameList) {
 
                 String fileName = map.get("fileName");
@@ -179,7 +180,7 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
                 pullFile.setFile_url(file.getAbsolutePath());
                 fileList.add(file);
             }
-
+            logger.info("拉取全息数据文件结束, total：{},success：{}", fileNameList.size(), pullFileList.size());
             this.insertList(pullFileList);
             dataError = this.operateUpdate(failList, fileList);
         }
@@ -214,9 +215,7 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
             return error;
         }
         for (File file : fileList) {
-            logger.info("start analysis file , file name:" + file.getName());
             List<String> list = DataLoadingUtil.txt2String(file);
-            logger.info(file.getName() + "analysis number:" + list.size());
             // 文件解析出错
             if (null == list) {
                 fail = new TaskFailInfoDO();
@@ -248,28 +247,12 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
                         String companyName = jsonObject.getString("company_name");
 
                         JSONObject jsonData = JSONObject.parseObject(data);
+
                         String dataStr = jsonData.getString(tn);
-                        String taskId = String.valueOf(this.taskId);
 
-                        // 拼装一段字符串，替换原JSON串的 }，变相追加元素。
-                        StringBuilder sb = new StringBuilder(
-                                49 + StringUtils.length(taskId) + StringUtils.length(qyxxId) + StringUtils.length(companyName));
+                        DataLoadingUtil.addJsonDataToList(tn, dataStr, this.taskId, qyxxId, companyName, disList, ktggList, yuQingList,
+                                basicList, baxxList, gdxxList, zhuanliList, rmfyggList, zgcpwswList, zhixingList);
 
-                        sb.append(",\"task_id\":\"").append(taskId).append("\"");
-
-                        if (StringUtils.isNotBlank(qyxxId)) {
-                            sb.append(",\"bbd_qyxx_id\":\"").append(qyxxId).append("\"");
-                        }
-                        if (StringUtils.isNotBlank(companyName)) {
-                            sb.append(",\"company_name\":\"").append(companyName).append("\"");
-                        }
-                        sb.append("}");
-
-                        // [{"a":"1"}] --> [{"a":"1","b":"2"}]
-                        dataStr = dataStr.replaceAll("}", sb.toString());
-
-                        DataLoadingUtil.addJsonDataToList(tn, dataStr, disList, ktggList, yuQingList, basicList, baxxList, gdxxList,
-                                zhuanliList, rmfyggList, zgcpwswList, zhixingList);
                     } else {
                         String[] recruits = s.split("\\u0001");
                         RecruitIndexDO recruitIndex = new RecruitIndexDO();
@@ -282,6 +265,7 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
                         recruitIndexList.add(recruitIndex);
                     }
                 } catch (Exception e) {
+                    logger.error("\r\n全息落地数据格式错误:{} \r\n--fileName:{}\r\n--Exception：", s, file.getName(), e);
                     fail = new TaskFailInfoDO();
                     fail.setFailReason("数据格式错误");
                     setFailDo(fail, file.getName());
@@ -291,21 +275,24 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
                 }
             }
             // 手动控制事务，异常跑出回滚事务
-            DefaultTransactionDefinition def = new DefaultTransactionDefinition();
-            def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRES_NEW);// 事物隔离级别，开启新事务
-            TransactionStatus status = transactionManager.getTransaction(def); // 获得事务状态
+            //            DefaultTransactionDefinition def = new DefaultTransactionDefinition();
+            //            def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRES_NEW);// 事物隔离级别，开启新事务
+            //            TransactionStatus status = transactionManager.getTransaction(def); // 获得事务状态
             try {
                 insertData(disList, ktggList, yuQingList, basicList, baxxList, gdxxList, zhuanliList, rmfyggList, zgcpwswList, zhixingList,
                         recruitIndexList);
-                transactionManager.commit(status);
+                //                transactionManager.commit(status);
             } catch (Exception e) {
                 logger.error("", e);
-                transactionManager.rollback(status);
+                //                transactionManager.rollback(status);
                 fail = new TaskFailInfoDO();
                 fail.setFailReason("数据插入错误");
                 setFailDo(fail, file.getName());
                 failList.add(fail);
                 // 出错跳出循环
+            } finally {
+                list.clear();
+                System.gc();
             }
         }
         if (failList.size() > 0) {
@@ -344,47 +331,47 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
             List<ZgcpwswDO> zgcpwswList, List<ZhixingDO> zhixingList, List<RecruitIndexDO> recruitIndexList) {
         if (disList.size() > 0) {
             int disInsertNum = batchInsertData(disList);
-            logger.info("批量新增失信被执行人 , count:" + disInsertNum);
+            logger.debug("批量新增失信被执行人 , count:" + disInsertNum);
         }
         if (ktggList.size() > 0) {
             int ktggInsertNum = batchInsertData(ktggList);
-            logger.info("批量新增开庭公告 , count:" + ktggInsertNum);
+            logger.debug("批量新增开庭公告 , count:" + ktggInsertNum);
         }
         if (yuQingList.size() > 0) {
             int yuQingInsertNum = batchInsertData(yuQingList);
-            logger.info("批量新增舆情 , count:" + yuQingInsertNum);
+            logger.debug("批量新增舆情 , count:" + yuQingInsertNum);
         }
         if (basicList.size() > 0) {
             int basicInsertNum = batchInsertData(basicList);
-            logger.info("批量新增企业基础信息 , count:" + basicInsertNum);
+            logger.debug("批量新增企业基础信息 , count:" + basicInsertNum);
         }
         if (baxxList.size() > 0) {
             int baxxInsertNum = batchInsertData(baxxList);
-            logger.info("批量新增企业高管信息 , count:" + baxxInsertNum);
+            logger.debug("批量新增企业高管信息 , count:" + baxxInsertNum);
         }
         if (gdxxList.size() > 0) {
             int gdxxInsertNum = batchInsertData(gdxxList);
-            logger.info("批量新增企业股东信息 , count:" + gdxxInsertNum);
+            logger.debug("批量新增企业股东信息 , count:" + gdxxInsertNum);
         }
         if (zhuanliList.size() > 0) {
             int zhuanliInsertNum = batchInsertData(zhuanliList);
-            logger.info("批量新增企业专利信息 , count:" + zhuanliInsertNum);
+            logger.debug("批量新增企业专利信息 , count:" + zhuanliInsertNum);
         }
         if (rmfyggList.size() > 0) {
             int rmfyggInsertNum = batchInsertData(rmfyggList);
-            logger.info("批量新增人民法院公告 , count:" + rmfyggInsertNum);
+            logger.debug("批量新增人民法院公告 , count:" + rmfyggInsertNum);
         }
         if (zgcpwswList.size() > 0) {
             int zgcpwswInsertNum = batchInsertData(zgcpwswList);
-            logger.info("批量新增中国裁判文书 , count:" + zgcpwswInsertNum);
+            logger.debug("批量新增中国裁判文书 , count:" + zgcpwswInsertNum);
         }
         if (zhixingList.size() > 0) {
             int zhixingInsertNum = batchInsertData(zhixingList);
-            logger.info("批量新增执行 , count:" + zhixingInsertNum);
+            logger.debug("批量新增执行 , count:" + zhixingInsertNum);
         }
         if (recruitIndexList.size() > 0) {
             int insertNum = batchInsertData(recruitIndexList);
-            logger.info("批量新增招聘指数 , count:" + insertNum);
+            logger.debug("批量新增招聘指数 , count:" + insertNum);
         }
 
     }
@@ -399,7 +386,7 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
             return updateNum;
         }
         Object o = list.get(0);
-        int pointsDataLimit = 1000;// 限制条数
+        int pointsDataLimit = 100;// 限制条数
         Integer size = list.size();
         if (o instanceof DishonestyDO) {
             List<DishonestyDO> dataList = (List<DishonestyDO>) list;

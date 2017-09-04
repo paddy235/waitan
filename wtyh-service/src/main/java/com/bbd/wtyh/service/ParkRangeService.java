@@ -9,9 +9,11 @@ import java.util.List;
  */
 public interface ParkRangeService {
 
-    void addParkRange(List<ParkRangeDO> list);
+    void addParkRange(Integer userId, String parkArrStr, String operator);
 
     void delParkRangeByUserId(Integer userId);
 
     List<ParkRangeDO> queryParkRangeByUserId(Integer userId);
+
+    void delParkRangeByParkId(Integer parkId);
 }

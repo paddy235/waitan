@@ -25,4 +25,9 @@ public class PABRelationServiceImpl implements PABRelationService {
         pabRelationMapper.delPABRelationByParkId(parkId);
     }
 
+    @Override
+    public void delPABRelationByBuildingId(Integer buildingId) {
+        pabRelationMapper.delPABRelationByBuildingId(buildingId);
+    }
+
 }
