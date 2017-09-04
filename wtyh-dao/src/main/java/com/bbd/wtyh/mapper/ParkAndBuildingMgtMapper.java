@@ -54,7 +54,7 @@ public interface ParkAndBuildingMgtMapper {
 
     int queryBuildingIdByName(@Param("parkId") Integer parkId,@Param("buildingName") String buildingName);
 
-    int queryBIdByName(String buildingName);
+    String queryBIdByName(String buildingName);
 
     List<ParkDO> queryParkList();
 

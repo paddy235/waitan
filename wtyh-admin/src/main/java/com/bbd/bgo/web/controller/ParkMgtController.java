@@ -200,9 +200,14 @@ public class ParkMgtController {
             type = Operation.Type.del, after = true, before = false)
     public ResponseBean delBuilding(@RequestParam String[] buildingId,String[] buindingName) {
         //删除楼宇时，需要将相关企业一并删除
-        parkMgtService.delCompanyByBuildingId(Arrays.asList(buildingId));
-        parkMgtService.delBuildingById(Arrays.asList(buildingId));
-        return ResponseBean.successResponse("OK");
+        try {
+            parkMgtService.delBuildingById(Arrays.asList(buildingId));
+            return ResponseBean.successResponse("OK");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseBean.errorResponse(e.getMessage());
+        }
+
     }
 
     /**
@@ -259,7 +264,7 @@ public class ParkMgtController {
     @ResponseBody
     @LogRecord(logMsg = "新增楼宇,所属园区：%s，楼宇名称：%s", params = {"parkName","name"}, page = Operation.Page.PARK_BUILDING_MANAGE,
             type = Operation.Type.add, after = true, before = false)
-    public ResponseBean addBuilding(HttpServletRequest request, BuildingDO building,String parkName) {
+    public ResponseBean addBuilding(HttpServletRequest request, BuildingDO building,String parkName) throws Exception {
         //新增之前先查询该楼宇是否存在
         int i = parkMgtService.queryBIdByName(building.getName());
         if(i != 0){
