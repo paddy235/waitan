@@ -50,6 +50,7 @@ public class UserInfoController {
     public Object createUser1( UserInfoTableDo uitd,
                                @RequestParam String resourceSet,
                                @RequestParam String roleSet,
+                               @RequestParam(required = false) String parkSet,
                                HttpServletRequest request,
                                HttpSession session) {
         // hh.addHeader("aa","1234");
@@ -60,7 +61,7 @@ public class UserInfoController {
             if( UserType.getUserTypeByCode(uitd.getUserType()).getUserRank().getRankVal() >=ownRank.getRankVal() ) {
                 return ResponseBean.errorResponse("新创建的用户等级不合法");
             }
-            uis.createUser(uitd, resourceSet, roleSet);
+            uis.createUser(uitd, resourceSet, roleSet, parkSet);
         } catch (BusinessException be) {
             return ResponseBean.errorResponse(be.getMessage());
         } catch (Exception e) {
@@ -79,7 +80,7 @@ public class UserInfoController {
     @RequestMapping("/updateUserInfo.do")
     @ResponseBody
     public Object updateUserInfo(UserInfoTableDo uitd, String resourceSet,
-                                 String roleSet, HttpServletRequest request,
+                                 String roleSet, @RequestParam(required = false) String parkSet, HttpServletRequest request,
                                  HttpSession session) {
         String loginName = (String) request.getSession().getAttribute(Constants.SESSION.loginName);
         uitd.setUpdateBy(loginName);
@@ -94,7 +95,7 @@ public class UserInfoController {
             }
             uitd.setStatus(null);//此接口不允许更新用户状态
             uitd.setLoginName(null); //此接口不允许更新登录名
-            uis.updateUserInfoAndRoleResource(uitd, resourceSet, roleSet);
+            uis.updateUserInfoAndRoleResource(uitd, resourceSet, roleSet, parkSet);
             userRealm.clearCached();
             loginName = ud.getLoginName();
             //request.setAttribute("modLoginName", uitd.getLoginName());

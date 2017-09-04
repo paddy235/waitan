@@ -22,10 +22,12 @@ public interface UserInfoService extends BaseService {
 	 *            用户信息表
 	 * @param resourceSet
 	 *            用户权限集
+	 * @param parkSet
+	 * 			  用户能访问的园区集
 	 * @throws Exception
 	 *             各种不合规的参数引发的异常，包括加密转码、持久化对象的异常
 	 */
-	public void createUser(UserInfoTableDo uitd, String resourceSet, String roleSet) throws Exception;
+	public void createUser(UserInfoTableDo uitd, String resourceSet, String roleSet, String parkSet) throws Exception;
 
 	/**
 	 * 更新用户信息
@@ -38,7 +40,7 @@ public interface UserInfoService extends BaseService {
 	public void updateUserInfo(UserInfoTableDo uitd) throws Exception;
 
 	// 更新用户信息和角色权限
-	public void updateUserInfoAndRoleResource(UserInfoTableDo uitd, String resourceSet, String roleSet) throws Exception;
+	public void updateUserInfoAndRoleResource(UserInfoTableDo uitd, String resourceSet, String roleSet, String parkSet) throws Exception;
 
 	/**
 	 * 删除用户

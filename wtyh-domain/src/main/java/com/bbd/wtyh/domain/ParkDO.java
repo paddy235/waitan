@@ -19,6 +19,16 @@ public class ParkDO extends BaseDO {
     private String imgUrl;
     private String user ;//作为creat_by或update_by字段使用
 
+    private String isSelected;
+
+    public String getIsSelected() {
+        return isSelected;
+    }
+
+    public void setIsSelected(String isSelected) {
+        this.isSelected = isSelected;
+    }
+
     public String getUser() {
         return user;
     }

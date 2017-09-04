@@ -790,5 +790,47 @@ COMMENT='楼宇舆情'
 ;
 /* 20170821 Beijing  publish end                       */
 
+/* 20170901 update park jurisdiction by Barney begin */
+drop table if exists park_range;
 
+/*==============================================================*/
+/* Table: park_range                                            */
+/*==============================================================*/
+create table park_range
+(
+   id                   int not null auto_increment comment '逻辑主键',
+   user_id              int not null comment '用户id',
+   park_id              int not null comment '园区id',
+   create_by            varchar(50) comment '创建人',
+   create_date          datetime comment '创建时间',
+   update_by            varchar(50) comment '修改人',
+   update_date          datetime comment '修改时间',
+   primary key (id)
+)
+ENGINE=InnoDB
+DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
+COMMENT='园区范围表'
+;
+
+drop table if exists park_and_building_relation;
+
+/*==============================================================*/
+/* Table: park_and_building_relation                            */
+/*==============================================================*/
+create table park_and_building_relation
+(
+   id                   int not null auto_increment comment '逻辑主键',
+   park_id              int not null comment '园区id',
+   building_id          int not null comment '楼宇id',
+   create_by            varchar(50) comment '创建人',
+   create_date          datetime comment '创建时间',
+   update_by            varchar(50) comment '修改人',
+   update_date          datetime comment '修改时间',
+   primary key (id)
+)
+ENGINE=InnoDB
+DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
+COMMENT='园区与楼宇关系表'
+;
+/* 20170901 update park jurisdiction by Barney end */
 

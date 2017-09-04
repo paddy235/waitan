@@ -12,6 +12,7 @@ import com.bbd.wtyh.exception.ExceptionHandler;
 import com.bbd.wtyh.log.user.Operation;
 import com.bbd.wtyh.log.user.UserLogRecord;
 import com.bbd.wtyh.log.user.annotation.LogRecord;
+import com.bbd.wtyh.service.ParkService;
 import com.bbd.wtyh.service.RoleResourceService;
 import com.bbd.wtyh.web.ResponseBean;
 import org.slf4j.Logger;
@@ -38,6 +39,8 @@ public class RoleResourceController {
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	@Autowired
 	private RoleResourceService roleResourceService;
+	@Autowired
+	private ParkService parkService;
 
 	/**
 	 * 新增角色(正式角色)
@@ -413,6 +416,24 @@ public class RoleResourceController {
 			return ResponseBean.successResponse("success");
 		} catch (Exception e) {
 			return ExceptionHandler.handlerException(e);
+		}
+	}
+
+	/**
+	 * 园区访问范围分配-获取园区集合。
+	 *
+	 * @return
+	 */
+	@RequestMapping("/query-park-list")
+	@ResponseBody
+	public ResponseBean queryParkList(@RequestParam(required = false) String areaId, @RequestParam(required = false) String userId) {
+		try {
+			List<ParkDO> list =  parkService.queryParkList(areaId, userId);
+			return ResponseBean.successResponse(list);
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			e.printStackTrace();
+			return ResponseBean.errorResponse(e.getMessage());
 		}
 	}
 

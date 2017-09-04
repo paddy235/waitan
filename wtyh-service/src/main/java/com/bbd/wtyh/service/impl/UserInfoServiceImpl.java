@@ -6,6 +6,8 @@ import com.bbd.wtyh.core.base.BaseServiceImpl;
 import com.bbd.wtyh.domain.UserInfoTableDo;
 import com.bbd.wtyh.exception.BusinessException;
 import com.bbd.wtyh.log.user.Operation;
+import com.bbd.wtyh.service.ParkRangeService;
+import com.bbd.wtyh.service.ParkService;
 import com.bbd.wtyh.service.RoleResourceService;
 import com.bbd.wtyh.service.UserInfoService;
 import com.bbd.wtyh.mapper.UserInfoMapper;
@@ -32,9 +34,13 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 
 	@Autowired
 	private RoleResourceService roleResourceService;
+	@Autowired
+	private ParkRangeService parkRangeService;
+	@Autowired
+	private ParkService parkService;
 
 	@Override
-	public void createUser(UserInfoTableDo uitd, String resourceSet, String roleSet) throws Exception {
+	public void createUser(UserInfoTableDo uitd, String resourceSet, String roleSet, String parkSet) throws Exception {
 		if (null == uitd) {
 			throw new BusinessException("用户信息表对象为空");
 		}
@@ -116,6 +122,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 		uitd.setUpdateDate(uitd.getCreateDate());
 		userInfoMapper.saveU(uitd);
 		roleResourceService.saveUserRoleResource(uitd, roleSet, resourceSet, uitd.getCreateBy());
+		parkRangeService.addParkRange(uitd.getId(), parkSet, uitd.getCreateBy());
 	}
 
 	// 更新用户信息
@@ -340,8 +347,10 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 
 	// 更新用户信息和角色权限
 	@Override
-	public void updateUserInfoAndRoleResource(UserInfoTableDo uitd, String resourceSet, String roleSet) throws Exception {
+	public void updateUserInfoAndRoleResource(UserInfoTableDo uitd, String resourceSet, String roleSet, String parkSet) throws Exception {
 		updateUserInfo(uitd);
+		parkRangeService.delParkRangeByUserId(uitd.getId());
+		parkRangeService.addParkRange(uitd.getId(), parkSet, uitd.getUpdateBy());
 		roleResourceService.saveUserRoleResource(uitd, roleSet, resourceSet, uitd.getUpdateBy());
 	}
 
@@ -363,6 +372,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 		}
 		userInfoMapper.deleteUser(id);
 		roleResourceService.delUserRoleResource(uitd);
+		parkRangeService.delParkRangeByUserId(uitd.getId());
 	}
 
 	@Override
@@ -395,6 +405,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 			// uitd.setBackPwdUpDate(null);
 			rstMap = roleResourceService.getUserRoleResource(uitd.getId());
 			rstMap.put("userInfo", uitd);
+			rstMap.put("parkList", parkService.queryParkList(null, null == uitd.getId() ? null : uitd.getId() + ""));
 		}
 		return rstMap;
 	}

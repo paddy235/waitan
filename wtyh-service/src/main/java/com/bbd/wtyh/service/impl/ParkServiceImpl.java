@@ -410,6 +410,18 @@ public class ParkServiceImpl extends BaseServiceImpl implements ParkService {
 		return result;
 	}
 
+	@Override
+	public List<ParkDO> queryParkList(String areaId, String userId) {
+		Map<String, Object> params = new HashMap<>();
+		if (StringUtils.isEmpty(areaId))
+			params.put("areaId", "-1");
+		else
+			params.put("areaId", areaId);
+		if (!StringUtils.isEmpty(userId))
+			params.put("userId", userId);
+		return parkMapper.queryParkList(params);
+	}
+
 	private void sortByIndex(List<CompanyAnalysisResultDO> list) {
 		Collections.sort(list, new Comparator<CompanyAnalysisResultDO>() {
 
