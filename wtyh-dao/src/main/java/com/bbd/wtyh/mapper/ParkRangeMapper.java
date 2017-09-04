@@ -31,4 +31,11 @@ public interface ParkRangeMapper {
      */
     List<ParkRangeDO> queryParkRangeByUserId(Integer userId);
 
+    /**
+     * 根据园区ID删除用户的园区访问范围
+     *
+     * @param parkId
+     */
+    void delParkRangeByParkId(Integer parkId);
+
 }

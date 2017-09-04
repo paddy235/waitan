@@ -179,10 +179,13 @@ public class ParkMgtController {
             type = Operation.Type.del, after = true, before = false)
     public ResponseBean delPark(@RequestParam String parkId,String parkName) {
         //删除园区时，需要将相关楼宇及企业一并删除
-        parkMgtService.delCompanyBuildingByParkId(parkId);
-        parkMgtService.delBuildingByParkId(parkId);
-        parkMgtService.delParkById(parkId);
-        return ResponseBean.successResponse("OK");
+        try {
+            parkMgtService.delParkById(parkId);
+            return ResponseBean.successResponse("OK");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseBean.errorResponse(e.getMessage());
+        }
     }
 
     /**

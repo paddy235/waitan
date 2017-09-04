@@ -14,4 +14,6 @@ public interface ParkRangeService {
     void delParkRangeByUserId(Integer userId);
 
     List<ParkRangeDO> queryParkRangeByUserId(Integer userId);
+
+    void delParkRangeByParkId(Integer parkId);
 }

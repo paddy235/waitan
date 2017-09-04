@@ -61,4 +61,9 @@ public class ParkRangeServiceImpl implements ParkRangeService {
         return parkRangeMapper.queryParkRangeByUserId(userId);
     }
 
+    @Override
+    public void delParkRangeByParkId(Integer parkId) {
+        parkRangeMapper.delParkRangeByParkId(parkId);
+    }
+
 }

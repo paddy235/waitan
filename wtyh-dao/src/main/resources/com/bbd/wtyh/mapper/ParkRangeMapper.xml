@@ -23,4 +23,8 @@
 			user_id=#{userId}
 	</select>
 
+	<delete id="delParkRangeByParkId" parameterType="int">
+		DELETE FROM park_range WHERE park_id=#{parkId}
+	</delete>
+
 </mapper>

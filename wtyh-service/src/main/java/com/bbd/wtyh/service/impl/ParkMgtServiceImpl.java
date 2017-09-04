@@ -6,10 +6,12 @@ import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.ParkDO;
 import com.bbd.wtyh.domain.vo.ParkAndBuildingVO;
 import com.bbd.wtyh.mapper.ParkAndBuildingMgtMapper;
+import com.bbd.wtyh.service.ParkRangeService;
 import com.bbd.wtyh.service.shiro.ParkMgtService;
 import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +24,8 @@ import java.util.Map;
 public class ParkMgtServiceImpl implements ParkMgtService {
     @Autowired
     private ParkAndBuildingMgtMapper parkAndBuildingMgtMapper;
+    @Autowired
+    private ParkRangeService parkRangeService;
 
     @Override
     public List<ParkDO> queryParkList() {
@@ -114,20 +118,16 @@ public class ParkMgtServiceImpl implements ParkMgtService {
     }
 
     @Override
-    public void delParkById(String parkId) {
+    @Transactional(rollbackFor = Exception.class)
+    public void delParkById(String parkId) throws Exception {
         try {
-            parkAndBuildingMgtMapper.delParkById(parkId);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void delBuildingByParkId(String parkId) {
-        try {
+            parkAndBuildingMgtMapper.delCompanyBuildingByParkId(parkId);
             parkAndBuildingMgtMapper.delBuildingByParkId(parkId);
+            parkAndBuildingMgtMapper.delParkById(parkId);
+
+            parkRangeService.delParkRangeByParkId(Integer.parseInt(parkId));
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new Exception(e.getMessage(), e);
         }
     }
 
@@ -135,15 +135,6 @@ public class ParkMgtServiceImpl implements ParkMgtService {
     public void delBuildingById(List<String> buildingId) {
         try {
             parkAndBuildingMgtMapper.delBuildingById(buildingId);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void delCompanyBuildingByParkId(String parkId) {
-        try {
-            parkAndBuildingMgtMapper.delCompanyBuildingByParkId(parkId);
         } catch (Exception e) {
             e.printStackTrace();
         }
