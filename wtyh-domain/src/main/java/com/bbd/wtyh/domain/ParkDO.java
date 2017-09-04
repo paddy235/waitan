@@ -21,7 +21,7 @@ public class ParkDO extends BaseDO {
     private String imgUrl;
     private String user ;//作为creat_by或update_by字段使用
 
-    public static final String DEFAULT_PARK_IMG = "data/img/park/cnyq.png";
+    public static final String DEFAULT_PARK_IMG = "data/img/park/park_default.png";
     private String isSelected;
 
     public String getIsSelected() {

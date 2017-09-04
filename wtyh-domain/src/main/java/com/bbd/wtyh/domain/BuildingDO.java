@@ -23,7 +23,7 @@ public class BuildingDO extends BaseDO {
 	@Column(name = "img_url")
 	private String imgUrl;
 
-	public static final String DEFAULT_BUILDING_IMG = "data/img/park/cnyq.png";
+	public static final String DEFAULT_BUILDING_IMG = "data/img/building/building_default.png";
 
 	private String user;//作为creat_by或update_by字段使用
 
