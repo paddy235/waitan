@@ -6,12 +6,7 @@ import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -1303,7 +1298,6 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService,TaskServ
     private List<RelationDiagramVO.LineVO> getLineList(Map<String, NodeVO> pointDegree, Collection<LinkVO> links) {
         List<RelationDiagramVO.LineVO> lineList = Lists.newArrayList();
         if (!CollectionUtils.isEmpty(links)) {
-            int i = 0;
             for (LinkVO vo : links) {
                 RelationDiagramVO.LineVO lineVO = new RelationDiagramVO.LineVO();
                 lineVO.setIsFullLine(LineTypeEnum.line.equals(vo.getLine()) ? "1" : "0");
@@ -1315,10 +1309,25 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService,TaskServ
                 lineVO.setTargetName(pointDegree.get(vo.getTarget()).getCname());
                 lineVO.setTarLevel(String.valueOf(pointDegree.get(vo.getTarget()).getCategory()));
                 lineVO.setType(vo.getGuanlian());
-                lineVO.setNum(++i);
                 lineList.add(lineVO);
             }
         }
+        Collections.sort(lineList, new Comparator<RelationDiagramVO.LineVO>() {
+            @Override
+            public int compare(RelationDiagramVO.LineVO l1, RelationDiagramVO.LineVO l2) {
+                return Integer.parseInt(l1.getTarLevel()) - Integer.parseInt(l2.getTarLevel());
+            }
+        });
+        Collections.sort(lineList, new Comparator<RelationDiagramVO.LineVO>() {
+            @Override
+            public int compare(RelationDiagramVO.LineVO l1, RelationDiagramVO.LineVO l2) {
+                return Integer.parseInt(l1.getOrigLevel()) - Integer.parseInt(l2.getOrigLevel());
+            }
+        });
+        int i = 0;
+        for (RelationDiagramVO.LineVO vo : lineList) {
+            vo.setNum(++i);
+        };
         return lineList;
     }
 
