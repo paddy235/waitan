@@ -15,199 +15,228 @@ import com.alibaba.fastjson.annotation.JSONField;
  */
 public class Column {
 
-	private String name;
-	private String code;
-	private String value;
-	private String dataType;
-	private String format;
-	private int width = 0;
-	private int colNumber;
-	private int length = 0;
-	private String regex;
-	private boolean required;
-	private boolean allowSkip;
-	private String valueList;
-	private Style style;
-	private Sheet sheet;
+    private String name;
+    private String code;
+    private String value;
+    private String dataType;
+    private String format;
+    private int width = 0;
+    private int colNumber;
 
-	Column(Sheet sheet) {
-		this.sheet = sheet;
-	}
+    private int minLength = 0;
+    private int maxLength = 0;
 
-	public Cell createCell(int rowNum) {
-		if (rowNum <= 0) {
-			return null;
-		}
-		return this.sheet.createCell(rowNum, this.colNumber);
-	}
+    private String regex;
+    private boolean required;
+    private boolean allowSkip;
+    private String valueList;
+    private Style style;
+    private Sheet sheet;
 
-	public Cell createExtendsCell() {
-		int rowNum = this.sheet.rowSize();
-		return this.createExtendsCell(rowNum);
-	}
+    Column(Sheet sheet) {
+        this.sheet = sheet;
+    }
 
-	public Cell createExtendsCell(int rowNum) {
-		if (rowNum <= 0) {
-			return null;
-		}
-		String str = JSON.toJSONString(this);
-		Cell cell = JSON.parseObject(str, Cell.class);
-		cell.setRowNumber(rowNum);
-		cell.setSheet(sheet);
-		cell.setStyle(style);
-		this.sheet.addCell(cell);
-		return cell;
-	}
+    public Cell createCell(int rowNum) {
+        if (rowNum <= 0) {
+            return null;
+        }
+        return this.sheet.createCell(rowNum, this.colNumber);
+    }
 
-	@JSONField(serialize = false)
-	public Cell[] getAllCell() {
-		int rowTotal = this.sheet.rowSize();
-		List<Cell> list = new ArrayList<>();
-		for (int i = 0; i < rowTotal; i++) {
-			list.add(this.getCell(i));
-		}
-		return list.toArray(new Cell[0]);
-	}
+    public Cell createExtendsCell() {
+        int rowNum = this.sheet.rowSize();
+        return this.createExtendsCell(rowNum);
+    }
 
-	public Cell getCell(int rowNum) {
-		return this.sheet.getCell(rowNum, colNumber);
-	}
+    public Cell createExtendsCell(int rowNum) {
+        if (rowNum <= 0) {
+            return null;
+        }
+        String str = JSON.toJSONString(this);
+        Cell cell = JSON.parseObject(str, Cell.class);
+        cell.setRowNumber(rowNum);
+        cell.setSheet(sheet);
+        cell.setStyle(style);
+        this.sheet.addCell(cell);
+        return cell;
+    }
 
-	public String getName() {
-		return name;
-	}
+    @JSONField(serialize = false)
+    public Cell[] getAllCell() {
+        int rowTotal = this.sheet.rowSize();
+        List<Cell> list = new ArrayList<>();
+        for (int i = 0; i < rowTotal; i++) {
+            list.add(this.getCell(i));
+        }
+        return list.toArray(new Cell[0]);
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public Cell getCell(int rowNum) {
+        return this.sheet.getCell(rowNum, colNumber);
+    }
 
-	public String getCode() {
-		return code;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setCode(String code) {
-		this.code = code;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public String getValue() {
-		return value;
-	}
+    public String getCode() {
+        return code;
+    }
 
-	public void setValue(String value) {
-		this.value = value;
-	}
+    public void setCode(String code) {
+        this.code = code;
+    }
 
-	public String getDataType() {
-		return dataType;
-	}
+    public String getValue() {
+        return value;
+    }
 
-	public void setDataType(String dataType) {
-		this.dataType = dataType;
-	}
+    public void setValue(String value) {
+        this.value = value;
+    }
 
-	public String getFormat() {
-		return format;
-	}
+    public String getDataType() {
+        return dataType;
+    }
 
-	public void setFormat(String format) {
-		this.format = format;
-	}
+    public void setDataType(String dataType) {
+        this.dataType = dataType;
+    }
 
-	public int getColNumber() {
-		return colNumber;
-	}
+    public String getFormat() {
+        return format;
+    }
 
-	public void setColNumber(int colNumber) {
-		this.colNumber = colNumber;
-	}
+    public void setFormat(String format) {
+        this.format = format;
+    }
 
-	public void setColNumber(String colNumber) {
-		if (StringUtils.isNotBlank(colNumber)) {
-			this.setColNumber(Integer.parseInt(colNumber));
-		}
-	}
+    public int getColNumber() {
+        return colNumber;
+    }
 
-	public boolean isRequired() {
-		return required;
-	}
+    public void setColNumber(int colNumber) {
+        this.colNumber = colNumber;
+    }
 
-	public void setRequired(boolean required) {
-		this.required = required;
-	}
+    public void setColNumber(String colNumber) {
+        if (StringUtils.isNotBlank(colNumber)) {
+            this.setColNumber(Integer.parseInt(colNumber));
+        }
+    }
 
-	public void setRequired(String required) {
-		this.setRequired(Boolean.parseBoolean(required));
-	}
+    public boolean isRequired() {
+        return required;
+    }
 
-	public boolean isAllowSkip() {
-		return allowSkip;
-	}
+    public void setRequired(boolean required) {
+        this.required = required;
+    }
 
-	public void setAllowSkip(boolean allowSkip) {
-		this.allowSkip = allowSkip;
-	}
+    public void setRequired(String required) {
+        this.setRequired(Boolean.parseBoolean(required));
+    }
 
-	public void setAllowSkip(String allowSkip) {
-		this.setAllowSkip(Boolean.parseBoolean(allowSkip));
-	}
+    public boolean isAllowSkip() {
+        return allowSkip;
+    }
 
-	public Style getStyle() {
-		return style;
-	}
+    public void setAllowSkip(boolean allowSkip) {
+        this.allowSkip = allowSkip;
+    }
 
-	public void setStyle(Style style) {
-		this.style = style;
-	}
+    public void setAllowSkip(String allowSkip) {
+        this.setAllowSkip(Boolean.parseBoolean(allowSkip));
+    }
 
-	public Sheet getSheet() {
-		return sheet;
-	}
+    public Style getStyle() {
+        return style;
+    }
 
-	public void setSheet(Sheet sheet) {
-		this.sheet = sheet;
-	}
+    public void setStyle(Style style) {
+        this.style = style;
+    }
 
-	public int getWidth() {
-		return width;
-	}
+    public Sheet getSheet() {
+        return sheet;
+    }
 
-	public void setWidth(int width) {
-		this.width = width;
-	}
+    public void setSheet(Sheet sheet) {
+        this.sheet = sheet;
+    }
 
-	public void setWidth(String width) {
-		if (StringUtils.isNotBlank(width)) {
-			this.setWidth(Integer.parseInt(width));
-		}
-	}
+    public int getWidth() {
+        return width;
+    }
 
-	public int getLength() {
-		return length;
-	}
+    public void setWidth(int width) {
+        this.width = width;
+    }
 
-	public void setLength(int length) {
-		this.length = length;
-	}
+    public void setWidth(String width) {
+        if (StringUtils.isNotBlank(width)) {
+            this.setWidth(Integer.parseInt(width));
+        }
+    }
 
-	public void setLength(String length) {
-		if (StringUtils.isNotBlank(length)) {
-			this.setLength(Integer.parseInt(length));
-		}
-	}
+    public int getMinLength() {
+        return minLength;
+    }
 
-	public String getRegex() {
-		return regex;
-	}
+    public void setMinLength(int minLength) {
+        this.minLength = minLength;
+    }
 
-	public void setRegex(String regex) {
-		this.regex = regex;
-	}
+    public int getMaxLength() {
+        return maxLength;
+    }
 
-	public String getValueList() {
-		return valueList;
-	}
+    public void setMaxLength(int maxLength) {
+        this.maxLength = maxLength;
+    }
 
-	public void setValueList(String valueList) {
-		this.valueList = valueList;
-	}
+    public void setLength(String length) {
+        if (StringUtils.isBlank(length)) {
+            return;
+        }
+        if (!length.contains(",")) {
+            this.setMaxLength(Integer.parseInt(length));
+            return;
+        }
+        if (length.endsWith(",")) {
+            length += "0";
+        }
+        if (length.startsWith(",")) {
+            length = "0" + length;
+        }
+        String[] lengthArray = length.split(",");
+        if (StringUtils.isNotBlank(lengthArray[0])) {
+            this.setMinLength(Integer.parseInt(lengthArray[0]));
+        }
+        if (StringUtils.isNotBlank(lengthArray[1])) {
+            this.setMaxLength(Integer.parseInt(lengthArray[1]));
+        }
+
+    }
+
+    public String getRegex() {
+        return regex;
+    }
+
+    public void setRegex(String regex) {
+        this.regex = regex;
+    }
+
+    public String getValueList() {
+        return valueList;
+    }
+
+    public void setValueList(String valueList) {
+        this.valueList = valueList;
+    }
 }
