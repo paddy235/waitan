@@ -116,9 +116,8 @@ public class ParkServiceImpl extends BaseServiceImpl implements ParkService {
 	}
 
 	@Override
-	public String queryParkNews(Integer areaId, Integer pageSize, Integer pageNum, String parkName) {
-
-		List<String> names = companyMapper.queryCompanyNames(areaId, null, parkName);
+	public String queryParkNews(Integer parkId, Integer pageSize, Integer pageNum) {
+		List<String> names = companyMapper.queryCompanyNames(parkId, null);
 		NewsVO newsvo = getnews(names);
 		return new Gson().toJson(newsvo);
 	}
@@ -172,7 +171,7 @@ public class ParkServiceImpl extends BaseServiceImpl implements ParkService {
 	@Override
 	public String buildingNews(Integer buildingId) {
 
-		List<String> names = companyMapper.queryCompanyNames(null, buildingId,null);
+		List<String> names = companyMapper.queryCompanyNames(null, buildingId);
 
 		NewsVO newsvo = getnews(names);
 

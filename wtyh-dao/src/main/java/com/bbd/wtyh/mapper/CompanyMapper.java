@@ -52,7 +52,7 @@ public interface CompanyMapper {
 
 	CompanyDO selectByName(String companyName);
 
-	List<String> queryCompanyNames(@Param("areaId") Integer areaId, @Param("buildingId") Integer buildingId,@Param("parkName") String parkName);
+	List<String> queryCompanyNames(@Param("parkId") Integer parkId, @Param("buildingId") Integer buildingId);
 
 	List<Map<Integer, Object>> companyInfo(String companyName);
 

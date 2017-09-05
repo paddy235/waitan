@@ -7,7 +7,7 @@ import com.bbd.wtyh.domain.vo.NewsVO;
  */
 public interface PABPublicSentimentService {
 
-    NewsVO queryParkPublicSentiment(int areaId, String parkName);
+    NewsVO queryParkPublicSentiment(int parkId);
 
     NewsVO queryBuildingPublicSentiment(int buildingId);
 

@@ -158,18 +158,18 @@ public class ParkController {
 	/**
 	 * 园区舆情查询
 	 * 
-	 * @param areaId
+	 * @param parkId
 	 *            区域id,必传
 	 * @return ResponseBean
 	 */
 	@RequestMapping("/news")
 	@ResponseBody
-	public ResponseBean news(@RequestParam(required = true) Integer areaId, String parkName) {
-		NewsVO newsVO = pabPublicSentimentService.queryParkPublicSentiment(areaId, parkName);
+	public ResponseBean news(@RequestParam(required = true) Integer parkId) {
+		NewsVO newsVO = pabPublicSentimentService.queryParkPublicSentiment(parkId);
 		if (null != newsVO && ListUtil.isNotEmpty(newsVO.getResults()))
 			return ResponseBean.successResponse(new Gson().toJson(newsVO));
 		Gson gson = new Gson();
-		String data = parkService.queryParkNews(areaId, 20, 1,parkName);
+		String data = parkService.queryParkNews(parkId, 20, 1);
 		NewsVO vo = gson.fromJson(data, new TypeToken<NewsVO>(){}.getType());
 		if (vo == null || vo.getRsize() == 0)
 			vo = newsSer.mutilTypeNews("qyxg_shanghai_fta,qyxg_national_economy", 20);

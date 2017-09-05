@@ -270,18 +270,16 @@
 
 	<select id="queryCompanyNames" resultType="string">
         select c.`name`
-        from company c , company_building cb , building b ,park p
+        from company c , company_building cb , building b ,park p, park_and_building_relation pabr
         where c.company_id=cb.company_id
               and b.building_id=cb.building_id
-              and p.park_id=b.park_id
-              <if test="areaId!=null">
-              	and p.area_id=#{areaId}
+              and p.park_id=pabr.park_id
+              and pabr.building_id=b.building_id
+              <if test="parkId!=null">
+              	and p.park_id=#{parkId}
               </if>
               <if test="buildingId!=null">
               	and b.building_id=#{buildingId}
-              </if>
-              <if test="parkName!=null">
-                and p.name=#{parkName}
               </if>
     </select>
 

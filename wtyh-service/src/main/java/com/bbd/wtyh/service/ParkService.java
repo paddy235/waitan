@@ -44,7 +44,7 @@ public interface ParkService extends BaseService {
 	/**
 	 * 查询园区舆情
 	 *
-	 * @param areaId
+	 * @param parkId
 	 *            区域id
 	 * @param pageSize
 	 *            每页数量
@@ -53,7 +53,7 @@ public interface ParkService extends BaseService {
 	 * @author Ian.Su
 	 * @return String
 	 */
-	String queryParkNews(Integer areaId, Integer pageSize, Integer pageNum, String parkName);
+	String queryParkNews(Integer parkId, Integer pageSize, Integer pageNum);
 
 	/**
 	 * 获取园区图片
