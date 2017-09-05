@@ -124,7 +124,7 @@ public class ParkController {
 	/**
 	 * 根据园区查询新型金融企业集中度 与 楼宇列表 共用接口
 	 * 
-	 * @param areaId
+	 * @param parkId
 	 *            区域id,必传
 	 * @return ResponseBean
 	 */
@@ -144,7 +144,7 @@ public class ParkController {
 	/**
 	 * 在营时间分布
 	 *
-	 * @param areaId
+	 * @param parkId
 	 *            区域id,必传
 	 * @return ResponseBean
 	 */
@@ -179,7 +179,7 @@ public class ParkController {
 	/**
 	 * 园区行业分布
 	 * 
-	 * @param areaId
+	 * @param parkId
 	 *            区域id,必传
 	 * @return ResponseBean
 	 */
@@ -193,7 +193,7 @@ public class ParkController {
 	/**
 	 * 园区图片
 	 * 
-	 * @param areaId
+	 * @param parkId
 	 *            区域id,必传
 	 * @return ResponseBean
 	 */
