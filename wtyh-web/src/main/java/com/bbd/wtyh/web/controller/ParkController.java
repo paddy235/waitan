@@ -67,6 +67,7 @@ public class ParkController {
 	private String PARK_DIR1 = WtyhHelper.webImgPath;//开发环境
 	private static final String PARK_DIR = "data/img/park/";
 	private static final String BUILDING_DIR = "data/img/building/";
+	private static final String DEFAULT_SELECTED_MARK = "1";
 
 	/**
 	 *
@@ -77,22 +78,17 @@ public class ParkController {
 	@RequestMapping("/areaList")
 	@ResponseBody
 	public ResponseBean areaList(HttpSession session) {
-//		List<AreaDO> data = areaService.areaList(areaService.getAreaId(session));
 		try {
 			Integer userId = (Integer) session.getAttribute("userId");
 			List<ParkDO> list =  parkService.queryParkList(null, userId + "");
-			return ResponseBean.successResponse(list);
-//			List<AreaDO> areaList = new ArrayList<>();
-//			list.forEach((ParkDO parkDO) -> {
-//				if (parkDO.getIsSelected().equals("1")) {
-//					AreaDO area = new AreaDO();
-//					area.setAreaId(parkDO.getParkId());
-//					area.setName(parkDO.getName());
-//
-//					areaList.add(area);
-//				}
-//			});
-//			return ResponseBean.successResponse(areaList);
+			List<ParkDO> result = new ArrayList<>();
+			if (ListUtil.isNotEmpty(list)) {
+				list.forEach((ParkDO p) -> {
+					if (null != p && DEFAULT_SELECTED_MARK.equals(p.getIsSelected()))
+						result.add(p);
+				});
+			}
+			return ResponseBean.successResponse(result);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ResponseBean.errorResponse(e.getMessage());
