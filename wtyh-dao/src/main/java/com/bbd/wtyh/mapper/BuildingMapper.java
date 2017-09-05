@@ -9,7 +9,7 @@ public interface BuildingMapper {
 
     BuildingDO selectByPrimaryKey(Integer buildingId);
 
-    List<BuildingDO> queryBuildings(@Param("areaId") Integer areaId,@Param("parkName") String parkName);
+    List<BuildingDO> queryBuildings(@Param("parkId") Integer parkId);
 
     List<CompanyNewsDO> buildingNews(Integer buildingId);
 

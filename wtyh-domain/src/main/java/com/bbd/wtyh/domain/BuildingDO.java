@@ -17,8 +17,8 @@ public class BuildingDO extends BaseDO {
 	@Column(name = "name")
 	private String name;
 
-	@Column(name = "park_id")
-	private Integer parkId;
+//	@Column(name = "park_id")
+//	private Integer parkId;
 
 	@Column(name = "img_url")
 	private String imgUrl;
@@ -129,11 +129,11 @@ public class BuildingDO extends BaseDO {
 		this.name = name == null ? null : name.trim();
 	}
 
-	public Integer getParkId() {
-		return parkId;
-	}
-
-	public void setParkId(Integer parkId) {
-		this.parkId = parkId;
-	}
+//	public Integer getParkId() {
+//		return parkId;
+//	}
+//
+//	public void setParkId(Integer parkId) {
+//		this.parkId = parkId;
+//	}
 }

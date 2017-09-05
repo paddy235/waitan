@@ -4,40 +4,15 @@
 <mapper namespace="com.bbd.wtyh.mapper.ParkMapper">
 
 
-    <select id="parkImg"  resultType="string">
-			select img_url from park p  where p.area_id=#{areaId} and name=#{parkName} LIMIT 1 ;
+    <select id="parkImg" resultType="string">
+			select img_url from park p where p.park_id=#{parkId};
 	</select>
 
 	<select id="qeuryParkCompany"   parameterType="java.util.HashMap" resultType="com.bbd.wtyh.domain.ParkCompanyDo">
-		SELECT bb.* FROM (
+        SELECT bb.* FROM (
         SELECT aa.*, company_background.background FROM(
         SELECT base.* FROM (
         SELECT company.company_id AS companyId,
-                    company.`name` AS companyName,
-                    company.legal_person AS legalPerson,
-                    company.company_type AS companyType,
-                    if(isnull(company.risk_level)=1,9,company.risk_level) AS  riskLevel,
-                    company.is_new AS isNew,
-                    company.registered_capital AS registeredCapital,
-                    company.registered_capital_type AS registeredCapitalType,
-                    company.registered_date AS registeredDate,
-                    company.address AS address,
-                    building.building_id AS buildingId,
-                    building.`name` AS buildingName
-        FROM park,building,company_building,company
-        WHERE park.area_id=#{areaId}
-        <if test="parkName != null">
-            AND park.name=#{parkName}
-        </if>
-              <if test="companyName != null">
-                AND company.name LIKE CONCAT('%',#{companyName},'%')
-              </if>
-              AND  park.park_id=building.park_id
-              AND building.building_id=company_building.building_id
-              AND company_building.company_id=company.company_id
-        <if test="regCompany != null">
-        UNION ALL
-        select company.company_id AS companyId,
         company.`name` AS companyName,
         company.legal_person AS legalPerson,
         company.company_type AS companyType,
@@ -47,22 +22,41 @@
         company.registered_capital_type AS registeredCapitalType,
         company.registered_date AS registeredDate,
         company.address AS address,
-        null AS buildingId,
-        null AS buildingName
-        from company where area_id=#{areaId}
+        building.building_id AS buildingId,
+        building.`name` AS buildingName
+        FROM park,building,company_building,company,park_and_building_relation pabr
+        WHERE park.park_id=#{parkId}
         <if test="companyName != null">
             AND company.name LIKE CONCAT('%',#{companyName},'%')
         </if>
-        and company_id not in (
-        select company_id from company_building where building_id in (select building_id from building where park_id=(select park_id from park where area_id=#{areaId}
-        <if test="parkName != null">
-            AND name=#{parkName}
-        </if>))
-        )
+        AND park.park_id=pabr.park_id
+        AND pabr.building_id=building.building_id
+        AND building.building_id=company_building.building_id
+        AND company_building.company_id=company.company_id
+        <if test="regCompany != null">
+            UNION ALL
+            select company.company_id AS companyId,
+            company.`name` AS companyName,
+            company.legal_person AS legalPerson,
+            company.company_type AS companyType,
+            if(isnull(company.risk_level)=1,9,company.risk_level) AS  riskLevel,
+            company.is_new AS isNew,
+            company.registered_capital AS registeredCapital,
+            company.registered_capital_type AS registeredCapitalType,
+            company.registered_date AS registeredDate,
+            company.address AS address,
+            null AS buildingId,
+            null AS buildingName
+            from company where area_id=(select area_id from park where park_id=#{parkId})
+            <if test="companyName != null">
+                AND company.name LIKE CONCAT('%',#{companyName},'%')
+            </if>
+            and company_id not in (
+            select company_id from company_building where company_building.building_id in (select building.building_id from building,park_and_building_relation pabr where building.building_id=pabr.building_id and pabr.park_id=#{parkId}))
         </if>
         ) AS base WHERE 1=1
         <if test="buildingName != null">
-          AND base.buildingName LIKE CONCAT('%',#{buildingName},'%')
+            AND base.buildingName LIKE CONCAT('%',#{buildingName},'%')
         </if>
         <if test="isNew != null">
             AND base.isNew=#{isNew}
@@ -74,21 +68,20 @@
             AND base.riskLevel=#{riskLevel}
         </if>
         ) AS aa LEFT JOIN
-            (
-            SELECT company_id,GROUP_CONCAT(background)background FROM company_background GROUP BY company_id
-            ) AS
+        (
+        SELECT company_id,GROUP_CONCAT(background)background FROM company_background GROUP BY company_id
+        ) AS
         company_background
         ON aa.companyId=company_background.company_id)AS bb
         WHERE 1=1
-                <if test="background != null">
-                    AND  bb.background LIKE CONCAT('%',#{background},'%')
-                </if>
+        <if test="background != null">
+            AND  bb.background LIKE CONCAT('%',#{background},'%')
+        </if>
         ORDER BY bb.riskLevel ASC, bb.isNew DESC,bb.registeredCapital DESC
         <if test="beginNumber !=null">
             LIMIT
             #{beginNumber},#{pageSize}
         </if>
-
 	</select>
 
     <select id="qeuryParkCompanyCount"   parameterType="java.util.HashMap" resultType="int">
@@ -107,43 +100,35 @@
         company.address AS address,
         building.building_id AS buildingId,
         building.`name` AS buildingName
-        FROM park,building,company_building,company
-        WHERE park.area_id=#{areaId}
-        <if test="parkName != null">
-            AND park.name=#{parkName}
-        </if>
-
+        FROM park,building,company_building,company,park_and_building_relation pabr
+        WHERE park.park_id=#{parkId}
         <if test="companyName != null">
             AND company.name LIKE CONCAT('%',#{companyName},'%')
         </if>
-        AND  park.park_id=building.park_id
+        AND park.park_id=pabr.park_id
+        AND pabr.building_id=building.building_id
         AND building.building_id=company_building.building_id
         AND company_building.company_id=company.company_id
         <if test="regCompany != null">
-        UNION ALL
-        select company.company_id AS companyId,
-        company.`name` AS companyName,
-        company.legal_person AS legalPerson,
-        company.company_type AS companyType,
-        if(isnull(company.risk_level)=1,9,company.risk_level) AS  riskLevel,
-        company.is_new AS isNew,
-        company.registered_capital AS registeredCapital,
-        company.registered_capital_type AS registeredCapitalType,
-        company.registered_date AS registeredDate,
-        company.address AS address,
-        null AS buildingId,
-        null AS buildingName
-        from company where area_id=#{areaId}
-        <if test="companyName != null">
-            AND company.name LIKE CONCAT('%',#{companyName},'%')
-        </if>
-        and company_id not in (
-        select company_id from company_building where building_id in (select building_id from building where park_id=(select park_id from park where area_id=#{areaId}
-        <if test="parkName != null">
-            AND name=#{parkName}
-        </if>
-        ))
-        )
+            UNION ALL
+            select company.company_id AS companyId,
+            company.`name` AS companyName,
+            company.legal_person AS legalPerson,
+            company.company_type AS companyType,
+            if(isnull(company.risk_level)=1,9,company.risk_level) AS  riskLevel,
+            company.is_new AS isNew,
+            company.registered_capital AS registeredCapital,
+            company.registered_capital_type AS registeredCapitalType,
+            company.registered_date AS registeredDate,
+            company.address AS address,
+            null AS buildingId,
+            null AS buildingName
+            from company where area_id=(select area_id from park where park_id=#{parkId})
+            <if test="companyName != null">
+                AND company.name LIKE CONCAT('%',#{companyName},'%')
+            </if>
+            and company_id not in (
+            select company_id from company_building where company_building.building_id in (select building.building_id from building,park_and_building_relation pabr where building.building_id=pabr.building_id and pabr.park_id=#{parkId}))
         </if>
         ) AS base WHERE 1=1
         <if test="buildingName != null">
@@ -159,9 +144,9 @@
             AND base.riskLevel=#{riskLevel}
         </if>
         ) AS aa LEFT JOIN
-            (
-            SELECT company_id,GROUP_CONCAT(background)background FROM company_background GROUP BY company_id
-            ) AS
+        (
+        SELECT company_id,GROUP_CONCAT(background)background FROM company_background GROUP BY company_id
+        ) AS
         company_background
         ON aa.companyId=company_background.company_id)AS bb
         WHERE 1=1
@@ -199,6 +184,18 @@
             </where>
             ) tmp
         on p.park_id=tmp.park_id
+    </select>
+
+    <select id="queryParkByName" resultType="com.bbd.wtyh.domain.ParkDO" parameterType="java.lang.String">
+        SELECT
+            park_id AS parkId,
+            `name` AS `name`,
+            area_id AS areaId,
+            img_url AS imgUrl
+        FROM
+          park
+        WHERE
+            `name`=#{parkName}
     </select>
 
 </mapper>

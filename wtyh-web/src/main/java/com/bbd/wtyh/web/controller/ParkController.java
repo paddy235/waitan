@@ -77,10 +77,26 @@ public class ParkController {
 	@RequestMapping("/areaList")
 	@ResponseBody
 	public ResponseBean areaList(HttpSession session) {
-
-		List<AreaDO> data = areaService.areaList(areaService.getAreaId(session));
-
-		return ResponseBean.successResponse(data);
+//		List<AreaDO> data = areaService.areaList(areaService.getAreaId(session));
+		try {
+			Integer userId = (Integer) session.getAttribute("userId");
+			List<ParkDO> list =  parkService.queryParkList(null, userId + "");
+			return ResponseBean.successResponse(list);
+//			List<AreaDO> areaList = new ArrayList<>();
+//			list.forEach((ParkDO parkDO) -> {
+//				if (parkDO.getIsSelected().equals("1")) {
+//					AreaDO area = new AreaDO();
+//					area.setAreaId(parkDO.getParkId());
+//					area.setName(parkDO.getName());
+//
+//					areaList.add(area);
+//				}
+//			});
+//			return ResponseBean.successResponse(areaList);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseBean.errorResponse(e.getMessage());
+		}
 	}
 
 	/**
@@ -114,10 +130,14 @@ public class ParkController {
 	 */
 	@RequestMapping("/companyConcentration")
 	@ResponseBody
-	public ResponseBean oncentration(@RequestParam(required = true) Integer areaId,String parkName) {
-
-		List<BuildingDO> data = parkService.queryBuildings(areaId,parkName);
-
+	public ResponseBean oncentration(@RequestParam(required = true) Integer parkId) {
+		List<BuildingDO> data = parkService.queryBuildings(parkId);
+		if (ListUtil.isNotEmpty(data)) {
+			data.forEach((BuildingDO bdo) -> {
+				if (com.bbd.higgs.utils.StringUtils.isNullOrEmpty(bdo.getImgUrl()))
+					bdo.setImgUrl(BuildingDO.DEFAULT_BUILDING_IMG);
+			});
+		}
 		return ResponseBean.successResponse(data);
 	}
 
@@ -130,8 +150,8 @@ public class ParkController {
 	 */
 	@RequestMapping("/inBusiness")
 	@ResponseBody
-	public ResponseBean inBusiness(@RequestParam Integer areaId,String parkName) {
-		List<InBusinessDO> data = parkService.inBusiness(areaId,parkName);
+	public ResponseBean inBusiness(@RequestParam Integer parkId) {
+		List<InBusinessDO> data = parkService.inBusiness(parkId);
 		return ResponseBean.successResponse(data);
 	}
 
@@ -165,9 +185,8 @@ public class ParkController {
 	 */
 	@RequestMapping("/businessDistribute")
 	@ResponseBody
-	public ResponseBean businessDistribute(@RequestParam(required = true) Integer areaId,String parkName) {
-
-		List<CompanyTypeCountDO> data = parkService.businessDistribute(areaId,parkName);
+	public ResponseBean businessDistribute(@RequestParam(required = true) Integer parkId) {
+		List<CompanyTypeCountDO> data = parkService.businessDistribute(parkId);
 		return ResponseBean.successResponse(data);
 	}
 
@@ -180,16 +199,13 @@ public class ParkController {
 	 */
 	@RequestMapping("/parkImg")
 	@ResponseBody
-	@LogRecord(logMsg = "浏览【%s】园区监测页面", params = { "areaName" }, page = Operation.Page.park, after = true, before = false)
-	public ResponseBean parkImg(Integer areaId, String parkName, HttpServletRequest request) {
-
-		Object data = parkService.parkImg(areaId,parkName);
-
-		AreaDO area = this.parkService.selectById(AreaDO.class, areaId);
-		if (area != null) {
-			request.setAttribute("areaName", area.getName());
-		}
-
+	@LogRecord(logMsg = "浏览【%s】园区监测页面", params = { "areaId" }, page = Operation.Page.park, after = true, before = false)
+	public ResponseBean parkImg(Integer parkId) {
+		String data = parkService.parkImg(parkId);
+//		AreaDO area = this.parkService.selectById(AreaDO.class, areaId);
+//		if (area != null) {
+//			request.setAttribute("areaName", area.getName());
+//		}
 		return ResponseBean.successResponse(data);
 	}
 
@@ -287,15 +303,15 @@ public class ParkController {
 	/**
 	 * 查询园区楼宇公司列表
 	 *
-	 * @param areaId
+	 * @param parkId
 	 *            园区id,必传
 	 * @return ResponseBean
 	 */
 	@RequestMapping("/parkCompanyList")
 	@ResponseBody
-	public ResponseBean parkCompanyList(@RequestParam Integer areaId, @RequestParam Integer isNew, @RequestParam Integer riskLevel,
+	public ResponseBean parkCompanyList(@RequestParam Integer parkId, @RequestParam Integer isNew, @RequestParam Integer riskLevel,
 			@RequestParam String backgroundName, @RequestParam String companyTypeName, @RequestParam String buildingName,
-										@RequestParam String companyName,@RequestParam Integer pageSize,@RequestParam Integer pageNumber,@RequestParam String parkName) {
+										@RequestParam String companyName,@RequestParam Integer pageSize,@RequestParam Integer pageNumber) {
 		//分页
 		if(null==pageSize || pageSize<1){
 			pageSize=20;
@@ -304,7 +320,7 @@ public class ParkController {
 			pageNumber=1;
 		}
 
-		Map<String ,Object> data = parkService.queryParkCompany(areaId, isNew, riskLevel, backgroundName, companyTypeName, buildingName,companyName,pageSize,pageNumber,parkName);
+		Map<String ,Object> data = parkService.queryParkCompany(parkId, isNew, riskLevel, backgroundName, companyTypeName, buildingName,companyName,pageSize,pageNumber);
 		return ResponseBean.successResponse(data);
 	}
 
@@ -318,7 +334,7 @@ public class ParkController {
 	@RequestMapping("/downloadParkCompanyList")
 	@ResponseBody
 	public ResponseBean downloadParkCompanyList(@RequestParam Integer areaId, Integer isNew, Integer riskLevel, String backgroundName,
-			String companyTypeName, String buildingName,String companyName, HttpServletRequest request,String parkName) {
+			String companyTypeName, String buildingName,String companyName, HttpServletRequest request) {
 
 		String loginName = request.getSession().getAttribute(Constants.SESSION.loginName) + "";
 		String nowDateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss"));
@@ -337,7 +353,7 @@ public class ParkController {
 			// 按查询条件下载企业
 
 			Map<String,Object> map = parkService.queryParkCompany(areaId,
-			 isNew, riskLevel, backgroundName, companyTypeName, buildingName,companyName,null,null,parkName);
+			 isNew, riskLevel, backgroundName, companyTypeName, buildingName,companyName,null,null);
 
 			// 下载改园区全部企业
 			//Map<String,Object> map = parkService.queryParkCompany(areaId, null, null, null, null, null,null,null);

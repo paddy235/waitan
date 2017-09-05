@@ -7,6 +7,7 @@ import com.bbd.wtyh.domain.vo.ParkAndBuildingVO;
 import com.bbd.wtyh.mapper.ParkAndBuildingMgtMapper;
 import com.bbd.wtyh.service.PABRelationService;
 import com.bbd.wtyh.service.ParkRangeService;
+import com.bbd.wtyh.service.ParkService;
 import com.bbd.wtyh.service.shiro.ParkMgtService;
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.poi.util.StringUtil;
@@ -29,6 +30,8 @@ public class ParkMgtServiceImpl implements ParkMgtService {
     private ParkRangeService parkRangeService;
     @Autowired
     private PABRelationService pabRelationService;
+    @Autowired
+    private ParkService parkService;
 
     @Override
     public List<ParkDO> queryParkList() {
@@ -208,14 +211,17 @@ public class ParkMgtServiceImpl implements ParkMgtService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void addBuilding(BuildingDO building) throws Exception {
+    public void addBuilding(BuildingDO building, String parkName) throws Exception {
         try {
             parkAndBuildingMgtMapper.addBuilding(building);
             PABRelationDO pabDO = new PABRelationDO();
             pabDO.setBuildingId(building.getBuildingId());
             pabDO.setCreateBy(building.getCreateBy());
             pabDO.setUpdateBy(building.getUpdateBy());
-            pabDO.setParkId(building.getParkId());
+            ParkDO parkDO = parkService.queryParkByName(parkName);
+            if (null == parkDO || parkDO.getParkId() <= 0)
+                throw new Exception("未查询到此楼宇所属园区！");
+            pabDO.setParkId(parkDO.getParkId());
             pabRelationService.addPABRelation(pabDO);
         } catch (Exception e) {
             throw new Exception(e.getMessage(), e);

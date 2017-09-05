@@ -73,17 +73,13 @@ public class ParkServiceImpl extends BaseServiceImpl implements ParkService {
 	private String httpProxy = System.getenv("http_proxy");
 
 	@Override
-	public List<BuildingDO> queryBuildings(Integer areaId,String parkName) {
-
-		return buildingMapper.queryBuildings(areaId,parkName);
-
+	public List<BuildingDO> queryBuildings(Integer parkId) {
+		return buildingMapper.queryBuildings(parkId);
 	}
 
 	@Override
-	public List<InBusinessDO> inBusiness(Integer areaId,String parkName) {
-
+	public List<InBusinessDO> inBusiness(Integer parkId) {
 		List<InBusinessDO> list = new ArrayList<>();
-
 		Date now = new Date();
 
 		Date year10 = DateUtils.addYears(now, -10);
@@ -91,11 +87,11 @@ public class ParkServiceImpl extends BaseServiceImpl implements ParkService {
 		Date year3 = DateUtils.addYears(now, -3);
 		Date year1 = DateUtils.addYears(now, -1);
 
-		list.add(inBusiness("10年以上", areaId, null, DateFormatUtils.format(year10, "yyyy-MM-dd"),parkName));
-		list.add(inBusiness("5-10年", areaId, DateFormatUtils.format(year10, "yyyy-MM-dd"), DateFormatUtils.format(year5, "yyyy-MM-dd"),parkName));
-		list.add(inBusiness("3-5年", areaId, DateFormatUtils.format(year5, "yyyy-MM-dd"), DateFormatUtils.format(year3, "yyyy-MM-dd"),parkName));
-		list.add(inBusiness("1-3年", areaId, DateFormatUtils.format(year3, "yyyy-MM-dd"), DateFormatUtils.format(year1, "yyyy-MM-dd"),parkName));
-		list.add(inBusiness("1年以下", areaId, DateFormatUtils.format(year1, "yyyy-MM-dd"), DateFormatUtils.format(now, "yyyy-MM-dd"),parkName));
+		list.add(inBusiness("10年以上", parkId, null, DateFormatUtils.format(year10, "yyyy-MM-dd")));
+		list.add(inBusiness("5-10年", parkId, DateFormatUtils.format(year10, "yyyy-MM-dd"), DateFormatUtils.format(year5, "yyyy-MM-dd")));
+		list.add(inBusiness("3-5年", parkId, DateFormatUtils.format(year5, "yyyy-MM-dd"), DateFormatUtils.format(year3, "yyyy-MM-dd")));
+		list.add(inBusiness("1-3年", parkId, DateFormatUtils.format(year3, "yyyy-MM-dd"), DateFormatUtils.format(year1, "yyyy-MM-dd")));
+		list.add(inBusiness("1年以下", parkId, DateFormatUtils.format(year1, "yyyy-MM-dd"), DateFormatUtils.format(now, "yyyy-MM-dd")));
 
 		return list;
 	}
@@ -105,20 +101,17 @@ public class ParkServiceImpl extends BaseServiceImpl implements ParkService {
 	 *
 	 * @param dateRange
 	 *            时间范围
-	 * @param areaId
-	 *            区域id
+	 * @param parkId
+	 *            园区id
 	 * @param start
 	 *            时间年限起
 	 * @param end
 	 *            时间年限止
 	 * @return InBusiness
 	 */
-	public InBusinessDO inBusiness(String dateRange, Integer areaId, String start, String end,String parkName) {
-
-		InBusinessDO bean = companyMapper.countByDate(areaId, start, end, parkName);
-
+	public InBusinessDO inBusiness(String dateRange, Integer parkId, String start, String end) {
+		InBusinessDO bean = companyMapper.countByDate(parkId, start, end);
 		bean.setDate(dateRange);
-
 		return bean;
 	}
 
@@ -192,21 +185,21 @@ public class ParkServiceImpl extends BaseServiceImpl implements ParkService {
 	}
 
 	@Override
-	public List<CompanyTypeCountDO> businessDistribute(Integer areaId,String parkName) {
+	public List<CompanyTypeCountDO> businessDistribute(Integer parkId) {
 
 		List<CompanyTypeCountDO> ljr = new ArrayList<>();
 
-		countType(ljr, areaId, CompanyDO.TYPE_P2P_1, "网络借贷",parkName);
-		countType(ljr, areaId, CompanyDO.TYPE_XD_2, "小额贷款",parkName);
-		countType(ljr, areaId, CompanyDO.TYPE_RZDB_3, "融资担保",parkName);
-		countType(ljr, areaId, CompanyDO.TYPE_XXLC_4, "线下理财",parkName);
-		countType(ljr, areaId, CompanyDO.TYPE_SMJJ_5, "私募基金",parkName);
-		countType(ljr, areaId, CompanyDO.TYPE_ZC_6, "众筹",parkName);
-		countType(ljr, areaId, CompanyDO.TYPE_JYS_9, "交易所",parkName);
-		countType(ljr, areaId, CompanyDO.TYPE_SYBL_10, "商业保理",parkName);
-		countType(ljr, areaId, CompanyDO.TYPE_YFK_11, "预付卡",parkName);
-		countType(ljr, areaId, CompanyDO.TYPE_DD_12, "典当",parkName);
-		countType(ljr, areaId, CompanyDO.TYPE_RZZL_13, "融资租赁",parkName);
+		countType(ljr, parkId, CompanyDO.TYPE_P2P_1, "网络借贷");
+		countType(ljr, parkId, CompanyDO.TYPE_XD_2, "小额贷款");
+		countType(ljr, parkId, CompanyDO.TYPE_RZDB_3, "融资担保");
+		countType(ljr, parkId, CompanyDO.TYPE_XXLC_4, "线下理财");
+		countType(ljr, parkId, CompanyDO.TYPE_SMJJ_5, "私募基金");
+		countType(ljr, parkId, CompanyDO.TYPE_ZC_6, "众筹");
+		countType(ljr, parkId, CompanyDO.TYPE_JYS_9, "交易所");
+		countType(ljr, parkId, CompanyDO.TYPE_SYBL_10, "商业保理");
+		countType(ljr, parkId, CompanyDO.TYPE_YFK_11, "预付卡");
+		countType(ljr, parkId, CompanyDO.TYPE_DD_12, "典当");
+		countType(ljr, parkId, CompanyDO.TYPE_RZZL_13, "融资租赁");
 		// 公司类型 1:P2P 2:小贷 3:融资担保 4:线下理财 5:私募基金 6:众筹 7:金融 8:其他 9:交易所 10:商业保理
 		// 11.预付卡 12.典当 13融资租赁
 
@@ -220,22 +213,23 @@ public class ParkServiceImpl extends BaseServiceImpl implements ParkService {
 		ljrCount.setChildren(ljr);
 		bigType.add(ljrCount.setType("新型金融"));
 
-		countType(bigType, areaId, CompanyDO.TYPE_JR_7, "金融",parkName);
-		countType(bigType, areaId, CompanyDO.TYPE_QT_8, "其他",parkName);
+		countType(bigType, parkId, CompanyDO.TYPE_JR_7, "金融");
+		countType(bigType, parkId, CompanyDO.TYPE_QT_8, "其他");
 
 		return bigType;
 	}
 
-	private void countType(List<CompanyTypeCountDO> list, Integer areaId, Byte type, String name,String parkName) {
-		CompanyTypeCountDO b = companyMapper.countByType(areaId, type,parkName);
+	private void countType(List<CompanyTypeCountDO> list, Integer parkId, Byte type, String name) {
+		CompanyTypeCountDO b = companyMapper.countByType(parkId, type);
 		list.add(b.setType(name));
 
 	}
 
-	public String parkImg(Integer areaId,String parkName) {
-
-		return parkMapper.parkImg(areaId,parkName);
-
+	public String parkImg(Integer parkId) {
+		String imgUrl = parkMapper.parkImg(parkId);
+		if (StringUtils.isEmpty(imgUrl))
+			imgUrl = ParkDO.DEFAULT_PARK_IMG;
+		return imgUrl;
 	}
 
 	@Override
@@ -346,9 +340,9 @@ public class ParkServiceImpl extends BaseServiceImpl implements ParkService {
 	}
 
 	@Override
-	public Map<String, Object> queryParkCompany(Integer areaId,Integer isNew,Integer riskLevel,
+	public Map<String, Object> queryParkCompany(Integer parkId,Integer isNew,Integer riskLevel,
 												String backgroundName,String companyTypeName,String buildingName,
-												String companyName,Integer pageSize,Integer pageNumber,String parkName) {
+												String companyName,Integer pageSize,Integer pageNumber) {
 		Map<String, Object> result=new HashMap<>();
 		result.put("total",0);
 		result.put("list",new ArrayList<>());
@@ -361,10 +355,8 @@ public class ParkServiceImpl extends BaseServiceImpl implements ParkService {
 			Integer beginNumber = (pageNumber - 1) * pageSize;
 			params.put("beginNumber", beginNumber);
 		}
-		//地区编号
-        params.put("areaId",areaId);
-		//园区名称
-		params.put("parkName",parkName);
+		//园区编号
+        params.put("parkId",parkId);
 		//背景名称--背景代码
         if(org.apache.commons.lang3.StringUtils.isNotBlank(backgroundName)){
 			CompanyBackgroundDO.Bg bg=CompanyBackgroundDO.Bg.getBgByName(backgroundName);
@@ -398,7 +390,7 @@ public class ParkServiceImpl extends BaseServiceImpl implements ParkService {
 			params.put("companyName",companyName);
 		}
 		//临时方案20170816：如果园区名称不属于某个行政区，就不查询该园区所属行政区的注册企业。例如虹桥商务区
-		List<AreaDO> areaDOs=this.areaMapper.areaListByName(Constants.SH_AREAID,parkName);
+		List<AreaDO> areaDOs=this.areaMapper.areaListByName(Constants.SH_AREAID, parkId);
 		if(null==areaDOs || areaDOs.size()==0 ){
 			params.put("regCompany",null);
 		}else{
@@ -413,13 +405,18 @@ public class ParkServiceImpl extends BaseServiceImpl implements ParkService {
 	@Override
 	public List<ParkDO> queryParkList(String areaId, String userId) {
 		Map<String, Object> params = new HashMap<>();
-		if (StringUtils.isEmpty(areaId))
+		if (StringUtils.isEmpty(areaId) && StringUtils.isEmpty(userId))
 			params.put("areaId", "-1");
 		else
 			params.put("areaId", areaId);
 		if (!StringUtils.isEmpty(userId))
 			params.put("userId", userId);
 		return parkMapper.queryParkList(params);
+	}
+
+	@Override
+	public ParkDO queryParkByName(String parkName) {
+		return parkMapper.queryParkByName(parkName);
 	}
 
 	private void sortByIndex(List<CompanyAnalysisResultDO> list) {

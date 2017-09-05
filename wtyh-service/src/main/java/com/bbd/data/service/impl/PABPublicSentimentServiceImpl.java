@@ -25,11 +25,10 @@ public class PABPublicSentimentServiceImpl implements PABPublicSentimentService 
 
     @Override
     public NewsVO queryParkPublicSentiment(int areaId, String parkName) {
-        if (areaId <= 0 || StringUtils.isEmpty(parkName))
+        if (StringUtils.isEmpty(parkName))
             return null;
         /* 组装参数 */
         Map<String, Object> params = new HashMap<>();
-        params.put("areaId", areaId);
         params.put("parkName", parkName);
 
         int count = pabPublicSentimentMapper.queryParkPublicSentimentCount(params);

@@ -46,7 +46,7 @@
     </update>
 
     <update id="updateBuildingImgUrl" parameterType="com.bbd.wtyh.domain.BuildingDO">
-        UPDATE building SET img_url=#{imgUrl}, update_date=SYSDATE(),update_by=#{updateBy} WHERE park_id=#{parkId} AND building_id=#{buildingId}
+        UPDATE building SET img_url=#{imgUrl}, update_date=SYSDATE(),update_by=#{updateBy} WHERE building_id=#{buildingId}
     </update>
 
     <select id="queryAllPark" resultType="com.bbd.wtyh.domain.ParkDO">

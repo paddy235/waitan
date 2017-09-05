@@ -17,8 +17,8 @@
 		<if test="cityId != null">
 			where city_id=#{cityId}
 		</if>
-		<if test="areaName != null">
-			and  name=#{areaName}
+		<if test="parkId != null">
+			and area_id=(select area_id from park where park_id=#{parkId})
 		</if>
 	</select>
 

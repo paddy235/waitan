@@ -31,10 +31,10 @@ public interface CompanyMapper {
 
 	CompanyDO getCompanyById(@Param(value = "companyId") Integer companyId);
 
-	public InBusinessDO countByDate(@Param(value = "areaId") Integer areaId, @Param(value = "start") String start,
-			@Param(value = "end") String end,@Param("parkName") String parkName );
+	public InBusinessDO countByDate(@Param(value = "parkId") Integer parkId, @Param(value = "start") String start,
+			@Param(value = "end") String end);
 
-	public CompanyTypeCountDO countByType(@Param(value = "areaId") Integer areaId, @Param(value = "type") Byte type, @Param("parkName") String parkName);
+	public CompanyTypeCountDO countByType(@Param(value = "parkId") Integer parkId, @Param(value = "type") Byte typee);
 
 	public List<CompanyDO> buildingCompany(@Param(value = "buildingId") Integer buildingId, @Param(value = "orderField") Integer orderField,
 			@Param(value = "descAsc") String descAsc);
