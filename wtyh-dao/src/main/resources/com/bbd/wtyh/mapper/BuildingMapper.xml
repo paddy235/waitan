@@ -88,7 +88,6 @@
 		SELECT
             building_id as buildingId,
             `name` as `name`,
-            park_id as parkId,
             img_url as imgUrl
         FROM
             building
