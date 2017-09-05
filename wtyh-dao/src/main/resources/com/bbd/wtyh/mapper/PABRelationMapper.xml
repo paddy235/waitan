@@ -10,4 +10,8 @@
 		DELETE FROM park_and_building_relation WHERE park_id=#{parkId}
 	</delete>
 
+	<delete id="delPABRelationByBuildingId" parameterType="int">
+		DELETE FROM park_and_building_relation WHERE building_id=#{buildingId}
+	</delete>
+
 </mapper>

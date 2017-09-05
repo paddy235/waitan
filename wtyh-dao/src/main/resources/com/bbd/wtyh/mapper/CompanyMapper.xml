@@ -46,35 +46,33 @@
 
 
     <select id="countByDate" resultType="com.bbd.wtyh.domain.InBusinessDO">
-
-        select count(*) count from company com ,
-        company_building cb ,building bui ,park p where
-        p.park_id=bui.park_id and
+        select count(1) count from company com,
+        company_building cb,building bui,park p,park_and_building_relation pabr where
+        p.park_id=pabr.park_id and
+        pabr.building_id=bui.building_id and
         cb.company_id=com.company_id and
         cb.building_id=bui.building_id and
-        p.area_id=#{areaId} and
-        p.name=#{parkName}
+        p.park_id=#{parkId}
         <if test="#{start}!=null">
             and com.registered_date >= #{start}
         </if>
         <if test="#{end}!=null">
             <![CDATA[ and com.registered_date < #{end} ]]>
         </if>
-
     </select>
 
 
     <select id="countByType" resultType="com.bbd.wtyh.domain.CompanyTypeCountDO">
-
-   		select count(*) count from company com ,
-   		  company_building cb ,building bui ,park p where
-   			p.park_id=bui.park_id and
-   			cb.company_id=com.company_id and
-   			cb.building_id=bui.building_id and
-   			p.area_id=#{areaId} and
-   			com.company_type=#{type} and p.name=#{parkName}
-
-   </select>
+        select count(1) count
+        from company com, company_building cb ,building bui,park p,park_and_building_relation pabr
+        where
+		p.park_id=pabr.park_id and
+		bui.building_id=pabr.building_id and
+		cb.company_id=com.company_id and
+		cb.building_id=bui.building_id and
+		p.park_id=#{parkId} and
+		com.company_type=#{type}
+    </select>
 
 
     <select id="countTypeByBuild" resultType="com.bbd.wtyh.domain.CompanyTypeCountDO">
@@ -272,18 +270,16 @@
 
 	<select id="queryCompanyNames" resultType="string">
         select c.`name`
-        from company c , company_building cb , building b ,park p
+        from company c , company_building cb , building b ,park p, park_and_building_relation pabr
         where c.company_id=cb.company_id
               and b.building_id=cb.building_id
-              and p.park_id=b.park_id
-              <if test="areaId!=null">
-              	and p.area_id=#{areaId}
+              and p.park_id=pabr.park_id
+              and pabr.building_id=b.building_id
+              <if test="parkId!=null">
+              	and p.park_id=#{parkId}
               </if>
               <if test="buildingId!=null">
               	and b.building_id=#{buildingId}
-              </if>
-              <if test="parkName!=null">
-                and p.name=#{parkName}
               </if>
     </select>
 

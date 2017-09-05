@@ -15,36 +15,36 @@ import com.bbd.wtyh.domain.*;
 public interface ParkService extends BaseService {
 
 	/**
-	 * 根据区域id查询新型金融企业集中度
+	 * 根据楼宇ID查询楼宇信息
 	 *
-	 * @param areaId
+	 * @param parkId
 	 *            区域id
 	 * @return List<BuildingDO>
 	 */
-	List<BuildingDO> queryBuildings(Integer areaId,String parkName);
+	List<BuildingDO> queryBuildings(Integer parkId);
 
 	/**
 	 * 根据区域id查询新型金融企业集中度
 	 *
-	 * @param areaId
+	 * @param parkId
 	 *            区域id
 	 * @return List<BuildingDO>
 	 */
-	List<InBusinessDO> inBusiness(Integer areaId,String parkName);
+	List<InBusinessDO> inBusiness(Integer parkId);
 
 	/**
 	 * 根据区域id查询行业分布
 	 *
-	 * @param areaId
+	 * @param parkId
 	 *            区域id
 	 * @return List<BuildingDO>
 	 */
-	List<CompanyTypeCountDO> businessDistribute(Integer areaId,String parkName);
+	List<CompanyTypeCountDO> businessDistribute(Integer parkId);
 
 	/**
 	 * 查询园区舆情
 	 *
-	 * @param areaId
+	 * @param parkId
 	 *            区域id
 	 * @param pageSize
 	 *            每页数量
@@ -53,16 +53,16 @@ public interface ParkService extends BaseService {
 	 * @author Ian.Su
 	 * @return String
 	 */
-	String queryParkNews(Integer areaId, Integer pageSize, Integer pageNum, String parkName);
+	String queryParkNews(Integer parkId, Integer pageSize, Integer pageNum);
 
 	/**
 	 * 获取园区图片
 	 *
-	 * @param areaId
+	 * @param parkId
 	 *            区域id
 	 * @return String 图片地址
 	 */
-	String parkImg(Integer areaId,String parkName);
+	String parkImg(Integer parkId);
 
 	/**
 	 * 楼宇企业列表
@@ -116,14 +116,16 @@ public interface ParkService extends BaseService {
 	/**
 	 * 查询园区楼宇公司
 	 *
-	 * @param areaId
-	 *            区域id
+	 * @param parkId
+	 *            园区id
 	 * @return String 园区楼宇公司
 	 */
-	Map<String,Object> queryParkCompany(Integer areaId,Integer isNew,Integer riskLevel,
+	Map<String,Object> queryParkCompany(Integer parkId,Integer isNew,Integer riskLevel,
 										 String backgroundName,String companyTypeName,String buildingName,
-										String companyName,Integer pageSize,Integer pageNumber,String parkName);
+										String companyName,Integer pageSize,Integer pageNumber);
 
 	List<ParkDO> queryParkList(String areaId, String userId);
+
+	ParkDO queryParkByName(String parkName);
 
 }

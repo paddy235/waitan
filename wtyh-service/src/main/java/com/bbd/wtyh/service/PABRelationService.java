@@ -11,4 +11,6 @@ public interface PABRelationService {
 
     void delPABRelationByParkId(Integer parkId);
 
+    void delPABRelationByBuildingId(Integer buildingId);
+
 }

@@ -5,23 +5,23 @@
 
     <select id="queryParkAndBuilding" parameterType="java.lang.String" resultType="com.bbd.wtyh.domain.vo.ParkAndBuildingVO">
         SELECT
-          a.area_id as areaId,
-          a.`name` as areaName,
-          p.`name` as parkName,
-          p.`park_id` as parkId,
-          b.`name` as buildingName,
-          b.`building_id` as buildingId,
-          DATE_FORMAT(p.create_date,'%Y.%c.%d') as createDate
+            p.area_id AS areaId,
+            (SELECT a.`name` FROM area a WHERE a.area_id=p.area_id LIMIT 1) AS areaName,
+            p.`name` AS parkName,
+            p.`park_id` AS parkId,
+            b.`name` AS buildingName,
+            b.`building_id` AS buildingId,
+            DATE_FORMAT(p.create_date,'%Y.%c.%d') AS createDate
         FROM
-          park p, building b, area a
+        park p, building b, park_and_building_relation pabr
         <where>
-            p.park_id=b.park_id
-            and p.area_id=a.area_id
+            p.park_id=pabr.park_id
+            and b.building_id=pabr.building_id
             <if test="parkId != null and parkId != ''">
                 and p.park_id=#{parkId}
             </if>
             <if test="buildingName != null and buildingName != ''">
-                and b.name=#{buildingName}
+                and b.`name`=#{buildingName}
             </if>
         </where>
     </select>
@@ -46,7 +46,7 @@
     </update>
 
     <update id="updateBuildingImgUrl" parameterType="com.bbd.wtyh.domain.BuildingDO">
-        UPDATE building SET img_url=#{imgUrl}, update_date=SYSDATE(),update_by=#{updateBy} WHERE park_id=#{parkId} AND building_id=#{buildingId}
+        UPDATE building SET img_url=#{imgUrl}, update_date=SYSDATE(),update_by=#{updateBy} WHERE building_id=#{buildingId}
     </update>
 
     <select id="queryAllPark" resultType="com.bbd.wtyh.domain.ParkDO">
@@ -77,8 +77,8 @@
 
     <select id="queryBuildingCompanyNumber" parameterType="java.lang.String" resultType="com.bbd.wtyh.domain.vo.ParkAndBuildingVO">
         SELECT
-            a.area_id as areaId,
-            a.`name` as areaName,
+            p.area_id as areaId,
+            (SELECT a.`name` FROM area a WHERE a.area_id=p.area_id LIMIT 1) AS areaName,
             p.`name` as parkName,
             o.name as buildingName,
             o.building_id as buildingId,
@@ -88,11 +88,12 @@
                 count(1)
             FROM
                 park p,
+				park_and_building_relation pabr,
                 building b,
                 company_building cb,
                 company c
             WHERE
-                p.park_id=b.park_id and b.building_id=cb.building_id and cb.company_id=c.company_id and b.`name` = o.name
+                p.park_id=pabr.park_id and pabr.building_id=b.building_id and b.building_id=cb.building_id and cb.company_id=c.company_id and b.`name` = o.`name`
             )
             as companyCount,
             (
@@ -100,22 +101,23 @@
                 count(1)
             FROM
                 park p,
+				park_and_building_relation pabr,
                 building b,
                 company_building cb,
                 company c
             WHERE
-                p.park_id=b.park_id and b.building_id=cb.building_id and cb.company_id=c.company_id and b.`name` = o.name and c.company_type<![CDATA[>=]]>1
+                p.park_id=pabr.park_id and pabr.building_id=b.building_id and b.building_id=cb.building_id and cb.company_id=c.company_id and b.`name`=o.`name` and c.company_type<![CDATA[>=]]>1
             )
             as finCompanyCount
         FROM
-            building o,park p,area a
+            building o,park p,park_and_building_relation pabr
         WHERE
-            o.park_id=p.park_id and
-            p.area_id=a.area_id and
-            o.park_id = #{parkId}
+			p.park_id=pabr.park_id and
+			o.building_id=pabr.building_id and
+			p.park_id=#{parkId}
     </select>
 
-    <insert id="addBuilding" parameterType="com.bbd.wtyh.domain.BuildingDO">
+    <insert id="addBuilding" parameterType="com.bbd.wtyh.domain.BuildingDO" useGeneratedKeys="true" keyProperty="buildingId">
         INSERT INTO building(`name`, park_id, img_url, create_by, create_date) VALUES(#{name}, #{parkId}, #{imgUrl}, #{createBy}, SYSDATE())
     </insert>
 
@@ -195,12 +197,12 @@
         SELECT building_id as buildingId FROM building WHERE park_id=#{parkId} AND `name`=#{buildingName}
     </select>
 
-    <select id="queryBIdByName" resultType="int">
+    <select id="queryBIdByName" resultType="java.lang.String">
         SELECT building_id as buildingId FROM building WHERE `name`=#{buildingName}
     </select>
 
     <select id="queryParkList" resultType="com.bbd.wtyh.domain.ParkDO">
-        SELECT park_id as parkId,name as name FROM park WHERE 1=1 ORDER BY park_id
+        SELECT park_id AS parkId,`name` AS `name` FROM park ORDER BY park_id
     </select>
 
     <insert id="addPark" parameterType="com.bbd.wtyh.domain.ParkDO">
@@ -251,20 +253,19 @@
     </select>
 
     <select id="queryBuildingList" parameterType="java.lang.String" resultType="java.util.Map">
-        select
-            building_id as buildingId,
-            name as buildingName
-        from
-            building
-        <where>
+        SELECT
+            b.building_id AS buildingId,
+            b.`name` AS buildingName
+        FROM
+            building b, park_and_building_relation pabr
+        WHERE
+            b.building_id=pabr.building_id
             <if test="parkId != null and parkId != ''">
-                park_id = #{parkId}
+                AND pabr.park_id=#{parkId}
             </if>
             <if test="buildingName != null and buildingName != ''">
-                and name like #{buildingName}
+                AND b.`name` LIKE CONCAT('%',#{buildingName},'%')
             </if>
-        </where>
-
     </select>
 
     <select id="queryCompanyByBuildingId" resultType="com.bbd.wtyh.domain.CompanyDO" parameterType="int">

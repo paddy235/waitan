@@ -15,10 +15,17 @@ public interface PABRelationMapper {
     void addPABRelation(PABRelationDO pabRelationDO);
 
     /**
-     * 根据园区ID，删除与其相关的楼宇关系
+     * 根据园区ID，删除与其相关的园区、楼宇关系
      *
      * @param parkId
      */
     void delPABRelationByParkId(Integer parkId);
+
+    /**
+     * 根据楼宇ID，删除与其相关的园区、楼宇关系
+     *
+     * @param buildingId
+     */
+    void delPABRelationByBuildingId(Integer buildingId);
 
 }

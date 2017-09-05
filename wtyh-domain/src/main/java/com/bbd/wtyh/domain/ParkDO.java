@@ -1,5 +1,7 @@
 package com.bbd.wtyh.domain;
 
+import org.springframework.beans.factory.annotation.Value;
+
 import javax.persistence.Column;
 import javax.persistence.Id;
 
@@ -19,6 +21,7 @@ public class ParkDO extends BaseDO {
     private String imgUrl;
     private String user ;//作为creat_by或update_by字段使用
 
+    public static final String DEFAULT_PARK_IMG = "data/img/park/park_default.png";
     private String isSelected;
 
     public String getIsSelected() {
