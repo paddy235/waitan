@@ -100,7 +100,7 @@ public class CreditController {
 
 		try {
 			if (StringUtils.isEmpty(companyName)) {
-				return ResponseBean.errorResponse("请输入企业名称");
+				companyName = null;
 			}
 			if (StringUtils.isEmpty(dataType)) {
 				dataType = null;
@@ -127,7 +127,7 @@ public class CreditController {
 		try {
 
 			if (StringUtils.isEmpty(companyName)) {
-				return ResponseBean.errorResponse("请输入企业名称");
+				companyName = null;
 			}
 			if (StringUtils.isEmpty(dataType)) {
 				dataType = null;
