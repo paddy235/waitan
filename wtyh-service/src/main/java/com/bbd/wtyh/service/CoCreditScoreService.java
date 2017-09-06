@@ -4,6 +4,7 @@ import com.bbd.wtyh.domain.TaskFailInfoDO;
 import com.bbd.wtyh.domain.TaskResultDO;
 import com.bbd.wtyh.domain.credit.CompanyCreditFailInfoDO;
 import com.bbd.wtyh.domain.dto.CreditInfoDTO;
+import com.bbd.wtyh.web.PageBean;
 
 import java.util.List;
 
@@ -35,5 +36,5 @@ public interface CoCreditScoreService {
 
 	List<TaskFailInfoDO> getCreditFailInfoByTaskId(Integer taskId);
 
-	List<CreditInfoDTO> getCreditInfo(String companyName, String dataType);
+	List<CreditInfoDTO> getCreditInfo(String companyName, String dataType, PageBean pageBean);
 }

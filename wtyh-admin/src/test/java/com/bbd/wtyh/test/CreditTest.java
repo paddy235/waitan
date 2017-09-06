@@ -52,7 +52,7 @@ public class CreditTest {
 
 	@Test
 	public void getCreditInfoTest() {
-		List<CreditInfoDTO> list = coCreditScoreService.getCreditInfo("中阜投融资产管理股份有限公司", "3");
+		List<CreditInfoDTO> list = coCreditScoreService.getCreditInfo("中阜投融资产管理股份有限公司", "3",null);
 		System.err.println(JSON.toJSONString(list, SerializerFeature.PrettyFormat, SerializerFeature.DisableCircularReferenceDetect));
 
 	}

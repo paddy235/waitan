@@ -11,6 +11,7 @@ import com.bbd.wtyh.log.user.UserLogRecord;
 import com.bbd.wtyh.mapper.CompanyCreditInformationMapper;
 import com.bbd.wtyh.mapper.CompanyCreditMapper;
 import com.bbd.wtyh.service.CoCreditScoreService;
+import com.bbd.wtyh.web.PageBean;
 import com.bbd.wtyh.web.ResponseBean;
 
 import org.apache.commons.lang3.StringUtils;
@@ -96,7 +97,7 @@ public class CreditController {
 
 	@RequestMapping("/getCreditData")
 	@ResponseBody
-	public ResponseBean getCreditData(String companyName, String dataType, HttpServletRequest request) {
+	public ResponseBean getCreditData(String companyName, String dataType, PageBean pageBean, HttpServletRequest request) {
 
 		try {
 			if (StringUtils.isEmpty(companyName)) {
@@ -106,7 +107,7 @@ public class CreditController {
 				dataType = null;
 			}
 
-			List<CreditInfoDTO> list = coCreditScoreService.getCreditInfo(companyName, dataType);
+			List<CreditInfoDTO> list = coCreditScoreService.getCreditInfo(companyName, dataType, pageBean);
 
 			UserLogRecord.record("搜索["+companyName+"]", Operation.Type.query, Operation.Page.creditDataManager,
 					Operation.System.back, request);
@@ -132,7 +133,8 @@ public class CreditController {
 			if (StringUtils.isEmpty(dataType)) {
 				dataType = null;
 			}
-			List<CreditInfoDTO> list = coCreditScoreService.getCreditInfo(companyName, dataType);
+            PageBean pageBean = null;
+			List<CreditInfoDTO> list = coCreditScoreService.getCreditInfo(companyName, dataType,pageBean);
 			String excelName = "公信数据(" + companyName + ")";
 			ExportExcel exportExcel = new ExportExcel(excelName);
 			ExportExcel.getPageSheet(list,exportExcel,10000,"sheet");

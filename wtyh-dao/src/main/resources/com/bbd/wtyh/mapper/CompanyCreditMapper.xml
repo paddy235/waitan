@@ -108,6 +108,9 @@
 			)
 		</if>
         order by company_name
+		<if test="pagination!=null" >
+		LIMIT #{pagination.offset}, #{pagination.pageSize}
+		</if>
     </select>
 
 	<select id="getCreditDataItems" parameterType="String" resultType="com.bbd.wtyh.domain.CompanyCreditDataItemsDO">
