@@ -139,5 +139,20 @@
 
 
 	</select>
+    <select id="getResourceCounts" resultType="com.bbd.wtyh.domain.dto.CreditRiskDataDTO">
+		select t1.item AS resourceName,IFNULL(t2.counts,0)AS counts from company_credit_point_items AS t1
+		 LEFT JOIN
+		(select resource_name AS resourceName,COUNT(1) AS counts  from company_credit_raw_info
+		where 1=1
+			<if test="companyId!=null" >
+			AND company_id=#{companyId}
+			</if>
+			<if test="companyName!=null" >
+				AND company_name=#{companyName}
+			</if>
+		GROUP BY resource_name ) AS t2
+		ON t1.item=t2.resourceName
+		order by t1.item;
+	</select>
 
 </mapper>

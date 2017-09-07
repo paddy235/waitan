@@ -10,6 +10,7 @@ import com.bbd.wtyh.core.base.BaseServiceImpl;
 import com.bbd.wtyh.domain.*;
 import com.bbd.wtyh.domain.credit.CompanyCreditFailInfoDO;
 import com.bbd.wtyh.domain.dto.CreditInfoDTO;
+import com.bbd.wtyh.domain.dto.CreditRiskDataDTO;
 import com.bbd.wtyh.mapper.*;
 import com.bbd.wtyh.redis.RedisDAO;
 import com.bbd.wtyh.service.CoCreditScoreService;
@@ -386,7 +387,13 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 		return list;
 	}
 
-	@Override
+    @Override
+    public List<CreditRiskDataDTO> getResourceCounts(Integer companyId, String companyName) {
+        List<CreditRiskDataDTO> list = companyCreditMapper.getResourceCounts(companyId,companyName);
+        return list;
+    }
+
+    @Override
 	public int queryfailCompanyCounts(String[] companyNames, String resultCode, Integer taskId, Integer pageNumber, Integer pageSize) {
 
 		Map map = new HashMap();
