@@ -10,6 +10,7 @@ import com.google.gson.reflect.TypeToken;
 import net.sf.cglib.beans.BeanCopier;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,6 +72,12 @@ public class CompanyNewsServiceImpl implements CompanyNewsService {
                 for(QyxgYuqingDO yuqingDO:yuqingDOList){
                     NewsVO.Result r= new NewsVO.Result();
                     beanCopier.copy(yuqingDO,r,null);
+                    r.setaBstract(yuqingDO.getArticleAbstract());
+                    r.setPubdate(DateFormatUtils.format(yuqingDO.getPubdate(),"yyyy-MM-dd"));
+                    //落地数据中的main字段可能没有数据，使用abstract字段中的数据
+                    if(null==r.getMain() || r.getMain().equals("")){
+                        r.setMain(r.getaBstract());
+                    }
                     results.add(r);
                 }
                 vo.setResults(results);
