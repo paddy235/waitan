@@ -6,6 +6,7 @@ import com.bbd.wtyh.domain.TaskFailInfoDO;
 import com.bbd.wtyh.domain.dataLoading.DatasharePullFileDO;
 import com.bbd.wtyh.mapper.DataLoadingMapper;
 import com.bbd.wtyh.mapper.QyxxTagMapper;
+import com.bbd.wtyh.service.CompanyTagService;
 import com.bbd.wtyh.util.DataLoadingUtil;
 import com.bbd.wtyh.util.DateUtils;
 import com.bbd.wtyh.util.PullFileUtil;
@@ -36,6 +37,9 @@ public class TagUpdateServiceImpl implements TagUpdateService {
 
     @Autowired
     private QyxxTagMapper qyxxTagMapper;
+
+    @Autowired
+    private CompanyTagService companyTagService;
 
     @Override
     public void operateData() {
@@ -94,6 +98,15 @@ public class TagUpdateServiceImpl implements TagUpdateService {
                 }
                 baseService.insertList(tagList.subList(i, toIndex));
                 logger.info("Ins [{}~{}] is finish !", i, toIndex -1 );
+            }
+
+            //更新company_tag表
+            try{
+                logger.info("begin insert company_tag ");
+                companyTagService.saveCompanyTag();
+                logger.info("end  insert company_tag ");
+            }catch (Exception e){
+                logger.error("insert company_tag error : ",e );
             }
         }
     }
