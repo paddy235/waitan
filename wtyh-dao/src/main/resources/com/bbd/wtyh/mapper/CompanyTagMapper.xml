@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.bbd.wtyh.mapper.CompanyTagMapper">
-    <insert id="saveCompanyTag">
+    <insert id="saveCompanyTag" parameterType="java.util.List">
         INSERT INTO company_tag
-        (`company_name`,`tag`,`create_by`,`create_date`)
+        (`company_name`,`tag`,`dt`,`create_by`,`create_date`)
         VALUES
-        (#{companyName},#{tag},'system',now())
+        <foreach collection="list" item="item" index="index" separator=",">
+        (#{item.companyName},#{item.tag},#{item.dt},'system',now())
+        </foreach>
     </insert>
 
     <delete id="deleteAllByQyxxTag">
@@ -15,8 +17,9 @@
     <select id="selectFromQyxxTag" resultType="com.bbd.wtyh.domain.CompanyTagDO">
         SELECT
           company_name AS companyName,
-          tag AS tagDesc
-        FROM `qyxx_tag`
+          tag AS tagDesc,
+          dt
+        FROM `qyxx_tag` ORDER BY kid
         LIMIT #{pagination.begin}, #{pagination.pageSize}
 
     </select>
@@ -24,5 +27,13 @@
         SELECT
           count(1) AS counts
         FROM `qyxx_tag`
+    </select>
+    <select id="getMaxDtFromQyxxTag" resultType="java.lang.Integer">
+        select max(dt) AS dt
+        FROM `qyxx_tag`
+    </select>
+    <select id="getMaxDtFromCompanyTag" resultType="java.lang.Integer">
+        select max(dt) AS dt
+        FROM company_tag
     </select>
 </mapper>

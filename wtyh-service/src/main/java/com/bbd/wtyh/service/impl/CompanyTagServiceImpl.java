@@ -1,6 +1,7 @@
 package com.bbd.wtyh.service.impl;
 
 import com.bbd.wtyh.common.Pagination;
+import com.bbd.wtyh.core.base.BaseServiceImpl;
 import com.bbd.wtyh.domain.CompanyInfoModify.CompanyInfo;
 import com.bbd.wtyh.domain.CompanyTagDO;
 import com.bbd.wtyh.mapper.CompanyTagMapper;
@@ -14,14 +15,16 @@ import java.util.List;
  * Created by Administrator on 2017/9/5 0005.
  */
 @Service
-public class CompanyTagServiceImpl implements CompanyTagService {
+public class CompanyTagServiceImpl extends BaseServiceImpl implements CompanyTagService {
     @Autowired
     private CompanyTagMapper companyTagMapper;
 
     @Override
     public void saveCompanyTag() {
-
-        int pageSize = 1000;
+        if(!compareVersion()){
+            return;
+        }
+        int pageSize = 3000;
         int totalCount = companyTagMapper.countQyxxTag();
         Pagination pagination = new Pagination();
         pagination.setPageSize(pageSize);
@@ -32,6 +35,7 @@ public class CompanyTagServiceImpl implements CompanyTagService {
         //分页新增
         for (int i = 1; i <= total; i++) {
             //分页查询
+            pagination.setPageNumber(i);
             transAndSaveTag(pagination);
         }
 
@@ -43,8 +47,19 @@ public class CompanyTagServiceImpl implements CompanyTagService {
         for(CompanyTagDO companyTagDO:list){
             Byte tag = CompanyInfo.companyType(companyTagDO.getTagDesc());
             companyTagDO.setTag(null==tag?null:Integer.valueOf(tag));
-            companyTagMapper.saveCompanyTag(companyTagDO);
         }
+        companyTagMapper.saveCompanyTag(list);
+    }
+
+    private boolean compareVersion(){
+
+        Integer qyxxTd=companyTagMapper.getMaxDtFromQyxxTag();
+        Integer companyTd=companyTagMapper.getMaxDtFromCompanyTag();
+        if(null != qyxxTd && null != companyTd
+                && qyxxTd > companyTd){
+            return true;
+        }
+        return false;
     }
 
 

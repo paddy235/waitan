@@ -234,6 +234,8 @@ public class CompanyInfo {
                 return TYPE_WT_34;
             case "外滩融资租赁":
                 return TYPE_WT_35;
+            case "外滩线下理财企业"://源数据是这样
+                return TYPE_XXLC_4;
             default:
                 return null;
 
