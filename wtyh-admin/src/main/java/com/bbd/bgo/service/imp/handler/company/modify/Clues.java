@@ -90,10 +90,16 @@ public class Clues {
     public static String companyTypeLimit() {
 
         CompanyType[] companyTypes = CompanyType.values();
-        String[] typeArray = new String[companyTypes.length];
+        String[] typeArray = new String[companyTypes.length - 2];
 
+        int offset = 0;
         for (int i = 0; i < companyTypes.length; i++) {
-            typeArray[i] = companyTypes[i].desc();
+            CompanyType type = companyTypes[i];
+            if (type.equals(CompanyType.TYPE_JR_7) || type.equals(CompanyType.TYPE_QT_8)) {
+                offset++;
+                continue;
+            }
+            typeArray[i - offset] = type.desc();
         }
         return StringUtils.join(typeArray, ",");
     }
