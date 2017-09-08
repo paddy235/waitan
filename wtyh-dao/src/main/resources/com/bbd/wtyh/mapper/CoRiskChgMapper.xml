@@ -4,16 +4,18 @@
 
     <select id="riskChgCoBuilding" resultType="java.util.Map">
         SELECT
-          b.building_id AS id,
-          b.`name`
+        b.building_id AS id,
+        b.`name`
         FROM
-          building b,
-          park p
+        building b,
+        park p,
+        park_and_building_relation pabr
         WHERE
-          b.park_id = p.park_id
-          <if test="areaSet != null and areaSet != '' and areaSet != 0">
-              AND p.area_id IN (${areaSet})
-          </if>
+        pabr.park_id = p.park_id AND
+        pabr.building_id = b.building_id
+        <if test="areaSet != null and areaSet != '' and areaSet != 0">
+            AND p.area_id IN (${areaSet})
+        </if>
     </select>
 
 </mapper>

@@ -10,7 +10,7 @@ import java.util.Map;
 
 public interface ParkMapper {
    
-	public String parkImg(@Param("areaId") Integer areaId,@Param("parkName") String parkName);
+	public String parkImg(@Param("parkId") Integer parkId);
 	/**
 	 * 查询某个园区的楼宇公司
 	 * @return
@@ -36,5 +36,13 @@ public interface ParkMapper {
 	 * @return
 	 */
 	List<ParkDO> queryParkList(Map<String, Object> params);
+
+	/**
+	 * 根据园区名字查询园区信息
+	 *
+	 * @param parkName
+	 * @return
+     */
+	ParkDO queryParkByName(String parkName);
    
 }

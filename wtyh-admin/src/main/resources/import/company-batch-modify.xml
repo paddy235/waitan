@@ -2,7 +2,7 @@
 
 <excel key="company-batch-modify" name="企业批量变更-导入模板">
 
-    <sheet name="Sheet1" startRow="9" entity="com.bbd.wtyh.domain.dto.CoBatchModifyDTO"
+    <sheet name="Sheet1" startRow="10" entity="com.bbd.wtyh.domain.dto.CoBatchModifyDTO"
            importHandler="com.bbd.bgo.service.imp.handler.company.modify.BatchModifyHandler">
 
         <property name="writeExplain" value-ref="com.bbd.bgo.service.imp.handler.company.modify.Clues.writeExplain"/>
@@ -20,7 +20,7 @@
         <property name="companyType" value-ref="com.bbd.bgo.service.imp.handler.company.modify.Clues.companyTypeLimit"/>
 
         <columns>
-            <column name="公司名称" code="companyName" dataType="string" bgColor="#FFFF00" required="true" length="40"/>
+            <column name="公司名称" code="companyName" dataType="string" bgColor="#FFFF00" required="true" length="0,5"/>
 
             <column name="统一社会信用代码" code="creditCode" dataType="string" regex="^([A-Z]|[0-9]){18}$"/>
             <column name="注册号" code="regNum" dataType="string"/>

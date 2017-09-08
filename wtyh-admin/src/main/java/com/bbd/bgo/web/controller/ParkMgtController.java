@@ -279,7 +279,7 @@ public class ParkMgtController {
             }
             building.setCreateBy(loginName);
         }
-        parkMgtService.addBuilding(building);
+        parkMgtService.addBuilding(building, parkName);
         return ResponseBean.successResponse("OK");
     }
 
@@ -445,7 +445,6 @@ public class ParkMgtController {
                     BuildingDO buildingDO = new BuildingDO();
                     buildingDO.setImgUrl(imgDO.getPicUrl());
                     buildingDO.setUpdateBy(user);
-                    buildingDO.setParkId(imgDO.getPicParkId());
                     buildingDO.setBuildingId(imgDO.getPicBuildingId());
                     parkMgtService.updateBuildingImgUrl(buildingDO);//更新图片路径到楼宇表
                 }

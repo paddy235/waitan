@@ -28,12 +28,9 @@
   
   
   <select id="queryParkNews" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select DISTINCT news.*  from company com , company_building cb ,
-      building bui ,park p , company_news news 
-      where p.park_id=bui.park_id and cb.company_id=com.company_id
-      and cb.building_id=bui.building_id 
-      and news.company_id=com.company_id and p.area_id=#{areaId}
-	ORDER BY news.date desc limit #{start},#{pageSize}
+      select DISTINCT news.* from company com, company_building cb, building bui,park p, company_news news, park_and_building_relation pabr
+      where p.park_id=pabr.park_id and pabr.building_id=bui.building_id and cb.company_id=com.company_id and cb.building_id=bui.building_id and news.company_id=com.company_id and p.area_id=#{areaId}
+      ORDER BY news.date desc limit #{start},#{pageSize}
   </select>
   
   

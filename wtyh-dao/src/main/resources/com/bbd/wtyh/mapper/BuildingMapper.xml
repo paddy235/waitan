@@ -3,37 +3,39 @@
 <mapper namespace="com.bbd.wtyh.mapper.BuildingMapper">
 
     <select id="queryBuildings" resultType="com.bbd.wtyh.domain.BuildingDO">
-      select * from (
+    	select * from (
 			select b.building_id buildingId,
-			       b.name,b.park_id parkId,
+			       b.name,p.park_id parkId,
 			       b.img_url imgUrl ,
 			       count(1) total ,
 			       sum( IF(c.company_type not in(7,8),1,0) ) finComNum,
 				   sum( IF(c.company_type not in(7,8),IF(c.risk_level in(2),1,0),0) ) importFocusNum,
 				   sum( IF(c.company_type not in(7,8),IF(c.risk_level in(3),1,0),0) ) commonFocusNum
-			from building b,park p ,
-			     company_building cb ,
+			from building b,park p,park_and_building_relation pabr,
+			     company_building cb,
 			     company c
 			where c.company_id=cb.company_id and
 			      cb.building_id=b.building_id and
-			      b.park_id=p.park_id and p.area_id=#{areaId} and p.name=#{parkName}
+			      b.building_id=pabr.building_id and
+				  pabr.park_id=p.park_id and p.park_id=#{parkId}
 			      and c.company_type is not null
-			GROUP BY b.building_id ,b.name,b.park_id,b.img_url
+			GROUP BY b.building_id ,b.name,p.park_id,b.img_url
 
 			union all
 
             select b.building_id buildingId,
-                    b.name,b.park_id parkId,
+                    b.name,p.park_id parkId,
                     b.img_url imgUrl ,
                     0 total ,
                     0 finComNum,
                     0 importFocusNum,
                     0 commonFocusNum
-                    from building b,park p
+                    from building b,park p,park_and_building_relation pabr
                     where
-                    b.park_id=p.park_id and p.area_id=#{areaId} and p.name=#{parkName}
+                    b.building_id=pabr.building_id and
+					pabr.park_id=p.park_id and p.park_id=#{parkId}
                 and b.building_id not in(select distinct cb.building_id from company_building cb ,company c
-                where c.company_id=cb.company_id  and c.company_type is not null)
+                where c.company_id=cb.company_id and c.company_type is not null)
             )as ccc ORDER BY importFocusNum DESC,commonFocusNum DESC,total desc
 	</select>
 
@@ -52,44 +54,40 @@
 
     <select id="countByArea" resultType="com.bbd.wtyh.domain.BuildingNumberInAreaDO">
 		SELECT
-			park.area_id AS areaId,
-			park.`name` AS name,
-			COUNT(building.building_id) AS count
+			p.area_id AS areaId,
+			p.`name` AS `name`,
+			COUNT(1) AS count
 		FROM
-			building
-		LEFT JOIN park ON building.park_id = park.park_id
-		GROUP BY
-			building.park_id
+			building b
+		LEFT JOIN park_and_building_relation pabr ON b.building_id=pabr.building_id
+		INNER JOIN park p ON p.park_id=pabr.park_id
+		GROUP BY pabr.park_id
 	</select>
 
     <select id="companyGroupByArea" resultType="com.bbd.wtyh.domain.CompanyGroupByAreaDO">
 		SELECT
-			building.`name` AS buildingName,
-			park.`name` AS area
+			b.`name` AS buildingName,
+			p.`name` AS area
 		FROM
-			building
-		LEFT JOIN park ON building.park_id = park.park_id
--- 		LEFT JOIN company_building ON building.building_id = company_building.building_id
--- 		LEFT JOIN company ON company_building.company_id = company.company_id
+			building b LEFT JOIN park_and_building_relation pabr ON b.building_id=pabr.building_id
+			INNER JOIN park p ON pabr.park_id=p.park_id
 	</select>
 
     <select id="countCompanyByArea" resultType="com.bbd.wtyh.domain.CountCompanyByAreaDO">
 		SELECT
-		park.`name` AS area,
-		COUNT(company_building.company_id) AS count
-	FROM
-		building
-	LEFT JOIN park ON building.park_id = park.park_id
-	LEFT JOIN company_building ON building.building_id = company_building.building_id
-	GROUP BY
-		park.park_id
+			p.`name` AS area,
+			COUNT(1) AS count
+		FROM
+			building b LEFT JOIN park_and_building_relation pabr ON b.building_id=pabr.building_id
+			INNER JOIN park p ON pabr.park_id=p.park_id
+			LEFT JOIN company_building cb ON b.building_id=cb.building_id
+		GROUP BY p.park_id
 	</select>
 
 	<select id="queryAllBuilding" resultType="com.bbd.wtyh.domain.BuildingDO">
 		SELECT
             building_id as buildingId,
             `name` as `name`,
-            park_id as parkId,
             img_url as imgUrl
         FROM
             building

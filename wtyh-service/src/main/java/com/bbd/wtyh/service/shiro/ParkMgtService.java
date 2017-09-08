@@ -128,7 +128,7 @@ public interface ParkMgtService{
      * 新增楼宇
      * @param building
      */
-    void addBuilding(BuildingDO building) throws Exception;
+    void addBuilding(BuildingDO building, String parkName) throws Exception;
 
     /**
      * 新增楼宇企业

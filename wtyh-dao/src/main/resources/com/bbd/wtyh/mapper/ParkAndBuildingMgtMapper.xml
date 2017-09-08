@@ -46,7 +46,7 @@
     </update>
 
     <update id="updateBuildingImgUrl" parameterType="com.bbd.wtyh.domain.BuildingDO">
-        UPDATE building SET img_url=#{imgUrl}, update_date=SYSDATE(),update_by=#{updateBy} WHERE park_id=#{parkId} AND building_id=#{buildingId}
+        UPDATE building SET img_url=#{imgUrl}, update_date=SYSDATE(),update_by=#{updateBy} WHERE building_id=#{buildingId}
     </update>
 
     <select id="queryAllPark" resultType="com.bbd.wtyh.domain.ParkDO">
@@ -58,9 +58,9 @@
             b.`name` as buildingName,
             count(1) as companyCount
         FROM
-            park p, building b, company_building cb, company c
+            park p, building b, company_building cb, company c, park_and_building_relation pabr
         WHERE
-            p.park_id=b.park_id and b.building_id=cb.building_id and cb.company_id=c.company_id and p.`name`=#{parkName}
+            p.park_id=pabr.park_id and pabr.building_id=b.building_id and b.building_id=cb.building_id and cb.company_id=c.company_id and p.`name`=#{parkName}
         GROUP BY b.`name`
     </select>
 
@@ -69,9 +69,9 @@
             b.`name` as buildingName,
             count(1) as finCompanyCount
         FROM
-            park p, building b, company_building cb, company c
+            park p, building b, company_building cb, company c, park_and_building_relation pabr
         WHERE
-            p.park_id=b.park_id and b.building_id=cb.building_id and cb.company_id=c.company_id and p.`name`=#{parkName} and c.company_type<![CDATA[>=]]>1
+            p.park_id=pabr.park_id and pabr.building_id=b.building_id and b.building_id=cb.building_id and cb.company_id=c.company_id and p.`name`=#{parkName} and c.company_type<![CDATA[>=]]>1
         GROUP BY b.`name`
     </select>
 
@@ -82,7 +82,7 @@
             p.`name` as parkName,
             o.name as buildingName,
             o.building_id as buildingId,
-            o.park_id as parkId,
+            p.park_id as parkId,
             (
             SELECT
                 count(1)
@@ -118,7 +118,7 @@
     </select>
 
     <insert id="addBuilding" parameterType="com.bbd.wtyh.domain.BuildingDO" useGeneratedKeys="true" keyProperty="buildingId">
-        INSERT INTO building(`name`, park_id, img_url, create_by, create_date) VALUES(#{name}, #{parkId}, #{imgUrl}, #{createBy}, SYSDATE())
+        INSERT INTO building(`name`, img_url, create_by, create_date) VALUES(#{name}, #{imgUrl}, #{createBy}, SYSDATE())
     </insert>
 
     <delete id="delCompanyByCompanyId" >
@@ -141,7 +141,7 @@
     </delete>
 
     <delete id="delBuildingByParkId" parameterType="java.lang.String">
-        DELETE FROM building WHERE park_id=#{parkId}
+        DELETE FROM building WHERE building_id in (select building_id from park_and_building_relation where park_id=#{parkId})
     </delete>
 
     <delete id="delParkByName" parameterType="java.lang.String">
@@ -165,18 +165,18 @@
         WHERE
           building_id
         IN
-          (select  building_id from building where park_id = #{parkId})
+          (select building_id from park_and_building_relation where park_id=#{parkId})
     </delete>
 
     <sql id="building_content">
-        building_id as buildingId, `name` as `name`, park_id as parkId, img_url as imgUrl
+        building_id as buildingId, `name` as `name`, img_url as imgUrl
     </sql>
 
     <select id="queryBuildingByParkId" parameterType="java.lang.String" resultType="java.util.Map">
         SELECT <include refid="building_content" /> FROM building
         <where>
             <if test="_parameter != null and _parameter != ''">
-                park_id=#{parkId}
+                building_id IN (select building_id from park_and_building_relation where park_id=#{parkId})
             </if>
         </where>
     </select>
@@ -190,11 +190,11 @@
     </select>
 
     <select id="queryParkIdByName" parameterType="java.lang.String" resultType="int">
-        SELECT park_id as parkId FROM park WHERE `name`=#{parkName}
+        SELECT IF(COUNT(1)=0, 0, park_id) as parkId FROM park WHERE `name`=#{parkName}
     </select>
 
     <select id="queryBuildingIdByName" resultType="int">
-        SELECT building_id as buildingId FROM building WHERE park_id=#{parkId} AND `name`=#{buildingName}
+        SELECT building_id as buildingId FROM building WHERE building_id IN (select building_id from park_and_building_relation where park_id=#{parkId}) AND `name`=#{buildingName}
     </select>
 
     <select id="queryBIdByName" resultType="java.lang.String">
@@ -249,7 +249,7 @@
     </select>
 
     <select id="queryBuildingByParkAndBuilding" resultType="com.bbd.wtyh.domain.BuildingDO">
-        SELECT <include refid="building_content" /> FROM building WHERE park_id=#{parkId} AND building_id=#{buildingId}
+        SELECT <include refid="building_content" /> FROM building WHERE building_id=#{buildingId}
     </select>
 
     <select id="queryBuildingList" parameterType="java.lang.String" resultType="java.util.Map">
