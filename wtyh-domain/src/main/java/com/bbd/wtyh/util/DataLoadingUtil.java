@@ -6,6 +6,7 @@ import com.bbd.wtyh.domain.dataLoading.*;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -28,7 +29,11 @@ public class DataLoadingUtil {
 
     // 文件转化为string集合
     public static List<String> txt2String(File file) {
-        List<String> list = new ArrayList<>();
+        return txt2String(file, null);
+    }
+    // 文件转化为string集合
+    public static List<String> txt2String(File file, Integer maxGetNum) {
+        List<String> list = new LinkedList<>();
         if (null == file || !file.exists()) {
             return null;
         }
@@ -38,6 +43,12 @@ public class DataLoadingUtil {
             String s;
             while ((s = br.readLine()) != null) {// 使用readLine方法，一次读一行
                 list.add(s);
+                if ( null !=maxGetNum ) {
+                    maxGetNum--;
+                    if (maxGetNum <=0) {
+                        break;
+                    }
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
