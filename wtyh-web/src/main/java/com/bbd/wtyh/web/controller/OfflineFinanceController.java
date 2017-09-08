@@ -14,6 +14,7 @@ import java.util.TreeMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.bbd.wtyh.domain.dto.CreditRiskDataDTO;
 import com.bbd.wtyh.excel.ExportExcel;
 import com.bbd.wtyh.exception.ExceptionHandler;
 import com.bbd.wtyh.log.user.Operation;
@@ -65,13 +66,9 @@ public class OfflineFinanceController {
 	@Autowired
 	private PToPMonitorService pToPMonitorService;
 	@Autowired
-	private PToPMonitorController pToPMonitorController;
-	@Autowired
 	private LoanController loanController;
 	@Autowired
 	private MortgageController mortgageController;
-	@Autowired
-	private FactoringService factoringService;
 	@Autowired
 	private FactoringController factoringController;
 	@Autowired
@@ -88,11 +85,12 @@ public class OfflineFinanceController {
 	private MortgageService mortgageService;
 	@Autowired
 	private GuaranteeController guaranteeController;
-
 	@Autowired
 	private HologramQueryService hologramQueryService;
 	@Autowired
 	private RelationService relationService;
+	@Autowired
+	private CoCreditScoreService coCreditScoreService;
 
 	/**
 	 * 关联图谱
@@ -238,6 +236,20 @@ public class OfflineFinanceController {
 		String areaCode = request.getParameter("areaCode");
 		StaticRiskVO vo = offlineFinanceService.queryCurrentStaticRisk(companyName, currentDate, areaCode);
 		return ResponseBean.successResponse(vo);
+	}
+
+	/**
+	 * 信用信息风险 currentDate 2017-09-07
+	 *
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "creditRiskData.do")
+	@ResponseBody
+	public ResponseBean creditRiskData(HttpServletRequest request) {
+		String companyName = request.getParameter("companyName");
+		List<CreditRiskDataDTO> list = coCreditScoreService.getResourceCounts(null,companyName);
+		return ResponseBean.successResponse(list);
 	}
 
 	/**

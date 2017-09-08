@@ -34,6 +34,15 @@ public class NaturalPersonVO implements Serializable {
     @Excel(exportName ="所属范围")
     private String range;
 
+    //BBD企业信息ID
+    private String bbdQyxxId;
+
+    //是否是董监高
+    boolean Djg;
+
+    //是否是法人股东
+    boolean FrGud;
+
     public String getRange() {
         return range;
     }
@@ -104,5 +113,29 @@ public class NaturalPersonVO implements Serializable {
 
     public void setRegAddress(String regAddress) {
         this.regAddress = regAddress;
+    }
+
+    public String getBbdQyxxId() {
+        return bbdQyxxId;
+    }
+
+    public void setBbdQyxxId(String bbdQyxxId) {
+        this.bbdQyxxId = bbdQyxxId;
+    }
+
+    public boolean isDjg() {
+        return Djg;
+    }
+
+    public void setDjg(boolean djg) {
+        Djg = djg;
+    }
+
+    public boolean isFrGud() {
+        return FrGud;
+    }
+
+    public void setFrGud(boolean frGud) {
+        FrGud = frGud;
     }
 }

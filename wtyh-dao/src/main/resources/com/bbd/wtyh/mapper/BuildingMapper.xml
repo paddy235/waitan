@@ -54,44 +54,40 @@
 
     <select id="countByArea" resultType="com.bbd.wtyh.domain.BuildingNumberInAreaDO">
 		SELECT
-			park.area_id AS areaId,
-			park.`name` AS name,
-			COUNT(building.building_id) AS count
+			p.area_id AS areaId,
+			p.`name` AS `name`,
+			COUNT(1) AS count
 		FROM
-			building
-		LEFT JOIN park ON building.park_id = park.park_id
-		GROUP BY
-			building.park_id
+			building b
+		LEFT JOIN park_and_building_relation pabr ON b.building_id=pabr.building_id
+		INNER JOIN park p ON p.park_id=pabr.park_id
+		GROUP BY pabr.park_id
 	</select>
 
     <select id="companyGroupByArea" resultType="com.bbd.wtyh.domain.CompanyGroupByAreaDO">
 		SELECT
-			building.`name` AS buildingName,
-			park.`name` AS area
+			b.`name` AS buildingName,
+			p.`name` AS area
 		FROM
-			building
-		LEFT JOIN park ON building.park_id = park.park_id
--- 		LEFT JOIN company_building ON building.building_id = company_building.building_id
--- 		LEFT JOIN company ON company_building.company_id = company.company_id
+			building b LEFT JOIN park_and_building_relation pabr ON b.building_id=pabr.building_id
+			INNER JOIN park p ON pabr.park_id=p.park_id
 	</select>
 
     <select id="countCompanyByArea" resultType="com.bbd.wtyh.domain.CountCompanyByAreaDO">
 		SELECT
-		park.`name` AS area,
-		COUNT(company_building.company_id) AS count
-	FROM
-		building
-	LEFT JOIN park ON building.park_id = park.park_id
-	LEFT JOIN company_building ON building.building_id = company_building.building_id
-	GROUP BY
-		park.park_id
+			p.`name` AS area,
+			COUNT(1) AS count
+		FROM
+			building b LEFT JOIN park_and_building_relation pabr ON b.building_id=pabr.building_id
+			INNER JOIN park p ON pabr.park_id=p.park_id
+			LEFT JOIN company_building cb ON b.building_id=cb.building_id
+		GROUP BY p.park_id
 	</select>
 
 	<select id="queryAllBuilding" resultType="com.bbd.wtyh.domain.BuildingDO">
 		SELECT
             building_id as buildingId,
             `name` as `name`,
-            park_id as parkId,
             img_url as imgUrl
         FROM
             building

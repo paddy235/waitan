@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bbd.wtyh.mapper.CompanyTagMapper">
+    <insert id="saveCompanyTag" parameterType="java.util.List">
+        INSERT INTO company_tag
+        (`company_name`,`tag`,`create_by`,`create_date`)
+        VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+        (#{item.companyName},#{item.tag},'system',now())
+        </foreach>
+    </insert>
+
+    <delete id="deleteAllByQyxxTag">
+        DELETE FROM company_tag
+        WHERE EXISTS (select 1 from qyxx_tag where company_name=company_tag.company_name)
+    </delete>
+    <select id="selectFromQyxxTag" resultType="com.bbd.wtyh.domain.CompanyTagDO">
+        SELECT
+          company_name AS companyName,
+          tag AS tagDesc
+        FROM `qyxx_tag` ORDER BY kid
+        LIMIT #{pagination.begin}, #{pagination.pageSize}
+
+    </select>
+    <select id="countQyxxTag" resultType="java.lang.Integer">
+        SELECT
+          count(1) AS counts
+        FROM `qyxx_tag`
+    </select>
+</mapper>

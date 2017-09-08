@@ -491,7 +491,7 @@ public class HologramQueryServiceImpl extends BaseServiceImpl implements Hologra
         Map<String, String> parameters = new HashMap<String, String>() {
 
             {
-                put("highlight", "false");
+                put("highlight", "true");
                 put("page_size", "" + pgSz);
                 put("type", type);
                 if (isProvince) {
@@ -500,7 +500,7 @@ public class HologramQueryServiceImpl extends BaseServiceImpl implements Hologra
             }
         };
         if (null == maxGet || maxGet > 10000) { //每一单搜索结果数据平台最多允许取1w条记录
-            maxGet = 30;
+            maxGet = 30; // 获取30*pgSz 条数据
         } else {
             maxGet = maxGet / pgSz + 1;
         }

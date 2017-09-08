@@ -5,6 +5,7 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.bbd.wtyh.domain.CompanyCreditRawInfoDO;
 import com.bbd.wtyh.domain.credit.CompanyCreditFailInfoDO;
 import com.bbd.wtyh.domain.dto.CreditInfoDTO;
+import com.bbd.wtyh.domain.dto.CreditRiskDataDTO;
 import com.bbd.wtyh.mapper.CompanyCreditRawInfoMapper;
 import com.bbd.wtyh.service.CoCreditScoreService;
 import com.bbd.wtyh.service.CompanyStatusChangeService;
@@ -50,9 +51,17 @@ public class CreditTest {
 
 	}
 
+    @Test
+    public void resourceCountsTest() {
+        List<CreditRiskDataDTO> list = coCreditScoreService.getResourceCounts(null,"上海互信金融信息服务有限公司");
+        System.err.println(JSON.toJSONString(list, SerializerFeature.PrettyFormat, SerializerFeature.DisableCircularReferenceDetect));
+
+
+    }
+
 	@Test
 	public void getCreditInfoTest() {
-		List<CreditInfoDTO> list = coCreditScoreService.getCreditInfo("中阜投融资产管理股份有限公司", "3");
+		List<CreditInfoDTO> list = coCreditScoreService.getCreditInfo("中阜投融资产管理股份有限公司", "3",null);
 		System.err.println(JSON.toJSONString(list, SerializerFeature.PrettyFormat, SerializerFeature.DisableCircularReferenceDetect));
 
 	}

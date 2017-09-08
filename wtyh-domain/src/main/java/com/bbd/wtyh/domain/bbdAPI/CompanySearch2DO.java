@@ -21,8 +21,49 @@ public class CompanySearch2DO {
         this.err_code = err_code;
     }
 
+    public static  class Highlight implements Serializable {
+        private List<String> baxx;
+        private List<String> gdxx;
+        private List<String> frname;
+        private List<String> gdxx_person;
+
+        public List<String> getBaxx() {
+            return baxx;
+        }
+
+        public void setBaxx(List<String> baxx) {
+            this.baxx = baxx;
+        }
+
+        public List<String> getGdxx() {
+            return gdxx;
+        }
+
+        public void setGdxx(List<String> gdxx) {
+            this.gdxx = gdxx;
+        }
+
+        public List<String> getFrname() {
+            return frname;
+        }
+
+        public void setFrname(List<String> frname) {
+            this.frname = frname;
+        }
+
+        public List<String> getGdxx_person() {
+            return gdxx_person;
+        }
+
+        public void setGdxx_person(List<String> gdxx_person) {
+            this.gdxx_person = gdxx_person;
+        }
+    }
+
     public static  class Rdata implements Serializable { //（不完整，根据需要可补充）
         private String company_name;
+        private String bbd_qyxx_id;
+        private String credit_code;
         private String regno;
         private String company_type;
         //法人代表
@@ -41,6 +82,16 @@ public class CompanySearch2DO {
         private String district;
         //董监高
         private List<String> baxx;
+        //关键字所属位置
+        private Highlight highlight;
+
+        public Highlight getHighlight() {
+            return highlight;
+        }
+
+        public void setHighlight(Highlight highlight) {
+            this.highlight = highlight;
+        }
 
         public String getProvince() {
             return province;
@@ -112,6 +163,22 @@ public class CompanySearch2DO {
 
         public void setRegno(String regno) {
             this.regno = regno;
+        }
+
+        public String getBbd_qyxx_id() {
+            return bbd_qyxx_id;
+        }
+
+        public void setBbd_qyxx_id(String bbd_qyxx_id) {
+            this.bbd_qyxx_id = bbd_qyxx_id;
+        }
+
+        public String getCredit_code() {
+            return credit_code;
+        }
+
+        public void setCredit_code(String credit_code) {
+            this.credit_code = credit_code;
         }
 
         public String getCompany_type() {

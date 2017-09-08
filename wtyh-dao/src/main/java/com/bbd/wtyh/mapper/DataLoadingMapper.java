@@ -45,7 +45,7 @@ public interface DataLoadingMapper {
 
     List<QyxxBasicDO> getCompanyBasicInfoInNames(List<CompanyDO> CompanyList);
 
-    @Select("SELECT file_name AS fileName,data_version AS dataVersion FROM datashare_pull_file WHERE is_pull = FALSE")
+    @Select("SELECT file_name AS fileName,data_version AS dataVersion ,file_id AS fileId FROM datashare_pull_file WHERE is_pull = FALSE")
     List<Map<String, String>> noPullFileNameList();
 
     @Select("SELECT IFNULL(MAX(data_version),0) FROM datashare_pull_file")

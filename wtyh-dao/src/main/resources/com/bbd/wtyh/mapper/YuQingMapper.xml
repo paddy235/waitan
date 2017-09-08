@@ -3,6 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bbd.wtyh.mapper.YuQingMapper">
 	<resultMap id="BaseResultMap" type="com.bbd.wtyh.domain.dataLoading.QyxgYuqingDO">
+		<result column="abstract" jdbcType="VARCHAR" property="articleAbstract" />
 		<result column="bbd_dotime" jdbcType="DATE" property="bbd_dotime" />
 		<result column="bbd_source" jdbcType="VARCHAR" property="bbd_source" />
 		<result column="bbd_type" jdbcType="VARCHAR" property="bbd_type" />
