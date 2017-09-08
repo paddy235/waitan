@@ -10,6 +10,7 @@
         <property name="triggers">
             <list>
                 <ref bean="delImgByStatusTrigger"/>
+                <ref bean="QyxxTagTrigger"/>
             </list>
         </property>
 
@@ -50,6 +51,36 @@
         <!--将表达式生效时间设置为当前，防止 scheduler 启动时就执行定时任务-->
         <property name="startTime">
             <bean class="java.util.Date"/>
+        </property>
+    </bean>
+
+    <!--  tag表 调度触发器 -->
+    <bean id="QyxxTagTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="name" value="QyxxTagTrigger"/>
+        <property name="group" value="job_work"/>
+        <property name="jobDetail" ref="tagLocalizeProcessJob"/>
+
+        <property name="cronExpression" value="0 0 1 */3 * ?"/>
+        <!--  value="0 15 16 * * ?" -->
+        <property name="timeZone" ref="timeZone"/>
+
+        <!--将表达式生效时间设置为当前，防止 scheduler 启动时就执行定时任务-->
+        <property name="startTime">
+            <bean class="java.util.Date"/>
+        </property>
+    </bean>
+
+    <!-- tag表 数据本地化处理 -->
+    <bean id="tagLocalizeProcessJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+        <property name="name" value="tagLocalizeProcessJob"/>
+        <property name="group" value="job_work"/>
+
+        <property name="jobClass" value="com.bbd.bgo.quartz.MethodInvokingJob"/>
+        <property name="jobDataAsMap">
+            <map>
+                <entry key="targetObject" value="com.bbd.bgo.service.task.TagUpdateServiceImpl"/>
+                <entry key="targetMethod" value="operateData"/>
+            </map>
         </property>
     </bean>
 

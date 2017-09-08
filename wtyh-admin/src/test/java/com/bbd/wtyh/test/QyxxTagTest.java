@@ -32,12 +32,14 @@ public class QyxxTagTest {
 
     @Test
     public void tagTest1() {
-        //qyxxTagMapper.clearTable("qyxx_tag");
         tagUpdateService.operateData();
-        //qyxxTagMapper.clearTable("qyxx_tag_black");
-        //qyxxTagMapper.oldTableIntoNewTable("qyxx_tag", "qyxx_tag_new");
-        //qyxxTagMapper.renameTable("qyxx_tag_whitexx", "qyxx_tag_white_yy");
-        //qyxxTagMapper.deleteTable("qyxx_tag_white_yy");
+        /* 维护subscription_list表
+        qyxxTagMapper.clearTable("subscription_list_append");
+        qyxxTagMapper.companyNameToSubscriptionListAppend();
+        qyxxTagMapper.clearTable("subscription_list_remove");
+        qyxxTagMapper.companyNameToSubscriptionListRemove();
+        qyxxTagMapper.clearTable("subscription_list");
+        qyxxTagMapper.companyNameTagToSubscriptionList();*/
     }
 
 
