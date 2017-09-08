@@ -79,7 +79,7 @@ public class RealTimeMonitorNewsServiceImpl implements  RealTimeMonitorNewsServi
                 }
 
                 //入库
-                Date today=new Date();
+                Date today=new Date();//因接口返回的数据没有bbd_xgxx_id，每天可能有重复的舆情数据，需要用日期时间作为版本号
                 List<QyxgYuqingDO> list=new ArrayList<>();
                 QyxgYuqingDO yuqingDO;
                 BeanCopier beanCopier = BeanCopier.create(NewsVO.Result.class, QyxgYuqingDO.class , false);
