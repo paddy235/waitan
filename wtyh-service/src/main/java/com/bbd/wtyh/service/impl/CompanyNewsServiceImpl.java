@@ -74,10 +74,7 @@ public class CompanyNewsServiceImpl implements CompanyNewsService {
                     beanCopier.copy(yuqingDO,r,null);
                     r.setaBstract(yuqingDO.getArticleAbstract());
                     r.setPubdate(DateFormatUtils.format(yuqingDO.getPubdate(),"yyyy-MM-dd"));
-                    //落地数据中的main字段可能没有数据，使用abstract字段中的数据
-                    if(null==r.getMain() || r.getMain().equals("")){
-                        r.setMain(r.getaBstract());
-                    }
+
                     results.add(r);
                 }
                 vo.setResults(results);
@@ -102,6 +99,7 @@ public class CompanyNewsServiceImpl implements CompanyNewsService {
                 String result = new HttpTemplate().get(url);
                 Gson gson = new Gson();
                 vo = gson.fromJson(result,new TypeToken<NewsVO>(){}.getType());
+                logger.info("数据库无舆情，需要从接口取舆情");
 
             }
 

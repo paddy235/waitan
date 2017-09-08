@@ -47,6 +47,21 @@
         </foreach>
     </insert>
 
+    <insert id="saveOneQyxgYuqingDO">
+        INSERT INTO qyxg_yuqing(
+        abstract, author,bbd_dotime ,bbd_source , bbd_type,bbd_uptime ,bbd_url ,bbd_xgxx_id,comment_num,
+        main,news_site,news_title,picture,plate,pubdate,rowkey,search_key,status,table_name,
+        transfer_num,id,create_time,bbd_qyxx_id,task_id)
+        SELECT
+            #{articleAbstract}, #{author}, #{bbd_dotime}, #{bbd_source}, #{bbd_type},
+            #{bbd_uptime}, #{bbd_url}, #{bbd_xgxx_id}, #{comment_num},
+            #{main}, #{news_site}, #{news_title}, #{picture}, #{plate},#{pubdate},
+            #{rowkey}, #{search_key}, #{status}, #{table_name},
+            #{transfer_num}, #{id}, #{create_time}, #{bbd_qyxx_id}, #{task_id}
+        FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM qyxg_yuqing WHERE bbd_xgxx_id=#{bbd_xgxx_id})
+
+    </insert>
+
     <insert id="saveQyxxBasicDO" parameterType="java.util.List">
         INSERT INTO qyxx_basic(
         id, address,approval_date ,bbd_dotime ,bbd_history_name ,bbd_qyxx_id ,bbd_type ,

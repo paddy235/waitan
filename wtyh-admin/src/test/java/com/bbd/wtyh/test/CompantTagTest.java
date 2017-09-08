@@ -1,6 +1,7 @@
 package com.bbd.wtyh.test;
 
 
+import com.bbd.bgo.service.task.RealTimeMonitorNewsService;
 import com.bbd.wtyh.service.CompanyTagService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,9 +25,21 @@ public class CompantTagTest extends BaseServiceImpl {
 
     @Autowired
     private  CompanyTagService companyTagService;
+    @Autowired
+    private RealTimeMonitorNewsService realTimeMonitorNewsService;
     @Test
     public void test(){
         companyTagService.saveCompanyTag();
+    }
+
+    @Test
+    public void test2(){
+
+        try {
+            realTimeMonitorNewsService.saveRealTimeMonitorNews();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 

@@ -1,5 +1,7 @@
 package com.bbd.wtyh.domain.vo;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -83,6 +85,7 @@ public class NewsVO {
         private String table_name;//: "sinablog_raw",
         private Integer transfer_num;//: 158,
         private String search_key;//: "上海值得资产管理有限公司",
+        @SerializedName("abstract")
         private String aBstract;//: null,
         private String author;//: "新浪财经"
 

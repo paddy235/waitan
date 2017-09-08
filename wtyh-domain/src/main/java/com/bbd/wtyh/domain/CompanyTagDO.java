@@ -12,6 +12,8 @@ public class CompanyTagDO extends BaseDO{
 
     private String tagDesc;
 
+    private Integer dt;
+
     public String getCompanyName() {
         return companyName;
     }
@@ -34,5 +36,13 @@ public class CompanyTagDO extends BaseDO{
 
     public void setTagDesc(String tagDesc) {
         this.tagDesc = tagDesc;
+    }
+
+    public Integer getDt() {
+        return dt;
+    }
+
+    public void setDt(Integer dt) {
+        this.dt = dt;
     }
 }

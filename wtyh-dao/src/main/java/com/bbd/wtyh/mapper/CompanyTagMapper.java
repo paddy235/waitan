@@ -19,4 +19,8 @@ public interface CompanyTagMapper {
 
     List<CompanyTagDO> selectFromQyxxTag(@Param("pagination") Pagination pagination);
 
+    int getMaxDtFromQyxxTag();
+
+    int getMaxDtFromCompanyTag();
+
 }
