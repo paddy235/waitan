@@ -1,5 +1,7 @@
 package com.bbd.wtyh.constants;
 
+import org.apache.commons.lang3.StringUtils;
+
 /**
  * 企业类型
  *
@@ -35,5 +37,18 @@ public enum CompanyType {
 
     public String desc() {
         return this.desc;
+    }
+
+    public static CompanyType companyType(String desc) {
+        if (StringUtils.isBlank(desc)) {
+            return null;
+        }
+        CompanyType[] companyTypes = values();
+        for (CompanyType type : companyTypes) {
+            if (type.desc().equals(desc)) {
+                return type;
+            }
+        }
+        return null;
     }
 }
