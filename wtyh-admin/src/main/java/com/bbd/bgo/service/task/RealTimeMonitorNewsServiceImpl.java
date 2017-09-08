@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -78,6 +79,7 @@ public class RealTimeMonitorNewsServiceImpl implements  RealTimeMonitorNewsServi
                 }
 
                 //入库
+                Date today=new Date();
                 List<QyxgYuqingDO> list=new ArrayList<>();
                 QyxgYuqingDO yuqingDO;
                 BeanCopier beanCopier = BeanCopier.create(NewsVO.Result.class, QyxgYuqingDO.class , false);
@@ -86,7 +88,7 @@ public class RealTimeMonitorNewsServiceImpl implements  RealTimeMonitorNewsServi
                     beanCopier.copy(r,yuqingDO,null);
                     yuqingDO.setArticleAbstract(r.getaBstract());
                     yuqingDO.setPubdate(DateUtils.parseDate(r.getPubdate(),"yyyy-MM-dd HH:mm:ss"));
-                    yuqingDO.setCreate_time(LocalDate.now().toDate());
+                    yuqingDO.setCreate_time(today);
                     list.add(yuqingDO);
                     //dataLoadingMapper.saveOneQyxgYuqingDO(yuqingDO);
                 }
