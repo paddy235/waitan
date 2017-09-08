@@ -22,7 +22,7 @@ public class CompanyTagServiceImpl implements CompanyTagService {
     public void saveCompanyTag() {
 
         int pageSize = 1000;
-        int totalCount = 0;
+        int totalCount = companyTagMapper.countQyxxTag();
         Pagination pagination = new Pagination();
         pagination.setPageSize(pageSize);
         pagination.setCount(totalCount);
