@@ -113,6 +113,30 @@
 		</if>
     </select>
 
+	<select id="countCreditInfo" parameterType="String" resultType="long">
+		select
+		count(
+			distinct company_id
+		)
+		from company_credit_raw_info
+		where
+		1=1
+		<if test="companyName!=null" >
+			AND company_name like CONCAT('%',#{companyName},'%')
+		</if>
+		<if test="dataType!=null" >
+			AND resource_name IN
+			<foreach item="item" index="index" collection="dataType" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+		<if test="dataType==null" >
+			AND resource_name IN (
+			select item from company_credit_point_items
+			)
+		</if>
+	</select>
+
 	<select id="getCreditDataItems" parameterType="String" resultType="com.bbd.wtyh.domain.CompanyCreditDataItemsDO">
 		select
 		 id,
