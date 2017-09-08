@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.bbd.wtyh.mapper.CompanyTagMapper">
-    <insert id="saveCompanyTag">
+    <insert id="saveCompanyTag" parameterType="java.util.List">
         INSERT INTO company_tag
         (`company_name`,`tag`,`create_by`,`create_date`)
         VALUES
-        (#{companyName},#{tag},'system',now())
+        <foreach collection="list" item="item" index="index" separator=",">
+        (#{item.companyName},#{item.tag},'system',now())
+        </foreach>
     </insert>
 
     <delete id="deleteAllByQyxxTag">
@@ -16,7 +18,7 @@
         SELECT
           company_name AS companyName,
           tag AS tagDesc
-        FROM `qyxx_tag`
+        FROM `qyxx_tag` ORDER BY kid
         LIMIT #{pagination.begin}, #{pagination.pageSize}
 
     </select>

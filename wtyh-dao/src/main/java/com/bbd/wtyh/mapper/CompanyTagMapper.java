@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface CompanyTagMapper {
 
-    void saveCompanyTag(CompanyTagDO companyTagDO);
+    void saveCompanyTag(List<CompanyTagDO> list);
 
     void deleteAllByQyxxTag();
 
