@@ -48,9 +48,8 @@ public class TagUpdateServiceImpl implements TagUpdateService {
         if ( 0 == maxDataVersion ) {
             maxDataVersion = dataLoadingMapper.maxDataVersion();
         }
-        ListMultimap<String,File> fileMap =PullFileUtil.getFileListByKeyword("qyxx_tag__ripe", null,
-                    maxDataVersion, 0, dataTotal, null );
-
+        ListMultimap<String,File> fileMap =PullFileUtil.getFileListByKeyword( new String[] {"qyxx_tag__ripe"}, null,
+                    maxDataVersion, 0, dataTotal, null, "" );
         //查找出多批数据中最大的那一批（且比本地库中的版本新）
         Integer biggerVer =qyxxTagMapper.maxDataVersion();
         String maxVerKey =null;
@@ -99,6 +98,14 @@ public class TagUpdateServiceImpl implements TagUpdateService {
                 baseService.insertList(tagList.subList(i, toIndex));
                 logger.info("Ins [{}~{}] is finish !", i, toIndex -1 );
             }
+
+            //维护subscription_list表
+            qyxxTagMapper.clearTable("subscription_list_append");
+            qyxxTagMapper.companyNameToSubscriptionListAppend();
+            qyxxTagMapper.clearTable("subscription_list_remove");
+            qyxxTagMapper.companyNameToSubscriptionListRemove();
+            //qyxxTagMapper.clearTable("subscription_list");
+            //qyxxTagMapper.companyNameTagToSubscriptionList();
 
             //更新company_tag表
             try{

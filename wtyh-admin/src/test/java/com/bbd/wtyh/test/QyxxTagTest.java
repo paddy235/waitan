@@ -33,13 +33,6 @@ public class QyxxTagTest {
     @Test
     public void tagTest1() {
         tagUpdateService.operateData();
-        /* 维护subscription_list表
-        qyxxTagMapper.clearTable("subscription_list_append");
-        qyxxTagMapper.companyNameToSubscriptionListAppend();
-        qyxxTagMapper.clearTable("subscription_list_remove");
-        qyxxTagMapper.companyNameToSubscriptionListRemove();
-        qyxxTagMapper.clearTable("subscription_list");
-        qyxxTagMapper.companyNameTagToSubscriptionList();*/
     }
 
 

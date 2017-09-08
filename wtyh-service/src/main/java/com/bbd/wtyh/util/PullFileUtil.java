@@ -16,6 +16,7 @@ import org.apache.commons.collections.MultiMap;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.xpath.operations.Bool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -96,18 +97,36 @@ public class PullFileUtil {
         return fileNameList;
     }
 
+    public static Boolean strContainsByKeywords ( String srcStr, String [] keywords) {
+        if ( null ==keywords || keywords.length <=0) {
+            return null;
+        }
+        Boolean contains =false;
+        for ( String keyword :keywords ) {
+            if ( StringUtils.isEmpty(keyword) ) {
+                continue;
+            }
+            if ( srcStr.contains(keyword) ) {
+                contains =true;
+                break;
+            }
+        }
+        return contains;
+    }
+
     /**
      * 获取路径中包含指定关键字的文件对象列表，并将所有文件信息入库
-     * @param keyword       指定路径中必须包含的关键字，可以为空
-     * @param antiKeyword  指定路径中不能包含的关键字，可以为空
+     * @param keywords       指定路径中必须包含的关键字，可以为空
+     * @param antiKeywords  指定路径中不能包含的关键字，可以为空
      * @param maxDataVersion 指定数据版本下限（取数据时不包含此下限）
      * @param taskId 任务ID
      * @param dataTotal 若不需要则传入null， 传入“Integer [] dataTotal =new Integer[1]”，则返回取到的总数dataTotal[0]
      * @param failList 失败文件列表，不使用请传入null
+     * @param logCaption 日志标题
      * @return 文件对象列表
      */
-    public static ListMultimap<String,File> getFileListByKeyword ( String keyword, String antiKeyword, int maxDataVersion, int taskId,
-                Integer [] dataTotal, List<TaskFailInfoDO> failList ) {
+    public static ListMultimap<String,File> getFileListByKeyword ( String [] keywords, String [] antiKeywords, int maxDataVersion, int taskId,
+                Integer [] dataTotal, List<TaskFailInfoDO> failList, String logCaption ) {
         Logger logger = LoggerFactory.getLogger(PullFileUtil.class);
         TaskResultDO taskResultDO = new TaskResultDO();
         // 自动执行，先拉取数据，有数据执行插入，并记录成功失败情况
@@ -131,17 +150,20 @@ public class PullFileUtil {
                 noRepetition.put(map.get("fileName"), map);
             }
             historyFileNameList = new LinkedList<>( noRepetition.values() );
-            logger.info("拉取数据文件开始, total：{}", fileNameList.size());
+            logger.info("拉取{}数据文件开始, total：{}", logCaption, fileNameList.size());
             List<DatasharePullFileDO> insPullFileList = new ArrayList<>(); //用于新增的
             List<DatasharePullFileDO> updPullFileList = new ArrayList<>(); //用于更新的
             for (Map<String, String> map : historyFileNameList) {
                 String fileName = map.get("fileName");
                 Integer dataVersion =0;
                 Object obDataVersion =map.get("dataVersion");
-                if ( obDataVersion instanceof String ) {
-                    dataVersion = Integer.parseInt( (String) obDataVersion);
-                } else if ( obDataVersion instanceof Integer ) {
-                    dataVersion =(Integer) obDataVersion;
+                if ( null !=obDataVersion ) {
+                    if ( obDataVersion instanceof Integer ) {
+                        dataVersion =(Integer) obDataVersion;
+                    } else if (  obDataVersion instanceof String ) {
+                        dataVersion = Integer.parseInt( (String) obDataVersion);
+                    }
+
                 }
                 DatasharePullFileDO pullFile = new DatasharePullFileDO();
                 pullFile.setTask_id(taskId);
@@ -149,15 +171,12 @@ public class PullFileUtil {
                 pullFile.setData_version(dataVersion);
                 pullFile.setPull(false);
                 //仅选出文件路径中含有或排除指定关键字的文件
-                boolean isKw =StringUtils.isNotEmpty(keyword);
-                boolean kwContains =false;
-                if ( isKw ) {
-                    kwContains =fileName.contains(keyword);
-                }
-                boolean isAnKw =StringUtils.isNotEmpty(antiKeyword);
-                boolean anKwContains =false;
-                if (isAnKw) {
-                    anKwContains = ! fileName.contains(antiKeyword);
+                Boolean kwContains =strContainsByKeywords(fileName, keywords);
+                boolean isKw = null !=kwContains;
+                Boolean anKwContains =strContainsByKeywords(fileName, antiKeywords);
+                boolean isAnKw = null !=anKwContains;
+                if ( isAnKw ) {
+                    anKwContains = !anKwContains;
                 }
                 if( ( isKw &&isAnKw &&kwContains &&anKwContains ) ||( isKw &&(!isAnKw) &&kwContains )
                             ||(isAnKw &&(!isKw) &&anKwContains) ) {
@@ -193,7 +212,7 @@ public class PullFileUtil {
                     pullFile.setFile_id(Integer.parseInt(fileId));
                 }
             }
-            logger.info("拉取数据文件结束, total：{},success：{}", fileNameList.size(), insPullFileList.size());
+            logger.info("拉取{}数据文件结束, total：{},success：{}", logCaption, fileNameList.size(), insPullFileList.size());
             BaseService baseService = (BaseService) ApplicationContextUtil.getBean("baseServiceImpl");
             List<DatasharePullFileDO> realInsPullFileList =new LinkedList<>();
             //检查insPullFileList中的数据是否在本地库中已存在
