@@ -151,7 +151,7 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
     @Override
     public TaskResultDO dataLoadingAutomaticOperate(Integer taskId) {
 
-        //实时监测舆情落地,保持与其他舆情落地的create_time一致
+        //实时监测舆情落地,保持与其他舆情落地的create_time一致。不需要放到重新执行的任务里，防止数据过分重复
         try {
             logger.info("--- realtime monitor news begin ---");
             realTimeMonitorNewsService.saveRealTimeMonitorNews();
