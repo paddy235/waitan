@@ -108,6 +108,7 @@ public class ReportDocxController {
 	@LogRecord(logMsg = "导出“%s”的企业全息报告", params = {"companyName"}, page = Operation.Page.hologram,
 			type = Operation.Type.REPORT_EXPORT, after = true, before = false)
 	@RequestMapping( value = "get-file-url.do" )
+	@ResponseBody
 	public Object getFileUrl(HttpServletRequest request,
 							 HttpServletResponse response,
 							 @RequestParam String companyName )  {
@@ -152,7 +153,7 @@ public class ReportDocxController {
 			int aar = aa.read(te);
 			aar ++;
 		} catch (Exception e) {}*/
-		return ResponseBean.successResponse(null);
+		return ResponseBean.successResponse("test is ok.");
 	}
 
 }
