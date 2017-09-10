@@ -38,7 +38,6 @@ public class RealTimeMonitorNewsServiceImpl implements  RealTimeMonitorNewsServi
     private DataLoadingMapper dataLoadingMapper;
 
     @Override
-    @Scheduled(cron = "0 30 11 * * ?")
     public void saveRealTimeMonitorNews() throws Exception {
         int size=20;
         int len=size+30;
