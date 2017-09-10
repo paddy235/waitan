@@ -49,6 +49,9 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
     @Autowired
     private TaskFailInfoMapper taskFailInfoMapper;
 
+    @Autowired
+    private RealTimeMonitorNewsService realTimeMonitorNewsService;
+
     private volatile boolean isShutdown = false;// 任务停止标志
 
     @Override
@@ -147,6 +150,16 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 
     @Override
     public TaskResultDO dataLoadingAutomaticOperate(Integer taskId) {
+
+        //实时监测舆情落地,保持与其他舆情落地的create_time一致
+        try {
+            logger.info("--- realtime monitor news begin ---");
+            realTimeMonitorNewsService.saveRealTimeMonitorNews();
+            logger.info("--- realtime monitor news end ---");
+        } catch (Exception e) {
+            logger.error("realtime monitor news error: " ,e);
+        }
+
         logger.info("--- company holographic job begin ---");
         isShutdown = false;
         TaskResultDO taskResultDO = new TaskResultDO();
