@@ -115,7 +115,7 @@ public class CreditController {
 			UserLogRecord.record("搜索["+companyName+"]", Operation.Type.query, Operation.Page.creditDataManager,
 					Operation.System.back, request);
 			if(null == list || list.size()==0){
-				return ResponseBean.errorResponse("该企业无数据");
+				return ResponseBean.errorResponse("未查到相关数据");
 			}
 
             Map<String, Object> rst = new HashMap<>();
