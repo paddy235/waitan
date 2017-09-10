@@ -201,7 +201,18 @@ public class PullFileUtil {
                         pullFile.setFile_url(file.getAbsolutePath());
                     }
                 }
-                String fileId =map.get("fileId");
+                //处理 java.lang.ClassCastException: java.lang.Integer cannot be cast to java.lang.String
+                String fileId = null;
+                Object objFileId=map.get("fileId");
+                if ( null !=objFileId ) {
+                    if ( objFileId instanceof String ) {
+                        fileId =(String) objFileId;
+                    } else if (  objFileId instanceof Integer ) {
+                        fileId = String.valueOf(objFileId);
+                    }
+
+                }
+
                 if ( StringUtils.isEmpty( fileId ) ) {
                     pullFile.setCreate_by("system");
                     pullFile.setCreate_date(new Date());
