@@ -2,6 +2,7 @@ package com.bbd.wtyh.test;
 
 import com.bbd.bgo.service.task.TagUpdateService;
 import com.bbd.wtyh.core.base.BaseService;
+import com.bbd.wtyh.domain.SubscriptionListDO;
 import com.bbd.wtyh.mapper.QyxxTagMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,6 +33,9 @@ public class QyxxTagTest {
 
     @Test
     public void tagTest1() {
+        List<SubscriptionListDO> cml =qyxxTagMapper.getCompanyNamesFromSubscriptionListAppend();
+        qyxxTagMapper.companyNameAppendSubscriptionList( );
+
         tagUpdateService.operateData();
     }
 

@@ -2,6 +2,7 @@ package com.bbd.wtyh.mapper;
 
 import java.util.List;
 
+import com.bbd.wtyh.domain.SubscriptionListDO;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
@@ -57,6 +58,7 @@ public interface QyxxTagMapper {
      "qyxx_tag as qt WHERE NOT EXISTS (SELECT * FROM subscription_list WHERE qt.company_name = company_name)")
     void companyNameToSubscriptionListAppend( );
 
+
     /**
      * 找出subscription_list表中有qyxx_tag表中没有的`company_name`去重后存入subscription_list_remove表中
      */
@@ -64,10 +66,22 @@ public interface QyxxTagMapper {
      "subscription_list as sl WHERE NOT EXISTS (SELECT * FROM  qyxx_tag WHERE sl.company_name = company_name)")
     void companyNameToSubscriptionListRemove( );
 
+    /**
+     * 找出qyxx_tag表中有subscription_list表中没有的`company_name`去重后添加到subscription_list表中
+     */
+    @Select("INSERT INTO subscription_list(`company_name`) SELECT distinct `company_name` FROM " +
+            "qyxx_tag as qt WHERE NOT EXISTS (SELECT * FROM subscription_list WHERE qt.company_name = company_name)")
+    void companyNameAppendSubscriptionList( );
 
-    /* //复制表
-    @Select("Create table ${newTable} ( Select * from ${oldTable} )")
-    void oldTableIntoNewTable(@Param("oldTable") String oldTable, @Param("newTable") String newTable);*/
+     //复制表
+    @Select("Create table ${newTable} ( Select * from ${currTable} )")
+    void currTableIntoNewTable(@Param("currTable") String currTable, @Param("newTable") String newTable);
+
+    //获取待新增的企业名单列表
+    @Select("SELECT * FROM `subscription_list_append` Limit 1000000")
+    @Results({ @Result(column = "company_name", property = "companyName") })
+    List<SubscriptionListDO> getCompanyNamesFromSubscriptionListAppend();
+
 
     /*@Select("SELECT * FROM (SELECT * FROM plat_list ORDER BY create_date DESC LIMIT 99999999999999) T" + " GROUP BY T.plat_name")
     @Results({ @Result(column = "plat_name", property = "plat_name"), @Result(column = "company_name", property = "company_name"),

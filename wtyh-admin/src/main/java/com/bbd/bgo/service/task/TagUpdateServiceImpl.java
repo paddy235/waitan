@@ -1,7 +1,9 @@
 package com.bbd.bgo.service.task;
 
+import com.alibaba.fastjson.JSONObject;
 import com.bbd.wtyh.core.base.BaseService;
 import com.bbd.wtyh.domain.QyxxTagDO;
+import com.bbd.wtyh.domain.SubscriptionListDO;
 import com.bbd.wtyh.domain.TaskFailInfoDO;
 import com.bbd.wtyh.domain.dataLoading.DatasharePullFileDO;
 import com.bbd.wtyh.mapper.DataLoadingMapper;
@@ -9,6 +11,7 @@ import com.bbd.wtyh.mapper.QyxxTagMapper;
 import com.bbd.wtyh.service.CompanyTagService;
 import com.bbd.wtyh.util.DataLoadingUtil;
 import com.bbd.wtyh.util.DateUtils;
+import com.bbd.wtyh.util.HttpUtil;
 import com.bbd.wtyh.util.PullFileUtil;
 import com.google.common.collect.ListMultimap;
 import org.apache.commons.collections.CollectionUtils;
@@ -20,6 +23,9 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by cgj on 2017-09-05.
@@ -104,8 +110,14 @@ public class TagUpdateServiceImpl implements TagUpdateService {
             qyxxTagMapper.companyNameToSubscriptionListAppend();
             qyxxTagMapper.clearTable("subscription_list_remove");
             qyxxTagMapper.companyNameToSubscriptionListRemove();
-            //qyxxTagMapper.clearTable("subscription_list");
-            //qyxxTagMapper.companyNameTagToSubscriptionList();
+            qyxxTagMapper.companyNameAppendSubscriptionList();
+            //添加到数据平台的全息企业订阅名单中去
+            List<SubscriptionListDO> cml =qyxxTagMapper.getCompanyNamesFromSubscriptionListAppend();
+            try {
+                modifySubscriptionList(cml, false);
+            } catch (Exception e) {
+                logger.warn("",e);
+            }
 
             //更新company_tag表
             try{
@@ -139,5 +151,52 @@ public class TagUpdateServiceImpl implements TagUpdateService {
         qyxxTagDO.setDt( dt );
 
         return qyxxTagDO;
+    }
+
+
+
+
+    /**
+     * 修改全息数据订阅名单 by LiYao
+     */
+    @Override
+    public void modifySubscriptionList(List<SubscriptionListDO> list, boolean isDel) throws Exception {
+
+        String url = "http://datasub.bbdservice.com/api/bbd_directory/?";
+
+        Map<String, Object> param = new HashMap<>(3);
+        param.put("usercode", 10003);
+        param.put("del", isDel);
+
+        ExecutorService executors = Executors.newFixedThreadPool(4);
+
+        logger.info("start");
+        for (SubscriptionListDO slDo : list) {
+            executors.execute(() -> {
+                String name = slDo.getCompanyName();
+                param.put("company", name);
+
+                JSONObject result;
+                try {
+                    result = HttpUtil.get(url, param, JSONObject.class);
+                } catch (Exception e) {
+                    if (isDel) {
+                        logger.error("删除全息数据订阅名单异常:{}", name, e);
+                    } else {
+                        logger.error("添加全息数据订阅名单异常:{}", name, e);
+                    }
+                    return;
+                }
+
+                if (result != null && result.getIntValue("err_code") > 0) {
+                    logger.error("isDel:{}, {}:{}", isDel, name, result.toJSONString());
+                } else {
+                    logger.info("isDel:{}, {}:{}", isDel, name, result);
+                }
+            });
+        }
+        executors.shutdown();
+        executors.awaitTermination(1, TimeUnit.DAYS);
+        logger.info("end");
     }
 }
