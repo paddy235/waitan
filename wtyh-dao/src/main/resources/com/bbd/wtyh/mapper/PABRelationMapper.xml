@@ -3,7 +3,7 @@
 <mapper namespace="com.bbd.wtyh.mapper.PABRelationMapper">
 
 	<insert id="addPABRelation" parameterType="com.bbd.wtyh.domain.PABRelationDO">
-		INSERT INTO park_and_building_relation(park_id, building_id, create_by, create_date, update_by, update_date) VALUES(#{parkId}, #{buildingId}, #{createBy}, SYSDATE(), #{updateBy}, SYSDATE())
+		INSERT INTO park_and_building_relation(park_id, building_id, create_by, create_date, update_by, update_date) VALUES(#{parkId}, #{buildingId}, #{createBy}, SYSDATE(), #{createBy}, SYSDATE())
 	</insert>
 
 	<delete id="delPABRelationByParkId" parameterType="int">
