@@ -7,7 +7,7 @@
         <selectKey keyProperty="id" resultType="int">
             select LAST_INSERT_ID()
         </selectKey>
-        INSERT INTO park_building_img(pic_name, pic_url, pic, pic_type, pic_park_id, pic_building_id, create_by, create_date) VALUES (#{picName}, #{picUrl}, #{pic}, #{picType}, #{picParkId}, #{picBuildingId}, #{createBy}, SYSDATE())
+        INSERT INTO park_building_img(pic_name, pic_url, pic, pic_type, pic_park_id, pic_building_id, create_by, create_date, update_by, update_date) VALUES (#{picName}, #{picUrl}, #{pic}, #{picType}, #{picParkId}, #{picBuildingId}, #{createBy}, SYSDATE(), #{createBy}, SYSDATE())
     </insert>
 
     <update id="updateImage" parameterType="com.bbd.wtyh.domain.ImgDO">
