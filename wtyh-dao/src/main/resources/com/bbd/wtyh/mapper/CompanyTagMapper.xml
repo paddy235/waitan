@@ -3,10 +3,10 @@
 <mapper namespace="com.bbd.wtyh.mapper.CompanyTagMapper">
     <insert id="saveCompanyTag" parameterType="java.util.List">
         INSERT INTO company_tag
-        (`company_name`,`tag`,`create_by`,`create_date`)
+        (`company_name`,`tag`,`dt`,`create_by`,`create_date`)
         VALUES
         <foreach collection="list" item="item" index="index" separator=",">
-        (#{item.companyName},#{item.tag},'system',now())
+        (#{item.companyName},#{item.tag},#{item.dt},'system',now())
         </foreach>
     </insert>
 
@@ -17,7 +17,8 @@
     <select id="selectFromQyxxTag" resultType="com.bbd.wtyh.domain.CompanyTagDO">
         SELECT
           company_name AS companyName,
-          tag AS tagDesc
+          tag AS tagDesc,
+          dt
         FROM `qyxx_tag` ORDER BY kid
         LIMIT #{pagination.begin}, #{pagination.pageSize}
 
@@ -26,5 +27,13 @@
         SELECT
           count(1) AS counts
         FROM `qyxx_tag`
+    </select>
+    <select id="getMaxDtFromQyxxTag" resultType="java.lang.Integer">
+        select max(dt) AS dt
+        FROM `qyxx_tag`
+    </select>
+    <select id="getMaxDtFromCompanyTag" resultType="java.lang.Integer">
+        select max(dt) AS dt
+        FROM company_tag
     </select>
 </mapper>

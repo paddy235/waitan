@@ -15,6 +15,8 @@ import com.bbd.wtyh.web.PageBean;
 import com.bbd.wtyh.web.ResponseBean;
 
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,7 +36,7 @@ import java.util.Map;
 @Controller
 @RequestMapping("/credit")
 public class CreditController {
-
+    Logger logger = LoggerFactory.getLogger(CreditController.class);
 	@Autowired
 	private CompanyCreditMapper companyCreditMapper;
 
@@ -48,6 +50,7 @@ public class CreditController {
 	@RequestMapping("/execCredit")
 	@ResponseBody
 	public ResponseBean creditScoreCalculate() {
+
 		Integer taskId;
         TaskResultDO taskResultDO;
 		Integer runMode = 0;// 运行方式：0 自动执行， 1 手动执行
@@ -112,11 +115,17 @@ public class CreditController {
 			UserLogRecord.record("搜索["+companyName+"]", Operation.Type.query, Operation.Page.creditDataManager,
 					Operation.System.back, request);
 			if(null == list || list.size()==0){
-				return ResponseBean.errorResponse("该企业无数据");
+				return ResponseBean.errorResponse("未查到相关数据");
 			}
-			return ResponseBean.successResponse(list);
+
+            Map<String, Object> rst = new HashMap<>();
+            rst.put("data", list);
+            rst.put("totalCount", pageBean.getTotalCount());
+
+			return ResponseBean.successResponse(rst);
 		} catch (Exception e) {
-			return ResponseBean.errorResponse("数据错误");
+            logger.error(" getCreditData ",e);
+		    return ResponseBean.errorResponse("数据错误");
 		}
 
 	}

@@ -1,11 +1,15 @@
 package com.bbd.wtyh.web.controller;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.Map;
 
 import com.bbd.wtyh.common.Constants;
+import com.bbd.wtyh.excel.utils.ExportExcelUtil;
 import com.bbd.wtyh.log.user.Operation;
 import com.bbd.wtyh.log.user.annotation.LogRecord;
 import com.bbd.wtyh.report.service.WordReportService;
@@ -101,6 +105,44 @@ public class ReportDocxController {
 		}
 	}
 
+	@LogRecord(logMsg = "导出“%s”的企业全息报告", params = {"companyName"}, page = Operation.Page.hologram,
+			type = Operation.Type.REPORT_EXPORT, after = true, before = false)
+	@RequestMapping( value = "get-file-url.do" )
+	@ResponseBody
+	public Object getFileUrl(HttpServletRequest request,
+							 HttpServletResponse response,
+							 @RequestParam String companyName )  {
+		FileOutputStream outputStream = null;
+		ResponseBean responseBean;
+		try {
+			String loginName = (String) request.getSession().getAttribute(Constants.SESSION.loginName);
+			String areaCode = (String) request.getSession().getAttribute("area");
+			Map<String, Object> rstMap = wordReportService.reportExport(companyName, loginName, areaCode);
+
+			companyName =(String) rstMap.get("fileName");
+			String path = ExportExcelUtil.dealWithExportPath(null);
+			File directory = new File( path );
+			directory.mkdirs();
+			File file = new File(path + companyName);
+			file.createNewFile();
+			outputStream = new FileOutputStream(file);
+			byte[] fileBytes =(byte[]) rstMap.get("fileBytes");
+			outputStream.write(fileBytes);
+			String url ="/download/download-excel.do?name=" +URLEncoder.encode(companyName, "UTF-8");
+			responseBean = ResponseBean.successResponse ( url );
+		} catch (Exception e) {
+			LOGGER.error("导出文件【{}】失败：服务器报错!{}", companyName, e);
+			responseBean = ResponseBean.errorResponse("error.");
+		} finally {
+			try {
+				if( null != outputStream ) {
+					outputStream.close();
+				}
+			} catch (Exception e) {}
+		}
+		return	responseBean;
+	}
+
 	@RequestMapping( value = "test.do" )
 	@ResponseBody
 	public ResponseBean getAreaByParentId() {
@@ -111,7 +153,7 @@ public class ReportDocxController {
 			int aar = aa.read(te);
 			aar ++;
 		} catch (Exception e) {}*/
-		return ResponseBean.successResponse(null);
+		return ResponseBean.successResponse("test is ok.");
 	}
 
 }

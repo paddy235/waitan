@@ -11,6 +11,7 @@ import com.bbd.wtyh.mapper.TaskFailInfoMapper;
 import com.bbd.wtyh.service.TaskService;
 import com.bbd.wtyh.util.DataLoadingUtil;
 import com.bbd.wtyh.util.PullFileUtil;
+import com.google.common.collect.ListMultimap;
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,6 +48,9 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 
     @Autowired
     private TaskFailInfoMapper taskFailInfoMapper;
+
+    @Autowired
+    private RealTimeMonitorNewsService realTimeMonitorNewsService;
 
     private volatile boolean isShutdown = false;// 任务停止标志
 
@@ -86,6 +90,11 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
                 for (DatasharePullFileDO pullFile : pullFileList) {
                     if (isShutdown) {
                         break;
+                    }
+                    //排除不相关的文件
+                    Boolean isOwn = PullFileUtil.strContainsByKeywords( pullFile.getFile_name(), new String[] {"hologram-base", "recruit_all"} );
+                    if ( null !=isOwn && !isOwn ) {
+                        continue;
                     }
                     File file = null;
                     if (pullFile.isPull()) {
@@ -127,70 +136,56 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
         return taskResultDO;
     }
 
+    private static Boolean tstBool() {
+        return null;
+    }
+
+    public static void main(String []argc) {
+        Boolean ts =tstBool();
+        if ( null == ts ) {
+           // return;
+        }
+        ts = !ts;
+    }
+
     @Override
     public TaskResultDO dataLoadingAutomaticOperate(Integer taskId) {
+
+        //实时监测舆情落地,保持与其他舆情落地的create_time一致。不需要放到重新执行的任务里，防止数据过分重复
+        try {
+            logger.info("--- realtime monitor news begin ---");
+            realTimeMonitorNewsService.saveRealTimeMonitorNews();
+            logger.info("--- realtime monitor news end ---");
+        } catch (Exception e) {
+            logger.error("realtime monitor news error: " ,e);
+        }
+
         logger.info("--- company holographic job begin ---");
         isShutdown = false;
         TaskResultDO taskResultDO = new TaskResultDO();
         Integer dataError = 0;
-        Integer dataTotal = 0;
+        Integer [] dataTotal =new Integer[1]; //Integer dataTotal = 0;
         this.taskId = taskId;
         this.pullFileTaskId = taskId;
         // 自动执行，先拉取数据，有数据执行插入，并记录成功失败情况
         Integer maxDataVersion = dataLoadingMapper.maxDataVersion();
-        List<Map<String, String>> fileNameList = PullFileUtil.getFileList(1, maxDataVersion);
-        List<Map<String, String>> historyFileNameList = dataLoadingMapper.noPullFileNameList();
-        if (CollectionUtils.isNotEmpty(fileNameList)) {
-            historyFileNameList.addAll(fileNameList);
-        }
+        List<TaskFailInfoDO> failList = new ArrayList<>();
+        ListMultimap<String,File> fileMap =PullFileUtil.getFileListByKeyword( new String[] {"hologram-base", "recruit_all"},
+                    null, maxDataVersion, taskId, dataTotal, failList, "全息、招聘" );
 
-        if (CollectionUtils.isNotEmpty(historyFileNameList)) {
-            dataTotal = historyFileNameList.size();
-            List<TaskFailInfoDO> failList = new ArrayList<>();
+        List< File > fileList =new LinkedList<>( fileMap.values() );
 
-            List<File> fileList = new ArrayList<>();
-            List<DatasharePullFileDO> pullFileList = new ArrayList<>();
-
-            logger.info("拉取全息数据文件开始, total：{}", fileNameList.size());
-
-            for (Map<String, String> map : historyFileNameList) {
-
-                String fileName = map.get("fileName");
-                Integer dataVersion = Integer.parseInt(map.get("dataVersion"));
-
-                DatasharePullFileDO pullFile = new DatasharePullFileDO();
-                pullFile.setCreate_by("system");
-                pullFile.setCreate_date(new Date());
-                pullFile.setTask_id(taskId);
-                pullFile.setFile_name(fileName);
-                pullFile.setData_version(dataVersion);
-                pullFile.setPull(false);
-                pullFileList.add(pullFile);
-
-                File file = PullFileUtil.pullFile(fileName);
-
-                if (file == null) {
-                    TaskFailInfoDO fail = new TaskFailInfoDO();
-                    fail.setFailReason("拉取文件错误");
-                    setFailDo(fail, file.getName());
-                    failList.add(fail);
-                    continue;
-                }
-                pullFile.setPull(true);
-                pullFile.setFile_url(file.getAbsolutePath());
-                fileList.add(file);
-            }
-            logger.info("拉取全息数据文件结束, total：{},success：{}", fileNameList.size(), pullFileList.size());
-            this.insertList(pullFileList);
+        if ( CollectionUtils.isNotEmpty(fileList) ) {
             dataError = this.operateUpdate(failList, fileList);
         }
+
         if (isShutdown) {
             taskResultDO.setFailCount(0);
             taskResultDO.setSuccessCount(0);
         } else {
-            taskResultDO.setPlanCount(dataTotal);
+            taskResultDO.setPlanCount(dataTotal[0]);
             taskResultDO.setFailCount(dataError);
-            taskResultDO.setSuccessCount(dataTotal - dataError);
+            taskResultDO.setSuccessCount(dataTotal[0] - dataError);
         }
         logger.info("--- company holographic job end ---");
         return taskResultDO;

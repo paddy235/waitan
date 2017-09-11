@@ -329,27 +329,20 @@ public class ParkController {
 	 */
 	@RequestMapping("/downloadParkCompanyList")
 	@ResponseBody
-	public ResponseBean downloadParkCompanyList(@RequestParam Integer areaId, Integer isNew, Integer riskLevel, String backgroundName,
-			String companyTypeName, String buildingName,String companyName, HttpServletRequest request) {
+	public ResponseBean downloadParkCompanyList(@RequestParam Integer parkId, Integer isNew, Integer riskLevel, String backgroundName,
+			String companyTypeName, String buildingName,String companyName, HttpServletRequest request, @RequestParam String parkName) {
 
 		String loginName = request.getSession().getAttribute(Constants.SESSION.loginName) + "";
 		String nowDateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss"));
 
-		String excelName = "";
-
-		AreaDO area = this.parkService.selectById(AreaDO.class, areaId);
-		if (area != null) {
-			excelName = area.getName();
-		}
-		excelName = loginName + "-" + excelName + "-" + nowDateTime;
+		String excelName = loginName + "-" + parkName + "-" + nowDateTime;
 
 		ExportExcel exportExcel = new ExportExcel(excelName);
 		try {
 
 			// 按查询条件下载企业
 
-			Map<String,Object> map = parkService.queryParkCompany(areaId,
-			 isNew, riskLevel, backgroundName, companyTypeName, buildingName,companyName,null,null);
+			Map<String,Object> map = parkService.queryParkCompany(parkId, isNew, riskLevel, backgroundName, companyTypeName, buildingName,companyName,null,null);
 
 			// 下载改园区全部企业
 			//Map<String,Object> map = parkService.queryParkCompany(areaId, null, null, null, null, null,null,null);
@@ -357,8 +350,7 @@ public class ParkController {
 			exportExcel.createSheet(list);
 			exportExcel.exportExcel();
 
-            String areaName=area==null?"":area.getName();
-			UserLogRecord.record("导出【"+areaName+"】园区企业列表", Operation.Type.DATA_EXPORT, Operation.Page.park,
+			UserLogRecord.record("导出【"+parkName+"】园区企业列表", Operation.Type.DATA_EXPORT, Operation.Page.park,
 					Operation.System.front, request);
 			return ResponseBean.successResponse(exportExcel.getDownloadURL());
 		} catch (Exception e) {

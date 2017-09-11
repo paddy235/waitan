@@ -21,7 +21,9 @@ public class CompanyTagServiceImpl extends BaseServiceImpl implements CompanyTag
 
     @Override
     public void saveCompanyTag() {
-
+        if(!compareVersion()){
+            return;
+        }
         int pageSize = 3000;
         int totalCount = companyTagMapper.countQyxxTag();
         Pagination pagination = new Pagination();
@@ -47,6 +49,17 @@ public class CompanyTagServiceImpl extends BaseServiceImpl implements CompanyTag
             companyTagDO.setTag(null==tag?null:Integer.valueOf(tag));
         }
         companyTagMapper.saveCompanyTag(list);
+    }
+
+    private boolean compareVersion(){
+
+        Integer qyxxTd=companyTagMapper.getMaxDtFromQyxxTag();
+        Integer companyTd=companyTagMapper.getMaxDtFromCompanyTag();
+        if(null != qyxxTd && null != companyTd
+                && qyxxTd > companyTd){
+            return true;
+        }
+        return false;
     }
 
 

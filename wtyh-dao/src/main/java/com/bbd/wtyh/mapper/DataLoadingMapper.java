@@ -23,6 +23,8 @@ public interface DataLoadingMapper {
 
     int saveQyxgYuqingDO(List<QyxgYuqingDO> qyxgYuqingList);
 
+    int saveOneQyxgYuqingDO(QyxgYuqingDO qyxgYuqingDO);
+
     int saveQyxxBasicDO(List<QyxxBasicDO> qyxxBasicList);
 
     int saveQyxxBaxxDO(List<QyxxBaxxDO> qyxxBaxxList);

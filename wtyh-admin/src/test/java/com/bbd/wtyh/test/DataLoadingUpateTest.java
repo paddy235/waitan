@@ -2,7 +2,9 @@ package com.bbd.wtyh.test;
 
 import com.alibaba.fastjson.JSONObject;
 import com.bbd.bgo.service.task.DataLoadingService;
+import com.bbd.bgo.service.task.TagUpdateService;
 import com.bbd.wtyh.core.base.BaseService;
+import com.bbd.wtyh.domain.SubscriptionListDO;
 import com.bbd.wtyh.util.HttpUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,6 +18,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import javax.persistence.Column;
 import javax.persistence.Table;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
@@ -38,6 +41,9 @@ public class DataLoadingUpateTest {
     @Autowired
     private DataLoadingService dataLoadingTaskService;
 
+    @Autowired
+    private TagUpdateService tagUpdateService;
+
     @Test
     public void dataLoadingTest() {
 
@@ -55,7 +61,9 @@ public class DataLoadingUpateTest {
      */
     @Test
     public void delSubscriptionList() throws Exception {
-        modifySubscriptionList(true);
+
+        List<SubscriptionListDO> list = new LinkedList<>();
+        tagUpdateService.modifySubscriptionList(list, true);
     }
 
     /**
@@ -65,12 +73,14 @@ public class DataLoadingUpateTest {
      */
     @Test
     public void addSubscriptionList() throws Exception {
-        modifySubscriptionList(false);
-    }
 
-    /**
+        List<SubscriptionListDO> list = this.baseService.selectAll(SubscriptionListDO.class, "");
+        tagUpdateService.modifySubscriptionList(list, false);
+    }/*
+
+    *//**
      * 修改全息数据订阅名单
-     */
+     *//*
     private void modifySubscriptionList(boolean isDel) throws Exception {
 
         String url = "http://datasub.bbdservice.com/api/bbd_directory/?";
@@ -79,12 +89,12 @@ public class DataLoadingUpateTest {
         param.put("usercode", 10003);
         param.put("del", isDel);
 
-        List<SubscriptionList> list = this.baseService.selectAll(SubscriptionList.class, "");
+        List<SubscriptionListDO> list = this.baseService.selectAll(SubscriptionListDO.class, "");
 
         ExecutorService executors = Executors.newFixedThreadPool(4);
 
         logger.info("start");
-        for (SubscriptionList slDo : list) {
+        for (SubscriptionListDO slDo : list) {
             executors.execute(() -> {
                 String name = slDo.getCompanyName();
                 param.put("company", name);
@@ -111,23 +121,5 @@ public class DataLoadingUpateTest {
         executors.shutdown();
         executors.awaitTermination(1, TimeUnit.DAYS);
         logger.info("end");
-
-    }
-
-    @Table(name = "subscription_list")
-    public static class SubscriptionList {
-
-        @Column(name = "company_name")
-        private String companyName;
-
-        public String getCompanyName() {
-            return companyName;
-        }
-
-        @SuppressWarnings("unused")
-        public void setCompanyName(String companyName) {
-            this.companyName = companyName;
-        }
-    }
-
+    }*/
 }

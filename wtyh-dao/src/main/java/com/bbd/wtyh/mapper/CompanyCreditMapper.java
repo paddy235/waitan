@@ -35,6 +35,8 @@ public interface CompanyCreditMapper {
 	List<CreditInfoDTO> getCreditInfo(@Param("companyName") String companyName,
 									  @Param("dataType") List<String> dataType,
 									  @Param(value = "pagination")PageBean pagination);
+	long countCreditInfo(@Param("companyName") String companyName,
+									  @Param("dataType") List<String> dataType);
 
 	List<CompanyCreditDataItemsDO> getCreditDataItems();
 

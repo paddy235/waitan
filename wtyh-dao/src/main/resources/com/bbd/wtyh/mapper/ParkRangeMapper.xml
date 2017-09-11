@@ -5,7 +5,7 @@
 	<insert id="addParkRange" parameterType="java.util.List">
 		INSERT INTO park_range(user_id, park_id, create_by, create_date, update_by, update_date) VALUES
 		<foreach collection="list" separator="," item="item">
-			(#{item.userId}, #{item.parkId}, #{item.createBy}, SYSDATE(), #{item.updateBy}, SYSDATE())
+			(#{item.userId}, #{item.parkId}, #{item.createBy}, SYSDATE(), #{item.createBy}, SYSDATE())
 		</foreach>
 	</insert>
 

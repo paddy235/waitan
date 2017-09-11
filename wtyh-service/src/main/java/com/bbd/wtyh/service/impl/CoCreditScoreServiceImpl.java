@@ -349,7 +349,9 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 
 			}
 		}
-
+		if(null != pageBean){
+			pageBean.setTotalCount(companyCreditMapper.countCreditInfo(companyName, types));
+		}
 		list = companyCreditMapper.getCreditInfo(companyName, types, pageBean);
 		List<CompanyCreditDataItemsDO> dataItemList = companyCreditMapper.getCreditDataItems();
 		Map<String, String> dataItemMap = new HashMap<>();

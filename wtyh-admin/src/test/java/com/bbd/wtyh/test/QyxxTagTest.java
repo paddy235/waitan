@@ -2,6 +2,7 @@ package com.bbd.wtyh.test;
 
 import com.bbd.bgo.service.task.TagUpdateService;
 import com.bbd.wtyh.core.base.BaseService;
+import com.bbd.wtyh.domain.SubscriptionListDO;
 import com.bbd.wtyh.mapper.QyxxTagMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,12 +33,10 @@ public class QyxxTagTest {
 
     @Test
     public void tagTest1() {
-        //qyxxTagMapper.clearTable("qyxx_tag");
+        List<SubscriptionListDO> cml =qyxxTagMapper.getCompanyNamesFromSubscriptionListAppend();
+        qyxxTagMapper.companyNameAppendSubscriptionList( );
+
         tagUpdateService.operateData();
-        //qyxxTagMapper.clearTable("qyxx_tag_black");
-        //qyxxTagMapper.oldTableIntoNewTable("qyxx_tag", "qyxx_tag_new");
-        //qyxxTagMapper.renameTable("qyxx_tag_whitexx", "qyxx_tag_white_yy");
-        //qyxxTagMapper.deleteTable("qyxx_tag_white_yy");
     }
 
 
