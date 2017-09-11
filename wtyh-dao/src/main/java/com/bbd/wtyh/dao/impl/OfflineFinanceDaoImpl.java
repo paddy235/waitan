@@ -8,7 +8,6 @@ import com.bbd.wtyh.domain.dto.RelationRealDTO;
 import com.bbd.wtyh.mapper.OfflineFinanceMapper;
 import com.bbd.wtyh.redis.RedisDAO;
 import com.bbd.wtyh.util.relation.URLEncoder;
-import com.bbd.wtyh.web.relationVO.LineVO;
 import com.bbd.wtyh.web.relationVO.RelationDiagramVO;
 import com.bbd.wtyh.web.relationVO.SubGraphVO;
 import com.google.gson.Gson;
@@ -84,12 +83,12 @@ public class OfflineFinanceDaoImpl implements OfflineFinanceDao {
         try {
             //注意，这里返回的是relationVO.LineVO  和  relationVO.PointVO，装入到 RelationDiagramVO
             //其他地方需要使用的时候，需要重新装换。
-            List  pointVOList = offlineFinanceMapper.queryPointByName(companyName,degree);
+            List<RelationDiagramVO.PointVO>  pointVOList = offlineFinanceMapper.queryPointByName(companyName,degree);
             if(CollectionUtils.isEmpty(pointVOList)){
                 return null;
             }
 
-            List lineVOList = offlineFinanceMapper.queryLineByName(companyName,degree);
+            List<RelationDiagramVO.LineVO> lineVOList = offlineFinanceMapper.queryLineByName(companyName,degree);
             if(CollectionUtils.isEmpty(lineVOList)){
                 return null;
             }

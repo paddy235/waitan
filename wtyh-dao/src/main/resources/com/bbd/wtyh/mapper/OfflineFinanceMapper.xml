@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.bbd.wtyh.mapper.OfflineFinanceMapper">
-    <select id="queryPointByName" resultType="com.bbd.wtyh.web.relationVO.PointVO">
+    <select id="queryPointByName" resultType="com.bbd.wtyh.web.relationVO.RelationDiagramVO$PointVO">
         select
             `name`,
             `cname`,
@@ -12,7 +12,7 @@
         where queried_company=#{companyName} and `level` &lt;=#{degree}
     </select>
 
-    <select id="queryLineByName" resultType="com.bbd.wtyh.web.relationVO.LineVO">
+    <select id="queryLineByName" resultType="com.bbd.wtyh.web.relationVO.RelationDiagramVO$LineVO">
          select
           `orig` ,
           `orig_name` AS origName,
