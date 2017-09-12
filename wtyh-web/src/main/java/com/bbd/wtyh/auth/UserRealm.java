@@ -54,7 +54,6 @@ public class UserRealm extends AuthorizingRealm {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("登录校验，rst：" + rst);
         if (0 == rst) {//如果身份认证验证成功，返回一个AuthenticationInfo实现；
             return new SimpleAuthenticationInfo(username, password, getName());
         }
