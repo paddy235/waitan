@@ -9,7 +9,7 @@ import java.util.Set;
  *
  * @author Created by LiYao on 2017-09-11 15:07.
  */
-@SuppressWarnings("unused")
+@SuppressWarnings({ "unused", "UnusedReturnValue" })
 class KeyOperationUtil extends RedisBaseUtil {
 
     /**
@@ -18,11 +18,11 @@ class KeyOperationUtil extends RedisBaseUtil {
      * @param key
      * @return 被删除 key 的数量。
      */
-    public static long del(String key) {
+    public static long del(String... keys) {
         Jedis jedis = null;
         try {
             jedis = getResource();
-            return jedis.del(key);
+            return jedis.del(keys);
         } catch (Exception e) {
             returnBrokenResource(jedis);
             throw e;

@@ -1,6 +1,5 @@
 package com.bbd.sys.service;
 
-import java.io.PrintWriter;
 import java.lang.reflect.Method;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,49 +20,49 @@ import com.bbd.wtyh.common.Constants;
  */
 public class LoginInterceptor extends HandlerInterceptorAdapter {
 
-	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
-		HandlerMethod handlerMethod = (HandlerMethod) handler;
-		Method method = handlerMethod.getMethod();
-		RequestMapping annotation = method.getAnnotation(RequestMapping.class);
-		if (annotation == null) {
-			return true;
-		}
+        HandlerMethod handlerMethod = (HandlerMethod) handler;
+        Method method = handlerMethod.getMethod();
+        RequestMapping annotation = method.getAnnotation(RequestMapping.class);
+        if (annotation == null) {
+            return true;
+        }
 
-		if ("/login".equals(annotation.value()[0]) || "/logout".equals(annotation.value()[0])) {
-			return true;
-		}
-		if("/exportLogFile".equals(annotation.value()[0])){
-			return true;
-		}
+        if ("/login".equals(annotation.value()[0]) || "/logout".equals(annotation.value()[0])) {
+            return true;
+        }
+        if ("/exportLogFile".equals(annotation.value()[0])) {
+            return true;
+        }
 
-		if ("updateIndexData.do".equals(annotation.value()[0])) {
-			return true;
-		}
+        if ("updateIndexData.do".equals(annotation.value()[0])) {
+            return true;
+        }
 
-		if ("updateStaticRiskData.do".equals(annotation.value()[0])) {
-			return true;
-		}
+        if ("updateStaticRiskData.do".equals(annotation.value()[0])) {
+            return true;
+        }
 
-		if ("updateCompanyRiskLevel.do".equals(annotation.value()[0])) {
-			return true;
-		}
+        if ("updateCompanyRiskLevel.do".equals(annotation.value()[0])) {
+            return true;
+        }
 
-		if ("saveCompanyCreditRisk.do".equals(annotation.value()[0])) {
-			return true;
-		}
-		HttpSession session=request.getSession(false);
-		if(null==session){
-			response.getWriter().write("{success:false,msg:'no login'}");
-			return false;
-		}
-		Object loginName = request.getSession().getAttribute(Constants.SESSION.loginName);
-		if (loginName == null) {
-			response.getWriter().write("{success:false,msg:'no login'}");
-			return false;
-		}
+        if ("saveCompanyCreditRisk.do".equals(annotation.value()[0])) {
+            return true;
+        }
+        HttpSession session = request.getSession(false);
+        if (null == session) {
+            response.getWriter().write("{success:false,msg:'no login'}");
+            return false;
+        }
+        Object loginName = request.getSession().getAttribute(Constants.SESSION.loginName);
+        if (loginName == null) {
+            response.getWriter().write("{success:false,msg:'no login'}");
+            return false;
+        }
 
-		return true;
-	}
+        return true;
+    }
 
 }

@@ -25,6 +25,17 @@ class ExtensionOperationUtil extends SortedSetOperationUtil {
     }
 
     /**
+     * 将 obj 转为 JSON 后存入 redis hash 表
+     * 
+     * @param key
+     * @param field
+     * @param obj
+     */
+    public static void hsetObjectJson(String key, String field, Object obj) {
+        hset(key, field, JSON.toJSONString(obj));
+    }
+
+    /**
      * 将存入Redis的json 字符串还原为Obj
      * 
      * @param key
@@ -33,6 +44,17 @@ class ExtensionOperationUtil extends SortedSetOperationUtil {
      */
     public static <T> T getObjectJson(String key, Class<T> clazz) {
         return JSON.parseObject(get(key), clazz);
+    }
+
+    /**
+     * 将存入Redis的json 字符串还原为Obj
+     * 
+     * @param key
+     * @param clazz
+     * @return
+     */
+    public static <T> T hgetObjectJson(String key, String field, Class<T> clazz) {
+        return JSON.parseObject(hget(key, field), clazz);
     }
 
     /**
@@ -57,7 +79,11 @@ class ExtensionOperationUtil extends SortedSetOperationUtil {
         Jedis jedis = null;
         try {
             jedis = getResource();
-            return SerializationUtils.deserialize(jedis.get(key.getBytes()));
+            byte[] bytes = jedis.get(key.getBytes());
+            if (bytes == null) {
+                return null;
+            }
+            return SerializationUtils.deserialize(bytes);
         } catch (Exception e) {
             returnBrokenResource(jedis);
             throw e;

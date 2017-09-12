@@ -52,8 +52,7 @@
     </bean>
 
     <!-- enable transaction demarcation with annotations -->
-    <tx:annotation-driven transaction-manager="transactionManager"
-                          proxy-target-class="true"/>
+    <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
 
     <!-- transaction manager, use JtaTransactionManager for global tx -->
     <bean id="transactionManager"
@@ -87,22 +86,13 @@
     </bean>
 
 
-    <!--&lt;!&ndash; start cache annotation &ndash;&gt;-->
-    <!--<cache:annotation-driven/>-->
-
     <!-- Redis AND Pool -->
     <bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">
-        <property name="maxTotal" value="${redis.pool.maxTotal}"></property>
+        <property name="maxTotal" value="${redis.pool.maxTotal}"/>
         <property name="maxIdle" value="${redis.pool.maxIdle}"/>
         <property name="maxWaitMillis" value="${redis.pool.maxWait}"/>
         <property name="testOnBorrow" value="${redis.pool.testOnBorrow}"/>
     </bean>
-
-    <!--<bean id="jedisPool" class="redis.clients.jedis.JedisPool">
-        <constructor-arg index="0" type="org.apache.commons.pool2.impl.GenericObjectPoolConfig" ref="poolConfig"/>
-        <constructor-arg index="1" type="java.lang.String" value="localhost"/>
-    </bean>-->
-
 
     <bean id="jedisConnFactory"
           class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
