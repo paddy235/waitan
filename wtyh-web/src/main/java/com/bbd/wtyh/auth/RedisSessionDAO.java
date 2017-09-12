@@ -68,4 +68,12 @@ public class RedisSessionDAO extends AbstractSessionDAO {
     public Collection<Session> getActiveSessions() {
         return null;
     }
+
+    public static void forcedLogout(String userName) {
+        String haveLoginSessionId = RedisUtil.hget(RedisSessionDAO.LOGIN_USER_SESSION_REDIS_KEY, userName);
+        if (org.apache.commons.lang.StringUtils.isNotBlank(haveLoginSessionId)) {
+            RedisUtil.del(RedisSessionDAO.SESSION_CACHE_REDIS_KEY_PREFIX + haveLoginSessionId);
+            RedisUtil.hdel(RedisSessionDAO.LOGIN_USER_SESSION_REDIS_KEY, userName);
+        }
+    }
 }
