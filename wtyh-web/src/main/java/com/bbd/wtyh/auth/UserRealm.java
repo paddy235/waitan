@@ -1,6 +1,5 @@
 package com.bbd.wtyh.auth;
 
-import com.bbd.wtyh.core.utils.redis.RedisUtil;
 import com.bbd.wtyh.log.user.Operation;
 import com.bbd.wtyh.service.UserInfoService;
 import org.apache.commons.lang.StringUtils;
@@ -57,7 +56,6 @@ public class UserRealm extends AuthorizingRealm {
         }
         System.out.println("登录校验，rst：" + rst);
         if (0 == rst) {//如果身份认证验证成功，返回一个AuthenticationInfo实现；
-            RedisSessionDAO.forcedLogout(username);
             return new SimpleAuthenticationInfo(username, password, getName());
         }
         if (rst >= -3) {//用户类型和指定类型不匹配(-3),库中密码字符串为空(-2),不匹配(-1)
