@@ -118,7 +118,7 @@
     </select>
 
     <insert id="addBuilding" parameterType="com.bbd.wtyh.domain.BuildingDO" useGeneratedKeys="true" keyProperty="buildingId">
-        INSERT INTO building(`name`, img_url, create_by, create_date) VALUES(#{name}, #{imgUrl}, #{createBy}, SYSDATE())
+        INSERT INTO building(`name`, img_url, create_by, create_date, update_by, update_date) VALUES(#{name}, #{imgUrl}, #{createBy}, SYSDATE(), #{createBy}, SYSDATE())
     </insert>
 
     <delete id="delCompanyByCompanyId" >
@@ -206,7 +206,7 @@
     </select>
 
     <insert id="addPark" parameterType="com.bbd.wtyh.domain.ParkDO">
-        INSERT INTO park(`name`, area_id, img_url, create_by, create_date) VALUES(#{name},#{areaId},#{imgUrl},#{createBy},SYSDATE())
+        INSERT INTO park(`name`, area_id, img_url, create_by, create_date, update_by, update_date) VALUES(#{name},#{areaId},#{imgUrl},#{createBy},SYSDATE(),#{createBy},SYSDATE())
     </insert>
 
     <select id="queryCompanyIdByName" parameterType="java.lang.String" resultType="int">
@@ -225,9 +225,9 @@
     </insert>
 
     <insert id="addExcelComAndBuilding" parameterType="java.util.List">
-        INSERT INTO park_company_import(import_no, company_name, building_name, company_id, building_id, error_company, error_building, create_by, create_date, update_date) VALUES
+        INSERT INTO park_company_import(import_no, company_name, building_name, company_id, building_id, error_company, error_building, create_by, create_date, update_by, update_date) VALUES
         <foreach collection="list" separator="," item="item">
-            (#{item.importNo},#{item.companyName},#{item.buildingName},#{item.companyId},#{item.buildingId},#{item.errorCompany},#{item.errorBuilding},#{item.createBy},SYSDATE(),SYSDATE())
+            (#{item.importNo},#{item.companyName},#{item.buildingName},#{item.companyId},#{item.buildingId},#{item.errorCompany},#{item.errorBuilding},#{item.createBy},SYSDATE(),#{item.createBy},SYSDATE())
         </foreach>
     </insert>
 
