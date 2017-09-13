@@ -19,3 +19,8 @@ CREATE TABLE `subscription_list_append` (
 CREATE TABLE `subscription_list_remove` (
   `company_name` varchar(60) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+# capital_amount表添加数据版本列
+ALTER TABLE `capital_amount`
+ADD COLUMN `data_version`  int(11) NULL DEFAULT 2016 COMMENT '数据版本(年份)' AFTER `publish_company_number`;
+

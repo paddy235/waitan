@@ -16,6 +16,9 @@ public class CapitalAmountDO extends BaseDO {
     @Column(name = "publish_company_number")
     private Integer publishCompanyNumber;
 
+    @Column(name = "data_version")
+    private Integer dataVersion;
+
     ////////////not in mysql
     private String typeName;
 
@@ -49,5 +52,13 @@ public class CapitalAmountDO extends BaseDO {
 
     public void setPublishCompanyNumber(Integer publishCompanyNumber) {
         this.publishCompanyNumber = publishCompanyNumber;
+    }
+
+    public Integer getDataVersion() {
+        return dataVersion;
+    }
+
+    public void setDataVersion(Integer dataVersion) {
+        this.dataVersion = dataVersion;
     }
 }
