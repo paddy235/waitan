@@ -46,6 +46,9 @@ public class CompanyTagServiceImpl extends BaseServiceImpl implements CompanyTag
 
     @Override
     public void addCompanyFromQyxxTag() {
+        if(!compareVersion()){
+            return;
+        }
         CompanyImportAssist companyImportAssist=new CompanyImportAssist(null,null);
         //包含一个外滩线下理财企业的标签
         List<CompanyDO> list;
@@ -84,6 +87,9 @@ public class CompanyTagServiceImpl extends BaseServiceImpl implements CompanyTag
 
     @Override
     public void updateCompanyTypeFromQyxxTag() {
+        if(!compareVersion()){
+            return;
+        }
         companyTagMapper.updateCompanyTypeFromQyxxTag();
     }
 
