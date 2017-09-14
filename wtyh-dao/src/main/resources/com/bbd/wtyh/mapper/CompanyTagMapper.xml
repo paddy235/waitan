@@ -53,11 +53,11 @@
         FROM `qyxx_tag`
     </select>
     <select id="getMaxDtFromQyxxTag" resultType="java.lang.Integer">
-        select max(dt) AS dt
+        select IFNULL(max(dt),0) AS dt
         FROM `qyxx_tag`
     </select>
     <select id="getMaxDtFromCompanyTag" resultType="java.lang.Integer">
-        select max(dt) AS dt
+        select IFNULL(max(dt),0) AS dt
         FROM company_tag
     </select>
 
