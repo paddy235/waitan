@@ -141,6 +141,7 @@ public class PrivateFundController {
 			map.put("typeName", privateFundService.getTypeById(capitalAmountDO.getTypeId()).getTypeName());
 			map.put("managedCapitalAmount", capitalAmountDO.getManagedCapitalAmount());
 			map.put("publishCompanyNumber", capitalAmountDO.getPublishCompanyNumber());
+			map.put("dataVersion", capitalAmountDO.getDataVersion());
 			result.add(map);
 		}
 
