@@ -17,7 +17,7 @@ import java.util.Map;
 @SuppressWarnings("unused")
 public class CRUDTemplate {
 
-    private final static Logger LOG = LoggerFactory.getLogger(CRUDTemplate.class);
+    private static Logger logger = LoggerFactory.getLogger(CRUDTemplate.class);
 
     /**
      * select sql
@@ -27,7 +27,7 @@ public class CRUDTemplate {
      */
     public String select(Map<?, ?> map) {
         SQL sql = new SQL();
-        sql.SELECT("*").FROM(ReflectUtil.tableName((Class<?>) map.get("clazz")));
+        sql.SELECT("*").FROM(ReflectUtil.tableName((Class<?>) map.get("returnTypeClass")));
         String where = (String) map.get("where");
         if (null == where || where.trim().length() <= 0) {
             return sql.toString();
@@ -71,7 +71,7 @@ public class CRUDTemplate {
      */
     public String selectById(Map<?, ?> map) {
         SQL sql = new SQL();
-        Class<?> clazz = (Class<?>) map.get("clazz");
+        Class<?> clazz = (Class<?>) map.get("returnTypeClass");
         sql.SELECT("*").FROM(ReflectUtil.tableName(clazz));
         Object id = map.get("id");
         if (null == id || "".equals(id)) {

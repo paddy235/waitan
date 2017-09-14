@@ -163,10 +163,10 @@ public class ReflectUtil {
             return null;
         }
         try {
-            return clazz.getDeclaredMethod(methodName);
+            return clazz.getMethod(methodName);
         } catch (NoSuchMethodException ignored) {
         }
-        Method[] ms = clazz.getDeclaredMethods();
+        Method[] ms = clazz.getMethods();
         for (Method m : ms) {
             if (m.getName().equals(methodName)) {
                 return m;
