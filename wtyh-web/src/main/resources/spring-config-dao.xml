@@ -62,7 +62,7 @@
 
 
     <bean id="myBatisResultIntercept" class="com.bbd.wtyh.core.mybatis.MybatisResultInterceptor">
-        <property name="interceptMethods" value="baseSelectAll,baseSelectByPage,baseSelectById"/>
+        <property name="interceptAllMethod" value="false"/>
     </bean>
     <bean id="mybatisPaginationInterceptor" class="com.bbd.wtyh.core.mybatis.MybatisPaginationInterceptor"/>
 
