@@ -17,7 +17,7 @@ import java.util.*;
 public class BaseServiceImpl implements BaseService {
 
     @Autowired
-    private static GeneralMapper generalMapper;
+    private GeneralMapper generalMapper;
 
     @Override
     public <T> T selectOne(Class<T> clazz, String where, Object... params) {
