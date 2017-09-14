@@ -1,8 +1,8 @@
 package com.bbd.wtyh.test;
 
 
+import com.bbd.bgo.service.task.CompanyTagService;
 import com.bbd.bgo.service.task.RealTimeMonitorNewsService;
-import com.bbd.wtyh.service.CompanyTagService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -24,7 +24,7 @@ public class CompantTagTest extends BaseServiceImpl {
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    private  CompanyTagService companyTagService;
+    private CompanyTagService companyTagService;
     @Autowired
     private RealTimeMonitorNewsService realTimeMonitorNewsService;
     @Test
@@ -37,6 +37,27 @@ public class CompantTagTest extends BaseServiceImpl {
 
         try {
             realTimeMonitorNewsService.saveRealTimeMonitorNews();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void test3(){
+
+        try {
+            companyTagService.updateCompanyTypeFromQyxxTag();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @Test
+    public void test4(){
+
+        try {
+            companyTagService.addCompanyFromQyxxTag();
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -10,6 +10,30 @@
         </foreach>
     </insert>
 
+    <update id="updateCompanyTypeFromQyxxTag">
+        update  company,  (
+        select * from qyxx_tag  where tag != '外滩线下理财企业'  and EXISTS (
+        select 1 FROM
+        (select company_name , count(*)  from qyxx_tag  group by company_name HAVING count(*)=1)  as t1
+        where 1=1 and t1.company_name = qyxx_tag.company_name )
+        )as t2
+        set company.company_type=(CASE
+                    WHEN t2.tag = '外滩网络借贷'
+                        THEN 30
+                    WHEN t2.tag = '外滩众筹'
+                        THEN 31
+                    WHEN t2.tag = '外滩网银'
+                            THEN 32
+                    WHEN t2.tag = '外滩支付'
+                            THEN 33
+                    WHEN t2.tag = '外滩预付卡'
+                            THEN 34
+                    WHEN t2.tag = '外滩融资租赁'
+                            THEN 35
+                    ELSE 4
+            end ) ,company.update_date= now() where  company.company_type=4 and t2.company_name=company.`name`
+    </update>
+
     <delete id="deleteAllByQyxxTag">
         DELETE FROM company_tag
         WHERE EXISTS (select 1 from qyxx_tag where company_name=company_tag.company_name)
@@ -36,4 +60,57 @@
         select max(dt) AS dt
         FROM company_tag
     </select>
+
+    <select id="countCompanyHaveOfflineType" resultType="java.lang.Integer">
+        select count(DISTINCT company_name) as counts
+                 from qyxx_tag where tag = '外滩线下理财企业'
+                 AND  NOT EXISTS (select 1 from company where `name`=qyxx_tag.company_name)
+    </select>
+    <select id="queryCompanyHaveOfflineType" resultType="com.bbd.wtyh.domain.CompanyDO">
+        select DISTINCT company_name as `name`,
+               4 as companyType
+         from qyxx_tag where tag = '外滩线下理财企业'
+         AND  NOT EXISTS (select 1 from company where `name`=qyxx_tag.company_name)
+         ORDER BY bbd_qyxx_id
+         LIMIT #{pagination.begin}, #{pagination.pageSize}
+    </select>
+
+    <select id="countCompanyHaveOneTagExceptOfflineType" resultType="java.lang.Integer">
+        select
+           count(DISTINCT company_name) as counts
+        from qyxx_tag  where tag != '外滩线下理财企业'  and EXISTS (
+        select 1 FROM
+        (select company_name , count(*)  from qyxx_tag  group by company_name HAVING count(*)=1)  as t1
+        where 1=1 and t1.company_name = qyxx_tag.company_name )
+        AND  NOT EXISTS (select 1 from company where `name`=qyxx_tag.company_name)
+
+    </select>
+    <select id="queryCompanyHaveOneTagExceptOfflineType" resultType="com.bbd.wtyh.domain.CompanyDO">
+        select
+            DISTINCT company_name as `name`,
+          ( CASE
+            WHEN tag = '外滩网络借贷'
+                THEN 30
+            WHEN tag = '外滩众筹'
+                THEN 31
+            WHEN tag = '外滩网银'
+                    THEN 32
+            WHEN tag = '外滩支付'
+                    THEN 33
+            WHEN tag = '外滩预付卡'
+                    THEN 34
+            WHEN tag = '外滩融资租赁'
+                    THEN 35
+            ELSE -1
+            end ) AS companyType
+        from qyxx_tag  where tag != '外滩线下理财企业'  and EXISTS (
+        select 1 FROM
+        (select company_name , count(*)  from qyxx_tag  group by company_name HAVING count(*)=1)  as t1
+        where 1=1 and t1.company_name = qyxx_tag.company_name )
+        AND  NOT EXISTS (select 1 from company where `name`=qyxx_tag.company_name)
+        ORDER BY bbd_qyxx_id
+        LIMIT #{pagination.begin}, #{pagination.pageSize}
+    </select>
+
+
 </mapper>

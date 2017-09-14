@@ -8,7 +8,6 @@ import com.bbd.wtyh.domain.TaskFailInfoDO;
 import com.bbd.wtyh.domain.dataLoading.DatasharePullFileDO;
 import com.bbd.wtyh.mapper.DataLoadingMapper;
 import com.bbd.wtyh.mapper.QyxxTagMapper;
-import com.bbd.wtyh.service.CompanyTagService;
 import com.bbd.wtyh.util.DataLoadingUtil;
 import com.bbd.wtyh.util.DateUtils;
 import com.bbd.wtyh.util.HttpUtil;
@@ -126,6 +125,24 @@ public class TagUpdateServiceImpl implements TagUpdateService {
                 logger.info("end  insert company_tag ");
             }catch (Exception e){
                 logger.error("insert company_tag error : ",e );
+            }
+
+            //新增TAG企业
+            try{
+                logger.info("begin add company from qyxx_tag ");
+                companyTagService.addCompanyFromQyxxTag();
+                logger.info("end  add company from qyxx_tag ");
+            }catch (Exception e){
+                logger.error("add company from qyxx_tag error : ",e );
+            }
+
+            //修改企业类型
+            try{
+                logger.info("begin update company type from qyxx_tag ");
+                companyTagService.updateCompanyTypeFromQyxxTag();
+                logger.info("end  update company type from qyxx_tag ");
+            }catch (Exception e){
+                logger.error("update company type from qyxx_tag error : ",e );
             }
         }
     }
