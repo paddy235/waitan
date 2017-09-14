@@ -58,6 +58,9 @@ public class CompanyImportAssist {
 
     private void addError(Integer rowNum, String msg)
     {
+        if(null==sheet || null==errList){
+            return;
+        }
         if ( null ==rowNum ) return;
          ImportError error = new ImportError(sheet.getName(), rowNum, 0, msg);
          errList.add(error);
@@ -216,7 +219,10 @@ public class CompanyImportAssist {
             regA =regA.divide( BigDecimal.valueOf(10000D), 0, BigDecimal.ROUND_HALF_UP );
             impCp.setRegisteredCapital( regA.intValue() );
         }
-        impCp.setRegisteredCapitalType( bddRst.getJbxx().getRegcap_currency().equals("美元") ? 2:1 );
+        String currency=bddRst.getJbxx().getRegcap_currency();
+        if(null!=currency) {
+            impCp.setRegisteredCapitalType(bddRst.getJbxx().getRegcap_currency().equals("美元") ? 2 : 1);
+        }
         Date regDate =null;
         try {
             regDate = DateUtils.parseDate( bddRst.getJbxx().getEsdate(),"yyyy-MM-dd");
@@ -270,6 +276,11 @@ public class CompanyImportAssist {
             companyStatusChangeService.companyStatusChange(true, me.getKey(),me.getValue());
         }
 
+    }
+
+    public void clearList(){
+        insertList.clear();
+        updateList.clear();
     }
 
     public List<ImportError> getErrList() {
