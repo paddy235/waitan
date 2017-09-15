@@ -73,8 +73,10 @@ public class HologramQueryServiceImpl extends BaseServiceImpl implements Hologra
             companyDO.getRdata().forEach((SearchComanyDO.Rdata rdata) -> {
                 if (ListUtil.isNotEmpty(rdata.getBbdHistoryName())) {
                     for (String hisName : rdata.getBbdHistoryName()) {
-                        if (null != hisName && hisName.equals(company))
+                        if (null != hisName && hisName.equals(company)) {
                             rdata.setShowHisName(company);
+                            break;
+                        }
                     }
                     if (StringUtils.isEmpty(rdata.getShowHisName()))
                         rdata.setShowHisName(rdata.getBbdHistoryName().get(0));
