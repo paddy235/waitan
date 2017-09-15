@@ -29,7 +29,7 @@ public interface HologramQueryDao {
 
     BBDLogoDO bbdLogo(String company,String bbdQyxxId);
 
-    BaiDuYuQingDO newsConsensus(String company);
+    BaiDuYuQingDO newsConsensus(String company,String bbdQyxxId);
 
     BaseDataDO businessInfo(String companyName);
 

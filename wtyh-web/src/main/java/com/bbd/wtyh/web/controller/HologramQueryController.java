@@ -79,8 +79,8 @@ public class HologramQueryController {
 	 */
 	@RequestMapping("/newsConsensus")
 	@ResponseBody
-	public ResponseBean newsConsensus(@RequestParam(required = true) String company) {
-		Object result = hologramQueryService.newsConsensusList(company);
+	public ResponseBean newsConsensus(@RequestParam(required = true) String company,String bbdQyxxId) {
+		Object result = hologramQueryService.newsConsensusList(company,bbdQyxxId);
 		//数据平台舆情超时,返回null,会对前端取results的JS有影响
 		if(null==result){
 			Map map=new HashMap();

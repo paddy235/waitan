@@ -357,7 +357,7 @@ public class OfflineFinanceController {
 	public ResponseBean companyNews(String companyName) {
 		// String data = offlineFinanceService.companyNews(companyName);
 
-		Object data = hologramQueryService.newsConsensusList(companyName);
+		Object data = hologramQueryService.newsConsensusList(companyName,null);
 
 		return ResponseBean.successResponse(data);
 	}

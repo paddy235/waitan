@@ -116,7 +116,7 @@ public class HologramQueryServiceImpl extends BaseServiceImpl implements Hologra
 
     @Override
     public Map<String, Object> newsConsensus(String company) {
-        BaiDuYuQingDO baiDuYuQingDO = hologramQueryDao.newsConsensus(company);
+        BaiDuYuQingDO baiDuYuQingDO = hologramQueryDao.newsConsensus(company,null);
 
         if (StringUtils.hasText(baiDuYuQingDO.getTotal()) || "0".equals(baiDuYuQingDO.getTotal().trim())) {
             String data = dabservice.bbdQyxgYuqing("上海");
@@ -134,10 +134,10 @@ public class HologramQueryServiceImpl extends BaseServiceImpl implements Hologra
     }
 
     @Override
-    public BaiDuYuQingDO newsConsensusList(String company) {
+    public BaiDuYuQingDO newsConsensusList(String company, String bbdQyxxId) {
         List<QyxgYuqingDO> list = this.selectAll(QyxgYuqingDO.class, "search_key = ? ORDER BY pubdate DESC", company);
         if (CollectionUtils.isEmpty(list)) {
-            return hologramQueryDao.newsConsensus(company);
+            return hologramQueryDao.newsConsensus(company, bbdQyxxId);
         }
         BaiDuYuQingDO baiDuYuQingDO = new BaiDuYuQingDO();
         baiDuYuQingDO.setMsg("ok");

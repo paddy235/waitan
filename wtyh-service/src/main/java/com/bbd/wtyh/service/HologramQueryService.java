@@ -121,7 +121,7 @@ public interface HologramQueryService {
 
     RecruitPeopleSalaryDO recruitPeopleSalary(String company, String timeTag);
 
-    BaiDuYuQingDO newsConsensusList(String company);
+    BaiDuYuQingDO newsConsensusList(String company,String bbdQyxxId);
 
     CompanyDO tag(String company);
     /**

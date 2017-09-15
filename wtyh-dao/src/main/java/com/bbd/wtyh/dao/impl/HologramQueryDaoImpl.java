@@ -289,9 +289,9 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
      * @return
      */
     @Override
-    public BaiDuYuQingDO newsConsensus(String company) {
+    public BaiDuYuQingDO newsConsensus(String company, String bbdQyxxId) {
         long start = System.currentTimeMillis();
-        String api = apiDataomNewsUrl+company;
+        String api = UrlUtils.assembleUrlByNameOrId(apiDataomNewsUrl,company,bbdQyxxId);
         HttpTemplate httpTemplate = new HttpTemplate();
         BaiDuYuQingDO bdyqDO = null;
         try {

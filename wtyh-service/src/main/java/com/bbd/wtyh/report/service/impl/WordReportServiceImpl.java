@@ -895,7 +895,7 @@ public class WordReportServiceImpl implements WordReportService {
             //企业舆情信息
             List<List<String>> publicSentiment =new LinkedList<>();
             jes.runThreadFun( ()->{
-                BaiDuYuQingDO baiDuYuQingDO = hologramQueryDao.newsConsensus(companyName);
+                BaiDuYuQingDO baiDuYuQingDO = hologramQueryDao.newsConsensus(companyName,null);
                 if (baiDuYuQingDO != null) {
                     List<BaiDuYuQingDO.Results> rstList = baiDuYuQingDO.getResults();
                     if (rstList != null) {
