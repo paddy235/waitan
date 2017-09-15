@@ -1,6 +1,7 @@
 package com.bbd.wtyh.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.bbd.higgs.utils.ListUtil;
 import com.bbd.wtyh.core.base.BaseServiceImpl;
 import com.bbd.wtyh.dao.HologramQueryDao;
 import com.bbd.wtyh.domain.CompanyDO;
@@ -17,6 +18,7 @@ import com.bbd.wtyh.service.DataomApiBbdservice;
 import com.bbd.wtyh.service.HologramQueryService;
 import com.bbd.wtyh.util.DateUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
+import org.apache.poi.util.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,7 +68,20 @@ public class HologramQueryServiceImpl extends BaseServiceImpl implements Hologra
 
     @Override
     public SearchComanyDO search(String company, int page_no, int page_size) {
-        return hologramQueryDao.search(company, page_no - 1, page_size); // page_no减1是因为数据平台首页从0开始
+        SearchComanyDO companyDO = hologramQueryDao.search(company, page_no - 1, page_size); // page_no减1是因为数据平台首页从0开始
+        if (null != companyDO && ListUtil.isNotEmpty(companyDO.getRdata())) {
+            companyDO.getRdata().forEach((SearchComanyDO.Rdata rdata) -> {
+                if (ListUtil.isNotEmpty(rdata.getBbdHistoryName())) {
+                    for (String hisName : rdata.getBbdHistoryName()) {
+                        if (null != hisName && hisName.equals(company))
+                            rdata.setShowHisName(company);
+                    }
+                    if (StringUtils.isEmpty(rdata.getShowHisName()))
+                        rdata.setShowHisName(rdata.getBbdHistoryName().get(0));
+                }
+            });
+        }
+        return companyDO;
     }
 
     @Override
