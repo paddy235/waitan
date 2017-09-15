@@ -1,5 +1,7 @@
 package com.bbd.wtyh.domain.bbdAPI;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -23,6 +25,17 @@ public class SearchComanyDO {
         private String esdate;
         // 注册地址
         private String address;
+        // BBD内置ID
+        @JSONField(name = "bbd_qyxx_id")
+        private String bbdQyxxId;
+
+        public String getBbdQyxxId() {
+            return bbdQyxxId;
+        }
+
+        public void setBbdQyxxId(String bbdQyxxId) {
+            this.bbdQyxxId = bbdQyxxId;
+        }
 
         public String getEsdate() {
             return esdate;
