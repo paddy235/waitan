@@ -22,6 +22,7 @@ import com.bbd.wtyh.mapper.*;
 import com.bbd.wtyh.service.*;
 import net.sf.cglib.beans.BeanCopier;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.util.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -435,16 +436,20 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService,TaskServ
         }
     }
 
+    private static final String LISTED_COMPANY_MARK = "上市公司";
+
     @Override
-    public Map companyInfo(String companyName) {
+    public Map companyInfo(String companyName, String bbdQyxxId) {
         List<Map<Integer, Object>> list = companyMapper.companyInfo(companyName);
 
         Map<String, Object> result = new HashMap<>();
 
         List backgroud = new ArrayList();
+        BaseDataDO baseDataDO = p2PImageDao.baseInfoBBDData(companyName, bbdQyxxId);
+        if (null != baseDataDO && ListUtil.isNotEmpty(baseDataDO.getResults()) && null != baseDataDO.getResults().get(0) && null != baseDataDO.getResults().get(0).getJbxx())
+            result.put("status", baseDataDO.getResults().get(0).getJbxx().getCompany_enterprise_status());
         if (!CollectionUtils.isEmpty(list)) {
-            result.put("status", list.get(0).get("status"));
-
+            // result.put("status", list.get(0).get("status"));
             result.put("comTypeCN", "");
 
             Object objType = list.get(0).get("companyType");
@@ -606,11 +611,12 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService,TaskServ
                 if (map.get("name") != null) {
                     continue;
                 }
-                if (back == 1) {
-                    backgroudString = "上市公司";
-                } else if (back == 2) {
-                    backgroudString = "非上市公司";
-                } else if (back == 3) {
+//                if (back == 1) {
+//                    backgroudString = "上市公司";
+//                } else if (back == 2) {
+//                    backgroudString = "非上市公司";
+//                } else
+                if (back == 3) {
                     backgroudString = "国企";
                 } else if (back == 4) {
                     backgroudString = "民营企业";
@@ -619,10 +625,17 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService,TaskServ
                 } else {
                     // do nothing
                 }
-                backgroud.add(backgroudString);
+                if (StringUtils.isNotEmpty(backgroudString))
+                    backgroud.add(backgroudString);
             }
         }
-
+        if (null != baseDataDO && ListUtil.isNotEmpty(baseDataDO.getResults()) && null != baseDataDO.getResults().get(0) && null != baseDataDO.getResults().get(0).getJbxx()) {
+            String bg = baseDataDO.getResults().get(0).getJbxx().getIpo_company();
+            if (LISTED_COMPANY_MARK.equals(bg))
+                backgroud.add("上市公司");
+            else
+                backgroud.add("非上市公司");
+        }
         result.put("companyName", companyName);
         result.put("backgroud", backgroud);
         return result;
@@ -637,7 +650,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService,TaskServ
             return diagramVO;
         }
         RelationDiagramVO relationDiagramVO = new RelationDiagramVO();
-        BaseDataDO baseDataDO = p2PImageDao.baseInfoBBDData(companyName);
+        BaseDataDO baseDataDO = p2PImageDao.baseInfoBBDData(companyName, null);
         List<BaseDataDO.Results> resultsList = (null == baseDataDO) ? null : baseDataDO.getResults();
         String unikey = "";
         if (!CollectionUtils.isEmpty(resultsList)) {
@@ -671,7 +684,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService,TaskServ
     public RelationDiagramVO downloadRealRealation(String companyName, Integer degree) {
 
         RelationDiagramVO relationDiagramVO = new RelationDiagramVO();
-        BaseDataDO baseDataDO = p2PImageDao.baseInfoBBDData(companyName);
+        BaseDataDO baseDataDO = p2PImageDao.baseInfoBBDData(companyName, null);
         List<BaseDataDO.Results> resultsList = (null == baseDataDO) ? null : baseDataDO.getResults();
         String unikey = "";
         if (!CollectionUtils.isEmpty(resultsList)) {

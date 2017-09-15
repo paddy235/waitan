@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.bbd.higgs.utils.StringUtils;
 import com.bbd.wtyh.domain.wangDaiAPI.*;
 import com.bbd.wtyh.mapper.PlatRankDataMapper;
 import com.bbd.wtyh.mapper.PlatformMapper;
@@ -222,13 +223,17 @@ public class P2PImageDaoImpl implements P2PImageDao {
      * 基本信息--BBD数据平台接口
      */
     @Override
-    public BaseDataDO baseInfoBBDData(String companyName) {
-        final String redisKey = REDIS_KEY_BASE_INFO_BBD_DATA + "_" + companyName;
+    public BaseDataDO baseInfoBBDData(String companyName, String bbdQyxxId) {
+        final String redisKey = REDIS_KEY_BASE_INFO_BBD_DATA + "_" + (StringUtils.isNullOrEmpty(bbdQyxxId) ? companyName : bbdQyxxId);
         BaseDataDO baseDataDO = (BaseDataDO) redisDAO.getObject(redisKey);
         if (baseDataDO != null) {
             return baseDataDO;
         } else {
-            String baseURL = bbdQyxxURL + "?internal=true&company=" + companyName + "&appkey=" + bbdQyxxAK;
+            String baseURL = bbdQyxxURL;
+            if (StringUtils.isNullOrEmpty(bbdQyxxId))
+                baseURL += "?internal=true&company=" + companyName + "&appkey=" + bbdQyxxAK;
+            else
+                baseURL += "?internal=true&qyxx_id=" + bbdQyxxId + "&appkey=" + bbdQyxxAK;
             HttpTemplate httpTemplate = new HttpTemplate();
             try {
                 return httpTemplate.get(baseURL, new HttpCallback<BaseDataDO>() {

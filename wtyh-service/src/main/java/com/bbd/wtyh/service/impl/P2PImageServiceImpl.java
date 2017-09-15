@@ -243,7 +243,7 @@ public class P2PImageServiceImpl extends BaseServiceImpl implements P2PImageServ
         Map<String, Object> map = dataLoadingMapper.wangdaiBaseInfo(companyName);
         // 本地无数据，则取接口
         if (map == null || map.isEmpty()) {
-            BaseDataDO baseDataDO = p2PImageDao.baseInfoBBDData(companyName);
+            BaseDataDO baseDataDO = p2PImageDao.baseInfoBBDData(companyName, null);
             if (null == baseDataDO) {
                 return null;
             }
