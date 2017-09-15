@@ -292,4 +292,8 @@
             </foreach>
     </delete>
 
+    <select id="queryBuildingByName" parameterType="java.lang.String" resultType="com.bbd.wtyh.domain.BuildingDO">
+        SELECT building_id AS buildingId, `name` AS  `name`, img_url AS imgUrl FROM building WHERE `name`=#{buildingName}
+    </select>
+
 </mapper>
