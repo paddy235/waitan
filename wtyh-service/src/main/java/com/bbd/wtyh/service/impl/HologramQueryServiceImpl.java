@@ -98,8 +98,8 @@ public class HologramQueryServiceImpl extends BaseServiceImpl implements Hologra
     }
 
     @Override
-    public Map<String, Object> outlineMsg(String company) {
-        BaseDataDO baseDataDO = hologramQueryDao.outlineMsg(company);
+    public Map<String, Object> outlineMsg(String company,String bbdQyxxId) {
+        BaseDataDO baseDataDO = hologramQueryDao.outlineMsg(company,bbdQyxxId);
         Map<String, Object> data = new HashMap<>();
         for (BaseDataDO.Results result : baseDataDO.getResults()) {
             data.put("公司名称", result.getJbxx().getCompany_name());
@@ -107,7 +107,7 @@ public class HologramQueryServiceImpl extends BaseServiceImpl implements Hologra
             data.put("注册资本", result.getJbxx().getRegcap());
             data.put("注册地址", result.getJbxx().getAddress());
         }
-        BBDLogoDO bbdLogoDO = hologramQueryDao.bbdLogo(company);
+        BBDLogoDO bbdLogoDO = hologramQueryDao.bbdLogo(company,bbdQyxxId);
         for (BBDLogoDO.Result result : bbdLogoDO.getResults()) {
             data.put("公司logo", result.getCompany_logo());
         }

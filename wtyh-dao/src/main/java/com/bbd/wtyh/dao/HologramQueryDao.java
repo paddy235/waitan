@@ -25,9 +25,9 @@ public interface HologramQueryDao {
      */
     public CompanySearch2DO companySearch2(String query, Map<String, String>parameters);
 
-    BaseDataDO outlineMsg(String platName);
+    BaseDataDO outlineMsg(String platName,String bbdQyxxId);
 
-    BBDLogoDO bbdLogo(String company);
+    BBDLogoDO bbdLogo(String company,String bbdQyxxId);
 
     BaiDuYuQingDO newsConsensus(String company);
 

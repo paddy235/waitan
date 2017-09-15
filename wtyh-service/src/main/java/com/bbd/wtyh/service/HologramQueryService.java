@@ -32,7 +32,7 @@ public interface HologramQueryService {
      *
      * @return
      */
-    Map<String, Object> outlineMsg(String companyName);
+    Map<String, Object> outlineMsg(String companyName,String bbdQyxxId);
 
     /**
      * 新闻舆情

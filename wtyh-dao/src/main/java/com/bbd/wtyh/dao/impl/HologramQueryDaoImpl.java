@@ -8,8 +8,10 @@ import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.RecruitDO;
 import com.bbd.wtyh.domain.bbdAPI.*;
 import com.bbd.wtyh.redis.RedisDAO;
+import com.bbd.wtyh.util.UrlUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
@@ -231,8 +233,10 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
      * @return
      */
     @Override
-    public BaseDataDO outlineMsg(String companyName) {
-        String coreDataDealURL = bbdQyxxURL + "?internal=true&company=" + companyName + "&appkey=" + bbdQyxxAK;
+    public BaseDataDO outlineMsg(String companyName,String bbdQyxxId) {
+        String coreDataDealURL = bbdQyxxURL + "?internal=true&appkey=" + bbdQyxxAK;
+        coreDataDealURL=UrlUtils.assembleUrlByNameOrId(coreDataDealURL,companyName,bbdQyxxId);
+
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
             return httpTemplate.get(coreDataDealURL, new HttpCallback<BaseDataDO>() {
@@ -256,8 +260,9 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
     /**
      * 企业logo信息
      */
-    public BBDLogoDO bbdLogo(String company) {
-        String coreDataDealURL = bbdLogoURL + "?company=" + company + "&appkey=" + bbdLogoAK;
+    public BBDLogoDO bbdLogo(String company,String bbdQyxxId) {
+        String coreDataDealURL = bbdLogoURL + "?&appkey=" + bbdLogoAK;
+        coreDataDealURL=UrlUtils.assembleUrlByNameOrId(coreDataDealURL,company,bbdQyxxId);
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
             return httpTemplate.get(coreDataDealURL, new HttpCallback<BBDLogoDO>() {
