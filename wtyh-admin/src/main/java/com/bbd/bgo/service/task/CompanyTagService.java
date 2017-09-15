@@ -6,6 +6,13 @@ package com.bbd.bgo.service.task;
 public interface CompanyTagService {
 
     /**
+     * 对外提供的调用接口
+     *
+     * @throws Exception
+     */
+    void addTagAndCompany();
+
+    /**
      * 保存企业tag
      *
      * @throws Exception

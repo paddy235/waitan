@@ -118,33 +118,17 @@ public class TagUpdateServiceImpl implements TagUpdateService {
                 logger.warn("",e);
             }
 
-            //更新company_tag表
-            try{
-                logger.info("begin insert company_tag ");
-                companyTagService.saveCompanyTag();
-                logger.info("end  insert company_tag ");
-            }catch (Exception e){
-                logger.error("insert company_tag error : ",e );
-            }
-
-            //新增TAG企业
-            try{
-                logger.info("begin add company from qyxx_tag ");
-                companyTagService.addCompanyFromQyxxTag();
-                logger.info("end  add company from qyxx_tag ");
-            }catch (Exception e){
-                logger.error("add company from qyxx_tag error : ",e );
-            }
-
-            //修改企业类型
-            try{
-                logger.info("begin update company type from qyxx_tag ");
-                companyTagService.updateCompanyTypeFromQyxxTag();
-                logger.info("end  update company type from qyxx_tag ");
-            }catch (Exception e){
-                logger.error("update company type from qyxx_tag error : ",e );
-            }
         }
+
+        //更新company_tag表  新增TAG企业  修改企业类型
+        try{
+            logger.info("begin  addTagAndCompany ");
+            companyTagService.addTagAndCompany();
+            logger.info("end  addTagAndCompany ");
+        }catch (Exception e){
+            logger.error("addTagAndCompany error : ",e );
+        }
+
     }
 
 
