@@ -384,8 +384,8 @@ public class OfflineFinanceController {
 	@SuppressWarnings("companyInfo")
 	@RequestMapping("companyInfo.do")
 	@ResponseBody
-	public ResponseBean companyInfo(String companyName) {
-		Map data = offlineFinanceService.companyInfo(companyName);
+	public ResponseBean companyInfo(String companyName, String bbdQyxxId) {
+		Map data = offlineFinanceService.companyInfo(companyName, bbdQyxxId);
 		return ResponseBean.successResponse(data);
 	}
 

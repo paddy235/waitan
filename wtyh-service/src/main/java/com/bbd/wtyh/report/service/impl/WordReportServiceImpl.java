@@ -78,7 +78,7 @@ public class WordReportServiceImpl implements WordReportService {
         String analysisResultName;
         List backgroud;
         WordReportBuilder.ReportType emReportType;
-        Map companyInfo =offlineFinanceService.companyInfo(companyName);
+        Map companyInfo =offlineFinanceService.companyInfo(companyName, null);
         if( companyInfo != null && companyInfo.size() >0 ) {
             reportTypeName = (String)companyInfo.get("comTypeCN");
             if(StringUtils.isNotBlank( reportTypeName ) ) {

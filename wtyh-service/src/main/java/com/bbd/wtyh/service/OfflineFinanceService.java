@@ -77,7 +77,7 @@ public interface OfflineFinanceService {
     //获取最新的关联方图谱图片
     public byte[] createNewestYEDtoStream(String companyName);
 
-    Map companyInfo(String companyName);
+    Map companyInfo(String companyName, String bbdQyxxId);
 
     public TaskResultDO updateCompanyRiskLevel(Integer taskId) throws Exception;
 

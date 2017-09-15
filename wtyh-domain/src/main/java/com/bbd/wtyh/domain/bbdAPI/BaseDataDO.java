@@ -1,5 +1,7 @@
 package com.bbd.wtyh.domain.bbdAPI;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 import java.io.Serializable;
 import java.util.*;
 
@@ -300,6 +302,15 @@ public class BaseDataDO implements Serializable{
         private String company_province;
         private String company_county;
         private String ipo_company;
+        private String company_enterprise_status;
+
+        public String getCompany_enterprise_status() {
+            return company_enterprise_status;
+        }
+
+        public void setCompany_enterprise_status(String company_enterprise_status) {
+            this.company_enterprise_status = company_enterprise_status;
+        }
 
         public Jbxx() {
         }
