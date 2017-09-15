@@ -445,12 +445,11 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService,TaskServ
         Map<String, Object> result = new HashMap<>();
 
         List backgroud = new ArrayList();
+        BaseDataDO baseDataDO = p2PImageDao.baseInfoBBDData(companyName, bbdQyxxId);
+        if (null != baseDataDO && ListUtil.isNotEmpty(baseDataDO.getResults()) && null != baseDataDO.getResults().get(0) && null != baseDataDO.getResults().get(0).getJbxx())
+            result.put("status", baseDataDO.getResults().get(0).getJbxx().getCompany_enterprise_status());
         if (!CollectionUtils.isEmpty(list)) {
-            BaseDataDO baseDataDO = p2PImageDao.baseInfoBBDData(companyName, bbdQyxxId);
             // result.put("status", list.get(0).get("status"));
-            if (null != baseDataDO && ListUtil.isNotEmpty(baseDataDO.getResults()) && null != baseDataDO.getResults().get(0) && null != baseDataDO.getResults().get(0).getJbxx())
-                result.put("status", baseDataDO.getResults().get(0).getJbxx().getCompany_enterprise_status());
-
             result.put("comTypeCN", "");
 
             Object objType = list.get(0).get("companyType");
@@ -629,15 +628,14 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService,TaskServ
                 if (StringUtils.isNotEmpty(backgroudString))
                     backgroud.add(backgroudString);
             }
-            if (null != baseDataDO && ListUtil.isNotEmpty(baseDataDO.getResults()) && null != baseDataDO.getResults().get(0) && null != baseDataDO.getResults().get(0).getJbxx()) {
-                String bg = baseDataDO.getResults().get(0).getJbxx().getIpo_company();
-                if (LISTED_COMPANY_MARK.equals(bg))
-                    backgroud.add("上市公司");
-                else
-                    backgroud.add("非上市公司");
-            }
         }
-
+        if (null != baseDataDO && ListUtil.isNotEmpty(baseDataDO.getResults()) && null != baseDataDO.getResults().get(0) && null != baseDataDO.getResults().get(0).getJbxx()) {
+            String bg = baseDataDO.getResults().get(0).getJbxx().getIpo_company();
+            if (LISTED_COMPANY_MARK.equals(bg))
+                backgroud.add("上市公司");
+            else
+                backgroud.add("非上市公司");
+        }
         result.put("companyName", companyName);
         result.put("backgroud", backgroud);
         return result;
