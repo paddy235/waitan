@@ -54,6 +54,9 @@ public class CompanyInfoQueryUtil {
 
         // 3. 返回数据
         CompanyInfo companyInfo = companyInfoModifyMapper.queryCompany(name);
+        if(null==companyInfo){
+            return null;
+        }
         companyInfo.setIndustry(CompanyInfo.TYPE_P2P_1); // 行业
         if (platFormStatus != null) {
             companyInfo.setPlatName(obj2String(platFormStatus.get("platname"))); // 平台名称

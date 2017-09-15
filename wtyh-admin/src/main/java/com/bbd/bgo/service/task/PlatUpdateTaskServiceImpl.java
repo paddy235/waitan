@@ -192,8 +192,8 @@ public class PlatUpdateTaskServiceImpl extends BaseServiceImpl implements PlatUp
 
 	public void modify(ModifyData modifyData,Byte industryBefore){
 		try {
-			if (CompanyInfo.TYPE_P2P_1 == industryBefore) { // 网络借贷转网络借贷
-				companyInfoMudifyUtil.modifyWangdai(modifyData);
+			if (null == industryBefore || CompanyInfo.TYPE_P2P_1 == industryBefore) { // 网络借贷转网络借贷
+				companyInfoMudifyUtil.modifyWangdaiForTask(modifyData);
 			} else { // 其它转网络借贷
 				companyInfoMudifyUtil.modifyTimingTask(modifyData);
 			}
