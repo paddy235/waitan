@@ -82,4 +82,6 @@ public interface ParkAndBuildingMgtMapper {
 
     void delImgByStatus(@Param("statusList") List<String> statusList);
 
+    BuildingDO queryBuildingByName(String buildingName);
+
 }

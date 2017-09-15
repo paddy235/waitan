@@ -6,6 +6,8 @@ import com.bbd.wtyh.service.PABRelationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
+
 /**
  * Created by Barney on 2017/8/29.
  */
@@ -30,4 +32,8 @@ public class PABRelationServiceImpl implements PABRelationService {
         pabRelationMapper.delPABRelationByBuildingId(buildingId);
     }
 
+    @Override
+    public int queryPABRelation(Map<String, Object> params) {
+        return pabRelationMapper.queryPABRelation(params);
+    }
 }
