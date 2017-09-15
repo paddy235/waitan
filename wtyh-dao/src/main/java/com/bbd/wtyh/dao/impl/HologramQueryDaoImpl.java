@@ -327,8 +327,9 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
      * @return
      */
     @Override
-    public BaseDataDO businessInfo(String companyName) {
-        String coreDataDealURL = bbdQyxxURL + "?internal=true&company=" + companyName + "&appkey=" + bbdQyxxAK;
+    public BaseDataDO businessInfo(String companyName,String bbdQyxxId) {
+        String coreDataDealURL = bbdQyxxURL + "?internal=true&appkey=" + bbdQyxxAK;
+        coreDataDealURL=UrlUtils.assembleUrlByNameOrId(coreDataDealURL,companyName,bbdQyxxId);
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
             return httpTemplate.get(coreDataDealURL, new HttpCallback<BaseDataDO>() {
@@ -352,8 +353,9 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
     /**
      * 基本信息--组织机构代码api
      */
-    public ZuZhiJiGoudmDO baseInfoZuZhiJiGou(String companyName) {
-        String URL = zuZhiJiGouURL + "?company=" + companyName + "&appkey=" + zuZhiJiGouAK;
+    public ZuZhiJiGoudmDO baseInfoZuZhiJiGou(String companyName,String bbdQyxxId) {
+        String URL = zuZhiJiGouURL + "?appkey=" + zuZhiJiGouAK;
+        URL=UrlUtils.assembleUrlByNameOrId(URL,companyName,bbdQyxxId);
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
             return httpTemplate.get(URL, new HttpCallback<ZuZhiJiGoudmDO>() {

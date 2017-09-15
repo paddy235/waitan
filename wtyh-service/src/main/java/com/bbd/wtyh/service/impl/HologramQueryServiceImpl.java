@@ -89,7 +89,7 @@ public class HologramQueryServiceImpl extends BaseServiceImpl implements Hologra
     @Override
     public Map<String, Object> guidance(String company) {
         Map<String, Object> data = new HashMap<>();
-        BaseDataDO baseDataDO = hologramQueryDao.businessInfo(company);
+        BaseDataDO baseDataDO = hologramQueryDao.businessInfo(company,null);
         for (BaseDataDO.Results result : baseDataDO.getResults()) {
             data.put("企业名称", result.getJbxx().getCompany_name());
             data.put("登记状态", result.getJbxx().getEnterprise_status());
@@ -168,10 +168,10 @@ public class HologramQueryServiceImpl extends BaseServiceImpl implements Hologra
     }
 
     @Override
-    public Map<String, Object> businessInfo(String companyName) {
-        BaseDataDO baseDataDO = hologramQueryDao.businessInfo(companyName);
+    public Map<String, Object> businessInfo(String companyName,String bbdQyxxId) {
+        BaseDataDO baseDataDO = hologramQueryDao.businessInfo(companyName,bbdQyxxId);
         Map<String, Object> data = new HashMap<>();
-        ZuZhiJiGoudmDO zuZhiJiGoudmDO = hologramQueryDao.baseInfoZuZhiJiGou(companyName);
+        ZuZhiJiGoudmDO zuZhiJiGoudmDO = hologramQueryDao.baseInfoZuZhiJiGou(companyName,bbdQyxxId);
         if (zuZhiJiGoudmDO != null) {
             for (ZuZhiJiGoudmDO.Result result : zuZhiJiGoudmDO.getResults()) {
                 data.put("组织机构代码", result.getJgdm());

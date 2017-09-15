@@ -451,7 +451,7 @@ public class WordReportServiceImpl implements WordReportService {
 
             //企业基本信息
             jes.runThreadFun( ()-> {
-                Map<String, Object> biTb = hologramQueryService.businessInfo(companyName);
+                Map<String, Object> biTb = hologramQueryService.businessInfo(companyName,null);
                 if (biTb != null && biTb.size() > 2) {
                     String regNo = (String) biTb.get("工商注册号");
                     regNo = regNo != null ? regNo : "";

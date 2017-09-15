@@ -31,9 +31,9 @@ public interface HologramQueryDao {
 
     BaiDuYuQingDO newsConsensus(String company,String bbdQyxxId);
 
-    BaseDataDO businessInfo(String companyName);
+    BaseDataDO businessInfo(String companyName,String bbdQyxxId);
 
-    ZuZhiJiGoudmDO baseInfoZuZhiJiGou(String companyName);
+    ZuZhiJiGoudmDO baseInfoZuZhiJiGou(String companyName,String bbdQyxxId);
 
     BaseDataDO shareholdersSenior(String companyName);
 

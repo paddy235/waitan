@@ -47,7 +47,7 @@ public interface HologramQueryService {
      *
      * @return
      */
-    Map<String, Object> businessInfo(String companyName);
+    Map<String, Object> businessInfo(String companyName,String bbdQyxxId);
 
     /**
      * 企业信息详情-股东高管
