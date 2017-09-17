@@ -109,10 +109,10 @@ public class HologramQueryController {
 	 */
 	@RequestMapping("/shareholdersSenior")
 	@ResponseBody
-	public ResponseBean shareholdersSenior(@RequestParam(required = true) String company) {
+	public ResponseBean shareholdersSenior(@RequestParam(required = true) String company,String bbdQyxxId) {
 		Map<String,List> result=new HashMap();
 		Map<String,Set<String>> resultKey=new HashMap();
-		Map<String, List> shareholderSenior = hologramQueryService.shareholdersSenior(company);
+		Map<String, List> shareholderSenior = hologramQueryService.shareholdersSenior(company,bbdQyxxId);
 		List<Map> rList = (List)(shareholderSenior.get("gdxx"));
 		if(rList!=null) {
 			for (Map map : rList) {
@@ -361,7 +361,7 @@ public class HologramQueryController {
 		Map<String, Integer> result = new HashMap<>();
 		//股东高管
 		Set set=new HashSet();
-		Map<String, List> shareholderSenior = hologramQueryService.shareholdersSenior(company);
+		Map<String, List> shareholderSenior = hologramQueryService.shareholdersSenior(company,bbdQyxxId);
 		List<Map> rList = (List)(shareholderSenior.get("gdxx"));
 		if(rList!=null){
 			for(Map map:rList){
@@ -427,11 +427,11 @@ public class HologramQueryController {
 	 */
 	@RequestMapping("/countShareholder.do")
 	@ResponseBody
-	public ResponseBean countShareholder(@RequestParam String company) throws Exception {
+	public ResponseBean countShareholder(@RequestParam String company,String bbdQyxxId) throws Exception {
 		Map<String, Integer> result = new HashMap<>();
 		//股东高管
 		Set set=new HashSet();
-		Map<String, List> shareholderSenior = hologramQueryService.shareholdersSenior(company);
+		Map<String, List> shareholderSenior = hologramQueryService.shareholdersSenior(company,bbdQyxxId);
 		List<Map> rList = (List)(shareholderSenior.get("gdxx"));
 		if(rList!=null) {
 			for (Map map : rList) {

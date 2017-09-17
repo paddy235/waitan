@@ -382,8 +382,9 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
      * @return
      */
     @Override
-    public BaseDataDO shareholdersSenior(String companyName) {
-        String coreDataDealURL = bbdQyxxURL + "?internal=true&company=" + companyName + "&appkey=" + bbdQyxxAK;
+    public BaseDataDO shareholdersSenior(String companyName,String bbdQyxxId) {
+        String coreDataDealURL = bbdQyxxURL + "?internal=true&appkey=" + bbdQyxxAK;
+        coreDataDealURL=UrlUtils.assembleUrlByNameOrId(coreDataDealURL,companyName,bbdQyxxId);
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
             return httpTemplate.get(coreDataDealURL, new HttpCallback<BaseDataDO>() {

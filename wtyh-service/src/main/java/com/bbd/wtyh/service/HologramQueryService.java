@@ -54,7 +54,7 @@ public interface HologramQueryService {
      *
      * @return
      */
-    Map<String, List> shareholdersSenior(String companyName);
+    Map<String, List> shareholdersSenior(String companyName,String bbdQyxxId);
 
     /**
      * 企业信息详情-诉讼记录

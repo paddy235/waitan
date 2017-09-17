@@ -35,7 +35,7 @@ public interface HologramQueryDao {
 
     ZuZhiJiGoudmDO baseInfoZuZhiJiGou(String companyName,String bbdQyxxId);
 
-    BaseDataDO shareholdersSenior(String companyName);
+    BaseDataDO shareholdersSenior(String companyName,String bbdQyxxId);
 
     /**
      * 数据平台企业信息接口

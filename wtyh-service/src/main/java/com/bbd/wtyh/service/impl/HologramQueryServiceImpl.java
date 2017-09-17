@@ -203,8 +203,8 @@ public class HologramQueryServiceImpl extends BaseServiceImpl implements Hologra
     }
 
     @Override
-    public Map<String, List> shareholdersSenior(String companyName) {
-        BaseDataDO baseDataDo = hologramQueryDao.shareholdersSenior(companyName);
+    public Map<String, List> shareholdersSenior(String companyName,String bbdQyxxId) {
+        BaseDataDO baseDataDo = hologramQueryDao.shareholdersSenior(companyName,bbdQyxxId);
         Map<String, List> content = new HashMap<>();
         for (BaseDataDO.Results result : baseDataDo.getResults()) {
             List<Map> list1 = new ArrayList<>();
