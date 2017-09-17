@@ -19,4 +19,17 @@ public class UrlUtils {
         sb.append(condition);
         return sb.toString();
     }
+
+    public static String assembleUrlByNameOrIdForZhaoPin(String url,String name,String id){
+        StringBuffer sb=new StringBuffer();
+        String condition;
+        if(!StringUtils.isEmpty(id)){
+            condition="&key=id&value="+id;
+        }else{
+            condition="&key=name&value="+name;
+        }
+        sb.append(url);
+        sb.append(condition);
+        return sb.toString();
+    }
 }

@@ -711,7 +711,7 @@ public class WordReportServiceImpl implements WordReportService {
                     }
                 } );
                 recruitExe.runThreadFun( ()-> {
-                    RecruitPeopleDistributeDO rpdDo = hologramQueryService.recruitPeopleDistribute(companyName, null);
+                    RecruitPeopleDistributeDO rpdDo = hologramQueryService.recruitPeopleDistribute(companyName,null, null);
                     if (rpdDo != null) {
                         List<RecruitPeopleDistributeDO.Rdata> rDataList = rpdDo.getRdata();
                         if (rDataList != null) {
@@ -721,7 +721,7 @@ public class WordReportServiceImpl implements WordReportService {
                         }
                     }
                 } );
-                RecruitPeopleSalaryDO rpsDo = hologramQueryService.recruitPeopleSalary(companyName, null);
+                RecruitPeopleSalaryDO rpsDo = hologramQueryService.recruitPeopleSalary(companyName,null, null);
                 if (rpsDo != null) {
                     List<RecruitPeopleSalaryDO.Rdata> rDataList = rpsDo.getRdata();
                     if (rDataList != null) {

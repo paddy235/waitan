@@ -60,7 +60,7 @@ public interface HologramQueryDao {
 
     RecruitPeopleSalaryDO recruitPeopleSalary(String company);
 
-    RecruitDataDO getRecruitData(String company, String timeTag);
+    RecruitDataDO getRecruitData(String company,String bbdQyxxId, String timeTag);
 
     PatentDO getPatentData(String company,String bbdQyxxId, Integer page, Integer pageSize);
 
