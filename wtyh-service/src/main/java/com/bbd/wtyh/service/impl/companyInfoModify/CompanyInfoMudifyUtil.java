@@ -179,53 +179,22 @@ public class CompanyInfoMudifyUtil {
     }
 
 
-    /**
-     * 网络借贷 for 定时任务-网贷平台与企业对照更新
-     *
-     * @param modifyData
-     */
-    public void modifyWangdaiForTask(ModifyData modifyData) throws Exception {
-        CompanyInfo wangdai = companyInfoQueryUtil.getWangdaiInfo(modifyData.getName());
-        if(null==wangdai){
-            return;
-        }
-        WangdaiModify wangdaiModify = new WangdaiModify();
-        wangdaiModify.setName(modifyData.getName());
-        wangdaiModify.setPlatName(wangdai.getPlatName());
-        wangdaiModify.setBeforeLevel(wangdai.getOriginalStatus());
-        wangdaiModify.setAfterLevel(modifyData.getLevel());
-        wangdaiModify.setBeforeIndustry(CompanyInfo.TYPE_P2P_1);
-        wangdaiModify.setAfterIndustry(Byte.valueOf(modifyData.getIndustry()));
-        // 记录行为
-        p2PImageService.recordWangdai(wangdaiModify);
-        // 修改行业
-        RecordInfo recordInfo = new RecordInfo();
-        recordInfo.setName(modifyData.getName());
-        recordInfo.setPlatName(wangdai.getPlatName());
-        recordInfo.setBeforeLevel(wangdai.getOriginalStatus());
-        recordInfo.setAfterLevel(null);// 从网贷转网贷，riskLevel无须修改(本身即应为空)
-        recordInfo.setBeforeIndustry(CompanyInfo.TYPE_P2P_1);
-        recordInfo.setAfterIndustry(Byte.valueOf(modifyData.getIndustry()));
-        modifyIndustry(recordInfo);
-        // 清空风险等级
-        //riskCompanyService.modifyLevel(recordInfo.getName(), recordInfo.getAfterLevel());
-
-    }
 
     /**
      * 留给定时任务-企业与网贷平台对照表更新 and 众筹数更新-更新企业类型专用
      *
      * @param modifyData
      */
-    public void modifyTimingTask(ModifyData modifyData) throws Exception {
+    public void modifyForWangDaiAndCrowd(ModifyData modifyData) throws Exception {
         CompanyInfo companyInfo = companyInfoModifyMapper.queryCompany(modifyData.getName());
         if(null==companyInfo){
             return;
         }
         RecordInfo recordInfo = recordModify(modifyData, companyInfo);
         // 修改风险等级
-        // 因修改后皆为网贷，故不做风险等级修改--暂时还是清空风险等级--不能情况，否则网贷类型在company表中的风险等级都没有了
-        //riskCompanyService.modifyLevel(recordInfo.getName(), recordInfo.getAfterLevel());
+        // 因修改后皆为网贷，故不做风险等级修改--暂时还是清空风险等级
+        // 其他行业转网贷，需要清空原来的风险等级；其他行业转众筹，因为众筹本身没有风险等级，也需要清空
+        riskCompanyService.modifyLevel(recordInfo.getName(), recordInfo.getAfterLevel());
         // 修改行业
         modifyIndustry(recordInfo);
     }

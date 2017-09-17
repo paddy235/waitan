@@ -16,4 +16,6 @@ public interface CompanyInfoModifyService {
     void modify(ModifyData name) throws Exception;
 
     Boolean isModify(String name);
+
+    Boolean isModifyByAfterRisk(String name);
 }

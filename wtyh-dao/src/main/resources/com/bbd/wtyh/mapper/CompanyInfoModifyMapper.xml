@@ -34,6 +34,16 @@
           `name` = #{name}
     </select>
 
+    <select id="queryModifyCompanyByAfterRisk" resultType="string">
+        SELECT
+        `name` AS `name`
+        FROM
+        company_modify
+        WHERE
+        `name` = #{name}
+        AND afterLevel is not null and beforeLevel!='null' and afterLevel!='null'
+    </select>
+
     <insert id="recordModify">
         INSERT INTO
             `company_modify` (`name`, `platName`,
