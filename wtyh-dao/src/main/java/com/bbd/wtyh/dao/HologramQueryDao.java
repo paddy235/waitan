@@ -44,15 +44,15 @@ public interface HologramQueryDao {
      */
     public BaseDataDO companyQyxxDataApi(String companyName);
 
-    OpenCourtAnnouncementDO openCourtAnnouncement(String company, Integer page, Integer pageSize);
+    OpenCourtAnnouncementDO openCourtAnnouncement(String company,String bbdQyxxId, Integer page, Integer pageSize);
 
-    JudgeDocDO judgeDoc(String company, Integer page, Integer pageSize);
+    JudgeDocDO judgeDoc(String company,String bbdQyxxId, Integer page, Integer pageSize);
 
-    DebtorDO debtor(String company, Integer page, Integer pageSize);
+    DebtorDO debtor(String company,String bbdQyxxId, Integer page, Integer pageSize);
 
-    NoCreditDebtorDO noCreditDebtor(String company, Integer page, Integer pageSize);
+    NoCreditDebtorDO noCreditDebtor(String company,String bbdQyxxId, Integer page, Integer pageSize);
 
-    CourtAnnouncementDO courtAnnouncement(String company, Integer page, Integer pageSize);
+    CourtAnnouncementDO courtAnnouncement(String company,String bbdQyxxId, Integer page, Integer pageSize);
 
     RecruitPeopleNumberDO recruitPeopleNumber(String company);
 

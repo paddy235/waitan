@@ -228,8 +228,8 @@ public class HologramQueryServiceImpl extends BaseServiceImpl implements Hologra
     }
 
     @Override
-    public List<OpenCourtAnnouncementDO.Results> openCourtAnnouncement(String company, Integer page, Integer pageSize) {
-        OpenCourtAnnouncementDO courtAnnouncementDO = hologramQueryDao.openCourtAnnouncement(company, page, pageSize);
+    public List<OpenCourtAnnouncementDO.Results> openCourtAnnouncement(String company,String bbdQyxxId, Integer page, Integer pageSize) {
+        OpenCourtAnnouncementDO courtAnnouncementDO = hologramQueryDao.openCourtAnnouncement(company,bbdQyxxId, page, pageSize);
         if (null == courtAnnouncementDO) {
             return null;
         }
@@ -237,34 +237,34 @@ public class HologramQueryServiceImpl extends BaseServiceImpl implements Hologra
     }
 
     @Override
-    public OpenCourtAnnouncementDO openCourtAnnouncement1(String company, Integer page, Integer pageSize) {
-        return hologramQueryDao.openCourtAnnouncement(company, page, pageSize);
+    public OpenCourtAnnouncementDO openCourtAnnouncement1(String company,String bbdQyxxId, Integer page, Integer pageSize) {
+        return hologramQueryDao.openCourtAnnouncement(company,bbdQyxxId, page, pageSize);
     }
 
     @Override
-    public List<JudgeDocDO.Results> judgeDoc(String company, Integer page, Integer pageSize) {
-        JudgeDocDO courtAnnouncementDO = hologramQueryDao.judgeDoc(company, page, pageSize);
+    public List<JudgeDocDO.Results> judgeDoc(String company,String bbdQyxxId, Integer page, Integer pageSize) {
+        JudgeDocDO courtAnnouncementDO = hologramQueryDao.judgeDoc(company,bbdQyxxId, page, pageSize);
         return courtAnnouncementDO.getResults();
     }
 
     @Override
-    public JudgeDocDO judgeDoc1(String company, Integer page, Integer pageSize) {
-        return hologramQueryDao.judgeDoc(company, page, pageSize);
+    public JudgeDocDO judgeDoc1(String company,String bbdQyxxId, Integer page, Integer pageSize) {
+        return hologramQueryDao.judgeDoc(company,bbdQyxxId, page, pageSize);
     }
 
     @Override
-    public DebtorDO debtor(String company, Integer page, Integer pageSize) {
-        return hologramQueryDao.debtor(company, page, pageSize);
+    public DebtorDO debtor(String company,String bbdQyxxId, Integer page, Integer pageSize) {
+        return hologramQueryDao.debtor(company,bbdQyxxId, page, pageSize);
     }
 
     @Override
-    public NoCreditDebtorDO noCreditDebtor(String company, Integer page, Integer pageSize) {
-        return hologramQueryDao.noCreditDebtor(company, page, pageSize);
+    public NoCreditDebtorDO noCreditDebtor(String company,String bbdQyxxId, Integer page, Integer pageSize) {
+        return hologramQueryDao.noCreditDebtor(company,bbdQyxxId, page, pageSize);
     }
 
     @Override
-    public CourtAnnouncementDO courtAnnouncement(String company, Integer page, Integer pageSize) {
-        return hologramQueryDao.courtAnnouncement(company, page, pageSize);
+    public CourtAnnouncementDO courtAnnouncement(String company,String bbdQyxxId, Integer page, Integer pageSize) {
+        return hologramQueryDao.courtAnnouncement(company,bbdQyxxId, page, pageSize);
     }
 
     @Override

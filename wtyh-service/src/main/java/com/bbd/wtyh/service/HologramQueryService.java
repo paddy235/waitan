@@ -62,7 +62,7 @@ public interface HologramQueryService {
      * @return
      * @param company
      */
-    List<OpenCourtAnnouncementDO.Results> openCourtAnnouncement(String company, Integer page, Integer pageSize);
+    List<OpenCourtAnnouncementDO.Results> openCourtAnnouncement(String company,String bbdQyxxId, Integer page, Integer pageSize);
 
     /**
      * 企业信息详情-诉讼记录
@@ -70,35 +70,35 @@ public interface HologramQueryService {
      * @return
      * @param company
      */
-    OpenCourtAnnouncementDO openCourtAnnouncement1(String company, Integer page, Integer pageSize);
+    OpenCourtAnnouncementDO openCourtAnnouncement1(String company,String bbdQyxxId, Integer page, Integer pageSize);
 
     /**
      * 企业信息详情-诉讼记录 - 裁判文书
      * @param company
      * @return
      */
-    List<JudgeDocDO.Results> judgeDoc(String company, Integer page, Integer pageSize);
+    List<JudgeDocDO.Results> judgeDoc(String company,String bbdQyxxId, Integer page, Integer pageSize);
 
     /**
      * 企业信息详情-诉讼记录 - 裁判文书
      * @param company
      * @return
      */
-    JudgeDocDO judgeDoc1(String company, Integer page, Integer pageSize);
+    JudgeDocDO judgeDoc1(String company,String bbdQyxxId, Integer page, Integer pageSize);
 
     /**
      * 企业信息详情-诉讼记录 - 被执行人
      * @param company
      * @return
      */
-    DebtorDO debtor(String company, Integer page, Integer pageSize);
+    DebtorDO debtor(String company,String bbdQyxxId, Integer page, Integer pageSize);
 
     /**
      * 企业信息详情-诉讼记录 - 失信被执行人
      * @param company
      * @return
      */
-    NoCreditDebtorDO noCreditDebtor(String company, Integer page, Integer pageSize);
+    NoCreditDebtorDO noCreditDebtor(String company,String bbdQyxxId, Integer page, Integer pageSize);
 
     /**
      * 企业信息详情-诉讼记录 - 法院公告
@@ -106,7 +106,7 @@ public interface HologramQueryService {
      * @param company
      * @return
      */
-    CourtAnnouncementDO courtAnnouncement(String company, Integer page, Integer pageSize);
+    CourtAnnouncementDO courtAnnouncement(String company,String bbdQyxxId, Integer page, Integer pageSize);
 
 
     /**

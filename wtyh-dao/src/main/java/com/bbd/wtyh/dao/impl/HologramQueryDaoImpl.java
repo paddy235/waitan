@@ -439,11 +439,12 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
      * @return
      */
     @Override
-    public OpenCourtAnnouncementDO openCourtAnnouncement(String company, Integer page, Integer pageSize) {
-        String api = openCourtAnnouncementURL + "?company=" + company + "&appkey=" + openCourtAnnouncementAK;
+    public OpenCourtAnnouncementDO openCourtAnnouncement(String company,String bbdQyxxId, Integer page, Integer pageSize) {
+        String api = openCourtAnnouncementURL + "?appkey=" + openCourtAnnouncementAK;
         if(null!=page && null!=pageSize){
-            api = openCourtAnnouncementURL + "?company=" + company + "&appkey=" + openCourtAnnouncementAK+"&page="+page+"&pageSize="+pageSize;
+            api = openCourtAnnouncementURL + "?appkey=" + openCourtAnnouncementAK+"&page="+page+"&pageSize="+pageSize;
         }
+        api=UrlUtils.assembleUrlByNameOrId(api,company,bbdQyxxId);
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
             return httpTemplate.get(api, new HttpCallback<OpenCourtAnnouncementDO>() {
@@ -475,11 +476,12 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
     }
 
     @Override
-    public JudgeDocDO judgeDoc(String company, Integer page, Integer pageSize) {
-        String api = judgeDocURL + "?company=" + company + "&appkey=" + judgeDocAK;
+    public JudgeDocDO judgeDoc(String company,String bbdQyxxId, Integer page, Integer pageSize) {
+        String api = judgeDocURL + "?appkey=" + judgeDocAK;
         if(null!=page && null!=pageSize){
-            api = judgeDocURL + "?company=" + company + "&appkey=" + judgeDocAK+"&page="+page+"&pageSize="+pageSize;
+            api = judgeDocURL + "?appkey=" + judgeDocAK+"&page="+page+"&pageSize="+pageSize;
         }
+        api = UrlUtils.assembleUrlByNameOrId(api,company,bbdQyxxId);
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
             return httpTemplate.get(api, new HttpCallback<JudgeDocDO>() {
@@ -500,11 +502,12 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
     }
 
     @Override
-    public DebtorDO debtor(String company, Integer page, Integer pageSize) {
-        String api = debtorURL + "?company=" + company + "&appkey=" + debtorAK;
+    public DebtorDO debtor(String company,String bbdQyxxId, Integer page, Integer pageSize) {
+        String api = debtorURL + "?appkey=" + debtorAK;
         if(null!=page && null!=pageSize){
-            api = debtorURL + "?company=" + company + "&appkey=" + debtorAK+"&page="+page+"&pageSize="+pageSize;
+            api = debtorURL + "?appkey=" + debtorAK+"&page="+page+"&pageSize="+pageSize;
         }
+        api = UrlUtils.assembleUrlByNameOrId(api,company,bbdQyxxId);
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
             return httpTemplate.get(api, new HttpCallback<DebtorDO>() {
@@ -525,11 +528,12 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
     }
 
     @Override
-    public NoCreditDebtorDO noCreditDebtor(String company, Integer page, Integer pageSize) {
-        String api = noCreditDebtorURL + "?company=" + company + "&appkey=" + noCreditDebtorAK;
+    public NoCreditDebtorDO noCreditDebtor(String company,String bbdQyxxId, Integer page, Integer pageSize) {
+        String api = noCreditDebtorURL + "?appkey=" + noCreditDebtorAK;
         if(null!=page && null!=pageSize){
-            api = noCreditDebtorURL + "?company=" + company + "&appkey=" + noCreditDebtorAK+"&page="+page+"&pageSize="+pageSize;
+            api = noCreditDebtorURL + "?appkey=" + noCreditDebtorAK+"&page="+page+"&pageSize="+pageSize;
         }
+        api = UrlUtils.assembleUrlByNameOrId(api,company,bbdQyxxId);
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
             return httpTemplate.get(api, new HttpCallback<NoCreditDebtorDO>() {
@@ -550,11 +554,12 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
     }
 
     @Override
-    public CourtAnnouncementDO courtAnnouncement(String company, Integer page, Integer pageSize) {
-        String api = courtAnnouncementURL + "?company=" + company + "&appkey=" + courtAnnouncementAK;
+    public CourtAnnouncementDO courtAnnouncement(String company,String bbdQyxxId, Integer page, Integer pageSize) {
+        String api = courtAnnouncementURL + "?appkey=" + courtAnnouncementAK;
         if(null!=page && null!=pageSize){
-            api = courtAnnouncementURL + "?company=" + company + "&appkey=" + courtAnnouncementAK+"&page="+page+"&pageSize="+pageSize;
+            api = courtAnnouncementURL + "?appkey=" + courtAnnouncementAK+"&page="+page+"&pageSize="+pageSize;
         }
+        api = UrlUtils.assembleUrlByNameOrId(api,company,bbdQyxxId);
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
             return httpTemplate.get(api, new HttpCallback<CourtAnnouncementDO>() {
