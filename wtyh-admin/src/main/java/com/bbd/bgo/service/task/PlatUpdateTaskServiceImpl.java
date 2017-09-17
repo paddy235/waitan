@@ -181,7 +181,8 @@ public class PlatUpdateTaskServiceImpl extends BaseServiceImpl implements PlatUp
 				Byte industryBefore = map.get(plat.getName()).getCompanyType();//数据库中的行业，亦是修改前行业
 				ModifyData modifyData = new ModifyData();
 				modifyData.setName(map.get(plat.getName()).getName());
-				modifyData.setLevel(map.get(plat.getName()).getRiskLevel()+"");
+                Integer level=map.get(plat.getName()).getRiskLevel();
+				modifyData.setLevel(level==null?null:level.toString());
 				modifyData.setIndustry(CompanyInfo.TYPE_P2P_1+"");//修改后固定为网贷
 				modify(modifyData,industryBefore);
 
