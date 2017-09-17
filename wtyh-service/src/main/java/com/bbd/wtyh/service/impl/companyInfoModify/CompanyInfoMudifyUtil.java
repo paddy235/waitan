@@ -105,6 +105,53 @@ public class CompanyInfoMudifyUtil {
     }
 
     /**
+     * 记录变更-不需要记录到企业变更表
+     *
+     * @param companyInfo
+     */
+    public RecordInfo recordModifyForTask(ModifyData modifyData, CompanyInfo companyInfo) {
+        RecordInfo recordInfo = new RecordInfo();
+        recordInfo.setCompanyId(companyInfo.getCompanyId());
+        recordInfo.setName(companyInfo.getName());
+        recordInfo.setBeforeIndustry(companyInfo.getIndustry());
+        recordInfo.setAfterIndustry(Byte.valueOf(modifyData.getIndustry()));
+        // 前 风险等级
+        if (CompanyInfo.TYPE_P2P_1 == Byte.valueOf(companyInfo.getIndustry())) { // 网络借贷
+            recordInfo.setPlatName(companyInfo.getPlatName());
+        } else if (CompanyInfo.TYPE_XXLC_4 == Byte.valueOf(companyInfo.getIndustry()) // 线下理财
+                || CompanyInfo.TYPE_JYS_9 == Byte.valueOf(companyInfo.getIndustry()) // 交易场所
+                || CompanyInfo.TYPE_YFK_11 == Byte.valueOf(companyInfo.getIndustry()) // 预付卡
+                || CompanyInfo.TYPE_RZZL_13 == Byte.valueOf(companyInfo.getIndustry())) { // 融资租赁
+            recordInfo.setBeforeLevel(companyInfo.getCurrentLevel());
+        } else if (CompanyInfo.TYPE_XD_2 == Byte.valueOf(companyInfo.getIndustry()) // 小额贷款
+                || CompanyInfo.TYPE_RZDB_3 == Byte.valueOf(companyInfo.getIndustry())) { // 融资担保
+            recordInfo.setBeforeOutLevel(companyInfo.getOutLevel());
+            recordInfo.setBeforeInnnerLevel(companyInfo.getInnnerLevel());
+            recordInfo.setBeforeLiveLevel(companyInfo.getLiveLevel());
+        }
+        // 后 风险等级
+        if (CompanyInfo.TYPE_P2P_1 == Byte.valueOf(modifyData.getIndustry())) { // 网络借贷
+            recordInfo.setPlatName(companyInfo.getPlatName());
+        } else if (CompanyInfo.TYPE_XXLC_4 == Byte.valueOf(modifyData.getIndustry()) // 线下理财
+                || CompanyInfo.TYPE_JYS_9 == Byte.valueOf(modifyData.getIndustry()) // 交易场所
+                || CompanyInfo.TYPE_YFK_11 == Byte.valueOf(modifyData.getIndustry()) // 预付卡
+                || CompanyInfo.TYPE_RZZL_13 == Byte.valueOf(modifyData.getIndustry())) { // 融资租赁
+            recordInfo.setAfterLevel(modifyData.getLevel());
+        } else if (CompanyInfo.TYPE_XD_2 == Byte.valueOf(modifyData.getIndustry()) // 小额贷款
+                || CompanyInfo.TYPE_RZDB_3 == Byte.valueOf(modifyData.getIndustry())) { // 融资担保
+            recordInfo.setAfterOutLevel(modifyData.getOutLevel());
+            recordInfo.setAfterInnnerLevel(modifyData.getInnnerLevel());
+            recordInfo.setAfterLiveLevel(modifyData.getLiveLevel());
+        } else if (CompanyInfo.TYPE_SMJJ_5 == Byte.valueOf(modifyData.getIndustry()) // 私募基金
+                || CompanyInfo.TYPE_ZC_6 == Byte.valueOf(modifyData.getIndustry()) // 众筹
+                || CompanyInfo.TYPE_SYBL_10 == Byte.valueOf(modifyData.getIndustry()) // 商业保理
+                || CompanyInfo.TYPE_DD_12 == Byte.valueOf(modifyData.getIndustry())) { // 典当
+            recordInfo.setAfterLevel(null);
+        }
+        return recordInfo;
+    }
+
+    /**
      * 修改行业
      *
      * @throws Exception
@@ -146,12 +193,53 @@ public class CompanyInfoMudifyUtil {
     }
 
     /**
+     * 修改行业-不需要记录到状态变化监测表
+     *
+     * @throws Exception
+     */
+    private void modifyIndustryForTask(RecordInfo recordInfo) {
+        // 是否修改行业 或者 行业是否变化
+        if (StringUtils.isEmpty(recordInfo.getAfterIndustry()) || recordInfo.getBeforeIndustry() == recordInfo.getAfterIndustry()) {
+            return;
+        }
+        // 修改company的行业类型
+        riskCompanyService.modifyIndustry(recordInfo.getName(), String.valueOf(recordInfo.getAfterIndustry()));
+
+        // 线下理财
+        if (CompanyInfo.TYPE_XXLC_4 == recordInfo.getBeforeIndustry()) {
+            // delete index_data
+            indexDataMapper.deleteByCompanyName(recordInfo);
+        }
+
+        // 预付卡
+        if (CompanyInfo.TYPE_YFK_11 == recordInfo.getBeforeIndustry()) {
+            // delete index_data
+            prepaidCompanyStaticService.deleteByCompanyId(recordInfo);
+        }
+
+        // 交易场所
+        if (CompanyInfo.TYPE_JYS_9 == recordInfo.getBeforeIndustry()) {
+            // delete index_data
+            exchangeCompanyService.deleteByCompanyId(recordInfo);
+        }
+
+        // 小额贷款、融资担保
+        if ((CompanyInfo.TYPE_XD_2 == recordInfo.getBeforeIndustry() || CompanyInfo.TYPE_RZDB_3 == recordInfo.getBeforeIndustry())
+                && !(CompanyInfo.TYPE_XD_2 == recordInfo.getAfterIndustry() || CompanyInfo.TYPE_RZDB_3 == recordInfo.getAfterIndustry())) {
+            // delete index_data
+            companyLevelService.deleteByCompanyId(recordInfo);
+        }
+    }
+    /**
      * 网络借贷
      *
      * @param modifyData
      */
     public void modifyWangdai(ModifyData modifyData) throws Exception {
         CompanyInfo wangdai = companyInfoQueryUtil.getWangdaiInfo(modifyData.getName());
+        if(null == wangdai){
+            return;
+        }
         WangdaiModify wangdaiModify = new WangdaiModify();
         wangdaiModify.setName(modifyData.getName());
         wangdaiModify.setPlatName(wangdai.getPlatName());
@@ -175,19 +263,25 @@ public class CompanyInfoMudifyUtil {
 
     }
 
+
+
     /**
      * 留给定时任务-企业与网贷平台对照表更新 and 众筹数更新-更新企业类型专用
      *
      * @param modifyData
      */
-    public void modifyTimingTask(ModifyData modifyData) throws Exception {
+    public void modifyForTask(ModifyData modifyData) throws Exception {
         CompanyInfo companyInfo = companyInfoModifyMapper.queryCompany(modifyData.getName());
-        RecordInfo recordInfo = recordModify(modifyData, companyInfo);
+        if(null==companyInfo){
+            return;
+        }
+        RecordInfo recordInfo = recordModifyForTask(modifyData, companyInfo);
         // 修改风险等级
         // 因修改后皆为网贷，故不做风险等级修改--暂时还是清空风险等级
+        // 其他行业转网贷，需要清空原来的风险等级；其他行业转众筹，因为众筹本身没有风险等级，也需要清空
         riskCompanyService.modifyLevel(recordInfo.getName(), recordInfo.getAfterLevel());
         // 修改行业
-        modifyIndustry(recordInfo);
+        modifyIndustryForTask(recordInfo);
     }
 
     /**

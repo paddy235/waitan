@@ -160,7 +160,7 @@ public class CompanyNewsServiceImpl implements CompanyNewsService {
         try {
             if (!StringUtils.isEmpty(company)) {
                 HttpTemplate ht = new HttpTemplate();
-                result = ht.get(apiDataonNewsUrl + company);
+                result = ht.get(apiDataonNewsUrl +"&company="+ company);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -180,7 +180,7 @@ public class CompanyNewsServiceImpl implements CompanyNewsService {
         try {
             if (!StringUtils.isEmpty(company)) {
                 HttpTemplate ht = new HttpTemplate();
-                result = ht.get(apiDataonNewsUrl + company);
+                result = ht.get(apiDataonNewsUrl +"&company=" + company);
             }
         } catch (Exception e) {
             e.printStackTrace();

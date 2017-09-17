@@ -24,14 +24,14 @@ public class DataomApiBbdserviceImpl implements DataomApiBbdservice {
     public String bbdQyxgYuqing(final String key){
         try {
             HttpTemplate httpTemplate = new HttpTemplate();
-            return httpTemplate.get(url+key, new HttpCallback<String>() {
+            return httpTemplate.get(url+"&company="+key, new HttpCallback<String>() {
                 @Override
                 public boolean valid() {
                     return true;
                 }
                 @Override
                 public String parse(String result) {
-                    log.info("舆情"+url+key+" 返回值："+result);
+                    log.info("舆情"+url+"&company="+key+" 返回值："+result);
                     return result;
                 }
             });

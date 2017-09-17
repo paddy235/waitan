@@ -27,10 +27,11 @@
             company.risk_level AS currentLevel,
             platform_name_information.platform_name AS platName
         FROM
-            company,
+            company left join
             platform_name_information
-        WHERE
+        on
             company.company_id = platform_name_information.company_id
+        where 1=1
             <if test="exportCondition.industry!=null">
                 and company.company_type = #{exportCondition.industry}
             </if>
@@ -59,10 +60,11 @@
         SELECT
           COUNT(1)
         FROM
-            company,
+            company left join
             platform_name_information
-        WHERE
+        on
             company.company_id = platform_name_information.company_id
+        where 1=1
             <if test="exportCondition.industry!=null">
                 and company.company_type = #{exportCondition.industry}
             </if>

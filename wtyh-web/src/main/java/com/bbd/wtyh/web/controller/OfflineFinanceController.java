@@ -144,7 +144,7 @@ public class OfflineFinanceController {
 
 	@RequestMapping(value = "/export-related-data")
 	@ResponseBody
-	public ResponseBean exportRelatedData(@RequestParam String companyName, HttpServletRequest request) {
+	public ResponseBean exportRelatedData(@RequestParam String companyName,String bbdQyxxId, HttpServletRequest request) {
 		try {
 			RelationDiagramVO result = offlineFinanceService.downloadRealRealation(companyName, 3);
 			List<RelationDiagramVO.LineVO> lineList = result.getLineList();
@@ -173,7 +173,7 @@ public class OfflineFinanceController {
 					request);
 
 			// 数据落地
-			relationService.addRelation(result, companyName);
+			relationService.addRelation(result, companyName,bbdQyxxId);
 
 			return ResponseBean.successResponse(exportExcel.getDownloadURL());
 		} catch (Exception e) {
@@ -357,7 +357,7 @@ public class OfflineFinanceController {
 	public ResponseBean companyNews(String companyName) {
 		// String data = offlineFinanceService.companyNews(companyName);
 
-		Object data = hologramQueryService.newsConsensusList(companyName);
+		Object data = hologramQueryService.newsConsensusList(companyName,null);
 
 		return ResponseBean.successResponse(data);
 	}

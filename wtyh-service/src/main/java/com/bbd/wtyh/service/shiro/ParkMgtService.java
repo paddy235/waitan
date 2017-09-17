@@ -163,4 +163,21 @@ public interface ParkMgtService{
      */
     void updateBuildingImgUrl(BuildingDO building);
 
+    /**
+     * 检查园区、楼宇是否绑定
+     *
+     * @param parkName
+     * @param buildingName
+     * @return
+     */
+    public int queryPABRelation(String parkName, String buildingName);
+
+    /**
+     * 绑定园区、楼宇
+     *
+     * @param building
+     * @param parkName
+     */
+    void bindingParkAndBuilding(BuildingDO building, String parkName);
+
 }

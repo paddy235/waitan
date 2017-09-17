@@ -89,7 +89,7 @@ public class HologramQueryServiceImpl extends BaseServiceImpl implements Hologra
     @Override
     public Map<String, Object> guidance(String company) {
         Map<String, Object> data = new HashMap<>();
-        BaseDataDO baseDataDO = hologramQueryDao.businessInfo(company);
+        BaseDataDO baseDataDO = hologramQueryDao.businessInfo(company,null);
         for (BaseDataDO.Results result : baseDataDO.getResults()) {
             data.put("企业名称", result.getJbxx().getCompany_name());
             data.put("登记状态", result.getJbxx().getEnterprise_status());
@@ -98,8 +98,8 @@ public class HologramQueryServiceImpl extends BaseServiceImpl implements Hologra
     }
 
     @Override
-    public Map<String, Object> outlineMsg(String company) {
-        BaseDataDO baseDataDO = hologramQueryDao.outlineMsg(company);
+    public Map<String, Object> outlineMsg(String company,String bbdQyxxId) {
+        BaseDataDO baseDataDO = hologramQueryDao.outlineMsg(company,bbdQyxxId);
         Map<String, Object> data = new HashMap<>();
         for (BaseDataDO.Results result : baseDataDO.getResults()) {
             data.put("公司名称", result.getJbxx().getCompany_name());
@@ -107,7 +107,7 @@ public class HologramQueryServiceImpl extends BaseServiceImpl implements Hologra
             data.put("注册资本", result.getJbxx().getRegcap());
             data.put("注册地址", result.getJbxx().getAddress());
         }
-        BBDLogoDO bbdLogoDO = hologramQueryDao.bbdLogo(company);
+        BBDLogoDO bbdLogoDO = hologramQueryDao.bbdLogo(company,bbdQyxxId);
         for (BBDLogoDO.Result result : bbdLogoDO.getResults()) {
             data.put("公司logo", result.getCompany_logo());
         }
@@ -116,7 +116,7 @@ public class HologramQueryServiceImpl extends BaseServiceImpl implements Hologra
 
     @Override
     public Map<String, Object> newsConsensus(String company) {
-        BaiDuYuQingDO baiDuYuQingDO = hologramQueryDao.newsConsensus(company);
+        BaiDuYuQingDO baiDuYuQingDO = hologramQueryDao.newsConsensus(company,null);
 
         if (StringUtils.hasText(baiDuYuQingDO.getTotal()) || "0".equals(baiDuYuQingDO.getTotal().trim())) {
             String data = dabservice.bbdQyxgYuqing("上海");
@@ -134,10 +134,10 @@ public class HologramQueryServiceImpl extends BaseServiceImpl implements Hologra
     }
 
     @Override
-    public BaiDuYuQingDO newsConsensusList(String company) {
+    public BaiDuYuQingDO newsConsensusList(String company, String bbdQyxxId) {
         List<QyxgYuqingDO> list = this.selectAll(QyxgYuqingDO.class, "search_key = ? ORDER BY pubdate DESC", company);
         if (CollectionUtils.isEmpty(list)) {
-            return hologramQueryDao.newsConsensus(company);
+            return hologramQueryDao.newsConsensus(company, bbdQyxxId);
         }
         BaiDuYuQingDO baiDuYuQingDO = new BaiDuYuQingDO();
         baiDuYuQingDO.setMsg("ok");
@@ -168,10 +168,10 @@ public class HologramQueryServiceImpl extends BaseServiceImpl implements Hologra
     }
 
     @Override
-    public Map<String, Object> businessInfo(String companyName) {
-        BaseDataDO baseDataDO = hologramQueryDao.businessInfo(companyName);
+    public Map<String, Object> businessInfo(String companyName,String bbdQyxxId) {
+        BaseDataDO baseDataDO = hologramQueryDao.businessInfo(companyName,bbdQyxxId);
         Map<String, Object> data = new HashMap<>();
-        ZuZhiJiGoudmDO zuZhiJiGoudmDO = hologramQueryDao.baseInfoZuZhiJiGou(companyName);
+        ZuZhiJiGoudmDO zuZhiJiGoudmDO = hologramQueryDao.baseInfoZuZhiJiGou(companyName,bbdQyxxId);
         if (zuZhiJiGoudmDO != null) {
             for (ZuZhiJiGoudmDO.Result result : zuZhiJiGoudmDO.getResults()) {
                 data.put("组织机构代码", result.getJgdm());
@@ -203,8 +203,8 @@ public class HologramQueryServiceImpl extends BaseServiceImpl implements Hologra
     }
 
     @Override
-    public Map<String, List> shareholdersSenior(String companyName) {
-        BaseDataDO baseDataDo = hologramQueryDao.shareholdersSenior(companyName);
+    public Map<String, List> shareholdersSenior(String companyName,String bbdQyxxId) {
+        BaseDataDO baseDataDo = hologramQueryDao.shareholdersSenior(companyName,bbdQyxxId);
         Map<String, List> content = new HashMap<>();
         for (BaseDataDO.Results result : baseDataDo.getResults()) {
             List<Map> list1 = new ArrayList<>();
@@ -228,8 +228,8 @@ public class HologramQueryServiceImpl extends BaseServiceImpl implements Hologra
     }
 
     @Override
-    public List<OpenCourtAnnouncementDO.Results> openCourtAnnouncement(String company, Integer page, Integer pageSize) {
-        OpenCourtAnnouncementDO courtAnnouncementDO = hologramQueryDao.openCourtAnnouncement(company, page, pageSize);
+    public List<OpenCourtAnnouncementDO.Results> openCourtAnnouncement(String company,String bbdQyxxId, Integer page, Integer pageSize) {
+        OpenCourtAnnouncementDO courtAnnouncementDO = hologramQueryDao.openCourtAnnouncement(company,bbdQyxxId, page, pageSize);
         if (null == courtAnnouncementDO) {
             return null;
         }
@@ -237,52 +237,52 @@ public class HologramQueryServiceImpl extends BaseServiceImpl implements Hologra
     }
 
     @Override
-    public OpenCourtAnnouncementDO openCourtAnnouncement1(String company, Integer page, Integer pageSize) {
-        return hologramQueryDao.openCourtAnnouncement(company, page, pageSize);
+    public OpenCourtAnnouncementDO openCourtAnnouncement1(String company,String bbdQyxxId, Integer page, Integer pageSize) {
+        return hologramQueryDao.openCourtAnnouncement(company,bbdQyxxId, page, pageSize);
     }
 
     @Override
-    public List<JudgeDocDO.Results> judgeDoc(String company, Integer page, Integer pageSize) {
-        JudgeDocDO courtAnnouncementDO = hologramQueryDao.judgeDoc(company, page, pageSize);
+    public List<JudgeDocDO.Results> judgeDoc(String company,String bbdQyxxId, Integer page, Integer pageSize) {
+        JudgeDocDO courtAnnouncementDO = hologramQueryDao.judgeDoc(company,bbdQyxxId, page, pageSize);
         return courtAnnouncementDO.getResults();
     }
 
     @Override
-    public JudgeDocDO judgeDoc1(String company, Integer page, Integer pageSize) {
-        return hologramQueryDao.judgeDoc(company, page, pageSize);
+    public JudgeDocDO judgeDoc1(String company,String bbdQyxxId, Integer page, Integer pageSize) {
+        return hologramQueryDao.judgeDoc(company,bbdQyxxId, page, pageSize);
     }
 
     @Override
-    public DebtorDO debtor(String company, Integer page, Integer pageSize) {
-        return hologramQueryDao.debtor(company, page, pageSize);
+    public DebtorDO debtor(String company,String bbdQyxxId, Integer page, Integer pageSize) {
+        return hologramQueryDao.debtor(company,bbdQyxxId, page, pageSize);
     }
 
     @Override
-    public NoCreditDebtorDO noCreditDebtor(String company, Integer page, Integer pageSize) {
-        return hologramQueryDao.noCreditDebtor(company, page, pageSize);
+    public NoCreditDebtorDO noCreditDebtor(String company,String bbdQyxxId, Integer page, Integer pageSize) {
+        return hologramQueryDao.noCreditDebtor(company,bbdQyxxId, page, pageSize);
     }
 
     @Override
-    public CourtAnnouncementDO courtAnnouncement(String company, Integer page, Integer pageSize) {
-        return hologramQueryDao.courtAnnouncement(company, page, pageSize);
+    public CourtAnnouncementDO courtAnnouncement(String company,String bbdQyxxId, Integer page, Integer pageSize) {
+        return hologramQueryDao.courtAnnouncement(company,bbdQyxxId, page, pageSize);
     }
 
     @Override
-    public RecruitPeopleNumberDO recruitPeopleNumber(String company, String timeTag) {
+    public RecruitPeopleNumberDO recruitPeopleNumber(String company,String bbdQyxxId, String timeTag) {
         if (StringUtils.isEmpty(timeTag)) {
             timeTag = DateUtils.formatDate(org.apache.commons.lang3.time.DateUtils.addMonths(new Date(), -1));
         }
         RecruitPeopleNumberDO recruitPeopleNumberDO = new RecruitPeopleNumberDO();
         recruitPeopleNumberDO.setMsg("ok");
         List list = new ArrayList();
-        RecruitDataDO recruitDataDO = hologramQueryDao.getRecruitData(company, timeTag);
+        RecruitDataDO recruitDataDO = hologramQueryDao.getRecruitData(company,bbdQyxxId, timeTag);
         if (recruitDataDO.getErr_code() != 0) {
             recruitPeopleNumberDO.setMsg(recruitDataDO.getMsg());
             return recruitPeopleNumberDO;
         }
         if (CollectionUtils.isEmpty(recruitDataDO.getResults().get(0).getIndex())) {
             timeTag = DateUtils.formatDate(org.apache.commons.lang3.time.DateUtils.addMonths(new Date(), -2));
-            recruitDataDO = hologramQueryDao.getRecruitData(company, timeTag);
+            recruitDataDO = hologramQueryDao.getRecruitData(company,bbdQyxxId, timeTag);
         }
         if (!CollectionUtils.isEmpty(recruitDataDO.getResults().get(0).getIndex())) {
             Map<String, String> indexMap = recruitDataDO.getResults().get(0).getIndex();
@@ -299,14 +299,14 @@ public class HologramQueryServiceImpl extends BaseServiceImpl implements Hologra
     }
 
     @Override
-    public RecruitPeopleDistributeDO recruitPeopleDistribute(String company, String timeTag) {
+    public RecruitPeopleDistributeDO recruitPeopleDistribute(String company,String bbdQyxxId, String timeTag) {
         if (StringUtils.isEmpty(timeTag)) {
             timeTag = DateUtils.formatDate(org.apache.commons.lang3.time.DateUtils.addMonths(new Date(), -1));
         }
         RecruitPeopleDistributeDO recruitPeopleDistributeDO = new RecruitPeopleDistributeDO();
         recruitPeopleDistributeDO.setMsg("ok");
         List list = new ArrayList();
-        RecruitDataDO recruitDataDO = hologramQueryDao.getRecruitData(company, timeTag);
+        RecruitDataDO recruitDataDO = hologramQueryDao.getRecruitData(company,bbdQyxxId, timeTag);
         if (recruitDataDO.getErr_code() != 0) {
             logger.error("bbd_kpi_recruit is failling:[{}]", recruitDataDO.getMsg());
             recruitPeopleDistributeDO.setMsg("error");
@@ -314,7 +314,7 @@ public class HologramQueryServiceImpl extends BaseServiceImpl implements Hologra
         }
         if (CollectionUtils.isEmpty(recruitDataDO.getResults().get(0).getIndustry_ratio())) {
             timeTag = DateUtils.formatDate(org.apache.commons.lang3.time.DateUtils.addMonths(new Date(), -2));
-            recruitDataDO = hologramQueryDao.getRecruitData(company, timeTag);
+            recruitDataDO = hologramQueryDao.getRecruitData(company,bbdQyxxId, timeTag);
         }
         if (!CollectionUtils.isEmpty(recruitDataDO.getResults().get(0).getIndustry_ratio())) {
             Map<String, String> indexMap = recruitDataDO.getResults().get(0).getIndustry_ratio();
@@ -331,14 +331,14 @@ public class HologramQueryServiceImpl extends BaseServiceImpl implements Hologra
     }
 
     @Override
-    public RecruitPeopleSalaryDO recruitPeopleSalary(String company, String timeTag) {
+    public RecruitPeopleSalaryDO recruitPeopleSalary(String company,String bbdQyxxId, String timeTag) {
         if (StringUtils.isEmpty(timeTag)) {
             timeTag = DateUtils.formatDate(org.apache.commons.lang3.time.DateUtils.addMonths(new Date(), -1));
         }
         RecruitPeopleSalaryDO recruitPeopleSalaryDO = new RecruitPeopleSalaryDO();
         recruitPeopleSalaryDO.setMsg("ok");
         List list = new ArrayList();
-        RecruitDataDO recruitDataDO = hologramQueryDao.getRecruitData(company, timeTag);
+        RecruitDataDO recruitDataDO = hologramQueryDao.getRecruitData(company,bbdQyxxId, timeTag);
         if (recruitDataDO.getErr_code() != 0) {
             logger.error("bbd_kpi_recruit is failling:[{}]", recruitDataDO.getMsg());
             recruitPeopleSalaryDO.setMsg("error");
@@ -346,7 +346,7 @@ public class HologramQueryServiceImpl extends BaseServiceImpl implements Hologra
         }
         if (CollectionUtils.isEmpty(recruitDataDO.getResults().get(0).getSalary_ratio())) {
             timeTag = DateUtils.formatDate(org.apache.commons.lang3.time.DateUtils.addMonths(new Date(), -2));
-            recruitDataDO = hologramQueryDao.getRecruitData(company, timeTag);
+            recruitDataDO = hologramQueryDao.getRecruitData(company,bbdQyxxId, timeTag);
         }
         if (!CollectionUtils.isEmpty(recruitDataDO.getResults().get(0).getSalary_ratio())) {
             Map<String, String> indexMap = recruitDataDO.getResults().get(0).getSalary_ratio();
@@ -394,14 +394,14 @@ public class HologramQueryServiceImpl extends BaseServiceImpl implements Hologra
      * @param pageSize
      */
     @Override
-    public PatentDO getPatentData(String company, Integer page, Integer pageSize) {
+    public PatentDO getPatentData(String company,String bbdQyxxId, Integer page, Integer pageSize) {
         if (null == page || page <= 0) {
             page = 1;
         }
         if (null == pageSize || pageSize <= 0) {
             pageSize = 20;
         }
-        return hologramQueryDao.getPatentData(company, page, pageSize);
+        return hologramQueryDao.getPatentData(company,bbdQyxxId, page, pageSize);
     }
 
     @Override

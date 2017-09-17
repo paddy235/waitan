@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -260,6 +261,34 @@ public class ParkMgtServiceImpl implements ParkMgtService {
         try{
             parkAndBuildingMgtMapper.updateBuildingImgUrl(building);
         }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public int queryPABRelation(String parkName, String buildingName) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("parkName", parkName);
+        params.put("buildingName", buildingName);
+        return pabRelationService.queryPABRelation(params);
+    }
+
+    @Override
+    public void bindingParkAndBuilding(BuildingDO building, String parkName) {
+        try {
+            PABRelationDO pabDO = new PABRelationDO();
+            BuildingDO buildingDO = parkAndBuildingMgtMapper.queryBuildingByName(building.getName());
+            if (null == buildingDO || buildingDO.getBuildingId() <= 0)
+                throw new Exception("未查询到此楼宇！");
+            pabDO.setBuildingId(buildingDO.getBuildingId());
+            pabDO.setCreateBy(building.getCreateBy());
+            pabDO.setUpdateBy(building.getCreateBy());
+            ParkDO parkDO = parkService.queryParkByName(parkName);
+            if (null == parkDO || parkDO.getParkId() <= 0)
+                throw new Exception("未查询到此楼宇所属园区！");
+            pabDO.setParkId(parkDO.getParkId());
+            pabRelationService.addPABRelation(pabDO);
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

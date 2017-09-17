@@ -14,6 +14,7 @@ import com.bbd.wtyh.service.shiro.ParkMgtService;
 import com.bbd.wtyh.util.WtyhHelper;
 import com.bbd.wtyh.web.ResponseBean;
 import org.apache.commons.io.IOUtils;
+import org.apache.poi.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -266,21 +267,25 @@ public class ParkMgtController {
     @LogRecord(logMsg = "新增楼宇,所属园区：%s，楼宇名称：%s", params = {"parkName","name"}, page = Operation.Page.PARK_BUILDING_MANAGE,
             type = Operation.Type.add, after = true, before = false)
     public ResponseBean addBuilding(HttpServletRequest request, BuildingDO building,String parkName) throws Exception {
-        //新增之前先查询该楼宇是否存在
-        int i = parkMgtService.queryBIdByName(building.getName());
-        if(i != 0){
-            return  ResponseBean.errorResponse("该楼宇已存在");
-        }
-        //若前端不传用户名，则自行抓取
+        // 若前端不传用户名，则自行抓取
         String creatBy = building.getCreateBy();
         if(StringUtils.isEmpty(creatBy)){
             String loginName = (String) request.getSession().getAttribute(Constants.SESSION.loginName);
-            if( null ==loginName ) {
-                loginName ="building";
-            }
+            if(null == loginName)
+                loginName = "building";
             building.setCreateBy(loginName);
         }
-        parkMgtService.addBuilding(building, parkName);
+        // 新增之前先查询该楼宇是否存在
+        int i = parkMgtService.queryBIdByName(building.getName());
+        if (i == 1) {
+            if (StringUtils.isEmpty(parkName))
+                return  ResponseBean.errorResponse("请选择园区！");
+            int relationCount = parkMgtService.queryPABRelation(parkName, building.getName());
+            if (relationCount == 1)
+                return  ResponseBean.errorResponse("该园区下已有该楼宇！");
+            parkMgtService.bindingParkAndBuilding(building, parkName);
+        } else
+            parkMgtService.addBuilding(building, parkName);
         return ResponseBean.successResponse("OK");
     }
 

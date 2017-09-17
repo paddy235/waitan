@@ -25,17 +25,17 @@ public interface HologramQueryDao {
      */
     public CompanySearch2DO companySearch2(String query, Map<String, String>parameters);
 
-    BaseDataDO outlineMsg(String platName);
+    BaseDataDO outlineMsg(String platName,String bbdQyxxId);
 
-    BBDLogoDO bbdLogo(String company);
+    BBDLogoDO bbdLogo(String company,String bbdQyxxId);
 
-    BaiDuYuQingDO newsConsensus(String company);
+    BaiDuYuQingDO newsConsensus(String company,String bbdQyxxId);
 
-    BaseDataDO businessInfo(String companyName);
+    BaseDataDO businessInfo(String companyName,String bbdQyxxId);
 
-    ZuZhiJiGoudmDO baseInfoZuZhiJiGou(String companyName);
+    ZuZhiJiGoudmDO baseInfoZuZhiJiGou(String companyName,String bbdQyxxId);
 
-    BaseDataDO shareholdersSenior(String companyName);
+    BaseDataDO shareholdersSenior(String companyName,String bbdQyxxId);
 
     /**
      * 数据平台企业信息接口
@@ -44,15 +44,15 @@ public interface HologramQueryDao {
      */
     public BaseDataDO companyQyxxDataApi(String companyName);
 
-    OpenCourtAnnouncementDO openCourtAnnouncement(String company, Integer page, Integer pageSize);
+    OpenCourtAnnouncementDO openCourtAnnouncement(String company,String bbdQyxxId, Integer page, Integer pageSize);
 
-    JudgeDocDO judgeDoc(String company, Integer page, Integer pageSize);
+    JudgeDocDO judgeDoc(String company,String bbdQyxxId, Integer page, Integer pageSize);
 
-    DebtorDO debtor(String company, Integer page, Integer pageSize);
+    DebtorDO debtor(String company,String bbdQyxxId, Integer page, Integer pageSize);
 
-    NoCreditDebtorDO noCreditDebtor(String company, Integer page, Integer pageSize);
+    NoCreditDebtorDO noCreditDebtor(String company,String bbdQyxxId, Integer page, Integer pageSize);
 
-    CourtAnnouncementDO courtAnnouncement(String company, Integer page, Integer pageSize);
+    CourtAnnouncementDO courtAnnouncement(String company,String bbdQyxxId, Integer page, Integer pageSize);
 
     RecruitPeopleNumberDO recruitPeopleNumber(String company);
 
@@ -60,9 +60,9 @@ public interface HologramQueryDao {
 
     RecruitPeopleSalaryDO recruitPeopleSalary(String company);
 
-    RecruitDataDO getRecruitData(String company, String timeTag);
+    RecruitDataDO getRecruitData(String company,String bbdQyxxId, String timeTag);
 
-    PatentDO getPatentData(String company, Integer page, Integer pageSize);
+    PatentDO getPatentData(String company,String bbdQyxxId, Integer page, Integer pageSize);
 
     public RecruitDO getRecruitInfo(String company, Integer page, Integer pageSize);
 

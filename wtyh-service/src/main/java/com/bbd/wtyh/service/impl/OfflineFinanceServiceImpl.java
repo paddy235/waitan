@@ -351,7 +351,8 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService,TaskServ
         if (isShutdown) {
             return;
         }
-        if (companyInfoModify.isModify(companyDO.getName())) {
+        //风险等级被人工修改过，则不再更新
+        if (companyInfoModify.isModifyByAfterRisk(companyDO.getName())) {
             return;
         }
         Integer companyId = companyDO.getCompanyId();

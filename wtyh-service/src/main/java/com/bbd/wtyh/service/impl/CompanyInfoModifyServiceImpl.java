@@ -163,4 +163,10 @@ public class CompanyInfoModifyServiceImpl implements CompanyInfoModifyService {
         return !names.isEmpty();
     }
 
+    @Override
+    public Boolean isModifyByAfterRisk(String name) {
+        List<String> names = companyInfoModifyMapper.queryModifyCompanyByAfterRisk(name);
+        return !names.isEmpty();
+    }
+
 }
