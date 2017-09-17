@@ -148,7 +148,7 @@ public class PlatUpdateTaskServiceImpl extends BaseServiceImpl implements PlatUp
 	}
 
 	public void setCompanyId(List<PlatListDO> platList, List<PlatformNameInformationDO> platInfoList){
-		List<String> names = new ArrayList<String>();
+		List<String> names = new ArrayList<>();
 		PlatformNameInformationDO platInfo=null;
 		for(PlatListDO plat:platList){
 			platInfo=new PlatformNameInformationDO();
@@ -160,7 +160,7 @@ public class PlatUpdateTaskServiceImpl extends BaseServiceImpl implements PlatUp
 			}
 		}
 		List<CompanyDO> comList = companyMapper.findCompanyByName(names);
-		Map<String,CompanyDO> map=new HashMap<String,CompanyDO>();
+		Map<String,CompanyDO> map=new HashMap<>();
 		for(CompanyDO com:comList){
 			map.put(com.getName(),com);
 		}
@@ -193,7 +193,7 @@ public class PlatUpdateTaskServiceImpl extends BaseServiceImpl implements PlatUp
 	public void modify(ModifyData modifyData,Byte industryBefore){
 		try {
 			// 其它行业转网络借贷,需要清空原来的风险等级
-			if (null != industryBefore || CompanyInfo.TYPE_P2P_1!=industryBefore) {
+			if (null != industryBefore && CompanyInfo.TYPE_P2P_1!=industryBefore) {
 
 				companyInfoMudifyUtil.modifyForWangDaiAndCrowd(modifyData);
 			}
