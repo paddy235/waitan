@@ -196,7 +196,7 @@ public class PlatUpdateTaskServiceImpl extends BaseServiceImpl implements PlatUp
 			// 其它行业转网络借贷,需要清空原来的风险等级
 			if (null != industryBefore && CompanyInfo.TYPE_P2P_1!=industryBefore) {
 
-				companyInfoMudifyUtil.modifyForWangDaiAndCrowd(modifyData);
+				companyInfoMudifyUtil.modifyForTask(modifyData);
 			}
 		}catch(Exception e){
 			e.printStackTrace();

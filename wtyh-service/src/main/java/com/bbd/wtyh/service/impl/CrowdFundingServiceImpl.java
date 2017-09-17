@@ -305,7 +305,7 @@ public class CrowdFundingServiceImpl implements CrowdFundingService,TaskService 
     public void modify(ModifyData modifyData){
         try {
 
-            companyInfoMudifyUtil.modifyForWangDaiAndCrowd(modifyData);
+            companyInfoMudifyUtil.modifyForTask(modifyData);
 
         }catch(Exception e){
             e.printStackTrace();
