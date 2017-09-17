@@ -866,7 +866,7 @@ public class WordReportServiceImpl implements WordReportService {
             //企业专利信息
             jes.runThreadFun( ()-> {
                 List<List<String>> patentInfo = new LinkedList<>();
-                PatentDO pd = hologramQueryService.getPatentData(companyName, 1, 100000000);
+                PatentDO pd = hologramQueryService.getPatentData(companyName,null, 1, 100000000);
                 if (pd != null) {
                     List<PatentDO.Results> resList = pd.getResults();
                     if (resList != null) {

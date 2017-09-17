@@ -667,8 +667,9 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
     }
 
     @Override
-    public PatentDO getPatentData(String company, Integer page, Integer pageSize) {
-        String api = apiBbdPatentUrl + "?company=" + company + "&appkey=" + apiAppkey+"&page="+page+"&pageSize="+pageSize;
+    public PatentDO getPatentData(String company,String bbdQyxxId, Integer page, Integer pageSize) {
+        String api = apiBbdPatentUrl + "?appkey=" + apiAppkey+"&page="+page+"&pageSize="+pageSize;
+        api=UrlUtils.assembleUrlByNameOrId(api,company,bbdQyxxId);
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
             return httpTemplate.get(api, new HttpCallback<PatentDO>() {

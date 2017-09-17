@@ -394,14 +394,14 @@ public class HologramQueryServiceImpl extends BaseServiceImpl implements Hologra
      * @param pageSize
      */
     @Override
-    public PatentDO getPatentData(String company, Integer page, Integer pageSize) {
+    public PatentDO getPatentData(String company,String bbdQyxxId, Integer page, Integer pageSize) {
         if (null == page || page <= 0) {
             page = 1;
         }
         if (null == pageSize || pageSize <= 0) {
             pageSize = 20;
         }
-        return hologramQueryDao.getPatentData(company, page, pageSize);
+        return hologramQueryDao.getPatentData(company,bbdQyxxId, page, pageSize);
     }
 
     @Override

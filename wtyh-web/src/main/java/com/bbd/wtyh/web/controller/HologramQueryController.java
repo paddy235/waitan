@@ -309,8 +309,9 @@ public class HologramQueryController {
 	@ResponseBody
 	public ResponseBean getPatentData(@RequestParam(required = true) String company,
 									  @RequestParam(required = true) Integer page,
-									  @RequestParam(required = true) Integer pageSize) {
-		PatentDO result = hologramQueryService.getPatentData(company,page,pageSize);
+									  @RequestParam(required = true) Integer pageSize,
+                                      String bbdQyxxId) {
+		PatentDO result = hologramQueryService.getPatentData(company,bbdQyxxId,page,pageSize);
 		return ResponseBean.successResponse(result);
 	}
 
@@ -356,7 +357,7 @@ public class HologramQueryController {
 	 */
 	@RequestMapping("/infoStatistics.do")
 	@ResponseBody
-	public ResponseBean infoStatistics(@RequestParam String company) throws Exception {
+	public ResponseBean infoStatistics(@RequestParam String company,String bbdQyxxId) throws Exception {
 		Map<String, Integer> result = new HashMap<>();
 		//股东高管
 		Set set=new HashSet();
@@ -407,7 +408,7 @@ public class HologramQueryController {
 		lawsuitTotal +=courtAnnouncementNum;
 		result.put("lawsuitTotal" ,lawsuitTotal);
 		//加入专利信息
-		PatentDO pd = hologramQueryService.getPatentData(company,1,200000000);
+		PatentDO pd = hologramQueryService.getPatentData(company,bbdQyxxId,1,200000000);
 		Integer patentTotal = ( null ==pd ? 0 : pd.getTotal() ); //专利信息
 		result.put( "patentTotal", patentTotal );
 		//加入排查信息总数
@@ -497,10 +498,10 @@ public class HologramQueryController {
 	 */
 	@RequestMapping("/countPatent.do")
 	@ResponseBody
-	public ResponseBean countPatent(@RequestParam String company) throws Exception {
+	public ResponseBean countPatent(@RequestParam String company ,String bbdQyxxId) throws Exception {
 		//加入专利信息
 		Map<String, Integer> result = new HashMap<>();
-		PatentDO pd = hologramQueryService.getPatentData(company,1,200000000);
+		PatentDO pd = hologramQueryService.getPatentData(company,bbdQyxxId,1,200000000);
 		Integer patentTotal = ( null ==pd ? 0 : pd.getTotal() ); //专利信息
 		result.put( "patentTotal", patentTotal );
 		return ResponseBean.successResponse(result);
