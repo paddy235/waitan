@@ -4,6 +4,7 @@ import com.bbd.higgs.utils.ListUtil;
 import com.bbd.wtyh.mapper.RelationMapper;
 import com.bbd.wtyh.service.RelationService;
 import com.bbd.wtyh.web.relationVO.RelationDiagramVO;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +27,8 @@ public class RelationServiceImpl implements RelationService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void addRelation(RelationDiagramVO diagramVO, String queriedCompany) throws Exception {
-        logger.info("Method[addRelation],targetCompany:" + queriedCompany);
+    public void addRelation(RelationDiagramVO diagramVO, String queriedCompany,String bbdQyxxId) throws Exception {
+        logger.info("Method[addRelation],targetCompany:" + queriedCompany+"  "+ bbdQyxxId);
         try {
             if (null == diagramVO ||
                     CollectionUtils.isEmpty(diagramVO.getLineList()) ||
@@ -35,8 +36,8 @@ public class RelationServiceImpl implements RelationService {
                 return;
             }
             //清除该企业的数据
-            this.delLineByTarget(queriedCompany);
-            this.delPointByTarget(queriedCompany);
+            this.delLineByTarget(queriedCompany,bbdQyxxId);
+            this.delPointByTarget(queriedCompany,bbdQyxxId);
             //新增线数据
             List<RelationDiagramVO.LineVO> list=diagramVO.getLineList();
             int totalCount = list.size();
@@ -57,6 +58,7 @@ public class RelationServiceImpl implements RelationService {
 
                     for (RelationDiagramVO.LineVO vo:batchList) {
                         vo.setQueriedCompany(queriedCompany);
+                        vo.setBbdQyxxId(bbdQyxxId);
                     }
                     mapper.addLine(batchList);
                 }
@@ -78,6 +80,7 @@ public class RelationServiceImpl implements RelationService {
                 if (ListUtil.isNotEmpty(batchList)) {
                     for (RelationDiagramVO.PointVO vo:batchList) {
                         vo.setQueriedCompany(queriedCompany);
+                        vo.setBbdQyxxId(bbdQyxxId);
                     }
                     mapper.addPoint(batchList);
                 }
@@ -89,13 +92,27 @@ public class RelationServiceImpl implements RelationService {
     }
 
     @Override
-    public void delLineByTarget(String queriedCompany) {
-        mapper.delLineByTarget(queriedCompany);
+    public void delLineByTarget(String queriedCompany,String bbdQyxxId) {
+        int i=0;
+        if(StringUtils.isNotBlank(bbdQyxxId)){
+            i=mapper.delLineByQyxxId(bbdQyxxId);
+        }
+        if(0==i){
+            mapper.delLineByTarget(queriedCompany);
+        }
+
     }
 
     @Override
-    public void delPointByTarget(String queriedCompany) {
-        mapper.delPointByTarget(queriedCompany);
+    public void delPointByTarget(String queriedCompany,String bbdQyxxId) {
+        int i=0;
+        if(StringUtils.isNotBlank(bbdQyxxId)){
+            i=mapper.delPointByQyxxId(bbdQyxxId);
+        }
+        if(0==i){
+            mapper.delPointByTarget(queriedCompany);
+        }
+
     }
 
 }

@@ -9,10 +9,10 @@ import java.util.List;
  */
 public interface RelationService {
 
-    void addRelation(RelationDiagramVO diagramVO, String queriedCompany) throws Exception;
+    void addRelation(RelationDiagramVO diagramVO, String queriedCompany,String bbdQyxxId) throws Exception;
 
-    void delLineByTarget(String queriedCompany);
+    void delLineByTarget(String queriedCompany,String bbdQyxxId);
 
-    void delPointByTarget(String queriedCompany);
+    void delPointByTarget(String queriedCompany,String bbdQyxxId);
 
 }
