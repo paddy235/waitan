@@ -41,7 +41,7 @@
         company_modify
         WHERE
         `name` = #{name}
-        AND afterLevel is not null and beforeLevel!='null' and afterLevel!='null'
+        AND afterLevel is not null and afterLevel!='null'
     </select>
 
     <insert id="recordModify">
