@@ -307,22 +307,24 @@ public class HologramQueryServiceImpl extends BaseServiceImpl implements Hologra
         recruitPeopleDistributeDO.setMsg("ok");
         List list = new ArrayList();
         RecruitDataDO recruitDataDO = hologramQueryDao.getRecruitData(company,bbdQyxxId, timeTag);
-        if (recruitDataDO.getErr_code() != 0) {
-            logger.error("bbd_kpi_recruit is failling:[{}]", recruitDataDO.getMsg());
-            recruitPeopleDistributeDO.setMsg("error");
-            return recruitPeopleDistributeDO;
-        }
-        if (CollectionUtils.isEmpty(recruitDataDO.getResults().get(0).getIndustry_ratio())) {
-            timeTag = DateUtils.formatDate(org.apache.commons.lang3.time.DateUtils.addMonths(new Date(), -2));
-            recruitDataDO = hologramQueryDao.getRecruitData(company,bbdQyxxId, timeTag);
-        }
-        if (!CollectionUtils.isEmpty(recruitDataDO.getResults().get(0).getIndustry_ratio())) {
-            Map<String, String> indexMap = recruitDataDO.getResults().get(0).getIndustry_ratio();
-            for (String key : indexMap.keySet()) {
-                RecruitPeopleDistributeDO.Rdata rdata = new RecruitPeopleDistributeDO.Rdata();
-                rdata.setName(key);
-                rdata.setValue(indexMap.get(key));
-                list.add(rdata);
+        if (recruitDataDO !=null ) {
+            if (recruitDataDO.getErr_code() != 0) {
+                logger.error("bbd_kpi_recruit is failling:[{}]", recruitDataDO.getMsg());
+                recruitPeopleDistributeDO.setMsg("error");
+                return recruitPeopleDistributeDO;
+            }
+            if (CollectionUtils.isEmpty(recruitDataDO.getResults().get(0).getIndustry_ratio())) {
+                timeTag = DateUtils.formatDate(org.apache.commons.lang3.time.DateUtils.addMonths(new Date(), -2));
+                recruitDataDO = hologramQueryDao.getRecruitData(company, bbdQyxxId, timeTag);
+            }
+            if (!CollectionUtils.isEmpty(recruitDataDO.getResults().get(0).getIndustry_ratio())) {
+                Map<String, String> indexMap = recruitDataDO.getResults().get(0).getIndustry_ratio();
+                for (String key : indexMap.keySet()) {
+                    RecruitPeopleDistributeDO.Rdata rdata = new RecruitPeopleDistributeDO.Rdata();
+                    rdata.setName(key);
+                    rdata.setValue(indexMap.get(key));
+                    list.add(rdata);
+                }
             }
         }
         recruitPeopleDistributeDO.setTotal(String.valueOf(list.size()));
@@ -339,25 +341,27 @@ public class HologramQueryServiceImpl extends BaseServiceImpl implements Hologra
         recruitPeopleSalaryDO.setMsg("ok");
         List list = new ArrayList();
         RecruitDataDO recruitDataDO = hologramQueryDao.getRecruitData(company,bbdQyxxId, timeTag);
-        if (recruitDataDO.getErr_code() != 0) {
-            logger.error("bbd_kpi_recruit is failling:[{}]", recruitDataDO.getMsg());
-            recruitPeopleSalaryDO.setMsg("error");
-            return recruitPeopleSalaryDO;
-        }
-        if (CollectionUtils.isEmpty(recruitDataDO.getResults().get(0).getSalary_ratio())) {
-            timeTag = DateUtils.formatDate(org.apache.commons.lang3.time.DateUtils.addMonths(new Date(), -2));
-            recruitDataDO = hologramQueryDao.getRecruitData(company,bbdQyxxId, timeTag);
-        }
-        if (!CollectionUtils.isEmpty(recruitDataDO.getResults().get(0).getSalary_ratio())) {
-            Map<String, String> indexMap = recruitDataDO.getResults().get(0).getSalary_ratio();
-            for (String key : salaryHashMap.keySet()) {
-                if (indexMap.get(key) != null) {
-                    RecruitPeopleSalaryDO.Rdata rdata = new RecruitPeopleSalaryDO.Rdata();
-                    rdata.setX_value(salaryHashMap.get(key));
-                    rdata.setY_value(indexMap.get(key));
-                    list.add(rdata);
-                }
+        if ( recruitDataDO != null ) {
+            if ( recruitDataDO.getErr_code() != 0) {
+                logger.error("bbd_kpi_recruit is failling:[{}]", recruitDataDO.getMsg());
+                recruitPeopleSalaryDO.setMsg("error");
+                return recruitPeopleSalaryDO;
+            }
+            if (CollectionUtils.isEmpty(recruitDataDO.getResults().get(0).getSalary_ratio())) {
+                timeTag = DateUtils.formatDate(org.apache.commons.lang3.time.DateUtils.addMonths(new Date(), -2));
+                recruitDataDO = hologramQueryDao.getRecruitData(company, bbdQyxxId, timeTag);
+            }
+            if (!CollectionUtils.isEmpty(recruitDataDO.getResults().get(0).getSalary_ratio())) {
+                Map<String, String> indexMap = recruitDataDO.getResults().get(0).getSalary_ratio();
+                for (String key : salaryHashMap.keySet()) {
+                    if (indexMap.get(key) != null) {
+                        RecruitPeopleSalaryDO.Rdata rdata = new RecruitPeopleSalaryDO.Rdata();
+                        rdata.setX_value(salaryHashMap.get(key));
+                        rdata.setY_value(indexMap.get(key));
+                        list.add(rdata);
+                    }
 
+                }
             }
         }
         recruitPeopleSalaryDO.setTotal(String.valueOf(list.size()));
@@ -579,6 +583,34 @@ public class HologramQueryServiceImpl extends BaseServiceImpl implements Hologra
         }
         logger.info("companySearch2--nalName--B[{}]--type[{}]--num[{}]--{}ms", nalName, type, csList.size(), dltSec);
         return csList;
+    }
+
+    @Override
+    public Map<String, Integer> litigationTotal( String company, String bbdQyxxId ) {
+        Map<String, Integer> result = new HashMap<>();
+        Integer lawsuitTotal =0;
+        OpenCourtAnnouncementDO loc = openCourtAnnouncement1(company,bbdQyxxId,null,null);
+        Integer openCourtNum =( null==loc ? 0 : loc.getTotal() ); //加上开庭公告数
+        result.put("lawsuitTotal_openCourt" ,openCourtNum);
+        lawsuitTotal +=openCourtNum;
+        JudgeDocDO jd= judgeDoc1(company,bbdQyxxId,null,null);
+        Integer judgeDocNum= ( null ==jd ? 0 : jd.getTotal() ); //加上裁判文书数
+        result.put("lawsuitTotal_judgeDoc" ,judgeDocNum);
+        lawsuitTotal +=judgeDocNum;
+        DebtorDO de = debtor(company,bbdQyxxId,null,null);
+        Integer debtorNum = ( null ==de ? 0 : de.getTotal() ); //加上被执行人
+        result.put("lawsuitTotal_debtor" ,debtorNum);
+        lawsuitTotal +=debtorNum;
+        NoCreditDebtorDO ncd = noCreditDebtor(company,bbdQyxxId,null,null);
+        Integer noCreditDebtorNum = ( null ==ncd ? 0 : ncd.getTotal() ); //加上失信被执行人
+        result.put("lawsuitTotal_noCreditDebtor" ,noCreditDebtorNum);
+        lawsuitTotal +=noCreditDebtorNum;
+        CourtAnnouncementDO ca = courtAnnouncement(company,bbdQyxxId,null,null);
+        Integer courtAnnouncementNum = ( null ==ca ? 0 : ca.getTotal() ); //加上法院公告
+        result.put("lawsuitTotal_courtAnnouncement" ,courtAnnouncementNum);
+        lawsuitTotal +=courtAnnouncementNum;
+        result.put("lawsuitTotal" ,lawsuitTotal);
+        return result;
     }
 
 }

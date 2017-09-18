@@ -120,7 +120,8 @@ public class PToPMonitorServiceImpl implements PToPMonitorService, TaskService {
         if ( ! CollectionUtils.isEmpty(aInxList) ) {
             return aInxList;
         }
-        return getCompareDataFromNet();
+        aInxList =getCompareDataFromNet();
+        return aInxList;
     }
     public List<IndustryCompareDTO> getCompareDataFromNet() throws Exception {
         String url = this.finSerUrl + "?dataType=industry_compare";

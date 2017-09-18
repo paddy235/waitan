@@ -472,30 +472,7 @@ public class HologramQueryController {
 	@ResponseBody
 	public ResponseBean countLitigation(@RequestParam String company,String bbdQyxxId) throws Exception {
 		//诉讼记录
-		Map<String, Integer> result = new HashMap<>();
-		Integer lawsuitTotal =0;
-		OpenCourtAnnouncementDO loc = hologramQueryService.openCourtAnnouncement1(company,bbdQyxxId,null,null);
-		Integer openCourtNum =( null==loc ? 0 : loc.getTotal() ); //加上开庭公告数
-		result.put("lawsuitTotal_openCourt" ,openCourtNum);
-		lawsuitTotal +=openCourtNum;
-		JudgeDocDO jd= hologramQueryService.judgeDoc1(company,bbdQyxxId,null,null);
-		Integer judgeDocNum= ( null ==jd ? 0 : jd.getTotal() ); //加上裁判文书数
-		result.put("lawsuitTotal_judgeDoc" ,judgeDocNum);
-		lawsuitTotal +=judgeDocNum;
-		DebtorDO de = hologramQueryService.debtor(company,bbdQyxxId,null,null);
-		Integer debtorNum = ( null ==de ? 0 : de.getTotal() ); //加上被执行人
-		result.put("lawsuitTotal_debtor" ,debtorNum);
-		lawsuitTotal +=debtorNum;
-		NoCreditDebtorDO ncd = hologramQueryService.noCreditDebtor(company,bbdQyxxId,null,null);
-		Integer noCreditDebtorNum = ( null ==ncd ? 0 : ncd.getTotal() ); //加上失信被执行人
-		result.put("lawsuitTotal_noCreditDebtor" ,noCreditDebtorNum);
-		lawsuitTotal +=noCreditDebtorNum;
-		CourtAnnouncementDO ca = hologramQueryService.courtAnnouncement(company,bbdQyxxId,null,null);
-		Integer courtAnnouncementNum = ( null ==ca ? 0 : ca.getTotal() ); //加上法院公告
-		result.put("lawsuitTotal_courtAnnouncement" ,courtAnnouncementNum);
-		lawsuitTotal +=courtAnnouncementNum;
-		result.put("lawsuitTotal" ,lawsuitTotal);
-		return ResponseBean.successResponse(result);
+		return ResponseBean.successResponse( hologramQueryService.litigationTotal( company, bbdQyxxId ) );
 	}
 
 	/**

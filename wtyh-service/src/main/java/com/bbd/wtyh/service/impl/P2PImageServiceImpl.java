@@ -13,6 +13,7 @@ import com.bbd.wtyh.domain.bbdAPI.BaseDataDO;
 import com.bbd.wtyh.domain.bbdAPI.ZuZhiJiGoudmDO;
 import com.bbd.wtyh.domain.wangDaiAPI.*;
 import com.bbd.wtyh.mapper.*;
+import com.bbd.wtyh.service.HologramQueryService;
 import com.bbd.wtyh.service.P2PImageService;
 import com.bbd.wtyh.service.TaskService;
 import com.bbd.wtyh.web.EasyExportExcel.ExportCondition;
@@ -58,6 +59,9 @@ public class P2PImageServiceImpl extends BaseServiceImpl implements P2PImageServ
 
     @Autowired
     private DataLoadingMapper dataLoadingMapper;
+
+    @Autowired
+    private HologramQueryService hologramQueryService;
 
     private volatile boolean isShutdown = false;// 任务停止标志
 
@@ -152,15 +156,23 @@ public class P2PImageServiceImpl extends BaseServiceImpl implements P2PImageServ
 
     @Override
     public Map<String, Object> lawsuitMsg(String platName) {
+
         PlatformDO platDataDO = this.getPlatListData(platName);
         if (null == platDataDO) {
             return null;
         }
-
         String companyName = platDataDO.getCompanyName();
-        Long total = platformMapper.countKtgg(companyName);
+        /*Long total = platformMapper.countKtgg(companyName);
         if (total == null || total == 0) {
             return p2PImageDao.lawsuitMsg(companyName);
+        }*/
+        Map<String, Integer> resultH =hologramQueryService.litigationTotal(companyName, null);
+        if( resultH ==null || resultH.size() <1 ) {
+            return null;
+        }
+        Integer total = resultH.get("lawsuitTotal");
+        if (total == null || total == 0) {
+            return null;
         }
         Map<String, Object> result = new HashMap<>(1);
         result.put("total", total);
@@ -263,6 +275,7 @@ public class P2PImageServiceImpl extends BaseServiceImpl implements P2PImageServ
         }
 
         map.put("platName", platName);
+        map.put("companyName", companyName);
         return map;
     }
 

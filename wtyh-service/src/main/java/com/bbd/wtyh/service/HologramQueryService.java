@@ -169,4 +169,12 @@ public interface HologramQueryService {
      */
     List<CompanySearch2DO.Rdata> getNaturalPersonListMul( String nalName, boolean isProvince, String type, Integer maxGet );
 
+    /**
+     * 诉讼信息统计
+     * @param company
+     * @param bbdQyxxId
+     * @return
+     */
+    Map<String, Integer> litigationTotal( String company, String bbdQyxxId );
+
 }

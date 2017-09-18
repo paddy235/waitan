@@ -313,7 +313,13 @@ public class WordReportServiceImpl implements WordReportService {
                                     for (Object r3 : (List) r2) {
                                         if (r3 instanceof Map) {
                                             String name = (String) ((Map) r3).get("name");
-                                            BigDecimal bD = (BigDecimal) ((Map) r3).get("max");
+                                            Object max =((Map) r3).get("max");
+                                            BigDecimal bD =null;
+                                            if( max instanceof Double ) {
+                                                bD =BigDecimal.valueOf( (Double)max );
+                                            } else if( max instanceof BigDecimal ) {
+                                                bD = (BigDecimal)max;
+                                            }
                                             if (StringUtils.isNotBlank(name) && bD != null) {
                                                 gradeInfo.put(name, bD.toString());
                                             }
@@ -721,16 +727,21 @@ public class WordReportServiceImpl implements WordReportService {
                         }
                     }
                 } );
-                RecruitPeopleSalaryDO rpsDo = hologramQueryService.recruitPeopleSalary(companyName,null, null);
-                if (rpsDo != null) {
-                    List<RecruitPeopleSalaryDO.Rdata> rDataList = rpsDo.getRdata();
-                    if (rDataList != null) {
-                        for (RecruitPeopleSalaryDO.Rdata rData : rDataList) {
-                            recruitPeopleSalary.put(rData.getX_value(), rData.getY_value());
+                recruitExe.runThreadFun( ()-> {
+                    RecruitPeopleSalaryDO rpsDo = hologramQueryService.recruitPeopleSalary(companyName, null, null);
+                    if (rpsDo != null) {
+                        List<RecruitPeopleSalaryDO.Rdata> rDataList = rpsDo.getRdata();
+                        if (rDataList != null) {
+                            for (RecruitPeopleSalaryDO.Rdata rData : rDataList) {
+                                recruitPeopleSalary.put(rData.getX_value(), rData.getY_value());
+                            }
                         }
                     }
-                }
+                });
                 recruitExe.waiting();
+                if ( recruitExe.getThreadExceptionList().size() >0 && recruitInfoList != null ) {
+                    recruitInfoList.isEmpty();
+                }
                 for ( int iCnt =timeOuts; iCnt >0; iCnt-- ) {
                     if( null !=wrbArr[0] ) {
                         synchronized (wrbArr) {
