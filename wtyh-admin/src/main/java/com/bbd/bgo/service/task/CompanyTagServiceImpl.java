@@ -117,6 +117,22 @@ public class CompanyTagServiceImpl extends BaseServiceImpl implements CompanyTag
             companyImportAssist.clearList();
         }
 
+        //有多个标签且不是线下理财
+        totalCount = companyTagMapper.countCompanyHaveMoreTagExceptOfflineType();
+        pagination = new Pagination();
+        pagination.setPageSize(pageSize);
+        pagination.setCount(totalCount);
+        total = pagination.getLastPageNumber();
+        //分页新增
+        for (int i = 1; i <= total; i++) {
+            //分页查询
+            pagination.setPageNumber(i);
+            list=companyTagMapper.queryCompanyHaveMoreTagExceptOfflineType(pagination);
+            companyImportAssist.processCpHaveNoCompanyType(list,true);
+            companyImportAssist.save("system-tag3");
+            companyImportAssist.clearList();
+        }
+
     }
 
     @Override
