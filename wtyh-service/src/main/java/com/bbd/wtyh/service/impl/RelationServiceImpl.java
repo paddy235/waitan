@@ -15,7 +15,7 @@ import org.springframework.util.CollectionUtils;
 import java.util.List;
 
 /**
- * Created by Barney on 2017/7/12. test
+ * Created by Barney on 2017/7/12.
  */
 @Service
 public class RelationServiceImpl implements RelationService {
