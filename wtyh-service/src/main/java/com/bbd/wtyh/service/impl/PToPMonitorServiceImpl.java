@@ -89,7 +89,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService, TaskService {
         }
         // Map<String, List> relationMap =
         // relatedCompanyService.queryRelation(companyName, dataVersion, 1);
-        RelationDiagramVO relationDiagramVO = offlinefinanceservice.queryRealRealation(companyName, 1);
+        RelationDiagramVO relationDiagramVO = offlinefinanceservice.queryRealRealation(companyName,null, 1);
         List<RelationDiagramVO.PointVO> pointList = relationDiagramVO.getPointList();
         if (org.apache.commons.collections.CollectionUtils.isEmpty(pointList)) {
             return 0;

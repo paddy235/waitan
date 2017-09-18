@@ -593,7 +593,7 @@ public class WordReportServiceImpl implements WordReportService {
                     newestYED[0] = offlineFinanceService.createNewestYEDtoStream(companyName);
                 } );*/ //关联方图谱已被产品取消
 
-                RelationDiagramVO result = offlineFinanceService.queryRealRealation(companyName, 2);
+                RelationDiagramVO result = offlineFinanceService.queryRealRealation(companyName,null, 2);
                 DrawRelatedG2 dr = new DrawRelatedG2(DrawRelatedG2.DegreeType.ONE);
                 List<List<DrawRelatedG2.NodeInfo>> nodeLList = dr.relationDiagramVoToNodeListG2(result);
                 final Object [] comList ={null}; //List<CompanyDO> comList =new LinkedList<>();

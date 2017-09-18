@@ -643,21 +643,27 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService,TaskServ
     }
 
     @Override
-    public RelationDiagramVO queryRealRealation(String companyName, Integer degree) {
+    public RelationDiagramVO queryRealRealation(String companyName,String bbdQyxxId, Integer degree) {
         //先从数据库取关联方
-        RelationDiagramVO diagramVO = offlineFinanceDao.queryRealationFromDb(companyName,degree);
+        RelationDiagramVO diagramVO = offlineFinanceDao.queryRealationFromDb(companyName,bbdQyxxId,degree);
         if(null != diagramVO){
             diagramVO.setSource("local");
             return diagramVO;
         }
+        //没有ID，需要走原来的逻辑，调用数据平台接口，取得企业ID
         RelationDiagramVO relationDiagramVO = new RelationDiagramVO();
-        BaseDataDO baseDataDO = p2PImageDao.baseInfoBBDData(companyName, null);
-        List<BaseDataDO.Results> resultsList = (null == baseDataDO) ? null : baseDataDO.getResults();
         String unikey = "";
-        if (!CollectionUtils.isEmpty(resultsList)) {
-            unikey = resultsList.get(0).getJbxx().getBbd_qyxx_id();
-        } else {
-            return relationDiagramVO;
+        if(StringUtils.isBlank(bbdQyxxId)){
+
+            BaseDataDO baseDataDO = p2PImageDao.baseInfoBBDData(companyName, null);
+            List<BaseDataDO.Results> resultsList = (null == baseDataDO) ? null : baseDataDO.getResults();
+            if (!CollectionUtils.isEmpty(resultsList)) {
+                unikey = resultsList.get(0).getJbxx().getBbd_qyxx_id();
+            } else {
+                return relationDiagramVO;
+            }
+        }else{
+            unikey=bbdQyxxId;
         }
 
         // 拿出包装类数据

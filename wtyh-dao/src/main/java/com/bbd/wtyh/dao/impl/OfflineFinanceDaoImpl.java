@@ -78,20 +78,35 @@ public class OfflineFinanceDaoImpl implements OfflineFinanceDao {
     }
 
     @Override
-    public RelationDiagramVO queryRealationFromDb(String companyName, Integer degree){
+    public RelationDiagramVO queryRealationFromDb(String companyName,String bbdQyxxId, Integer degree){
         RelationDiagramVO diagramVO ;
+        List<RelationDiagramVO.PointVO>  pointVOList;
+        List<RelationDiagramVO.LineVO> lineVOList;
         try {
-            //注意，这里返回的是relationVO.LineVO  和  relationVO.PointVO，装入到 RelationDiagramVO
-            //其他地方需要使用的时候，需要重新装换。
-            List<RelationDiagramVO.PointVO>  pointVOList = offlineFinanceMapper.queryPointByName(companyName,degree);
-            if(CollectionUtils.isEmpty(pointVOList)){
-                return null;
+
+            if(StringUtils.isNotBlank(bbdQyxxId)){
+
+                pointVOList = offlineFinanceMapper.queryPointById(bbdQyxxId,degree);
+                //减少一次查询
+                if(CollectionUtils.isEmpty(pointVOList)){
+                    return null;
+                }
+                lineVOList = offlineFinanceMapper.queryLineById(bbdQyxxId,degree);
+                if(CollectionUtils.isEmpty(lineVOList)){
+                    return null;
+                }
+            }else {
+                pointVOList = offlineFinanceMapper.queryPointByName(companyName,degree);
+                //减少一次查询
+                if(CollectionUtils.isEmpty(pointVOList)){
+                    return null;
+                }
+                lineVOList = offlineFinanceMapper.queryLineByName(companyName,degree);
+                if(CollectionUtils.isEmpty(lineVOList)){
+                    return null;
+                }
             }
 
-            List<RelationDiagramVO.LineVO> lineVOList = offlineFinanceMapper.queryLineByName(companyName,degree);
-            if(CollectionUtils.isEmpty(lineVOList)){
-                return null;
-            }
             diagramVO= new RelationDiagramVO();
             diagramVO.setPointList(pointVOList);
             diagramVO.setLineList(lineVOList);

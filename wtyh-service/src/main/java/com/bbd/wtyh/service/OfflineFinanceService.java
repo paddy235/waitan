@@ -31,7 +31,7 @@ public interface OfflineFinanceService {
      * @param companyName 公司名称
      * @param degree      纬度
      */
-    RelationDiagramVO queryRealRealation(String companyName, Integer degree);
+    RelationDiagramVO queryRealRealation(String companyName,String bbdQyxxId, Integer degree);
     /**
      * 下载关联方图谱
      *

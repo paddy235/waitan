@@ -108,7 +108,7 @@ public class OfflineFinanceController {
 				return ResponseBean.errorResponse("companyName参数为空");
 			}
             //与全息关联方保持一致
-			RelationDiagramVO result = offlineFinanceService.queryRealRealation(companyName, Integer.valueOf(degreesLevel));
+			RelationDiagramVO result = offlineFinanceService.queryRealRealation(companyName,null, Integer.valueOf(degreesLevel));
 			if (result == null) {
 				logger.error("无关联方图谱信息 --> 公司[" + companyName + "], dateVersion[" + dataVersion + "],关联度[" + degreesLevel + "]");
 			}
@@ -131,9 +131,9 @@ public class OfflineFinanceController {
 	 */
 	@RequestMapping(value = "/queryDynamicPicDataRealTime.do")
 	@ResponseBody
-	public ResponseBean queryDynamicPicDataTwo(@RequestParam String companyName, @RequestParam(defaultValue = "1") Integer degreesLevel) {
+	public ResponseBean queryDynamicPicDataTwo(@RequestParam String companyName,String bbdQyxxId,@RequestParam(defaultValue = "1") Integer degreesLevel) {
 		try {
-			RelationDiagramVO result = offlineFinanceService.queryRealRealation(companyName, degreesLevel);
+			RelationDiagramVO result = offlineFinanceService.queryRealRealation(companyName,bbdQyxxId,degreesLevel);
 
 			return ResponseBean.successResponse(result);
 		} catch (Exception e) {

@@ -11,15 +11,25 @@ import java.util.List;
 public interface OfflineFinanceMapper {
 
     /**
-     * 查询关联方点信息
+     * 查询关联方点信息 by name
      * @return
      */
     List<RelationDiagramVO.PointVO> queryPointByName(@Param("companyName") String companyName, @Param("degree") Integer degree);
 
     /**
-     * 查询关联方线信息
+     * 查询关联方点信息 by ID
+     * @return
+     */
+    List<RelationDiagramVO.PointVO> queryPointById(@Param("bbdQyxxId") String bbdQyxxId, @Param("degree") Integer degree);
+
+    /**
+     * 查询关联方线信息 by name
      * @return
      */
     List<RelationDiagramVO.LineVO> queryLineByName(@Param("companyName")String companyName, @Param("degree") Integer degree);
-
+    /**
+     * 查询关联方线信息 by ID
+     * @return
+     */
+    List<RelationDiagramVO.LineVO> queryLineById(@Param("bbdQyxxId")String bbdQyxxId, @Param("degree") Integer degree);
 }

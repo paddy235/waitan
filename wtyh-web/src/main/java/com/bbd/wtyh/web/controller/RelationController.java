@@ -57,7 +57,7 @@ public class RelationController {
             if (StringUtils.isNullOrEmpty(dataVersion)) {
                 dataVersion = (String) request.getSession().getAttribute("defaultVersion");
             }
-            RelationDiagramVO relationDiagramVO = offlinefinanceservice.queryRealRealation(companyName, degree);
+            RelationDiagramVO relationDiagramVO = offlinefinanceservice.queryRealRealation(companyName,null, degree);
             Map<String, List> map = new HashedMap();
             map.put("pointList", relationDiagramVO.getPointList());
             map.put("lineList", relationDiagramVO.getLineList());
