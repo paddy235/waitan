@@ -124,7 +124,7 @@
 
     <select id="queryCompanyHaveMoreTagExceptOfflineType" resultType="com.bbd.wtyh.domain.CompanyDO">
         select
-        distinct company_name as companyName
+        distinct company_name as `name`
         from qyxx_tag  where tag != '外滩线下理财企业'  and EXISTS (
         select 1 FROM
         (select company_name , count(*)  from qyxx_tag  group by company_name HAVING count(*)>1)  as t1
