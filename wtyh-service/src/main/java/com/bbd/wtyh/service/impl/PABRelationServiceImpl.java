@@ -36,4 +36,9 @@ public class PABRelationServiceImpl implements PABRelationService {
     public int queryPABRelation(Map<String, Object> params) {
         return pabRelationMapper.queryPABRelation(params);
     }
+
+    @Override
+    public void delPABRelation(Map<String, Object> params) {
+        pabRelationMapper.delPABRelation(params);
+    }
 }

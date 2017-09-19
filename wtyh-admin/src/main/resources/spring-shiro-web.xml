@@ -39,9 +39,11 @@
     </bean>
 
     <!-- 会话DAO -->
-    <bean id="sessionDAO" class="org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO">
-        <property name="activeSessionsCacheName" value="shiro-activeSessionCache"/>
+    <bean id="redisSessionDAO" class="com.bbd.wtyh.shiro.RedisSessionDAO">
+        <!--<property name="activeSessionsCacheName" value="web-shiro-activeSessionCache"/>-->
         <property name="sessionIdGenerator" ref="sessionIdGenerator"/>
+        <property name="loginNameKey" value="admin:login:name:sessionid"/>
+        <property name="sessionKey" value="admin:shiro:session:cache:"/>
     </bean>
 
     <!-- 会话验证调度器 验证会话是否已过期 -->
@@ -56,7 +58,7 @@
     <!-- 会话管理器 -->
     <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
         <property name="globalSessionTimeout" value="300000"/>
-        <property name ="sessionListeners">
+        <property name="sessionListeners">
             <list>
                 <ref bean="shiroSessionListener"/>
             </list>
@@ -64,7 +66,7 @@
         <property name="deleteInvalidSessions" value="true"/>
         <property name="sessionValidationSchedulerEnabled" value="true"/>
         <property name="sessionValidationScheduler" ref="sessionValidationScheduler"/>
-        <property name="sessionDAO" ref="sessionDAO"/>
+        <property name="sessionDAO" ref="redisSessionDAO"/>
         <property name="sessionIdCookieEnabled" value="true"/>
         <property name="sessionIdCookie" ref="sessionIdCookie"/>
     </bean>
@@ -82,8 +84,8 @@
         <property name="arguments" ref="securityManager"/>
     </bean>
 
-	<bean id="logout" class="org.apache.shiro.web.filter.authc.LogoutFilter">
-        <property name="redirectUrl" value="/login" />
+    <bean id="logout" class="org.apache.shiro.web.filter.authc.LogoutFilter">
+        <property name="redirectUrl" value="/login"/>
     </bean>
 
 

@@ -121,6 +121,37 @@ public class ParkMgtServiceImpl implements ParkMgtService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
+    public void updateBuilding(BuildingDO buildingDO, ParkDO parkDO, String origParkId) throws Exception {
+        try {
+            if (null == buildingDO || null == parkDO)
+                throw new Exception("传入参数异常，building=" + buildingDO + "，park=" + parkDO);
+            parkAndBuildingMgtMapper.updateBuilding(buildingDO);
+            Map<String, Object> params = new HashMap<>();
+            params.put("parkId", parkDO.getParkId());
+            params.put("buildingId", buildingDO.getBuildingId());
+            int relationCount = pabRelationService.queryPABRelation(params);
+            if (relationCount == 0) {
+                if (StringUtils.isNullOrEmpty(origParkId))
+                    throw new Exception("入参异常，未获取到原所属园区信息！");
+                Map<String, Object> delParams = new HashMap<>();
+                delParams.put("parkId", origParkId);
+                delParams.put("buildingId", buildingDO.getBuildingId());
+                pabRelationService.delPABRelation(delParams);
+
+                PABRelationDO pabRelationDO = new PABRelationDO();
+                pabRelationDO.setCreateBy(buildingDO.getUpdateBy());
+                pabRelationDO.setBuildingId(buildingDO.getBuildingId());
+                pabRelationDO.setParkId(parkDO.getParkId());
+
+                pabRelationService.addPABRelation(pabRelationDO);
+            }
+        } catch (Exception e) {
+            throw new Exception(e.getMessage(), e);
+        }
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
     public void delParkById(String parkId) throws Exception {
         try {
             parkAndBuildingMgtMapper.delCompanyBuildingByParkId(parkId);

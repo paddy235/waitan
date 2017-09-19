@@ -122,7 +122,7 @@ public interface ParkService extends BaseService {
 	 */
 	Map<String,Object> queryParkCompany(Integer parkId,Integer isNew,Integer riskLevel,
 										 String backgroundName,String companyTypeName,String buildingName,
-										String companyName,Integer pageSize,Integer pageNumber);
+										String companyName,Integer pageSize,Integer pageNumber, String parkName);
 
 	List<ParkDO> queryParkList(String areaId, String userId);
 

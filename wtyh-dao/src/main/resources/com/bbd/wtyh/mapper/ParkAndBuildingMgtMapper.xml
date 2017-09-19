@@ -42,7 +42,7 @@
     </update>
 
     <update id="updateParkAreaId" parameterType="com.bbd.wtyh.domain.ParkDO">
-        UPDATE park SET area_id=#{areaId}, update_date=SYSDATE(),update_by=#{updateBy} WHERE park_id=#{parkId}
+        UPDATE park SET `name`=#{name}, area_id=#{areaId}, update_date=SYSDATE(),update_by=#{updateBy} WHERE park_id=#{parkId}
     </update>
 
     <update id="updateBuildingImgUrl" parameterType="com.bbd.wtyh.domain.BuildingDO">
@@ -295,5 +295,9 @@
     <select id="queryBuildingByName" parameterType="java.lang.String" resultType="com.bbd.wtyh.domain.BuildingDO">
         SELECT building_id AS buildingId, `name` AS  `name`, img_url AS imgUrl FROM building WHERE `name`=#{buildingName}
     </select>
+
+    <update id="updateBuilding" parameterType="com.bbd.wtyh.domain.BuildingDO">
+        UPDATE building SET `name`=#{name}, update_date=SYSDATE(),update_by=#{updateBy} WHERE building_id=#{buildingId}
+    </update>
 
 </mapper>
