@@ -71,7 +71,7 @@ public class ShareholderRiskServiceImpl implements ShareholderRiskService {
         for (CompanyDO companyDO : companyList) {
             try {
                 //Map<String, List> relationMap = relatedCompanyService.queryRelation(companyDO.getName(), dataVersion, 1);
-                RelationDiagramVO relationDiagramVO=offlinefinanceservice.queryRealRealation(companyDO.getName(), 1);
+                RelationDiagramVO relationDiagramVO=offlinefinanceservice.queryRealRealation(companyDO.getName(),null, 1);
                 //List<RelationDiagramVO.PointVO> pointList = relationMap.get("pointList");
                 List<RelationDiagramVO.PointVO> pointList = relationDiagramVO.getPointList();
                 if (CollectionUtils.isEmpty(pointList)) {
@@ -138,7 +138,7 @@ public class ShareholderRiskServiceImpl implements ShareholderRiskService {
         try {
             Multimap<Integer, RelatedCompanyDTO> relatedCompanyMap = ArrayListMultimap.create();
             //Map<String, List> relationMap = relatedCompanyService.queryRelation(companyService.getNameById(companyId), dataVersion, 1);
-            RelationDiagramVO relationDiagramVO=offlinefinanceservice.queryRealRealation(companyService.getNameById(companyId), 1);
+            RelationDiagramVO relationDiagramVO=offlinefinanceservice.queryRealRealation(companyService.getNameById(companyId),null, 1);
             List<RelationDiagramVO.PointVO> pointList = relationDiagramVO.getPointList();
             if (null == pointList) {
                 return ArrayListMultimap.create();

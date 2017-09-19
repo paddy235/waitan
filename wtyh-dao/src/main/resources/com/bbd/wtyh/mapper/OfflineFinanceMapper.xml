@@ -12,6 +12,17 @@
         where queried_company=#{companyName} and `level` &lt;=#{degree}
     </select>
 
+    <select id="queryPointById" resultType="com.bbd.wtyh.web.relationVO.RelationDiagramVO$PointVO">
+        select
+        `name`,
+        `cname`,
+        `level`,
+        `is_person` AS isPerson,
+        `is_son_com` AS isSonCom
+        from tbl_point
+        where bbd_qyxx_id=#{bbdQyxxId} and `level` &lt;=#{degree}
+    </select>
+
     <select id="queryLineByName" resultType="com.bbd.wtyh.web.relationVO.RelationDiagramVO$LineVO">
          select
           `orig` ,
@@ -25,5 +36,20 @@
           `tar_level` AS tarLevel
         from tbl_line
         where queried_company=#{companyName}  and  orig_level&lt;=#{degree} and tar_level&lt;=#{degree}
+    </select>
+
+    <select id="queryLineById" resultType="com.bbd.wtyh.web.relationVO.RelationDiagramVO$LineVO">
+        select
+        `orig` ,
+        `orig_name` AS origName,
+        `target` ,
+        `target_name` AS targetName,
+        `is_full_line` AS isFullLine,
+        `type` ,
+        `relationship` ,
+        `orig_level` AS origLevel,
+        `tar_level` AS tarLevel
+        from tbl_line
+        where bbd_qyxx_id=#{bbdQyxxId}  and  orig_level&lt;=#{degree} and tar_level&lt;=#{degree}
     </select>
 </mapper>

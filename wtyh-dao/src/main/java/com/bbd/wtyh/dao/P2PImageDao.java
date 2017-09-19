@@ -30,7 +30,7 @@ public interface P2PImageDao {
     List<PlatListDO> baseInfoWangDaiApi();
     List<PlatListDO> baseInfoWangDaiApiFromNet();
 
-    BaseDataDO baseInfoBBDData(String companyName);
+    BaseDataDO baseInfoBBDData(String companyName, String bbdQyxxId);
 
     ZuZhiJiGoudmDO baseInfoZuZhiJiGou(String companyName);
 

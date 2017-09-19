@@ -175,6 +175,99 @@ public class CompanyImportAssist {
         tempList.clear();
     }
 
+    public void processCpHaveNoCompanyType( List<CompanyDO> tempList, boolean onlyAppend ) {
+        if (null ==tempList) {
+            return;
+        }
+        //准备企业名称列表
+        List<String> cNameLst =new LinkedList<>();
+        for (CompanyDO cDo : tempList) {
+            boolean noErr =true;
+            if( StringUtils.isBlank( cDo.getName() ) || cDo.getName().length() <3 || cDo.getName().length() >40) {
+                addError(cDo.getId(), "企业名称格式错误");
+                noErr =false;
+            }
+            if (noErr){
+                cNameLst.add(cDo.getName());
+            }
+        }
+        //获取批量企业信息
+        List<BaseDataDO.Results> bdLst =hologramQueryService.getBbdQyxxAll(cNameLst);
+        //验证企业名单是否正确
+        for (CompanyDO cDo : tempList) {
+            String cName =cDo.getName();
+            CompanyDO locCp =companyService.getCompanyByName(cName);
+            BaseDataDO.Results cInfo =null;
+            for( BaseDataDO.Results rs : bdLst ) {  //搜索数据平台返回结果中是否有此企业
+                if( rs.getJbxx().getCompany_name().equals(cName) ) {
+                    cInfo =rs;
+                    break;
+                }
+            }
+            boolean bCrd =true;
+            boolean bRegNo =true; //注册号
+            if( null !=cInfo ) { //数据平台有此企业
+                if( StringUtils.isNotEmpty( cDo.getCreditCode() ) && StringUtils.isNotBlank( cInfo.getJbxx().getCredit_code() ) &&
+                        ! cDo.getCreditCode().equals( cInfo.getJbxx().getCredit_code() ) ) {
+                    bCrd =false;
+                }
+                if( StringUtils.isNotEmpty( cDo.getOrganizationCode() ) && StringUtils.isNotBlank( cInfo.getJbxx().getRegno() ) &&
+                        ! cDo.getOrganizationCode().equals( cInfo.getJbxx().getRegno() ) ) {
+                    bRegNo =false;
+                }
+                cDo.setOrganizationCode(null);
+                if (bCrd && bRegNo) { //用数据平台数据验证成功
+                    if ( null ==locCp ) { //数据库中无此企业
+                        if ( StringUtils.isNotBlank( cDo.getCreditCode() ) &&
+                                !(cDo.getCreditCode().matches("^([A-Z]|[0-9]){18}$") ) ) {
+                            addError(cDo.getId(), "统一信用代码格式错误");
+                            continue;
+                        }
+                        //按新增处理
+                        addDataToList( true, cDo, null, cInfo );
+                    } else { //有
+                        if( ! onlyAppend ) {
+                            //按更新处理
+                            addDataToList(false, cDo, locCp, cInfo);
+                        }
+                    }
+                } else { //验证失败
+                    if( onlyAppend && null ==locCp ) {
+                        StringBuilder sb =new StringBuilder("企业名称和");
+                        if ( !bCrd ) {
+                            sb.append("统一信用代码");
+                        }
+                        if ( !bCrd && !bRegNo ) {
+                            sb.append("、");
+                        }
+                        if ( !bRegNo ) {
+                            sb.append("注册号");
+                        }
+                        sb.append("不匹配！");
+                        addError(cDo.getId(), sb.toString());
+                    }
+                }
+            } else { //数据平台无此企业
+                cDo.setOrganizationCode(null);
+                Map.Entry<CompanyDO, BaseDataDO.Results> me =new AbstractMap.SimpleEntry<>( cDo, null );
+                if ( null ==locCp ) { //数据库中无此企业
+                    //产品确认说按新增处理
+                    insertList.add(me);
+                    cDo.setNeo(true);
+                    cDo.setCompanyId(null);
+                } else { //有
+                    //产品确认按更新处理
+                    updateList.add(me);
+                    cDo.setNeo(false);
+                    cDo.setCompanyId(locCp.getCompanyId());
+                    cDo.setAnalysisResult( locCp.getRiskLevel() ); //供东均使用
+                    cDo.setOldCompanyType( locCp.getCompanyType() );
+                }
+            }
+        }
+        tempList.clear();
+    }
+
     //插入或更新、客户导入的、从本地库查询的、来自数据平台
     private void addDataToList( boolean isIns, CompanyDO impCp, CompanyDO locCp, BaseDataDO.Results bddRst ) {
         Map.Entry<CompanyDO, BaseDataDO.Results> me =new AbstractMap.SimpleEntry<>( impCp, bddRst );

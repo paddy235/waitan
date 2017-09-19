@@ -67,8 +67,8 @@ public class HologramQueryController {
 	@RequestMapping("/outlineMsg")
 	@ResponseBody
 	@LogRecord(logMsg = "浏览【%s】全息页面", params = { "company" }, page = Operation.Page.hologram)
-	public ResponseBean outlineMsg(@RequestParam(required = true) String company) {
-		Map<String, Object> result = hologramQueryService.outlineMsg(company);
+	public ResponseBean outlineMsg(@RequestParam(required = true) String company,String bbdQyxxId) {
+		Map<String, Object> result = hologramQueryService.outlineMsg(company,bbdQyxxId);
 		return ResponseBean.successResponse(result);
 	}
 
@@ -79,8 +79,8 @@ public class HologramQueryController {
 	 */
 	@RequestMapping("/newsConsensus")
 	@ResponseBody
-	public ResponseBean newsConsensus(@RequestParam(required = true) String company) {
-		Object result = hologramQueryService.newsConsensusList(company);
+	public ResponseBean newsConsensus(@RequestParam(required = true) String company,String bbdQyxxId) {
+		Object result = hologramQueryService.newsConsensusList(company,bbdQyxxId);
 		//数据平台舆情超时,返回null,会对前端取results的JS有影响
 		if(null==result){
 			Map map=new HashMap();
@@ -97,8 +97,8 @@ public class HologramQueryController {
 	 */
 	@RequestMapping("/businessInfo")
 	@ResponseBody
-	public ResponseBean businessInfo(@RequestParam(required = true) String company) {
-		Map<String, Object> result = hologramQueryService.businessInfo(company);
+	public ResponseBean businessInfo(@RequestParam(required = true) String company,String bbdQyxxId) {
+		Map<String, Object> result = hologramQueryService.businessInfo(company,bbdQyxxId);
 		return ResponseBean.successResponse(result);
 	}
 
@@ -109,10 +109,10 @@ public class HologramQueryController {
 	 */
 	@RequestMapping("/shareholdersSenior")
 	@ResponseBody
-	public ResponseBean shareholdersSenior(@RequestParam(required = true) String company) {
+	public ResponseBean shareholdersSenior(@RequestParam(required = true) String company,String bbdQyxxId) {
 		Map<String,List> result=new HashMap();
 		Map<String,Set<String>> resultKey=new HashMap();
-		Map<String, List> shareholderSenior = hologramQueryService.shareholdersSenior(company);
+		Map<String, List> shareholderSenior = hologramQueryService.shareholdersSenior(company,bbdQyxxId);
 		List<Map> rList = (List)(shareholderSenior.get("gdxx"));
 		if(rList!=null) {
 			for (Map map : rList) {
@@ -183,8 +183,9 @@ public class HologramQueryController {
 	@ResponseBody
 	public ResponseBean openCourtAnnouncement(@RequestParam(required = true) String company,
 											  @RequestParam(required = true) Integer page,
-											  @RequestParam(required = true) Integer pageSize) {
-		OpenCourtAnnouncementDO result = hologramQueryService.openCourtAnnouncement1(company,page,pageSize);
+											  @RequestParam(required = true) Integer pageSize,
+											  String bbdQyxxId ) {
+		OpenCourtAnnouncementDO result = hologramQueryService.openCourtAnnouncement1(company,bbdQyxxId,page,pageSize);
 		//数据平台超时,返回null,会对前端取results的JS有影响
 		if(null==result){
 			result=new OpenCourtAnnouncementDO();
@@ -201,8 +202,9 @@ public class HologramQueryController {
 	@ResponseBody
 	public ResponseBean judgeDoc(@RequestParam(required = true) String company,
 								 @RequestParam(required = true) Integer page,
-								 @RequestParam(required = true) Integer pageSize) {
-		JudgeDocDO result = hologramQueryService.judgeDoc1(company,page,pageSize);
+								 @RequestParam(required = true) Integer pageSize,
+								 String bbdQyxxId) {
+		JudgeDocDO result = hologramQueryService.judgeDoc1(company,bbdQyxxId,page,pageSize);
 		if(null==result){
 			result=new JudgeDocDO();
 		}
@@ -218,8 +220,9 @@ public class HologramQueryController {
 	@ResponseBody
 	public ResponseBean debtor(@RequestParam(required = true) String company,
 							   @RequestParam(required = true) Integer page,
-							   @RequestParam(required = true) Integer pageSize) {
-		DebtorDO result = hologramQueryService.debtor(company,page,pageSize);
+							   @RequestParam(required = true) Integer pageSize,
+							   String bbdQyxxId) {
+		DebtorDO result = hologramQueryService.debtor(company,bbdQyxxId,page,pageSize);
 		return ResponseBean.successResponse(result);
 	}
 
@@ -232,8 +235,9 @@ public class HologramQueryController {
 	@ResponseBody
 	public ResponseBean noCreditDebtor(@RequestParam(required = true) String company,
 									   @RequestParam(required = true) Integer page,
-									   @RequestParam(required = true) Integer pageSize) {
-		NoCreditDebtorDO result = hologramQueryService.noCreditDebtor(company,page,pageSize);
+									   @RequestParam(required = true) Integer pageSize,
+									   String bbdQyxxId) {
+		NoCreditDebtorDO result = hologramQueryService.noCreditDebtor(company,bbdQyxxId,page,pageSize);
 		return ResponseBean.successResponse(result);
 	}
 
@@ -246,8 +250,9 @@ public class HologramQueryController {
 	@ResponseBody
 	public ResponseBean courtAnnouncement(@RequestParam(required = true) String company,
 										  @RequestParam(required = true) Integer page,
-										  @RequestParam(required = true) Integer pageSize) {
-		CourtAnnouncementDO result = hologramQueryService.courtAnnouncement(company,page,pageSize);
+										  @RequestParam(required = true) Integer pageSize,
+										  String bbdQyxxId) {
+		CourtAnnouncementDO result = hologramQueryService.courtAnnouncement(company,bbdQyxxId,page,pageSize);
 		return ResponseBean.successResponse(result);
 	}
 
@@ -258,8 +263,9 @@ public class HologramQueryController {
 	 */
 	@RequestMapping("/recruitPeopleNumber")
 	@ResponseBody
-	public ResponseBean recruitPeopleNumber(@RequestParam(required = true) String company, @RequestParam(required = false) String timeTag) {
-		RecruitPeopleNumberDO result = hologramQueryService.recruitPeopleNumber(company, timeTag);
+	public ResponseBean recruitPeopleNumber(@RequestParam(required = true) String company, @RequestParam(required = false) String timeTag,
+                                            String bbdQyxxId) {
+		RecruitPeopleNumberDO result = hologramQueryService.recruitPeopleNumber(company,bbdQyxxId, timeTag);
 		return ResponseBean.successResponse(result);
 	}
 
@@ -271,8 +277,8 @@ public class HologramQueryController {
 	@RequestMapping("/recruitPeopleDistribute")
 	@ResponseBody
 	public ResponseBean recruitPeopleDistribute(@RequestParam(required = true) String company,
-			@RequestParam(required = false) String timeTag) {
-		RecruitPeopleDistributeDO result = hologramQueryService.recruitPeopleDistribute(company, timeTag);
+			@RequestParam(required = false) String timeTag,String bbdQyxxId) {
+		RecruitPeopleDistributeDO result = hologramQueryService.recruitPeopleDistribute(company,bbdQyxxId, timeTag);
 		return ResponseBean.successResponse(result);
 	}
 
@@ -283,8 +289,9 @@ public class HologramQueryController {
 	 */
 	@RequestMapping("/recruitPeopleSalary")
 	@ResponseBody
-	public ResponseBean recruitPeopleSalary(@RequestParam(required = true) String company, @RequestParam(required = false) String timeTag) {
-		RecruitPeopleSalaryDO result = hologramQueryService.recruitPeopleSalary(company, timeTag);
+	public ResponseBean recruitPeopleSalary(@RequestParam(required = true) String company, @RequestParam(required = false) String timeTag
+                                            ,String bbdQyxxId) {
+		RecruitPeopleSalaryDO result = hologramQueryService.recruitPeopleSalary(company,bbdQyxxId, timeTag);
 		return ResponseBean.successResponse(result);
 	}
 
@@ -309,8 +316,9 @@ public class HologramQueryController {
 	@ResponseBody
 	public ResponseBean getPatentData(@RequestParam(required = true) String company,
 									  @RequestParam(required = true) Integer page,
-									  @RequestParam(required = true) Integer pageSize) {
-		PatentDO result = hologramQueryService.getPatentData(company,page,pageSize);
+									  @RequestParam(required = true) Integer pageSize,
+                                      String bbdQyxxId) {
+		PatentDO result = hologramQueryService.getPatentData(company,bbdQyxxId,page,pageSize);
 		return ResponseBean.successResponse(result);
 	}
 
@@ -356,11 +364,11 @@ public class HologramQueryController {
 	 */
 	@RequestMapping("/infoStatistics.do")
 	@ResponseBody
-	public ResponseBean infoStatistics(@RequestParam String company) throws Exception {
+	public ResponseBean infoStatistics(@RequestParam String company,String bbdQyxxId) throws Exception {
 		Map<String, Integer> result = new HashMap<>();
 		//股东高管
 		Set set=new HashSet();
-		Map<String, List> shareholderSenior = hologramQueryService.shareholdersSenior(company);
+		Map<String, List> shareholderSenior = hologramQueryService.shareholdersSenior(company,bbdQyxxId);
 		List<Map> rList = (List)(shareholderSenior.get("gdxx"));
 		if(rList!=null){
 			for(Map map:rList){
@@ -385,29 +393,29 @@ public class HologramQueryController {
 		result.put( "shareholderSeniorTotal", set.size() );
 		//诉讼记录
 		Integer lawsuitTotal =0;
-		OpenCourtAnnouncementDO loc = hologramQueryService.openCourtAnnouncement1(company,null,null);
+		OpenCourtAnnouncementDO loc = hologramQueryService.openCourtAnnouncement1(company,bbdQyxxId,null,null);
 		Integer openCourtNum =( null==loc ? 0 : loc.getTotal() ); //加上开庭公告数
 		result.put("lawsuitTotal_openCourt" ,openCourtNum);
 		lawsuitTotal +=openCourtNum;
-		JudgeDocDO jd= hologramQueryService.judgeDoc1(company,null,null);
+		JudgeDocDO jd= hologramQueryService.judgeDoc1(company,bbdQyxxId,null,null);
 		Integer judgeDocNum= ( null ==jd ? 0 : jd.getTotal() ); //加上裁判文书数
 		result.put("lawsuitTotal_judgeDoc" ,judgeDocNum);
 		lawsuitTotal +=judgeDocNum;
-		DebtorDO de = hologramQueryService.debtor(company,null,null);
+		DebtorDO de = hologramQueryService.debtor(company,bbdQyxxId,null,null);
 		Integer debtorNum = ( null ==de ? 0 : de.getTotal() ); //加上被执行人
 		result.put("lawsuitTotal_debtor" ,debtorNum);
 		lawsuitTotal +=debtorNum;
-		NoCreditDebtorDO ncd = hologramQueryService.noCreditDebtor(company,null,null);
+		NoCreditDebtorDO ncd = hologramQueryService.noCreditDebtor(company,bbdQyxxId,null,null);
 		Integer noCreditDebtorNum = ( null ==ncd ? 0 : ncd.getTotal() ); //加上失信被执行人
 		result.put("lawsuitTotal_noCreditDebtor" ,noCreditDebtorNum);
 		lawsuitTotal +=noCreditDebtorNum;
-		CourtAnnouncementDO ca = hologramQueryService.courtAnnouncement(company,null,null);
+		CourtAnnouncementDO ca = hologramQueryService.courtAnnouncement(company,bbdQyxxId,null,null);
 		Integer courtAnnouncementNum = ( null ==ca ? 0 : ca.getTotal() ); //加上法院公告
 		result.put("lawsuitTotal_courtAnnouncement" ,courtAnnouncementNum);
 		lawsuitTotal +=courtAnnouncementNum;
 		result.put("lawsuitTotal" ,lawsuitTotal);
 		//加入专利信息
-		PatentDO pd = hologramQueryService.getPatentData(company,1,200000000);
+		PatentDO pd = hologramQueryService.getPatentData(company,bbdQyxxId,1,200000000);
 		Integer patentTotal = ( null ==pd ? 0 : pd.getTotal() ); //专利信息
 		result.put( "patentTotal", patentTotal );
 		//加入排查信息总数
@@ -426,11 +434,11 @@ public class HologramQueryController {
 	 */
 	@RequestMapping("/countShareholder.do")
 	@ResponseBody
-	public ResponseBean countShareholder(@RequestParam String company) throws Exception {
+	public ResponseBean countShareholder(@RequestParam String company,String bbdQyxxId) throws Exception {
 		Map<String, Integer> result = new HashMap<>();
 		//股东高管
 		Set set=new HashSet();
-		Map<String, List> shareholderSenior = hologramQueryService.shareholdersSenior(company);
+		Map<String, List> shareholderSenior = hologramQueryService.shareholdersSenior(company,bbdQyxxId);
 		List<Map> rList = (List)(shareholderSenior.get("gdxx"));
 		if(rList!=null) {
 			for (Map map : rList) {
@@ -462,32 +470,9 @@ public class HologramQueryController {
 	 */
 	@RequestMapping("/countLitigation.do")
 	@ResponseBody
-	public ResponseBean countLitigation(@RequestParam String company) throws Exception {
+	public ResponseBean countLitigation(@RequestParam String company,String bbdQyxxId) throws Exception {
 		//诉讼记录
-		Map<String, Integer> result = new HashMap<>();
-		Integer lawsuitTotal =0;
-		OpenCourtAnnouncementDO loc = hologramQueryService.openCourtAnnouncement1(company,null,null);
-		Integer openCourtNum =( null==loc ? 0 : loc.getTotal() ); //加上开庭公告数
-		result.put("lawsuitTotal_openCourt" ,openCourtNum);
-		lawsuitTotal +=openCourtNum;
-		JudgeDocDO jd= hologramQueryService.judgeDoc1(company,null,null);
-		Integer judgeDocNum= ( null ==jd ? 0 : jd.getTotal() ); //加上裁判文书数
-		result.put("lawsuitTotal_judgeDoc" ,judgeDocNum);
-		lawsuitTotal +=judgeDocNum;
-		DebtorDO de = hologramQueryService.debtor(company,null,null);
-		Integer debtorNum = ( null ==de ? 0 : de.getTotal() ); //加上被执行人
-		result.put("lawsuitTotal_debtor" ,debtorNum);
-		lawsuitTotal +=debtorNum;
-		NoCreditDebtorDO ncd = hologramQueryService.noCreditDebtor(company,null,null);
-		Integer noCreditDebtorNum = ( null ==ncd ? 0 : ncd.getTotal() ); //加上失信被执行人
-		result.put("lawsuitTotal_noCreditDebtor" ,noCreditDebtorNum);
-		lawsuitTotal +=noCreditDebtorNum;
-		CourtAnnouncementDO ca = hologramQueryService.courtAnnouncement(company,null,null);
-		Integer courtAnnouncementNum = ( null ==ca ? 0 : ca.getTotal() ); //加上法院公告
-		result.put("lawsuitTotal_courtAnnouncement" ,courtAnnouncementNum);
-		lawsuitTotal +=courtAnnouncementNum;
-		result.put("lawsuitTotal" ,lawsuitTotal);
-		return ResponseBean.successResponse(result);
+		return ResponseBean.successResponse( hologramQueryService.litigationTotal( company, bbdQyxxId ) );
 	}
 
 	/**
@@ -497,10 +482,10 @@ public class HologramQueryController {
 	 */
 	@RequestMapping("/countPatent.do")
 	@ResponseBody
-	public ResponseBean countPatent(@RequestParam String company) throws Exception {
+	public ResponseBean countPatent(@RequestParam String company ,String bbdQyxxId) throws Exception {
 		//加入专利信息
 		Map<String, Integer> result = new HashMap<>();
-		PatentDO pd = hologramQueryService.getPatentData(company,1,200000000);
+		PatentDO pd = hologramQueryService.getPatentData(company,bbdQyxxId,1,200000000);
 		Integer patentTotal = ( null ==pd ? 0 : pd.getTotal() ); //专利信息
 		result.put( "patentTotal", patentTotal );
 		return ResponseBean.successResponse(result);

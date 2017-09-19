@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.bbd.bgo.service.imp.handler.assist.CompanyImportAssist;
 import com.bbd.wtyh.domain.CompanyDO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,14 +20,48 @@ import com.bbd.wtyh.mapper.CompanyTagMapper;
  */
 @Service
 public class CompanyTagServiceImpl extends BaseServiceImpl implements CompanyTagService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(CompanyTagServiceImpl.class);
     @Autowired
     private CompanyTagMapper companyTagMapper;
 
     @Override
-    public void saveCompanyTag() {
+    public void addTagAndCompany() {
+        //如果qyxx_tag有最新的版本，则处理
         if(!compareVersion()){
             return;
         }
+
+        //更新company_tag表
+        try{
+            LOGGER.info("begin insert company_tag ");
+            saveCompanyTag();
+            LOGGER.info("end  insert company_tag ");
+        }catch (Exception e){
+            LOGGER.error("insert company_tag error : ",e );
+        }
+
+        //新增TAG企业
+        try{
+            LOGGER.info("begin add company from qyxx_tag ");
+            addCompanyFromQyxxTag();
+            LOGGER.info("end  add company from qyxx_tag ");
+        }catch (Exception e){
+            LOGGER.error("add company from qyxx_tag error : ",e );
+        }
+
+        //修改企业类型
+        try{
+            LOGGER.info("begin update company type from qyxx_tag ");
+            updateCompanyTypeFromQyxxTag();
+            LOGGER.info("end  update company type from qyxx_tag ");
+        }catch (Exception e){
+            LOGGER.error("update company type from qyxx_tag error : ",e );
+        }
+    }
+
+    @Override
+    public void saveCompanyTag() {
+
         int pageSize = 3000;
         int totalCount = companyTagMapper.countQyxxTag();
         Pagination pagination = new Pagination();
@@ -46,6 +82,7 @@ public class CompanyTagServiceImpl extends BaseServiceImpl implements CompanyTag
 
     @Override
     public void addCompanyFromQyxxTag() {
+
         CompanyImportAssist companyImportAssist=new CompanyImportAssist(null,null);
         //包含一个外滩线下理财企业的标签
         List<CompanyDO> list;
@@ -80,10 +117,27 @@ public class CompanyTagServiceImpl extends BaseServiceImpl implements CompanyTag
             companyImportAssist.clearList();
         }
 
+        //有多个标签且不是线下理财
+        totalCount = companyTagMapper.countCompanyHaveMoreTagExceptOfflineType();
+        pagination = new Pagination();
+        pagination.setPageSize(pageSize);
+        pagination.setCount(totalCount);
+        total = pagination.getLastPageNumber();
+        //分页新增
+        for (int i = 1; i <= total; i++) {
+            //分页查询
+            pagination.setPageNumber(i);
+            list=companyTagMapper.queryCompanyHaveMoreTagExceptOfflineType(pagination);
+            companyImportAssist.processCpHaveNoCompanyType(list,true);
+            companyImportAssist.save("system-tag3");
+            companyImportAssist.clearList();
+        }
+
     }
 
     @Override
     public void updateCompanyTypeFromQyxxTag() {
+
         companyTagMapper.updateCompanyTypeFromQyxxTag();
     }
 

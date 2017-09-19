@@ -4,9 +4,9 @@
 <mapper namespace="com.bbd.wtyh.mapper.RelationMapper">
 
     <insert id="addLine" parameterType="java.util.List">
-        INSERT INTO tbl_line(queried_company,orig,orig_name,target,target_name,is_full_line,`type`,relationship,orig_level,tar_level, create_by, create_date, update_date) VALUES
+        INSERT INTO tbl_line(`bbd_qyxx_id`,queried_company,orig,orig_name,target,target_name,is_full_line,`type`,relationship,orig_level,tar_level, create_by, create_date, update_date) VALUES
         <foreach collection="list" separator="," item="item">
-            (#{item.queriedCompany}, #{item.orig}, #{item.origName}, #{item.target}, #{item.targetName}, #{item.isFullLine}, #{item.type}, #{item.relationship}, #{item.origLevel}, #{item.tarLevel}, 'system', SYSDATE(), SYSDATE())
+            (#{item.bbdQyxxId},#{item.queriedCompany}, #{item.orig}, #{item.origName}, #{item.target}, #{item.targetName}, #{item.isFullLine}, #{item.type}, #{item.relationship}, #{item.origLevel}, #{item.tarLevel}, 'system', SYSDATE(), SYSDATE())
         </foreach>
     </insert>
 
@@ -14,15 +14,23 @@
         DELETE FROM tbl_line WHERE queried_company=#{queriedCompany}
     </delete>
 
+    <delete id="delLineByQyxxId" parameterType="java.lang.String">
+        DELETE FROM tbl_line WHERE bbd_qyxx_id=#{bbdQyxxId}
+    </delete>
+
     <insert id="addPoint" parameterType="java.util.List">
-        INSERT INTO tbl_point(queried_company, `name`, cname, `level`, is_person, is_son_com, create_by, create_date, update_date) VALUES
+        INSERT INTO tbl_point(`bbd_qyxx_id`,queried_company, `name`, cname, `level`, is_person, is_son_com, create_by, create_date, update_date) VALUES
         <foreach collection="list" separator="," item="item">
-            (#{item.queriedCompany}, #{item.name}, #{item.cname}, #{item.level}, #{item.isPerson}, #{item.isSonCom}, 'system', SYSDATE(), SYSDATE())
+            (#{item.bbdQyxxId},#{item.queriedCompany}, #{item.name}, #{item.cname}, #{item.level}, #{item.isPerson}, #{item.isSonCom}, 'system', SYSDATE(), SYSDATE())
         </foreach>
     </insert>
 
     <delete id="delPointByTarget" parameterType="java.lang.String">
         DELETE FROM tbl_point WHERE queried_company=#{queriedCompany}
+    </delete>
+
+    <delete id="delPointByQyxxId" parameterType="java.lang.String">
+        DELETE FROM tbl_point WHERE bbd_qyxx_id=#{bbdQyxxId}
     </delete>
 
 </mapper>

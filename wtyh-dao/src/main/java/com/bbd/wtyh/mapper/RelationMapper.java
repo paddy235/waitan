@@ -12,10 +12,14 @@ public interface RelationMapper {
     
     void addLine( List<RelationDiagramVO.LineVO> list);
 
-    void delLineByTarget(String queriedCompany);
+    int delLineByTarget(String queriedCompany);
+
+    int delLineByQyxxId(String bbdQyxxId);
 
     void addPoint(List<RelationDiagramVO.PointVO> list);
 
-    void delPointByTarget(String queriedCompany);
+    int delPointByTarget(String queriedCompany);
+
+    int delPointByQyxxId(String bbdQyxxId);
 
 }

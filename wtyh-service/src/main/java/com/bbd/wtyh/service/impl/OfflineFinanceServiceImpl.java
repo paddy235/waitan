@@ -22,6 +22,7 @@ import com.bbd.wtyh.mapper.*;
 import com.bbd.wtyh.service.*;
 import net.sf.cglib.beans.BeanCopier;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.util.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,7 +61,7 @@ import com.google.common.collect.Lists;
  * @since 2016.08.05
  */
 @Service("offlineFinanceService")
-public class OfflineFinanceServiceImpl implements OfflineFinanceService, TaskService {
+public class OfflineFinanceServiceImpl implements OfflineFinanceService,TaskService {
 
     private Logger logger = LoggerFactory.getLogger(OfflineFinanceServiceImpl.class);
     @Resource
@@ -121,7 +122,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService, TaskSer
     @Override
     public TaskResultDO updateCompanyRiskLevel(Integer taskId) throws Exception {
         logger.info("--- company risk level job begin ---");
-        isShutdown = false;
+        isShutdown=false;
         TaskResultDO taskResultDO = new TaskResultDO();
         final Map<Integer, Integer> platRankMapData = pToPMonitorService.getPlatRankMapData();
         if (platRankMapData == null || platRankMapData.size() == 0) {
@@ -148,7 +149,8 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService, TaskSer
                 for (final CompanyDO companyDO : list) {
                     try {
 
-                        dataExecutorService.submit(new Runnable() {
+                        dataExecutorService.submit(
+                            new Runnable() {
 
                             @Override
                             public void run() {
@@ -171,7 +173,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService, TaskSer
         if (isShutdown) {
             taskResultDO.setFailCount(0);
             taskResultDO.setSuccessCount(0);
-        } else {
+        }else{
             taskResultDO.setFailCount(failCount);
             taskResultDO.setSuccessCount(totalCount - failCount);
         }
@@ -183,7 +185,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService, TaskSer
     @Override
     public TaskResultDO executeFailTaskByTaskId(Integer runMode, Integer oldTaskId, Integer taskId) throws Exception {
         logger.info("--- company risk level handle begin ---");
-        isShutdown = false;
+        isShutdown=false;
         TaskResultDO taskResultDO = new TaskResultDO();
 
         List<TaskFailInfoDO> list = taskFailInfoMapper.getTaskFailInfoByTaskId(oldTaskId);
@@ -207,7 +209,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService, TaskSer
         if (isShutdown) {
             taskResultDO.setFailCount(0);
             taskResultDO.setSuccessCount(0);
-        } else {
+        }else{
             taskResultDO.setFailCount(failCount);
             taskResultDO.setSuccessCount(planCount - failCount);
         }
@@ -220,14 +222,14 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService, TaskSer
         taskFailInfoDO.setTaskId(taskId);
         taskFailInfoDO.setFailName(companyName);
         switch (failName) {
-        case "ConnectTimeoutException":
-            taskFailInfoDO.setFailReason("线下理财接口连接超时");
-            break;
-        case "JsonSyntaxException":
-            taskFailInfoDO.setFailReason("线下理财接口返回数据解析失败");
-            break;
-        default:
-            taskFailInfoDO.setFailReason("线下理财接口调用失败");
+            case "ConnectTimeoutException":
+                taskFailInfoDO.setFailReason("线下理财接口连接超时");
+                break;
+            case "JsonSyntaxException":
+                taskFailInfoDO.setFailReason("线下理财接口返回数据解析失败");
+                break;
+            default:
+                taskFailInfoDO.setFailReason("线下理财接口调用失败");
         }
         taskFailInfoDO.setCreateBy("sys");
         taskFailInfoDO.setCreateDate(new Date());
@@ -349,7 +351,8 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService, TaskSer
         if (isShutdown) {
             return;
         }
-        if (companyInfoModify.isModify(companyDO.getName())) {
+        //风险等级被人工修改过，则不再更新
+        if (companyInfoModify.isModifyByAfterRisk(companyDO.getName())) {
             return;
         }
         Integer companyId = companyDO.getCompanyId();
@@ -359,8 +362,10 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService, TaskSer
         StaticRiskDataDO staticRiskDataDO = staticRiskMapper.queryStaticsRiskData(companyDO.getName());
         Integer riskLevel = oldRiskLevel;
         Integer riskLevelForPToP = platRankMapData.get(companyId);
-        /**
-         * 风险等级规则 1.若能取到网贷之家的风险等级，则以网贷之家为准 2.非网贷,取static_risk_data的风险等级 3.非网贷,取company_analysis_result，且能取到该企业的风险等级,则覆盖第二步的风险等级
+        /**风险等级规则
+         * 1.若能取到网贷之家的风险等级，则以网贷之家为准
+         * 2.非网贷,取static_risk_data的风险等级
+         * 3.非网贷,取company_analysis_result，且能取到该企业的风险等级,则覆盖第二步的风险等级
          **/
         if (riskLevelForPToP != null && riskLevelForPToP > 0) {
             logger.warn("companyId:{} riskLevelForP2P:{}", companyId, riskLevelForPToP);
@@ -391,11 +396,15 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService, TaskSer
             }
         }
 
-        /*
-         * boolean immUpdatePreviousRiskLevel =false; if( null ==oldRiskLevel && StringUtils.isNotBlank(companyDO.getName()) ) {
-         * BigDecimal bdl = realTimeMonitorService.getCompanyStaticIndexByName(companyDO.getName( )); if( null !=bdl ) { int
-         * level = OfflineFinanceService.staticRiskIndexToLevel(bdl); oldRiskLevel =level; immUpdatePreviousRiskLevel =true; } }
-         */
+
+		/*
+         * boolean immUpdatePreviousRiskLevel =false; if( null ==oldRiskLevel &&
+		 * StringUtils.isNotBlank(companyDO.getName()) ) { BigDecimal bdl =
+		 * realTimeMonitorService.getCompanyStaticIndexByName(companyDO.getName(
+		 * )); if( null !=bdl ) { int level =
+		 * OfflineFinanceService.staticRiskIndexToLevel(bdl); oldRiskLevel
+		 * =level; immUpdatePreviousRiskLevel =true; } }
+		 */
         // LocalDate ld = LocalDate.now();
         if (!riskLevel.equals(oldRiskLevel)) { // 只记录前一次变化的，这是最新的产品需求
             companyMapper.updateRiskLevel(riskLevel, oldRiskLevel, companyId, "system");
@@ -428,55 +437,59 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService, TaskSer
         }
     }
 
+    private static final String LISTED_COMPANY_MARK = "上市公司";
+
     @Override
-    public Map companyInfo(String companyName) {
+    public Map companyInfo(String companyName, String bbdQyxxId) {
         List<Map<Integer, Object>> list = companyMapper.companyInfo(companyName);
 
         Map<String, Object> result = new HashMap<>();
 
         List backgroud = new ArrayList();
+        BaseDataDO baseDataDO = p2PImageDao.baseInfoBBDData(companyName, bbdQyxxId);
+        if (null != baseDataDO && ListUtil.isNotEmpty(baseDataDO.getResults()) && null != baseDataDO.getResults().get(0) && null != baseDataDO.getResults().get(0).getJbxx())
+            result.put("status", baseDataDO.getResults().get(0).getJbxx().getCompany_enterprise_status());
         if (!CollectionUtils.isEmpty(list)) {
-            result.put("status", list.get(0).get("status"));
-
+            // result.put("status", list.get(0).get("status"));
             result.put("comTypeCN", "");
 
             Object objType = list.get(0).get("companyType");
             if (objType != null) {
                 result.put("comTypeCN", CompanyDO.companyTypeCN(Byte.parseByte(objType.toString())));
-            } else { //by cgj
-                int otherCnt = 0; //“其他”计数器
-                String currType = "";
+            } else {  //by cgj
+                int otherCnt =0; //“其他”计数器
+                String currType ="";
 
                 //是否属于 网络借贷
-                boolean inNetLending = false;
-                PlatformDO plDo = baseService.selectOne(PlatformDO.class, "`company_name` = " + "'" + companyName + "'");
-                if (null == plDo) {
-                    PlatCoreDataDO pcdDo = baseService.selectOne(PlatCoreDataDO.class, "`company_name` = " + "'" + companyName + "'");
-                    if (null != pcdDo) {
-                        inNetLending = true;
+                boolean inNetLending =false;
+                PlatformDO plDo = baseService.selectOne(PlatformDO.class, "`company_name` = " +"'" +companyName +"'");
+                if ( null ==plDo ) {
+                    PlatCoreDataDO pcdDo =baseService.selectOne(PlatCoreDataDO.class, "`company_name` = " +"'" +companyName +"'");
+                    if( null !=pcdDo ) {
+                        inNetLending =true;
                     }
                 } else {
-                    inNetLending = true;
+                    inNetLending =true;
                 }
-                if (inNetLending) {
+                if ( inNetLending ) {
                     otherCnt++;
-                    currType = "网络借贷";
+                    currType ="网络借贷";
                 }
 
                 //是否属于 线下理财
-                IndexDataDO idDo = baseService.selectById(IndexDataDO.class, companyName);
-                if (null != idDo) {
+                IndexDataDO idDo =baseService.selectById(IndexDataDO.class, companyName);
+                if (null !=idDo) {
                     otherCnt++;
-                    if (otherCnt < 2) {
-                        currType = "线下理财";
+                    if ( otherCnt <2 ) {
+                        currType ="线下理财";
                     } else {
-                        currType = "其他";
+                        currType ="其他";
                     }
                 }
 
                 //CompanyDO cDo1 =companyMapper.queryCompanyByName(companyName);
-                CompanyDO cDo = baseService.selectOne(CompanyDO.class, "`name` = " + "'" + companyName + "'");
-                if (otherCnt < 2 && null != cDo && null != cDo.getCompanyId()) {
+                CompanyDO cDo =baseService.selectOne(CompanyDO.class, "`name` = " +"'" +companyName +"'");
+                if ( otherCnt < 2 && null != cDo && null !=cDo.getCompanyId() ) {
                     //是否属于 交易场所
                     ExchangeCompanyDO ecDo = baseService.selectById(ExchangeCompanyDO.class, cDo.getCompanyId());
                     if (null != ecDo) {
@@ -522,7 +535,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService, TaskSer
 
                     //是否属于 众筹
                     if (otherCnt < 2) {
-                        CrowdFundingCompanyDO cfcDo = baseService.selectById(CrowdFundingCompanyDO.class, cDo.getCompanyId());
+                        CrowdFundingCompanyDO cfcDo = baseService.selectById( CrowdFundingCompanyDO.class, cDo.getCompanyId() );
                         //todo 今后可能要用这个表“crowd_funding_company_dataland”
                         if (null != cfcDo) {
                             otherCnt++;
@@ -541,8 +554,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService, TaskSer
                         if (null != fleDo) {
                             inFinanceLea = true;
                         } else {
-                            FinanceLeaseRiskDO flrDo = baseService.selectOne(FinanceLeaseRiskDO.class,
-                                    "`company_id` = " + cDo.getCompanyId());
+                            FinanceLeaseRiskDO flrDo = baseService.selectOne(FinanceLeaseRiskDO.class, "`company_id` = " + cDo.getCompanyId());
                             if (null != flrDo) {
                                 inFinanceLea = true;
                             }
@@ -558,7 +570,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService, TaskSer
                     }
 
                     //是否属于 商业保理
-                    if (otherCnt < 2) {
+                    if ( otherCnt <2 ) {
                         CommercialFactoringExtraDO cfeDo = baseService.selectById(CommercialFactoringExtraDO.class, cDo.getCompanyId());
                         if (null != cfeDo) {
                             otherCnt++;
@@ -571,9 +583,9 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService, TaskSer
                     }
 
                     //是否属于 预付卡
-                    if (otherCnt < 2) {
-                        CompanyAnalysisResultDO carDo = baseService.selectById(CompanyAnalysisResultDO.class, cDo.getCompanyId());
-                        if (null != carDo) {
+                    if ( otherCnt <2 ) {
+                        CompanyAnalysisResultDO carDo =baseService.selectById(CompanyAnalysisResultDO.class, cDo.getCompanyId());
+                        if ( null != carDo) {
                             otherCnt++;
                             if (otherCnt < 2) {
                                 currType = "预付卡";
@@ -583,11 +595,11 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService, TaskSer
                         }
                     }
                 }
-                result.put("comTypeCN", currType);
+                result.put("comTypeCN",currType );
             }
 
             if (list.get(0).get("riskLevel") != null) {
-                result.put("analysisResult", CompanyAnalysisResult.getName(Integer.parseInt(list.get(0).get("riskLevel").toString())));
+                result.put( "analysisResult", CompanyAnalysisResult.getName(Integer.parseInt(list.get(0).get("riskLevel").toString())) );
             }
 
             String backgroudString = "";
@@ -600,11 +612,12 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService, TaskSer
                 if (map.get("name") != null) {
                     continue;
                 }
-                if (back == 1) {
-                    backgroudString = "上市公司";
-                } else if (back == 2) {
-                    backgroudString = "非上市公司";
-                } else if (back == 3) {
+//                if (back == 1) {
+//                    backgroudString = "上市公司";
+//                } else if (back == 2) {
+//                    backgroudString = "非上市公司";
+//                } else
+                if (back == 3) {
                     backgroudString = "国企";
                 } else if (back == 4) {
                     backgroudString = "民营企业";
@@ -613,31 +626,44 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService, TaskSer
                 } else {
                     // do nothing
                 }
-                backgroud.add(backgroudString);
+                if (StringUtils.isNotEmpty(backgroudString))
+                    backgroud.add(backgroudString);
             }
         }
-
+        if (null != baseDataDO && ListUtil.isNotEmpty(baseDataDO.getResults()) && null != baseDataDO.getResults().get(0) && null != baseDataDO.getResults().get(0).getJbxx()) {
+            String bg = baseDataDO.getResults().get(0).getJbxx().getIpo_company();
+            if (LISTED_COMPANY_MARK.equals(bg))
+                backgroud.add("上市公司");
+            else
+                backgroud.add("非上市公司");
+        }
         result.put("companyName", companyName);
         result.put("backgroud", backgroud);
         return result;
     }
 
     @Override
-    public RelationDiagramVO queryRealRealation(String companyName, Integer degree) {
+    public RelationDiagramVO queryRealRealation(String companyName,String bbdQyxxId, Integer degree) {
         //先从数据库取关联方
-        RelationDiagramVO diagramVO = offlineFinanceDao.queryRealationFromDb(companyName, degree);
-        if (null != diagramVO) {
+        RelationDiagramVO diagramVO = offlineFinanceDao.queryRealationFromDb(companyName,bbdQyxxId,degree);
+        if(null != diagramVO){
             diagramVO.setSource("local");
             return diagramVO;
         }
+        //没有ID，需要走原来的逻辑，调用数据平台接口，取得企业ID
         RelationDiagramVO relationDiagramVO = new RelationDiagramVO();
-        BaseDataDO baseDataDO = p2PImageDao.baseInfoBBDData(companyName);
-        List<BaseDataDO.Results> resultsList = (null == baseDataDO) ? null : baseDataDO.getResults();
         String unikey = "";
-        if (!CollectionUtils.isEmpty(resultsList)) {
-            unikey = resultsList.get(0).getJbxx().getBbd_qyxx_id();
-        } else {
-            return relationDiagramVO;
+        if(StringUtils.isBlank(bbdQyxxId)){
+
+            BaseDataDO baseDataDO = p2PImageDao.baseInfoBBDData(companyName, null);
+            List<BaseDataDO.Results> resultsList = (null == baseDataDO) ? null : baseDataDO.getResults();
+            if (!CollectionUtils.isEmpty(resultsList)) {
+                unikey = resultsList.get(0).getJbxx().getBbd_qyxx_id();
+            } else {
+                return relationDiagramVO;
+            }
+        }else{
+            unikey=bbdQyxxId;
         }
 
         // 拿出包装类数据
@@ -665,7 +691,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService, TaskSer
     public RelationDiagramVO downloadRealRealation(String companyName, Integer degree) {
 
         RelationDiagramVO relationDiagramVO = new RelationDiagramVO();
-        BaseDataDO baseDataDO = p2PImageDao.baseInfoBBDData(companyName);
+        BaseDataDO baseDataDO = p2PImageDao.baseInfoBBDData(companyName, null);
         List<BaseDataDO.Results> resultsList = (null == baseDataDO) ? null : baseDataDO.getResults();
         String unikey = "";
         if (!CollectionUtils.isEmpty(resultsList)) {
@@ -694,6 +720,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService, TaskSer
         return relationDiagramVO;
     }
 
+
     @Override
     public RelationDiagramVO queryRealationFromDb(String companyName, Integer degree) {
 
@@ -702,7 +729,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService, TaskSer
         return relationDiagramVO;
     }
 
-    @SuppressWarnings({ "unchecked", "rawtypes" })
+    @SuppressWarnings({"unchecked", "rawtypes"})
     @Override
     public RelationDiagramVO queryRelation(String companyName, String dataVersion, String degreesLevel) throws Exception {
         RelationDTO relationDTO = offlineFinanceDao.queryRealation(companyName, dataVersion);
@@ -762,7 +789,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService, TaskSer
     }
 
     private void hanldeResult(String companyName, Integer degree, List<RelationDiagramVO.LineVO> lineVOs,
-            List<RelationDiagramVO.PointVO> pointVOs, RelationDTO.Result result, List<String> set) {
+                              List<RelationDiagramVO.PointVO> pointVOs, RelationDTO.Result result, List<String> set) {
         RelationDiagramVO.LineVO lineVO = new RelationDiagramVO.LineVO();
         lineVO.setOrig(result.getInvestor());
         lineVO.setOrigName(result.getInvestor());
@@ -886,7 +913,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService, TaskSer
             StatisticsVO firstVO = avgList.get(0);
             int subMonth = this.getSubMonth(lastVO, firstVO); // 月份差
             if (subMonth == 0) { // 这里表示只有一个月有数据
-                /* 以有数据月份为准，向前推5个月的为零数据 */
+				/* 以有数据月份为准，向前推5个月的为零数据 */
                 for (int i = 0; i < 5; i++) {
                     StatisticsVO vo = new StatisticsVO();
                     vo.setAvgRiskIndex(BigDecimal.ZERO);
@@ -898,7 +925,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService, TaskSer
                 result.add(firstVO);
             } else {
                 result.add(firstVO);
-                /* 填充最大、最小时间之间的数据 */
+				/* 填充最大、最小时间之间的数据 */
                 for (int i = 1; i < subMonth; i++) {
                     String date = DateUtils.getLastMonth(df.parse(firstVO.getDate()), i);
                     StatisticsVO existVO = this.getExistVO(avgList, date);
@@ -906,7 +933,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService, TaskSer
                         result.add(existVO);
                         continue;
                     }
-                    /* 未存在数据则填充零数据 */
+					/* 未存在数据则填充零数据 */
                     StatisticsVO vo = new StatisticsVO();
                     vo.setAvgRiskIndex(BigDecimal.ZERO);
                     vo.setRiskIndex(BigDecimal.ZERO);
@@ -917,7 +944,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService, TaskSer
                 result.add(lastVO);
                 int resultSize = result.size();
                 List<StatisticsVO> supplementList = new ArrayList<StatisticsVO>();
-                /* 最终结果依然小于半年数据，则在最早时间前填充零数据 */
+				/* 最终结果依然小于半年数据，则在最早时间前填充零数据 */
                 if (resultSize < 6) {
                     for (int i = 0; i < 6 - resultSize; i++) {
                         StatisticsVO vo = new StatisticsVO();
@@ -949,80 +976,80 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService, TaskSer
         List<StatisticsVO> avgList = null;
         if (!StringUtils.isEmpty(type)) {
             switch (type) {
-            case "0":
-                avgList = (List<StatisticsVO>) redisDAO.getObject(Constants.REDIS_KEY_STATIC_RISK_INDEX);
-                if (ListUtil.isEmpty(avgList)) {
-                    avgList = staticRiskMapper.queryIndStatistics(params);
-                    if (ListUtil.isNotEmpty(avgList)) {
-                        redisDAO.addObject(Constants.REDIS_KEY_STATIC_RISK_INDEX, avgList, Constants.cacheDay, List.class);
+                case "0":
+                    avgList = (List<StatisticsVO>) redisDAO.getObject(Constants.REDIS_KEY_STATIC_RISK_INDEX);
+                    if (ListUtil.isEmpty(avgList)) {
+                        avgList = staticRiskMapper.queryIndStatistics(params);
+                        if (ListUtil.isNotEmpty(avgList)) {
+                            redisDAO.addObject(Constants.REDIS_KEY_STATIC_RISK_INDEX, avgList, Constants.cacheDay, List.class);
+                        }
                     }
-                }
-                break;
-            case "1":
-                avgList = (List<StatisticsVO>) redisDAO.getObject(Constants.REDIS_KEY_SJKZR_RISK);
-                if (ListUtil.isEmpty(avgList)) {
-                    avgList = staticRiskMapper.queryIndStsSJKZR(params);
-                    if (ListUtil.isNotEmpty(avgList)) {
-                        redisDAO.addObject(Constants.REDIS_KEY_SJKZR_RISK, avgList, Constants.cacheDay, List.class);
+                    break;
+                case "1":
+                    avgList = (List<StatisticsVO>) redisDAO.getObject(Constants.REDIS_KEY_SJKZR_RISK);
+                    if (ListUtil.isEmpty(avgList)) {
+                        avgList = staticRiskMapper.queryIndStsSJKZR(params);
+                        if (ListUtil.isNotEmpty(avgList)) {
+                            redisDAO.addObject(Constants.REDIS_KEY_SJKZR_RISK, avgList, Constants.cacheDay, List.class);
+                        }
                     }
-                }
-                break;
-            case "2":
-                avgList = (List<StatisticsVO>) redisDAO.getObject(Constants.REDIS_KEY_GSKZLJ_RISK);
-                if (ListUtil.isEmpty(avgList)) {
-                    avgList = staticRiskMapper.queryIndStsGSKZLJ(params);
-                    if (ListUtil.isNotEmpty(avgList)) {
-                        redisDAO.addObject(Constants.REDIS_KEY_GSKZLJ_RISK, avgList, Constants.cacheDay, List.class);
+                    break;
+                case "2":
+                    avgList = (List<StatisticsVO>) redisDAO.getObject(Constants.REDIS_KEY_GSKZLJ_RISK);
+                    if (ListUtil.isEmpty(avgList)) {
+                        avgList = staticRiskMapper.queryIndStsGSKZLJ(params);
+                        if (ListUtil.isNotEmpty(avgList)) {
+                            redisDAO.addObject(Constants.REDIS_KEY_GSKZLJ_RISK, avgList, Constants.cacheDay, List.class);
+                        }
                     }
-                }
-                break;
-            case "3":
-                avgList = (List<StatisticsVO>) redisDAO.getObject(Constants.REDIS_KEY_ZXJJH_RISK);
-                if (ListUtil.isEmpty(avgList)) {
-                    avgList = staticRiskMapper.queryIndStsZXJJH(params);
-                    if (ListUtil.isNotEmpty(avgList)) {
-                        redisDAO.addObject(Constants.REDIS_KEY_ZXJJH_RISK, avgList, Constants.cacheDay, List.class);
+                    break;
+                case "3":
+                    avgList = (List<StatisticsVO>) redisDAO.getObject(Constants.REDIS_KEY_ZXJJH_RISK);
+                    if (ListUtil.isEmpty(avgList)) {
+                        avgList = staticRiskMapper.queryIndStsZXJJH(params);
+                        if (ListUtil.isNotEmpty(avgList)) {
+                            redisDAO.addObject(Constants.REDIS_KEY_ZXJJH_RISK, avgList, Constants.cacheDay, List.class);
+                        }
                     }
-                }
-                break;
-            case "4":
-                avgList = (List<StatisticsVO>) redisDAO.getObject(Constants.REDIS_KEY_FFRZYS_RISK);
-                if (ListUtil.isEmpty(avgList)) {
-                    avgList = staticRiskMapper.queryIndStsFFRZYS(params);
-                    if (ListUtil.isNotEmpty(avgList)) {
-                        redisDAO.addObject(Constants.REDIS_KEY_FFRZYS_RISK, avgList, Constants.cacheDay, List.class);
+                    break;
+                case "4":
+                    avgList = (List<StatisticsVO>) redisDAO.getObject(Constants.REDIS_KEY_FFRZYS_RISK);
+                    if (ListUtil.isEmpty(avgList)) {
+                        avgList = staticRiskMapper.queryIndStsFFRZYS(params);
+                        if (ListUtil.isNotEmpty(avgList)) {
+                            redisDAO.addObject(Constants.REDIS_KEY_FFRZYS_RISK, avgList, Constants.cacheDay, List.class);
+                        }
                     }
-                }
-                break;
-            case "5":
-                avgList = (List<StatisticsVO>) redisDAO.getObject(Constants.REDIS_KEY_DQZL_RISK);
-                if (ListUtil.isEmpty(avgList)) {
-                    avgList = staticRiskMapper.queryIndStsDQZL(params);
-                    if (ListUtil.isNotEmpty(avgList)) {
-                        redisDAO.addObject(Constants.REDIS_KEY_DQZL_RISK, avgList, Constants.cacheDay, List.class);
+                    break;
+                case "5":
+                    avgList = (List<StatisticsVO>) redisDAO.getObject(Constants.REDIS_KEY_DQZL_RISK);
+                    if (ListUtil.isEmpty(avgList)) {
+                        avgList = staticRiskMapper.queryIndStsDQZL(params);
+                        if (ListUtil.isNotEmpty(avgList)) {
+                            redisDAO.addObject(Constants.REDIS_KEY_DQZL_RISK, avgList, Constants.cacheDay, List.class);
+                        }
                     }
-                }
-                break;
-            case "6":
-                avgList = (List<StatisticsVO>) redisDAO.getObject(Constants.REDIS_KEY_FFRZWG_RISK);
-                if (ListUtil.isEmpty(avgList)) {
-                    avgList = staticRiskMapper.queryIndStsFFRZWG(params);
-                    if (ListUtil.isNotEmpty(avgList)) {
-                        redisDAO.addObject(Constants.REDIS_KEY_FFRZWG_RISK, avgList, Constants.cacheDay, List.class);
+                    break;
+                case "6":
+                    avgList = (List<StatisticsVO>) redisDAO.getObject(Constants.REDIS_KEY_FFRZWG_RISK);
+                    if (ListUtil.isEmpty(avgList)) {
+                        avgList = staticRiskMapper.queryIndStsFFRZWG(params);
+                        if (ListUtil.isNotEmpty(avgList)) {
+                            redisDAO.addObject(Constants.REDIS_KEY_FFRZWG_RISK, avgList, Constants.cacheDay, List.class);
+                        }
                     }
-                }
-                break;
-            case "7":
-                avgList = (List<StatisticsVO>) redisDAO.getObject(Constants.REDIS_KEY_RCJG_RISK);
-                if (ListUtil.isEmpty(avgList)) {
-                    avgList = staticRiskMapper.queryIndStsRCJG(params);
-                    if (ListUtil.isNotEmpty(avgList)) {
-                        redisDAO.addObject(Constants.REDIS_KEY_RCJG_RISK, avgList, Constants.cacheDay, List.class);
+                    break;
+                case "7":
+                    avgList = (List<StatisticsVO>) redisDAO.getObject(Constants.REDIS_KEY_RCJG_RISK);
+                    if (ListUtil.isEmpty(avgList)) {
+                        avgList = staticRiskMapper.queryIndStsRCJG(params);
+                        if (ListUtil.isNotEmpty(avgList)) {
+                            redisDAO.addObject(Constants.REDIS_KEY_RCJG_RISK, avgList, Constants.cacheDay, List.class);
+                        }
                     }
-                }
-                break;
-            default:
-                break;
+                    break;
+                default:
+                    break;
             }
         }
         return avgList;
@@ -1035,32 +1062,32 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService, TaskSer
                     params.put("date", vo.getDate());
                     StatisticsVO comVO = null;
                     switch (type) {
-                    case "0":
-                        comVO = staticRiskMapper.queryComStatistics(params);
-                        break;
-                    case "1":
-                        comVO = staticRiskMapper.queryComStsSJKZR(params);
-                        break;
-                    case "2":
-                        comVO = staticRiskMapper.queryComStsGSKZLJ(params);
-                        break;
-                    case "3":
-                        comVO = staticRiskMapper.queryComStsZXJJH(params);
-                        break;
-                    case "4":
-                        comVO = staticRiskMapper.queryComStsFFRZYS(params);
-                        break;
-                    case "5":
-                        comVO = staticRiskMapper.queryComStsDQZL(params);
-                        break;
-                    case "6":
-                        comVO = staticRiskMapper.queryComStsFFRZWG(params);
-                        break;
-                    case "7":
-                        comVO = staticRiskMapper.queryComStsRCJG(params);
-                        break;
-                    default:
-                        break;
+                        case "0":
+                            comVO = staticRiskMapper.queryComStatistics(params);
+                            break;
+                        case "1":
+                            comVO = staticRiskMapper.queryComStsSJKZR(params);
+                            break;
+                        case "2":
+                            comVO = staticRiskMapper.queryComStsGSKZLJ(params);
+                            break;
+                        case "3":
+                            comVO = staticRiskMapper.queryComStsZXJJH(params);
+                            break;
+                        case "4":
+                            comVO = staticRiskMapper.queryComStsFFRZYS(params);
+                            break;
+                        case "5":
+                            comVO = staticRiskMapper.queryComStsDQZL(params);
+                            break;
+                        case "6":
+                            comVO = staticRiskMapper.queryComStsFFRZWG(params);
+                            break;
+                        case "7":
+                            comVO = staticRiskMapper.queryComStsRCJG(params);
+                            break;
+                        default:
+                            break;
                     }
                     if (null != comVO) {
                         vo.setRiskIndex(comVO.getRiskIndex());
@@ -1306,14 +1333,12 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService, TaskSer
             }
         }
         Collections.sort(lineList, new Comparator<RelationDiagramVO.LineVO>() {
-
             @Override
             public int compare(RelationDiagramVO.LineVO l1, RelationDiagramVO.LineVO l2) {
                 return Integer.parseInt(l1.getTarLevel()) - Integer.parseInt(l2.getTarLevel());
             }
         });
         Collections.sort(lineList, new Comparator<RelationDiagramVO.LineVO>() {
-
             @Override
             public int compare(RelationDiagramVO.LineVO l1, RelationDiagramVO.LineVO l2) {
                 return Integer.parseInt(l1.getOrigLevel()) - Integer.parseInt(l2.getOrigLevel());
@@ -1322,8 +1347,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService, TaskSer
         int i = 0;
         for (RelationDiagramVO.LineVO vo : lineList) {
             vo.setNum(++i);
-        }
-        ;
+        };
         return lineList;
     }
 
@@ -1393,7 +1417,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService, TaskSer
         List<String> points = new ArrayList<String>();
         Map<String, String> sonComMap = new HashMap<String, String>();
         for (List<String> l : list) {
-            /* 统计点 */
+			/* 统计点 */
             String value1 = l.get(0) + "," + l.get(3) + "," + l.get(6) + "_0";
             if (!points.contains(value1)) {
                 points.add(value1);
@@ -1430,32 +1454,32 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService, TaskSer
     private String getTableText(String tabIndex) {
         String text = null;
         switch (tabIndex) {
-        case "0":
-            text = "静态风险指数";
-            break;
-        case "1":
-            text = "实际控制人风险";
-            break;
-        case "2":
-            text = "公司扩张路径风险";
-            break;
-        case "3":
-            text = "中心积聚化风险";
-            break;
-        case "4":
-            text = "非法融资衍生风险";
-            break;
-        case "5":
-            text = "短期逐利风险";
-            break;
-        case "6":
-            text = "非法融资违规风险";
-            break;
-        case "7":
-            text = "人才结构风险";
-            break;
-        default:
-            break;
+            case "0":
+                text = "静态风险指数";
+                break;
+            case "1":
+                text = "实际控制人风险";
+                break;
+            case "2":
+                text = "公司扩张路径风险";
+                break;
+            case "3":
+                text = "中心积聚化风险";
+                break;
+            case "4":
+                text = "非法融资衍生风险";
+                break;
+            case "5":
+                text = "短期逐利风险";
+                break;
+            case "6":
+                text = "非法融资违规风险";
+                break;
+            case "7":
+                text = "人才结构风险";
+                break;
+            default:
+                break;
         }
         return text;
     }
@@ -1482,7 +1506,8 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService, TaskSer
     }
 
     private String assembleRedisKey(String companyName, String fileType, String month) {
-        return "YED_" + companyName + APIConstants.redis_attPath + "_" + fileType + "_" + month;
+        String redis_key = companyName + APIConstants.redis_attPath + "_" + fileType + "_" + month;
+        return redis_key;
     }
 
     @Override
@@ -1497,13 +1522,14 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService, TaskSer
 
     @Override
     public TaskResultDO autoExecute(Integer taskId, Integer runMode) {
-        TaskResultDO taskResultDO = null;
+        TaskResultDO taskResultDO= null;
         try {
             taskResultDO = updateCompanyRiskLevel(taskId);
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            return taskResultDO;
         }
-        return taskResultDO;
 
     }
 
@@ -1514,8 +1540,10 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService, TaskSer
             taskResultDO = executeFailTaskByTaskId(runMode, oldTaskId, newTaskId);
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+
+            return taskResultDO;
         }
-        return taskResultDO;
 
     }
 
@@ -1526,6 +1554,6 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService, TaskSer
 
     @Override
     public void resetTask() {
-        this.isShutdown = false;
+        this.isShutdown=false;
     }
 }

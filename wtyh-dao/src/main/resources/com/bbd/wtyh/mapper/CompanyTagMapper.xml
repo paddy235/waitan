@@ -53,11 +53,11 @@
         FROM `qyxx_tag`
     </select>
     <select id="getMaxDtFromQyxxTag" resultType="java.lang.Integer">
-        select max(dt) AS dt
+        select IFNULL(max(dt),0) AS dt
         FROM `qyxx_tag`
     </select>
     <select id="getMaxDtFromCompanyTag" resultType="java.lang.Integer">
-        select max(dt) AS dt
+        select IFNULL(max(dt),0) AS dt
         FROM company_tag
     </select>
 
@@ -106,6 +106,28 @@
         from qyxx_tag  where tag != '外滩线下理财企业'  and EXISTS (
         select 1 FROM
         (select company_name , count(*)  from qyxx_tag  group by company_name HAVING count(*)=1)  as t1
+        where 1=1 and t1.company_name = qyxx_tag.company_name )
+        AND  NOT EXISTS (select 1 from company where `name`=qyxx_tag.company_name)
+        ORDER BY bbd_qyxx_id
+        LIMIT #{pagination.begin}, #{pagination.pageSize}
+    </select>
+
+    <select id="countCompanyHaveMoreTagExceptOfflineType" resultType="java.lang.Integer">
+        select
+        count( distinct company_name) as counts
+        from qyxx_tag  where tag != '外滩线下理财企业'  and EXISTS (
+        select 1 FROM
+        (select company_name , count(*)  from qyxx_tag  group by company_name HAVING count(*)>1)  as t1
+        where 1=1 and t1.company_name = qyxx_tag.company_name )
+        AND  NOT EXISTS (select 1 from company where `name`=qyxx_tag.company_name)
+    </select>
+
+    <select id="queryCompanyHaveMoreTagExceptOfflineType" resultType="com.bbd.wtyh.domain.CompanyDO">
+        select
+        distinct company_name as `name`
+        from qyxx_tag  where tag != '外滩线下理财企业'  and EXISTS (
+        select 1 FROM
+        (select company_name , count(*)  from qyxx_tag  group by company_name HAVING count(*)>1)  as t1
         where 1=1 and t1.company_name = qyxx_tag.company_name )
         AND  NOT EXISTS (select 1 from company where `name`=qyxx_tag.company_name)
         ORDER BY bbd_qyxx_id

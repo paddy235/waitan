@@ -29,5 +29,5 @@ public interface OfflineFinanceDao {
      * @param companyName 公司名称
      * @param degree 纬度
      */
-    RelationDiagramVO queryRealationFromDb(String companyName, Integer degree);
+    RelationDiagramVO queryRealationFromDb(String companyName,String bbdQyxxId, Integer degree);
 }

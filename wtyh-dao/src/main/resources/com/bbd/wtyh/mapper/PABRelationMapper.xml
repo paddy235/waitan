@@ -14,4 +14,22 @@
 		DELETE FROM park_and_building_relation WHERE building_id=#{buildingId}
 	</delete>
 
+	<select id="queryPABRelation" parameterType="java.util.Map" resultType="int">
+		SELECT COUNT(1) FROM park_and_building_relation
+		<where>
+			<if test="parkId != null and parkId != ''">
+				park_id=#{parkId}
+			</if>
+			<if test="buildingId != null and buildingId != ''">
+				AND building_id=#{buildingId}
+			</if>
+			<if test="parkName != null and parkName != ''">
+				AND park_id=(SELECT park_id FROM park WHERE `name`=#{parkName} LIMIT 1)
+			</if>
+			<if test="buildingName != null and buildingName != ''">
+				AND building_id=(SELECT building_id FROM building WHERE `name`=#{buildingName} LIMIT 1)
+			</if>
+		</where>
+	</select>
+
 </mapper>

@@ -89,7 +89,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService, TaskService {
         }
         // Map<String, List> relationMap =
         // relatedCompanyService.queryRelation(companyName, dataVersion, 1);
-        RelationDiagramVO relationDiagramVO = offlinefinanceservice.queryRealRealation(companyName, 1);
+        RelationDiagramVO relationDiagramVO = offlinefinanceservice.queryRealRealation(companyName,null, 1);
         List<RelationDiagramVO.PointVO> pointList = relationDiagramVO.getPointList();
         if (org.apache.commons.collections.CollectionUtils.isEmpty(pointList)) {
             return 0;
@@ -120,7 +120,8 @@ public class PToPMonitorServiceImpl implements PToPMonitorService, TaskService {
         if ( ! CollectionUtils.isEmpty(aInxList) ) {
             return aInxList;
         }
-        return getCompareDataFromNet();
+        aInxList =getCompareDataFromNet();
+        return aInxList;
     }
     public List<IndustryCompareDTO> getCompareDataFromNet() throws Exception {
         String url = this.finSerUrl + "?dataType=industry_compare";

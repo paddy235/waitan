@@ -255,9 +255,11 @@ public class MybatisResultInterceptor implements Interceptor {
         Class<?> clazz = Class.forName(fullClazz);
 
         Method method = ReflectUtil.getMethod(clazz, methodName);
-        ResultIntercept methodAnnotation = method.getAnnotation(ResultIntercept.class);
-        if (methodAnnotation != null) {
-            return methodAnnotation.intercept();
+        if (method !=null) {
+            ResultIntercept methodAnnotation = method.getAnnotation(ResultIntercept.class);
+            if (methodAnnotation != null) {
+                return methodAnnotation.intercept();
+            }
         }
         ResultIntercept classAnnotation = clazz.getAnnotation(ResultIntercept.class);
         if (interceptAllMethod) {

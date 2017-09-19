@@ -38,7 +38,7 @@ public class BasicDataContainerService extends ApiContainerService{
 	
 	public EnterpriseDataVO getEnterpriseData(String companyName) throws Exception{
 		EnterpriseDataVO enterpriseData = new EnterpriseDataVO();
-		BaseDataDO baseDataDO = p2PImageDao.baseInfoBBDData(companyName);
+		BaseDataDO baseDataDO = p2PImageDao.baseInfoBBDData(companyName, null);
 
 		if (baseDataDO != null) {
 			List<BaseDataDO.Results> results = baseDataDO.getResults();
@@ -67,7 +67,7 @@ public class BasicDataContainerService extends ApiContainerService{
 
 	public JSONArray getBaxxData(String companyName)throws Exception {
 		JSONArray baxxResult = null;
-		BaseDataDO baseDataDO = p2PImageDao.baseInfoBBDData(companyName);
+		BaseDataDO baseDataDO = p2PImageDao.baseInfoBBDData(companyName, null);
 		if (baseDataDO != null) {
 			List<BaseDataDO.Results> results = baseDataDO.getResults();
 			if (!CollectionUtils.isEmpty(results)) {
@@ -120,7 +120,7 @@ public class BasicDataContainerService extends ApiContainerService{
 	public List<ShareholderDataVO> getShareholderData(String companyName) throws Exception {
 		List<ShareholderDataVO> shareholderDatas = new ArrayList<ShareholderDataVO>();
 
-		BaseDataDO baseDataDO = p2PImageDao.baseInfoBBDData(companyName);
+		BaseDataDO baseDataDO = p2PImageDao.baseInfoBBDData(companyName, null);
 		if (baseDataDO != null) {
 			List<BaseDataDO.Results> results = baseDataDO.getResults();
 			if (!CollectionUtils.isEmpty(results)) {

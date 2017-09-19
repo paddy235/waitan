@@ -17,5 +17,7 @@ public interface CompanyInfoModifyMapper {
 
     List<String> queryModifyCompany(@Param("name")String name);
 
+    List<String> queryModifyCompanyByAfterRisk(@Param("name")String name);
+
     void recordModify(@Param("recordInfo")RecordInfo recordInfo);   // 记录修改
 }

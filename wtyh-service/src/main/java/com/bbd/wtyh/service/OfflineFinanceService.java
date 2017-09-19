@@ -31,7 +31,7 @@ public interface OfflineFinanceService {
      * @param companyName 公司名称
      * @param degree      纬度
      */
-    RelationDiagramVO queryRealRealation(String companyName, Integer degree);
+    RelationDiagramVO queryRealRealation(String companyName,String bbdQyxxId, Integer degree);
     /**
      * 下载关联方图谱
      *
@@ -77,7 +77,7 @@ public interface OfflineFinanceService {
     //获取最新的关联方图谱图片
     public byte[] createNewestYEDtoStream(String companyName);
 
-    Map companyInfo(String companyName);
+    Map companyInfo(String companyName, String bbdQyxxId);
 
     public TaskResultDO updateCompanyRiskLevel(Integer taskId) throws Exception;
 

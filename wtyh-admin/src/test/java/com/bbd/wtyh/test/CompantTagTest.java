@@ -3,6 +3,8 @@ package com.bbd.wtyh.test;
 
 import com.bbd.bgo.service.task.CompanyTagService;
 import com.bbd.bgo.service.task.RealTimeMonitorNewsService;
+import com.bbd.bgo.service.task.TagUpdateService;
+import com.bbd.wtyh.mapper.CompanyTagMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -27,9 +29,17 @@ public class CompantTagTest extends BaseServiceImpl {
     private CompanyTagService companyTagService;
     @Autowired
     private RealTimeMonitorNewsService realTimeMonitorNewsService;
+    @Autowired
+    CompanyTagMapper companyTagMapper;
+    @Autowired
+    private TagUpdateService tagUpdateService;
     @Test
     public void test(){
-        companyTagService.saveCompanyTag();
+       /* Integer companyTd=companyTagMapper.getMaxDtFromCompanyTag();
+        System.out.println(companyTd);
+        Integer companyTd2=companyTagMapper.getMaxDtFromQyxxTag();
+        System.out.println(companyTd2);*/
+        tagUpdateService.operateData();
     }
 
     @Test

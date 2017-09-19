@@ -71,7 +71,7 @@ public class PlatUpdateTaskServiceImpl extends BaseServiceImpl implements PlatUp
 
 
 	private TaskResultDO updatePlat(Integer oldTaskId,Integer newTaskId) {
-		logger.info("--- platform job begin ---");
+		logger.info("----- platform job begin -----");
 		isShutdown=false;
 		TaskResultDO taskResultDO = new TaskResultDO();
 		if(null==newTaskId){
@@ -148,7 +148,7 @@ public class PlatUpdateTaskServiceImpl extends BaseServiceImpl implements PlatUp
 	}
 
 	public void setCompanyId(List<PlatListDO> platList, List<PlatformNameInformationDO> platInfoList){
-		List<String> names = new ArrayList<String>();
+		List<String> names = new ArrayList<>();
 		PlatformNameInformationDO platInfo=null;
 		for(PlatListDO plat:platList){
 			platInfo=new PlatformNameInformationDO();
@@ -160,7 +160,7 @@ public class PlatUpdateTaskServiceImpl extends BaseServiceImpl implements PlatUp
 			}
 		}
 		List<CompanyDO> comList = companyMapper.findCompanyByName(names);
-		Map<String,CompanyDO> map=new HashMap<String,CompanyDO>();
+		Map<String,CompanyDO> map=new HashMap<>();
 		for(CompanyDO com:comList){
 			map.put(com.getName(),com);
 		}
@@ -181,7 +181,8 @@ public class PlatUpdateTaskServiceImpl extends BaseServiceImpl implements PlatUp
 				Byte industryBefore = map.get(plat.getName()).getCompanyType();//数据库中的行业，亦是修改前行业
 				ModifyData modifyData = new ModifyData();
 				modifyData.setName(map.get(plat.getName()).getName());
-				modifyData.setLevel(map.get(plat.getName()).getRiskLevel()+"");
+                Integer level=map.get(plat.getName()).getRiskLevel();
+				modifyData.setLevel(level==null?null:level.toString());
 				modifyData.setIndustry(CompanyInfo.TYPE_P2P_1+"");//修改后固定为网贷
 				modify(modifyData,industryBefore);
 
@@ -192,10 +193,10 @@ public class PlatUpdateTaskServiceImpl extends BaseServiceImpl implements PlatUp
 
 	public void modify(ModifyData modifyData,Byte industryBefore){
 		try {
-			if (CompanyInfo.TYPE_P2P_1 == industryBefore) { // 网络借贷转网络借贷
-				companyInfoMudifyUtil.modifyWangdai(modifyData);
-			} else { // 其它转网络借贷
-				companyInfoMudifyUtil.modifyTimingTask(modifyData);
+			// 其它行业转网络借贷,需要清空原来的风险等级
+			if (null != industryBefore && CompanyInfo.TYPE_P2P_1!=industryBefore) {
+
+				companyInfoMudifyUtil.modifyForTask(modifyData);
 			}
 		}catch(Exception e){
 			e.printStackTrace();

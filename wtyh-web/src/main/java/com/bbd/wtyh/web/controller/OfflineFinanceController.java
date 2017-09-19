@@ -108,7 +108,7 @@ public class OfflineFinanceController {
 				return ResponseBean.errorResponse("companyName参数为空");
 			}
             //与全息关联方保持一致
-			RelationDiagramVO result = offlineFinanceService.queryRealRealation(companyName, Integer.valueOf(degreesLevel));
+			RelationDiagramVO result = offlineFinanceService.queryRealRealation(companyName,null, Integer.valueOf(degreesLevel));
 			if (result == null) {
 				logger.error("无关联方图谱信息 --> 公司[" + companyName + "], dateVersion[" + dataVersion + "],关联度[" + degreesLevel + "]");
 			}
@@ -131,9 +131,9 @@ public class OfflineFinanceController {
 	 */
 	@RequestMapping(value = "/queryDynamicPicDataRealTime.do")
 	@ResponseBody
-	public ResponseBean queryDynamicPicDataTwo(@RequestParam String companyName, @RequestParam(defaultValue = "1") Integer degreesLevel) {
+	public ResponseBean queryDynamicPicDataTwo(@RequestParam String companyName,String bbdQyxxId,@RequestParam(defaultValue = "1") Integer degreesLevel) {
 		try {
-			RelationDiagramVO result = offlineFinanceService.queryRealRealation(companyName, degreesLevel);
+			RelationDiagramVO result = offlineFinanceService.queryRealRealation(companyName,bbdQyxxId,degreesLevel);
 
 			return ResponseBean.successResponse(result);
 		} catch (Exception e) {
@@ -144,7 +144,7 @@ public class OfflineFinanceController {
 
 	@RequestMapping(value = "/export-related-data")
 	@ResponseBody
-	public ResponseBean exportRelatedData(@RequestParam String companyName, HttpServletRequest request) {
+	public ResponseBean exportRelatedData(@RequestParam String companyName,String bbdQyxxId, HttpServletRequest request) {
 		try {
 			RelationDiagramVO result = offlineFinanceService.downloadRealRealation(companyName, 3);
 			List<RelationDiagramVO.LineVO> lineList = result.getLineList();
@@ -173,7 +173,7 @@ public class OfflineFinanceController {
 					request);
 
 			// 数据落地
-			relationService.addRelation(result, companyName);
+			relationService.addRelation(result, companyName,bbdQyxxId);
 
 			return ResponseBean.successResponse(exportExcel.getDownloadURL());
 		} catch (Exception e) {
@@ -357,7 +357,7 @@ public class OfflineFinanceController {
 	public ResponseBean companyNews(String companyName) {
 		// String data = offlineFinanceService.companyNews(companyName);
 
-		Object data = hologramQueryService.newsConsensusList(companyName);
+		Object data = hologramQueryService.newsConsensusList(companyName,null);
 
 		return ResponseBean.successResponse(data);
 	}
@@ -384,8 +384,8 @@ public class OfflineFinanceController {
 	@SuppressWarnings("companyInfo")
 	@RequestMapping("companyInfo.do")
 	@ResponseBody
-	public ResponseBean companyInfo(String companyName) {
-		Map data = offlineFinanceService.companyInfo(companyName);
+	public ResponseBean companyInfo(String companyName, String bbdQyxxId) {
+		Map data = offlineFinanceService.companyInfo(companyName, bbdQyxxId);
 		return ResponseBean.successResponse(data);
 	}
 

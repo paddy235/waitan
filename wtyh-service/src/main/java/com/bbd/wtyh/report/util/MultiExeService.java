@@ -1,6 +1,7 @@
 package com.bbd.wtyh.report.util;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /** 多任务执行服务
@@ -23,6 +24,7 @@ public class MultiExeService {
         void fun( );
     };
     public class ExeThread extends Thread {
+        final Exception []ee =new Exception []{null};
         ThreadFun tf;
         ExeThread(ThreadFun tf ) {
             super();
@@ -31,9 +33,21 @@ public class MultiExeService {
         @Override
         public void run() {
             if( null != tf ) {
-                tf.fun();
+                try {
+                    tf.fun();
+                } catch (Exception e) {
+                    ee[0] =e;
+                    //e.printStackTrace();
+                }
             }
         }
+    }
+
+    /** 线程异常列表 */
+    private List<Exception> threadExceptionList =new LinkedList<>();
+
+    public List<Exception> getThreadExceptionList() {
+        return threadExceptionList;
     }
 
     private List<ExeThread> thrList =new ArrayList();
@@ -58,6 +72,11 @@ public class MultiExeService {
                 } catch (InterruptedException ie) {
                     ie.printStackTrace();
                 }
+            }
+        }
+        for (ExeThread jt : thrList) {
+            if (jt.ee[0] !=null) {
+                threadExceptionList.add(jt.ee[0]);
             }
         }
     }
