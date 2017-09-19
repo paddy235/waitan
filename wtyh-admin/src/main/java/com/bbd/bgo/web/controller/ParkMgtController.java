@@ -162,7 +162,13 @@ public class ParkMgtController {
     @ResponseBody
     @LogRecord(logMsg = "修改园区：%s", params = {"parkName"}, page = Operation.Page.PARK_BUILDING_MANAGE,
             type = Operation.Type.modify, after = true, before = false)
-    public ResponseBean updPark(ParkDO parkDO) {
+    public ResponseBean updPark(String updateBy, String areaId, String parkId, String name) {
+        ParkDO parkDO = new ParkDO();
+        parkDO.setUpdateBy(updateBy);
+        parkDO.setAreaId(StringUtils.isEmpty(areaId) ? 0 : Integer.parseInt(areaId));
+        parkDO.setParkId(Integer.parseInt(parkId));
+        parkDO.setName(name);
+
         parkMgtService.updateParkAreaId(parkDO);
         return ResponseBean.successResponse("OK");
     }
@@ -170,9 +176,10 @@ public class ParkMgtController {
     @RequestMapping("/updateBuilding")
     @ResponseBody
     @LogRecord(logMsg = "修改楼宇：%s", params = {"name"}, page = Operation.Page.PARK_BUILDING_MANAGE, type = Operation.Type.modify, after = true, before = false)
-    public ResponseBean updateBuilding(BuildingDO buildingDO, ParkDO parkDO) {
+    public ResponseBean updateBuilding(BuildingDO buildingDO, ParkDO parkDO, String parkName, String origParkId) {
         try {
-            parkMgtService.updateBuilding(buildingDO, parkDO);
+            parkDO.setName(parkName);
+            parkMgtService.updateBuilding(buildingDO, parkDO, origParkId);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseBean.errorResponse(e.getMessage());

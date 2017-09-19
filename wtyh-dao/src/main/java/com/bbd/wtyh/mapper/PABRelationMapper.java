@@ -38,4 +38,10 @@ public interface PABRelationMapper {
      */
     int queryPABRelation(Map<String, Object> params);
 
+    /**
+     *
+     * @param params
+     */
+    void delPABRelation(Map<String, Object> params);
+
 }

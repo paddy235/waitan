@@ -32,4 +32,8 @@
 		</where>
 	</select>
 
+	<delete id="delPABRelation" parameterType="java.util.Map">
+		DELETE FROM park_and_building_relation WHERE park_id=#{parkId} AND building_id=#{buildingId}
+	</delete>
+
 </mapper>
