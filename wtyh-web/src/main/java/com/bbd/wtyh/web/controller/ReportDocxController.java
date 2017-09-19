@@ -48,13 +48,15 @@ public class ReportDocxController {
 	@LogRecord(logMsg = "导出“%s”的企业全息报告", params = {"companyName"}, page = Operation.Page.hologram,
 			type = Operation.Type.REPORT_EXPORT, after = true, before = false)
 	@RequestMapping( value = "download-noIE.do" )
-	public Object downloadFile(HttpServletRequest request,
-                               @RequestParam String companyName )  {
+	public Object downloadFile(HttpServletRequest request, String bbdQyxxId, String companyName )  {
+		if( bbdQyxxId ==null && companyName ==null ) {
+			return ResponseBean.errorResponse("parameters is error.");
+		}
         //Subject currentUser = SecurityUtils.getSubject(); currentUser.getSession().getAttribute(Constants.SESSION.loginName);
 		try {
 		    String loginName = (String) request.getSession().getAttribute(Constants.SESSION.loginName);
 		    String areaCode = (String) request.getSession().getAttribute("area");
-			Map<String, Object> rstMap = wordReportService.reportExport(companyName, loginName, areaCode);
+			Map<String, Object> rstMap = wordReportService.reportExport(companyName, bbdQyxxId, loginName, areaCode);
 			HttpHeaders headers = new HttpHeaders();
 			String downloadFilename = new String(((String) rstMap.get("fileName")).getBytes("UTF-8"),
 					"iso-8859-1");
@@ -71,13 +73,16 @@ public class ReportDocxController {
 			type = Operation.Type.REPORT_EXPORT, after = true, before = false)
 	@RequestMapping( value = "download.do" )
 	public void downloadFile(HttpServletRequest request,
-							   HttpServletResponse response,
+							   HttpServletResponse response, String bbdQyxxId,
 							   @RequestParam String companyName )  {
+		if( bbdQyxxId ==null && companyName ==null ) {
+			LOGGER.error("bbdQyxxId ==null and companyName ==null");
+		}
 		OutputStream out = null;
 		try {
 			String loginName = (String) request.getSession().getAttribute(Constants.SESSION.loginName);
 			String areaCode = (String) request.getSession().getAttribute("area");
-			Map<String, Object> rstMap = wordReportService.reportExport(companyName, loginName, areaCode);
+			Map<String, Object> rstMap = wordReportService.reportExport(companyName, bbdQyxxId, loginName, areaCode);
 
 			companyName =(String) rstMap.get("fileName");
 			response.setCharacterEncoding("UTF-8");
@@ -100,7 +105,6 @@ public class ReportDocxController {
 				if( null != out ) {
 					out.close();
 				}
-
 			} catch (Exception e) {}
 		}
 	}
@@ -110,14 +114,16 @@ public class ReportDocxController {
 	@RequestMapping( value = "get-file-url.do" )
 	@ResponseBody
 	public Object getFileUrl(HttpServletRequest request,
-							 HttpServletResponse response,
-							 @RequestParam String companyName )  {
+							 HttpServletResponse response, String bbdQyxxId, String companyName )  {
+		if( bbdQyxxId ==null && companyName ==null ) {
+			return ResponseBean.errorResponse("parameters is error.");
+		}
 		FileOutputStream outputStream = null;
 		ResponseBean responseBean;
 		try {
 			String loginName = (String) request.getSession().getAttribute(Constants.SESSION.loginName);
 			String areaCode = (String) request.getSession().getAttribute("area");
-			Map<String, Object> rstMap = wordReportService.reportExport(companyName, loginName, areaCode);
+			Map<String, Object> rstMap = wordReportService.reportExport(companyName, bbdQyxxId, loginName, areaCode);
 
 			companyName =(String) rstMap.get("fileName");
 			String path = ExportExcelUtil.dealWithExportPath(null);
