@@ -1,4 +1,4 @@
-package com.bbd.wtyh.auth;
+package com.bbd.wtyh.shiro;
 
 import com.bbd.wtyh.core.utils.redis.RedisUtil;
 import com.bbd.wtyh.util.IPUtil;

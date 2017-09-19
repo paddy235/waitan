@@ -1,11 +1,10 @@
 package com.bbd.wtyh.sys.controller;
 
-import com.bbd.wtyh.auth.RedisSessionDAO;
+import com.bbd.wtyh.shiro.RedisSessionDAO;
 import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.domain.AreaDO;
 import com.bbd.wtyh.domain.UserInfoTableDo;
 import com.bbd.wtyh.log.user.Operation;
-import com.bbd.wtyh.log.user.UserLogRecord;
 import com.bbd.wtyh.log.user.annotation.LogRecord;
 import com.bbd.wtyh.service.AreaService;
 import com.bbd.wtyh.service.RoleResourceService;
@@ -27,7 +26,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.Date;
 import java.util.Map;
 import java.util.Set;
 

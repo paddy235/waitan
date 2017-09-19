@@ -34,7 +34,7 @@
     </bean>
 
     <!-- 会话DAO -->
-    <bean id="redisSessionDAO" class="com.bbd.wtyh.auth.RedisSessionDAO">
+    <bean id="redisSessionDAO" class="com.bbd.wtyh.shiro.RedisSessionDAO">
         <!--<property name="activeSessionsCacheName" value="web-shiro-activeSessionCache"/>-->
         <property name="sessionIdGenerator" ref="sessionIdGenerator"/>
         <property name="loginNameKey" value="web:login:name:sessionid"/>
