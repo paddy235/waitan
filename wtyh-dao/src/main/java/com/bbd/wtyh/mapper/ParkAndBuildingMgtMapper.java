@@ -20,6 +20,8 @@ public interface ParkAndBuildingMgtMapper {
 
     void updateParkAreaId(ParkDO park);
 
+    void updateBuilding(BuildingDO buildingDO);
+
     void updateBuildingImgUrl(BuildingDO building);
 
     List<ParkDO> queryAllPark();

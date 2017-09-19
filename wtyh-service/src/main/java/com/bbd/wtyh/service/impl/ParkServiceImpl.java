@@ -341,7 +341,7 @@ public class ParkServiceImpl extends BaseServiceImpl implements ParkService {
 	@Override
 	public Map<String, Object> queryParkCompany(Integer parkId,Integer isNew,Integer riskLevel,
 												String backgroundName,String companyTypeName,String buildingName,
-												String companyName,Integer pageSize,Integer pageNumber) {
+												String companyName,Integer pageSize,Integer pageNumber, String parkName) {
 		Map<String, Object> result=new HashMap<>();
 		result.put("total",0);
 		result.put("list",new ArrayList<>());
@@ -388,12 +388,13 @@ public class ParkServiceImpl extends BaseServiceImpl implements ParkService {
 		if(null!=companyName){
 			params.put("companyName",companyName);
 		}
-		//临时方案20170816：如果园区名称不属于某个行政区，就不查询该园区所属行政区的注册企业。例如虹桥商务区
-		List<AreaDO> areaDOs=this.areaMapper.areaListByName(Constants.SH_AREAID, parkId);
-		if(null==areaDOs || areaDOs.size()==0 ){
-			params.put("regCompany",null);
-		}else{
+		// 临时方案20170816：如果园区名称不属于某个行政区，就不查询该园区所属行政区的注册企业。例如虹桥商务区
+		// TODO 匹配园区名称的逻辑没有 ------- Barny 2017.9.19
+		List<AreaDO> areaDOs = this.areaMapper.areaListByName(Constants.SH_AREAID, parkId);
+		if (ListUtil.isNotEmpty(areaDOs) && null != areaDOs.get(0) && null != areaDOs.get(0).getName() && areaDOs.get(0).getName().equals(parkName)) {
 			params.put("regCompany","1");
+		} else {
+			params.put("regCompany",null);
 		}
 		int total=this.parkMapper.qeuryParkCompanyCount(params);
 		result.put("total",total);

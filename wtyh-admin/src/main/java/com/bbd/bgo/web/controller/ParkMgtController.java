@@ -167,6 +167,14 @@ public class ParkMgtController {
         return ResponseBean.successResponse("OK");
     }
 
+    @RequestMapping("/updateBuilding")
+    @ResponseBody
+    @LogRecord(logMsg = "修改楼宇：%s", params = {"name"}, page = Operation.Page.PARK_BUILDING_MANAGE, type = Operation.Type.modify, after = true, before = false)
+    public ResponseBean updateBuilding(BuildingDO buildingDO) {
+        parkMgtService.updateBuilding(buildingDO);
+        return ResponseBean.successResponse("OK");
+    }
+
 
     /**
      * 删除园区
@@ -230,7 +238,8 @@ public class ParkMgtController {
     /**
      * 新增园区
      *
-     * @param park
+     * @param name
+     * @param areaId
      * @return
      */
     @RequestMapping("/addPark")
