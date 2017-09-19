@@ -10,6 +10,7 @@ import com.bbd.wtyh.log.user.annotation.LogRecord;
 import com.bbd.wtyh.service.AreaService;
 import com.bbd.wtyh.service.RoleResourceService;
 import com.bbd.wtyh.service.UserInfoService;
+import com.bbd.wtyh.util.IPUtil;
 import com.bbd.wtyh.web.ResponseBean;
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.shiro.SecurityUtils;
@@ -64,7 +65,7 @@ public class LoginController {
         try {
             currentUser.login(token);
             logger.info(name + "身份验证通过,登录业务系统!");
-            RedisSessionDAO.forcedLogout(name);
+            RedisSessionDAO.forcedLogout(request, name);
 
             // Set res=roleResourceService.queryResourceCodeByLoginName(name);
             // 取用户信息、权限
@@ -86,7 +87,7 @@ public class LoginController {
             session.setAttribute("areaName", areaName);// 地区名称
             session.setAttribute("loginUser", userInfo);
             session.setAttribute("userId", userInfo.getId());
-            session.setAttribute("requestIp", UserLogRecord.getRemoteAddress(request));
+            session.setAttribute("requestIp", IPUtil.getRemoteAddress(request));
             session.setAttribute("requestUri", request.getRequestURI());
 
             System.setProperty("loginUserId", userInfo.getId().toString());

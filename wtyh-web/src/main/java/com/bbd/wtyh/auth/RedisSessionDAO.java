@@ -1,6 +1,7 @@
 package com.bbd.wtyh.auth;
 
 import com.bbd.wtyh.core.utils.redis.RedisUtil;
+import com.bbd.wtyh.util.IPUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.UnknownSessionException;
@@ -9,6 +10,7 @@ import org.apache.shiro.session.mgt.eis.AbstractSessionDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
 import java.util.Collection;
 
@@ -17,13 +19,13 @@ import java.util.Collection;
  *
  * @author Created by LiYao on 2017-09-08 16:19.
  */
+@SuppressWarnings("unused")
 public class RedisSessionDAO extends AbstractSessionDAO {
 
-    @SuppressWarnings("unused")
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
+    private static Logger logger = LoggerFactory.getLogger(RedisSessionDAO.class);
 
-    public static final String SESSION_CACHE_REDIS_KEY_PREFIX = "shiro:session:cache:";
-    public static final String LOGIN_USER_SESSION_REDIS_KEY = "login:name:sessionid";
+    private static volatile String sessionKey = null;
+    private static volatile String loginNameKey = null;
 
     @Override
     protected Serializable doCreate(Session session) {
@@ -40,16 +42,16 @@ public class RedisSessionDAO extends AbstractSessionDAO {
         String loginName = objName == null ? "" : objName.toString();
         if (StringUtils.isNotBlank(loginName)) {
             timeoutSeconds = session.getTimeout() / 1000;
-            RedisUtil.hset(LOGIN_USER_SESSION_REDIS_KEY, loginName, session.getId().toString());
+            RedisUtil.hset(loginNameKey, loginName, session.getId().toString());
         }
-        String redisKey = SESSION_CACHE_REDIS_KEY_PREFIX + session.getId();
+        String redisKey = sessionKey + session.getId();
         RedisUtil.setObject(redisKey, session);
         RedisUtil.expire(redisKey, (int) timeoutSeconds);
     }
 
     @Override
     protected Session doReadSession(Serializable sessionId) {
-        String redisKey = SESSION_CACHE_REDIS_KEY_PREFIX + sessionId;
+        String redisKey = sessionKey + sessionId;
         return RedisUtil.getObject(redisKey, SimpleSession.class);
     }
 
@@ -60,7 +62,7 @@ public class RedisSessionDAO extends AbstractSessionDAO {
 
     @Override
     public void delete(Session session) {
-        String redisKey = SESSION_CACHE_REDIS_KEY_PREFIX + session.getId();
+        String redisKey = sessionKey + session.getId();
         RedisUtil.del(redisKey);
     }
 
@@ -69,11 +71,24 @@ public class RedisSessionDAO extends AbstractSessionDAO {
         return null;
     }
 
-    public static void forcedLogout(String userName) {
-        String haveLoginSessionId = RedisUtil.hget(RedisSessionDAO.LOGIN_USER_SESSION_REDIS_KEY, userName);
-        if (org.apache.commons.lang.StringUtils.isNotBlank(haveLoginSessionId)) {
-            RedisUtil.del(RedisSessionDAO.SESSION_CACHE_REDIS_KEY_PREFIX + haveLoginSessionId);
-            RedisUtil.hdel(RedisSessionDAO.LOGIN_USER_SESSION_REDIS_KEY, userName);
+    public static void forcedLogout(HttpServletRequest request, String userName) {
+        String haveLoginSessionId = RedisUtil.hget(RedisSessionDAO.loginNameKey, userName);
+        if (StringUtils.isNotBlank(haveLoginSessionId) && RedisUtil.exists(RedisSessionDAO.sessionKey + haveLoginSessionId)) {
+            RedisUtil.del(RedisSessionDAO.sessionKey + haveLoginSessionId);
+            RedisUtil.hdel(RedisSessionDAO.loginNameKey, userName);
+            logger.info("强制登出：用户[{}]，在{}处强制登录。sessionId：{}被强制登出。", userName, IPUtil.getRemoteAddress(request), haveLoginSessionId);
+        }
+    }
+
+    public void setSessionKey(String sessionKey) {
+        if (RedisSessionDAO.sessionKey == null) {
+            RedisSessionDAO.sessionKey = sessionKey;
+        }
+    }
+
+    public void setLoginNameKey(String loginNameKey) {
+        if (RedisSessionDAO.loginNameKey == null) {
+            RedisSessionDAO.loginNameKey = loginNameKey;
         }
     }
 }

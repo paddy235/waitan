@@ -37,6 +37,8 @@
     <bean id="redisSessionDAO" class="com.bbd.wtyh.auth.RedisSessionDAO">
         <!--<property name="activeSessionsCacheName" value="web-shiro-activeSessionCache"/>-->
         <property name="sessionIdGenerator" ref="sessionIdGenerator"/>
+        <property name="loginNameKey" value="web:login:name:sessionid"/>
+        <property name="sessionKey" value="web:shiro:session:cache:"/>
     </bean>
 
     <!-- 会话验证调度器 验证会话是否已过期 -->
