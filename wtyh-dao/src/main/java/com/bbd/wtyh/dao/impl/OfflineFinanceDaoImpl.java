@@ -21,7 +21,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-
 /**
  *
  */
@@ -37,7 +36,7 @@ public class OfflineFinanceDaoImpl implements OfflineFinanceDao {
     private String relationUrl;
 
     @Autowired
-    private RedisDAO    redisDAO;
+    private RedisDAO redisDAO;
 
     @Autowired
     private HttpTemplate httpTemplate;
@@ -78,21 +77,21 @@ public class OfflineFinanceDaoImpl implements OfflineFinanceDao {
     }
 
     @Override
-    public RelationDiagramVO queryRealationFromDb(String companyName, Integer degree){
-        RelationDiagramVO diagramVO ;
+    public RelationDiagramVO queryRealationFromDb(String companyName, Integer degree) {
+        RelationDiagramVO diagramVO;
         try {
             //注意，这里返回的是relationVO.LineVO  和  relationVO.PointVO，装入到 RelationDiagramVO
             //其他地方需要使用的时候，需要重新装换。
-            List<RelationDiagramVO.PointVO>  pointVOList = offlineFinanceMapper.queryPointByName(companyName,degree);
-            if(CollectionUtils.isEmpty(pointVOList)){
+            List<RelationDiagramVO.PointVO> pointVOList = offlineFinanceMapper.queryPointByName(companyName, degree);
+            if (CollectionUtils.isEmpty(pointVOList)) {
                 return null;
             }
 
-            List<RelationDiagramVO.LineVO> lineVOList = offlineFinanceMapper.queryLineByName(companyName,degree);
-            if(CollectionUtils.isEmpty(lineVOList)){
+            List<RelationDiagramVO.LineVO> lineVOList = offlineFinanceMapper.queryLineByName(companyName, degree);
+            if (CollectionUtils.isEmpty(lineVOList)) {
                 return null;
             }
-            diagramVO= new RelationDiagramVO();
+            diagramVO = new RelationDiagramVO();
             diagramVO.setPointList(pointVOList);
             diagramVO.setLineList(lineVOList);
 

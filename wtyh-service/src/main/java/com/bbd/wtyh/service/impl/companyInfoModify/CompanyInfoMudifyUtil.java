@@ -1,5 +1,6 @@
 package com.bbd.wtyh.service.impl.companyInfoModify;
 
+import com.bbd.wtyh.core.utils.redis.RedisUtil;
 import com.bbd.wtyh.domain.CompanyInfoModify.CompanyInfo;
 import com.bbd.wtyh.domain.CompanyInfoModify.RecordInfo;
 import com.bbd.wtyh.domain.CompanyInfoModify.WangdaiModify;
@@ -13,6 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by YanWenyuan on 2017/7/17.
@@ -172,7 +176,15 @@ public class CompanyInfoMudifyUtil {
         modifyIndustry(recordInfo);
         // 清空风险等级
         riskCompanyService.modifyLevel(recordInfo.getName(), recordInfo.getAfterLevel());
+        clearRedisCache("BASE_INFO_BBD_DATA" + modifyData.getName(), "wtyh:pToPMonitor:platRank", "wtyh:P2PImage:platFormStatus");
+    }
 
+    public void clearRedisCache(String... patterns) {
+        Set<String> keys = new HashSet<>();
+        for (String pattern : patterns) {
+            keys.addAll(RedisUtil.keys(pattern + "*"));
+        }
+        RedisUtil.del(keys.toArray(new String[0]));
     }
 
     /**
@@ -266,6 +278,7 @@ public class CompanyInfoMudifyUtil {
         }
         // 修改行业
         modifyIndustry(recordInfo);
+        clearRedisCache("YED_", "RK_", "REDIS_KEY_RELATION_URL");
     }
 
     /**

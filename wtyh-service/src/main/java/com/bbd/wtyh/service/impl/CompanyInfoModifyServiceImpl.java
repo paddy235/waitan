@@ -154,7 +154,9 @@ public class CompanyInfoModifyServiceImpl implements CompanyInfoModifyService {
             companyInfoMudifyUtil.modifyBusinessInsurance(modifyData);
             break;
         }
-        redisDAO.flushAll();
+        //        redisDAO.flushAll();
+        companyInfoMudifyUtil.clearRedisCache("wtyh:realtimeMonitor:guangPu1");
+
     }
 
     @Override
