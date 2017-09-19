@@ -120,6 +120,11 @@ public class ParkMgtServiceImpl implements ParkMgtService {
     }
 
     @Override
+    public void updateBuilding(BuildingDO buildingDO) {
+        parkAndBuildingMgtMapper.updateBuilding(buildingDO);
+    }
+
+    @Override
     @Transactional(rollbackFor = Exception.class)
     public void delParkById(String parkId) throws Exception {
         try {
