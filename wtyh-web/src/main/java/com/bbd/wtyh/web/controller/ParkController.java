@@ -307,7 +307,7 @@ public class ParkController {
 	@ResponseBody
 	public ResponseBean parkCompanyList(@RequestParam Integer parkId, @RequestParam Integer isNew, @RequestParam Integer riskLevel,
 			@RequestParam String backgroundName, @RequestParam String companyTypeName, @RequestParam String buildingName,
-										@RequestParam String companyName,@RequestParam Integer pageSize,@RequestParam Integer pageNumber) {
+										@RequestParam String companyName,@RequestParam Integer pageSize,@RequestParam Integer pageNumber, @RequestParam String parkName) {
 		//分页
 		if(null==pageSize || pageSize<1){
 			pageSize=20;
@@ -316,14 +316,14 @@ public class ParkController {
 			pageNumber=1;
 		}
 
-		Map<String ,Object> data = parkService.queryParkCompany(parkId, isNew, riskLevel, backgroundName, companyTypeName, buildingName,companyName,pageSize,pageNumber);
+		Map<String ,Object> data = parkService.queryParkCompany(parkId, isNew, riskLevel, backgroundName, companyTypeName, buildingName,companyName,pageSize,pageNumber, parkName);
 		return ResponseBean.successResponse(data);
 	}
 
 	/**
 	 * 下载园区楼宇公司列表
 	 *
-	 * @param areaId
+	 * @param parkId
 	 *            园区id,必传
 	 * @return ResponseBean
 	 */
@@ -342,7 +342,7 @@ public class ParkController {
 
 			// 按查询条件下载企业
 
-			Map<String,Object> map = parkService.queryParkCompany(parkId, isNew, riskLevel, backgroundName, companyTypeName, buildingName,companyName,null,null);
+			Map<String,Object> map = parkService.queryParkCompany(parkId, isNew, riskLevel, backgroundName, companyTypeName, buildingName,companyName,null,null,parkName);
 
 			// 下载改园区全部企业
 			//Map<String,Object> map = parkService.queryParkCompany(areaId, null, null, null, null, null,null,null);
