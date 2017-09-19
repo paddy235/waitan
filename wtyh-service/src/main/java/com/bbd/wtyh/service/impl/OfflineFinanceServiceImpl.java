@@ -1335,13 +1335,13 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService,TaskServ
         Collections.sort(lineList, new Comparator<RelationDiagramVO.LineVO>() {
             @Override
             public int compare(RelationDiagramVO.LineVO l1, RelationDiagramVO.LineVO l2) {
-                return Integer.parseInt(l1.getTarLevel()) - Integer.parseInt(l2.getTarLevel());
+                return Integer.parseInt(l1.getOrigLevel()) - Integer.parseInt(l2.getOrigLevel());
             }
         });
         Collections.sort(lineList, new Comparator<RelationDiagramVO.LineVO>() {
             @Override
             public int compare(RelationDiagramVO.LineVO l1, RelationDiagramVO.LineVO l2) {
-                return Integer.parseInt(l1.getOrigLevel()) - Integer.parseInt(l2.getOrigLevel());
+                return Integer.parseInt(l1.getTarLevel()) - Integer.parseInt(l2.getTarLevel());
             }
         });
         int i = 0;
