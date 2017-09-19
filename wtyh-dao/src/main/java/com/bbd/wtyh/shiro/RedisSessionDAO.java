@@ -76,8 +76,17 @@ public class RedisSessionDAO extends AbstractSessionDAO {
         if (StringUtils.isNotBlank(haveLoginSessionId) && RedisUtil.exists(RedisSessionDAO.sessionKey + haveLoginSessionId)) {
             RedisUtil.del(RedisSessionDAO.sessionKey + haveLoginSessionId);
             RedisUtil.hdel(RedisSessionDAO.loginNameKey, userName);
-            logger.info("强制登出：用户[{}]，在{}处强制登录。sessionId：{}被强制登出。", userName, IPUtil.getRemoteAddress(request), haveLoginSessionId);
+            logger.info("强制登出：账号[{}]，在{}处强制登录。sessionId：{}被强制登出。", userName, IPUtil.getRemoteAddress(request), haveLoginSessionId);
         }
+    }
+
+    public static boolean isAlreadyLogin(String userName) {
+        String haveLoginSessionId = RedisUtil.hget(RedisSessionDAO.loginNameKey, userName);
+        if (StringUtils.isBlank(haveLoginSessionId)) {
+            return false;
+        }
+        String key = RedisSessionDAO.sessionKey + haveLoginSessionId;
+        return RedisUtil.exists(key);
     }
 
     public void setSessionKey(String sessionKey) {
