@@ -170,8 +170,13 @@ public class ParkMgtController {
     @RequestMapping("/updateBuilding")
     @ResponseBody
     @LogRecord(logMsg = "修改楼宇：%s", params = {"name"}, page = Operation.Page.PARK_BUILDING_MANAGE, type = Operation.Type.modify, after = true, before = false)
-    public ResponseBean updateBuilding(BuildingDO buildingDO) {
-        parkMgtService.updateBuilding(buildingDO);
+    public ResponseBean updateBuilding(BuildingDO buildingDO, ParkDO parkDO) {
+        try {
+            parkMgtService.updateBuilding(buildingDO, parkDO);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseBean.errorResponse(e.getMessage());
+        }
         return ResponseBean.successResponse("OK");
     }
 

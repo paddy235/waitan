@@ -180,6 +180,6 @@ public interface ParkMgtService{
      */
     void bindingParkAndBuilding(BuildingDO building, String parkName);
 
-    void updateBuilding(BuildingDO buildingDO);
+    void updateBuilding(BuildingDO buildingDO, ParkDO parkDO) throws Exception;
 
 }
