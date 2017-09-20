@@ -13,6 +13,9 @@ import java.util.List;
 class ListOperationUtil extends HashOperationUtil {
 
     public static long lpush(String key, String... values) {
+        if (arrayIsEmpty(values)) {
+            return -1;
+        }
         Jedis jedis = null;
         boolean isBroken = false;
         try {
@@ -27,6 +30,9 @@ class ListOperationUtil extends HashOperationUtil {
     }
 
     public static long rpush(String key, String... values) {
+        if (arrayIsEmpty(values)) {
+            return -1;
+        }
         Jedis jedis = null;
         boolean isBroken = false;
         try {

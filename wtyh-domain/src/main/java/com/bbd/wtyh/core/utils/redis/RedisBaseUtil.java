@@ -101,4 +101,8 @@ class RedisBaseUtil {
         config.setTestWhileIdle(Boolean.parseBoolean(properties.getProperty("redis.pool.testWhileIdle")));
         return config;
     }
+
+    protected static boolean arrayIsEmpty(Object[] array) {
+        return array == null || array.length == 0;
+    }
 }

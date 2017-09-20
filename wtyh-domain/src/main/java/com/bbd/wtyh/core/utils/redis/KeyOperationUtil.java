@@ -19,6 +19,9 @@ class KeyOperationUtil extends RedisBaseUtil {
      * @return 被删除 key 的数量。
      */
     public static long del(String... keys) {
+        if (arrayIsEmpty(keys)) {
+            return 0;
+        }
         Jedis jedis = null;
         boolean isBroken = false;
         try {

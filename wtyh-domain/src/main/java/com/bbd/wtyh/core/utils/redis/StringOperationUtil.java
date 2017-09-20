@@ -2,6 +2,7 @@ package com.bbd.wtyh.core.utils.redis;
 
 import redis.clients.jedis.Jedis;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -106,6 +107,9 @@ class StringOperationUtil extends KeyOperationUtil {
      * @return 一个包含所有给定 key 的值的列表。
      */
     public static List<String> mget(String... keys) {
+        if (arrayIsEmpty(keys)) {
+            return new ArrayList<>(0);
+        }
         Jedis jedis = null;
         boolean isBroken = false;
         try {

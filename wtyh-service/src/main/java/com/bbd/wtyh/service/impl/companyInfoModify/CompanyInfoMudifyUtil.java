@@ -234,6 +234,7 @@ public class CompanyInfoMudifyUtil {
             companyLevelService.deleteByCompanyId(recordInfo);
         }
     }
+
     /**
      * 网络借贷
      *
@@ -241,7 +242,7 @@ public class CompanyInfoMudifyUtil {
      */
     public void modifyWangdai(ModifyData modifyData) throws Exception {
         CompanyInfo wangdai = companyInfoQueryUtil.getWangdaiInfo(modifyData.getName());
-        if(null == wangdai){
+        if (null == wangdai) {
             return;
         }
         WangdaiModify wangdaiModify = new WangdaiModify();
@@ -272,10 +273,11 @@ public class CompanyInfoMudifyUtil {
         for (String pattern : patterns) {
             keys.addAll(RedisUtil.keys(pattern + "*"));
         }
+        if (keys.isEmpty()) {
+            return;
+        }
         RedisUtil.del(keys.toArray(new String[0]));
     }
-
-
 
     /**
      * 留给定时任务-企业与网贷平台对照表更新 and 众筹数更新-更新企业类型专用
@@ -284,7 +286,7 @@ public class CompanyInfoMudifyUtil {
      */
     public void modifyForTask(ModifyData modifyData) throws Exception {
         CompanyInfo companyInfo = companyInfoModifyMapper.queryCompany(modifyData.getName());
-        if(null==companyInfo){
+        if (null == companyInfo) {
             return;
         }
         RecordInfo recordInfo = recordModifyForTask(modifyData, companyInfo);

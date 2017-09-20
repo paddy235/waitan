@@ -2,10 +2,7 @@ package com.bbd.wtyh.core.utils.redis;
 
 import redis.clients.jedis.Jedis;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Hash 操作工具类
@@ -86,6 +83,9 @@ class HashOperationUtil extends StringOperationUtil {
      * @return
      */
     public static List<String> hmget(String key, String... fields) {
+        if (arrayIsEmpty(fields)) {
+            return new ArrayList<>(0);
+        }
         Jedis jedis = null;
         boolean isBroken = false;
         try {
@@ -131,6 +131,9 @@ class HashOperationUtil extends StringOperationUtil {
      * @param field
      */
     public static void hdel(String key, String... fields) {
+        if (arrayIsEmpty(fields)) {
+            return;
+        }
         Jedis jedis = null;
         boolean isBroken = false;
         try {
