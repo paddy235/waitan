@@ -154,7 +154,7 @@ public class PrivateFundTaskServiceImpl extends BaseServiceImpl implements Priva
 
 			return vo;
 		} catch (Exception e) {
-			logger.error("Method getPrivateFundCompanyData get Exception." + e.getMessage());
+			logger.error("Method getPrivateFundCompanyData get Exception." , e);
 			return null;
 		}
 	}

@@ -166,7 +166,7 @@ public class OfflineFinanceController {
 				toIndex = fromIndex + pageSize;
 				toIndex = toIndex < totalCount ? toIndex : totalCount;
 
-				exportExcel.createSheet(companyName + i, lineList.subList(fromIndex, toIndex));
+				exportExcel.createSheet(companyName, lineList.subList(fromIndex, toIndex));
 			}
 			exportExcel.exportExcel();
 			UserLogRecord.record("导出【" + companyName + "】关联方", Operation.Type.DATA_EXPORT, Operation.Page.hologram, Operation.System.front,

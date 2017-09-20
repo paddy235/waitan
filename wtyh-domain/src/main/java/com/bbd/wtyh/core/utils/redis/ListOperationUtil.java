@@ -13,41 +13,50 @@ import java.util.List;
 class ListOperationUtil extends HashOperationUtil {
 
     public static long lpush(String key, String... values) {
+        if (arrayIsEmpty(values)) {
+            return -1;
+        }
         Jedis jedis = null;
+        boolean isBroken = false;
         try {
             jedis = getResource();
             return jedis.lpush(key, values);
         } catch (Exception e) {
-            returnBrokenResource(jedis);
+            isBroken = true;
             throw e;
         } finally {
-            returnResource(jedis);
+            closeResource(jedis, isBroken);
         }
     }
 
     public static long rpush(String key, String... values) {
+        if (arrayIsEmpty(values)) {
+            return -1;
+        }
         Jedis jedis = null;
+        boolean isBroken = false;
         try {
             jedis = getResource();
             return jedis.rpush(key, values);
         } catch (Exception e) {
-            pool.returnBrokenResource(jedis);
+            isBroken = true;
             throw e;
         } finally {
-            returnResource(jedis);
+            closeResource(jedis, isBroken);
         }
     }
 
     public static List<String> lrange(String key, int start, int count) {
         Jedis jedis = null;
+        boolean isBroken = false;
         try {
             jedis = getResource();
             return jedis.lrange(key, start, count);
         } catch (Exception e) {
-            returnBrokenResource(jedis);
+            isBroken = true;
             throw e;
         } finally {
-            returnResource(jedis);
+            closeResource(jedis, isBroken);
         }
     }
 

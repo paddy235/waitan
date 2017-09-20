@@ -19,15 +19,19 @@ class KeyOperationUtil extends RedisBaseUtil {
      * @return 被删除 key 的数量。
      */
     public static long del(String... keys) {
+        if (arrayIsEmpty(keys)) {
+            return 0;
+        }
         Jedis jedis = null;
+        boolean isBroken = false;
         try {
             jedis = getResource();
             return jedis.del(keys);
         } catch (Exception e) {
-            returnBrokenResource(jedis);
+            isBroken = true;
             throw e;
         } finally {
-            returnResource(jedis);
+            closeResource(jedis, isBroken);
         }
     }
 
@@ -39,14 +43,15 @@ class KeyOperationUtil extends RedisBaseUtil {
      */
     public static boolean exists(String key) {
         Jedis jedis = null;
+        boolean isBroken = false;
         try {
             jedis = getResource();
             return jedis.exists(key);
         } catch (Exception e) {
-            pool.returnBrokenResource(jedis);
+            isBroken = true;
             throw e;
         } finally {
-            returnResource(jedis);
+            closeResource(jedis, isBroken);
         }
     }
 
@@ -60,14 +65,15 @@ class KeyOperationUtil extends RedisBaseUtil {
      */
     public static boolean expire(String key, int seconds) {
         Jedis jedis = null;
+        boolean isBroken = false;
         try {
             jedis = getResource();
             return jedis.expire(key, seconds) == 1;
         } catch (Exception e) {
-            returnBrokenResource(jedis);
+            isBroken = true;
             throw e;
         } finally {
-            returnResource(jedis);
+            closeResource(jedis, isBroken);
         }
     }
 
@@ -79,14 +85,15 @@ class KeyOperationUtil extends RedisBaseUtil {
      */
     public static Set<String> keys(String pattern) {
         Jedis jedis = null;
+        boolean isBroken = false;
         try {
             jedis = getResource();
             return jedis.keys(pattern);
         } catch (Exception e) {
-            returnBrokenResource(jedis);
+            isBroken = true;
             throw e;
         } finally {
-            returnResource(jedis);
+            closeResource(jedis, isBroken);
         }
     }
 
@@ -96,16 +103,17 @@ class KeyOperationUtil extends RedisBaseUtil {
      * @param key
      * @return 当 key 不存在时，返回 -2 。 当 key 存在但没有设置剩余生存时间时，返回 -1 。 否则，以秒为单位，返回 key 的剩余生存时间。
      */
-    public static Long ttl(String key) {
+    public static long ttl(String key) {
         Jedis jedis = null;
+        boolean isBroken = false;
         try {
             jedis = getResource();
             return jedis.ttl(key);
         } catch (Exception e) {
-            pool.returnBrokenResource(jedis);
+            isBroken = true;
             throw e;
         } finally {
-            returnResource(jedis);
+            closeResource(jedis, isBroken);
         }
     }
 
@@ -117,14 +125,15 @@ class KeyOperationUtil extends RedisBaseUtil {
      */
     public static boolean persist(String key) {
         Jedis jedis = null;
+        boolean isBroken = false;
         try {
             jedis = getResource();
             return jedis.persist(key) == 1;
         } catch (Exception e) {
-            pool.returnBrokenResource(jedis);
+            isBroken = true;
             throw e;
         } finally {
-            returnResource(jedis);
+            closeResource(jedis, isBroken);
         }
     }
 }

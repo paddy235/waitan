@@ -77,6 +77,7 @@ class ExtensionOperationUtil extends SortedSetOperationUtil {
      */
     public static <T> T getObject(String key, Class<T> clazz) {
         Jedis jedis = null;
+        boolean isBroken = false;
         try {
             jedis = getResource();
             byte[] bytes = jedis.get(key.getBytes());
@@ -85,10 +86,10 @@ class ExtensionOperationUtil extends SortedSetOperationUtil {
             }
             return SerializationUtils.deserialize(bytes);
         } catch (Exception e) {
-            returnBrokenResource(jedis);
+            isBroken = true;
             throw e;
         } finally {
-            returnResource(jedis);
+            closeResource(jedis, isBroken);
         }
     }
 }

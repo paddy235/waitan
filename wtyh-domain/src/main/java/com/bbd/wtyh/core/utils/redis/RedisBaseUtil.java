@@ -21,19 +21,34 @@ class RedisBaseUtil {
 
     protected static final String PROPERTY_PATH = "config/db-config.properties";
     protected static final Logger LOGGER = LoggerFactory.getLogger(RedisBaseUtil.class);
-
     protected static JedisPool pool;
 
-    protected static void returnBrokenResource(Jedis jedis) {
+    private static void returnBrokenResource(Jedis jedis) {
         pool.returnBrokenResource(jedis);
     }
 
-    protected static void returnResource(Jedis jedis) {
+    private static void returnResource(Jedis jedis) {
         pool.returnResource(jedis);
     }
 
     protected static Jedis getResource() {
         return pool.getResource();
+    }
+
+    protected static void closeResource(Jedis jedis, boolean conectionBroken) {
+        if (jedis == null) {
+            return;
+        }
+        try {
+            if (conectionBroken) {
+                returnBrokenResource(jedis);
+            } else {
+                returnResource(jedis);
+            }
+        } catch (Exception e) {
+            LOGGER.error("return back jedis failed, will fore close the jedis.", e);
+            jedis.close();
+        }
     }
 
     static {
@@ -85,5 +100,9 @@ class RedisBaseUtil {
         config.setTestOnReturn(Boolean.parseBoolean(properties.getProperty("redis.pool.testOnReturn")));
         config.setTestWhileIdle(Boolean.parseBoolean(properties.getProperty("redis.pool.testWhileIdle")));
         return config;
+    }
+
+    protected static boolean arrayIsEmpty(Object[] array) {
+        return array == null || array.length == 0;
     }
 }

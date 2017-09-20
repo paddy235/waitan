@@ -2,10 +2,7 @@ package com.bbd.wtyh.core.utils.redis;
 
 import redis.clients.jedis.Jedis;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Hash 操作工具类
@@ -24,14 +21,15 @@ class HashOperationUtil extends StringOperationUtil {
      */
     public static void hset(String redisKey, String field, String value) {
         Jedis jedis = null;
+        boolean isBroken = false;
         try {
             jedis = getResource();
             jedis.hset(redisKey, field, value);
         } catch (Exception e) {
-            returnBrokenResource(jedis);
+            isBroken = true;
             throw e;
         } finally {
-            returnResource(jedis);
+            closeResource(jedis, isBroken);
         }
     }
 
@@ -43,14 +41,15 @@ class HashOperationUtil extends StringOperationUtil {
      */
     public static void hmset(String key, Map<String, String> hash) {
         Jedis jedis = null;
+        boolean isBroken = false;
         try {
             jedis = getResource();
             jedis.hmset(key, hash);
         } catch (Exception e) {
-            returnBrokenResource(jedis);
+            isBroken = true;
             throw e;
         } finally {
-            returnResource(jedis);
+            closeResource(jedis, isBroken);
         }
     }
 
@@ -64,14 +63,15 @@ class HashOperationUtil extends StringOperationUtil {
     public static String hget(String key, String field) {
         Jedis jedis = null;
         String value;
+        boolean isBroken = false;
         try {
             jedis = getResource();
             return jedis.hget(key, field);
         } catch (Exception e) {
-            returnBrokenResource(jedis);
+            isBroken = true;
             throw e;
         } finally {
-            returnResource(jedis);
+            closeResource(jedis, isBroken);
         }
     }
 
@@ -83,15 +83,19 @@ class HashOperationUtil extends StringOperationUtil {
      * @return
      */
     public static List<String> hmget(String key, String... fields) {
+        if (arrayIsEmpty(fields)) {
+            return new ArrayList<>(0);
+        }
         Jedis jedis = null;
+        boolean isBroken = false;
         try {
             jedis = getResource();
             return jedis.hmget(key, fields);
         } catch (Exception e) {
-            returnBrokenResource(jedis);
+            isBroken = true;
             throw e;
         } finally {
-            returnResource(jedis);
+            closeResource(jedis, isBroken);
         }
     }
 
@@ -104,14 +108,15 @@ class HashOperationUtil extends StringOperationUtil {
     public static Map<String, String> hgetAll(String key) {
         Jedis jedis = null;
         Map<String, String> map;
+        boolean isBroken = false;
         try {
             jedis = getResource();
             map = jedis.hgetAll(key);
         } catch (Exception e) {
-            returnBrokenResource(jedis);
+            isBroken = true;
             throw e;
         } finally {
-            returnResource(jedis);
+            closeResource(jedis, isBroken);
         }
         if (map == null) {
             return new HashMap<>();
@@ -126,15 +131,19 @@ class HashOperationUtil extends StringOperationUtil {
      * @param field
      */
     public static void hdel(String key, String... fields) {
+        if (arrayIsEmpty(fields)) {
+            return;
+        }
         Jedis jedis = null;
+        boolean isBroken = false;
         try {
             jedis = getResource();
             jedis.hdel(key, fields);
         } catch (Exception e) {
-            returnBrokenResource(jedis);
+            isBroken = true;
             throw e;
         } finally {
-            returnResource(jedis);
+            closeResource(jedis, isBroken);
         }
     }
 
@@ -147,14 +156,15 @@ class HashOperationUtil extends StringOperationUtil {
      */
     public static boolean hexist(String key, String field) {
         Jedis jedis = null;
+        boolean isBroken = false;
         try {
             jedis = getResource();
             return jedis.hexists(key, field);
         } catch (Exception e) {
-            returnBrokenResource(jedis);
+            isBroken = true;
             throw e;
         } finally {
-            returnResource(jedis);
+            closeResource(jedis, isBroken);
         }
     }
 
@@ -166,14 +176,15 @@ class HashOperationUtil extends StringOperationUtil {
      */
     public Set<String> hkeys(String key) {
         Jedis jedis = null;
+        boolean isBroken = false;
         try {
             jedis = getResource();
             return jedis.hkeys(key);
         } catch (Exception e) {
-            returnBrokenResource(jedis);
+            isBroken = true;
             throw e;
         } finally {
-            returnResource(jedis);
+            closeResource(jedis, isBroken);
         }
     }
 
@@ -185,14 +196,15 @@ class HashOperationUtil extends StringOperationUtil {
      */
     public long hlen(String key) {
         Jedis jedis = null;
+        boolean isBroken = false;
         try {
             jedis = getResource();
             return jedis.hlen(key);
         } catch (Exception e) {
-            returnBrokenResource(jedis);
+            isBroken = true;
             throw e;
         } finally {
-            returnResource(jedis);
+            closeResource(jedis, isBroken);
         }
     }
 }

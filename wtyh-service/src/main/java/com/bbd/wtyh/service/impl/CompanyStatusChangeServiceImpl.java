@@ -75,7 +75,7 @@ public class CompanyStatusChangeServiceImpl implements CompanyStatusChangeServic
             }
 
         }catch (Exception e){
-            logger.error("companyIsChange"+e);
+            logger.error("companyIsChange:",e);
         }
 
     }

@@ -2,6 +2,7 @@ package com.bbd.wtyh.core.utils.redis;
 
 import redis.clients.jedis.Jedis;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,14 +25,15 @@ class StringOperationUtil extends KeyOperationUtil {
 
     protected static void set(byte[] key, byte[] value) {
         Jedis jedis = null;
+        boolean isBroken = false;
         try {
             jedis = getResource();
             jedis.set(key, value);
         } catch (Exception e) {
-            returnBrokenResource(jedis);
+            isBroken = true;
             throw e;
         } finally {
-            returnResource(jedis);
+            closeResource(jedis, isBroken);
         }
     }
 
@@ -43,14 +45,15 @@ class StringOperationUtil extends KeyOperationUtil {
      */
     public static String get(String key) {
         Jedis jedis = null;
+        boolean isBroken = false;
         try {
             jedis = getResource();
             return jedis.get(key);
         } catch (Exception e) {
-            returnBrokenResource(jedis);
+            isBroken = true;
             throw e;
         } finally {
-            returnResource(jedis);
+            closeResource(jedis, isBroken);
         }
     }
 
@@ -64,14 +67,15 @@ class StringOperationUtil extends KeyOperationUtil {
      */
     public static String getrange(String key, int start, int end) {
         Jedis jedis = null;
+        boolean isBroken = false;
         try {
             jedis = getResource();
             return jedis.getrange(key, start, end);
         } catch (Exception e) {
-            returnBrokenResource(jedis);
+            isBroken = true;
             throw e;
         } finally {
-            returnResource(jedis);
+            closeResource(jedis, isBroken);
         }
     }
 
@@ -84,14 +88,15 @@ class StringOperationUtil extends KeyOperationUtil {
      */
     public static String getset(String key, String newValue) {
         Jedis jedis = null;
+        boolean isBroken = false;
         try {
             jedis = getResource();
             return jedis.getSet(key, newValue);
         } catch (Exception e) {
-            returnBrokenResource(jedis);
+            isBroken = true;
             throw e;
         } finally {
-            returnResource(jedis);
+            closeResource(jedis, isBroken);
         }
     }
 
@@ -102,15 +107,19 @@ class StringOperationUtil extends KeyOperationUtil {
      * @return 一个包含所有给定 key 的值的列表。
      */
     public static List<String> mget(String... keys) {
+        if (arrayIsEmpty(keys)) {
+            return new ArrayList<>(0);
+        }
         Jedis jedis = null;
+        boolean isBroken = false;
         try {
             jedis = getResource();
             return jedis.mget(keys);
         } catch (Exception e) {
-            returnBrokenResource(jedis);
+            isBroken = true;
             throw e;
         } finally {
-            returnResource(jedis);
+            closeResource(jedis, isBroken);
         }
     }
 
@@ -123,14 +132,15 @@ class StringOperationUtil extends KeyOperationUtil {
      */
     public static void setex(String key, int seconds, String value) {
         Jedis jedis = null;
+        boolean isBroken = false;
         try {
             jedis = getResource();
             jedis.setex(key, seconds, value);
         } catch (Exception e) {
-            returnBrokenResource(jedis);
+            isBroken = true;
             throw e;
         } finally {
-            returnResource(jedis);
+            closeResource(jedis, isBroken);
         }
     }
 
@@ -144,14 +154,15 @@ class StringOperationUtil extends KeyOperationUtil {
      */
     public static long incrby(String key, long incremental) {
         Jedis jedis = null;
+        boolean isBroken = false;
         try {
             jedis = getResource();
             return jedis.incrBy(key, incremental);
         } catch (Exception e) {
-            returnBrokenResource(jedis);
+            isBroken = true;
             throw e;
         } finally {
-            returnResource(jedis);
+            closeResource(jedis, isBroken);
         }
     }
 
@@ -164,14 +175,15 @@ class StringOperationUtil extends KeyOperationUtil {
      */
     public static long decrby(String key, long decrement) {
         Jedis jedis = null;
+        boolean isBroken = false;
         try {
             jedis = getResource();
             return jedis.decrBy(key, decrement);
         } catch (Exception e) {
-            returnBrokenResource(jedis);
+            isBroken = true;
             throw e;
         } finally {
-            returnResource(jedis);
+            closeResource(jedis, isBroken);
         }
     }
 
@@ -185,14 +197,15 @@ class StringOperationUtil extends KeyOperationUtil {
      */
     public static void append(String key, String value) {
         Jedis jedis = null;
+        boolean isBroken = false;
         try {
             jedis = getResource();
             jedis.append(key, value);
         } catch (Exception e) {
-            returnBrokenResource(jedis);
+            isBroken = true;
             throw e;
         } finally {
-            returnResource(jedis);
+            closeResource(jedis, isBroken);
         }
     }
 }

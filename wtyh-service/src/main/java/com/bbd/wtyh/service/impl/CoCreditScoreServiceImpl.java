@@ -113,7 +113,7 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 
 		} catch (Exception e) {
 			taskResultDO.setState(TaskState.ERROR);
-			LOGGER.error("creditScoreCalculate：" + e);
+			LOGGER.error("creditScoreCalculate：" , e);
 		} finally {
 
 			endProcess(taskResultDO, taskId);
@@ -203,7 +203,7 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 			untreatedCompanyFromDb(pointMap, taskId, isHandle);
 
 		} catch (Exception e) {
-			LOGGER.error("executeFailCompanyByTaskId：" + e);
+			LOGGER.error("executeFailCompanyByTaskId：" , e);
 
 		} finally {
 
