@@ -30,7 +30,7 @@ public class Clues {
         StringBuilder writeExplain = new StringBuilder();
         writeExplain.append("填写说明（请详细阅读）：\r\n");
         writeExplain.append("\r\n");
-        writeExplain.append("1、本表格不可填写Excel公式；企业名称和变更后行业类别必填，不能超过40个汉字；\r\n");
+        writeExplain.append("1、本表格不可填写Excel公式；企业名称和变更后行业类别必填 不能超过40个汉字；统一社会信用代码与组织机构代码必填一个；\r\n");
         writeExplain.append("2、行业类别必填：").append(companyTypeLimit()).append("；\r\n");
         writeExplain.append("3、典当、众筹、私募基金、商业保理，风险状态栏为不填项，若填写将报错，无法录入；\r\n");
         writeExplain.append("4、小额贷款、融资担保风险状态：外部评级、内部评级、现场检查分三列填写，风险状态一列不可填写；\r\n");
