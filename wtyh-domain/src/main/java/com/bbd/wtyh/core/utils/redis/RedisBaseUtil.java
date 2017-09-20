@@ -36,6 +36,9 @@ class RedisBaseUtil {
     }
 
     protected static void closeResource(Jedis jedis, boolean conectionBroken) {
+        if (jedis == null) {
+            return;
+        }
         try {
             if (conectionBroken) {
                 returnBrokenResource(jedis);
