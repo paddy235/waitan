@@ -229,7 +229,11 @@ public class EasyExportExeclController {
                 fromIndex = (i - 1) * pageSize;
                 toIndex = fromIndex + pageSize;
                 toIndex = toIndex < totalCount ? toIndex : totalCount;
-                exportExcel.createSheet(title + i, data.subList(fromIndex, toIndex));
+                String sheetName="";
+                if(pageCount>1){
+                    sheetName="sheet"+i;
+                }
+                exportExcel.createSheet(title + sheetName, data.subList(fromIndex, toIndex));
             }
 
             exportExcel.exportExcel();

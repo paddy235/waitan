@@ -391,7 +391,7 @@ public class ParkServiceImpl extends BaseServiceImpl implements ParkService {
 		// 临时方案20170816：如果园区名称不属于某个行政区，就不查询该园区所属行政区的注册企业。例如虹桥商务区
 		// TODO 匹配园区名称的逻辑没有 ------- Barny 2017.9.19
 		List<AreaDO> areaDOs = this.areaMapper.areaListByName(Constants.SH_AREAID, parkId);
-		if (ListUtil.isNotEmpty(areaDOs) && null != areaDOs.get(0) && null != areaDOs.get(0).getName() && areaDOs.get(0).getName().equals(parkName)) {
+		if (ListUtil.isNotEmpty(areaDOs) && null != areaDOs.get(0) && null != areaDOs.get(0).getCityName() && areaDOs.get(0).getCityName().equals(parkName)) {
 			params.put("regCompany","1");
 		} else {
 			params.put("regCompany",null);
