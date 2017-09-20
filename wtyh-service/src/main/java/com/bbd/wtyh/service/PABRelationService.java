@@ -17,4 +17,6 @@ public interface PABRelationService {
 
     int queryPABRelation(Map<String, Object> params);
 
+    void delPABRelation(Map<String, Object> params);
+
 }

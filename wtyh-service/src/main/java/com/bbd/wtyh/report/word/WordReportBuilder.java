@@ -1029,6 +1029,9 @@ public class WordReportBuilder {
 		Map<String, String> mp = new HashMap<String, String>() {
 			{
 				if ( sBuf.length() >0 ) {
+					if ( sBuf.charAt(sBuf.length() -1) =='、' ) {
+						sBuf.deleteCharAt(sBuf.length() -1);
+					}
 					put("$$标题（企业名称及属性标签）", companyName + "（" + sBuf.toString() + "）"); // "…）"
 				}  else {
 					put("$$标题（企业名称及属性标签）", companyName );

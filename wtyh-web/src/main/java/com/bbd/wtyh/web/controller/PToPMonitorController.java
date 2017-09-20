@@ -190,9 +190,9 @@ public class PToPMonitorController {
 		for (IndustryCompareDTO dto : list) {
 			if ("全国".equals(dto.getArea())) {
 				data.getSeries()[0].add(0, dto.getBalance_loans());
-				data.getSeries()[1].add(0, dto.getAmount());
+				data.getSeries()[0].add( dto.getAmount());
 			} else {
-				data.getSeries()[0].add(dto.getBalance_loans());
+				data.getSeries()[1].add(0,dto.getBalance_loans());
 				data.getSeries()[1].add(dto.getAmount());
 			}
 		}

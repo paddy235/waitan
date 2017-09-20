@@ -67,7 +67,7 @@ public class WordReportServiceImpl implements WordReportService {
 
     //
     @Override
-    public Map<String, Object> reportExport( String companyName, String loginName, String areaCode ) throws Exception {
+    public Map<String, Object> reportExport( String companyName, String bbdQyxxId, String loginName, String areaCode ) throws Exception {
         if ( StringUtils.isBlank( companyName ) ) {
             //throw new BusinessException("用户信息表对象为空");
             return convertErrInfo("E1"); //companyName is blank !
@@ -78,7 +78,7 @@ public class WordReportServiceImpl implements WordReportService {
         String analysisResultName;
         List backgroud;
         WordReportBuilder.ReportType emReportType;
-        Map companyInfo =offlineFinanceService.companyInfo(companyName, null);
+        Map companyInfo =offlineFinanceService.companyInfo(companyName, bbdQyxxId);
         if( companyInfo != null && companyInfo.size() >0 ) {
             reportTypeName = (String)companyInfo.get("comTypeCN");
             if(StringUtils.isNotBlank( reportTypeName ) ) {
@@ -457,7 +457,7 @@ public class WordReportServiceImpl implements WordReportService {
 
             //企业基本信息
             jes.runThreadFun( ()-> {
-                Map<String, Object> biTb = hologramQueryService.businessInfo(companyName,null);
+                Map<String, Object> biTb = hologramQueryService.businessInfo(companyName, bbdQyxxId);
                 if (biTb != null && biTb.size() > 2) {
                     String regNo = (String) biTb.get("工商注册号");
                     regNo = regNo != null ? regNo : "";
@@ -599,7 +599,7 @@ public class WordReportServiceImpl implements WordReportService {
                     newestYED[0] = offlineFinanceService.createNewestYEDtoStream(companyName);
                 } );*/ //关联方图谱已被产品取消
 
-                RelationDiagramVO result = offlineFinanceService.queryRealRealation(companyName,null, 2);
+                RelationDiagramVO result = offlineFinanceService.queryRealRealation(companyName, bbdQyxxId, 2);
                 DrawRelatedG2 dr = new DrawRelatedG2(DrawRelatedG2.DegreeType.ONE);
                 List<List<DrawRelatedG2.NodeInfo>> nodeLList = dr.relationDiagramVoToNodeListG2(result);
                 final Object [] comList ={null}; //List<CompanyDO> comList =new LinkedList<>();
@@ -717,7 +717,7 @@ public class WordReportServiceImpl implements WordReportService {
                     }
                 } );
                 recruitExe.runThreadFun( ()-> {
-                    RecruitPeopleDistributeDO rpdDo = hologramQueryService.recruitPeopleDistribute(companyName,null, null);
+                    RecruitPeopleDistributeDO rpdDo = hologramQueryService.recruitPeopleDistribute(companyName, bbdQyxxId, null);
                     if (rpdDo != null) {
                         List<RecruitPeopleDistributeDO.Rdata> rDataList = rpdDo.getRdata();
                         if (rDataList != null) {
@@ -728,7 +728,7 @@ public class WordReportServiceImpl implements WordReportService {
                     }
                 } );
                 recruitExe.runThreadFun( ()-> {
-                    RecruitPeopleSalaryDO rpsDo = hologramQueryService.recruitPeopleSalary(companyName, null, null);
+                    RecruitPeopleSalaryDO rpsDo = hologramQueryService.recruitPeopleSalary(companyName, bbdQyxxId, null);
                     if (rpsDo != null) {
                         List<RecruitPeopleSalaryDO.Rdata> rDataList = rpsDo.getRdata();
                         if (rDataList != null) {
@@ -761,7 +761,7 @@ public class WordReportServiceImpl implements WordReportService {
                 MultiExeService lawExe =new MultiExeService(multithreading);
                 List<List<String>> noCreditDebtor = new LinkedList<>();
                 lawExe.runThreadFun( () -> {
-                    NoCreditDebtorDO ncd = hologramQueryService.noCreditDebtor(companyName,null,null,null);
+                    NoCreditDebtorDO ncd = hologramQueryService.noCreditDebtor(companyName, bbdQyxxId,null,null);
                     if (ncd != null) {
                         List<NoCreditDebtorDO.Results> resList = ncd.getResults();
                         if (resList != null) {
@@ -782,7 +782,7 @@ public class WordReportServiceImpl implements WordReportService {
 
                 List<List<String>> debtor = new LinkedList<>();
                 lawExe.runThreadFun( () -> {
-                    DebtorDO de = hologramQueryService.debtor(companyName,null,null,null);
+                    DebtorDO de = hologramQueryService.debtor(companyName, bbdQyxxId,null,null);
                     if (de != null) {
                         List<DebtorDO.Results> resList = de.getResults();
                         if (resList != null) {
@@ -804,7 +804,7 @@ public class WordReportServiceImpl implements WordReportService {
 
                 List<List<String>> judgeDoc = new LinkedList<>();
                 lawExe.runThreadFun( () -> {
-                    List<JudgeDocDO.Results> jdList = hologramQueryService.judgeDoc(companyName,null,null,null);
+                    List<JudgeDocDO.Results> jdList = hologramQueryService.judgeDoc(companyName, bbdQyxxId,null,null);
                     if (jdList != null) {
                         Integer idx = 0;
                         for (JudgeDocDO.Results re : jdList) {
@@ -825,7 +825,7 @@ public class WordReportServiceImpl implements WordReportService {
 
                 List<List<String>> courtAnnouncement = new LinkedList<>();
                 lawExe.runThreadFun( () -> {
-                    CourtAnnouncementDO ca = hologramQueryService.courtAnnouncement(companyName,null,null,null);
+                    CourtAnnouncementDO ca = hologramQueryService.courtAnnouncement(companyName, bbdQyxxId,null,null);
                     if (ca != null) {
                         List<CourtAnnouncementDO.Results> resList = ca.getResults();
                         if (resList != null) {
@@ -846,7 +846,7 @@ public class WordReportServiceImpl implements WordReportService {
 
                 List<List<String>> openCourt = new LinkedList<>();
                 //（最后这一组直接由当前线程跑）
-                List<OpenCourtAnnouncementDO.Results> loc = hologramQueryService.openCourtAnnouncement(companyName,null,null,null);
+                List<OpenCourtAnnouncementDO.Results> loc = hologramQueryService.openCourtAnnouncement(companyName, bbdQyxxId,null,null);
                 if (loc != null) {
                     Integer idx = 0;
                     for (OpenCourtAnnouncementDO.Results re : loc) {
@@ -877,7 +877,7 @@ public class WordReportServiceImpl implements WordReportService {
             //企业专利信息
             jes.runThreadFun( ()-> {
                 List<List<String>> patentInfo = new LinkedList<>();
-                PatentDO pd = hologramQueryService.getPatentData(companyName,null, 1, 100000000);
+                PatentDO pd = hologramQueryService.getPatentData(companyName, bbdQyxxId, 1, 100000000);
                 if (pd != null) {
                     List<PatentDO.Results> resList = pd.getResults();
                     if (resList != null) {
@@ -906,7 +906,7 @@ public class WordReportServiceImpl implements WordReportService {
             //企业舆情信息
             List<List<String>> publicSentiment =new LinkedList<>();
             jes.runThreadFun( ()->{
-                BaiDuYuQingDO baiDuYuQingDO = hologramQueryDao.newsConsensus(companyName,null);
+                BaiDuYuQingDO baiDuYuQingDO = hologramQueryDao.newsConsensus(companyName, bbdQyxxId);
                 if (baiDuYuQingDO != null) {
                     List<BaiDuYuQingDO.Results> rstList = baiDuYuQingDO.getResults();
                     if (rstList != null) {
