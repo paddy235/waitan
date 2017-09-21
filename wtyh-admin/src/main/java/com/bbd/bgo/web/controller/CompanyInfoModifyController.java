@@ -1,5 +1,8 @@
 package com.bbd.bgo.web.controller;
 
+import com.bbd.wtyh.constants.JYSCoRiskLevel;
+import com.bbd.wtyh.constants.PrepaidCoRiskLevel;
+import com.bbd.wtyh.constants.RZZLCoRiskLevel;
 import com.bbd.wtyh.domain.CompanyInfoModify.CompanyInfo;
 import com.bbd.wtyh.domain.enums.CompanyLevel;
 import com.bbd.wtyh.domain.enums.WangDaiRiskLevel;
@@ -21,6 +24,7 @@ import java.util.Map;
 @Controller
 @RequestMapping("/companyInfoModify")
 public class CompanyInfoModifyController {
+
     @Autowired
     private CompanyInfoModifyService companyInfoModify;
 
@@ -63,33 +67,21 @@ public class CompanyInfoModifyController {
         Map<Byte, Map> rst = new HashMap<>();
         // "网络借贷"
         rst.put(CompanyInfo.TYPE_P2P_1, WangDaiRiskLevel.getMap());
-//        // "小额贷款"
+        // "小额贷款"
         rst.put(CompanyInfo.TYPE_XD_2, CompanyLevel.getMap());
-//        // "融资担保"
+        // "融资担保"
         rst.put(CompanyInfo.TYPE_RZDB_3, CompanyLevel.getMap());
-//        // "线下理财"
-        Map<String, Integer> offLine = new HashMap<>();
-        offLine.put("已出风险", 1);
-        offLine.put("重点关注", 2);
-        offLine.put("一般关注", 3);
-        offLine.put("正常", 4);
+        // "线下理财"
+        Map<String, Integer> offLine = JYSCoRiskLevel.getMap();
         rst.put(CompanyInfo.TYPE_XXLC_4, offLine);
-//        // "交易场所"
+        //  "交易场所"
         rst.put(CompanyInfo.TYPE_JYS_9, offLine);
-//        // "预付卡"
-        Map<String, Integer> perpay = new HashMap<>();
-        perpay.put("正常", 4);
-        perpay.put("已发生", 2);
-        perpay.put("潜在", 3);
-        rst.put(CompanyInfo.TYPE_YFK_11, perpay);
-//        // "融资租赁"
-        Map<String, Integer> financeLease = new HashMap<>();
-        financeLease.put("正常", 0);
-        financeLease.put("潜在", 1);
-        rst.put(CompanyInfo.TYPE_RZZL_13, financeLease);
+        //  "预付卡"
+        rst.put(CompanyInfo.TYPE_YFK_11, PrepaidCoRiskLevel.getMap());
+        // "融资租赁"
+        rst.put(CompanyInfo.TYPE_RZZL_13, RZZLCoRiskLevel.getMap());
         return ResponseBean.successResponse(rst);
     }
-
 
     // 4. 行业类型 列表
     @RequestMapping(value = "/industry")

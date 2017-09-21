@@ -6,15 +6,15 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * wtyh
+ * 预付卡风险等级
  *
  * @author Created by LiYao on 2017-04-27 13:37.
  */
 public enum PrepaidCoRiskLevel {
 
-    NORMAL(1, "正常"),
-    LATENT(2, "潜在"),
-    HAPPEN(3, "已发生");
+    NORMAL(4, "正常"),
+    LATENT(3, "潜在"),
+    HAPPEN(2, "已发生");
 
     private int type;
     private String desc;
@@ -47,6 +47,14 @@ public enum PrepaidCoRiskLevel {
             riskList.add(map);
         }
         return riskList;
+    }
+
+    public static Map<String, Integer> getMap() {
+        Map<String, Integer> rst = new HashMap();
+        for (PrepaidCoRiskLevel companyLevel : PrepaidCoRiskLevel.values()) {
+            rst.put(companyLevel.desc(), companyLevel.type());
+        }
+        return rst;
     }
 
 }

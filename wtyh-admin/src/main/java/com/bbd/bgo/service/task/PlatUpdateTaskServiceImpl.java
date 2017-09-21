@@ -91,11 +91,11 @@ public class PlatUpdateTaskServiceImpl extends BaseServiceImpl implements PlatUp
 		}
 		dataTotal = platList.size();
 		//根据企业名称获取公司id
-		List<PlatformNameInformationDO> platInfoList = new ArrayList<PlatformNameInformationDO>();
+		List<PlatformNameInformationDO> platInfoList = new ArrayList<>();
 		//手动执行
 		if(null!=newTaskId){
 			List<TaskFailInfoDO> failList = taskFailInfoMapper.getTaskFailInfoByTaskId(oldTaskId);
-			List<String> failStrList=new ArrayList<String>();
+			List<String> failStrList=new ArrayList<>();
 			for(TaskFailInfoDO fail:failList){
 				if (isShutdown) {
 					break;
@@ -116,7 +116,6 @@ public class PlatUpdateTaskServiceImpl extends BaseServiceImpl implements PlatUp
 			}
 		}
 		this.setCompanyId(platList,platInfoList);
-		dataError = platList.size()-platInfoList.size();
 //		Collections.sort(platInfoList, new Comparator<PlatformNameInformationDO>() {
 //			@Override
 //			public int compare(PlatformNameInformationDO o1, PlatformNameInformationDO o2) {
@@ -128,13 +127,14 @@ public class PlatUpdateTaskServiceImpl extends BaseServiceImpl implements PlatUp
 			int delNum = this.executeCUD("delete from platform_name_information");
 			logger.info("delete plat number:"+delNum);
 		}
-		dataError += updatePlatData(platInfoList);
+		updatePlatData(platInfoList);
 		logger.info("end update plat,update number:"+(dataTotal-dataError));
 		try {
 			platformNameInformationMapper.deleteRepeatPlat();
 		} catch (Exception e) {
 			logger.info("delete repeat plat error");
 		}
+        dataError=taskFailInfoMapper.countFailByTaskId(taskId);
 		if (isShutdown) {
 			taskResultDO.setFailCount(0);
 			taskResultDO.setSuccessCount(0);

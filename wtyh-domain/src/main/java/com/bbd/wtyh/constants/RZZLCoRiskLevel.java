@@ -12,8 +12,8 @@ import java.util.Map;
  */
 public enum RZZLCoRiskLevel {
 
-    NORMAL(1, "正常"),
-    LATENT(2, "潜在");
+    NORMAL(0, "正常"),
+    LATENT(1, "潜在");
 
     private int type;
     private String desc;
@@ -45,5 +45,13 @@ public enum RZZLCoRiskLevel {
             riskList.add(map);
         }
         return riskList;
+    }
+
+    public static Map<String, Integer> getMap() {
+        Map<String, Integer> rst = new HashMap();
+        for (RZZLCoRiskLevel companyLevel : RZZLCoRiskLevel.values()) {
+            rst.put(companyLevel.desc(), companyLevel.type());
+        }
+        return rst;
     }
 }
