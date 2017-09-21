@@ -12,8 +12,8 @@ import java.util.Map;
  */
 public enum RZZLCoRiskLevel {
 
-    NORMAL(1, "正常"),
-    LATENT(2, "潜在");
+    NORMAL(0, "正常"),
+    LATENT(1, "潜在");
 
     private int type;
     private String desc;
