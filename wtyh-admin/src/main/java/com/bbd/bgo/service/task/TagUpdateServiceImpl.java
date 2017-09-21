@@ -48,6 +48,7 @@ public class TagUpdateServiceImpl implements TagUpdateService {
 
     @Override
     public void operateData() {
+        logger.info( "TagUpdateService is start . . ." );
         Integer [] dataTotal =new Integer[1];
         Integer maxDataVersion =qyxxTagMapper.maxDataVersion();
         if ( 0 == maxDataVersion ) {
@@ -119,6 +120,7 @@ public class TagUpdateServiceImpl implements TagUpdateService {
             }
 
         }
+        logger.info( "TagUpdateService is finish . . ." );
 
         //更新company_tag表  新增TAG企业  修改企业类型
         try{
@@ -128,7 +130,6 @@ public class TagUpdateServiceImpl implements TagUpdateService {
         }catch (Exception e){
             logger.error("addTagAndCompany error : ",e );
         }
-
     }
 
 
