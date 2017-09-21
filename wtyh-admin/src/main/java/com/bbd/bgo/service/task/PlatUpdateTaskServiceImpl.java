@@ -116,7 +116,7 @@ public class PlatUpdateTaskServiceImpl extends BaseServiceImpl implements PlatUp
 			}
 		}
 		this.setCompanyId(platList,platInfoList);
-		dataError = platList.size()-platInfoList.size();
+		dataError = taskFailInfoMapper.countFailByTaskId(taskId);
 //		Collections.sort(platInfoList, new Comparator<PlatformNameInformationDO>() {
 //			@Override
 //			public int compare(PlatformNameInformationDO o1, PlatformNameInformationDO o2) {
