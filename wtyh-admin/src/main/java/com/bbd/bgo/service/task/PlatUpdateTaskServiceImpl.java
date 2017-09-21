@@ -235,7 +235,7 @@ public class PlatUpdateTaskServiceImpl extends BaseServiceImpl implements PlatUp
 			List<PlatListDO> platList = gson.fromJson(result, new TypeToken<List<PlatListDO>>() {}.getType());
 			return platList;
 		} catch (Exception e) {
-			logger.error("Method getPlatList get Exception." + e.getMessage());
+			logger.error("Method getPlatList get Exception." , e.getMessage());
 			return null;
 		}
 	}

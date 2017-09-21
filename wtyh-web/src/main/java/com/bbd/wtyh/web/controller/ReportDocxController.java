@@ -48,7 +48,7 @@ public class ReportDocxController {
 	@LogRecord(logMsg = "导出“%s”的企业全息报告", params = {"companyName"}, page = Operation.Page.hologram,
 			type = Operation.Type.REPORT_EXPORT, after = true, before = false)
 	@RequestMapping( value = "download-noIE.do" )
-	public Object downloadFile(HttpServletRequest request, String bbdQyxxId, String companyName )  {
+	public Object downloadFile(HttpServletRequest request, @RequestParam String bbdQyxxId, @RequestParam String companyName )  {
 		if( bbdQyxxId ==null && companyName ==null ) {
 			return ResponseBean.errorResponse("parameters is error.");
 		}
@@ -73,7 +73,7 @@ public class ReportDocxController {
 			type = Operation.Type.REPORT_EXPORT, after = true, before = false)
 	@RequestMapping( value = "download.do" )
 	public void downloadFile(HttpServletRequest request,
-							   HttpServletResponse response, String bbdQyxxId,
+							   HttpServletResponse response, @RequestParam String bbdQyxxId,
 							   @RequestParam String companyName )  {
 		if( bbdQyxxId ==null && companyName ==null ) {
 			LOGGER.error("bbdQyxxId ==null and companyName ==null");
@@ -113,8 +113,7 @@ public class ReportDocxController {
 			type = Operation.Type.REPORT_EXPORT, after = true, before = false)
 	@RequestMapping( value = "get-file-url.do" )
 	@ResponseBody
-	public Object getFileUrl(HttpServletRequest request,
-							 HttpServletResponse response, String bbdQyxxId, String companyName )  {
+	public Object getFileUrl(HttpServletRequest request, @RequestParam String bbdQyxxId, @RequestParam String companyName )  {
 		if( bbdQyxxId ==null && companyName ==null ) {
 			return ResponseBean.errorResponse("parameters is error.");
 		}

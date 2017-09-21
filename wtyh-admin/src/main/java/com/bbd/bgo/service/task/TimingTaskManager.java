@@ -76,7 +76,7 @@ public class TimingTaskManager {
 				taskResultDO=new TaskResultDO();
 			}
 			taskResultDO.setState(TaskState.ERROR);
-			logger.error("start-" + e);
+			logger.error("start:" , e);
 		} finally {
 			if(1==isShow){
 				taskEnd(taskResultDO, taskId, null, canRan);
