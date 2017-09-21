@@ -46,4 +46,12 @@ public enum RZZLCoRiskLevel {
         }
         return riskList;
     }
+
+    public static Map<String, Integer> getMap() {
+        Map<String, Integer> rst = new HashMap();
+        for (RZZLCoRiskLevel companyLevel : RZZLCoRiskLevel.values()) {
+            rst.put(companyLevel.desc(), companyLevel.type());
+        }
+        return rst;
+    }
 }
