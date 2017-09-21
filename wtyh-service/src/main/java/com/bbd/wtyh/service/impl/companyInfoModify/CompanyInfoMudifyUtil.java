@@ -259,7 +259,7 @@ public class CompanyInfoMudifyUtil {
         recordInfo.setName(modifyData.getName());
         recordInfo.setPlatName(wangdai.getPlatName());
         recordInfo.setBeforeLevel(wangdai.getOriginalStatus());
-        recordInfo.setAfterLevel(null);// 从网贷转网贷，riskLevel无须修改(本身即应为空)
+        recordInfo.setAfterLevel(modifyData.getLevel());// 从网贷转网贷，riskLevel无须修改(本身即应为空)
         recordInfo.setBeforeIndustry(CompanyInfo.TYPE_P2P_1);
         recordInfo.setAfterIndustry(Byte.valueOf(modifyData.getIndustry()));
         modifyIndustry(recordInfo);
