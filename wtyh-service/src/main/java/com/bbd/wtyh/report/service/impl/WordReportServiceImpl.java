@@ -51,7 +51,7 @@ public class WordReportServiceImpl implements WordReportService {
     private PToPMonitorService pToPMonitorService;
 
     @Autowired
-    P2PImageService p2PImageService;
+    private P2PImageService p2PImageService;
 
     @Autowired
     private P2PImageDao p2PImageDao;
@@ -161,10 +161,16 @@ public class WordReportServiceImpl implements WordReportService {
                                     if (data != null && data.size() > 0) {
                                         String tmpStr;
                                         try {
-                                            /*tmpStr = BigDecimal.valueOf((Float) data.get("capitalRisk"))
-                                                    .setScale(2, BigDecimal.ROUND_HALF_UP).toString();*/
-                                            BigDecimal bd =BigDecimal.valueOf((Float) data.get("capitalRisk"))
-                                                    .setScale(2, BigDecimal.ROUND_HALF_UP);
+                                            Object object =data.get("capitalRisk");
+                                            BigDecimal bd =BigDecimal.ZERO;
+                                            if( object instanceof BigDecimal ) {
+                                                bd =(BigDecimal)object;
+                                            } else if( object instanceof Float ) {
+                                                bd = BigDecimal.valueOf((Float)object);
+                                            } else if( object instanceof Double ) {
+                                                bd = BigDecimal.valueOf((Double) object);
+                                            }
+                                            bd =bd.setScale(2, BigDecimal.ROUND_HALF_UP);
                                             if( 0 == bd.compareTo(BigDecimal.ZERO) ) {
                                                 tmpStr = "--";
                                             } else {
@@ -175,8 +181,16 @@ public class WordReportServiceImpl implements WordReportService {
                                         }
                                         staticRiskTable.put("资本背景风险", tmpStr);
                                         try {
-                                            BigDecimal bd =((BigDecimal) data.get("creditInfoRisk"))
-                                                    .setScale(2, BigDecimal.ROUND_HALF_UP);
+                                            Object object =data.get("creditInfoRisk");
+                                            BigDecimal bd =BigDecimal.ZERO;
+                                            if( object instanceof BigDecimal ) {
+                                                bd =(BigDecimal)object;
+                                            } else if( object instanceof Double ) {
+                                                bd = BigDecimal.valueOf((Double) object);
+                                            } else if( object instanceof Float ) {
+                                                bd = BigDecimal.valueOf((Float)object);
+                                            }
+                                            bd =bd.setScale(2, BigDecimal.ROUND_HALF_UP);
                                             if( 0 == bd.compareTo(BigDecimal.ZERO) ) {
                                                 tmpStr = "--";
                                             } else {
@@ -402,7 +416,7 @@ public class WordReportServiceImpl implements WordReportService {
                         //填充平台舆情
                         List<List<String>> publicSentiment = new ArrayList<>();
                         nlExe.runThreadFun( ()-> {
-                            YuQingDTO yuQingDTO = p2PImageDao.platformConsensus(platName);
+                            YuQingDTO yuQingDTO = p2PImageService.platformConsensus(platName);
                             if (yuQingDTO != null) {
                                 List<YuQingDTO.Warning> warning = yuQingDTO.getWarning();
                                 if (warning != null) {
