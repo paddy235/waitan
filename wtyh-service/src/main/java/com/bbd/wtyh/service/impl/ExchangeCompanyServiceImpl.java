@@ -1,6 +1,5 @@
 package com.bbd.wtyh.service.impl;
 
-
 import com.bbd.wtyh.domain.CompanyInfoModify.RecordInfo;
 import com.bbd.wtyh.domain.EasyExport.TradeMarketData;
 import com.bbd.wtyh.domain.vo.ExchangeCompanyAreaVO;
@@ -29,11 +28,11 @@ import java.util.Map;
  */
 @Service("exchangeCompanyService")
 public class ExchangeCompanyServiceImpl implements ExchangeCompanyService {
+
     private Logger logger = LoggerFactory.getLogger(ExchangeCompanyServiceImpl.class);
 
     @Resource
     private ExchangeCompanyMapper exchangeCompanyMapper;
-
 
     @Override
     public List<Map> exchangeCompanyCategory() {
@@ -118,6 +117,7 @@ public class ExchangeCompanyServiceImpl implements ExchangeCompanyService {
 
     @Override
     public void addExchange(RecordInfo recordInfo) {
+        deleteByCompanyId(recordInfo);
         exchangeCompanyMapper.addExchange(recordInfo);
     }
 }
