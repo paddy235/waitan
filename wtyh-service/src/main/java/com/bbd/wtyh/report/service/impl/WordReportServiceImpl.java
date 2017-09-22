@@ -377,7 +377,7 @@ public class WordReportServiceImpl implements WordReportService {
                         List<List<String>> interestRateTrend = new ArrayList<>(); //平台利率走势
                         List<List<String>> loanBalance = new ArrayList<>(); //平台贷款余额
                         nlExe.runThreadFun( ()-> {
-                            PlatDataDO data = p2PImageDao.getPlatData(platName);
+                            PlatDataDO data = p2PImageService.getPlatData(platName);
                             if (null != data) {
                                 List<PlatDataDO.PlatDataSixMonth> plat_data_six_month = data.getPlat_data_six_month();
                                 //LocalDate deadline = LocalDate.now().minusDays(15);

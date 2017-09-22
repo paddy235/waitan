@@ -10,7 +10,7 @@
         <columns>
             <column name="年份" code="year" dataType="number" required="true" bgColor="#FFFF00" regex="[1-9]\d{3}" format="0"/>
             <column name="投资金额（亿元）" code="investmentAmount" dataType="number" regex="^[0-9]+([.][0-9]+){0,1}$"/>
-            <column name="披露数量" code="publishNumber" dataType="number" regex="\d+" format="0" />
+            <column name="披露数量" code="publishNumber" dataType="integer" format="0" />
         </columns>
 
     </sheet>
