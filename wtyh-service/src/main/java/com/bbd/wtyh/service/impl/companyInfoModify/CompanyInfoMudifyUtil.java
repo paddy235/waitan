@@ -478,7 +478,7 @@ public class CompanyInfoMudifyUtil {
             // do nothing, just record
         } else if (CompanyInfo.TYPE_XD_2 == recordInfo.getAfterIndustry() // 小额贷款
                 || CompanyInfo.TYPE_RZDB_3 == recordInfo.getAfterIndustry()) { // 融资担保
-            companyLevelService.addLoadLevel(recordInfo);
+            companyLevelService.modifyLoadLevel(recordInfo);
         } else if (CompanyInfo.TYPE_XXLC_4 == recordInfo.getAfterIndustry()) { // 线下理财
             riskCompanyService.modifyOffLineLevel(recordInfo);
             // indexDataMapper.addOffLineLevel(recordInfo);
