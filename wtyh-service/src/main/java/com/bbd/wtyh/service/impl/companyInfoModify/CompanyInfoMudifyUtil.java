@@ -4,6 +4,7 @@ import com.bbd.wtyh.core.utils.redis.RedisUtil;
 import com.bbd.wtyh.domain.CompanyInfoModify.CompanyInfo;
 import com.bbd.wtyh.domain.CompanyInfoModify.RecordInfo;
 import com.bbd.wtyh.domain.CompanyInfoModify.WangdaiModify;
+import com.bbd.wtyh.domain.enums.WangDaiRiskLevel;
 import com.bbd.wtyh.mapper.CompanyInfoModifyMapper;
 import com.bbd.wtyh.mapper.IndexDataMapper;
 import com.bbd.wtyh.service.*;
@@ -264,7 +265,11 @@ public class CompanyInfoMudifyUtil {
         recordInfo.setAfterIndustry(Byte.valueOf(modifyData.getIndustry()));
         modifyIndustry(recordInfo);
         // 清空风险等级
-        riskCompanyService.modifyLevel(recordInfo.getName(), recordInfo.getAfterLevel());
+
+        Integer tmpLevel = WangDaiRiskLevel.getRiskType(modifyData.getLevel());
+        String afterLevel = tmpLevel == null ? null : tmpLevel.toString();
+
+        riskCompanyService.modifyLevel(recordInfo.getName(), afterLevel);
         clearRedisCache("BASE_INFO_BBD_DATA" + modifyData.getName(), "wtyh:pToPMonitor:platRank", "wtyh:P2PImage:platFormStatus");
     }
 

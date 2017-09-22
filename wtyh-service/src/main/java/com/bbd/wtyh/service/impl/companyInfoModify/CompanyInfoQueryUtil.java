@@ -1,6 +1,7 @@
 package com.bbd.wtyh.service.impl.companyInfoModify;
 
 import com.bbd.wtyh.domain.CompanyInfoModify.CompanyInfo;
+import com.bbd.wtyh.domain.enums.WangDaiRiskLevel;
 import com.bbd.wtyh.domain.wangDaiAPI.PlatListDO;
 import com.bbd.wtyh.mapper.CompanyInfoModifyMapper;
 import com.bbd.wtyh.service.*;
@@ -39,11 +40,16 @@ public class CompanyInfoQueryUtil {
     /**
      * 网络借贷
      *
-     * @param name
-     *            公司名称
+     * @param name 公司名称
      * @return
      */
     public CompanyInfo getWangdaiInfo(String name) {
+        // 3. 返回数据
+        CompanyInfo companyInfo = companyInfoModifyMapper.queryCompany(name);
+        if (null == companyInfo) {
+            return null;
+        }
+
         // 1. 获取“公司名 与 平台名” 的对应关系
         PlatListDO platListDO = p2PImageService.getWangdaiCompanyList(name);
         // 2. 获取“平台名”对应的评级信息
@@ -52,21 +58,15 @@ public class CompanyInfoQueryUtil {
             platFormStatus = p2PImageService.platFormStatus(platListDO.getPlat_name());
         }
 
-        // 3. 返回数据
-        CompanyInfo companyInfo = companyInfoModifyMapper.queryCompany(name);
-        if(null==companyInfo){
-            return null;
-        }
         companyInfo.setIndustry(CompanyInfo.TYPE_P2P_1); // 行业
-        if (platFormStatus != null) {
-            companyInfo.setPlatName(obj2String(platFormStatus.get("platname"))); // 平台名称
-            companyInfo.setCurrentLevel(obj2String(platFormStatus.get("score"))); // 转换后的
-            companyInfo.setOriginalStatus(obj2String(platFormStatus.get("status")));
-        } else {
-            companyInfo.setPlatName(""); // 平台名称
-            companyInfo.setCurrentLevel(""); // 转换后的 评分：A B C D
-            companyInfo.setOriginalStatus(""); // 网贷之家API原始评分："优良";"一般关注";"重点关注";"问题及停业平台";
+        companyInfo.setPlatName(platFormStatus == null ? "" : obj2String(platFormStatus.get("platname"))); // 平台名称
+
+        int numLevel = 0;
+        if (companyInfo.getCurrentLevel() != null) {
+            numLevel = Integer.parseInt(companyInfo.getCurrentLevel());
         }
+        companyInfo.setCurrentLevel(WangDaiRiskLevel.getRiskScore(numLevel)); // 转换后的
+        companyInfo.setOriginalStatus(WangDaiRiskLevel.getRiskDesc(numLevel));
         return companyInfo;
     }
 
@@ -80,8 +80,7 @@ public class CompanyInfoQueryUtil {
     /**
      * 小额贷款
      *
-     * @param name
-     *            公司名称
+     * @param name 公司名称
      * @return
      */
     public CompanyInfo getLoan(String name) {
