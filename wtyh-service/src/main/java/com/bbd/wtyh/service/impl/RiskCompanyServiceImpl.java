@@ -1,14 +1,18 @@
 package com.bbd.wtyh.service.impl;
 
 import com.bbd.higgs.utils.ListUtil;
+import com.bbd.higgs.utils.StringUtils;
 import com.bbd.wtyh.common.Constants;
+import com.bbd.wtyh.domain.CompanyAnalysisResultDO;
 import com.bbd.wtyh.domain.CompanyInfoModify.CompanyInfo;
 import com.bbd.wtyh.domain.CompanyInfoModify.OffLineModify;
 import com.bbd.wtyh.domain.CompanyInfoModify.RecordInfo;
 import com.bbd.wtyh.domain.EasyExport.OffLineData;
 import com.bbd.wtyh.domain.RiskCompanyInfoDO;
+import com.bbd.wtyh.domain.enums.CompanyAnalysisResult;
 import com.bbd.wtyh.mapper.RiskCompanyMapper;
 import com.bbd.wtyh.redis.RedisDAO;
+import com.bbd.wtyh.service.PrepaidCompanyStaticService;
 import com.bbd.wtyh.service.RiskCompanyService;
 import com.bbd.wtyh.web.EasyExportExcel.ExportCondition;
 import com.bbd.wtyh.web.PageBean;
@@ -17,15 +21,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 @Service
 public class RiskCompanyServiceImpl implements RiskCompanyService {
-
+    @Autowired
+    private PrepaidCompanyStaticService predService;
     @Autowired
     private RiskCompanyMapper riskCompanyMapper;
     private static final int SCANNER_COUNT = 1000;
+    private static final String RISK= String.valueOf(CompanyAnalysisResult.RISK.getType());
     @Autowired
     private RedisDAO redisDAO;
 //    private static final String SCANNER_PREFIX_KEY = "scanner_";
@@ -117,6 +124,22 @@ public class RiskCompanyServiceImpl implements RiskCompanyService {
     @Override
     public void modifyOffLineLevel(RecordInfo recordInfo) {
         riskCompanyMapper.modifyLevel(recordInfo.getName(), recordInfo.getAfterLevel());
+        String level=recordInfo.getAfterLevel();
+        if(RISK.equals(level)){
+            CompanyAnalysisResultDO analysisResultDO=new CompanyAnalysisResultDO();
+            analysisResultDO.setCompanyId(recordInfo.getCompanyId());
+            analysisResultDO.setCreateBy("companyUpdate");
+            analysisResultDO.setUpdateBy("companyUpdate");
+            int i=predService.updateCompanyAnalysisResultWhenBlack(analysisResultDO);
+            if(i==0){
+                predService.addCompanyAnalysisResultWhenBlack(analysisResultDO);
+            }
+        }else{
+            if(!StringUtils.isNullOrEmpty(level)){
+                predService.deleteByCompanyId(recordInfo);
+            }
+        }
+
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.bbd.wtyh.mapper;
 
+import com.bbd.wtyh.domain.CompanyAnalysisResultDO;
 import com.bbd.wtyh.domain.CompanyInfoModify.CompanyInfo;
 import com.bbd.wtyh.domain.CompanyInfoModify.RecordInfo;
 import com.bbd.wtyh.domain.PrepaidCompanyDO;
@@ -23,4 +24,8 @@ public interface PrepaidCompanyStatisticMapper {
     void addPerpaycard(@Param(value = "recordInfo")RecordInfo recordInfo);
 
     void deleteByCompanyId(@Param(value = "recordInfo")RecordInfo recordInfo);
+
+    void addCompanyAnalysisResultWhenBlack(@Param(value = "analysis")CompanyAnalysisResultDO companyAnalysisResultDO);
+
+    int updateCompanyAnalysisResultWhenBlack(@Param(value = "analysis")CompanyAnalysisResultDO companyAnalysisResultDO);
 }

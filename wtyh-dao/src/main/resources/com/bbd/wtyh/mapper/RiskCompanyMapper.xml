@@ -223,6 +223,7 @@
     <update id="modifyLevel" >
         update company
         <set>
+            previous_risk_level=risk_level,
             risk_level=#{afterLevel}
         </set>
         where `name`=#{name}
