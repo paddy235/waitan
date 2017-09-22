@@ -6,6 +6,7 @@ import com.bbd.wtyh.domain.EasyExport.WangdaiData;
 import com.bbd.wtyh.domain.PlatCoreDataDO;
 import com.bbd.wtyh.domain.PlatformNameInformationDO;
 import com.bbd.wtyh.domain.TaskResultDO;
+import com.bbd.wtyh.domain.wangDaiAPI.PlatDataDO;
 import com.bbd.wtyh.domain.wangDaiAPI.PlatListDO;
 import com.bbd.wtyh.domain.wangDaiAPI.YuQingDTO;
 import com.bbd.wtyh.web.EasyExportExcel.ExportCondition;
@@ -21,6 +22,12 @@ import java.util.Map;
  * @since 2016.8.5
  */
 public interface P2PImageService {
+    /**
+     *
+     * @param platName
+     * @return
+     */
+    PlatDataDO getPlatData(String platName);
 
     /**
      * P2P 获取平台名称

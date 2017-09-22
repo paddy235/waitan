@@ -12,20 +12,25 @@ import com.bbd.wtyh.domain.EasyExport.WangdaiData;
 import com.bbd.wtyh.domain.bbdAPI.BaseDataDO;
 import com.bbd.wtyh.domain.bbdAPI.ZuZhiJiGoudmDO;
 import com.bbd.wtyh.domain.wangDaiAPI.*;
+import com.bbd.wtyh.log.user.Operation;
 import com.bbd.wtyh.mapper.*;
 import com.bbd.wtyh.service.HologramQueryService;
 import com.bbd.wtyh.service.P2PImageService;
 import com.bbd.wtyh.service.TaskService;
 import com.bbd.wtyh.web.EasyExportExcel.ExportCondition;
 import com.bbd.wtyh.web.PageBean;
+import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.xmlbeans.impl.xb.xsdschema.Public;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -74,6 +79,39 @@ public class P2PImageServiceImpl extends BaseServiceImpl implements P2PImageServ
             return null;
         }
         return this.selectOne(PlatCoreDataDO.class, "plat_name = ? ORDER BY create_date DESC LIMIT 1", platName);
+    }
+
+    @Override
+    public  PlatDataDO getPlatData(String platName) {
+        PlatCoreDataDO platCoreDataDO =this.getPlatCoreData(platName);
+        PlatDataDO platDataDO;
+        //如果本地没有就从线上取
+        if ( null ==platCoreDataDO ) {
+            platDataDO =p2PImageDao.getPlatData(platName);
+            return platDataDO;
+        }
+        platDataDO =new PlatDataDO();
+        platDataDO.setAmount_total(platCoreDataDO.getAmountTotal());
+        platDataDO.setBid_num_stay_stil(platCoreDataDO.getBidNumStayStil());
+        platDataDO.setBor_num_stay_stil(platCoreDataDO.getBorNumStayStil());
+        platDataDO.setCompany_name(platCoreDataDO.getCompanyName());
+        platDataDO.setDay30_net_inflow(platCoreDataDO.getDay30NetInflow());
+        platDataDO.setInterest_rate(platCoreDataDO.getInterestRate());
+        platDataDO.setMoney_stock(platCoreDataDO.getMoneyStock());
+        platDataDO.setOther_sum_amount(platCoreDataDO.getOtherSumAmount());
+        platDataDO.setPlat_name(platCoreDataDO.getPlatName());
+        //platDataDO.setPlat_score(platCoreDataDO.get?);
+        //platDataDO.setPlat_status(platCoreDataDO.get?);
+        platDataDO.setTop1_sum_amount(platCoreDataDO.getTop1SumAmount());
+        platDataDO.setTop10_sum_amount(platCoreDataDO.getTop10SumAmount());
+        try {
+             Type type = new TypeToken<ArrayList<PlatDataDO.PlatDataSixMonth>>() {}.getType();
+            platDataDO.setPlat_data_six_month(
+                    (new Gson()).fromJson( platCoreDataDO.getPlatDataSixMonth(), type ) );
+        } catch (Exception e) {
+            platDataDO.setPlat_data_six_month(new LinkedList<>());
+        }
+        return  platDataDO;
     }
 
     @Override
@@ -300,18 +338,19 @@ public class P2PImageServiceImpl extends BaseServiceImpl implements P2PImageServ
 
     @Override
     public List<List<String>> coreDataDealTrend(String platName) {
-        return parsePlatDataSixMonth(platName, 14, "day_amount");
+        return parsePlatDataSixMonth(platName, 29, "day_amount");
     }
 
     @Override
     public List<List<String>> coreDataInterestRateTrend(String plat_name) {
-        return parsePlatDataSixMonth(plat_name, 14, "day_interest_rate");
+        return parsePlatDataSixMonth(plat_name, 29, "day_interest_rate");
     }
 
     @Override
     public List<List<String>> coreDataLoadOverage(String plat_name) {
-        return parsePlatDataSixMonth(plat_name, 14, "day_money_stock");
+        return parsePlatDataSixMonth(plat_name, 29, "day_money_stock");
     }
+
 
     /**
      * 解析近6个月每日详情数据
