@@ -340,8 +340,8 @@ public class ParkMgtController {
         }
         Integer companyId  = companyDO.getCompanyId();
 
-        Integer companyBuildingId = parkMgtService.queryCBId(companyId+"");
-        if(companyBuildingId != null){
+        Integer companyBuildingId = parkMgtService.queryCompanyBuildingId(buildingId, String.valueOf(companyId));
+        if(companyBuildingId != null && companyBuildingId != 0){
             return ResponseBean.errorResponse("企业已存在于该楼宇");
         }
         //校验完成则可新增
