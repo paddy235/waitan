@@ -163,10 +163,6 @@ public class ParkMgtController {
     @LogRecord(logMsg = "修改园区：%s", params = {"parkName"}, page = Operation.Page.PARK_BUILDING_MANAGE,
             type = Operation.Type.modify, after = true, before = false)
     public ResponseBean updPark(String updateBy, String areaId, String parkId, String name) {
-        int parkCount = parkMgtService.queryParkIdByName(name);
-        if (parkCount != 0) {
-            return ResponseBean.errorResponse("该园区已存在，请更换园区名称");
-        }
         ParkDO parkDO = new ParkDO();
         parkDO.setUpdateBy(updateBy);
         parkDO.setAreaId(StringUtils.isEmpty(areaId) ? 0 : Integer.parseInt(areaId));
@@ -182,11 +178,6 @@ public class ParkMgtController {
     @LogRecord(logMsg = "修改楼宇：%s", params = {"name"}, page = Operation.Page.PARK_BUILDING_MANAGE, type = Operation.Type.modify, after = true, before = false)
     public ResponseBean updateBuilding(BuildingDO buildingDO, ParkDO parkDO, String parkName, String origParkId) {
         try {
-            // 新增之前先查询该楼宇是否存在
-            int buildingCount = parkMgtService.queryBIdByName(buildingDO.getName());
-            if (buildingCount != 0) {
-                return ResponseBean.errorResponse("该楼宇已存在，请更换楼宇名称");
-            }
             parkDO.setName(parkName);
             parkMgtService.updateBuilding(buildingDO, parkDO, origParkId);
         } catch (Exception e) {
@@ -414,6 +405,8 @@ public class ParkMgtController {
         try {
 //            File f = new File(request.getSession().getServletContext().getRealPath("/") + "/data/img/park/hpq.png");
             if (file != null) {
+                if (file.getSize() > 3145728l)
+                    return ResponseBean.errorResponse("上传的图片大小请勿超过3M");
                 String path = PARK_DIR;
                 if (picType == 2) {
                     path = BUILDING_DIR;
