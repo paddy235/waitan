@@ -14,7 +14,7 @@ public enum JYSCoRiskLevel {
     HAPPEN(1, "已出风险"),
     IMPORT_FOCUS(2, "重点关注"),
     COMMON_FOCUS(3, "一般关注"),
-    NORMAL(2, "正常");
+    NORMAL(4, "正常");
 
     private int type;
     private String desc;
