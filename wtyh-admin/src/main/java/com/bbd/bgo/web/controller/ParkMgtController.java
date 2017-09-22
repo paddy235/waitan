@@ -414,6 +414,8 @@ public class ParkMgtController {
         try {
 //            File f = new File(request.getSession().getServletContext().getRealPath("/") + "/data/img/park/hpq.png");
             if (file != null) {
+                if (file.getSize() > 3145728l)
+                    return ResponseBean.errorResponse("上传的图片大小请勿超过3M");
                 String path = PARK_DIR;
                 if (picType == 2) {
                     path = BUILDING_DIR;
