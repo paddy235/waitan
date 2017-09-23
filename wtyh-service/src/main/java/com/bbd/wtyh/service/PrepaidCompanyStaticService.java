@@ -2,6 +2,7 @@ package com.bbd.wtyh.service;
 
 import java.util.List;
 
+import com.bbd.wtyh.domain.CompanyAnalysisResultDO;
 import com.bbd.wtyh.domain.CompanyInfoModify.CompanyInfo;
 import com.bbd.wtyh.domain.CompanyInfoModify.RecordInfo;
 import com.bbd.wtyh.domain.PrepaidCompanyDO;
@@ -25,4 +26,8 @@ public interface PrepaidCompanyStaticService {
 	void addPerpaycard(RecordInfo recordInfo);
 
 	void deleteByCompanyId(RecordInfo recordInfo);
+
+	void addCompanyAnalysisResultWhenBlack(CompanyAnalysisResultDO companyAnalysisResultDO);
+
+	int updateCompanyAnalysisResultWhenBlack(CompanyAnalysisResultDO companyAnalysisResultDO);
 }

@@ -23,6 +23,7 @@
         WHERE
             `name` = #{name}
             AND company_type IN (1, 2, 3, 4, 5, 9, 11, 13, 6, 10, 12)
+            limit 1
     </select>
 
     <select id="queryModifyCompany" resultType="string">

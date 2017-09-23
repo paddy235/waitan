@@ -141,7 +141,7 @@
     </delete>
 
     <delete id="delBuildingByParkId" parameterType="java.lang.String">
-        DELETE FROM building WHERE building_id in (select building_id from park_and_building_relation where park_id=#{parkId})
+        DELETE FROM building WHERE building_id in (SELECT building_id FROM park_and_building_relation WHERE building_id in (SELECT building_id FROM park_and_building_relation WHERE park_id=#{parkId}) GROUP BY building_id HAVING COUNT(1)=1)
     </delete>
 
     <delete id="delParkByName" parameterType="java.lang.String">
@@ -160,12 +160,7 @@
     </delete>
 
     <delete id="delCompanyBuildingByParkId" parameterType="java.lang.String">
-        DELETE FROM
-          company_building
-        WHERE
-          building_id
-        IN
-          (select building_id from park_and_building_relation where park_id=#{parkId})
+        DELETE FROM company_building WHERE building_id IN (SELECT building_id FROM park_and_building_relation WHERE building_id in (SELECT building_id FROM park_and_building_relation WHERE park_id=#{parkId}) GROUP BY building_id HAVING COUNT(1)=1)
     </delete>
 
     <sql id="building_content">
@@ -299,5 +294,13 @@
     <update id="updateBuilding" parameterType="com.bbd.wtyh.domain.BuildingDO">
         UPDATE building SET `name`=#{name}, update_date=SYSDATE(),update_by=#{updateBy} WHERE building_id=#{buildingId}
     </update>
+
+    <select id="queryCountByParkName" parameterType="java.lang.String" resultType="int">
+        SELECT COUNT(1) FROM park WHERE `name`=#{parkName}
+    </select>
+
+    <select id="queryCountByBuildingName" parameterType="java.lang.String" resultType="int">
+        SELECT COUNT(1) FROM building WHERE `name`=#{buildingName}
+    </select>
 
 </mapper>

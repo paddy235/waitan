@@ -1,5 +1,6 @@
 package com.bbd.wtyh.service.impl;
 
+import com.bbd.wtyh.domain.CompanyAnalysisResultDO;
 import com.bbd.wtyh.domain.CompanyInfoModify.CompanyInfo;
 import com.bbd.wtyh.domain.CompanyInfoModify.RecordInfo;
 import com.bbd.wtyh.domain.PrepaidCompanyDO;
@@ -51,6 +52,16 @@ public class PrepaidCompanyStaticServiceImpl implements PrepaidCompanyStaticServ
     @Override
     public void deleteByCompanyId(RecordInfo recordInfo) {
         pcsMapper.deleteByCompanyId(recordInfo);
+    }
+
+    @Override
+    public void addCompanyAnalysisResultWhenBlack(CompanyAnalysisResultDO companyAnalysisResultDO) {
+        pcsMapper.addCompanyAnalysisResultWhenBlack(companyAnalysisResultDO);
+    }
+
+    @Override
+    public int updateCompanyAnalysisResultWhenBlack(CompanyAnalysisResultDO companyAnalysisResultDO) {
+      return  pcsMapper.updateCompanyAnalysisResultWhenBlack(companyAnalysisResultDO);
     }
 
 }

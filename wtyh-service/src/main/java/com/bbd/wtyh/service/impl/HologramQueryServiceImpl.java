@@ -27,6 +27,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
+import java.math.BigDecimal;
 import java.util.*;
 import java.util.concurrent.*;
 
@@ -289,7 +290,23 @@ public class HologramQueryServiceImpl extends BaseServiceImpl implements Hologra
             for (String key : indexMap.keySet()) {
                 RecruitPeopleNumberDO.Rdata rdata = new RecruitPeopleNumberDO.Rdata();
                 rdata.setX_value(key);
-                rdata.setY_value(indexMap.get(key));
+
+                String score=indexMap.get(key);
+
+                if(StringUtils.isEmpty(score)){
+
+                    rdata.setY_value(null);
+
+                }else{
+                    BigDecimal bigDecimal;
+                    try{
+                        bigDecimal=new BigDecimal(score).setScale(2,BigDecimal.ROUND_HALF_UP);
+                    }catch (Exception e){
+                        bigDecimal=null;
+                    }
+                    rdata.setY_value(bigDecimal==null?null:bigDecimal.toString());
+                }
+
                 list.add(rdata);
             }
         }

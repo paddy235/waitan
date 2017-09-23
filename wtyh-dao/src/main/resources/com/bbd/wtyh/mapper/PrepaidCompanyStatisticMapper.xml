@@ -84,4 +84,22 @@
     <delete id="deleteByCompanyId">
         delete from company_analysis_result where company_id = #{recordInfo.companyId}
     </delete>
+
+    <insert id="addCompanyAnalysisResultWhenBlack">
+        INSERT INTO
+        `company_analysis_result` (`company_id`, `analysis_result`,`exposure_date`,`create_by`,`create_date`)
+        VALUES
+        (#{analysis.companyId}, 1, now(), #{analysis.createBy}, now())
+    </insert>
+
+    <update id="updateCompanyAnalysisResultWhenBlack">
+        update company_analysis_result
+        <set>
+            exposure_date=now(),
+            analysis_result=1,
+            update_by=#{analysis.updateBy},
+            update_date=now()
+        </set>
+        where `company_id`=#{analysis.companyId}
+    </update>
 </mapper>
