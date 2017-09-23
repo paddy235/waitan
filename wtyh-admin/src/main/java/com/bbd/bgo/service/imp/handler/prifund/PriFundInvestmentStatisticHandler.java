@@ -90,7 +90,9 @@ public class PriFundInvestmentStatisticHandler extends AbstractImportHandler<Inv
     //BusinessException()
     @Override
     public void endRow(Map<String, String> row, InvestmentStatisticDO bean) throws Exception {
-        bean.setInvestmentAmount( bean.getInvestmentAmount() *10000 );
+        if ( null !=bean.getInvestmentAmount() ) {
+            bean.setInvestmentAmount(bean.getInvestmentAmount() * 10000);
+        }
         InvestmentStatisticDO isDo =baseService.selectOne(InvestmentStatisticDO.class,
                 "`year`=" +bean.getYear() +" LIMIT 1" );
         if( null ==isDo ) {

@@ -260,14 +260,14 @@ public class ParkMgtController {
             type = Operation.Type.add, after = true, before = false)
     public ResponseBean addPark(HttpServletRequest request, String name,@RequestParam(required = false) String areaId) {
         // 新增之前先查询该园区是否存在
-        int i = parkMgtService.queryParkIdByName(name);
-        if (i != 0) {
+        int count = parkMgtService.queryCountByParkName(name);
+        if (count >= 1) {
             return ResponseBean.errorResponse("该园区已存在");
         }
-        //若前端不传用户名，则自行抓取
+        // 若前端不传用户名，则自行抓取登录用户
         String user = (String) request.getSession().getAttribute(Constants.SESSION.loginName);
-        if(StringUtils.isEmpty(user)) {
-            return ResponseBean.errorResponse("非法用户");
+        if (StringUtils.isEmpty(user)) {
+            return ResponseBean.errorResponse("用户信息出现异常，请重新登录");
         }
         ParkDO park = new ParkDO();
         park.setCreateBy(user);
@@ -288,17 +288,17 @@ public class ParkMgtController {
     @LogRecord(logMsg = "新增楼宇,所属园区：%s，楼宇名称：%s", params = {"parkName","name"}, page = Operation.Page.PARK_BUILDING_MANAGE,
             type = Operation.Type.add, after = true, before = false)
     public ResponseBean addBuilding(HttpServletRequest request, BuildingDO building,String parkName) throws Exception {
-        // 若前端不传用户名，则自行抓取
-        String creatBy = building.getCreateBy();
-        if(StringUtils.isEmpty(creatBy)){
-            String loginName = (String) request.getSession().getAttribute(Constants.SESSION.loginName);
-            if(null == loginName)
-                loginName = "building";
-            building.setCreateBy(loginName);
+        // 若前端不传用户名，则自行抓取登录用户信息
+        String createBy = building.getCreateBy();
+        if (StringUtils.isEmpty(createBy)) {
+            createBy = (String) request.getSession().getAttribute(Constants.SESSION.loginName);
+            if (StringUtils.isEmpty(createBy))
+                return ResponseBean.errorResponse("用户信息出现异常，请重新登录");
+            building.setCreateBy(createBy);
         }
         // 新增之前先查询该楼宇是否存在
-        int i = parkMgtService.queryBIdByName(building.getName());
-        if (i == 1) {
+        int count = parkMgtService.queryCountByBuildingName(building.getName());
+        if (count >= 1) {
             if (StringUtils.isEmpty(parkName))
                 return  ResponseBean.errorResponse("请选择园区！");
             int relationCount = parkMgtService.queryPABRelation(parkName, building.getName());

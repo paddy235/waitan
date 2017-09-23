@@ -834,3 +834,94 @@ COMMENT='园区与楼宇关系表'
 ;
 /* 20170901 update park jurisdiction by Barney end */
 
+
+/* 20170901  by chen gong jie begin */
+
+#数仓tag表和黑白名单表集合运算后的最新版本数据本地存储
+CREATE TABLE `qyxx_tag` (
+  `kid` int(11) NOT NULL AUTO_INCREMENT,
+  `bbd_qyxx_id` varchar(34) NOT NULL,
+  `tag` varchar(20) NOT NULL COMMENT '标签',
+  `company_name` varchar(60) NOT NULL COMMENT '企业名称',
+  `uptime` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `dt` int(10) DEFAULT NULL COMMENT '数据版本',
+  PRIMARY KEY (`kid`),
+  KEY `index_company_name` (`company_name`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=139994 DEFAULT CHARSET=utf8 COMMENT='企业标签表，对应数仓的dw.qyxx_tag表及黑白名单表加减后的最新版本数据';
+
+CREATE TABLE `subscription_list_append` (
+  `company_name` varchar(60) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `subscription_list_remove` (
+  `company_name` varchar(60) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+# capital_amount表添加数据版本列
+ALTER TABLE `capital_amount`
+ADD COLUMN `data_version`  int(11) NULL DEFAULT 2016 COMMENT '数据版本(年份)' AFTER `publish_company_number`;
+
+/* 20170901  by chen gong jie end */
+
+/* 20170901  by sun li ming begin */
+DROP TABLE IF EXISTS tbl_relation;
+DROP TABLE IF EXISTS tbl_point;
+CREATE TABLE `tbl_point` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '逻辑主键',
+  `bbd_qyxx_id` varchar(40) DEFAULT NULL COMMENT '企业唯一ID',
+  `queried_company` varchar(100) DEFAULT NULL COMMENT '目标公司',
+  `name` varchar(40) DEFAULT NULL COMMENT '关联方ID',
+  `cname` varchar(100) DEFAULT NULL COMMENT '关联方名称',
+  `level` varchar(2) DEFAULT NULL COMMENT '所处关联度数',
+  `is_person` varchar(2) DEFAULT NULL COMMENT '是否是个人（0：公司；1：个人）',
+  `is_son_com` varchar(2) DEFAULT NULL COMMENT '是否为子公司（0：否；1：是）',
+  `create_by` varchar(50) DEFAULT NULL COMMENT '创建人',
+  `create_date` timestamp NULL DEFAULT NULL COMMENT '创建时间',
+  `update_by` varchar(50) DEFAULT NULL COMMENT '修改人',
+  `update_date` timestamp NULL DEFAULT NULL COMMENT '修改时间',
+  PRIMARY KEY (`id`),
+	KEY `idx_bbd_qyxx_id` (`bbd_qyxx_id`),
+  KEY `idx_queried_company` (`queried_company`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='关联方点表';
+
+DROP TABLE IF EXISTS tbl_line;
+CREATE TABLE `tbl_line` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '逻辑主键',
+  `bbd_qyxx_id` varchar(40) DEFAULT NULL COMMENT '企业唯一ID',
+  `queried_company` varchar(100) DEFAULT NULL COMMENT '目标公司',
+  `orig` varchar(40) DEFAULT NULL COMMENT '投资方ID',
+  `orig_name` varchar(100) DEFAULT NULL COMMENT '投资方',
+  `target` varchar(40) DEFAULT NULL COMMENT '被投资方ID',
+	`target_name` varchar(100) DEFAULT NULL COMMENT '被投资方',
+  `is_full_line` varchar(2) DEFAULT NULL COMMENT '是否为实线（0：否；1：是）',
+	`type` varchar(20) DEFAULT NULL COMMENT '关联关系',
+	`relationship` varchar(2) DEFAULT NULL COMMENT '关联方关系（0：公司与公司；1：人与公司）',
+	`orig_level` varchar(2) DEFAULT NULL COMMENT '投资方关联维度',
+  `tar_level` varchar(2) DEFAULT NULL COMMENT '被投资方关联维度',
+  `create_by` varchar(50) DEFAULT NULL COMMENT '创建人',
+  `create_date` timestamp NULL DEFAULT NULL COMMENT '创建时间',
+  `update_by` varchar(50) DEFAULT NULL COMMENT '修改人',
+  `update_date` timestamp NULL DEFAULT NULL COMMENT '修改时间',
+  PRIMARY KEY (`id`),
+	KEY `idx_bbd_qyxx_id` (`bbd_qyxx_id`),
+  KEY `idx_queried_company` (`queried_company`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='关联方线';
+
+DROP TABLE IF EXISTS company_tag;
+CREATE TABLE `company_tag` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `company_name` varchar(100) NOT NULL COMMENT '企业名称',
+  `tag` tinyint(4) DEFAULT NULL COMMENT 'TAG',
+  `dt` int(10) DEFAULT NULL COMMENT '来源版本',
+  `create_by` varchar(50) DEFAULT NULL COMMENT '创建人',
+  `create_date` date DEFAULT NULL COMMENT '创建时间',
+  `update_by` varchar(50) DEFAULT NULL COMMENT '修改人',
+  `update_date` date DEFAULT NULL COMMENT '修改时间',
+  PRIMARY KEY (`id`),
+  KEY `idx_company_name` (`company_name`),
+  KEY `idx_tag` (`tag`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='企业TAG';
+
+/* 20170901  by sun li ming end */
+
+
