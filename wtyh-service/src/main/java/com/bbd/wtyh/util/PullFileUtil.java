@@ -150,7 +150,7 @@ public class PullFileUtil {
                 noRepetition.put(map.get("fileName"), map);
             }
             historyFileNameList = new LinkedList<>( noRepetition.values() );
-            logger.info("拉取{}数据文件开始, total：{}", logCaption, fileNameList.size());
+            logger.info("拉取{}数据文件开始, total：{}", logCaption, fileNameList==null?-1:fileNameList.size());
             List<DatasharePullFileDO> insPullFileList = new ArrayList<>(); //用于新增的
             List<DatasharePullFileDO> updPullFileList = new ArrayList<>(); //用于更新的
             for (Map<String, String> map : historyFileNameList) {

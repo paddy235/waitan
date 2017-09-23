@@ -33,8 +33,8 @@ public class QyxxTagTest {
 
     @Test
     public void tagTest1() {
-        List<SubscriptionListDO> cml =qyxxTagMapper.getCompanyNamesFromSubscriptionListAppend();
-        qyxxTagMapper.companyNameAppendSubscriptionList( );
+        //List<SubscriptionListDO> cml =qyxxTagMapper.getCompanyNamesFromSubscriptionListAppend();
+        //qyxxTagMapper.companyNameAppendSubscriptionList( );
 
         tagUpdateService.operateData();
     }
