@@ -1,9 +1,11 @@
 package com.bbd.wtyh.service.impl;
 
+import com.bbd.wtyh.constants.RiskChgCoSource;
 import com.bbd.wtyh.domain.CompanyInfoModify.CompanyInfo;
+import com.bbd.wtyh.domain.RiskChgCoDo;
 import com.bbd.wtyh.domain.enums.WangDaiRiskLevel;
 import com.bbd.wtyh.mapper.CompanyInfoModifyMapper;
-import com.bbd.wtyh.redis.RedisDAO;
+import com.bbd.wtyh.service.CoRiskChgService;
 import com.bbd.wtyh.service.CompanyInfoModifyService;
 import com.bbd.wtyh.service.impl.companyInfoModify.CompanyInfoMudifyUtil;
 import com.bbd.wtyh.service.impl.companyInfoModify.CompanyInfoQueryUtil;
@@ -31,7 +33,7 @@ public class CompanyInfoModifyServiceImpl implements CompanyInfoModifyService {
     private CompanyInfoMudifyUtil companyInfoMudifyUtil;
 
     @Autowired
-    private RedisDAO redisDAO;
+    private CoRiskChgService coRiskChgService;
 
     @Override
     public List<String> autoComplete(String q) {
@@ -92,7 +94,7 @@ public class CompanyInfoModifyServiceImpl implements CompanyInfoModifyService {
      * @return
      */
     @Override
-    public void modify(ModifyData modifyData) throws Exception {
+    public void modify(ModifyData modifyData, String modifyBy) throws Exception {
         // 以''空字串的形式更新小额贷款和融资担保SQL会报错
         if (StringUtils.isEmpty(modifyData.getOutLevel())) {
             modifyData.setOutLevel(null);
@@ -106,6 +108,8 @@ public class CompanyInfoModifyServiceImpl implements CompanyInfoModifyService {
         if (StringUtils.isEmpty(modifyData.getLevel())) {
             modifyData.setLevel(null);
         }
+
+        RiskChgCoDo data = coRiskChgService.generateNewRecord(modifyData, modifyBy, RiskChgCoSource.MANUAL_MODIFY);
 
         byte industry = companyInfoModifyMapper.queryCompany(modifyData.getName()).getIndustry();
 
@@ -155,7 +159,10 @@ public class CompanyInfoModifyServiceImpl implements CompanyInfoModifyService {
             companyInfoMudifyUtil.modifyBusinessInsurance(modifyData);
             break;
         }
-        //        redisDAO.flushAll();
+
+        if (data != null) {
+            coRiskChgService.insert(data);
+        }
         companyInfoMudifyUtil.clearRedisCache("wtyh:realtimeMonitor:guangPu1");
 
     }

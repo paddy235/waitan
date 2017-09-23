@@ -52,7 +52,7 @@ public class CompanyInfoModifyController {
     @ResponseBody
     public ResponseBean modify(ModifyData modifyData) {
         try {
-            companyInfoModify.modify(modifyData);
+            companyInfoModify.modify(modifyData, "企业信息变更");
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseBean.errorResponse(e.getMessage());

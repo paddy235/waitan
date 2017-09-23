@@ -104,7 +104,7 @@ public class BatchModifyHandler extends AbstractImportHandler<CoBatchModifyDTO> 
         }
         companyService.updateList(updateList);
         for (ModifyData modifyData : modifyDataList) {
-            this.companyInfoModify.modify(modifyData);
+            this.companyInfoModify.modify(modifyData, "企业信息批量变更");
         }
         log.info("处理企业批量变更数据结束");
         System.gc();
