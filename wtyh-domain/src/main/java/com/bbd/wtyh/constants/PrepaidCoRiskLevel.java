@@ -57,4 +57,12 @@ public enum PrepaidCoRiskLevel {
         return rst;
     }
 
+    public static Integer getRiskType(String desc) {
+        for (PrepaidCoRiskLevel level : PrepaidCoRiskLevel.values()) {
+            if (level.desc.equals(desc)) {
+                return level.type();
+            }
+        }
+        return null;
+    }
 }
