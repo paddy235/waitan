@@ -113,7 +113,8 @@ public class QuartzHandler extends BaseServiceImpl {
 
 	@PostConstruct
 	public void init() {
-
+		//当服务器重启的时候，把状态为‘执行中’的任务更新成终止
+		updateTaskWhenServiceRestart();
         List<TaskInfoDO> taskList = this.selectAll(TaskInfoDO.class, "");
 		taskList.forEach(taskInfo -> {
 			TASK_MAP.put(taskInfo.getTaskKey() + SEPARATOR + taskInfo.getTaskGroup(), taskInfo);
@@ -135,6 +136,15 @@ public class QuartzHandler extends BaseServiceImpl {
 		String mapKey = key + SEPARATOR + group;
 		String where = "task_key = '" + key + "' AND task_group = '" + group + "'";
 		return TASK_MAP.computeIfAbsent(mapKey, (String k) -> this.selectOne(TaskInfoDO.class, where));
+	}
+
+	private void updateTaskWhenServiceRestart(){
+		try{
+			this.executeCUD("UPDATE timing_task_info SET state=5 WHERE state=2");
+			this.executeCUD("UPDATE task_success_fail_info SET state=5 WHERE state=2");
+		}catch (Exception e){
+			logger.error("updateTaskWhenServiceRestart:",e);
+		}
 	}
 
 
