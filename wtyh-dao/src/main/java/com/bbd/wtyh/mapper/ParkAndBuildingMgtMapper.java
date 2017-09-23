@@ -86,4 +86,8 @@ public interface ParkAndBuildingMgtMapper {
 
     BuildingDO queryBuildingByName(String buildingName);
 
+    int queryCountByParkName(String parkName);
+
+    int queryCountByBuildingName(String buildingName);
+
 }

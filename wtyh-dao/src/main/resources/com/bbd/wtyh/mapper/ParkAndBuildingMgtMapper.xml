@@ -300,4 +300,12 @@
         UPDATE building SET `name`=#{name}, update_date=SYSDATE(),update_by=#{updateBy} WHERE building_id=#{buildingId}
     </update>
 
+    <select id="queryCountByParkName" parameterType="java.lang.String" resultType="int">
+        SELECT COUNT(1) FROM park WHERE `name`=#{parkName}
+    </select>
+
+    <select id="queryCountByBuildingName" parameterType="java.lang.String" resultType="int">
+        SELECT COUNT(1) FROM building WHERE `name`=#{buildingName}
+    </select>
+
 </mapper>

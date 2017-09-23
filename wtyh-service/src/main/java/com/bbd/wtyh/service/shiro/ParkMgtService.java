@@ -170,7 +170,7 @@ public interface ParkMgtService{
      * @param buildingName
      * @return
      */
-    public int queryPABRelation(String parkName, String buildingName);
+    int queryPABRelation(String parkName, String buildingName);
 
     /**
      * 绑定园区、楼宇
@@ -188,5 +188,21 @@ public interface ParkMgtService{
      * @throws Exception
      */
     void updateBuilding(BuildingDO buildingDO, ParkDO parkDO, String origParkId) throws Exception;
+
+    /**
+     * 根据名称查询园区数量
+     *
+     * @param parkName
+     * @return
+     */
+    int queryCountByParkName(String parkName);
+
+    /**
+     * 根据名称查询楼宇数量
+     *
+     * @param buildingName
+     * @return
+     */
+    int queryCountByBuildingName(String buildingName);
 
 }
