@@ -229,6 +229,9 @@ public class CoRiskChgServiceImpl extends BaseServiceImpl implements CoRiskChgSe
 
     private boolean setPettyLoanLevel(CompanyDO companyDO, RiskChgCoDo riskChgCoDo, String innerLevel, String outLevel, String liveLevel) {
         CompanyLevelDO oldLevelDO = selectById(CompanyLevelDO.class, companyDO.getCompanyId());
+        if (oldLevelDO == null) {
+            oldLevelDO = new CompanyLevelDO();
+        }
         boolean hasChange = false;
 
         Integer newOutLevel = Integer.parseInt(StringUtils.defaultIfBlank(outLevel, "-1"));
