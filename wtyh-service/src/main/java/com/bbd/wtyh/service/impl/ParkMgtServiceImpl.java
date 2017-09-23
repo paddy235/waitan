@@ -323,4 +323,14 @@ public class ParkMgtServiceImpl implements ParkMgtService {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public int queryCountByParkName(String parkName) {
+        return parkAndBuildingMgtMapper.queryCountByParkName(parkName);
+    }
+
+    @Override
+    public int queryCountByBuildingName(String buildingName) {
+        return parkAndBuildingMgtMapper.queryCountByBuildingName(buildingName);
+    }
 }
