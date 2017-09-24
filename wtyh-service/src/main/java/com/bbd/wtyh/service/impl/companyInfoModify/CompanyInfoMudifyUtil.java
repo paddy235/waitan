@@ -82,7 +82,7 @@ public class CompanyInfoMudifyUtil extends BaseServiceImpl {
         // 后 风险等级
         recordInfo.setAfterLevel(modifyData.getLevel());
         recordInfo.setAfterOutLevel(modifyData.getOutLevel());
-        recordInfo.setAfterInnnerLevel(modifyData.getInnnerLevel());
+        recordInfo.setAfterInnnerLevel(modifyData.getInnerLevel());
         recordInfo.setAfterLiveLevel(modifyData.getLiveLevel());
 
         if (isInsert) {

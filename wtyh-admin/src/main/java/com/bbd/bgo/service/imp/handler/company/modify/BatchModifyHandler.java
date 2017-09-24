@@ -84,7 +84,7 @@ public class BatchModifyHandler extends AbstractImportHandler<CoBatchModifyDTO> 
         modifyData.setIndustry(bean.getCompanyType());
         modifyData.setLevel(bean.getRiskLevel());
         modifyData.setOutLevel(bean.getOutLevel());
-        modifyData.setInnnerLevel(bean.getInnerLevel());
+        modifyData.setInnerLevel(bean.getInnerLevel());
         modifyData.setLiveLevel(bean.getLiveLevel());
         modifyDataList.add(modifyData);
     }

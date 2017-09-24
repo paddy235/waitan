@@ -84,7 +84,7 @@ public class CoRiskChgServiceImpl extends BaseServiceImpl implements CoRiskChgSe
         riskChgCoDo.setUpdateDate(null);
 
         // 设值失败，则不继续处理
-        if (!setRiskLevel(companyType, companyDO, riskChgCoDo, modifyData.getLevel(), modifyData.getInnnerLevel(), modifyData.getOutLevel(),
+        if (!setRiskLevel(companyType, companyDO, riskChgCoDo, modifyData.getLevel(), modifyData.getInnerLevel(), modifyData.getOutLevel(),
                 modifyData.getLiveLevel())) {
             return null;
         }

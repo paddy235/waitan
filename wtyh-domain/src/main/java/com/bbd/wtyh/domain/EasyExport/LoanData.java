@@ -19,7 +19,7 @@ public class LoanData {
     @Excel(exportName = "行业类别")
     private String industryName;
     private String outLevel;
-    private String innnerLevel;
+    private String innerLevel;
     private String liveLevel;
 
     @Excel(exportName = "法人")
@@ -75,12 +75,12 @@ public class LoanData {
         this.outLevel = outLevel;
     }
 
-    public String getInnnerLevel() {
-        return innnerLevel;
+    public String getInnerLevel() {
+        return innerLevel;
     }
 
-    public void setInnnerLevel(String innnerLevel) {
-        this.innnerLevel = innnerLevel;
+    public void setInnerLevel(String innerLevel) {
+        this.innerLevel = innerLevel;
     }
 
     public String getLiveLevel() {
@@ -146,12 +146,12 @@ public class LoanData {
 
         String name = null;
 
-        if(null != innnerLevel){
+        if(null != innerLevel){
             try{
-                name = CompanyLevel.getByOrdinal(Integer.valueOf(innnerLevel)).getValue();
+                name = CompanyLevel.getByOrdinal(Integer.valueOf(innerLevel)).getValue();
             }catch (Exception e){
 
-                name = innnerLevel;
+                name = innerLevel;
             }
         }
 
