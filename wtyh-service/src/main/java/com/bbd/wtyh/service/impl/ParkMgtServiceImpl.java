@@ -154,8 +154,9 @@ public class ParkMgtServiceImpl implements ParkMgtService {
     @Transactional(rollbackFor = Exception.class)
     public void delParkById(String parkId) throws Exception {
         try {
-            parkAndBuildingMgtMapper.delCompanyBuildingByParkId(parkId);
-            parkAndBuildingMgtMapper.delBuildingByParkId(parkId);
+            // TODO 这里要想清楚
+//            parkAndBuildingMgtMapper.delCompanyBuildingByParkId(parkId);
+//            parkAndBuildingMgtMapper.delBuildingByParkId(parkId);
             parkAndBuildingMgtMapper.delParkById(parkId);
 
             pabRelationService.delPABRelationByParkId(Integer.parseInt(parkId));
