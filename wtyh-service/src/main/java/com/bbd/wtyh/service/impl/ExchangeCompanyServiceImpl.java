@@ -100,8 +100,7 @@ public class ExchangeCompanyServiceImpl implements ExchangeCompanyService {
         map.put("orderName", orderName);
         map.put("orderType", orderType);
         map.put("type", type);
-        List<ExchangeCompanyVO> list = exchangeCompanyMapper.queryExchangeCompanyListByAreaId(map);
-        return list;
+        return exchangeCompanyMapper.queryExchangeCompanyListByAreaId(map);
     }
 
     @Override

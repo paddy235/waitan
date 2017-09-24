@@ -54,4 +54,13 @@ public enum RZZLCoRiskLevel {
         }
         return rst;
     }
+
+    public static Integer getRiskType(String desc) {
+        for (RZZLCoRiskLevel level : RZZLCoRiskLevel.values()) {
+            if (level.desc.equals(desc)) {
+                return level.type();
+            }
+        }
+        return null;
+    }
 }

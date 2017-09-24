@@ -3,6 +3,7 @@ package com.bbd.bgo.service.task;
 
 import com.bbd.wtyh.common.Pagination;
 import com.bbd.wtyh.domain.*;
+import com.bbd.wtyh.domain.bbdAPI.IndustryCodeDO;
 import com.bbd.wtyh.mapper.CompanyBackgroundMapper;
 import com.bbd.wtyh.mapper.CompanyMapper;
 import com.bbd.wtyh.mapper.TaskFailInfoMapper;
@@ -231,6 +232,7 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService,Task
             String esdate = null;
             String companyType = null;
             Integer status = 2;
+            String businessType = null;
             Map itr = null;
             try {
                 itr = (Map) (itr1.get("jbxx"));
@@ -302,6 +304,12 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService,Task
                     registeredCapital=regcap.intValue()/10000;
                     //registeredCapital = Integer.parseInt(Pattern.compile("[^0-9]").matcher(regcap).replaceAll(""));
                 }
+                Object companyIndustryObj=itr.get("company_industry");
+                if(null!=companyIndustryObj){
+                    String companyIndustry = (String)companyIndustryObj;
+                    businessType = IndustryCodeDO.getValueByNameStr(companyIndustry);
+
+                }
             } catch (Exception e) {
                 logger.error(e.getMessage(), e);
                 insertFailInfo(null,companyName,"接口指数错误");
@@ -309,7 +317,7 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService,Task
             try {
                 //companyMapper.updateAreaIdAndAddress( companyName,areaId, address, creditCode );
                 companyMapper.updateBasicInfo(companyName,areaId, address, creditCode,companyGisLon,companyGisLat,
-                        frname,registeredCapital,registeredCapitalType,esdate,companyType,status);
+                        frname,registeredCapital,registeredCapitalType,esdate,companyType,status,businessType);
 
                 updateCompanyBackground(companyName, ipoCompany, companyType);
             } catch (Exception e) {

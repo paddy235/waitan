@@ -56,4 +56,22 @@ public enum JYSCoRiskLevel {
         }
         return rst;
     }
+
+    public static String getRiskDesc(int risk) {
+        for (JYSCoRiskLevel level : JYSCoRiskLevel.values()) {
+            if (level.type() == risk) {
+                return level.desc();
+            }
+        }
+        return null;
+    }
+
+    public static Integer getRiskType(String desc) {
+        for (JYSCoRiskLevel level : JYSCoRiskLevel.values()) {
+            if (level.desc.equals(desc)) {
+                return level.type();
+            }
+        }
+        return null;
+    }
 }

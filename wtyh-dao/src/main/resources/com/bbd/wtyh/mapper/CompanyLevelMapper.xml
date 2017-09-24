@@ -59,13 +59,13 @@
 
     <select id="getLoanOrGuaranteeByCompanyName" resultType="com.bbd.wtyh.domain.CompanyInfoModify.CompanyInfo">
        SELECT
-            company_level.company_id,
+            company.company_id AS companyId,
             company.`name` AS `name`,
             company.legal_person AS legalPerson,
             company.registered_capital AS registeredCapital,
             company.company_type AS industry,
             company_level.out_level AS outLevel,
-            company_level.inner_level AS innnerLevel,
+            company_level.inner_level AS innerLevel,
             company_level.live_level AS liveLevel
       FROM
             company
@@ -79,85 +79,85 @@
 
     <select id="countLoan" resultType="long">
         SELECT
-          COUNT(1)
+        COUNT(1)
         FROM
-            company_level,
-            company
+        company_level,
+        company
         WHERE
-            company_level.company_id = company.company_id
-            <if test="exportCondition.industry!=null">
-                and company.company_type = #{exportCondition.industry}
-            </if>
-            <if test="exportCondition.outLevel!=null">
-                and company_level.out_level = #{exportCondition.outLevel}
-            </if>
-            <if test="exportCondition.innnerLevel!=null">
-                and company_level.inner_level = #{exportCondition.innnerLevel}
-            </if>
-            <if test="exportCondition.liveLevel!=null">
-                and company_level.live_level = #{exportCondition.liveLevel}
-            </if>
-            <if test="exportCondition.registeredCapitalMin!=null">
-                and company.registered_capital >= #{exportCondition.registeredCapitalMin}
-            </if>
-            <if test="exportCondition.registeredCapitalMax!=null">
-                and #{exportCondition.registeredCapitalMax} >= company.registered_capital
-            </if>
-            <if test="exportCondition.registeredDateMin!=null">
-                and company.registered_date >= #{exportCondition.registeredDateMin}
-            </if>
-            <if test="exportCondition.registeredDateMax!=null">
-                and #{exportCondition.registeredDateMax} >= company.registered_date
-            </if>
-            <if test="exportCondition.areaId!=null">
-                and company.area_id = #{exportCondition.areaId}
-            </if>
+        company_level.company_id = company.company_id
+        <if test="exportCondition.industry!=null">
+            and company.company_type = #{exportCondition.industry}
+        </if>
+        <if test="exportCondition.outLevel!=null">
+            and company_level.out_level = #{exportCondition.outLevel}
+        </if>
+        <if test="exportCondition.innerLevel!=null">
+            and company_level.inner_level = #{exportCondition.innerLevel}
+        </if>
+        <if test="exportCondition.liveLevel!=null">
+            and company_level.live_level = #{exportCondition.liveLevel}
+        </if>
+        <if test="exportCondition.registeredCapitalMin!=null">
+            and company.registered_capital >= #{exportCondition.registeredCapitalMin}
+        </if>
+        <if test="exportCondition.registeredCapitalMax!=null">
+            and #{exportCondition.registeredCapitalMax} >= company.registered_capital
+        </if>
+        <if test="exportCondition.registeredDateMin!=null">
+            and company.registered_date >= #{exportCondition.registeredDateMin}
+        </if>
+        <if test="exportCondition.registeredDateMax!=null">
+            and #{exportCondition.registeredDateMax} >= company.registered_date
+        </if>
+        <if test="exportCondition.areaId!=null">
+            and company.area_id = #{exportCondition.areaId}
+        </if>
     </select>
 
     <select id="getLoan" resultType="com.bbd.wtyh.domain.EasyExport.LoanData">
         SELECT
-            company.`name` AS `name`,
-            company.company_type AS industry,
-            company_level.out_level AS outLevel,
-            company_level.inner_level AS innnerLevel,
-            company_level.live_level AS liveLevel,
-            company.legal_person AS legalPerson,
-            company.registered_date AS registeredDate,
-            company.registered_capital AS registeredCapital,
-            company.registered_capital_type AS registeredCapitalType,
-            company.address AS address
+        company.`name` AS `name`,
+        company.company_type AS industry,
+        company_level.out_level AS outLevel,
+        company_level.inner_level AS innerLevel,
+        company_level.live_level AS liveLevel,
+        company.legal_person AS legalPerson,
+        company.registered_date AS registeredDate,
+        company.registered_capital AS registeredCapital,
+        company.registered_capital_type AS registeredCapitalType,
+        company.address AS address
         FROM
-            company_level,
-            company
+        company_level,
+        company
         WHERE
-            company_level.company_id = company.company_id
-            <if test="exportCondition.industry!=null">
-                and company.company_type = #{exportCondition.industry}
-            </if>
-            <if test="exportCondition.outLevel!=null">
-                and company_level.out_level = #{exportCondition.outLevel}
-            </if>
-            <if test="exportCondition.innnerLevel!=null">
-                and company_level.inner_level = #{exportCondition.innnerLevel}
-            </if>
-            <if test="exportCondition.liveLevel!=null">
-                and company_level.live_level = #{exportCondition.liveLevel}
-            </if>
-            <if test="exportCondition.registeredCapitalMin!=null">
-                and company.registered_capital >= #{exportCondition.registeredCapitalMin}
-            </if>
-            <if test="exportCondition.registeredCapitalMax!=null">
-                and #{exportCondition.registeredCapitalMax} >= company.registered_capital
-            </if>
-            <if test="exportCondition.registeredDateMin!=null">
-                and company.registered_date >= #{exportCondition.registeredDateMin}
-            </if>
-            <if test="exportCondition.registeredDateMax!=null">
-                and #{exportCondition.registeredDateMax} >= company.registered_date
-            </if>
-            <if test="exportCondition.areaId!=null">
-                and company.area_id = #{exportCondition.areaId}
-            </if>
+        company_level.company_id = company.company_id
+        <if test="exportCondition.industry!=null">
+            and company.company_type = #{exportCondition.industry}
+        </if>
+        <if test="exportCondition.outLevel!=null">
+            and company_level.out_level = #{exportCondition.outLevel}
+        </if>
+        <if test="exportCondition.innerLevel!=null">
+            and company_level.inner_level = #{exportCondition.innerLevel}
+        </if>
+        <if test="exportCondition.liveLevel!=null">
+            and company_level.live_level = #{exportCondition.liveLevel}
+        </if>
+        <if test="exportCondition.registeredCapitalMin!=null">
+            and company.registered_capital >= #{exportCondition.registeredCapitalMin}
+        </if>
+        <if test="exportCondition.registeredCapitalMax!=null">
+            and #{exportCondition.registeredCapitalMax} >= company.registered_capital
+        </if>
+        <if test="exportCondition.registeredDateMin!=null">
+            and company.registered_date >= #{exportCondition.registeredDateMin}
+        </if>
+        <if test="exportCondition.registeredDateMax!=null">
+            and #{exportCondition.registeredDateMax} >= company.registered_date
+        </if>
+        <if test="exportCondition.areaId!=null">
+            and company.area_id = #{exportCondition.areaId}
+        </if>
         LIMIT #{pagination.offset}, #{pagination.pageSize}
     </select>
 
@@ -174,7 +174,7 @@
           #{beforeIndustry})
     </insert>
 
-    <update id="modifyLoadLevel" >
+    <update id="modifyLoadLevel">
         update company_level,company
         <set>
             company_level.out_level = #{afterOutLevel},
@@ -182,8 +182,8 @@
             company_level.live_level = #{afterLiveLevel}
         </set>
         WHERE
-          company_level.company_id = company.company_id
-          AND company.`name` = #{name}
+        company_level.company_id = company.company_id
+        AND company.`name` = #{name}
     </update>
 
     <insert id="addLoadLevel">

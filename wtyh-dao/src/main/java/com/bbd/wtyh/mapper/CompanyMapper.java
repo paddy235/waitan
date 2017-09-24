@@ -1,7 +1,6 @@
 package com.bbd.wtyh.mapper;
 
-import java.util.Date;
-import java.util.HashMap;
+
 import java.util.List;
 import java.util.Map;
 
@@ -15,7 +14,6 @@ import com.bbd.wtyh.domain.query.CompanyQuery;
 import com.bbd.wtyh.domain.vo.SpectrumVO;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
-import org.springframework.stereotype.Service;
 
 public interface CompanyMapper {
 
@@ -26,8 +24,6 @@ public interface CompanyMapper {
 	int maxVersion();
 
 	int countByQuery(CompanyQuery query);
-
-	List<CompanyDO> queryCompany(CompanyQuery query);
 
 	CompanyDO getCompanyById(@Param(value = "companyId") Integer companyId);
 
@@ -137,12 +133,12 @@ public interface CompanyMapper {
 	@Update("UPDATE company SET `area_id` =#{areaId}, `address` =#{address}, `credit_code` =#{creditCode}, `longitude` =#{longitude}," +
 	 	" `latitude` =#{latitude}, `legal_person` =#{legalPerson},`registered_capital` =#{registeredCapital}," +
 	 	 " `registered_capital_type` =#{registeredCapitalType}, `registered_date` =#{registeredDate}, `registered_type` =#{registeredType}," +
-	 	  " `status` =#{status} ,update_date=CURDATE(),update_by='TIMER' WHERE `name` =#{companyName};")
+	 	  " `status` =#{status} ,`business_type`=#{businessType} ,update_date=CURDATE(),update_by='TIMER' WHERE `name` =#{companyName};")
 	void updateBasicInfo(@Param("companyName") String companyName, @Param("areaId") Integer areaId, @Param("address") String address,
 						     @Param("creditCode") String creditCode,@Param("longitude") Double longitude,@Param("latitude") Double latitude,
 							 @Param("legalPerson") String legalPerson,@Param("registeredCapital") Integer registeredCapital,
 						     @Param("registeredCapitalType") Integer registeredCapitalType,@Param("registeredDate") String registeredDate,
-						     @Param("registeredType") String registeredType,@Param("status") Integer status);
+						     @Param("registeredType") String registeredType,@Param("status") Integer status,@Param("businessType") String businessType);
 
 	List<CompanyDO> getLineCompanyListMoreThanExecuteDate(@Param("executeDate") String executeDate);
 }
