@@ -98,8 +98,8 @@ public class CompanyInfoModifyServiceImpl implements CompanyInfoModifyService {
         if (StringUtils.isEmpty(modifyData.getOutLevel())) {
             modifyData.setOutLevel(null);
         }
-        if (StringUtils.isEmpty(modifyData.getInnnerLevel())) {
-            modifyData.setInnnerLevel(null);
+        if (StringUtils.isEmpty(modifyData.getInnerLevel())) {
+            modifyData.setInnerLevel(null);
         }
         if (StringUtils.isEmpty(modifyData.getLiveLevel())) {
             modifyData.setLiveLevel(null);

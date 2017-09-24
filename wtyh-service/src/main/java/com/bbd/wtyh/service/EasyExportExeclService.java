@@ -32,6 +32,6 @@ public interface EasyExportExeclService {
 
     List<PrivateOfferedFundData> getInsurance(ExportCondition exportCondition, PageBean pagination);
 
-    Map<String,String> area();
+    Map<String, Integer> area();
 
 }

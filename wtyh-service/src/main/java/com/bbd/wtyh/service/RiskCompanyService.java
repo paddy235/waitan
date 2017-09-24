@@ -33,6 +33,6 @@ public interface RiskCompanyService {
 
     void modifyIndustry(String name, String industry);
 
-    Map<String,String> area();
+    Map<String, Integer> area();
 
 }

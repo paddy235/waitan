@@ -4,6 +4,7 @@ package com.bbd.wtyh.web.companyInfoModify;
  * Created by YanWenyuan on 2017/7/22.
  */
 public class ModifyData {
+
     // 公司名称
     private String name;
     // 风险等级
@@ -11,7 +12,7 @@ public class ModifyData {
     // 外部评级 - 小额贷款、融资担保
     private String outLevel;
     // 内部评级 - 小额贷款、融资担保
-    private String innnerLevel;
+    private String innerLevel;
     // 现场检查 - 小额贷款、融资担保
     private String liveLevel;
     // 行业变更 - 参数：4，线下理财
@@ -49,12 +50,12 @@ public class ModifyData {
         this.outLevel = outLevel;
     }
 
-    public String getInnnerLevel() {
-        return innnerLevel;
+    public String getInnerLevel() {
+        return innerLevel;
     }
 
-    public void setInnnerLevel(String innnerLevel) {
-        this.innnerLevel = innnerLevel;
+    public void setInnerLevel(String innerLevel) {
+        this.innerLevel = innerLevel;
     }
 
     public String getLiveLevel() {

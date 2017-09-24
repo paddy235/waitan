@@ -27,19 +27,17 @@ public interface RiskCompanyMapper {
 
     CompanyInfo getOffLineFinanceByName(@Param(value = "name") String name);
 
-    List<OffLineData> getOffLineFinance(@Param(value = "exportCondition")ExportCondition exportCondition,
-                                        @Param(value = "pagination")PageBean pagination);
+    List<OffLineData> getOffLineFinance(@Param(value = "exportCondition") ExportCondition exportCondition,
+            @Param(value = "pagination") PageBean pagination);
 
-    void modifyLevel(@Param(value = "name")String name,
-                     @Param(value = "afterLevel")String afterLevel);
+    void modifyLevel(@Param(value = "name") String name, @Param(value = "afterLevel") String afterLevel);
 
     void recordOffLine(OffLineModify offLineModify);
 
-    void modifyIndustry(@Param(value = "name")String name,
-                        @Param(value = "industry")String industry);
+    void modifyIndustry(@Param(value = "name") String name, @Param(value = "industry") String industry);
 
-    Long countOffLineFinance(@Param(value = "exportCondition")ExportCondition exportCondition);
+    Long countOffLineFinance(@Param(value = "exportCondition") ExportCondition exportCondition);
 
     @MapKey("city")
-    Map<String,Map<String, String>> area();
+    Map<String, Integer> area();
 }

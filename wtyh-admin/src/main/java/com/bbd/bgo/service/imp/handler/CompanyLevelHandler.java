@@ -133,7 +133,7 @@ public class CompanyLevelHandler extends AbstractImportHandler<CompanyLevelDO> {
 
         ModifyData modifyData = new ModifyData();
         modifyData.setName(companyDO.getName());
-        modifyData.setInnnerLevel(CompanyLevel.getByOrdinal(bean.getInnerLevel()).getValue());
+        modifyData.setInnerLevel(CompanyLevel.getByOrdinal(bean.getInnerLevel()).getValue());
         modifyData.setOutLevel(CompanyLevel.getByOrdinal(bean.getOutLevel()).getValue());
         modifyData.setLiveLevel(CompanyLevel.getByOrdinal(bean.getLiveLevel()).getValue());
 
