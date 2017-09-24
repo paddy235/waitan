@@ -30,6 +30,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.util.*;
@@ -95,6 +96,7 @@ public class P2PImageServiceImpl extends BaseServiceImpl implements P2PImageServ
             return (T) xx;
         }
     }
+
 
     @Override
     public  PlatDataDO getPlatData(String platName) {

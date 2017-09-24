@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import com.bbd.wtyh.common.Constants;
+import com.bbd.wtyh.constants.CompanyType;
 import com.bbd.wtyh.constants.RiskChgCoSource;
 import com.bbd.wtyh.domain.*;
 import com.bbd.wtyh.domain.enums.CompanyLevel;
@@ -128,14 +129,19 @@ public class CompanyLevelHandler extends AbstractImportHandler<CompanyLevelDO> {
         return true;
     }
 
+    private String intToString(Integer integer){
+        return integer == null ? null : integer.toString();
+    }
+
     @Override
     public void endRow(Map<String, String> row, CompanyLevelDO bean) throws Exception {
 
         ModifyData modifyData = new ModifyData();
         modifyData.setName(companyDO.getName());
-        modifyData.setInnnerLevel(CompanyLevel.getByOrdinal(bean.getInnerLevel()).getValue());
-        modifyData.setOutLevel(CompanyLevel.getByOrdinal(bean.getOutLevel()).getValue());
-        modifyData.setLiveLevel(CompanyLevel.getByOrdinal(bean.getLiveLevel()).getValue());
+        modifyData.setInnnerLevel(intToString(bean.getInnerLevel()));
+        modifyData.setOutLevel(intToString(bean.getOutLevel()));
+        modifyData.setLiveLevel(intToString(bean.getLiveLevel()));
+        modifyData.setIndustry(companyDO.getCompanyType().toString());
 
         String createBy = loginName + "导入企业评级";
         RiskChgCoDo riskChgCoDo = coRiskChgService.generateNewRecord(modifyData, createBy, RiskChgCoSource.MANUAL_MODIFY);
