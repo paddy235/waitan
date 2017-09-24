@@ -77,6 +77,7 @@ public class MultiExeService {
         for (ExeThread jt : thrList) {
             if (jt.ee[0] !=null) {
                 threadExceptionList.add(jt.ee[0]);
+                jt.ee[0].printStackTrace();
             }
         }
     }

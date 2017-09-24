@@ -81,6 +81,21 @@ public class P2PImageServiceImpl extends BaseServiceImpl implements P2PImageServ
         return this.selectOne(PlatCoreDataDO.class, "plat_name = ? ORDER BY create_date DESC LIMIT 1", platName);
     }
 
+    public <T extends Number > T objectToBaseNumber (T t, Class tt){
+        if(t != null){
+            return t;
+        }
+        double x = 0.0;
+
+        if(tt.equals(Double.class) ){
+            Double xx = 0.0;
+            return (T) xx;
+        }else{
+            Integer xx = 0;
+            return (T) xx;
+        }
+    }
+
     @Override
     public  PlatDataDO getPlatData(String platName) {
         PlatCoreDataDO platCoreDataDO =this.getPlatCoreData(platName);
@@ -91,19 +106,19 @@ public class P2PImageServiceImpl extends BaseServiceImpl implements P2PImageServ
             return platDataDO;
         }
         platDataDO =new PlatDataDO();
-        platDataDO.setAmount_total(platCoreDataDO.getAmountTotal());
-        platDataDO.setBid_num_stay_stil(platCoreDataDO.getBidNumStayStil());
-        platDataDO.setBor_num_stay_stil(platCoreDataDO.getBorNumStayStil());
+        platDataDO.setAmount_total( objectToBaseNumber(platCoreDataDO.getAmountTotal(), Double.class) );
+        platDataDO.setBid_num_stay_stil( objectToBaseNumber( platCoreDataDO.getBidNumStayStil(), Integer.class ) );
+        platDataDO.setBor_num_stay_stil( objectToBaseNumber( platCoreDataDO.getBorNumStayStil(), Integer.class ) );
         platDataDO.setCompany_name(platCoreDataDO.getCompanyName());
-        platDataDO.setDay30_net_inflow(platCoreDataDO.getDay30NetInflow());
-        platDataDO.setInterest_rate(platCoreDataDO.getInterestRate());
-        platDataDO.setMoney_stock(platCoreDataDO.getMoneyStock());
-        platDataDO.setOther_sum_amount(platCoreDataDO.getOtherSumAmount());
+        platDataDO.setDay30_net_inflow( objectToBaseNumber( platCoreDataDO.getDay30NetInflow(), Double.class ) );
+        platDataDO.setInterest_rate( objectToBaseNumber( platCoreDataDO.getInterestRate(), Double.class ) );
+        platDataDO.setMoney_stock( objectToBaseNumber( platCoreDataDO.getMoneyStock(), Double.class ));
+        platDataDO.setOther_sum_amount( objectToBaseNumber( platCoreDataDO.getOtherSumAmount(), Double.class ) );
         platDataDO.setPlat_name(platCoreDataDO.getPlatName());
         //platDataDO.setPlat_score(platCoreDataDO.get?);
         //platDataDO.setPlat_status(platCoreDataDO.get?);
-        platDataDO.setTop1_sum_amount(platCoreDataDO.getTop1SumAmount());
-        platDataDO.setTop10_sum_amount(platCoreDataDO.getTop10SumAmount());
+        platDataDO.setTop1_sum_amount( objectToBaseNumber( platCoreDataDO.getTop1SumAmount(), Double.class ) );
+        platDataDO.setTop10_sum_amount( objectToBaseNumber( platCoreDataDO.getTop10SumAmount(), Double.class ));
         try {
              Type type = new TypeToken<ArrayList<PlatDataDO.PlatDataSixMonth>>() {}.getType();
             platDataDO.setPlat_data_six_month(
