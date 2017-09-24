@@ -128,3 +128,6 @@ INSERT INTO `company_credit_data_items` VALUES ('182', '对不正当竞争行为
 INSERT INTO `company_credit_data_items` VALUES ('183', '对不正当竞争行为的处罚', 'punishlimit', '履罚期限', null, null, null, null);
 INSERT INTO `company_credit_data_items` VALUES ('184', '民事执行-生效判决未执行', 'A2', '立案日期', null, null, null, null);
 INSERT INTO `company_credit_data_items` VALUES ('185', '民事执行-生效判决未执行', 'A1', '执行案号', null, null, null, null);
+/* 20170901  by liyao begin */
+UPDATE company SET previous_risk_level = null, risk_level = null WHERE company_type in (2, 3, 11, 13);
+/* 20170901  by liyao end */
