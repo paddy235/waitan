@@ -8,7 +8,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import com.bbd.wtyh.common.Constants;
-import com.bbd.wtyh.constants.CompanyType;
 import com.bbd.wtyh.constants.RiskChgCoSource;
 import com.bbd.wtyh.domain.*;
 import com.bbd.wtyh.domain.enums.CompanyLevel;
@@ -129,7 +128,7 @@ public class CompanyLevelHandler extends AbstractImportHandler<CompanyLevelDO> {
         return true;
     }
 
-    private String intToString(Integer integer){
+    private String intToString(Integer integer) {
         return integer == null ? null : integer.toString();
     }
 
