@@ -170,13 +170,18 @@ public class ParkMgtServiceImpl implements ParkMgtService {
     @Transactional(rollbackFor = Exception.class)
     public void delBuildingById(List<String> buildingId) throws Exception {
         try {
-            // TODO 这里必须识别删除哪个园区下的楼宇，建议参数样例：23_133,23_155
-            parkAndBuildingMgtMapper.delCompanyByBuildingId(buildingId);
-            parkAndBuildingMgtMapper.delBuildingById(buildingId);
-
             if (ListUtil.isNotEmpty(buildingId)) {
                 buildingId.forEach((String id) -> {
-                    pabRelationService.delPABRelationByBuildingId(Integer.parseInt(id));
+                    String pid = id.substring(0, id.indexOf("_"));
+                    String bid = id.substring(id.indexOf("_") + 1);
+                    // TODO 这里必须识别删除哪个园区下的楼宇，建议参数样例：23_133,23_155
+                    // parkAndBuildingMgtMapper.delCompanyByBuildingId(buildingId);
+                    // parkAndBuildingMgtMapper.delBuildingById(buildingId);
+
+                    Map<String, Object> params = new HashMap<>();
+                    params.put("parkId", pid);
+                    params.put("buildingId", bid);
+                    pabRelationService.delPABRelation(params);
                 });
             }
         } catch (Exception e) {
