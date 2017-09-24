@@ -351,6 +351,10 @@ public class PToPMonitorController {
 		List<Map<String, String>> rst = new ArrayList<>();
 		if (!Strings.isNullOrEmpty(platStatus)) {
 			for (Map<String, String> element : list) {
+				Object obj=element.get("plat_status");
+				if(null == obj){
+					continue;
+				}
 				if (element.get("plat_status").equals(platStatus)) {
 					rst.add(element);
 				}
