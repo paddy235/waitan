@@ -4,7 +4,7 @@
 <mapper namespace="com.bbd.wtyh.mapper.FinanceLeaseMapper">
 
 
-	<select id="queryFinanceLeaseMinYear" resultType="int">
+    <select id="queryFinanceLeaseMinYear" resultType="int">
 		SELECT
 		MIN(YEAR(registered_date)) as year
 		FROM
@@ -14,7 +14,7 @@
 		AND registered_date IS NOT NULL
 	</select>
 
-	<select id="queryFinanceLeaseMaxYear" resultType="int">
+    <select id="queryFinanceLeaseMaxYear" resultType="int">
 		SELECT
 		MAX(YEAR(registered_date)) as year
 		FROM
@@ -24,7 +24,7 @@
 		AND registered_date IS NOT NULL
 	</select>
 
-	<select id="queryCompanysAndCapital"  resultType="com.bbd.wtyh.domain.vo.CompanyCapitalVO">
+    <select id="queryCompanysAndCapital" resultType="com.bbd.wtyh.domain.vo.CompanyCapitalVO">
 		select m.year,count(0) companyNumber , SUM(IF(m.type=1,capital,0) ) rmb , SUM(IF(m.type=2,capital,0) ) us
 
 		from(
@@ -38,47 +38,48 @@
 		GROUP BY m.`year`
 	</select>
 
-	<select id="queryFinanceLeaseStatistic" parameterType="java.util.Map" resultType="com.bbd.wtyh.domain.vo.FinanceLeaseStatisticVO">
-		SELECT
-			IFNULL(registered_capital_type,1) as registeredCapitalType,
-			IFNULL(sum(registered_capital),0) as registeredCapital,
-			COUNT(*) as companyNumber,
-			YEAR (registered_date) AS year
-		FROM
-			company
-		WHERE
-		    company_type = 13
-			AND registered_date IS NOT NULL
-			<if test="year > 0">
-				AND YEAR (registered_date) = #{year}
-			</if>
-			<if test="registeredCapitalType > 0">
-				AND registered_capital_type = #{registeredCapitalType}
-			</if>
-		GROUP BY
-			registered_capital_type,
-			year
-		ORDER BY
-			year asc;
-	</select>
+    <select id="queryFinanceLeaseStatistic" parameterType="java.util.Map"
+            resultType="com.bbd.wtyh.domain.vo.FinanceLeaseStatisticVO">
+        SELECT
+        IFNULL(registered_capital_type,1) as registeredCapitalType,
+        IFNULL(sum(registered_capital),0) as registeredCapital,
+        COUNT(*) as companyNumber,
+        YEAR (registered_date) AS year
+        FROM
+        company
+        WHERE
+        company_type = 13
+        AND registered_date IS NOT NULL
+        <if test="year > 0">
+            AND YEAR (registered_date) = #{year}
+        </if>
+        <if test="registeredCapitalType > 0">
+            AND registered_capital_type = #{registeredCapitalType}
+        </if>
+        GROUP BY
+        registered_capital_type,
+        year
+        ORDER BY
+        year asc;
+    </select>
 
-	<select id="queryFinanceLeaseCompanyCategory" resultType="java.util.Map">
-		SELECT
-			fle.free_trade_zone as freeTradeZone,
-			COUNT(c.company_id) as companyNumber
-		FROM
-			company c
-		LEFT JOIN finance_lease_extra fle ON c.company_id = fle.company_id
-		WHERE
-			c.company_type = 13
-		<if test="year > 0">
-			AND YEAR(registered_date) <![CDATA[<=]]> #{year}
-		</if>
-		GROUP BY
-			fle.free_trade_zone;
-	</select>
+    <select id="queryFinanceLeaseCompanyCategory" resultType="java.util.Map">
+        SELECT
+        fle.free_trade_zone as freeTradeZone,
+        COUNT(c.company_id) as companyNumber
+        FROM
+        company c
+        LEFT JOIN finance_lease_extra fle ON c.company_id = fle.company_id
+        WHERE
+        c.company_type = 13
+        <if test="year > 0">
+            AND YEAR(registered_date) <![CDATA[<=]]> #{year}
+        </if>
+        GROUP BY
+        fle.free_trade_zone;
+    </select>
 
-	<select id="getYears" resultType="java.lang.String">
+    <select id="getYears" resultType="java.lang.String">
 		SELECT DISTINCT
 			YEAR(registered_date) AS year
 		FROM
@@ -90,78 +91,81 @@
 		YEAR DESC
 	</select>
 
-	<select id="queryLeaseCompanyList" parameterType="java.util.Map" resultType="com.bbd.wtyh.domain.vo.FinanceLeaseVO">
-		SELECT
-			c.`name` as companyName,
-			c.address as address,
-			f.risk_type as riskType,
-			f.risk_status as riskStatus
-		FROM
-			company c
-		LEFT JOIN finance_lease_risk f ON f.company_id = c.company_id
-		LEFT JOIN area a ON a.area_id = c.area_id
-		<where>
-			AND c.company_type = 13
-		<if test="areaName != null and areaName != '' and areaName != '全部'">
-			AND a.name = #{areaName}
-		</if>
-		<if test="areaName == null or areaName == ''">
-			AND a.name = '黄浦区'
-		</if>
-		</where>
-	</select>
+    <select id="queryLeaseCompanyList" parameterType="java.util.Map" resultType="com.bbd.wtyh.domain.vo.FinanceLeaseVO">
+        SELECT
+        c.`name` as companyName,
+        c.address as address,
+        f.risk_type as riskType,
+        f.risk_status as riskStatus
+        FROM
+        company c
+        LEFT JOIN finance_lease_risk f ON f.company_id = c.company_id
+        LEFT JOIN area a ON a.area_id = c.area_id
+        <where>
+            AND c.company_type = 13
+            <if test="areaName != null and areaName != '' and areaName != '全部'">
+                AND a.name = #{areaName}
+            </if>
+            <if test="areaName == null or areaName == ''">
+                AND a.name = '黄浦区'
+            </if>
+        </where>
+    </select>
 
 
-	<select id="queryLeaseCompanyList2" parameterType="java.util.Map" resultType="com.bbd.wtyh.domain.vo.FinanceLeaseVO">
-		SELECT
-			company.company_id,
-			a.risk_status AS riskStatusA,
-			b.risk_status AS riskStatusB,
-			c.risk_status AS riskStatusC,
-			d.risk_status AS riskStatusD,
-			company.`name` AS companyName,
-			company.address AS address
-		FROM
-			company,
-			area,
-			finance_lease_risk a,
-			finance_lease_risk b,
-			finance_lease_risk c,
-			finance_lease_risk d
-		<where>
-			company.area_id = area.area_id
-			AND company.company_id = a.company_id
-			AND company.company_id = b.company_id
-			AND company.company_id = c.company_id
-			AND company.company_id = d.company_id
-			AND a.risk_type = 1
-			AND b.risk_type = 2
-			AND c.risk_type = 3
-			AND d.risk_type = 4
-			AND company.company_type = 13
-		<if test="areaName != null and areaName != ''">
-			AND area.name = #{areaName}
-		</if>
-		<if test="areaName == null or areaName == ''">
-			AND area.name = '黄浦区'
-		</if>
-		<if test="riskA != null">
-			AND a.risk_status = #{riskA}
-		</if>
-		<if test="riskB != null">
-			AND b.risk_status = #{riskB}
-		</if>
-		<if test="riskC != null">
-			AND c.risk_status = #{riskC}
-		</if>
-		<if test="riskD != null">
-			AND d.risk_status = #{riskD}
-		</if>
-	  </where>
-	</select>
+    <select id="queryLeaseCompanyList2" parameterType="java.util.Map"
+            resultType="com.bbd.wtyh.domain.vo.FinanceLeaseVO">
+        SELECT
+        company.company_id,
+        a.risk_status AS riskStatusA,
+        b.risk_status AS riskStatusB,
+        c.risk_status AS riskStatusC,
+        d.risk_status AS riskStatusD,
+        company.`name` AS companyName,
+        company.address AS address
+        FROM
+        company,
+        area,
+        finance_lease_risk a,
+        finance_lease_risk b,
+        finance_lease_risk c,
+        finance_lease_risk d
+        <where>
+            company.area_id = area.area_id
+            AND company.company_id = a.company_id
+            AND company.company_id = b.company_id
+            AND company.company_id = c.company_id
+            AND company.company_id = d.company_id
+            AND a.risk_type = 1
+            AND b.risk_type = 2
+            AND c.risk_type = 3
+            AND d.risk_type = 4
+            AND company.company_type = 13
+            <if test="areaName != null and areaName != ''">
+                AND area.name = #{areaName}
+            </if>
+            <if test="areaName == null or areaName == ''">
+                AND area.name = '黄浦区'
+            </if>
+            <if test="riskA != null">
+                AND a.risk_status = #{riskA}
+            </if>
+            <if test="riskB != null">
+                AND b.risk_status = #{riskB}
+            </if>
+            <if test="riskC != null">
+                AND c.risk_status = #{riskC}
+            </if>
+            <if test="riskD != null">
+                AND d.risk_status = #{riskD}
+            </if>
+        </where>
+    </select>
 
-	<select id="getTenancyByName" resultType="com.bbd.wtyh.domain.CompanyInfoModify.CompanyInfo">
+    <select id="getTenancyByName" resultType="com.bbd.wtyh.domain.CompanyInfoModify.CompanyInfo">
 		SELECT
+		    c.company_id AS companyId,
+		    c.company_type AS industry,
 			f.risk_type as riskType,
 			f.risk_status as currentLevel,
 			c.`name` AS `name`,
@@ -178,7 +182,7 @@
 			c.`name` = #{name}
 	</select>
 
-	<select id="isExistFinanceLease" resultType="com.bbd.wtyh.domain.CompanyInfoModify.CompanyInfo">
+    <select id="isExistFinanceLease" resultType="com.bbd.wtyh.domain.CompanyInfoModify.CompanyInfo">
 		SELECT
 			company_id AS companyId,
 			risk_status AS currentLevel
@@ -188,92 +192,95 @@
 			company_id = #{recordInfo.companyId}
 	</select>
 
-	<update id="modifyFinanceLease">
-		update finance_lease_risk
-		<set>
-			risk_status=#{recordInfo.afterLevel}
-		</set>
-		where company_id=#{recordInfo.companyId}
-	</update>
+    <update id="modifyFinanceLease">
+        update finance_lease_risk
+        <set>
+            risk_status=#{recordInfo.afterLevel}
+        </set>
+        where company_id=#{recordInfo.companyId}
+    </update>
 
-	<insert id="addFinanceLease">
+    <insert id="addFinanceLease">
 		INSERT INTO
 		`finance_lease_risk` (`company_id`, `risk_status`, `risk_type`)
 		VALUES
 		(#{recordInfo.companyId}, #{recordInfo.afterLevel}, 1)
 	</insert>
 
-	<select id="getFinanceLease" parameterType="com.bbd.wtyh.web.EasyExportExcel.ExportCondition" resultType="com.bbd.wtyh.domain.EasyExport.FinanceLeaseData">
-		SELECT
-		company.`name` AS `name`,
-		company.company_type AS industry,
-		company.legal_person AS legalPerson,
-		company.registered_date AS registeredDate,
-		company.registered_capital AS registeredCapital,
-		company.registered_capital_type AS registeredCapitalType,
-		company.address AS address
-		FROM
-		company
-		LEFT JOIN
-			(select company_id, max(risk_status) AS  risk_status from finance_lease_risk where risk_status=1 GROUP BY company_id ) as a
-			on company.company_id=a.company_id
-		WHERE
-		1=1
-		<if test="exportCondition.industry!=null">
-			and company.company_type = #{exportCondition.industry}
-		</if>
-		<if test="exportCondition.currentLevel!=null">
-			and IFNULL(a.risk_status,0) = #{exportCondition.currentLevel}
-		</if>
-		<if test="exportCondition.registeredCapitalMin!=null">
-			and company.registered_capital >= #{exportCondition.registeredCapitalMin}
-		</if>
-		<if test="exportCondition.registeredCapitalMax!=null">
-			and #{exportCondition.registeredCapitalMax} >= company.registered_capital
-		</if>
-		<if test="exportCondition.registeredDateMin!=null">
-			and company.registered_date >= #{exportCondition.registeredDateMin}
-		</if>
-		<if test="exportCondition.registeredDateMax!=null">
-			and #{exportCondition.registeredDateMax} >= company.registered_date
-		</if>
-		<if test="exportCondition.areaId!=null">
-			and company.area_id = #{exportCondition.areaId}
-		</if>
-		LIMIT #{pagination.offset}, #{pagination.pageSize}
-	</select>
+    <select id="getFinanceLease" parameterType="com.bbd.wtyh.web.EasyExportExcel.ExportCondition"
+            resultType="com.bbd.wtyh.domain.EasyExport.FinanceLeaseData">
+        SELECT
+        company.`name` AS `name`,
+        company.company_type AS industry,
+        company.legal_person AS legalPerson,
+        company.registered_date AS registeredDate,
+        company.registered_capital AS registeredCapital,
+        company.registered_capital_type AS registeredCapitalType,
+        company.address AS address
+        FROM
+        company
+        LEFT JOIN
+        (select company_id, max(risk_status) AS risk_status from finance_lease_risk where risk_status=1 GROUP BY
+        company_id ) as a
+        on company.company_id=a.company_id
+        WHERE
+        1=1
+        <if test="exportCondition.industry!=null">
+            and company.company_type = #{exportCondition.industry}
+        </if>
+        <if test="exportCondition.currentLevel!=null">
+            and IFNULL(a.risk_status,0) = #{exportCondition.currentLevel}
+        </if>
+        <if test="exportCondition.registeredCapitalMin!=null">
+            and company.registered_capital >= #{exportCondition.registeredCapitalMin}
+        </if>
+        <if test="exportCondition.registeredCapitalMax!=null">
+            and #{exportCondition.registeredCapitalMax} >= company.registered_capital
+        </if>
+        <if test="exportCondition.registeredDateMin!=null">
+            and company.registered_date >= #{exportCondition.registeredDateMin}
+        </if>
+        <if test="exportCondition.registeredDateMax!=null">
+            and #{exportCondition.registeredDateMax} >= company.registered_date
+        </if>
+        <if test="exportCondition.areaId!=null">
+            and company.area_id = #{exportCondition.areaId}
+        </if>
+        LIMIT #{pagination.offset}, #{pagination.pageSize}
+    </select>
 
-	<select id="countFinanceLease" resultType="long">
-		SELECT
-		COUNT(1)
-		FROM
-		company
-		LEFT JOIN
-		(select company_id, max(risk_status) AS  risk_status from finance_lease_risk where risk_status=1 GROUP BY company_id ) as a
-		on company.company_id=a.company_id
-		WHERE
-		1=1
-		<if test="exportCondition.industry!=null">
-			and company.company_type = #{exportCondition.industry}
-		</if>
-		<if test="exportCondition.currentLevel!=null">
-			and IFNULL(a.risk_status,0) = #{exportCondition.currentLevel}
-		</if>
-		<if test="exportCondition.registeredCapitalMin!=null">
-			and company.registered_capital >= #{exportCondition.registeredCapitalMin}
-		</if>
-		<if test="exportCondition.registeredCapitalMax!=null">
-			and #{exportCondition.registeredCapitalMax} >= company.registered_capital
-		</if>
-		<if test="exportCondition.registeredDateMin!=null">
-			and company.registered_date >= #{exportCondition.registeredDateMin}
-		</if>
-		<if test="exportCondition.registeredDateMax!=null">
-			and #{exportCondition.registeredDateMax} >= company.registered_date
-		</if>
-		<if test="exportCondition.areaId!=null">
-			and company.area_id = #{exportCondition.areaId}
-		</if>
-	</select>
+    <select id="countFinanceLease" resultType="long">
+        SELECT
+        COUNT(1)
+        FROM
+        company
+        LEFT JOIN
+        (select company_id, max(risk_status) AS risk_status from finance_lease_risk where risk_status=1 GROUP BY
+        company_id ) as a
+        on company.company_id=a.company_id
+        WHERE
+        1=1
+        <if test="exportCondition.industry!=null">
+            and company.company_type = #{exportCondition.industry}
+        </if>
+        <if test="exportCondition.currentLevel!=null">
+            and IFNULL(a.risk_status,0) = #{exportCondition.currentLevel}
+        </if>
+        <if test="exportCondition.registeredCapitalMin!=null">
+            and company.registered_capital >= #{exportCondition.registeredCapitalMin}
+        </if>
+        <if test="exportCondition.registeredCapitalMax!=null">
+            and #{exportCondition.registeredCapitalMax} >= company.registered_capital
+        </if>
+        <if test="exportCondition.registeredDateMin!=null">
+            and company.registered_date >= #{exportCondition.registeredDateMin}
+        </if>
+        <if test="exportCondition.registeredDateMax!=null">
+            and #{exportCondition.registeredDateMax} >= company.registered_date
+        </if>
+        <if test="exportCondition.areaId!=null">
+            and company.area_id = #{exportCondition.areaId}
+        </if>
+    </select>
 
 </mapper>

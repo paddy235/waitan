@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ *
  * Created by YanWenyuan on 2017/7/17.
  */
 @Component
@@ -157,6 +158,7 @@ public class CompanyInfoQueryUtil {
         companyInfo.setIndustry(CompanyInfo.TYPE_RZZL_13);
         if (!CollectionUtils.isEmpty(companyInfos)) {
             for (CompanyInfo temp : companyInfos) {
+                companyInfo.setCompanyId(temp.getCompanyId());
                 if (temp.getCurrentLevel() != null && temp.getCurrentLevel().equals("0")) {
                     companyInfo.setCurrentLevel("0"); // 潜在
                 }

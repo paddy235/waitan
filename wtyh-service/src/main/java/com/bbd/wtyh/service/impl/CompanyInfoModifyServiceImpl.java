@@ -3,7 +3,6 @@ package com.bbd.wtyh.service.impl;
 import com.bbd.wtyh.constants.RiskChgCoSource;
 import com.bbd.wtyh.domain.CompanyInfoModify.CompanyInfo;
 import com.bbd.wtyh.domain.RiskChgCoDo;
-import com.bbd.wtyh.domain.enums.WangDaiRiskLevel;
 import com.bbd.wtyh.mapper.CompanyInfoModifyMapper;
 import com.bbd.wtyh.service.CoRiskChgService;
 import com.bbd.wtyh.service.CompanyInfoModifyService;
@@ -116,47 +115,47 @@ public class CompanyInfoModifyServiceImpl implements CompanyInfoModifyService {
         switch (industry) {
 
         case CompanyInfo.TYPE_P2P_1:// 网络借贷
-            companyInfoMudifyUtil.modifyWangdai(modifyData);
+            companyInfoMudifyUtil.modifyWangdai2Other(modifyData);
             break;
 
         case CompanyInfo.TYPE_XD_2:// 小额贷款
-            companyInfoMudifyUtil.modifyLoad(modifyData);
+            companyInfoMudifyUtil.modifyLoad2Other(modifyData);
             break;
 
         case CompanyInfo.TYPE_RZDB_3:// 融资担保
-            companyInfoMudifyUtil.modifyLoad(modifyData);
+            companyInfoMudifyUtil.modifyLoad2Other(modifyData);
             break;
 
         case CompanyInfo.TYPE_XXLC_4:// 线下理财
-            companyInfoMudifyUtil.modifyOffLine(modifyData);
+            companyInfoMudifyUtil.modifyOffLine2Other(modifyData);
             break;
 
         case CompanyInfo.TYPE_JYS_9:// 交易场所
-            companyInfoMudifyUtil.modifyExchange(modifyData);
+            companyInfoMudifyUtil.modifyExchange2Other(modifyData);
             break;
 
         case CompanyInfo.TYPE_YFK_11:// 预付卡
-            companyInfoMudifyUtil.modifyPerpaycard(modifyData);
+            companyInfoMudifyUtil.modifyPerpaycard2Other(modifyData);
             break;
 
         case CompanyInfo.TYPE_RZZL_13:// 融资租赁
-            companyInfoMudifyUtil.modifyFinanceLease(modifyData);
+            companyInfoMudifyUtil.modifyFinanceLease2Other(modifyData);
             break;
 
         case CompanyInfo.TYPE_SMJJ_5:// 私募基金
-            companyInfoMudifyUtil.modifyPrivateFund(modifyData);
+            companyInfoMudifyUtil.modifyPrivateFund2Other(modifyData);
             break;
 
         case CompanyInfo.TYPE_ZC_6: // 众筹
-            companyInfoMudifyUtil.modifyCrowdfunding(modifyData);
+            companyInfoMudifyUtil.modifyCrowdfunding2Other(modifyData);
             break;
 
         case CompanyInfo.TYPE_DD_12: // 典当
-            companyInfoMudifyUtil.modifyPawn(modifyData);
+            companyInfoMudifyUtil.modifyPawn2Other(modifyData);
             break;
 
         case CompanyInfo.TYPE_SYBL_10:// 商业保理
-            companyInfoMudifyUtil.modifyBusinessInsurance(modifyData);
+            companyInfoMudifyUtil.modifyBizInsurance2Ohter(modifyData);
             break;
         }
 
