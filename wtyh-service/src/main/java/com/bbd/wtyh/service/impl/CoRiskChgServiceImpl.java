@@ -64,10 +64,10 @@ public class CoRiskChgServiceImpl extends BaseServiceImpl implements CoRiskChgSe
     @Override
     public RiskChgCoDo generateNewRecord(ModifyData modifyData, String createBy, RiskChgCoSource riskChgCoSource) {
         CompanyDO companyDO = companyService.getCompanyByName(modifyData.getName());
-        if (companyDO == null || companyDO.getCompanyType() == null) {
+        if (companyDO == null) {
             return null;
         }
-        int companyType = companyDO.getCompanyType();
+        int companyType = Byte.parseByte(modifyData.getIndustry());
 
         RiskChgCoDo riskChgCoDo = new RiskChgCoDo();
         BeanCopier beanCopier = BeanCopier.create(CompanyDO.class, RiskChgCoDo.class, false);
@@ -84,7 +84,7 @@ public class CoRiskChgServiceImpl extends BaseServiceImpl implements CoRiskChgSe
         riskChgCoDo.setUpdateDate(null);
 
         // 设值失败，则不继续处理
-        if (!setRiskLevel(companyDO, riskChgCoDo, modifyData.getLevel(), modifyData.getInnnerLevel(), modifyData.getOutLevel(),
+        if (!setRiskLevel(companyType, companyDO, riskChgCoDo, modifyData.getLevel(), modifyData.getInnerLevel(), modifyData.getOutLevel(),
                 modifyData.getLiveLevel())) {
             return null;
         }
@@ -105,55 +105,54 @@ public class CoRiskChgServiceImpl extends BaseServiceImpl implements CoRiskChgSe
     }
 
     @SuppressWarnings("SimplifiableIfStatement")
-    public boolean setRiskLevel(CompanyDO companyDO, RiskChgCoDo riskChgCoDo, String level, String innerLevel, String outLevel,
-            String liveLevel) {
-        int companyType = companyDO.getCompanyType();
+    public boolean setRiskLevel(int toCompanyType, CompanyDO companyDO, RiskChgCoDo riskChgCoDo, String level, String innerLevel,
+            String outLevel, String liveLevel) {
         // 网络借贷
-        if (CompanyType.TYPE_P2P_1.type().equals(companyType)) {
+        if (CompanyType.TYPE_P2P_1.type().equals(toCompanyType)) {
             return setLevelFromCompany(companyDO, riskChgCoDo, WangDaiRiskLevel.getRiskType(level));
         }
         // 小额贷款 融资担保
-        if (CompanyType.TYPE_XD_2.type().equals(companyType) || CompanyType.TYPE_RZDB_3.type().equals(companyType)) {
+        if (CompanyType.TYPE_XD_2.type().equals(toCompanyType) || CompanyType.TYPE_RZDB_3.type().equals(toCompanyType)) {
             return setPettyLoanLevel(companyDO, riskChgCoDo, innerLevel, outLevel, liveLevel);
         }
         // 线下理财
-        if (CompanyType.TYPE_XXLC_4.type().equals(companyType)) {
+        if (CompanyType.TYPE_XXLC_4.type().equals(toCompanyType)) {
             return setLevelFromCompany(companyDO, riskChgCoDo, stringToInt(level));
         }
         // 私募基金
-        if (CompanyType.TYPE_SMJJ_5.type().equals(companyType)) {
+        if (CompanyType.TYPE_SMJJ_5.type().equals(toCompanyType)) {
             return false;
         }
         // 众筹
-        if (CompanyType.TYPE_ZC_6.type().equals(companyType)) {
+        if (CompanyType.TYPE_ZC_6.type().equals(toCompanyType)) {
             return false;
         }
         // 其它
-        if (CompanyType.TYPE_JR_7.type().equals(companyType)) {
+        if (CompanyType.TYPE_JR_7.type().equals(toCompanyType)) {
             return false;
         }
         // 金融
-        if (CompanyType.TYPE_QT_8.type().equals(companyType)) {
+        if (CompanyType.TYPE_QT_8.type().equals(toCompanyType)) {
             return false;
         }
         // 交易场所
-        if (CompanyType.TYPE_JYS_9.type().equals(companyType)) {
+        if (CompanyType.TYPE_JYS_9.type().equals(toCompanyType)) {
             return setLevelFromCompany(companyDO, riskChgCoDo, stringToInt(level));
         }
         // 商业保理
-        if (CompanyType.TYPE_SYBL_10.type().equals(companyType)) {
+        if (CompanyType.TYPE_SYBL_10.type().equals(toCompanyType)) {
             return false;
         }
         // 预付卡
-        if (CompanyType.TYPE_YFK_11.type().equals(companyType)) {
+        if (CompanyType.TYPE_YFK_11.type().equals(toCompanyType)) {
             return setPrepaidLevel(companyDO, riskChgCoDo, stringToInt(level));
         }
         // 典当
-        if (CompanyType.TYPE_DD_12.type().equals(companyType)) {
+        if (CompanyType.TYPE_DD_12.type().equals(toCompanyType)) {
             return false;
         }
         // 融资租赁
-        if (CompanyType.TYPE_RZZL_13.type().equals(companyType)) {
+        if (CompanyType.TYPE_RZZL_13.type().equals(toCompanyType)) {
             return setFinancingLeaseLevel(companyDO, riskChgCoDo, stringToInt(level));
         }
         return false;

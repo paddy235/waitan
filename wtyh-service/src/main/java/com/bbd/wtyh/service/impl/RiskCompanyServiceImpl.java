@@ -1,8 +1,6 @@
 package com.bbd.wtyh.service.impl;
 
-import com.bbd.higgs.utils.ListUtil;
 import com.bbd.higgs.utils.StringUtils;
-import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.domain.CompanyAnalysisResultDO;
 import com.bbd.wtyh.domain.CompanyInfoModify.CompanyInfo;
 import com.bbd.wtyh.domain.CompanyInfoModify.OffLineModify;
@@ -16,59 +14,58 @@ import com.bbd.wtyh.service.PrepaidCompanyStaticService;
 import com.bbd.wtyh.service.RiskCompanyService;
 import com.bbd.wtyh.web.EasyExportExcel.ExportCondition;
 import com.bbd.wtyh.web.PageBean;
-import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 @Service
 public class RiskCompanyServiceImpl implements RiskCompanyService {
+
     @Autowired
     private PrepaidCompanyStaticService predService;
     @Autowired
     private RiskCompanyMapper riskCompanyMapper;
     private static final int SCANNER_COUNT = 1000;
-    private static final String RISK= String.valueOf(CompanyAnalysisResult.RISK.getType());
+    private static final String RISK = String.valueOf(CompanyAnalysisResult.RISK.getType());
     @Autowired
     private RedisDAO redisDAO;
-//    private static final String SCANNER_PREFIX_KEY = "scanner_";
-//    private static final String TOP_PREFIX_KEY = "top_";
+    //    private static final String SCANNER_PREFIX_KEY = "scanner_";
+    //    private static final String TOP_PREFIX_KEY = "top_";
 
     @Override
     @SuppressWarnings("unchecked")
     public List<RiskCompanyInfoDO> getScanner(Map<String, Object> params) {
-//        String key = SCANNER_PREFIX_KEY + params.get("area") + "_" + params.get("minRegCapital") + "_"
-//                + params.get("maxRegCapital") + "_" + params.get("companyQualification") + "_"
-//                + params.get("minReviewTime") + "_" + params.get("maxReviewTime") + "_"
-//                + params.get("riskLevel") + "_" + params.get("areaId");
+        //        String key = SCANNER_PREFIX_KEY + params.get("area") + "_" + params.get("minRegCapital") + "_"
+        //                + params.get("maxRegCapital") + "_" + params.get("companyQualification") + "_"
+        //                + params.get("minReviewTime") + "_" + params.get("maxReviewTime") + "_"
+        //                + params.get("riskLevel") + "_" + params.get("areaId");
 
-//        List<RiskCompanyInfoDO> scannerList = (List<RiskCompanyInfoDO>) redisDAO.getObject(key);
+        //        List<RiskCompanyInfoDO> scannerList = (List<RiskCompanyInfoDO>) redisDAO.getObject(key);
         List<RiskCompanyInfoDO> scannerList = null;
 
-//        if (null == scannerList || scannerList.size() == 0) {
-            int realCount = riskCompanyMapper.getScannerCount(params);
-            int result = realCount / SCANNER_COUNT;
-            List<RiskCompanyInfoDO> list = riskCompanyMapper.getScanner(params);
-            scannerList = new ArrayList<>();
-            if (result >= 2 && null != list && list.size() >= 1) {
-                for (int i = 0; i < list.size(); i++) {
-                    RiskCompanyInfoDO riskCompanyInfoDO = list.get(i);
-                    if (i % result == 0) {
-                        scannerList.add(riskCompanyInfoDO);
-                    } else if (i == list.size() - 1) {
-                        scannerList.add(riskCompanyInfoDO);
-                    } else {
-                    }
+        //        if (null == scannerList || scannerList.size() == 0) {
+        int realCount = riskCompanyMapper.getScannerCount(params);
+        int result = realCount / SCANNER_COUNT;
+        List<RiskCompanyInfoDO> list = riskCompanyMapper.getScanner(params);
+        scannerList = new ArrayList<>();
+        if (result >= 2 && null != list && list.size() >= 1) {
+            for (int i = 0; i < list.size(); i++) {
+                RiskCompanyInfoDO riskCompanyInfoDO = list.get(i);
+                if (i % result == 0) {
+                    scannerList.add(riskCompanyInfoDO);
+                } else if (i == list.size() - 1) {
+                    scannerList.add(riskCompanyInfoDO);
+                } else {
                 }
-            } else {
-                scannerList = list;
             }
-//            redisDAO.addObject(key, scannerList, Constants.REDIS_5, List.class); // 保留5天
-//        }
+        } else {
+            scannerList = list;
+        }
+        //            redisDAO.addObject(key, scannerList, Constants.REDIS_5, List.class); // 保留5天
+        //        }
         return scannerList;
     }
 
@@ -76,17 +73,17 @@ public class RiskCompanyServiceImpl implements RiskCompanyService {
     @SuppressWarnings("unchecked")
     public List<RiskCompanyInfoDO> getTop(Map<String, Object> params) {
         // + ((Pagination) params.get("pagination")).getPageNumber()
-//        String key = TOP_PREFIX_KEY + params.get("area") + "_" + params.get("minRegCapital") + "_"
-//                + params.get("maxRegCapital") + "_" + params.get("companyQualification") + "_"
-//                + params.get("minReviewTime") + "_" + params.get("maxReviewTime") + "_" + params.get("sortType") + "_"
-//                + "_" + params.get("riskLevel");
-//        List<RiskCompanyInfoDO> list = ((List<RiskCompanyInfoDO>) redisDAO.getObject(key));
+        //        String key = TOP_PREFIX_KEY + params.get("area") + "_" + params.get("minRegCapital") + "_"
+        //                + params.get("maxRegCapital") + "_" + params.get("companyQualification") + "_"
+        //                + params.get("minReviewTime") + "_" + params.get("maxReviewTime") + "_" + params.get("sortType") + "_"
+        //                + "_" + params.get("riskLevel");
+        //        List<RiskCompanyInfoDO> list = ((List<RiskCompanyInfoDO>) redisDAO.getObject(key));
         List<RiskCompanyInfoDO> list = riskCompanyMapper.getTop(params);
-//        if (ListUtil.isEmpty(list)) {
-//            list = riskCompanyMapper.getTop(params);
-//            if (ListUtil.isNotEmpty(list))
-//                redisDAO.addObject(key, list, Constants.REDIS_5, List.class); // 保留5天
-//        }
+        //        if (ListUtil.isEmpty(list)) {
+        //            list = riskCompanyMapper.getTop(params);
+        //            if (ListUtil.isNotEmpty(list))
+        //                redisDAO.addObject(key, list, Constants.REDIS_5, List.class); // 保留5天
+        //        }
         return list;
     }
 
@@ -124,18 +121,18 @@ public class RiskCompanyServiceImpl implements RiskCompanyService {
     @Override
     public void modifyOffLineLevel(RecordInfo recordInfo) {
         riskCompanyMapper.modifyLevel(recordInfo.getName(), recordInfo.getAfterLevel());
-        String level=recordInfo.getAfterLevel();
-        if(RISK.equals(level)){
-            CompanyAnalysisResultDO analysisResultDO=new CompanyAnalysisResultDO();
+        String level = recordInfo.getAfterLevel();
+        if (RISK.equals(level)) {
+            CompanyAnalysisResultDO analysisResultDO = new CompanyAnalysisResultDO();
             analysisResultDO.setCompanyId(recordInfo.getCompanyId());
             analysisResultDO.setCreateBy("companyUpdate");
             analysisResultDO.setUpdateBy("companyUpdate");
-            int i=predService.updateCompanyAnalysisResultWhenBlack(analysisResultDO);
-            if(i==0){
+            int i = predService.updateCompanyAnalysisResultWhenBlack(analysisResultDO);
+            if (i == 0) {
                 predService.addCompanyAnalysisResultWhenBlack(analysisResultDO);
             }
-        }else{
-            if(!StringUtils.isNullOrEmpty(level)){
+        } else {
+            if (!StringUtils.isNullOrEmpty(level)) {
                 predService.deleteByCompanyId(recordInfo);
             }
         }
@@ -148,12 +145,8 @@ public class RiskCompanyServiceImpl implements RiskCompanyService {
     }
 
     @Override
-    public Map<String, String> area() {
-        Map<String, String> rst = new HashedMap();
-        for (Map.Entry<String, Map<String, String>> e : riskCompanyMapper.area().entrySet()) {
-            rst.put(e.getKey(), e.getValue().get("areaId"));
-        }
-        return rst;
+    public Map<String, Integer> area() {
+        return riskCompanyMapper.area();
     }
 
 }

@@ -23,33 +23,33 @@ import java.util.Map;
 public class EasyExportExcelServiceImpl implements EasyExportExeclService {
 
     @Autowired
-    private P2PImageService p2PImageService;    // 网络借贷
+    private P2PImageService p2PImageService; // 网络借贷
 
     @Autowired
-    private RiskCompanyService riskCompanyService;  // 线下理财
+    private RiskCompanyService riskCompanyService; // 线下理财
 
     @Autowired
-    private CompanyLevelService companyLevelService;    // 小额贷款、融资担保
+    private CompanyLevelService companyLevelService; // 小额贷款、融资担保
 
     @Autowired
-    private PrivateFundService privateFundService;  // 私募基金
+    private PrivateFundService privateFundService; // 私募基金
 
     @Autowired
-    private ExchangeCompanyService exchangeCompanyService;  // 交易场所
+    private ExchangeCompanyService exchangeCompanyService; // 交易场所
 
     @Autowired
-    private CrowdFundingService crowdFundingService;    // 众筹
+    private CrowdFundingService crowdFundingService; // 众筹
 
     @Autowired
-    private FinanceLeaseService financeLeaseService;    //融资租赁
+    private FinanceLeaseService financeLeaseService; //融资租赁
 
     @Override
     public List<WangdaiData> getWangdai(ExportCondition exportCondition, PageBean pageBean) {
         // TODO: 2017/7/21
-        String curLevel=exportCondition.getCurrentLevel();
-        if(null!=curLevel){
+        String curLevel = exportCondition.getCurrentLevel();
+        if (null != curLevel) {
 
-            exportCondition.setCurrentLevel(WangDaiRiskLevel.getRiskType(curLevel)+"");
+            exportCondition.setCurrentLevel(WangDaiRiskLevel.getRiskType(curLevel) + "");
         }
         return p2PImageService.getWangdai(exportCondition, pageBean);
     }
@@ -110,7 +110,7 @@ public class EasyExportExcelServiceImpl implements EasyExportExeclService {
     }
 
     @Override
-    public Map<String, String> area() {
+    public Map<String, Integer> area() {
         return riskCompanyService.area();
     }
 }

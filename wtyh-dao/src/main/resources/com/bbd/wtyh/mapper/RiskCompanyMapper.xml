@@ -129,6 +129,7 @@
 
     <select id="getOffLineFinanceByName" resultType="com.bbd.wtyh.domain.CompanyInfoModify.CompanyInfo">
 		SELECT
+		    company.company_id AS companyId,
 		    company.`name` AS `name`,
 		    company.legal_person AS legalPerson,
 		    company.registered_capital AS registeredCapital,
@@ -142,85 +143,88 @@
 
     <select id="countOffLineFinance" resultType="long">
         SELECT
-            COUNT(1)
+        COUNT(1)
         FROM
-            company
-            LEFT JOIN
-            ( SELECT company_id,GROUP_CONCAT(background)background FROM company_background GROUP BY company_id ) AS company_background
-            ON company.company_id=company_background.company_id
-            LEFT JOIN index_data
-            ON company.name= index_data.company_name
+        company
+        LEFT JOIN
+        ( SELECT company_id,GROUP_CONCAT(background)background FROM company_background GROUP BY company_id ) AS
+        company_background
+        ON company.company_id=company_background.company_id
+        LEFT JOIN index_data
+        ON company.name= index_data.company_name
         WHERE
-          1=1
-            <if test="exportCondition.industry!=null">
-                and company.company_type = #{exportCondition.industry}
-            </if>
-            <if test="exportCondition.currentLevel!=null">
-                and company.risk_level = #{exportCondition.currentLevel}
-            </if>
-            <if test="exportCondition.registeredCapitalMin!=null">
-                and company.registered_capital >= #{exportCondition.registeredCapitalMin}
-            </if>
-            <if test="exportCondition.registeredCapitalMax!=null">
-                and #{exportCondition.registeredCapitalMax} >= company.registered_capital
-            </if>
-            <if test="exportCondition.registeredDateMin!=null">
-                and company.registered_date >= #{exportCondition.registeredDateMin}
-            </if>
-            <if test="exportCondition.registeredDateMax!=null">
-                and #{exportCondition.registeredDateMax} >= company.registered_date
-            </if>
-            <if test="exportCondition.areaId!=null">
-                and company.area_id = #{exportCondition.areaId}
-            </if>
+        1=1
+        <if test="exportCondition.industry!=null">
+            and company.company_type = #{exportCondition.industry}
+        </if>
+        <if test="exportCondition.currentLevel!=null">
+            and company.risk_level = #{exportCondition.currentLevel}
+        </if>
+        <if test="exportCondition.registeredCapitalMin!=null">
+            and company.registered_capital >= #{exportCondition.registeredCapitalMin}
+        </if>
+        <if test="exportCondition.registeredCapitalMax!=null">
+            and #{exportCondition.registeredCapitalMax} >= company.registered_capital
+        </if>
+        <if test="exportCondition.registeredDateMin!=null">
+            and company.registered_date >= #{exportCondition.registeredDateMin}
+        </if>
+        <if test="exportCondition.registeredDateMax!=null">
+            and #{exportCondition.registeredDateMax} >= company.registered_date
+        </if>
+        <if test="exportCondition.areaId!=null">
+            and company.area_id = #{exportCondition.areaId}
+        </if>
     </select>
 
-    <select id="getOffLineFinance" parameterType="com.bbd.wtyh.web.EasyExportExcel.ExportCondition" resultType="com.bbd.wtyh.domain.EasyExport.OffLineData">
+    <select id="getOffLineFinance" parameterType="com.bbd.wtyh.web.EasyExportExcel.ExportCondition"
+            resultType="com.bbd.wtyh.domain.EasyExport.OffLineData">
         SELECT
-            company.`name` AS `name`,
-            company.company_type AS industry,
-            company_background.background AS background,
-            company.risk_level AS currentLevel,
-            company.legal_person AS legalPerson,
-            company.registered_date AS registeredDate,
-            company.registered_capital AS registeredCapital,
-            company.registered_capital_type AS registeredCapitalType,
-            company.address AS address,
-            index_data.static_risk_index AS staticRiskIndex
+        company.`name` AS `name`,
+        company.company_type AS industry,
+        company_background.background AS background,
+        company.risk_level AS currentLevel,
+        company.legal_person AS legalPerson,
+        company.registered_date AS registeredDate,
+        company.registered_capital AS registeredCapital,
+        company.registered_capital_type AS registeredCapitalType,
+        company.address AS address,
+        index_data.static_risk_index AS staticRiskIndex
         FROM
-          company
-            LEFT JOIN
-            ( SELECT company_id,GROUP_CONCAT(background)background FROM company_background GROUP BY company_id ) AS company_background
-            ON company.company_id=company_background.company_id
-            LEFT JOIN index_data
-            ON company.name= index_data.company_name
+        company
+        LEFT JOIN
+        ( SELECT company_id,GROUP_CONCAT(background)background FROM company_background GROUP BY company_id ) AS
+        company_background
+        ON company.company_id=company_background.company_id
+        LEFT JOIN index_data
+        ON company.name= index_data.company_name
         WHERE
-          1=1
-            <if test="exportCondition.industry!=null">
-                and company.company_type = #{exportCondition.industry}
-            </if>
-            <if test="exportCondition.currentLevel!=null">
-                and company.risk_level = #{exportCondition.currentLevel}
-            </if>
-            <if test="exportCondition.registeredCapitalMin!=null">
-                and company.registered_capital >= #{exportCondition.registeredCapitalMin}
-            </if>
-            <if test="exportCondition.registeredCapitalMax!=null">
-                and #{exportCondition.registeredCapitalMax} >= company.registered_capital
-            </if>
-            <if test="exportCondition.registeredDateMin!=null">
-                and company.registered_date >= #{exportCondition.registeredDateMin}
-            </if>
-            <if test="exportCondition.registeredDateMax!=null">
-                and #{exportCondition.registeredDateMax} >= company.registered_date
-            </if>
-            <if test="exportCondition.areaId!=null">
-                and company.area_id = #{exportCondition.areaId}
-            </if>
+        1=1
+        <if test="exportCondition.industry!=null">
+            and company.company_type = #{exportCondition.industry}
+        </if>
+        <if test="exportCondition.currentLevel!=null">
+            and company.risk_level = #{exportCondition.currentLevel}
+        </if>
+        <if test="exportCondition.registeredCapitalMin!=null">
+            and company.registered_capital >= #{exportCondition.registeredCapitalMin}
+        </if>
+        <if test="exportCondition.registeredCapitalMax!=null">
+            and #{exportCondition.registeredCapitalMax} >= company.registered_capital
+        </if>
+        <if test="exportCondition.registeredDateMin!=null">
+            and company.registered_date >= #{exportCondition.registeredDateMin}
+        </if>
+        <if test="exportCondition.registeredDateMax!=null">
+            and #{exportCondition.registeredDateMax} >= company.registered_date
+        </if>
+        <if test="exportCondition.areaId!=null">
+            and company.area_id = #{exportCondition.areaId}
+        </if>
         LIMIT #{pagination.offset}, #{pagination.pageSize}
     </select>
 
-    <update id="modifyLevel" >
+    <update id="modifyLevel">
         update company
         <set>
             previous_risk_level=risk_level,
@@ -236,7 +240,7 @@
         (#{name}, #{beforeLevel},#{afterLevel}, #{beforeIndustry})
     </insert>
 
-    <update id="modifyIndustry" >
+    <update id="modifyIndustry">
         update company
         <set>
             company_type=#{industry}
@@ -244,7 +248,7 @@
         where `name`=#{name}
     </update>
 
-    <select id="area" resultType="map" >
+    <select id="area" resultType="map">
        SELECT
             `name` AS city,
              area_id AS areaId

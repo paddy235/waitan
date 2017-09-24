@@ -43,7 +43,7 @@ public class CompanyInfo {
 
     // 小额贷款、融资担保
     private String outLevel;   // 外部评级 -
-    private String innnerLevel;    // 内部评级 - 【小额贷款、融资担保】
+    private String innerLevel;    // 内部评级 - 【小额贷款、融资担保】
     private String liveLevel;  // 现场检查 - 【小额贷款、融资担保】
 
     public Integer getCompanyId() {
@@ -126,12 +126,12 @@ public class CompanyInfo {
         this.outLevel = outLevel;
     }
 
-    public String getInnnerLevel() {
-        return innnerLevel;
+    public String getInnerLevel() {
+        return innerLevel;
     }
 
-    public void setInnnerLevel(String innnerLevel) {
-        this.innnerLevel = innnerLevel;
+    public void setInnerLevel(String innerLevel) {
+        this.innerLevel = innerLevel;
     }
 
     public String getLiveLevel() {
