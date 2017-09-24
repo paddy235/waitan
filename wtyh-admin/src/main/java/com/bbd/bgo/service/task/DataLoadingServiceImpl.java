@@ -164,7 +164,7 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
         isShutdown = false;
         TaskResultDO taskResultDO = new TaskResultDO();
         Integer dataError = 0;
-        Integer [] dataTotal =new Integer[1]; //Integer dataTotal = 0;
+        Integer [] dataTotal ={0}; //Integer dataTotal = 0;
         this.taskId = taskId;
         this.pullFileTaskId = taskId;
         // 自动执行，先拉取数据，有数据执行插入，并记录成功失败情况
