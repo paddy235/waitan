@@ -155,8 +155,8 @@ public class ParkMgtServiceImpl implements ParkMgtService {
     public void delParkById(String parkId) throws Exception {
         try {
             // TODO 这里要想清楚
-//            parkAndBuildingMgtMapper.delCompanyBuildingByParkId(parkId);
-//            parkAndBuildingMgtMapper.delBuildingByParkId(parkId);
+            // parkAndBuildingMgtMapper.delCompanyBuildingByParkId(parkId);
+            // parkAndBuildingMgtMapper.delBuildingByParkId(parkId);
             parkAndBuildingMgtMapper.delParkById(parkId);
 
             pabRelationService.delPABRelationByParkId(Integer.parseInt(parkId));
@@ -170,6 +170,7 @@ public class ParkMgtServiceImpl implements ParkMgtService {
     @Transactional(rollbackFor = Exception.class)
     public void delBuildingById(List<String> buildingId) throws Exception {
         try {
+            // TODO 这里必须识别删除哪个园区下的楼宇，建议参数样例：23_133,23_155
             parkAndBuildingMgtMapper.delCompanyByBuildingId(buildingId);
             parkAndBuildingMgtMapper.delBuildingById(buildingId);
 
