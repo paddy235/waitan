@@ -163,6 +163,10 @@ public class ParkMgtController {
     @LogRecord(logMsg = "修改园区：%s", params = {"parkName"}, page = Operation.Page.PARK_BUILDING_MANAGE,
             type = Operation.Type.modify, after = true, before = false)
     public ResponseBean updPark(String updateBy, String areaId, String parkId, String name) {
+        int count = parkMgtService.queryCountByParkName(name);
+        if (count >= 1) {
+            return ResponseBean.errorResponse("该园区已存在");
+        }
         ParkDO parkDO = new ParkDO();
         parkDO.setUpdateBy(updateBy);
         parkDO.setAreaId(StringUtils.isEmpty(areaId) ? 0 : Integer.parseInt(areaId));
@@ -178,7 +182,7 @@ public class ParkMgtController {
     @LogRecord(logMsg = "修改楼宇：%s", params = {"name"}, page = Operation.Page.PARK_BUILDING_MANAGE, type = Operation.Type.modify, after = true, before = false)
     public ResponseBean updateBuilding(BuildingDO buildingDO, ParkDO parkDO, String parkName, String origParkId) {
         try {
-            int count = parkMgtService.queryCountByParkName(parkName);
+            int count = parkMgtService.queryCountByBuildingName(buildingDO.getName());
             if (count >= 1) {
                 return ResponseBean.errorResponse("该楼宇已存在");
             }
