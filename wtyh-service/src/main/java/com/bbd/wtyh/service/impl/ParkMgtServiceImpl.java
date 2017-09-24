@@ -125,12 +125,12 @@ public class ParkMgtServiceImpl implements ParkMgtService {
         try {
             if (null == buildingDO || null == parkDO)
                 throw new Exception("传入参数异常，building=" + buildingDO + "，park=" + parkDO);
-            parkAndBuildingMgtMapper.updateBuilding(buildingDO);
             Map<String, Object> params = new HashMap<>();
             params.put("parkId", parkDO.getParkId());
             params.put("buildingId", buildingDO.getBuildingId());
             int relationCount = pabRelationService.queryPABRelation(params);
             if (relationCount == 0) {
+                parkAndBuildingMgtMapper.updateBuilding(buildingDO);
                 if (StringUtils.isNullOrEmpty(origParkId))
                     throw new Exception("入参异常，未获取到原所属园区信息！");
                 Map<String, Object> delParams = new HashMap<>();
