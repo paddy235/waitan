@@ -178,6 +178,10 @@ public class ParkMgtController {
     @LogRecord(logMsg = "修改楼宇：%s", params = {"name"}, page = Operation.Page.PARK_BUILDING_MANAGE, type = Operation.Type.modify, after = true, before = false)
     public ResponseBean updateBuilding(BuildingDO buildingDO, ParkDO parkDO, String parkName, String origParkId) {
         try {
+            int count = parkMgtService.queryCountByParkName(parkName);
+            if (count >= 1) {
+                return ResponseBean.errorResponse("该楼宇已存在");
+            }
             parkDO.setName(parkName);
             parkMgtService.updateBuilding(buildingDO, parkDO, origParkId);
         } catch (Exception e) {
