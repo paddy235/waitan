@@ -354,11 +354,15 @@ public class WordReportServiceImpl implements WordReportService {
                             if (null != coreDataInfo && coreDataInfo.size() > 0) {
                                 MapKeyToKey_funIf1 mKtkFun = (String desKeyStr, String srcKeyStr, double dev, int scale, String unit) -> {
                                     Object obj = coreDataInfo.get(srcKeyStr);
+                                    BigDecimal bD =BigDecimal.valueOf(0.0);
                                     if (obj != null && obj instanceof BigDecimal) {
-                                        BigDecimal bD = ((BigDecimal) obj).divide(BigDecimal.valueOf(dev),
-                                                scale, BigDecimal.ROUND_HALF_UP);
-                                        coreData.put(desKeyStr, bD.toString() + unit);
+                                        bD = (BigDecimal) obj;
+                                    } else if( obj != null && obj instanceof Double ) {
+                                        bD =BigDecimal.valueOf((Double)obj);
                                     }
+                                    bD = bD.divide(BigDecimal.valueOf(dev),
+                                            scale, BigDecimal.ROUND_HALF_UP);
+                                    coreData.put(desKeyStr, bD.toString() + unit);
                                 };
                                 mKtkFun.fun("累计成交量", "amount_total", 100000000D, 2, ""); //表格已有单位列
                                 mKtkFun.fun("贷款余额", "money_stock", 100000000D, 2, ""); //表格已有单位列
