@@ -27,7 +27,7 @@
     select
     <include refid="Base_Column_List" />
     from investment_return_statistic
-    ORDER BY `year` DESC
+    ORDER BY `year`
     LIMIT 10
   </select>
 </mapper>
