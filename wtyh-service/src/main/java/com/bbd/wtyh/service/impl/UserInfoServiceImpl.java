@@ -349,8 +349,10 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 	@Override
 	public void updateUserInfoAndRoleResource(UserInfoTableDo uitd, String resourceSet, String roleSet, String parkSet) throws Exception {
 		updateUserInfo(uitd);
-		parkRangeService.delParkRangeByUserId(uitd.getId());
-		parkRangeService.addParkRange(uitd.getId(), parkSet, uitd.getUpdateBy());
+		if (StringUtils.isNotEmpty(parkSet)) {
+			parkRangeService.delParkRangeByUserId(uitd.getId());
+			parkRangeService.addParkRange(uitd.getId(), parkSet, uitd.getUpdateBy());
+		}
 		roleResourceService.saveUserRoleResource(uitd, roleSet, resourceSet, uitd.getUpdateBy());
 	}
 
