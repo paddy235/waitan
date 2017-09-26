@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -104,12 +105,12 @@ public class PrivateFundServiceImpl implements PrivateFundService {
     }
 
     @Override
-    public List<InvestmentReturnStatisticDO> investmentReturn() {
+    public LinkedList<InvestmentReturnStatisticDO> investmentReturn() {
         return investmentReturnStatisticMapper.selectAll();
     }
 
     @Override
-    public List<InvestmentStatisticDO> investmentAmount() {
+    public LinkedList<InvestmentStatisticDO> investmentAmount() {
         return investmentStatisticMapper.selectAll();
     }
 

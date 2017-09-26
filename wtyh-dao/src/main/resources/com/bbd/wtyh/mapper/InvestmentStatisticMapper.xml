@@ -21,11 +21,14 @@
     </select>
 
     <select id="selectAll" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/>
+        FROM (
         select
         <include refid="Base_Column_List"/>
         from investment_statistic
-        ORDER BY `year`
+        ORDER BY `year` DESC
         LIMIT 10
+        )AS a ORDER BY `year` ASC
     </select>
 
 </mapper>
