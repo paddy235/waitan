@@ -295,12 +295,24 @@
         UPDATE building SET `name`=#{name}, update_date=SYSDATE(),update_by=#{updateBy} WHERE building_id=#{buildingId}
     </update>
 
-    <select id="queryCountByParkName" parameterType="java.lang.String" resultType="int">
-        SELECT COUNT(1) FROM park WHERE `name`=#{parkName}
+    <select id="queryCountByParkName" parameterType="java.util.Map" resultType="int">
+        SELECT COUNT(1) FROM park
+        <where>
+            `name`=#{parkName}
+            <if test="parkId != null and parkId != ''">
+                AND park_id=#{parkId}
+            </if>
+        </where>
     </select>
 
     <select id="queryCountByBuildingName" parameterType="java.lang.String" resultType="int">
-        SELECT COUNT(1) FROM building WHERE `name`=#{buildingName}
+        SELECT COUNT(1) FROM building
+        <where>
+            `name`=#{buildingName}
+            <if test="buildingId != null and buildingId != ''">
+                AND building_id=#{buildingId}
+            </if>
+        </where>
     </select>
 
 </mapper>
