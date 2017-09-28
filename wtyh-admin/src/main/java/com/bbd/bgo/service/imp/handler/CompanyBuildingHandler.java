@@ -96,7 +96,7 @@ public class CompanyBuildingHandler extends AbstractImportHandler<CompanyBuildin
         }
         String key = companyId + "_" + buildingId;
         if (checkRepeatMap.containsKey(key)) {
-            addError("关联关系【" + companyName + "+" + buildingName + "】在上传的文件中有重复，请检查");
+            addError("关联关系【" + companyName + "+" + buildingName + "】在文件中有重复，请检查");
             return false;
         }
         checkRepeatMap.put(key, 1);

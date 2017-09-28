@@ -24,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -45,6 +46,7 @@ public class BatchModifyHandler extends AbstractImportHandler<CoBatchModifyDTO> 
     private List<ModifyData> modifyDataList = new ArrayList<>();
     private List<CompanyDO> updateList = new ArrayList<>();
     private List<CompanyDO> insertList = new ArrayList<>();
+    private Map<String, Integer> checkRepeatMap = new HashMap<>();
 
     @Override
     public void start(HttpServletRequest request) throws Exception {
@@ -71,6 +73,11 @@ public class BatchModifyHandler extends AbstractImportHandler<CoBatchModifyDTO> 
         convertDigit(typeEnum, row);
 
         String companyName = row.get("companyName");
+        if (checkRepeatMap.containsKey(companyName)) {
+            addError("企业【" + companyName + "】在文件中有重复，请检查");
+            return false;
+        }
+
         String creditCode = row.get("creditCode");
         String organizationCode = row.get("organizationCode");
         CompanyDO companyDO = validateCompanyCode(companyName, typeEnum, creditCode, organizationCode);
