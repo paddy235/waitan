@@ -77,7 +77,7 @@ public class BatchModifyHandler extends AbstractImportHandler<CoBatchModifyDTO> 
             addError("企业【" + companyName + "】在文件中有重复，请检查");
             return false;
         }
-
+        checkRepeatMap.put(companyName, 1);
         String creditCode = row.get("creditCode");
         String organizationCode = row.get("organizationCode");
         CompanyDO companyDO = validateCompanyCode(companyName, typeEnum, creditCode, organizationCode);
