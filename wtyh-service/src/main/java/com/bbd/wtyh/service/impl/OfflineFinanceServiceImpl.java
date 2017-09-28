@@ -602,8 +602,9 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService,TaskServ
                 result.put( "analysisResult", CompanyAnalysisResult.getName(Integer.parseInt(list.get(0).get("riskLevel").toString())) );
             }
 
-            String backgroudString = "";
+            String backgroudString ;
             for (Map map : list) {
+                backgroudString = "";
                 Object obj = map.get("background");
                 if (null == obj) {
                     continue;

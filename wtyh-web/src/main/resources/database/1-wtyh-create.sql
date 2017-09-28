@@ -924,4 +924,36 @@ CREATE TABLE `company_tag` (
 
 /* 20170901  by sun li ming end */
 
+/* 20170927  补充 begin */
+DROP TABLE IF EXISTS `qyxx_baxx`;
+CREATE TABLE `qyxx_baxx` (
+  `baxx_id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) DEFAULT '0',
+  `bbd_dotime` date DEFAULT NULL COMMENT '抓取时间',
+  `bbd_qyxx_id` varchar(40) DEFAULT NULL COMMENT '企业唯一ID',
+  `bbd_uptime` int(11) DEFAULT NULL COMMENT 'uptime',
+  `company_name` varchar(450) DEFAULT NULL COMMENT '名称',
+  `no` varchar(100) DEFAULT NULL COMMENT '序号',
+  `position` varchar(100) DEFAULT NULL COMMENT '职务',
+  `sex` varchar(100) DEFAULT NULL COMMENT '性别',
+  `type` varchar(100) DEFAULT NULL COMMENT '职务类型',
+  `idno` varchar(400) DEFAULT NULL COMMENT '证照号码',
+  `idtype` varchar(400) DEFAULT NULL COMMENT '证照类型',
+  `name` varchar(400) DEFAULT NULL COMMENT '姓名',
+  `name_id` varchar(50) DEFAULT NULL COMMENT '自然人唯一ID',
+  `resume` longtext COMMENT '简历（上市公司）',
+  `salary` varchar(200) DEFAULT NULL COMMENT '薪酬（上市公司）',
+  `asstarting` date DEFAULT NULL COMMENT '任职起始（上市公司）',
+  `task_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`baxx_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='企业备案信息存储表';
+
+DROP TABLE IF EXISTS `subscription_list`;
+CREATE TABLE `subscription_list` (
+  `company_name` varchar(60) NOT NULL,
+  KEY `co_name_index` (`company_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/* 20170927  补充 end */
+
 

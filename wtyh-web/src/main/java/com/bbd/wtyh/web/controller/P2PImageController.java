@@ -106,7 +106,9 @@ public class P2PImageController {
 		if (null != conent && conent.size() != 0) {
 			return ResponseBean.successResponse(conent);
 		} else {
-			return ResponseBean.successResponse(null);
+			Map<String, Object> result = new HashMap<>(1);
+			result.put("total", 0);
+			return ResponseBean.successResponse(result);
 		}
 	}
 

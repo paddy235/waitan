@@ -332,12 +332,20 @@ public class ParkMgtServiceImpl implements ParkMgtService {
     }
 
     @Override
-    public int queryCountByParkName(String parkName) {
-        return parkAndBuildingMgtMapper.queryCountByParkName(parkName);
+    public int queryCountByParkName(String parkId, String parkName) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("parkId", parkId);
+        params.put("parkName", parkName);
+
+        return parkAndBuildingMgtMapper.queryCountByParkName(params);
     }
 
     @Override
-    public int queryCountByBuildingName(String buildingName) {
-        return parkAndBuildingMgtMapper.queryCountByBuildingName(buildingName);
+    public int queryCountByBuildingName(String buildingId, String buildingName) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("buildingId", buildingId);
+        params.put("buildingName", buildingName);
+
+        return parkAndBuildingMgtMapper.queryCountByBuildingName(params);
     }
 }

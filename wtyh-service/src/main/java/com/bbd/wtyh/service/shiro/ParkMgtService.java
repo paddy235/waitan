@@ -190,19 +190,20 @@ public interface ParkMgtService{
     void updateBuilding(BuildingDO buildingDO, ParkDO parkDO, String origParkId) throws Exception;
 
     /**
-     * 根据名称查询园区数量
+     * 根据ID、名称查询园区数量
      *
+     * @param parkId
      * @param parkName
      * @return
      */
-    int queryCountByParkName(String parkName);
+    int queryCountByParkName(String parkId, String parkName);
 
     /**
-     * 根据名称查询楼宇数量
-     *
+     * 根据ID、名称查询楼宇数量
+     *@param buildingId
      * @param buildingName
      * @return
      */
-    int queryCountByBuildingName(String buildingName);
+    int queryCountByBuildingName(String buildingId, String buildingName);
 
 }
