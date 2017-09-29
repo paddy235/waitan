@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<excel key="exchange" name="交易场所">
+<excel key="exchange" name="交易场所-导入模板">
     <sheet name="Sheet1" startRow="8" entity="com.bbd.wtyh.domain.ExchangeCompanyDO"
            importHandler="com.bbd.bgo.service.imp.handler.ExchangeHandler">
 
@@ -10,7 +10,7 @@
                     value-ref="writeExplainForExchange" />
         </rowHeader>
         <columns>
-            <column name="交易场所名称      " code="companyName" dataType="string" required="true" bgColor="#FFFF00"/>
+            <column name="交易场所名称      " code="companyName" dataType="string" length="3,40" required="true" bgColor="#FFFF00"/>
             <column name="设立途径            " code="establishWay" dataType="string" list="企业自行设立,2013年通过清理整联办验收,市政府及市相关主管单位批复设立"/>
             <column name="审批部门    " code="approveDepartment" dataType="string"/>
             <column name="监管部门    " code="superviseDepartment" dataType="string"/>

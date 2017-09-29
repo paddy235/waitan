@@ -93,10 +93,10 @@ public class ExchangeHandler extends AbstractImportHandler<ExchangeCompanyDO> {
         f1.fun("supervise_department", "监管部门" );
         f1.fun("riskLevel", "风险等级" );
         f1.fun("website", "网址" );
-        if( validCntA[0] <1 ) {
+        /*if( validCntA[0] <1 ) {
             addError("选填参数数量不足");
             return false;
-        }
+        }*/
         return true;
     }
 
