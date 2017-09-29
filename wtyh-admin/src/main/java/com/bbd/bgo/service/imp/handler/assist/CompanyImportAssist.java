@@ -27,6 +27,7 @@ public class CompanyImportAssist {
     private Sheet sheet;
     private List< Map.Entry<CompanyDO, BaseDataDO.Results> > insertList =new LinkedList<>();
     private List< Map.Entry<CompanyDO, BaseDataDO.Results> > updateList =new LinkedList<>();
+    private Map<String, String> companyNames =new HashMap(); //用于判断企业名称是否重复
     private CompanyService companyService = ApplicationContextUtil.getBean(CompanyServiceImpl.class);
     private HologramQueryService hologramQueryService = ApplicationContextUtil.getBean(HologramQueryService.class);
     private AreaService areaService = ApplicationContextUtil.getBean(AreaService.class);
@@ -89,6 +90,13 @@ public class CompanyImportAssist {
             if( StringUtils.isBlank( cDo.getName() ) || cDo.getName().length() <3 || cDo.getName().length() >40) {
                 addError(cDo.getId(), "企业名称格式错误");
                 noErr =false;
+            }
+            //验证重复企业名称
+            if( companyNames.containsKey(cDo.getName()) ) {
+                addError(cDo.getId(), "此处企业名称重复与前面有重复");
+                noErr =false;
+            } else {
+                companyNames.put( cDo.getName(), cDo.getName());
             }
             if( cDo.getCompanyType() <0 ) {
                 addError(cDo.getId(), "行业类别填写错误");

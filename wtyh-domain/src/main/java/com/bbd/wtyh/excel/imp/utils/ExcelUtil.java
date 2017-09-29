@@ -244,6 +244,14 @@ public class ExcelUtil {
 			}
 		}); // 构建一级下拉
 
+		// 交易场所
+		mapLevel1.put("交易场所", new HashMap<String, String>() {
+
+			{
+				put("交易场所", "exchange"); // 构建二级下拉
+			}
+		}); // 构建一级下拉
+
 		// 商业保理
 		Map<String, String> mapLevel26 = new HashMap<>();
 		mapLevel1.put("商业保理", mapLevel26);// 构建一级下拉

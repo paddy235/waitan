@@ -42,6 +42,19 @@ public class Clues {
         return writeExplain.toString();
     }
 
+
+    public static String writeExplainForExchange () {
+        StringBuilder writeExplain = new StringBuilder();
+        writeExplain.append("填写说明（请仔细阅读）：\r\n");
+        writeExplain.append("1.本表格不可填写Excel公式；\r\n");
+        writeExplain.append("2.交易场所名称必填，不能超过40个汉字；\r\n");
+        writeExplain.append("3.数据来源必填，金融办导入时填写金融办；\r\n");
+        writeExplain.append("4.设立途径、审批部门、监管部门、风险等级选填；\r\n");
+        writeExplain.append("5.设立途径只能选择“企业自行设立”、“2013年通过清理整联办验收”、“市政府及市相关主管单位批复设立”；\r\n");
+        writeExplain.append("6.风险等级只能选择“一般关注”、“已出风险”、“正常”、“重点关注”。");
+        return writeExplain.toString();
+    }
+
     /**
      * 风险状态范围限制。适用于小额贷款、融资担保之外的风险状态
      * 

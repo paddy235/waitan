@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<excel key="exchange" name="交易场所">
+    <sheet name="Sheet1" startRow="8" entity="com.bbd.wtyh.domain.ExchangeCompanyDO"
+           importHandler="com.bbd.bgo.service.imp.handler.ExchangeHandler">
+
+        <property name="writeExplainForExchange" value-ref="com.bbd.bgo.service.imp.handler.company.modify.Clues.writeExplainForExchange"/>
+        <rowHeader>
+            <column mergeFirstRow="1" mergeLastRow="6" mergeFirstCol="1" mergeLastCol="7" align="LEFT"
+                    value-ref="writeExplainForExchange" />
+        </rowHeader>
+        <columns>
+            <column name="交易场所名称      " code="companyName" dataType="string" required="true" bgColor="#FFFF00"/>
+            <column name="设立途径            " code="establishWay" dataType="string" list="企业自行设立,2013年通过清理整联办验收,市政府及市相关主管单位批复设立"/>
+            <column name="审批部门    " code="approveDepartment" dataType="string"/>
+            <column name="监管部门    " code="superviseDepartment" dataType="string"/>
+            <column name="风险等级  " code="riskLevel" dataType="string" list="一般关注,已出风险,正常,重点关注"/>
+            <column name="网址                    " code="website" dataType="string"  regex="^http://([\w-]+\.)+[\w-]+(/[\w-./?%&amp;=]*)?$" />
+            <column name="数据来源（填“金融办”或“BBD”）" code="dataSrc" dataType="string" required="true" bgColor="#FFFF00" list="金融办,BBD"/>
+        </columns>
+
+    </sheet>
+</excel>
