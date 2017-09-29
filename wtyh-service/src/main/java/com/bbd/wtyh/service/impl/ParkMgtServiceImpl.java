@@ -154,8 +154,9 @@ public class ParkMgtServiceImpl implements ParkMgtService {
     @Transactional(rollbackFor = Exception.class)
     public void delParkById(String parkId) throws Exception {
         try {
-            parkAndBuildingMgtMapper.delCompanyBuildingByParkId(parkId);
-            parkAndBuildingMgtMapper.delBuildingByParkId(parkId);
+            // TODO 这里要想清楚
+            // parkAndBuildingMgtMapper.delCompanyBuildingByParkId(parkId);
+            // parkAndBuildingMgtMapper.delBuildingByParkId(parkId);
             parkAndBuildingMgtMapper.delParkById(parkId);
 
             pabRelationService.delPABRelationByParkId(Integer.parseInt(parkId));
@@ -169,12 +170,18 @@ public class ParkMgtServiceImpl implements ParkMgtService {
     @Transactional(rollbackFor = Exception.class)
     public void delBuildingById(List<String> buildingId) throws Exception {
         try {
-            parkAndBuildingMgtMapper.delCompanyByBuildingId(buildingId);
-            parkAndBuildingMgtMapper.delBuildingById(buildingId);
-
             if (ListUtil.isNotEmpty(buildingId)) {
                 buildingId.forEach((String id) -> {
-                    pabRelationService.delPABRelationByBuildingId(Integer.parseInt(id));
+                    String pid = id.substring(0, id.indexOf("_"));
+                    String bid = id.substring(id.indexOf("_") + 1);
+                    // TODO 这里必须识别删除哪个园区下的楼宇，建议参数样例：23_133,23_155
+                    // parkAndBuildingMgtMapper.delCompanyByBuildingId(buildingId);
+                    // parkAndBuildingMgtMapper.delBuildingById(buildingId);
+
+                    Map<String, Object> params = new HashMap<>();
+                    params.put("parkId", pid);
+                    params.put("buildingId", bid);
+                    pabRelationService.delPABRelation(params);
                 });
             }
         } catch (Exception e) {
@@ -325,12 +332,20 @@ public class ParkMgtServiceImpl implements ParkMgtService {
     }
 
     @Override
-    public int queryCountByParkName(String parkName) {
-        return parkAndBuildingMgtMapper.queryCountByParkName(parkName);
+    public int queryCountByParkName(String parkId, String parkName) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("parkId", parkId);
+        params.put("parkName", parkName);
+
+        return parkAndBuildingMgtMapper.queryCountByParkName(params);
     }
 
     @Override
-    public int queryCountByBuildingName(String buildingName) {
-        return parkAndBuildingMgtMapper.queryCountByBuildingName(buildingName);
+    public int queryCountByBuildingName(String buildingId, String buildingName) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("buildingId", buildingId);
+        params.put("buildingName", buildingName);
+
+        return parkAndBuildingMgtMapper.queryCountByBuildingName(params);
     }
 }

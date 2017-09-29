@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -151,14 +152,14 @@ public class PrivateFundController {
 
 	@RequestMapping("investmentReturn.do")
 	public ResponseBean investmentReturn() {
-		List<InvestmentReturnStatisticDO> statisticList = privateFundService.investmentReturn();
+		LinkedList<InvestmentReturnStatisticDO> statisticList = privateFundService.investmentReturn();
 		return ResponseBean.successResponse(statisticList);
 
 	}
 
 	@RequestMapping("investmentAmount.do")
 	public ResponseBean investmentAmount() {
-		List<InvestmentStatisticDO> list = privateFundService.investmentAmount();
+		LinkedList<InvestmentStatisticDO> list = privateFundService.investmentAmount();
 
 		for (InvestmentStatisticDO irs : list) {
 			// 从万元转换单位为亿元

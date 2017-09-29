@@ -89,6 +89,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService, TaskService {
         }
         // Map<String, List> relationMap =
         // relatedCompanyService.queryRelation(companyName, dataVersion, 1);
+        companyName = companyName.replaceAll(" ", ""); // 数据中发现尾巴上有空格的数据-By Barney 2017-09-28
         RelationDiagramVO relationDiagramVO = offlinefinanceservice.queryRealRealation(companyName,null, 1);
         List<RelationDiagramVO.PointVO> pointList = relationDiagramVO.getPointList();
         if (org.apache.commons.collections.CollectionUtils.isEmpty(pointList)) {

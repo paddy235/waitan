@@ -15,18 +15,15 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
- * 园区管理-楼宇企业列表
- * Created by zhaodonghjun on 2017/7/26 0026.
+ * 园区管理-楼宇企业列表 Created by zhaodonghjun on 2017/7/26 0026.
  */
 @Component
 @Scope("prototype") //非单例模式
 public class CompanyBuildingHandler extends AbstractImportHandler<CompanyBuildingDO> {
+
     @Autowired
     private ParkMgtService parkMgtService;
     @Autowired
@@ -34,10 +31,11 @@ public class CompanyBuildingHandler extends AbstractImportHandler<CompanyBuildin
 
     private List<CompanyBuildingDO> listCompanyBuinding = null;
 
+    private Map<String, Integer> checkRepeatMap = new HashMap<>();
+
     private Logger log = LoggerFactory.getLogger(CompanyBuildingHandler.class);
 
     String loginName = "";
-
     Date sqlDate = null;
 
     @Autowired
@@ -46,10 +44,10 @@ public class CompanyBuildingHandler extends AbstractImportHandler<CompanyBuildin
 
     @Override
     public void start(HttpServletRequest request) throws Exception {
-        sqlDate = new java.sql.Date(new Date().getTime());
+        sqlDate = new Date();
         loginName = (String) request.getSession().getAttribute(Constants.SESSION.loginName);
-        if( null ==loginName ) {
-            loginName ="";
+        if (null == loginName) {
+            loginName = "";
         }
         //Object ob= request.getHeaderNames();
         log.info("开始检查 楼宇企业列表");
@@ -68,37 +66,43 @@ public class CompanyBuildingHandler extends AbstractImportHandler<CompanyBuildin
         String parkName = row.get("parkName");
 
         int parkId = parkMgtService.queryParkIdByName(parkName);
-        if(parkId == 0){
+        if (parkId == 0) {
             addError("园区不存在");
             return false;
         }
 
-        int buildingId = parkMgtService.queryBuildingIdByName(parkId,buildingName);
-        if(buildingId == 0){
+        int buildingId = parkMgtService.queryBuildingIdByName(parkId, buildingName);
+        if (buildingId == 0) {
             addError("楼宇不存在");
             return false;
         }
 
         //既不能存在于company_building中，也不能不存在于company中
         CompanyDO companyDO = companyService.getCompanyByName(companyName);
-        if(null == companyDO){
+        if (null == companyDO) {
             addError("企业不存在于企业信息表");
             return false;
         }
-        Integer companyId  = companyDO.getCompanyId();
+        Integer companyId = companyDO.getCompanyId();
         if (companyId == null || companyId == 0) {
             addError("企业ID不存在于企业信息表");
             return false;
         }
 
-        Integer companyBuildingId = parkMgtService.queryCompanyBuildingId(buildingId+"",companyId+"");
-        if(companyBuildingId != null){
+        Integer companyBuildingId = parkMgtService.queryCompanyBuildingId(buildingId + "", companyId + "");
+        if (companyBuildingId != null) {
             addError("企业已存在于该楼宇");
             return false;
         }
+        String key = companyId + "_" + buildingId;
+        if (checkRepeatMap.containsKey(key)) {
+            addError("关联关系【" + companyName + "+" + buildingName + "】在文件中有重复，请检查");
+            return false;
+        }
+        checkRepeatMap.put(key, 1);
 
-        row.put("buildingId",buildingId + "");
-        row.put("companyId",companyId + "");
+        row.put("buildingId", buildingId + "");
+        row.put("companyId", companyId + "");
         return true;
     }
 
@@ -115,7 +119,7 @@ public class CompanyBuildingHandler extends AbstractImportHandler<CompanyBuildin
         if (errorList().isEmpty()) {
             baseService.insertList(listCompanyBuinding);
             log.info("导入楼宇企业列表结束");
-        }else{
+        } else {
             log.info("导入楼宇企业列表失败，数据有误");
         }
     }

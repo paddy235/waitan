@@ -6,6 +6,7 @@ import com.bbd.wtyh.domain.dto.PrivateFundCompanyDTO;
 import com.bbd.wtyh.web.EasyExportExcel.ExportCondition;
 import com.bbd.wtyh.web.PageBean;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -38,9 +39,9 @@ public interface PrivateFundService {
 
     List<CapitalAmountDO> capitalAmount();
 
-    List<InvestmentReturnStatisticDO> investmentReturn();
+    LinkedList<InvestmentReturnStatisticDO> investmentReturn();
 
-    List<InvestmentStatisticDO> investmentAmount();
+    LinkedList<InvestmentStatisticDO> investmentAmount();
 
     List<PrivateFundCompanyDTO> privateFundExtraList(Integer orderByField, String descAsc, Integer recordStatus);
 

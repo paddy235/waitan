@@ -163,6 +163,12 @@ public class ParkMgtController {
     @LogRecord(logMsg = "修改园区：%s", params = {"parkName"}, page = Operation.Page.PARK_BUILDING_MANAGE,
             type = Operation.Type.modify, after = true, before = false)
     public ResponseBean updPark(String updateBy, String areaId, String parkId, String name) {
+        int count = parkMgtService.queryCountByParkName(null, name);
+        if (count >= 1) {
+            count = parkMgtService.queryCountByParkName(parkId, name);
+            if (count == 0)
+                return ResponseBean.errorResponse("该园区已存在");
+        }
         ParkDO parkDO = new ParkDO();
         parkDO.setUpdateBy(updateBy);
         parkDO.setAreaId(StringUtils.isEmpty(areaId) ? 0 : Integer.parseInt(areaId));
@@ -178,6 +184,12 @@ public class ParkMgtController {
     @LogRecord(logMsg = "修改楼宇：%s", params = {"name"}, page = Operation.Page.PARK_BUILDING_MANAGE, type = Operation.Type.modify, after = true, before = false)
     public ResponseBean updateBuilding(BuildingDO buildingDO, ParkDO parkDO, String parkName, String origParkId) {
         try {
+            int count = parkMgtService.queryCountByBuildingName(null, buildingDO.getName());
+            if (count >= 1) {
+                count = parkMgtService.queryCountByBuildingName(String.valueOf(buildingDO.getBuildingId()), buildingDO.getName());
+                if (count == 0)
+                    return ResponseBean.errorResponse("该楼宇已存在");
+            }
             parkDO.setName(parkName);
             parkMgtService.updateBuilding(buildingDO, parkDO, origParkId);
         } catch (Exception e) {
@@ -260,7 +272,7 @@ public class ParkMgtController {
             type = Operation.Type.add, after = true, before = false)
     public ResponseBean addPark(HttpServletRequest request, String name,@RequestParam(required = false) String areaId) {
         // 新增之前先查询该园区是否存在
-        int count = parkMgtService.queryCountByParkName(name);
+        int count = parkMgtService.queryCountByParkName(null, name);
         if (count >= 1) {
             return ResponseBean.errorResponse("该园区已存在");
         }
@@ -297,7 +309,7 @@ public class ParkMgtController {
             building.setCreateBy(createBy);
         }
         // 新增之前先查询该楼宇是否存在
-        int count = parkMgtService.queryCountByBuildingName(building.getName());
+        int count = parkMgtService.queryCountByBuildingName(null, building.getName());
         if (count >= 1) {
             if (StringUtils.isEmpty(parkName))
                 return  ResponseBean.errorResponse("请选择园区！");

@@ -2,10 +2,10 @@ package com.bbd.wtyh.mapper;
 
 import com.bbd.wtyh.domain.InvestmentReturnStatisticDO;
 
-import java.util.List;
+import java.util.LinkedList;
 
 public interface InvestmentReturnStatisticMapper {
     InvestmentReturnStatisticDO selectByPrimaryKey(Integer year);
 
-    List<InvestmentReturnStatisticDO> selectAll();
+    LinkedList<InvestmentReturnStatisticDO> selectAll();
 }
