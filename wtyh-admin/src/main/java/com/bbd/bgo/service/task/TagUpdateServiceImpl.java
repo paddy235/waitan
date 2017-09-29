@@ -31,7 +31,7 @@ import java.util.concurrent.TimeUnit;
  */
 @Service
 public class TagUpdateServiceImpl implements TagUpdateService {
-    private static final Logger logger = LoggerFactory.getLogger(DataLoadingServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(TagUpdateServiceImpl.class);
 
     @Autowired
     @Qualifier(value = "baseServiceImpl")

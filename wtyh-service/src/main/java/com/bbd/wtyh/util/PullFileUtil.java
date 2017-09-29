@@ -55,14 +55,19 @@ public class PullFileUtil {
             logger.debug("--------- pull data file is exists:{}--------", fileName);
             return file;
         }
-
+        InputStream inputStream = null;
+        FileOutputStream outputStream =null;
         try {
-            InputStream inputStream = HttpUtil.get(url, InputStream.class);
+            inputStream = HttpUtil.get(url, InputStream.class);
             FileUtils.forceMkdirParent(file);
-            IOUtils.copyLarge(inputStream, new FileOutputStream(file));
+            outputStream = new FileOutputStream(file);
+            IOUtils.copyLarge(inputStream, outputStream);
         } catch (Exception e) {
             logger.error("--------- pull data file have error ：", e);
             return null;
+        }finally {
+            IOUtils.closeQuietly(outputStream);
+            IOUtils.closeQuietly(inputStream);
         }
 
         logger.debug("--------- pull data file end :{}--------", fileName);
