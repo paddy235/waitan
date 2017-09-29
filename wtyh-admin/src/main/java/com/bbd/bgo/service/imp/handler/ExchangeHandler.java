@@ -208,8 +208,9 @@ public class ExchangeHandler extends AbstractImportHandler<ExchangeCompanyDO> {
                  riskChgCoDo.setOldHaveRisk(isRisk[1]);*/
                  ModifyData modifyData = new ModifyData();
                  modifyData.setName(locCDo.getName());
-                 modifyData.setLevel(locCDo.getRiskLevel().toString());
-                 modifyData.setIndustry(locCDo.getCompanyType().toString());
+
+                 modifyData.setLevel( null ==locCDo.getRiskLevel() ? null : locCDo.getRiskLevel().toString());
+                 modifyData.setIndustry( null ==locCDo.getCompanyType() ? null : locCDo.getCompanyType().toString());
                  String createBy = loginName + "导入交易场所";
                  RiskChgCoDo riskChgCoDo = coRiskChgService.generateNewRecord(modifyData, createBy, RiskChgCoSource.MANUAL_MODIFY);
                  baseService.insert(riskChgCoDo);
