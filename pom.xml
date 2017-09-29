@@ -624,7 +624,7 @@
             <id>product_cd</id>
             <properties>
                 <!-- DB -->
-                <m.jdbc.url>jdbc:mysql://10.28.60.11:53606</m.jdbc.url>
+                <m.jdbc.url>jdbc:mysql://mysql.prod.bbdops.com:53606</m.jdbc.url>
                 <m.jdbc.username>wtyh</m.jdbc.username>
                 <m.jdbc.password>LYjUR6C9tGZxDdO7NC5w</m.jdbc.password>
                 <m.redis.ip>localhost</m.redis.ip>
