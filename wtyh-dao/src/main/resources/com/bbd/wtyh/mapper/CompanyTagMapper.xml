@@ -31,7 +31,15 @@
                     WHEN t2.tag = '外滩融资租赁'
                             THEN 35
                     ELSE 4
-            end ) ,company.update_date= now() where  company.company_type=4 and t2.company_name=company.`name`
+            end ) ,company.update_date= now() where  ifnull(company.company_type,4)=4 and t2.company_name=company.`name`
+    </update>
+
+    <update id="updateTypeWhenTypeIsNullAndHaveOffLine">
+        update  company,(
+        select * from qyxx_tag  where tag = '外滩线下理财企业'
+        )as t2
+        set company.company_type=4,company.update_date= now()
+        where  company.company_type is null and t2.company_name=company.`name`
     </update>
 
     <delete id="deleteAllByQyxxTag">

@@ -53,6 +53,9 @@ public class CompanyTagServiceImpl extends BaseServiceImpl implements CompanyTag
         try{
             LOGGER.info("begin update company type from qyxx_tag ");
             updateCompanyTypeFromQyxxTag();
+
+            updateTypeWhenTypeIsNullAndHaveOffLine();
+
             LOGGER.info("end  update company type from qyxx_tag ");
         }catch (Exception e){
             LOGGER.error("update company type from qyxx_tag error : ",e );
@@ -140,6 +143,14 @@ public class CompanyTagServiceImpl extends BaseServiceImpl implements CompanyTag
 
         companyTagMapper.updateCompanyTypeFromQyxxTag();
     }
+
+    @Override
+    public void updateTypeWhenTypeIsNullAndHaveOffLine() {
+
+        companyTagMapper.updateTypeWhenTypeIsNullAndHaveOffLine();
+    }
+
+
 
     private void transAndSaveTag(Pagination pagination){
         List<CompanyTagDO> list = companyTagMapper.selectFromQyxxTag(pagination);
