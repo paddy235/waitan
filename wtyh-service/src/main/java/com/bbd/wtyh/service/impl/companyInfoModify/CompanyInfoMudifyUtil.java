@@ -146,6 +146,10 @@ public class CompanyInfoMudifyUtil extends BaseServiceImpl {
         // 修改company的行业类型
         riskCompanyService.modifyIndustry(recordInfo.getName(), String.valueOf(recordInfo.getAfterIndustry()));
 
+        if (recordInfo.getBeforeIndustry() == null) {
+            return;
+        }
+
         // 线下理财
         if (CompanyInfo.TYPE_XXLC_4 == recordInfo.getBeforeIndustry()) {
             // delete index_data
@@ -186,6 +190,9 @@ public class CompanyInfoMudifyUtil extends BaseServiceImpl {
         }
         // 修改company的行业类型
         riskCompanyService.modifyIndustry(recordInfo.getName(), String.valueOf(recordInfo.getAfterIndustry()));
+        if (recordInfo.getBeforeIndustry() == null) {
+            return;
+        }
 
         // 线下理财
         if (CompanyInfo.TYPE_XXLC_4 == recordInfo.getBeforeIndustry()) {
@@ -425,6 +432,11 @@ public class CompanyInfoMudifyUtil extends BaseServiceImpl {
      * @param modifyData
      */
     public void modifyBizInsurance2Ohter(ModifyData modifyData) throws Exception {
+        RecordInfo recordInfo = modifyRiskLevel(modifyData, null, null);// 修改行业
+        modifyIndustry(recordInfo);
+    }
+
+    public void null2Ohter(ModifyData modifyData) throws Exception {
         RecordInfo recordInfo = modifyRiskLevel(modifyData, null, null);// 修改行业
         modifyIndustry(recordInfo);
     }
