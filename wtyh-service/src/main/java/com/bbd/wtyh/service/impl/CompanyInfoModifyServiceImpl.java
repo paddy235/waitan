@@ -45,7 +45,10 @@ public class CompanyInfoModifyServiceImpl implements CompanyInfoModifyService {
         if (companyInfo == null) {
             return null;
         }
-        byte industry = companyInfoModifyMapper.queryCompany(name).getIndustry();
+        Byte industry = companyInfo.getIndustry();
+        if (industry == null) {
+            return companyInfo;
+        }
 
         switch (industry) {
 
@@ -110,9 +113,17 @@ public class CompanyInfoModifyServiceImpl implements CompanyInfoModifyService {
 
         RiskChgCoDo data = coRiskChgService.generateNewRecord(modifyData, modifyBy, RiskChgCoSource.MANUAL_MODIFY);
 
-        byte industry = companyInfoModifyMapper.queryCompany(modifyData.getName()).getIndustry();
+        Byte industry = companyInfoModifyMapper.queryCompany(modifyData.getName()).getIndustry();
+
+        if (industry == null) {
+            industry = -1;
+        }
 
         switch (industry) {
+
+        case -1:
+            companyInfoMudifyUtil.null2Ohter(modifyData);
+            break;
 
         case CompanyInfo.TYPE_P2P_1:// 网络借贷
             companyInfoMudifyUtil.modifyWangdai2Other(modifyData);
