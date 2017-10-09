@@ -615,10 +615,10 @@ public class PToPMonitorServiceImpl implements PToPMonitorService, TaskService {
                 break;
             }
             PlatRankDataDO platRankDataDO = new PlatRankDataDO();
-            platRankDataDO.setAmount(dto.getAmount());
+            platRankDataDO.setAmount(dto.getAmount()==null?0:dto.getAmount());
             platRankDataDO.setAreaId(dto.getArea_id());
-            platRankDataDO.setIncomeRate(dto.getIncome_rate());
-            platRankDataDO.setLoanPeriod(dto.getLoan_period());
+            platRankDataDO.setIncomeRate(dto.getIncome_rate()==null?0:dto.getIncome_rate());
+            platRankDataDO.setLoanPeriod(dto.getLoan_period()==null?0:dto.getLoan_period());
             platRankDataDO.setPlatName(dto.getPlat_name());
             WangdaiModify wangdaiModify = platRankDataMapper.getWangdaiModify(dto.getPlat_name());
             if (wangdaiModify != null) {
@@ -629,7 +629,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService, TaskService {
             }
             platRankDataDO.setRank(dto.getRank());
             platRankDataDO.setRegisteredAddress(dto.getRegistered_address());
-            platRankDataDO.setStayStillOfTotal(dto.getStay_still_of_total());
+            platRankDataDO.setStayStillOfTotal(dto.getStay_still_of_total()==null?0:dto.getStay_still_of_total());
             platRankDataDO.setCreateBy("system");
             platRankDataDO.setCreateDate(new Date());
             // platRankDataMapper.deleteByPlatName(dto.getPlat_name());
