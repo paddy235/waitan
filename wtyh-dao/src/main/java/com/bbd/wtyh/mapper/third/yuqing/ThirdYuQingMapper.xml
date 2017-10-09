@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bbd.wtyh.mapper.third.yuqing.ThirdYuQingMapper">
+
+    <select id="findImportRecord" resultType="com.bbd.wtyh.domain.third.yuqing.ImportRecordDO">
+        SELECT * FROM third_yuqing_imp_record
+        <where>
+            <if test="param.fileName != null and param.fileName.length() > 0">
+                file_name LIKE CONCAT(CONCAT('%', #{param.fileName}),'%')
+            </if>
+            <if test="param.startDate != null and param.startDate.length() > 0">
+                AND create_date >= STR_TO_DATE(#{param.startDate}, '%Y-%m-%d %H:%i:%s')
+            </if>
+            <if test="param.endDate != null and param.endDate.length() > 0">
+                AND STR_TO_DATE(#{param.endDate}, '%Y-%m-%d %H:%i:%s') >= create_date
+            </if>
+        </where>
+    </select>
+</mapper>

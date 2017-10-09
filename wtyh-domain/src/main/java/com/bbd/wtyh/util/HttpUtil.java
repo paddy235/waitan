@@ -30,8 +30,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * wtyh
- *
+ * http 工具。<br>
+ * 
+ * 参数addProxy表示是否添加代理，默认添加代理。
+ * 
  * @author Created by LiYao on 2017-07-12 14:52.
  */
 public class HttpUtil {
@@ -41,101 +43,173 @@ public class HttpUtil {
     private static final String PROXY_ENV_NAME = "http_proxy";
 
     public static String post(String url) throws Exception {
-        return post(url, null, null, 0);
+        return post(url, true);
+    }
+
+    public static String post(String url, boolean addProxy) throws Exception {
+        return post(url, null, null, addProxy, 0);
     }
 
     public static String post(String url, Map<String, Object> params) throws Exception {
-        return post(url, null, params, 0);
+        return post(url, params, true);
+    }
+
+    public static String post(String url, Map<String, Object> params, boolean addProxy) throws Exception {
+        return post(url, null, params, addProxy, 0);
     }
 
     public static String post(String url, Map<String, Object> params, int timeoutSecond) throws Exception {
-        return post(url, null, params, timeoutSecond);
+        return post(url, params, true, timeoutSecond);
+    }
+
+    public static String post(String url, Map<String, Object> params, boolean addProxy, int timeoutSecond) throws Exception {
+        return post(url, null, params, addProxy, timeoutSecond);
     }
 
     public static String post(String url, Map<String, String> header, Map<String, Object> params) throws Exception {
-        return post(url, header, params, 0);
+        return post(url, header, params, true);
     }
 
-    public static String post(String url, Map<String, String> header, Map<String, Object> params, int timeoutSecond) throws Exception {
-        return post(url, header, params, timeoutSecond, String.class);
+    public static String post(String url, Map<String, String> header, Map<String, Object> params, boolean addProxy) throws Exception {
+        return post(url, header, params, addProxy, 0);
+    }
+
+    public static String post(String url, Map<String, String> header, Map<String, Object> params, boolean addProxy, int timeoutSecond)
+            throws Exception {
+        return post(url, header, params, addProxy, timeoutSecond, String.class);
     }
 
     public static <T> T post(String url, Class<T> clazz) throws Exception {
-        return post(url, null, null, 0, clazz);
+        return post(url, true, clazz);
+    }
+
+    public static <T> T post(String url, boolean addProxy, Class<T> clazz) throws Exception {
+        return post(url, null, null, addProxy, 0, clazz);
     }
 
     public static <T> T post(String url, Map<String, Object> params, Class<T> clazz) throws Exception {
-        return post(url, null, params, 0, clazz);
+        return post(url, params, true, clazz);
+    }
+
+    public static <T> T post(String url, Map<String, Object> params, boolean addProxy, Class<T> clazz) throws Exception {
+        return post(url, null, params, addProxy, 0, clazz);
     }
 
     public static <T> T post(String url, Map<String, Object> params, int timeoutSecond, Class<T> clazz) throws Exception {
-        return post(url, null, params, timeoutSecond, clazz);
+        return post(url, params, true, timeoutSecond, clazz);
+    }
+
+    public static <T> T post(String url, Map<String, Object> params, boolean addProxy, int timeoutSecond, Class<T> clazz) throws Exception {
+        return post(url, null, params, addProxy, timeoutSecond, clazz);
     }
 
     public static <T> T post(String url, Map<String, String> header, Map<String, Object> params, Class<T> clazz) throws Exception {
-        return post(url, header, params, 0, clazz);
+        return post(url, header, params, true, clazz);
     }
 
-    public static <T> T post(String url, Map<String, String> header, Map<String, Object> params, int timeoutSecond, Class<T> clazz)
+    public static <T> T post(String url, Map<String, String> header, Map<String, Object> params, boolean addProxy, Class<T> clazz)
             throws Exception {
-        return httpRequest(url, "post", header, params, timeoutSecond, clazz);
+        return post(url, header, params, addProxy, 0, clazz);
+    }
+
+    public static <T> T post(String url, Map<String, String> header, Map<String, Object> params, boolean addProxy, int timeoutSecond,
+            Class<T> clazz) throws Exception {
+        return httpRequest(url, "post", header, params, addProxy, timeoutSecond, clazz);
     }
 
     /********************************************************
      * get
      ********************************************************/
     public static String get(String url) throws Exception {
-        return get(url, null, null, 0);
+        return get(url, true);
+    }
+
+    public static String get(String url, boolean addProxy) throws Exception {
+        return get(url, null, null, addProxy, 0);
     }
 
     public static String get(String url, Map<String, Object> params) throws Exception {
-        return get(url, null, params, 0);
+        return get(url, params, true);
+    }
+
+    public static String get(String url, Map<String, Object> params, boolean addProxy) throws Exception {
+        return get(url, null, params, addProxy, 0);
     }
 
     public static String get(String url, Map<String, Object> params, int timeoutSecond) throws Exception {
-        return get(url, null, params, timeoutSecond);
+        return get(url, params, true, timeoutSecond);
+    }
+
+    public static String get(String url, Map<String, Object> params, boolean addProxy, int timeoutSecond) throws Exception {
+        return get(url, null, params, addProxy, timeoutSecond);
     }
 
     public static String get(String url, Map<String, String> header, Map<String, Object> params) throws Exception {
-        return get(url, header, params, 0);
+        return get(url, header, params, true);
     }
 
-    public static String get(String url, Map<String, String> header, Map<String, Object> params, int timeoutSecond) throws Exception {
-        return get(url, header, params, timeoutSecond, String.class);
+    public static String get(String url, Map<String, String> header, Map<String, Object> params, boolean addProxy) throws Exception {
+        return get(url, header, params, addProxy, 0);
+    }
+
+    public static String get(String url, Map<String, String> header, Map<String, Object> params, boolean addProxy, int timeoutSecond)
+            throws Exception {
+        return get(url, header, params, addProxy, timeoutSecond, String.class);
     }
 
     public static <T> T get(String url, Class<T> clazz) throws Exception {
-        return get(url, null, null, 0, clazz);
+        return get(url, true, clazz);
+    }
+
+    public static <T> T get(String url, boolean addProxy, Class<T> clazz) throws Exception {
+        return get(url, null, null, addProxy, 0, clazz);
     }
 
     public static <T> T get(String url, int timeoutSecond, Class<T> clazz) throws Exception {
-        return get(url, null, null, timeoutSecond, clazz);
+        return get(url, true, timeoutSecond, clazz);
+    }
+
+    public static <T> T get(String url, boolean addProxy, int timeoutSecond, Class<T> clazz) throws Exception {
+        return get(url, null, null, addProxy, timeoutSecond, clazz);
     }
 
     public static <T> T get(String url, Map<String, Object> params, Class<T> clazz) throws Exception {
-        return get(url, null, params, 0, clazz);
+        return get(url, params, true, clazz);
+    }
+
+    public static <T> T get(String url, Map<String, Object> params, boolean addProxy, Class<T> clazz) throws Exception {
+        return get(url, null, params, addProxy, 0, clazz);
     }
 
     public static <T> T get(String url, Map<String, Object> params, int timeoutSecond, Class<T> clazz) throws Exception {
-        return get(url, null, params, timeoutSecond, clazz);
+        return get(url, params, true, timeoutSecond, clazz);
+    }
+
+    public static <T> T get(String url, Map<String, Object> params, boolean addProxy, int timeoutSecond, Class<T> clazz) throws Exception {
+        return get(url, null, params, addProxy, timeoutSecond, clazz);
     }
 
     public static <T> T get(String url, Map<String, String> header, Map<String, Object> params, Class<T> clazz) throws Exception {
-        return get(url, header, params, 0, clazz);
+        return get(url, header, params, true, clazz);
     }
 
-    public static <T> T get(String url, Map<String, String> header, Map<String, Object> params, int timeoutSecond, Class<T> clazz)
+    public static <T> T get(String url, Map<String, String> header, Map<String, Object> params, boolean addProxy, Class<T> clazz)
             throws Exception {
-        return httpRequest(url, "get", header, params, timeoutSecond, clazz);
+        return get(url, header, params, addProxy, 0, clazz);
     }
 
-    private static <T> T httpRequest(String url, String method, Map<String, String> header, Map<String, Object> params, int timeoutSecond,
+    public static <T> T get(String url, Map<String, String> header, Map<String, Object> params, boolean addProxy, int timeoutSecond,
             Class<T> clazz) throws Exception {
+        return httpRequest(url, "get", header, params, addProxy, timeoutSecond, clazz);
+    }
+
+    private static <T> T httpRequest(String url, String method, Map<String, String> header, Map<String, Object> params, boolean addProxy,
+            int timeoutSecond, Class<T> clazz) throws Exception {
         CloseableHttpClient closeableHttpClient = null;
         CloseableHttpResponse httpResponse = null;
         try {
             // 创建 HttpClient
-            closeableHttpClient = createHttpClient(url, true);
+            closeableHttpClient = createHttpClient(url, addProxy);
 
             HttpRequestBase httpRequest = createHttpRequest(url, method, params);
             if (httpRequest == null) {
