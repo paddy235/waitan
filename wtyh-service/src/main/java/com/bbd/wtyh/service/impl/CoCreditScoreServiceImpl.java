@@ -9,6 +9,7 @@ import com.bbd.wtyh.constants.TaskState;
 import com.bbd.wtyh.core.base.BaseServiceImpl;
 import com.bbd.wtyh.domain.*;
 import com.bbd.wtyh.domain.credit.CompanyCreditFailInfoDO;
+import com.bbd.wtyh.domain.dto.CompanyCreditRawInfoDTO;
 import com.bbd.wtyh.domain.dto.CreditInfoDTO;
 import com.bbd.wtyh.domain.dto.CreditRiskDataDTO;
 import com.bbd.wtyh.mapper.*;
@@ -386,6 +387,18 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 				LOGGER.error("getCreditInfo:" + e);
 			}
 		}
+		return list;
+	}
+
+	@Override
+	public List<CompanyCreditRawInfoDTO> getCreditInfoByCompanyAndType(String companyName, String dataType, PageBean pageBean) {
+
+		List<CompanyCreditRawInfoDTO> list;
+		if(null != pageBean){
+			pageBean.setTotalCount(companyCreditMapper.countCreditInfoByCompanyAndType(companyName, dataType));
+		}
+		list = companyCreditMapper.getCreditInfoByCompanyAndType(companyName, dataType, pageBean);
+
 		return list;
 	}
 

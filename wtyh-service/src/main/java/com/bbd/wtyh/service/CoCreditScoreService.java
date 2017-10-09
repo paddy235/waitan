@@ -3,6 +3,7 @@ package com.bbd.wtyh.service;
 import com.bbd.wtyh.domain.TaskFailInfoDO;
 import com.bbd.wtyh.domain.TaskResultDO;
 import com.bbd.wtyh.domain.credit.CompanyCreditFailInfoDO;
+import com.bbd.wtyh.domain.dto.CompanyCreditRawInfoDTO;
 import com.bbd.wtyh.domain.dto.CreditInfoDTO;
 import com.bbd.wtyh.domain.dto.CreditRiskDataDTO;
 import com.bbd.wtyh.web.PageBean;
@@ -38,6 +39,8 @@ public interface CoCreditScoreService {
 	List<TaskFailInfoDO> getCreditFailInfoByTaskId(Integer taskId);
 
 	List<CreditInfoDTO> getCreditInfo(String companyName, String dataType, PageBean pageBean);
+
+	List<CompanyCreditRawInfoDTO> getCreditInfoByCompanyAndType(String companyName, String dataType, PageBean pageBean);
 
 	List<CreditRiskDataDTO> getResourceCounts(Integer companyId ,String companyName);
 }

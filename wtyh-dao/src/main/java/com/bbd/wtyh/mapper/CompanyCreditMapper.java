@@ -3,6 +3,7 @@ package com.bbd.wtyh.mapper;
 import com.bbd.wtyh.domain.CompanyCreditDataItemsDO;
 import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.TaskFailInfoDO;
+import com.bbd.wtyh.domain.dto.CompanyCreditRawInfoDTO;
 import com.bbd.wtyh.domain.dto.CreditInfoDTO;
 import com.bbd.wtyh.domain.dto.CreditRiskDataDTO;
 import com.bbd.wtyh.web.PageBean;
@@ -46,6 +47,13 @@ public interface CompanyCreditMapper {
 
 	List<CreditRiskDataDTO> getResourceCounts(@Param("companyId") Integer companyId,
 											  @Param("companyName") String companyName);
+
+
+	List<CompanyCreditRawInfoDTO> getCreditInfoByCompanyAndType(@Param("companyName") String companyName,
+																@Param("dataType") String dataType,
+																@Param(value = "pagination")PageBean pagination);
+
+	long countCreditInfoByCompanyAndType(@Param("companyName") String companyName, @Param("dataType") String dataType);
 
 
 

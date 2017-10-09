@@ -29,11 +29,19 @@ public interface CompanyTagService {
 
     /**
      * 更新company中的company_type
-     * 更新条件：company中原本就是线下理财类型，qyxx_tag中该企业只有一种标签（非外滩线下理财企业）
+     * 更新条件：company中原本就是线下理财类型或者是空，qyxx_tag中该企业只有一种标签（非外滩线下理财企业）
      *
      * @throws Exception
      */
     void updateCompanyTypeFromQyxxTag();
+
+    /**
+     * 更新company中的company_type
+     * 更新条件：company中类型是空，qyxx_tag中包含该企业的一个线下理财标签
+     *
+     * @throws Exception
+     */
+    void updateTypeWhenTypeIsNullAndHaveOffLine();
 
 
 }

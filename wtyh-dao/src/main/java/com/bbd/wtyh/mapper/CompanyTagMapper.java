@@ -35,7 +35,11 @@ public interface CompanyTagMapper {
     int countCompanyHaveMoreTagExceptOfflineType();
     List<CompanyDO> queryCompanyHaveMoreTagExceptOfflineType(@Param("pagination") Pagination pagination);
 
-    //更新company中的company_type
+    //更新company中的company_type,company的type is null 或者 是线下理财 且当TAG仅有一个标签且不是线下理财
     void updateCompanyTypeFromQyxxTag();
+    //更新company中的company_type,company的type is null 且包含外滩线下理财企业标签
+    void updateTypeWhenTypeIsNullAndHaveOffLine();
+
+
 
 }

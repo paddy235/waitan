@@ -137,6 +137,30 @@
 		</if>
 	</select>
 
+	<select id="getCreditInfoByCompanyAndType" parameterType="String" resultType="com.bbd.wtyh.domain.dto.CompanyCreditRawInfoDTO">
+		select
+		xxssdw,
+		xxlb,
+		content
+		from company_credit_raw_info
+		where
+		company_name = #{companyName}
+		AND resource_name = #{dataType}
+		order by id
+		<if test="pagination!=null" >
+			LIMIT #{pagination.offset}, #{pagination.pageSize}
+		</if>
+	</select>
+
+	<select id="countCreditInfoByCompanyAndType" parameterType="String" resultType="long">
+		select
+		count(*)
+		from company_credit_raw_info
+		where
+		 company_name = #{companyName}
+		 AND resource_name = #{dataType}
+	</select>
+
 	<select id="getCreditDataItems" parameterType="String" resultType="com.bbd.wtyh.domain.CompanyCreditDataItemsDO">
 		select
 		 id,
