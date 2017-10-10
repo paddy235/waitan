@@ -38,8 +38,8 @@ public class ImportRecordDO extends BaseDO {
 
     /** 舆情时间 */
     @Column(name = "yuqing_time")
-    @JsonFormat(pattern = "YYYY-MM-dd HH:mm:ss", timezone = "GMT+8")
-    @JSONField(format = "YYYY-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "YYYY-MM-dd", timezone = "GMT+8")
+    @JSONField(format = "YYYY-MM-dd")
     private Date yuqingTime;
 
     @Column(name = "imp_state")
