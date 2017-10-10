@@ -129,11 +129,6 @@ public class BatchModifyHandler extends AbstractImportHandler<CoBatchModifyDTO> 
         // 用户填写的组织机构代码是否为空
         boolean userOrganizationCodeIsBlank = StringUtils.isBlank(organizationCode);
 
-        if (userCreditCodeIsBlank && userOrganizationCodeIsBlank) {
-            addError("统一社会信用代码和组织结构代码，至少填写一个。");
-            return null;
-        }
-
         List<CompanyDO> companyList = companyService.selectAll(CompanyDO.class, "name = ?", companyName);
         // 无该公司名称对应的数据，需要新增
         if (CollectionUtils.isEmpty(companyList)) {
