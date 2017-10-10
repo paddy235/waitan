@@ -15,5 +15,13 @@
                 AND STR_TO_DATE(#{param.endDate}, '%Y-%m-%d %H:%i:%s') >= create_date
             </if>
         </where>
+
+        <if test="param.orderBy == 'DESC'">
+            ORDER BY yuqing_time DESC
+        </if>
+        <if test="param.orderBy == 'ASC'">
+            ORDER BY yuqing_time ASC
+        </if>
+
     </select>
 </mapper>

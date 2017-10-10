@@ -9,7 +9,6 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- *
  * Created by Marco on 2016/8/5 0005.
  */
 @SuppressWarnings("serial")

@@ -1,9 +1,8 @@
 package com.bbd.wtyh.web.controller;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
 import java.util.Base64;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -44,7 +44,38 @@ public class ThirdYuQingController {
     @RequestMapping("/record-list")
     @ResponseBody
     public Object findImportRecord() {
-        return ResponseBean.successResponse(thirdYuQingService.findImportRecord(null, null, null));
+        return ResponseBean.successResponse(thirdYuQingService.findImportRecord(new HashMap<>(1)));
+    }
+
+    @RequestMapping("/preview/{name:.*.pdf}")
+    public void preview(@PathVariable String name, @RequestParam Integer recordId, HttpServletRequest request,
+            HttpServletResponse response) {
+
+        response.setContentType("application/pdf;charset=utf-8");
+        File file = new File(ThirdYuQingService.FILE_PATH + recordId + name);
+        if (!file.exists()) {
+            ImportRecordDO recordDO = new ImportRecordDO();
+            recordDO.setId(recordId);
+            recordDO.setFileName(name);
+            try (OutputStream out = response.getOutputStream()) {
+                byte[] bytes = getFileFromAdmin(recordDO, request, response);
+                out.write(bytes);
+                out.flush();
+            } catch (Exception e) {
+                logger.error("预览文件【{}{}】失败：", recordId, name, e);
+            }
+            return;
+        }
+
+        try (InputStream input = new FileInputStream(file); OutputStream out = response.getOutputStream()) {
+            int i;
+            while ((i = input.read()) != -1) {
+                out.write(i);
+            }
+            out.flush();
+        } catch (Exception e) {
+            logger.error("预览文件【{}{}】失败：", recordId, name, e);
+        }
     }
 
     @RequestMapping("/download")
@@ -96,8 +127,7 @@ public class ThirdYuQingController {
             byte[] bytes = thirdYuQingService.download(recordDO);
 
             if (bytes == null || bytes.length <= 0) {
-                getFileFromAdmin(recordDO, request, response);
-                return;
+                bytes = getFileFromAdmin(recordDO, request, response);
             }
             responseWriteFile(bytes, fileName, request, response);
         } catch (Exception e) {
@@ -105,20 +135,20 @@ public class ThirdYuQingController {
         }
     }
 
-    private void getFileFromAdmin(ImportRecordDO recordDO, HttpServletRequest request, HttpServletResponse response) throws Exception {
+    private byte[] getFileFromAdmin(ImportRecordDO recordDO, HttpServletRequest request, HttpServletResponse response) throws Exception {
         String url = adminServerIp + "/third-yuqing/download.do?isWeb=true&recordId=" + recordDO.getId();
         ResponseBean responseBean = HttpUtil.get(url, false, ResponseBean.class);
         if (!responseBean.isSuccess()) {
             responseWriteString(JSON.toJSONString(responseBean).getBytes(), response);
-            return;
+            return new byte[0];
         }
         byte[] bytes = Base64.getDecoder().decode(responseBean.getContent().toString());
         String fileName = responseBean.getMsg().toString();
 
         try (ByteArrayInputStream input = new ByteArrayInputStream(bytes)) {
-            thirdYuQingService.saveYuQingFile(recordDO.getId(), fileName, input);
+            thirdYuQingService.saveYuQingFile(recordDO, input);
         }
-        responseWriteFile(bytes, fileName, request, response);
+        return bytes;
     }
 
 }

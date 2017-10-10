@@ -15,5 +15,5 @@ import java.util.Map;
 @ResultIntercept
 public interface ThirdYuQingMapper {
 
-    List<ImportRecordDO> findImportRecord(@Param("param") Map<String, Object> param);
+    List<ImportRecordDO> findImportRecord(@Param("param") Map<String, String> param);
 }

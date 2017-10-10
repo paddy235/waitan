@@ -2,7 +2,9 @@ package com.bbd.bgo.web.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.bbd.wtyh.common.Constants;
+import com.bbd.wtyh.core.utils.ParamUtil;
 import com.bbd.wtyh.domain.third.yuqing.ImportRecordDO;
+import com.bbd.wtyh.excel.imp.constants.ImpRecord;
 import com.bbd.wtyh.exception.ExceptionHandler;
 import com.bbd.wtyh.service.third.yuqing.ThirdYuQingService;
 import com.bbd.wtyh.web.ResponseBean;
@@ -20,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.util.Base64;
 import java.util.Date;
+import java.util.Map;
 
 /**
  * 第三方舆情，后台接口
@@ -36,17 +39,28 @@ public class ThirdYuQingController {
     @Autowired
     private ThirdYuQingService thirdYuQingService;
 
+    @RequestMapping("/source-list")
+    @ResponseBody
+    public Object sourceList(HttpServletRequest request) {
+        return ResponseBean.successResponse(thirdYuQingService.allSource());
+    }
+
     @RequestMapping("/record-list")
     @ResponseBody
-    public Object findImportRecord(String fileName, String startDate, String endDate) {
-        return ResponseBean.successResponse(thirdYuQingService.findImportRecord(fileName, startDate, endDate));
+    public Object findImportRecord(HttpServletRequest request) {
+        Map<String, String> param = ParamUtil.getRequestParamMap(request);
+        return ResponseBean.successResponse(thirdYuQingService.findImportRecord(param));
     }
 
     @RequestMapping("/upload")
     @ResponseBody
-    public ResponseBean upload(@RequestParam("file") CommonsMultipartFile multipartFile, Date yuqingTime, HttpServletRequest request) {
+    public ResponseBean upload(@RequestParam("file") CommonsMultipartFile multipartFile, Date yuqingTime, Integer source,
+            HttpServletRequest request) {
 
         String originalFilename = multipartFile.getOriginalFilename();
+        if (originalFilename.toUpperCase().endsWith(".PDF")) {
+            return ResponseBean.errorResponse(originalFilename + "不是PDF文件，请重新选择");
+        }
 
         String createBy = "";
         Object obj = request.getSession().getAttribute(Constants.SESSION.loginName);
@@ -54,18 +68,23 @@ public class ThirdYuQingController {
             createBy = obj.toString();
         }
 
+        ImportRecordDO recordDO = this.thirdYuQingService.createImpRecord(originalFilename, yuqingTime, multipartFile.getSize(), createBy,
+                source);
         try (InputStream input = multipartFile.getInputStream()) {
-            thirdYuQingService.upload(originalFilename, yuqingTime, createBy, multipartFile.getSize(), input);
+            this.thirdYuQingService.saveYuQingFile(recordDO, input);
         } catch (Exception e) {
             logger.error("导入第三方舆情文件服务器异常：", e);
+            thirdYuQingService.modifyStateAndRemark(recordDO.getId(), ImpRecord.FAIL, "服务器异常");
             return ExceptionHandler.handlerException(e);
         }
+        thirdYuQingService.modifyStateAndRemark(recordDO.getId(), ImpRecord.OK, null);
         return ResponseBean.successResponse("导入成功");
     }
 
     @RequestMapping("/modify")
     @ResponseBody
-    public ResponseBean modify(@RequestParam Integer recordId, @RequestParam Date yuqingTime, HttpServletRequest request) {
+    public ResponseBean modify(@RequestParam Integer recordId, @RequestParam Date yuqingTime, @RequestParam Integer source,
+            HttpServletRequest request) {
         String updateBy = "";
         Object obj = request.getSession().getAttribute(Constants.SESSION.loginName);
         if (obj != null) {
@@ -74,6 +93,7 @@ public class ThirdYuQingController {
         ImportRecordDO recordDO = new ImportRecordDO();
         recordDO.setId(recordId);
         recordDO.setYuqingTime(yuqingTime);
+        recordDO.setSource(source);
         recordDO.setUpdateBy(updateBy);
         recordDO.setUpdateDate(new Date());
         thirdYuQingService.update(recordDO);

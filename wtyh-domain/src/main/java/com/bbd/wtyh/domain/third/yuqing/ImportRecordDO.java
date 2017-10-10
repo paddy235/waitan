@@ -2,6 +2,8 @@ package com.bbd.wtyh.domain.third.yuqing;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.bbd.wtyh.domain.BaseDO;
+import com.bbd.wtyh.excel.imp.constants.ImpRecord;
+import com.bbd.wtyh.excel.imp.utils.FileUtil;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.Id;
@@ -40,13 +42,29 @@ public class ImportRecordDO extends BaseDO {
     @JSONField(format = "YYYY-MM-dd HH:mm:ss")
     private Date yuqingTime;
 
+    @Column(name = "imp_state")
+    private Integer impState;
+    @Column
+    private Integer source;
+    @Column
+    private String remark;
+
+    public String getImpStateDesc() {
+        return ImpRecord.getRecord(this.getImpState()).desc();
+    }
+
+    public String getFileSizeDesc() {
+        double fileSize = this.getFileSize();
+        return FileUtil.fileSizeDesc(fileSize);
+    }
+
     /**
      * 获取 ID
      *
      * @return id ID
      */
     public Integer getId() {
-        return id;
+        return this.id;
     }
 
     /**
@@ -110,5 +128,29 @@ public class ImportRecordDO extends BaseDO {
      */
     public void setYuqingTime(Date yuqingTime) {
         this.yuqingTime = yuqingTime;
+    }
+
+    public Integer getImpState() {
+        return impState;
+    }
+
+    public void setImpState(Integer impState) {
+        this.impState = impState;
+    }
+
+    public Integer getSource() {
+        return source;
+    }
+
+    public void setSource(Integer source) {
+        this.source = source;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 }

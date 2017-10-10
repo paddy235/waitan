@@ -1,13 +1,19 @@
 package com.bbd.wtyh.service.third.yuqing;
 
+import com.alibaba.fastjson.JSON;
 import com.bbd.wtyh.core.base.BaseServiceImpl;
+import com.bbd.wtyh.domain.SysConfigDo;
 import com.bbd.wtyh.domain.third.yuqing.ImportRecordDO;
+import com.bbd.wtyh.excel.imp.constants.ImpRecord;
 import com.bbd.wtyh.exception.BusinessException;
 import com.bbd.wtyh.mapper.third.yuqing.ThirdYuQingMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.io.*;
 import java.util.Date;
 import java.util.HashMap;
@@ -25,16 +31,41 @@ public class ThirdYuQingServiceImpl extends BaseServiceImpl implements ThirdYuQi
     @Autowired
     private ThirdYuQingMapper thirdYuQingMapper;
 
-    @Override
-    @Transactional(rollbackFor = { Exception.class })
-    public void upload(String originalFilename, Date yuqingTime, String createBy, long fileSize, InputStream input) throws Exception {
-        ImportRecordDO recordDO = this.createImpRecord(originalFilename, yuqingTime, fileSize, createBy);
-        saveYuQingFile(recordDO.getId(), originalFilename, input);
+    @PostConstruct
+    @PreDestroy
+    public void serverShutdown() {
+        executeCUD("UPDATE third_yuqing_imp_record SET imp_state = 4, remark = '服务器关闭，导致中断' WHERE imp_state = 2");
     }
 
     @Override
-    public void saveYuQingFile(Integer recordId, String originalFilename, InputStream input) throws Exception {
-        String fileName = recordId + originalFilename;
+    public ImportRecordDO createImpRecord(String fileName, Date yuqingTime, long fileSize, String createBy, Integer source) {
+        ImportRecordDO recordDO = new ImportRecordDO();
+        recordDO.setFileName(fileName);
+        recordDO.setFileSize(fileSize);
+        recordDO.setCreateBy(createBy);
+        recordDO.setCreateDate(new Date());
+        recordDO.setYuqingTime(yuqingTime);
+        recordDO.setImpState(ImpRecord.ING.state());
+        recordDO.setSource(source);
+        this.insert(recordDO);
+        return recordDO;
+    }
+
+    @Override
+    public void modifyStateAndRemark(Integer recordId, ImpRecord impRecord, String remark) {
+        Assert.notNull(recordId, "recordId - the object argument must be null");
+        Assert.notNull(impRecord, "impRecord - the object argument must be null");
+
+        ImportRecordDO recordDO = new ImportRecordDO();
+        recordDO.setId(recordId);
+        recordDO.setImpState(impRecord.state());
+        recordDO.setRemark(remark);
+        this.update(recordDO);
+    }
+
+    @Override
+    public void saveYuQingFile(ImportRecordDO recordDO, InputStream input) throws Exception {
+        String fileName = recordDO.getId() + recordDO.getFileName();
         File file = new File(FILE_PATH + fileName);
 
         try (OutputStream output = new FileOutputStream(file)) {
@@ -46,11 +77,13 @@ public class ThirdYuQingServiceImpl extends BaseServiceImpl implements ThirdYuQi
     }
 
     @Override
-    public List<ImportRecordDO> findImportRecord(String fileName, String startDate, String endDate) {
-        Map<String, Object> param = new HashMap<>();
-        param.put("fileName", fileName);
-        param.put("startDate", startDate);
-        param.put("endDate", endDate);
+    public List<ImportRecordDO> findImportRecord(Map<String, String> param) {
+        Object orderBy = param.get("orderBy");
+        if (orderBy != null) {
+            param.put("orderBy", orderBy.toString().toLowerCase());
+        } else {
+            param.put("orderBy", "DESC");
+        }
         return thirdYuQingMapper.findImportRecord(param);
     }
 
@@ -84,15 +117,15 @@ public class ThirdYuQingServiceImpl extends BaseServiceImpl implements ThirdYuQi
         file.delete();
     }
 
-    private ImportRecordDO createImpRecord(String originalFilename, Date yuqingTime, long fileSize, String createBy) {
-        ImportRecordDO recordDO = new ImportRecordDO();
-        recordDO.setFileName(originalFilename);
-        recordDO.setFileSize(fileSize);
-        recordDO.setCreateBy(createBy);
-        recordDO.setCreateDate(new Date());
-        recordDO.setYuqingTime(yuqingTime);
-        this.insert(recordDO);
-        return recordDO;
+    @Override
+    public Map<Integer, String> allSource() {
+        SysConfigDo sysConfig = selectOne(SysConfigDo.class,
+                "config_key = 'thirdYuqingSource' AND config_group = 'thirdYuqingSource' LIMIT 1");
+        if (sysConfig == null) {
+            return new HashMap<>(0);
+        }
+        String jsonStr = sysConfig.getValue();
+        return JSON.parseObject(jsonStr, HashMap.class);
     }
 
 }
