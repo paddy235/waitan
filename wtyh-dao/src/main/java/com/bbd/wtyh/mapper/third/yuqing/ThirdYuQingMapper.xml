@@ -14,6 +14,9 @@
             <if test="param.endDate != null and param.endDate.length() > 0">
                 AND STR_TO_DATE(#{param.endDate}, '%Y-%m-%d %H:%i:%s') >= create_date
             </if>
+            <if test="param.source != null and param.source.length() > 0">
+                AND source = CAST(#{param.source} AS UNSIGNED INTEGER)
+            </if>
         </where>
 
         <if test="param.orderBy == 'DESC'">
