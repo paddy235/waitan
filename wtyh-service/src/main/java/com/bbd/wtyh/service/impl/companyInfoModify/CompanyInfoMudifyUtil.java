@@ -313,8 +313,7 @@ public class CompanyInfoMudifyUtil extends BaseServiceImpl {
                 || CompanyType.TYPE_SYBL_10.type().equals(afterIndustry) // 商业保理
                 || CompanyType.TYPE_DD_12.type().equals(afterIndustry)) { // 典当
 
-            // 这几种行业没有风险值，故从别的行业转过来的时候需要将风险值设空
-            clearCompanyRiskLevel(companyInfo.getCompanyId());
+            riskCompanyService.modifyOffLineLevel(recordInfo);
         }
 
         return recordInfo;
