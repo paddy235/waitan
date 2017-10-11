@@ -84,7 +84,7 @@ public class ThirdYuQingServiceImpl extends BaseServiceImpl implements ThirdYuQi
     public List<ImportRecordDO> findImportRecord(Map<String, String> param) {
         Object orderBy = param.get("orderBy");
         if (orderBy != null) {
-            param.put("orderBy", orderBy.toString().toLowerCase());
+            param.put("orderBy", orderBy.toString().toUpperCase());
         } else {
             param.put("orderBy", "DESC");
         }
