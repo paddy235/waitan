@@ -7,6 +7,7 @@ import com.bbd.wtyh.domain.third.yuqing.ImportRecordDO;
 import com.bbd.wtyh.excel.imp.constants.ImpRecord;
 import com.bbd.wtyh.exception.BusinessException;
 import com.bbd.wtyh.mapper.third.yuqing.ThirdYuQingMapper;
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -67,7 +68,8 @@ public class ThirdYuQingServiceImpl extends BaseServiceImpl implements ThirdYuQi
     public void saveYuQingFile(ImportRecordDO recordDO, InputStream input) throws Exception {
         String fileName = recordDO.getId() + recordDO.getFileName();
         File file = new File(FILE_PATH + fileName);
-
+        FileUtils.forceMkdirParent(file);
+        file.createNewFile();
         try (OutputStream output = new FileOutputStream(file)) {
             int i;
             while ((i = input.read()) != -1) {
