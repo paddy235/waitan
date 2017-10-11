@@ -57,7 +57,7 @@ public class CompanyListHandler extends AbstractImportHandler<CompanyDO> {
 
     @Override
     public boolean validateRow(Map<String, String> row) throws Exception {
-        String companyName = row.get("companyName");
+        String companyName = row.get("name");
         if (checkRepeatMap.containsKey(companyName)) {
             addError("企业【" + companyName + "】在文件中有重复，请检查");
             return false;

@@ -122,22 +122,17 @@ public class CompanyImportAssist {
             boolean bCrd =true;
             boolean bRegNo =true; //注册号
             if( null !=cInfo ) { //数据平台有此企业
-                if( StringUtils.isNotEmpty( cDo.getCreditCode() ) && StringUtils.isNotBlank( cInfo.getJbxx().getCredit_code() ) &&
-                        ! cDo.getCreditCode().equals( cInfo.getJbxx().getCredit_code() ) ) {
-                    bCrd =false;
-                }
-                if( StringUtils.isNotEmpty( cDo.getOrganizationCode() ) && StringUtils.isNotBlank( cInfo.getJbxx().getRegno() ) &&
-                        ! cDo.getOrganizationCode().equals( cInfo.getJbxx().getRegno() ) ) {
-                    bRegNo =false;
-                }
-                cDo.setOrganizationCode(null);
-                if (bCrd && bRegNo) { //用数据平台数据验证成功
+//                if( StringUtils.isNotEmpty( cDo.getCreditCode() ) && StringUtils.isNotBlank( cInfo.getJbxx().getCredit_code() ) &&
+//                        ! cDo.getCreditCode().equals( cInfo.getJbxx().getCredit_code() ) ) {
+//                    bCrd =false;
+//                }
+//                if( StringUtils.isNotEmpty( cDo.getOrganizationCode() ) && StringUtils.isNotBlank( cInfo.getJbxx().getRegno() ) &&
+//                        ! cDo.getOrganizationCode().equals( cInfo.getJbxx().getRegno() ) ) {
+//                    bRegNo =false;
+//                }
+//                cDo.setOrganizationCode(null);
+//                if (bCrd && bRegNo) { //用数据平台数据验证成功
                     if ( null ==locCp ) { //数据库中无此企业
-                        if ( StringUtils.isNotBlank( cDo.getCreditCode() ) &&
-                            !(cDo.getCreditCode().matches("^([A-Z]|[0-9]){18}$") ) ) {
-                            addError(cDo.getId(), "统一信用代码格式错误");
-                            continue;
-                        }
                         //按新增处理
                         addDataToList( true, cDo, null, cInfo );
                     } else { //有
@@ -146,24 +141,25 @@ public class CompanyImportAssist {
                             addDataToList(false, cDo, locCp, cInfo);
                         }
                     }
-                } else { //验证失败
-                    if( onlyAppend && null ==locCp ) {
-                        StringBuilder sb =new StringBuilder("企业名称和");
-                        if ( !bCrd ) {
-                            sb.append("统一信用代码");
-                        }
-                        if ( !bCrd && !bRegNo ) {
-                            sb.append("、");
-                        }
-                        if ( !bRegNo ) {
-                            sb.append("注册号");
-                        }
-                        sb.append("不匹配！");
-                        addError(cDo.getId(), sb.toString());
-                    }
-                }
+//                }
+//                else { //验证失败
+//                    if( onlyAppend && null ==locCp ) {
+//                        StringBuilder sb =new StringBuilder("企业名称和");
+//                        if ( !bCrd ) {
+//                            sb.append("统一信用代码");
+//                        }
+//                        if ( !bCrd && !bRegNo ) {
+//                            sb.append("、");
+//                        }
+//                        if ( !bRegNo ) {
+//                            sb.append("注册号");
+//                        }
+//                        sb.append("不匹配！");
+//                        addError(cDo.getId(), sb.toString());
+//                    }
+//                }
             } else { //数据平台无此企业
-                cDo.setOrganizationCode(null);
+//                cDo.setOrganizationCode(null);
                 Map.Entry<CompanyDO, BaseDataDO.Results> me =new AbstractMap.SimpleEntry<>( cDo, null );
                 if ( null ==locCp ) { //数据库中无此企业
                     //产品确认说按新增处理
@@ -212,25 +208,8 @@ public class CompanyImportAssist {
                     break;
                 }
             }
-            boolean bCrd =true;
-            boolean bRegNo =true; //注册号
             if( null !=cInfo ) { //数据平台有此企业
-                if( StringUtils.isNotEmpty( cDo.getCreditCode() ) && StringUtils.isNotBlank( cInfo.getJbxx().getCredit_code() ) &&
-                        ! cDo.getCreditCode().equals( cInfo.getJbxx().getCredit_code() ) ) {
-                    bCrd =false;
-                }
-                if( StringUtils.isNotEmpty( cDo.getOrganizationCode() ) && StringUtils.isNotBlank( cInfo.getJbxx().getRegno() ) &&
-                        ! cDo.getOrganizationCode().equals( cInfo.getJbxx().getRegno() ) ) {
-                    bRegNo =false;
-                }
-                cDo.setOrganizationCode(null);
-                if (bCrd && bRegNo) { //用数据平台数据验证成功
                     if ( null ==locCp ) { //数据库中无此企业
-                        if ( StringUtils.isNotBlank( cDo.getCreditCode() ) &&
-                                !(cDo.getCreditCode().matches("^([A-Z]|[0-9]){18}$") ) ) {
-                            addError(cDo.getId(), "统一信用代码格式错误");
-                            continue;
-                        }
                         //按新增处理
                         addDataToList( true, cDo, null, cInfo );
                     } else { //有
@@ -239,24 +218,8 @@ public class CompanyImportAssist {
                             addDataToList(false, cDo, locCp, cInfo);
                         }
                     }
-                } else { //验证失败
-                    if( onlyAppend && null ==locCp ) {
-                        StringBuilder sb =new StringBuilder("企业名称和");
-                        if ( !bCrd ) {
-                            sb.append("统一信用代码");
-                        }
-                        if ( !bCrd && !bRegNo ) {
-                            sb.append("、");
-                        }
-                        if ( !bRegNo ) {
-                            sb.append("注册号");
-                        }
-                        sb.append("不匹配！");
-                        addError(cDo.getId(), sb.toString());
-                    }
-                }
             } else { //数据平台无此企业
-                cDo.setOrganizationCode(null);
+//                cDo.setOrganizationCode(null);
                 Map.Entry<CompanyDO, BaseDataDO.Results> me =new AbstractMap.SimpleEntry<>( cDo, null );
                 if ( null ==locCp ) { //数据库中无此企业
                     //产品确认说按新增处理
@@ -283,15 +246,16 @@ public class CompanyImportAssist {
             insertList.add(me);
             impCp.setNeo(true);
             impCp.setCompanyId(null);
+            //只有客户没有填写统一信用代码时，才使用BBD数据平台的统一信用代码
+            if( StringUtils.isBlank( impCp.getCreditCode() ) && StringUtils.isNotBlank( bddRst.getJbxx().getCredit_code() ) ) {
+                impCp.setCreditCode(bddRst.getJbxx().getCredit_code());
+            }
         } else {
             updateList.add(me);
             impCp.setNeo(false);
             impCp.setCompanyId(locCp.getCompanyId());
             impCp.setOldCompanyType( locCp.getCompanyType() );//供天王使用
             impCp.setAnalysisResult( locCp.getRiskLevel() ); //供东均使用
-        }
-        if( StringUtils.isNotBlank( bddRst.getJbxx().getCredit_code() ) ) {
-            impCp.setCreditCode(bddRst.getJbxx().getCredit_code());
         }
         if( StringUtils.isNotBlank( bddRst.getJbxx().getCompany_gis_lon() ) ) {
             impCp.setLongitude(new Double(bddRst.getJbxx().getCompany_gis_lon()));
