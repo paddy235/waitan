@@ -28,6 +28,8 @@ public interface ThirdYuQingService extends BaseService {
 
     void delete(Integer recordId) throws Exception;
 
+    void batchDelete(String recordIds)throws Exception;
+
     ImportRecordDO createImpRecord(String fileName, Date yuqingTime, long fileSize, String createBy, Integer source);
 
     void modifyStateAndRemark(Integer recordId, ImpRecord impRecord, String remark);

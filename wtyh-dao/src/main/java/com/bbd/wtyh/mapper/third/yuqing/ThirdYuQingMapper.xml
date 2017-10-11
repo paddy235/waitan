@@ -19,10 +19,10 @@
             </if>
         </where>
 
-        <if test="param.orderBy == 'DESC'">
+        <if test='param.orderBy == "DESC"'>
             ORDER BY yuqing_time DESC
         </if>
-        <if test="param.orderBy == 'ASC'">
+        <if test='param.orderBy == "ASC"'>
             ORDER BY yuqing_time ASC
         </if>
 

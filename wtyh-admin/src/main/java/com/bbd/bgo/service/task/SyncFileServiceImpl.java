@@ -83,14 +83,15 @@ public class SyncFileServiceImpl extends BaseServiceImpl implements SyncFileServ
 	@Override
 	public TaskResultDO rePullFile(Integer oldTaskId, Integer newTaskId) {
 		logger.info("--- offline data handle begin ---");
-		TaskResultDO taskResult = null;
+		String dataVersion = null;
+		TaskResultDO taskResult = new TaskResultDO(0,0,0);
 		try {
 			List<TaskFailInfoDO> taskFailList = taskFailInfoMapper.getTaskFailInfoByTaskId(oldTaskId);
 			if (CollectionUtils.isEmpty(taskFailList)) {
 				return taskResult;
 			}
 			TaskFailInfoDO taskFail = taskFailList.get(0);
-			String dataVersion = taskFail.getDataVersion();
+			dataVersion = taskFail.getDataVersion();
 			File file = pullFile(dataVersion);
 			logger.info("--------- parse data file start -----");
 			taskResult = this.syncDataService.receiveFileData(file);
@@ -102,6 +103,11 @@ public class SyncFileServiceImpl extends BaseServiceImpl implements SyncFileServ
 			logger.info("--------- parse data file end -------");
 
 		} catch (Exception e) {
+			taskRecord(newTaskId, dataVersion);
+			taskResult.setPlanCount(1);
+			taskResult.setSuccessCount(0);
+			taskResult.setFailCount(1);
+			taskResult.setState(TaskState.ERROR);
 			logger.error("处理线下理财风险数据异常。", e);
 		}
 		logger.info("--- offline data handle end ---");

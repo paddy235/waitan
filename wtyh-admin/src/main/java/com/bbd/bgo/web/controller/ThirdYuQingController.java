@@ -100,6 +100,17 @@ public class ThirdYuQingController {
         return ResponseBean.successResponse("修改成功");
     }
 
+    @RequestMapping("/batchDelete")
+    @ResponseBody
+    public ResponseBean batchDelete(@RequestParam String recordIds) {
+        try {
+            thirdYuQingService.batchDelete(recordIds);
+        } catch (Exception e) {
+            return ExceptionHandler.handlerException(e);
+        }
+        return ResponseBean.successResponse("删除成功");
+    }
+
     @RequestMapping("/delete")
     @ResponseBody
     public ResponseBean delete(@RequestParam Integer recordId) {
