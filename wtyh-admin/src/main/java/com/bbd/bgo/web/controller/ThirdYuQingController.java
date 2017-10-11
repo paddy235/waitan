@@ -11,6 +11,7 @@ import com.bbd.wtyh.web.ResponseBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -54,11 +55,11 @@ public class ThirdYuQingController {
 
     @RequestMapping("/upload")
     @ResponseBody
-    public ResponseBean upload(@RequestParam("file") CommonsMultipartFile multipartFile, Date yuqingTime, Integer source,
-            HttpServletRequest request) {
+    public ResponseBean upload(@RequestParam("file") CommonsMultipartFile file, @DateTimeFormat(pattern = "yyyy-MM-dd") Date yuqingTime,
+            Integer source, HttpServletRequest request) {
 
-        String originalFilename = multipartFile.getOriginalFilename();
-        if (originalFilename.toUpperCase().endsWith(".PDF")) {
+        String originalFilename = file.getOriginalFilename();
+        if (!originalFilename.toUpperCase().endsWith(".PDF")) {
             return ResponseBean.errorResponse(originalFilename + "不是PDF文件，请重新选择");
         }
 
@@ -68,9 +69,8 @@ public class ThirdYuQingController {
             createBy = obj.toString();
         }
 
-        ImportRecordDO recordDO = this.thirdYuQingService.createImpRecord(originalFilename, yuqingTime, multipartFile.getSize(), createBy,
-                source);
-        try (InputStream input = multipartFile.getInputStream()) {
+        ImportRecordDO recordDO = this.thirdYuQingService.createImpRecord(originalFilename, yuqingTime, file.getSize(), createBy, source);
+        try (InputStream input = file.getInputStream()) {
             this.thirdYuQingService.saveYuQingFile(recordDO, input);
         } catch (Exception e) {
             logger.error("导入第三方舆情文件服务器异常：", e);
@@ -83,8 +83,8 @@ public class ThirdYuQingController {
 
     @RequestMapping("/modify")
     @ResponseBody
-    public ResponseBean modify(@RequestParam Integer recordId, @RequestParam Date yuqingTime, @RequestParam Integer source,
-            HttpServletRequest request) {
+    public ResponseBean modify(@RequestParam Integer recordId, @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date yuqingTime,
+            @RequestParam Integer source, HttpServletRequest request) {
         String updateBy = "";
         Object obj = request.getSession().getAttribute(Constants.SESSION.loginName);
         if (obj != null) {
