@@ -17,6 +17,9 @@
             <if test="param.source != null and param.source.length() > 0">
                 AND source = CAST(#{param.source} AS UNSIGNED INTEGER)
             </if>
+            <if test="param.impState != null and param.impState.length() > 0">
+                imp_state = #{param.impState}
+            </if>
         </where>
 
         <if test=' param.orderBy == "DESC" '>

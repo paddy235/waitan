@@ -47,6 +47,7 @@ public class CompantTagTest extends BaseServiceImpl {
         param.put("fileName",null);
         param.put("orderBy","ASC");
         param.put("source",null);
+        param.put("impState","");
         List<ImportRecordDO> list= thirdYuQingService.findImportRecord(param);
 
     }
