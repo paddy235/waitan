@@ -86,7 +86,7 @@
 
     <select id="getCreditInfo" parameterType="String" resultType="com.bbd.wtyh.domain.dto.CreditInfoDTO">
         select
-        distinct company_id as companyId,
+        company_id as companyId,
         company_name as name,
 		resource_name as resourceName,
 		content
@@ -116,7 +116,7 @@
 	<select id="countCreditInfo" parameterType="String" resultType="long">
 		select
 		count(
-			distinct company_id
+			*
 		)
 		from company_credit_raw_info
 		where
