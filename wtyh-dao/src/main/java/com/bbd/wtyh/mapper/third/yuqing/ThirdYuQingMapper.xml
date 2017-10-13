@@ -17,12 +17,15 @@
             <if test="param.source != null and param.source.length() > 0">
                 AND source = CAST(#{param.source} AS UNSIGNED INTEGER)
             </if>
+            <if test="param.impState != null and param.impState.length() > 0">
+                AND imp_state = #{param.impState}
+            </if>
         </where>
 
-        <if test="param.orderBy == 'DESC'">
+        <if test='param.orderBy == "DESC"'>
             ORDER BY yuqing_time DESC
         </if>
-        <if test="param.orderBy == 'ASC'">
+        <if test='param.orderBy == "ASC"'>
             ORDER BY yuqing_time ASC
         </if>
 

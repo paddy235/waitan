@@ -4,7 +4,9 @@ package com.bbd.wtyh.test;
 import com.bbd.bgo.service.task.CompanyTagService;
 import com.bbd.bgo.service.task.RealTimeMonitorNewsService;
 import com.bbd.bgo.service.task.TagUpdateService;
+import com.bbd.wtyh.domain.third.yuqing.ImportRecordDO;
 import com.bbd.wtyh.mapper.CompanyTagMapper;
+import com.bbd.wtyh.service.third.yuqing.ThirdYuQingService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -15,6 +17,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 
 import com.bbd.wtyh.core.base.BaseServiceImpl;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2017/4/26 0026.
@@ -33,6 +39,18 @@ public class CompantTagTest extends BaseServiceImpl {
     CompanyTagMapper companyTagMapper;
     @Autowired
     private TagUpdateService tagUpdateService;
+    @Autowired
+    private ThirdYuQingService thirdYuQingService;
+    @Test
+    public void yuQingTest(){
+        Map<String, String> param =  new HashMap<>();
+        param.put("fileName",null);
+        param.put("orderBy","ASC");
+        param.put("source",null);
+        param.put("impState","");
+        List<ImportRecordDO> list= thirdYuQingService.findImportRecord(param);
+
+    }
     @Test
     public void test(){
        /* Integer companyTd=companyTagMapper.getMaxDtFromCompanyTag();

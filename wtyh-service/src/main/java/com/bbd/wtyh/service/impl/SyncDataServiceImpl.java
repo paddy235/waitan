@@ -61,9 +61,10 @@ public class SyncDataServiceImpl extends BaseServiceImpl implements SyncDataServ
 	@Override
 	public TaskResultDO receiveFileData(File file) throws Exception {
 		isShutdown=false;
+		TaskResultDO taskResultDO=new TaskResultDO(0, 0, 0);
 
 		if (file == null) {
-			return null;
+			return taskResultDO;
 		}
 		int totalCount = 0;
 		int successCount = 0;
@@ -96,7 +97,12 @@ public class SyncDataServiceImpl extends BaseServiceImpl implements SyncDataServ
 		dataExecutorService.shutdown();
 		dataExecutorService.awaitTermination(1, TimeUnit.DAYS);
 
-		return new TaskResultDO(totalCount, successCount, failCount);
+		if(failCount>0){
+			taskResultDO.setPlanCount(1);
+			taskResultDO.setSuccessCount(0);
+			taskResultDO.setFailCount(1);
+		}
+		return taskResultDO;
 	}
 
 	private void insertData(String string) {

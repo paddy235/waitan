@@ -408,7 +408,7 @@ public class ParkServiceImpl extends BaseServiceImpl implements ParkService {
 		if (StringUtils.isEmpty(areaId) && StringUtils.isEmpty(userId))
 			params.put("areaId", "-1");
 		else
-			params.put("areaId", areaId);
+			params.put("areaId", "104".equals(areaId) ? "":areaId);
 		if (!StringUtils.isEmpty(userId))
 			params.put("userId", userId);
 		return parkMapper.queryParkList(params);

@@ -7,7 +7,10 @@ import com.bbd.wtyh.domain.third.yuqing.ImportRecordDO;
 import com.bbd.wtyh.excel.imp.constants.ImpRecord;
 import com.bbd.wtyh.exception.BusinessException;
 import com.bbd.wtyh.mapper.third.yuqing.ThirdYuQingMapper;
+import org.apache.commons.collections.MapUtils;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -80,13 +83,27 @@ public class ThirdYuQingServiceImpl extends BaseServiceImpl implements ThirdYuQi
 
     @Override
     public List<ImportRecordDO> findImportRecord(Map<String, String> param) {
+        List<ImportRecordDO>  list;
         Object orderBy = param.get("orderBy");
         if (orderBy != null) {
-            param.put("orderBy", orderBy.toString().toLowerCase());
+            param.put("orderBy", orderBy.toString().toUpperCase());
         } else {
             param.put("orderBy", "DESC");
         }
-        return thirdYuQingMapper.findImportRecord(param);
+
+        list=thirdYuQingMapper.findImportRecord(param);
+
+        Map<Integer, String> map=this.allSource();
+        if(MapUtils.isNotEmpty(map)){
+            for(ImportRecordDO importRecordDO:list){
+                if(null==importRecordDO.getSource()){
+                    continue;
+                }
+                importRecordDO.setSourceDesc(map.get(importRecordDO.getSource()));
+            }
+        }
+
+        return list;
     }
 
     @Override
@@ -117,6 +134,31 @@ public class ThirdYuQingServiceImpl extends BaseServiceImpl implements ThirdYuQi
         this.delete(recordDO);
         File file = new File(FILE_PATH + fileName);
         file.delete();
+    }
+
+    @Override
+    @Transactional(rollbackFor = { Exception.class })
+    public void batchDelete(String recordIds) throws Exception {
+        String[] ids = null;
+        if(StringUtils.isNotBlank(recordIds)){
+            ids=recordIds.split(",");
+        }
+        if(ArrayUtils.isEmpty(ids)){
+            return;
+        }
+
+        for(int i=0;i<ids.length;i++){
+
+            ImportRecordDO recordDO = selectById(ImportRecordDO.class, ids[i]);
+            if (recordDO == null) {
+                throw new BusinessException("记录不存在!");
+            }
+            String fileName = recordDO.getId() + recordDO.getFileName();
+            this.delete(recordDO);
+            File file = new File(FILE_PATH + fileName);
+            file.delete();
+        }
+
     }
 
     @Override

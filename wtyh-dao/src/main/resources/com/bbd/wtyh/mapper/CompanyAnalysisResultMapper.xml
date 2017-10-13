@@ -73,7 +73,7 @@
                         c.risk_level analysisResult ,cfc.platform_name platform
         from company c
         LEFT JOIN company_building cb  on cb.company_id=c.company_id
-        LEFT JOIN crowd_funding_company cfc on c.company_id=cfc.company_id
+        LEFT JOIN platform_name_information cfc on c.company_id=cfc.company_id
         where cb.company_id=c.company_id
               and cb.building_id=#{buildingId}
               and c.company_type not in (7,8)
