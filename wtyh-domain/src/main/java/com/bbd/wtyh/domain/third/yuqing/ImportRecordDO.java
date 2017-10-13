@@ -49,6 +49,8 @@ public class ImportRecordDO extends BaseDO {
     @Column
     private String remark;
 
+    private String sourceDesc;
+
     public String getImpStateDesc() {
         return ImpRecord.getRecord(this.getImpState()).desc();
     }
@@ -152,5 +154,13 @@ public class ImportRecordDO extends BaseDO {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public String getSourceDesc() {
+        return sourceDesc;
+    }
+
+    public void setSourceDesc(String sourceDesc) {
+        this.sourceDesc = sourceDesc;
     }
 }
