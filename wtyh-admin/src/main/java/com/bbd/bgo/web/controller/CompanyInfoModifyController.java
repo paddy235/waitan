@@ -74,8 +74,16 @@ public class CompanyInfoModifyController {
         // "线下理财"
         Map<String, Integer> offLine = JYSCoRiskLevel.getMap();
         rst.put(CompanyInfo.TYPE_XXLC_4, offLine);
+        //  "私募基金"
+        rst.put(CompanyInfo.TYPE_SMJJ_5, offLine);
+        //  "众筹"
+        rst.put(CompanyInfo.TYPE_ZC_6, offLine);
         //  "交易场所"
         rst.put(CompanyInfo.TYPE_JYS_9, offLine);
+        //  "商业保理"
+        rst.put(CompanyInfo.TYPE_SYBL_10, offLine);
+        //  "典当"
+        rst.put(CompanyInfo.TYPE_DD_12, offLine);
         //  "预付卡"
         rst.put(CompanyInfo.TYPE_YFK_11, PrepaidCoRiskLevel.getMap());
         // "融资租赁"
