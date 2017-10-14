@@ -50,7 +50,7 @@ public class RelationController {
             String plat_name = request.getParameter("platName");
             if (plat_name != null) {
                 PlatCoreDataDO platData = p2PImageService.getPlatCoreData(plat_name);
-                companyName = platData == null ? "" : ((platData.getCompanyName() == null) ? "" : platData.getCompanyName());
+                companyName = platData == null ? "" : ((platData.getCompanyName() == null) ? "" : platData.getCompanyName().trim());
             }
             String dataVersion = request.getParameter("dataVersion");
             Integer degree = Integer.valueOf(request.getParameter("degree"));

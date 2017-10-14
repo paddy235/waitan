@@ -79,7 +79,7 @@ public class P2PImageServiceImpl extends BaseServiceImpl implements P2PImageServ
         if (StringUtils.isBlank(platName)) {
             return null;
         }
-        return this.selectOne(PlatCoreDataDO.class, "plat_name = ? ORDER BY create_date DESC LIMIT 1", platName);
+        return this.selectOne(PlatCoreDataDO.class, "plat_name = ? ORDER BY create_date DESC,id DESC LIMIT 1", platName);
     }
 
     public <T extends Number > T objectToBaseNumber (T t, Class tt){
