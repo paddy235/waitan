@@ -630,7 +630,7 @@ public class P2PImageServiceImpl extends BaseServiceImpl implements P2PImageServ
                 platCoreDataDO.setBidNumStayStil(platDataDO.getBid_num_stay_stil());
                 platCoreDataDO.setBorNumStayStil(platDataDO.getBor_num_stay_stil());
                 platCoreDataDO.setPlatDataSixMonth(platDataDO.getPlat_data_six_month().toString().replace("=", ":"));
-                platCoreDataDO.setCompanyName(platDataDO.getCompany_name());
+                platCoreDataDO.setCompanyName(platDataDO.getCompany_name()!=null ? platDataDO.getCompany_name().trim():platDataDO.getCompany_name());
                 platCoreDataDO.setTop10SumAmount(platDataDO.getTop10_sum_amount());
                 platCoreDataDO.setMoneyStock(platDataDO.getMoney_stock());
                 platCoreDataDO.setDay30NetInflow(platDataDO.getDay30_net_inflow());
