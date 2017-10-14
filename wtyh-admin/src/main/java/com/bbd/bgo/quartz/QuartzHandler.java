@@ -252,8 +252,9 @@ public class QuartzHandler extends BaseServiceImpl {
 		if(createBy==null){
 			taskDetail.setCreateBy("system");
 		}
+		logger.info("sunliming:add info 1");
 		this.taskDetailMapper.addTaskSuccessFailInfo(taskDetail);//任务历史表-取得任务ID
-
+		logger.info("sunliming:add info 2");
 		TaskInfoDO taskInfo = this.getTaskInfo(taskName, taskGroup);
         if(null!=taskInfo){
             taskInfo.setStartDate(taskDetail.getBeginDate());

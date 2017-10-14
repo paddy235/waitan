@@ -50,7 +50,7 @@ public class TimingTaskManager {
 	 *  定时任务启动程序
 	 */
 	public void start(TaskInfoDO taskInfo) throws Exception {
-
+		logger.info("sunliming: start");
 		Integer taskId = null;
 		TaskResultDO taskResultDO = null;
 		TaskService taskService;
@@ -65,12 +65,16 @@ public class TimingTaskManager {
 			}
 			Integer runMode = 0;// 运行方式：0 自动执行， 1 手动执行
 			if(1==isShow){
+				logger.info("sunliming: start 2");
 				taskId = TaskUtil.taskStart(taskKey, taskGroup, null, runMode, null, null);
+				logger.info("sunliming: start 3");
 			}
 			//初始化任务，shutdown设置为false
 			taskService.resetTask();
 			//需要传 taskId 给业务接口
+			logger.info("sunliming: start 4");
 			taskResultDO = taskService.autoExecute(taskId,runMode);
+			logger.info("sunliming: start 5");
 		} catch (Exception e) {
 			if(null == taskResultDO){
 				taskResultDO=new TaskResultDO();
