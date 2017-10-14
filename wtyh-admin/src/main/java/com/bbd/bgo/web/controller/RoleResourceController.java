@@ -428,6 +428,8 @@ public class RoleResourceController {
 	@ResponseBody
 	public ResponseBean queryParkList(@RequestParam(required = false) String areaId, @RequestParam(required = false) String userId) {
 		try {
+			//新增修改用户页面-切换区域的时候，下面的园区要联动变化：需要去掉userId 或者 前端不传userId
+			userId=null;
 			List<ParkDO> list =  parkService.queryParkList(areaId, userId);
 			return ResponseBean.successResponse(list);
 		} catch (Exception e) {
