@@ -601,7 +601,7 @@ public class P2PImageServiceImpl extends BaseServiceImpl implements P2PImageServ
         }
         PlatformDO platListDO = new PlatformDO();
         platListDO.setPlatName(dto.getPlat_name());
-        platListDO.setCompanyName(dto.getCompany_name());
+        platListDO.setCompanyName(dto.getCompany_name()!=null?dto.getCompany_name().trim():dto.getCompany_name());
         platListDO.setLogoUrl(dto.getLogo_url());
         platListDO.setAreaId(dto.getArea_id());
         platListDO.setCreateBy("system");
