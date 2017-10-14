@@ -216,7 +216,7 @@ public class P2PImageServiceImpl extends BaseServiceImpl implements P2PImageServ
         if (null == platDataDO) {
             return null;
         }
-        String companyName = platDataDO.getCompanyName();
+        String companyName = platDataDO.getCompanyName()!=null?platDataDO.getCompanyName().trim():platDataDO.getCompanyName();
         /*Long total = platformMapper.countKtgg(companyName);
         if (total == null || total == 0) {
             return p2PImageDao.lawsuitMsg(companyName);
@@ -296,10 +296,15 @@ public class P2PImageServiceImpl extends BaseServiceImpl implements P2PImageServ
     @Override
     public Map<String, Object> baseInfo(String platName) {
         PlatformDO platDataDO = this.getPlatListData(platName);
-        if (null == platDataDO || StringUtils.isBlank(platDataDO.getCompanyName())) {
+
+        if (null == platDataDO) {
             return null;
         }
-        String companyName = platDataDO.getCompanyName();
+        String tempName=platDataDO.getCompanyName()!=null?platDataDO.getCompanyName().trim():platDataDO.getCompanyName();
+        if (StringUtils.isBlank(tempName)) {
+            return null;
+        }
+        String companyName = tempName;
 
         // 组织机构数据
         ZuZhiJiGoudmDO zuZhiJiGoudmDO = p2PImageDao.baseInfoZuZhiJiGou(companyName);
