@@ -4,7 +4,9 @@ package com.bbd.wtyh.test;
 import com.bbd.bgo.service.task.CompanyTagService;
 import com.bbd.bgo.service.task.RealTimeMonitorNewsService;
 import com.bbd.bgo.service.task.TagUpdateService;
+import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.third.yuqing.ImportRecordDO;
+import com.bbd.wtyh.mapper.CompanyMapper;
 import com.bbd.wtyh.mapper.CompanyTagMapper;
 import com.bbd.wtyh.service.third.yuqing.ThirdYuQingService;
 import org.junit.Test;
@@ -18,6 +20,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.bbd.wtyh.core.base.BaseServiceImpl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,6 +44,15 @@ public class CompantTagTest extends BaseServiceImpl {
     private TagUpdateService tagUpdateService;
     @Autowired
     private ThirdYuQingService thirdYuQingService;
+    @Autowired
+    CompanyMapper companyMapper;
+    @Test
+    public void test5(){
+        List<String> names=new ArrayList<>();
+        names.add("上海时鸿投资管理有限公司");
+        List<CompanyDO> list=companyMapper.findCompanyByName(names);
+        System.out.println(list);
+    }
     @Test
     public void yuQingTest(){
         Map<String, String> param =  new HashMap<>();

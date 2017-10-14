@@ -2,6 +2,7 @@ package com.bbd.bgo.service.task;
 
 
 import com.bbd.higgs.utils.http.HttpTemplate;
+import com.bbd.wtyh.constants.TaskState;
 import com.bbd.wtyh.core.base.BaseServiceImpl;
 import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.CompanyInfoModify.CompanyInfo;
@@ -43,6 +44,8 @@ public class PlatUpdateTaskServiceImpl extends BaseServiceImpl implements PlatUp
 	@Autowired
 	private CompanyInfoMudifyUtil companyInfoMudifyUtil;
 
+	private static final String PLAT_LIST = "网贷平台列表(plat_list)";
+
 	private Integer taskId = null;
 
 	private volatile boolean isShutdown = false;//任务停止标志
@@ -82,46 +85,71 @@ public class PlatUpdateTaskServiceImpl extends BaseServiceImpl implements PlatUp
 		Integer dataError = 0;
 		Integer dataTotal = 0;
 		//网贷平台拉取企业数据
-		List<PlatListDO> platList= this.getPlatList();
+		List<PlatListDO> platList = null;
+		try{
+			platList= this.getPlatList();
+		} catch (Exception e) {
+
+			logger.error(e.getMessage(), e);
+
+			TaskFailInfoDO fail = new TaskFailInfoDO();
+			fail.setFailReason("接口调用失败");
+			fail.setFailName(PLAT_LIST);
+			fail.setTaskId(taskId);
+			taskFailInfoMapper.addTaskFailInfo(fail);
+
+			taskResultDO.setPlanCount(1);
+			taskResultDO.setFailCount(1);
+			taskResultDO.setSuccessCount(0);
+			taskResultDO.setState(TaskState.ERROR);
+			return taskResultDO;
+		}
+
 		if(null==platList||platList.size()<1){
+
 			taskResultDO.setPlanCount(dataTotal);
 			taskResultDO.setFailCount(dataError);
 			taskResultDO.setSuccessCount(dataTotal-dataError);
-			return taskResultDO;
 		}
 		dataTotal = platList.size();
 		//根据企业名称获取公司id
 		List<PlatformNameInformationDO> platInfoList = new ArrayList<>();
 		//手动执行
 		if(null!=newTaskId){
+
+			boolean runFlag=true;
+
 			List<TaskFailInfoDO> failList = taskFailInfoMapper.getTaskFailInfoByTaskId(oldTaskId);
-			List<String> failStrList=new ArrayList<>();
-			for(TaskFailInfoDO fail:failList){
-				if (isShutdown) {
-					break;
-				}
-				failStrList.add(fail.getFailName());
-			}
-			List<String> failPlatList=new ArrayList<>();
-			dataTotal = failList.size();
-			Iterator<PlatListDO> it = platList.iterator();
-			while(it.hasNext()){
-				if (isShutdown) {
-					break;
-				}
-				PlatListDO plat = it.next();
-				if(!failStrList.contains(plat.getPlat_name())){
-					it.remove();
+			if(failList!=null && failList.size()==1){
+				TaskFailInfoDO taskFailInfoDO=failList.get(0);
+				if(PLAT_LIST.equals(taskFailInfoDO.getFailName())){
+					runFlag=false;
 				}
 			}
+
+			if(runFlag){
+				List<String> failStrList=new ArrayList<>();
+
+				for(TaskFailInfoDO fail:failList){
+					failStrList.add(fail.getFailName());
+				}
+				dataTotal = failList.size();
+				Iterator<PlatListDO> it = platList.iterator();
+				while(it.hasNext()){
+					if (isShutdown) {
+						break;
+					}
+					PlatListDO plat = it.next();
+					if(!failStrList.contains(plat.getPlat_name())){
+						it.remove();
+
+					}
+				}
+			}
+
 		}
 		this.setCompanyId(platList,platInfoList);
-//		Collections.sort(platInfoList, new Comparator<PlatformNameInformationDO>() {
-//			@Override
-//			public int compare(PlatformNameInformationDO o1, PlatformNameInformationDO o2) {
-//				return o1.getCompanyId()-o2.getCompanyId();
-//			}
-//		});
+
 		Collections.sort(platInfoList,(o1,o2) -> o1.getCompanyId()-o2.getCompanyId());
 		if(null==newTaskId){
 			int delNum = this.executeCUD("delete from platform_name_information");
@@ -236,7 +264,7 @@ public class PlatUpdateTaskServiceImpl extends BaseServiceImpl implements PlatUp
 			return platList;
 		} catch (Exception e) {
 			logger.error("Method getPlatList get Exception." , e.getMessage());
-			return null;
+			throw new RuntimeException(e);
 		}
 	}
 
