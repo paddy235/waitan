@@ -90,7 +90,10 @@ public class ThirdYuQingServiceImpl extends BaseServiceImpl implements ThirdYuQi
         } else {
             param.put("orderBy", "DESC");
         }
-
+        String source=param.get("source");
+        if("0".equals(source)){
+            param.put("source", null);
+        }
         list=thirdYuQingMapper.findImportRecord(param);
 
         Map<Integer, String> map=this.allSource();

@@ -23,6 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.util.Base64;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -43,7 +44,11 @@ public class ThirdYuQingController {
     @RequestMapping("/source-list")
     @ResponseBody
     public Object sourceList(HttpServletRequest request) {
-        return ResponseBean.successResponse(thirdYuQingService.allSource());
+        Map<Integer, String> sourceList = new HashMap<>();
+        sourceList.put(0,"全部");
+        Map<Integer, String> map=thirdYuQingService.allSource();
+        sourceList.putAll(map);
+        return ResponseBean.successResponse(sourceList);
     }
 
     @RequestMapping("/record-list")
