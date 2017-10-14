@@ -177,14 +177,15 @@ public class PlatUpdateTaskServiceImpl extends BaseServiceImpl implements PlatUp
 
 	public void setCompanyId(List<PlatListDO> platList, List<PlatformNameInformationDO> platInfoList){
 		List<String> names = new ArrayList<>();
-		PlatformNameInformationDO platInfo=null;
+		PlatformNameInformationDO platInfo;
 		for(PlatListDO plat:platList){
+		    String platCompanyName=plat.getCompany_name()!=null?plat.getCompany_name().trim():plat.getCompany_name();
 			platInfo=new PlatformNameInformationDO();
-			platInfo.setName(plat.getCompany_name());
+			platInfo.setName(platCompanyName);
 			platInfo.setPlatformName(plat.getPlat_name());
-			if(!names.contains(plat.getCompany_name())){
+			if(!names.contains(platCompanyName)){
 				platInfoList.add(platInfo);
-				names.add(plat.getCompany_name());
+				names.add(platCompanyName);
 			}
 		}
 		List<CompanyDO> comList = companyMapper.findCompanyByName(names);
