@@ -359,6 +359,8 @@ public class WordReportServiceImpl implements WordReportService {
                                         bD = (BigDecimal) obj;
                                     } else if( obj != null && obj instanceof Double ) {
                                         bD =BigDecimal.valueOf((Double)obj);
+                                    } else if( obj != null && obj instanceof Integer ) {
+                                        bD =BigDecimal.valueOf((Integer)obj);
                                     }
                                     bD = bD.divide(BigDecimal.valueOf(dev),
                                             scale, BigDecimal.ROUND_HALF_UP);
