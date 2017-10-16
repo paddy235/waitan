@@ -26,6 +26,19 @@ public class CompanyTagServiceImpl extends BaseServiceImpl implements CompanyTag
 
     @Override
     public void addTagAndCompany() {
+
+        //修改企业类型
+        try{
+            LOGGER.info("begin update company type from qyxx_tag ");
+            updateCompanyTypeFromQyxxTag();
+
+            updateTypeWhenTypeIsNullAndHaveOffLine();
+
+            LOGGER.info("end  update company type from qyxx_tag ");
+        }catch (Exception e){
+            LOGGER.error("update company type from qyxx_tag error : ",e );
+        }
+
         //如果qyxx_tag有最新的版本，则处理
         if(!compareVersion()){
             return;
@@ -49,17 +62,6 @@ public class CompanyTagServiceImpl extends BaseServiceImpl implements CompanyTag
             LOGGER.error("add company from qyxx_tag error : ",e );
         }
 
-        //修改企业类型
-        try{
-            LOGGER.info("begin update company type from qyxx_tag ");
-            updateCompanyTypeFromQyxxTag();
-
-            updateTypeWhenTypeIsNullAndHaveOffLine();
-
-            LOGGER.info("end  update company type from qyxx_tag ");
-        }catch (Exception e){
-            LOGGER.error("update company type from qyxx_tag error : ",e );
-        }
     }
 
     @Override
