@@ -131,3 +131,15 @@ INSERT INTO `company_credit_data_items` VALUES ('185', '民事执行-生效判�
 /* 20170901  by liyao begin */
 UPDATE company SET previous_risk_level = null, risk_level = null WHERE company_type in (2, 3, 11, 13);
 /* 20170901  by liyao end */
+
+/* 20171016  第三方舆情begin */
+
+INSERT INTO `wtyh`.`sys_config` (`config_key`, `config_value`, `config_group`, `description`) VALUES ('thirdYuqingSource', '{1:\"第三方\",2:\"第四方\"}', 'thirdYuqingSource', '第三方舆情来源，JSON格式');
+
+alter table company_modify modify column `beforeOutLevel` varchar(11);
+alter table company_modify modify column `beforeInnnerLevel` varchar(11);
+alter table company_modify modify column `beforeLiveLevel` varchar(11);
+alter table company_modify modify column `afterOutLevel` varchar(11);
+alter table company_modify modify column `afterInnnerLevel` varchar(11);
+alter table company_modify modify column `afterLiveLevel` varchar(11);
+/* 20171016  第三方舆情end */

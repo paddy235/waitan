@@ -956,4 +956,26 @@ CREATE TABLE `subscription_list` (
 
 /* 20170927  补充 end */
 
+/* 20171016  第三方舆情begin */
+
+DROP TABLE IF EXISTS `third_yuqing_imp_record`;
+CREATE TABLE `third_yuqing_imp_record` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `file_name` varchar(100) DEFAULT NULL COMMENT '名称',
+  `file_size` bigint(20) unsigned DEFAULT NULL COMMENT '文件大小（byte）',
+  `imp_state` tinyint(1) unsigned DEFAULT NULL COMMENT '导入状态',
+  `yuqing_time` timestamp NULL DEFAULT NULL COMMENT '舆情时间',
+  `source` tinyint(1) unsigned DEFAULT NULL COMMENT '来源。1：2：',
+  `remark` varchar(50) DEFAULT NULL,
+  `create_by` varchar(25) DEFAULT NULL COMMENT '创建人',
+  `create_date` timestamp NULL DEFAULT NULL COMMENT '创建时间',
+  `update_by` varchar(25) DEFAULT NULL COMMENT '更新人',
+  `update_date` timestamp NULL DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/* 20171016  第三方舆情end */
+
+
+
 
