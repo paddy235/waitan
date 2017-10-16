@@ -86,7 +86,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 				throw new BusinessException("电子信箱地址不合规");
 			}
 		}
-		if (StringUtils.isBlank(uitd.getDepartment()) || !rexCheckUserName(uitd.getDepartment())) {
+		if (StringUtils.isBlank(uitd.getDepartment()) || !rexCheckRealName(uitd.getDepartment())) {
 			throw new BusinessException("部门名称不合规");
 		}
 		if (StringUtils.isBlank(uitd.getAreaCode()) || !rexCheckAreaCode(uitd.getAreaCode())) {
@@ -187,7 +187,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 			if (StringUtils.isBlank(uitd.getDepartment())) {
 				uitd.setDepartment(null); // 不更新部门
 			} else {
-				if (!rexCheckUserName(uitd.getDepartment())) {
+				if (!rexCheckRealName(uitd.getDepartment())) {
 					throw new BusinessException("新指定的部门名称不合规");
 				}
 				updateCount++;
