@@ -38,7 +38,7 @@ public class LoanData {
     @Excel(exportName = "外部评级")
     private String outLevelName;
     @Excel(exportName = "内部评级")
-    private String innnerLevelName;
+    private String innerLevelName;
     @Excel(exportName = "现场检查")
     private String liveLevelName;
 
@@ -142,7 +142,7 @@ public class LoanData {
         this.outLevelName = outLevelName;
     }
 
-    public String getInnnerLevelName() {
+    public String getInnerLevelName() {
 
         String name = null;
 
@@ -158,8 +158,8 @@ public class LoanData {
         return name;
     }
 
-    public void setInnnerLevelName(String innnerLevelName) {
-        this.innnerLevelName = innnerLevelName;
+    public void setInnerLevelName(String innerLevelName) {
+        this.innerLevelName = innerLevelName;
     }
 
     public String getLiveLevelName() {
