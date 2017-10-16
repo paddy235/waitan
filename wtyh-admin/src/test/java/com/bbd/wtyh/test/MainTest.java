@@ -7,6 +7,9 @@ package com.bbd.wtyh.test;
 public class MainTest {
 
     public static void main(String[] args) {
+        String userName="中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中";
+        String regStr = "^.{1,30}$";
+        System.out.println(userName.matches(regStr));
     }
 
 }

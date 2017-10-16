@@ -56,7 +56,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 		if (null != utd) {
 			throw new BusinessException("新创建的登录名已存在");
 		}
-		if (StringUtils.isBlank(uitd.getRealName()) || !rexCheckUserName(uitd.getRealName())) {
+		if (StringUtils.isBlank(uitd.getRealName()) || !rexCheckRealName(uitd.getRealName())) {
 			throw new BusinessException("真实姓名不合规");
 		} else {
 			// uitd.setRealName(CipherUtils.encrypt(uitd.getRealName()));
@@ -176,7 +176,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 			if (StringUtils.isBlank(uitd.getRealName())) {
 				uitd.setRealName(null); // 不更新真实姓名
 			} else {
-				if (!rexCheckUserName(uitd.getRealName())) {
+				if (!rexCheckRealName(uitd.getRealName())) {
 					throw new BusinessException("新指定的真实姓名不合规");
 				} else {
 					//真名不加密了 uitd.setRealName( CipherUtils.encrypt(uitd.getRealName()) );
@@ -681,6 +681,18 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 		// 昵称格式：限30个字符，支持中英文、数字、减号或下划线
 		String regStr = "^[\\u4e00-\\u9fa5_a-zA-Z0-9-]{1,30}$";
 		return userName.matches(regStr);
+	}
+
+	/**
+	 * 验证 真实姓名
+	 *
+	 * @param realName
+	 * @return
+	 */
+	private boolean rexCheckRealName(String realName) {
+		// 昵称格式：限30个字符，支持中英文、数字、减号或下划线
+		String regStr = "^.{1,30}$";
+		return realName.matches(regStr);
 	}
 
 	/**
