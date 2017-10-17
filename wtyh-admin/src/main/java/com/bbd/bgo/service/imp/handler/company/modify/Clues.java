@@ -42,7 +42,7 @@ public class Clues {
     }
 
 
-    public static String writeExplainForExchange () {
+    public static String writeExplainForExchange() {
         StringBuilder writeExplain = new StringBuilder();
         writeExplain.append("填写说明（请仔细阅读）：\r\n");
         writeExplain.append("1.本表格不可填写Excel公式；\r\n");
@@ -56,7 +56,7 @@ public class Clues {
     /**
      * 企业评级-导入模板
      */
-    public static String writeExplainForCompanyLevel () {
+    public static String writeExplainForCompanyLevel() {
         StringBuilder writeExplain = new StringBuilder();
         writeExplain.append("填写说明（请仔细阅读）：\r\n");
         writeExplain.append("1.本表格不可填写Excel公式；企业名称必填，不能超过40个汉字；\r\n");
@@ -68,7 +68,7 @@ public class Clues {
     /**
      * 贷款余额-导入模板
      */
-    public static String writeExplainForLoanBalance () {
+    public static String writeExplainForLoanBalance() {
         StringBuilder writeExplain = new StringBuilder();
         writeExplain.append("填写说明（请仔细阅读）：\r\n");
         writeExplain.append("1.本表格不可填写Excel公式，所有项必填；\r\n");
@@ -78,11 +78,21 @@ public class Clues {
     /**
      * 融资担保-大额被担保人信息列表-导入模板
      */
-    public static String writeExplainForGuaranteedInfo () {
+    public static String writeExplainForGuaranteedInfo() {
         StringBuilder writeExplain = new StringBuilder();
         writeExplain.append("填写说明（请仔细阅读）：\r\n");
         writeExplain.append("1.本表格不可填写Excel公式；\r\n");
         writeExplain.append("2.企业名称必填，不能超过40个汉字。\r\n");
+        return writeExplain.toString();
+    }
+    /**
+     * 小额贷款-大额借款人-导入模板
+     */
+    public static String writeExplainForLoanLargeBorrower() {
+        StringBuilder writeExplain = new StringBuilder();
+        writeExplain.append("填写说明（请仔细阅读）：\r\n");
+        writeExplain.append("1.本表格不可填写Excel公式，公司名称必填，不能超过40个汉字；\r\n");
+        writeExplain.append("2.本表格数据仅用于小额贷款的大额借款人数据分析。\r\n");
         return writeExplain.toString();
     }
 
