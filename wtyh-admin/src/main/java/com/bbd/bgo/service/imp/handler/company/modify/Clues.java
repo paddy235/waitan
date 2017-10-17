@@ -81,8 +81,8 @@ public class Clues {
     public static String writeExplainForGuaranteedInfo () {
         StringBuilder writeExplain = new StringBuilder();
         writeExplain.append("填写说明（请仔细阅读）：\r\n");
-        writeExplain.append("1.本表格不可填写Excel公式，企业名称必填，不能超过40个汉字；\r\n");
-        writeExplain.append("2.本表格仅支持融资担保行业类型信息导入。\r\n");
+        writeExplain.append("1.本表格不可填写Excel公式；\r\n");
+        writeExplain.append("2.企业名称必填，不能超过40个汉字。\r\n");
         return writeExplain.toString();
     }
 
