@@ -7,9 +7,9 @@ package com.bbd.wtyh.test;
 public class MainTest {
 
     public static void main(String[] args) {
-        String userName="中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中";
-        String regStr = "^.{1,30}$";
-        System.out.println(userName.matches(regStr));
+        String userName="上海堃合金融信息服务有限公司";
+
+        System.out.println(userName);
     }
 
 }

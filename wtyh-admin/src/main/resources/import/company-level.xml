@@ -3,11 +3,12 @@
 <excel key="company-level" name="企业评级-导入模板">
 
 
-    <sheet name="Sheet1" startRow="3" entity="com.bbd.wtyh.domain.CompanyLevelDO"
+    <sheet name="Sheet1" startRow="5" entity="com.bbd.wtyh.domain.CompanyLevelDO"
            importHandler="com.bbd.bgo.service.imp.handler.CompanyLevelHandler">
+        <property name="writeExplainForCompanyLevel" value-ref="com.bbd.bgo.service.imp.handler.company.modify.Clues.writeExplainForCompanyLevel"/>
         <rowHeader>
-            <column mergeFirstRow="1" mergeLastRow="1" mergeFirstCol="1" mergeLastCol="4" align="LEFT"
-                    value="填写说明：本表格不可填写Excel公式；企业名称必填，不能超过40个汉字；"/>
+            <column mergeFirstRow="1" mergeLastRow="3" mergeFirstCol="1" mergeLastCol="4" align="LEFT"
+                    value-ref="writeExplainForCompanyLevel"/>
         </rowHeader>
 
         <property name="co_level" value-ref="com.bbd.wtyh.domain.enums.CompanyLevel.allValues"/>

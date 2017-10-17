@@ -53,6 +53,38 @@ public class Clues {
         writeExplain.append("6.风险等级只能选择“一般关注”、“已出风险”、“正常”、“重点关注”。");
         return writeExplain.toString();
     }
+    /**
+     * 企业评级-导入模板
+     */
+    public static String writeExplainForCompanyLevel () {
+        StringBuilder writeExplain = new StringBuilder();
+        writeExplain.append("填写说明（请仔细阅读）：\r\n");
+        writeExplain.append("1.本表格不可填写Excel公式；企业名称必填，不能超过40个汉字；\r\n");
+        writeExplain.append("2.企业评级导入只支持导入融资担保和小额贷款行业类型；\r\n");
+        writeExplain.append("3.外部评级、内部评级、现场检查只能够填写AAA+、AAA、AAA-、AA+、AA、AA-、A+、A、A-、BBB+、BBB、BBB-、BB+、BB、BB-、B+、B、B-、CCC+、CCC、CCC-、CC+、CC、CC-、C+、C、C-、D。\r\n");
+        return writeExplain.toString();
+    }
+
+    /**
+     * 贷款余额-导入模板
+     */
+    public static String writeExplainForLoanBalance () {
+        StringBuilder writeExplain = new StringBuilder();
+        writeExplain.append("填写说明（请仔细阅读）：\r\n");
+        writeExplain.append("1.本表格不可填写Excel公式，所有项必填；\r\n");
+        writeExplain.append("2.本表格仅支持小额贷款行业类型信息导入。\r\n");
+        return writeExplain.toString();
+    }
+    /**
+     * 融资担保-大额被担保人信息列表-导入模板
+     */
+    public static String writeExplainForGuaranteedInfo () {
+        StringBuilder writeExplain = new StringBuilder();
+        writeExplain.append("填写说明（请仔细阅读）：\r\n");
+        writeExplain.append("1.本表格不可填写Excel公式，企业名称必填，不能超过40个汉字；\r\n");
+        writeExplain.append("2.本表格仅支持融资担保行业类型信息导入。\r\n");
+        return writeExplain.toString();
+    }
 
     /**
      * 风险状态范围限制。适用于小额贷款、融资担保之外的风险状态

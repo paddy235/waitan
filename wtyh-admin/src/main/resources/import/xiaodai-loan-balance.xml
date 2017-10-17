@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <excel key="xiaodai-loan-balance" name="贷款余额-导入模板">
-    <sheet name="Sheet1" startRow="3" entity="com.bbd.wtyh.domain.LoanBalanceDO"
+    <sheet name="Sheet1" startRow="5" entity="com.bbd.wtyh.domain.LoanBalanceDO"
            importHandler="com.bbd.bgo.service.imp.handler.xiaodai.LoanBalanceHandler">
+        <property name="writeExplainForLoanBalance" value-ref="com.bbd.bgo.service.imp.handler.company.modify.Clues.writeExplainForLoanBalance"/>
         <rowHeader>
-            <column mergeFirstRow="1" mergeLastRow="1" mergeFirstCol="1" mergeLastCol="6" align="LEFT"
-                    value="填写说明：本表格不可填写Excel公式；所有项必填；"/>
+            <column mergeFirstRow="1" mergeLastRow="3" mergeFirstCol="1" mergeLastCol="6" align="LEFT"
+                    value-ref="writeExplainForLoanBalance"/>
         </rowHeader>
         <columns>
             <column name="年份" code="year" dataType="integer" bgColor="#FFFF00" required="true" regex="[1-9][0-9]{3}"/>
