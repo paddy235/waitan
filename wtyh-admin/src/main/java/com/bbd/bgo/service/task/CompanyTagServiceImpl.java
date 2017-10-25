@@ -103,7 +103,7 @@ public class CompanyTagServiceImpl extends BaseServiceImpl implements CompanyTag
             pagination.setPageNumber(i);
             list=companyTagMapper.queryCompanyHaveOfflineType(pagination);
             companyImportAssist.processCp(list,true);
-            companyImportAssist.save("system-tag");
+            companyImportAssist.saveForNewSource("system-tag");
             companyImportAssist.clearList();
         }
         //只有一个标签且不是线下理财
@@ -118,7 +118,7 @@ public class CompanyTagServiceImpl extends BaseServiceImpl implements CompanyTag
             pagination.setPageNumber(i);
             list=companyTagMapper.queryCompanyHaveOneTagExceptOfflineType(pagination);
             companyImportAssist.processCp(list,true);
-            companyImportAssist.save("system-tag2");
+            companyImportAssist.saveForNewSource("system-tag2");
             companyImportAssist.clearList();
         }
 
@@ -134,7 +134,7 @@ public class CompanyTagServiceImpl extends BaseServiceImpl implements CompanyTag
             pagination.setPageNumber(i);
             list=companyTagMapper.queryCompanyHaveMoreTagExceptOfflineType(pagination);
             companyImportAssist.processCpHaveNoCompanyType(list,true);
-            companyImportAssist.save("system-tag3");
+            companyImportAssist.saveForNewSource("system-tag3");
             companyImportAssist.clearList();
         }
 

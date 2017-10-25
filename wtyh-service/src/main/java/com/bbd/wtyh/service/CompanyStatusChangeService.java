@@ -4,7 +4,6 @@ import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.CompanyStatusChangeDO;
 import com.bbd.wtyh.domain.bbdAPI.BaseDataDO;
 
-import java.util.Date;
 import java.util.Map;
 
 /**
@@ -14,6 +13,8 @@ public interface CompanyStatusChangeService {
     public void companyStatusChange(boolean isNew,String companyName,Byte newCompanyType);
 
     public void companyStatusChange(boolean isNew,CompanyDO companyDO, BaseDataDO.Results bddRst);
+
+    public void companyStatusChangeForNewSource(boolean isNew,CompanyDO companyDO, BaseDataDO.Results bddRst);
 
     public CompanyStatusChangeDO companyChange(boolean isNew,String companyName,Byte newCompanyType);
 

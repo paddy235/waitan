@@ -342,6 +342,30 @@ public class CompanyImportAssist {
         }
 
     }
+    public void saveForNewSource(String loginName) {
+        /* 产品需求变更，不再做更新处理
+        //update
+        for ( Map.Entry<CompanyDO, BaseDataDO.Results> me : updateList ) {
+            me.getKey().setUpdateBy(loginName);
+            me.getKey().setUpdateDate(new Date());
+            companyService.update( me.getKey() );
+            //企业状态变化
+            companyStatusChangeService.companyStatusChange(false, me.getKey(),me.getValue());
+        }*/
+        //insert
+        for ( Map.Entry<CompanyDO, BaseDataDO.Results> me : insertList ) {
+            me.getKey().setCreateBy(loginName);
+            me.getKey().setCreateDate(new Date());
+            int rst =companyService.insert( me.getKey() );
+            if ( null ==me.getKey().getCompanyId() ) {
+                me.getKey().setCompanyId(me.getKey().getId()); //暂时这样修复，其他类似用法的地方还没有去核实
+            }
+            //大尧说：插入的主键这样取: int companyId = me.getKey().getCompanyId();  不用再去查库了
+            //企业状态变化
+            companyStatusChangeService.companyStatusChangeForNewSource(true, me.getKey(),me.getValue());
+        }
+
+    }
 
     public void clearList(){
         insertList.clear();

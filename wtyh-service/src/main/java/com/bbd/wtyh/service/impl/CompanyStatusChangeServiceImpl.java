@@ -78,6 +78,18 @@ public class CompanyStatusChangeServiceImpl implements CompanyStatusChangeServic
 
     }
 
+    public void companyStatusChangeForNewSource(boolean isNew, CompanyDO companyDO, BaseDataDO.Results bddRst) {
+        try {
+            CompanyStatusChangeDO companyStatusChangeDO = companyChange(isNew, companyDO, bddRst);
+            if (null != companyStatusChangeDO) {
+                companyStatusChangeMapper.insertOne(companyStatusChangeDO);
+            }
+        } catch (Exception e) {
+            logger.error("companyStatusChangeForNewSource:", e);
+        }
+
+    }
+
     /**
      * for 功杰
      *
