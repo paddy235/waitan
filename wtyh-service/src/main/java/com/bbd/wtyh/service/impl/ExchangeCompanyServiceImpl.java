@@ -41,9 +41,14 @@ public class ExchangeCompanyServiceImpl implements ExchangeCompanyService {
         if (!CollectionUtils.isEmpty(list)) {
             Map<String, Integer> resultMap = new HashedMap();
             for (Map map : list) {
-                int status = (int) map.get("status");
+                int status = -1;
+                Object object=map.get("status");
+                if(null != object){
+                    status = (int) map.get("status");
+                }
+
                 int number = Integer.parseInt(map.get("number").toString());
-                String statusName = "";
+                String statusName ;
                 if (status == 2) {
                     statusName = "企业自行设立";
                     resultMap.put(statusName, number);
@@ -59,6 +64,8 @@ public class ExchangeCompanyServiceImpl implements ExchangeCompanyService {
                     resultMap.put(statusName, number);
                 } else {
                     //do nothing;
+                    statusName = "";
+                    resultMap.put(statusName, number);
                 }
             }
             for (String key : resultMap.keySet()) {
