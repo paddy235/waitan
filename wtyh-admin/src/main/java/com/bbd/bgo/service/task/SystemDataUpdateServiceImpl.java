@@ -198,7 +198,7 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService,Task
             }
         }
         companyNameSerial.deleteCharAt(companyNameSerial.length() - 1); //去掉最后一个逗号
-        logger.info("update company name:"+companyNameSerial.toString());
+        logger.info("call BbdQyxxBatch api ...");
         Map batchData = hologramQueryService.getBbdQyxxBatch(companyNameSerial.toString());
         // 接口处未查询到数据
         if (CollectionUtils.isEmpty(batchData)) {
