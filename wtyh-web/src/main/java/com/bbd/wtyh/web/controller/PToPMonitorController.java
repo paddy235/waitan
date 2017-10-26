@@ -88,6 +88,18 @@ public class PToPMonitorController {
 	}
 
 	/**
+	 * 平台信息分页查询
+	 *
+	 * @return ResponseBean
+	 */
+	@RequestMapping("/platInfoList")
+	@ResponseBody
+	public ResponseBean platInfoList() {
+		return ResponseBean.successResponse(pToPMonitorService.getPlatInfoList());
+
+	}
+
+	/**
 	 * 1：公司分布地图，成交量和综合利率，问题平台比例，行业人气，网贷数据对比 综合接口
 	 *
 	 * @return ResponseBean
@@ -460,7 +472,7 @@ public class PToPMonitorController {
 			}
 
 			rst1.add(rst);
-            platSts.put(dto.getPlat_name(),platSt);
+			platSts.put(dto.getPlat_name(),platSt);
 		}
 
 		if (null != rst1) {

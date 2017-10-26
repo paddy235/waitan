@@ -74,6 +74,9 @@ public class PToPMonitorServiceImpl implements PToPMonitorService, TaskService {
     @Autowired
     private TaskFailInfoMapper taskFailInfoMapper;
 
+    @Autowired
+    private PlatInfoListMapper platInfoListMapper;
+
     private Logger logger = LoggerFactory.getLogger(PToPMonitorServiceImpl.class);
 
     private volatile boolean isShutdown = false;// 任务停止标志
@@ -732,5 +735,11 @@ public class PToPMonitorServiceImpl implements PToPMonitorService, TaskService {
     @Override
     public void resetTask() {
         this.isShutdown = false;
+    }
+
+    @Override
+    public List<PlatInfoDTO> getPlatInfoList(){
+        List<PlatInfoDTO> platList = platInfoListMapper.getPlatInfoList();
+        return platList;
     }
 }

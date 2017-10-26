@@ -112,4 +112,9 @@ public interface PToPMonitorService {
      */
     void stopTask();
 
+    /**
+     * 平台列表接口
+     */
+    List<PlatInfoDTO> getPlatInfoList();
+
 }
