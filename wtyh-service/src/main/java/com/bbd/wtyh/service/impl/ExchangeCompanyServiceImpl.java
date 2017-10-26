@@ -41,10 +41,12 @@ public class ExchangeCompanyServiceImpl implements ExchangeCompanyService {
         if (!CollectionUtils.isEmpty(list)) {
             Map<String, Integer> resultMap = new HashedMap();
             for (Map map : list) {
-                int status = -1;
+                int status ;
                 Object object=map.get("status");
                 if(null != object){
                     status = (int) map.get("status");
+                }else{
+                    status = -1;
                 }
 
                 int number = Integer.parseInt(map.get("number").toString());
@@ -64,8 +66,6 @@ public class ExchangeCompanyServiceImpl implements ExchangeCompanyService {
                     resultMap.put(statusName, number);
                 } else {
                     //do nothing;
-                    statusName = "";
-                    resultMap.put(statusName, number);
                 }
             }
             for (String key : resultMap.keySet()) {
