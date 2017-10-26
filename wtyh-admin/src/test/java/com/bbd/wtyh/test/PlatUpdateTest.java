@@ -22,7 +22,7 @@ public class PlatUpdateTest {
 
     @Test
     public void updatePlatAutomaticOperate(){
-        TaskResultDO taskResultDO = platUpdateTaskService.updatePlatAutomaticOperate(1);
+        TaskResultDO taskResultDO = platUpdateTaskService.updatePlatAutomaticOperate(1012);
         System.out.println(taskResultDO);
     }
 

@@ -1,6 +1,7 @@
 package com.bbd.bgo.service.task;
 
 
+import com.bbd.bgo.service.imp.handler.assist.CompanyImportAssist;
 import com.bbd.higgs.utils.http.HttpTemplate;
 import com.bbd.wtyh.constants.TaskState;
 import com.bbd.wtyh.core.base.BaseServiceImpl;
@@ -177,22 +178,34 @@ public class PlatUpdateTaskServiceImpl extends BaseServiceImpl implements PlatUp
 
 	public void setCompanyId(List<PlatListDO> platList, List<PlatformNameInformationDO> platInfoList){
 		List<String> names = new ArrayList<>();
+		List<String> plats = new ArrayList<>();
 		PlatformNameInformationDO platInfo;
 		for(PlatListDO plat:platList){
+
 		    String platCompanyName=plat.getCompany_name()!=null?plat.getCompany_name().trim():plat.getCompany_name();
+			String platName=plat.getPlat_name();
 			platInfo=new PlatformNameInformationDO();
 			platInfo.setName(platCompanyName);
-			platInfo.setPlatformName(plat.getPlat_name());
+			platInfo.setPlatformName(platName);
+
 			if(!names.contains(platCompanyName)){
-				platInfoList.add(platInfo);
 				names.add(platCompanyName);
 			}
+			if(!plats.contains(platName)){
+				plats.add(platName);
+				platInfoList.add(platInfo);
+			}
+
 		}
-		List<CompanyDO> comList = companyMapper.findCompanyByName(names);
-		Map<String,CompanyDO> map=new HashMap<>();
-		for(CompanyDO com:comList){
-			map.put(com.getName(),com);
-		}
+		//从company表取企业ID
+		Map<String,CompanyDO> map=getCompanyInfo(names);
+
+		//企业在company不存在，需要新增
+		addNewCompanyForPlat(names, map);
+
+		//新增不存在的企业后，重新从company表取企业ID
+		map=getCompanyInfo(names);
+
 		Iterator<PlatformNameInformationDO> it = platInfoList.iterator();
 		while(it.hasNext()){
 			PlatformNameInformationDO plat = it.next();
@@ -300,5 +313,36 @@ public class PlatUpdateTaskServiceImpl extends BaseServiceImpl implements PlatUp
 	@Override
 	public void resetTask() {
 		this.isShutdown=false;
+	}
+
+	private Map<String,CompanyDO> getCompanyInfo(List<String> names){
+
+		List<CompanyDO> comList = companyMapper.findCompanyByName(names);
+		Map<String,CompanyDO> map=new HashMap<>();
+		for(CompanyDO com:comList){
+			map.put(com.getName(),com);
+		}
+
+		return map;
+
+	}
+	private void addNewCompanyForPlat(List<String> names,Map<String,CompanyDO> map){
+		try {
+			List<CompanyDO> newCompanys=new ArrayList<>();
+			for(String tempName:names){
+				if(null==map.get(tempName)){
+					CompanyDO companyDO=new CompanyDO();
+					companyDO.setName(tempName);
+					companyDO.setCompanyType(Byte.valueOf("1"));
+					newCompanys.add(companyDO);
+				}
+			}
+			CompanyImportAssist companyImportAssist=new CompanyImportAssist(null,null);
+			companyImportAssist.processCp(newCompanys,true);
+			companyImportAssist.saveForNewSource("updatePlat");
+			companyImportAssist.clearList();
+		}catch (Exception e){
+			logger.error("Method addNewCompanyForPlat get Exception." , e.getMessage());
+		}
 	}
 }
