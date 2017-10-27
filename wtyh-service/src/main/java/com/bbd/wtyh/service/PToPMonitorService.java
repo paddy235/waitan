@@ -115,6 +115,6 @@ public interface PToPMonitorService {
     /**
      * 平台列表接口
      */
-    List<PlatInfoDTO> getPlatInfoList();
+    List<PlatInfoDTO> getPlatInfoList(String platName,String companyName);
 
 }

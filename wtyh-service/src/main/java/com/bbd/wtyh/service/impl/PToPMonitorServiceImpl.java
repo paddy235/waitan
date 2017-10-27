@@ -738,8 +738,10 @@ public class PToPMonitorServiceImpl implements PToPMonitorService, TaskService {
     }
 
     @Override
-    public List<PlatInfoDTO> getPlatInfoList(){
-        List<PlatInfoDTO> platList = platInfoListMapper.getPlatInfoList();
+    public List<PlatInfoDTO> getPlatInfoList(String platName,String companyName){
+        platName = "%"+platName+"%";
+        companyName = "%"+companyName+"%";
+        List<PlatInfoDTO> platList = platInfoListMapper.getPlatInfoList(platName,companyName);
         return platList;
     }
 }
