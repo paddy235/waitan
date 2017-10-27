@@ -1,10 +1,7 @@
 package com.bbd.wtyh.service.impl;
 
 import java.sql.SQLException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import com.bbd.wtyh.constants.TaskState;
 import com.bbd.wtyh.dao.CrowdFundingDao;
@@ -15,6 +12,7 @@ import com.bbd.wtyh.mapper.*;
 import com.bbd.wtyh.service.CompanyService;
 import com.bbd.wtyh.service.TaskService;
 import com.bbd.wtyh.service.impl.companyInfoModify.CompanyInfoMudifyUtil;
+import com.bbd.wtyh.util.AddCompanyUtil;
 import com.bbd.wtyh.web.EasyExportExcel.ExportCondition;
 import com.bbd.wtyh.web.PageBean;
 import com.bbd.wtyh.web.companyInfoModify.ModifyData;
@@ -276,6 +274,7 @@ public class CrowdFundingServiceImpl implements CrowdFundingService,TaskService 
         if(isShutdown){
             return;
         }
+        List<CompanyDO> newCompanys= new ArrayList<>();
         List<CrowdFundingCompanyDO> dtoList = crowdFundingDao.allCompanys();
         for (CrowdFundingCompanyDO dto : dtoList) {
             if(isShutdown){
@@ -295,11 +294,19 @@ public class CrowdFundingServiceImpl implements CrowdFundingService,TaskService 
                     modifyData.setIndustry(CompanyInfo.TYPE_ZC_6+"");//修改后固定为众筹
                     modify(modifyData);//
                 }
+                if(companyDO == null || null==companyDO.getCompanyId()){
+                    CompanyDO tempDo=new CompanyDO();
+                    tempDo.setName(dto.getCompanyName());
+                    tempDo.setCompanyType(CompanyInfo.TYPE_ZC_6);
+                    newCompanys.add(tempDo);
+                }
 
             } catch (Exception e) {
                 throw new SQLException();
             }
         }
+
+        addNewCompanyForPlat(newCompanys);
     }
 
     public void modify(ModifyData modifyData){
@@ -351,5 +358,18 @@ public class CrowdFundingServiceImpl implements CrowdFundingService,TaskService 
     @Override
     public void resetTask() {
         this.isShutdown=false;
+    }
+
+    private void addNewCompanyForPlat(List<CompanyDO> newCompanys){
+        try {
+            if(!CollectionUtils.isEmpty(newCompanys)){
+                AddCompanyUtil addCompanyUtil=new AddCompanyUtil();
+                addCompanyUtil.processCp(newCompanys);
+                addCompanyUtil.saveForNewSource("updateCorwd");
+                addCompanyUtil.clearList();
+            }
+        }catch (Exception e){
+            logger.error("Method addNewCompanyForPlat get Exception." , e.getMessage());
+        }
     }
 }
