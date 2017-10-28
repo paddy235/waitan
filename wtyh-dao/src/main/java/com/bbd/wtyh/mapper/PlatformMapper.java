@@ -2,6 +2,7 @@ package com.bbd.wtyh.mapper;
 
 import com.bbd.wtyh.domain.CompanyInfoModify.WangdaiModify;
 import com.bbd.wtyh.domain.PlatformDO;
+import com.bbd.wtyh.domain.PlatformNameInformationDO;
 import com.bbd.wtyh.domain.wangDaiAPI.PlatListDO;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
@@ -34,5 +35,12 @@ public interface PlatformMapper {
 
     @Select("SELECT count(1) FROM (SELECT count(1) AS total FROM ktgg kt JOIN  qyxx_basic qb ON qb.bbd_qyxx_id = kt.bbd_qyxx_id AND qb.company_name = #{coName} GROUP by kt.id) t")
     Long countKtgg(@Param("coName") String companyName);
+
+
+    @Select("select * from (SELECT * FROM (SELECT * FROM plat_list ORDER BY create_date DESC LIMIT 99999999999999) T GROUP BY T.plat_name " +
+            ")as P where P.plat_name LIKE CONCAT('%',#{platName},'%' )")
+    @Results({ @Result(column = "plat_name", property = "platformName") })
+    List<PlatformNameInformationDO> queryPlatFromPlatList(@Param("platName") String platName);
+
 
 }

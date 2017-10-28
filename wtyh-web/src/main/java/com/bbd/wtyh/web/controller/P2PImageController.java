@@ -1,10 +1,10 @@
 package com.bbd.wtyh.web.controller;
 
+import com.bbd.higgs.utils.ListUtil;
 import com.bbd.wtyh.domain.PlatformNameInformationDO;
 import com.bbd.wtyh.domain.wangDaiAPI.YuQingDTO;
 import com.bbd.wtyh.log.user.Operation;
 import com.bbd.wtyh.log.user.annotation.LogRecord;
-import com.bbd.wtyh.service.HologramQueryService;
 import com.bbd.wtyh.service.P2PImageService;
 import com.bbd.wtyh.web.HistogramBean;
 import com.bbd.wtyh.web.RadarChartBean;
@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,7 +41,7 @@ public class P2PImageController {
 	@ResponseBody
 	@LogRecord(logMsg = "搜索关键字：%s", params = { "platName" }, type = Operation.Type.query, page = Operation.Page.borrow)
 	public ResponseBean hasOrNotCompany(@RequestParam(required = true) String platName) {
-		Map<String, Object> hasOrNotCompany = p2PImageService.coreDataInfo(platName);
+		/*Map<String, Object> hasOrNotCompany = p2PImageService.coreDataInfo(platName);
 		List<PlatformNameInformationDO> associatedCompanys = p2PImageService.associatedCompanys(platName);
 
 		// 剔除 不可访问的 联想词
@@ -52,15 +51,19 @@ public class P2PImageController {
 					&& p2PImageService.coreDataInfo(platformNameInformationDO.getPlatformName()) != null) {
 				accessAssociatedCompanys.add(platformNameInformationDO);
 			}
-		}
-
+		}*/
+		List<PlatformNameInformationDO> accessAssociatedCompanys=p2PImageService.queryPlatFromPlatList(platName);
+		boolean hasOrNotCompany=false;
+        if(ListUtil.isNotEmpty(accessAssociatedCompanys)){
+			hasOrNotCompany=true;
+        }
 		Map<String, Object> rst = new HashMap<>();
 		rst.put("associatedWords", accessAssociatedCompanys);
-		if (hasOrNotCompany == null) {
-			rst.put("isGoToHologram", false);
+		if (hasOrNotCompany) {
+			rst.put("isGoToHologram", true);
 			return ResponseBean.successResponse(rst);
 		} else {
-			rst.put("isGoToHologram", true);
+			rst.put("isGoToHologram", false);
 			return ResponseBean.successResponse(rst);
 		}
 	}

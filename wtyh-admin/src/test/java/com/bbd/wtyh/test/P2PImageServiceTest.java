@@ -24,6 +24,11 @@ public class P2PImageServiceTest {
     /**
      * 执行数据落地定时任务
      */
+
+    @Test
+    public void test(){
+        p2PImageService.queryPlatFromPlatList("贷");
+    }
     @Test
     public void dataLandTest(){
         Integer taskId = 0;

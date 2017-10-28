@@ -87,6 +87,8 @@ public interface P2PImageService {
 
     List<List<String>> coreDataDealTrend(String platNmae);
 
+    List<PlatformNameInformationDO> queryPlatFromPlatList(String platName);
+
     List<List<String>> coreDataInterestRateTrend(String plat_name);
 
     List<List<String>> coreDataLoadOverage(String plat_name);

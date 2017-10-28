@@ -364,6 +364,12 @@ public class P2PImageServiceImpl extends BaseServiceImpl implements P2PImageServ
     }
 
     @Override
+    public List<PlatformNameInformationDO> queryPlatFromPlatList(String platName) {
+        return platformMapper.queryPlatFromPlatList(platName);
+    }
+
+
+    @Override
     public List<List<String>> coreDataInterestRateTrend(String plat_name) {
         return parsePlatDataSixMonth(plat_name, 29, "day_interest_rate");
     }
