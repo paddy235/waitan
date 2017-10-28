@@ -9,10 +9,6 @@ import com.bbd.wtyh.domain.CompanyDO;
 public class MainTest {
 
     public static void main(String[] args) {
-        Byte b=null;
-        if(CompanyDO.TYPE_P2P_1==b){
-            System.out.println("true");
-        }
 
         String userName=" 甬钜信息科技（上海）有限公司";
         String userNami=" 甬钜信息科技（上海）有限公司";

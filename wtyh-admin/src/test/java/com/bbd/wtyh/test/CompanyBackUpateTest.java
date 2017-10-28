@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.Map;
 
 /**
  * Created by lixudong on 2017/7/5.
@@ -30,6 +29,15 @@ public class CompanyBackUpateTest {
         //Map<String,Integer> map=systemDataUpdateService.updateCompanyAndBackgroundAutomaticOperate(taskId);
         TaskResultDO taskResultDO =systemDataUpdateService.updateCompanyAndBackgroundManualOperate(10,11);
         System.out.println(taskResultDO);
+    }
+    @Test
+    public void riskLevelTest(){
+        Integer taskId = 1018;
+        try {
+            offlineFinanceService.updateCompanyRiskLevel(taskId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

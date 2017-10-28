@@ -353,11 +353,11 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService,TaskServ
         if (companyInfoModify.isModifyByAfterRisk(companyDO.getName())) {
             return;
         }
+
+        Integer companyType=(companyDO!=null && companyDO.getCompanyType() != null)?companyDO.getCompanyType().intValue():-1;
+
         Integer companyId = companyDO.getCompanyId();
         Integer oldRiskLevel = companyDO.getRiskLevel();
-        Integer companyType = (int) companyDO.getCompanyType();
-        CompanyAnalysisResultDO companyAnalysisResultDO = companyAnalysisResultMapper.findCompanyAnalysisResultByCompanyId(companyId);
-        StaticRiskDataDO staticRiskDataDO = staticRiskMapper.queryStaticsRiskData(companyDO.getName());
         Integer riskLevel = oldRiskLevel;
         Integer riskLevelForPToP = platRankMapData.get(companyId);
         /**风险等级规则
@@ -365,14 +365,16 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService,TaskServ
          * 2.非网贷,取static_risk_data的风险等级
          * 3.非网贷,取company_analysis_result，且能取到该企业的风险等级,则覆盖第二步的风险等级
          **/
-        byte type=(companyDO!=null && companyDO.getCompanyType() != null)?companyDO.getCompanyType():-1;
 
-        if(CompanyDO.TYPE_P2P_1==type){
+        if(CompanyDO.TYPE_P2P_1==companyType){
             if (riskLevelForPToP != null && riskLevelForPToP > 0) {
                 logger.warn("companyId:{} riskLevelForP2P:{}", companyId, riskLevelForPToP);
                 riskLevel = riskLevelForPToP;
             }
         } else {
+
+            CompanyAnalysisResultDO companyAnalysisResultDO = companyAnalysisResultMapper.findCompanyAnalysisResultByCompanyId(companyId);
+            StaticRiskDataDO staticRiskDataDO = staticRiskMapper.queryStaticsRiskData(companyDO.getName());
 
             if (staticRiskDataDO != null) {
                 BigDecimal staticsRiskIndex = staticRiskDataDO.getStaticRiskIndex();
@@ -399,14 +401,6 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService,TaskServ
         }
 
 
-		/*
-         * boolean immUpdatePreviousRiskLevel =false; if( null ==oldRiskLevel &&
-		 * StringUtils.isNotBlank(companyDO.getName()) ) { BigDecimal bdl =
-		 * realTimeMonitorService.getCompanyStaticIndexByName(companyDO.getName(
-		 * )); if( null !=bdl ) { int level =
-		 * OfflineFinanceService.staticRiskIndexToLevel(bdl); oldRiskLevel
-		 * =level; immUpdatePreviousRiskLevel =true; } }
-		 */
         // LocalDate ld = LocalDate.now();
         if (!riskLevel.equals(oldRiskLevel)) { // 只记录前一次变化的，这是最新的产品需求
             companyMapper.updateRiskLevel(riskLevel, oldRiskLevel, companyId, "system");
@@ -423,7 +417,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService,TaskServ
             beanCopier.copy(companyDO, rcco, null);
 
             rcco.setCompanyName(companyDO.getName());
-            rcco.setCompanyType(companyType);
+            rcco.setCompanyType((companyType==-1)?null:companyType);
 
             rcco.setOldRiskLevel(oldRiskLevel);
             rcco.setRiskLevel(riskLevel);
