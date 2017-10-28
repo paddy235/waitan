@@ -15,7 +15,7 @@
             <column name="审批部门    " code="approveDepartment" dataType="string"/>
             <column name="监管部门    " code="superviseDepartment" dataType="string"/>
             <column name="风险等级  " code="riskLevel" dataType="string" list="一般关注,已出风险,正常,重点关注"/>
-            <column name="网址                    " code="website" dataType="string"  regex="^http://([\w-]+\.)+[\w-]+(/[\w-./?%&amp;=]*)?$" />
+            <column name="网址                    " code="website" dataType="string"  />
             <column name="数据来源（填“金融办”或“BBD”）" code="dataSrc" dataType="string" required="true" bgColor="#FFFF00" list="金融办,BBD"/>
         </columns>
 

@@ -125,9 +125,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService,TaskServ
         isShutdown=false;
         TaskResultDO taskResultDO = new TaskResultDO();
         final Map<Integer, Integer> platRankMapData = pToPMonitorService.getPlatRankMapData();
-        if (platRankMapData == null || platRankMapData.size() == 0) {
-            throw new Exception("dataType=plat_rank_data Api Error");
-        }
+
         int totalCount = companyMapper.countAllCompany();
         int failCount = 0;
         Pagination pagination = new Pagination();
@@ -367,9 +365,13 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService,TaskServ
          * 2.非网贷,取static_risk_data的风险等级
          * 3.非网贷,取company_analysis_result，且能取到该企业的风险等级,则覆盖第二步的风险等级
          **/
-        if (riskLevelForPToP != null && riskLevelForPToP > 0) {
-            logger.warn("companyId:{} riskLevelForP2P:{}", companyId, riskLevelForPToP);
-            riskLevel = riskLevelForPToP;
+        byte type=(companyDO!=null && companyDO.getCompanyType() != null)?companyDO.getCompanyType():-1;
+
+        if(CompanyDO.TYPE_P2P_1==type){
+            if (riskLevelForPToP != null && riskLevelForPToP > 0) {
+                logger.warn("companyId:{} riskLevelForP2P:{}", companyId, riskLevelForPToP);
+                riskLevel = riskLevelForPToP;
+            }
         } else {
 
             if (staticRiskDataDO != null) {
