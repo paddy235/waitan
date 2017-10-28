@@ -73,7 +73,7 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService,Task
             pagination.setPageSize(pageSize);
             pagination.setCount(totalCount);
             int total = pagination.getLastPageNumber();
-            ExecutorService dataExecutorService = Executors.newFixedThreadPool(16);
+            ExecutorService dataExecutorService = Executors.newFixedThreadPool(12);
             logger.info("start update company ang background");
             for (int i = 1; i <= total; i++) {
                 final int num = i;
