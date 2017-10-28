@@ -17,4 +17,7 @@ public interface PlatInfoListMapper {
 	List<PlatInfoDTO> getPlatInfoList(@Param(value = "platName") String platName,
 									  @Param(value = "companyName")String companyName);
 
+	List<PlatInfoDTO> getPlatMoreThanOne(@Param(value = "platName") String platName,
+									  @Param(value = "companyName")String companyName);
+
 }

@@ -1,6 +1,7 @@
 package com.bbd.wtyh.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.bbd.higgs.utils.ListUtil;
 import com.bbd.higgs.utils.http.HttpCallback;
 import com.bbd.higgs.utils.http.HttpTemplate;
 import com.bbd.wtyh.constants.TaskState;
@@ -742,6 +743,31 @@ public class PToPMonitorServiceImpl implements PToPMonitorService, TaskService {
         platName = "%"+platName+"%";
         companyName = "%"+companyName+"%";
         List<PlatInfoDTO> platList = platInfoListMapper.getPlatInfoList(platName,companyName);
+        List<PlatInfoDTO> platMoreThanOne = platInfoListMapper.getPlatMoreThanOne(platName,companyName);
+        //可能出现 平台对公司 1对N 的情况，如果N>1 ,这家企业的基本信息置空
+        if(ListUtil.isEmpty(platMoreThanOne)){
+            return platList;
+        }
+
+        for(PlatInfoDTO plat:platMoreThanOne){
+            int i=0;
+            for (Iterator<PlatInfoDTO> it = platList.iterator(); it.hasNext();){
+                 PlatInfoDTO platInfoDTO = it.next();
+                if(platInfoDTO.getPlatName().equals(plat.getPlatName())){
+                    if(i>0){
+                        it.remove();
+                    }else{
+                        platInfoDTO.setLegalPerson(null);
+                        platInfoDTO.setAddress(null);
+                        platInfoDTO.setRegisteredDate(null);
+                        platInfoDTO.setRegistereCapitalType(null);
+                        platInfoDTO.setRegistereCapital(null);
+                    }
+                    i++;
+                }
+            }
+
+        }
         return platList;
     }
 }
