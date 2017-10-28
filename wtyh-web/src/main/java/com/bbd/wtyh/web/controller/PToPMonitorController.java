@@ -94,8 +94,9 @@ public class PToPMonitorController {
 	 */
 	@RequestMapping("/platInfoList")
 	@ResponseBody
-	public ResponseBean platInfoList() {
-		return ResponseBean.successResponse(pToPMonitorService.getPlatInfoList());
+	public ResponseBean platInfoList(@RequestParam(defaultValue = "") String platName,
+									 @RequestParam(defaultValue = "")String companyName) {
+		return ResponseBean.successResponse(pToPMonitorService.getPlatInfoList(platName,companyName));
 
 	}
 

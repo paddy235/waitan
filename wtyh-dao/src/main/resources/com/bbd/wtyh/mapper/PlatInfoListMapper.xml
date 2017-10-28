@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bbd.wtyh.mapper.PlatInfoListMapper">
+
+
+  <!-- 查询企业增销变化 -->
+  <select id="getPlatInfoList" parameterType="java.util.HashMap"  resultType="com.bbd.wtyh.domain.dto.PlatInfoDTO">
+    SELECT
+    a.plat_name AS platName,
+    a.company_name AS companyName,
+    c.legal_person AS legalPerson,
+    c.registered_date AS registeredDate,
+    c.registered_capital AS registereCapital,
+    c.registered_capital_type AS registereCapitalType,
+    c.address AS address,
+    a.create_date AS createDate
+    FROM
+    (
+    SELECT
+    *
+    FROM
+    (
+    SELECT
+    *
+    FROM
+    plat_list where 1 = 1
+    <if test="platName !=null">
+      AND  plat_name like #{platName}
+    </if>
+    <if test="companyName !=null">
+      AND company_name like #{companyName}
+    </if>
+    ORDER BY
+    create_date DESC
+    LIMIT 99999999999999
+    ) T
+    GROUP BY
+    T.plat_name
+    ) a
+    LEFT JOIN company c ON a.company_name = c.`name`
+    ORDER BY
+    a.create_date DESC,
+    a.plat_name ASC
+
+  </select>
+
+</mapper>

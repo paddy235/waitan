@@ -20,6 +20,9 @@ public class PlatInfoDTO {
 
 	private Integer registereCapital;
 
+	//注册资本类型 1:人民币 2:美元
+	private Integer registereCapitalType;
+
 	private String address;
 
 	private String website;
@@ -88,5 +91,13 @@ public class PlatInfoDTO {
 
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
+	}
+
+	public Integer getRegistereCapitalType() {
+		return registereCapitalType;
+	}
+
+	public void setRegistereCapitalType(Integer registereCapitalType) {
+		this.registereCapitalType = registereCapitalType;
 	}
 }
