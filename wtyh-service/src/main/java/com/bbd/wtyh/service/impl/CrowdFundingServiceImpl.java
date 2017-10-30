@@ -285,9 +285,12 @@ public class CrowdFundingServiceImpl implements CrowdFundingService,TaskService 
 //            crowdFundingCompanyMapper.deleteByPlatName(dto.getPlatformName());
             try {
                 crowdFundingCompanyMapper.saveForDataLand(dto);
-                //拉下众筹数据的时候，将Company表中的company_type修改为6
+                //拉下众筹数据的时候，将Company表 company_type为空或者为4的 company_type修改为6
                 CompanyDO companyDO = companyService.getCompanyByName(dto.getCompanyName());
-                if(companyDO != null && !StringUtils.isEmpty(companyDO.getName())){
+                if(companyDO != null
+                        && !StringUtils.isEmpty(companyDO.getName())
+                        && CompanyInfo.TYPE_XXLC_4==(companyDO.getCompanyType()==null?CompanyInfo.TYPE_XXLC_4:companyDO.getCompanyType())
+                        ){
                     ModifyData modifyData = new ModifyData();
                     modifyData.setName(companyDO.getName());
                     modifyData.setLevel(null);//修改后无风险等级

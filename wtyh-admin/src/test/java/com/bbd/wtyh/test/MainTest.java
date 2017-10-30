@@ -1,6 +1,7 @@
 package com.bbd.wtyh.test;
 
 import com.bbd.wtyh.domain.CompanyDO;
+import com.bbd.wtyh.domain.CompanyInfoModify.CompanyInfo;
 
 /**
  * 
@@ -9,14 +10,9 @@ import com.bbd.wtyh.domain.CompanyDO;
 public class MainTest {
 
     public static void main(String[] args) {
-
-        String userName=" 甬钜信息科技（上海）有限公司";
-        String userNami=" 甬钜信息科技（上海）有限公司";
-        System.out.println("test:"+userNami.trim());
-        String str=" ";
-        System.out.println(str);
-        String ss = stringToUnicode(str);
-        System.out.println(ss);
+        CompanyDO companyDO=new CompanyDO();
+        companyDO.setCompanyType(Byte.valueOf("4"));
+        System.out.println(CompanyInfo.TYPE_XXLC_4 == (companyDO.getCompanyType() == null ? CompanyInfo.TYPE_XXLC_4 : companyDO.getCompanyType()));
     }
 
 
