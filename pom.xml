@@ -616,7 +616,7 @@
                 <update.img.web.path>${wtyh.file.root.path}/static/wtyh-web/build/data/img</update.img.web.path>
                 <update.img.admin.path>${wtyh.file.root.path}/static/wtyh-admin/build/data/img</update.img.admin.path>
 
-                <wtyh.beijing.server.ip>10.28.60.15</wtyh.beijing.server.ip>
+                <wtyh.beijing.server.ip>106.75.89.210</wtyh.beijing.server.ip>
             </properties>
         </profile>
 
