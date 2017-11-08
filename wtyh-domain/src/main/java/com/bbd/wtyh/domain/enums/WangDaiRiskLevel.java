@@ -10,10 +10,14 @@ import java.util.Map;
  */
 public enum WangDaiRiskLevel {
 
-    RISK(1, "问题及停业平台", "D"),
+//    RISK(1, "问题及停业平台", "D"),
+//    IMPORT_FOCUS(2, "重点关注", "C"),
+//    COMMON_FOCUS(3, "一般关注", "B"),
+//    NORMAL(4, "优良", "A");
+    RISK(1, "已出风险", "D"),
     IMPORT_FOCUS(2, "重点关注", "C"),
     COMMON_FOCUS(3, "一般关注", "B"),
-    NORMAL(4, "优良", "A");
+    NORMAL(4, "正常", "A");
 
     private int type;
     private String desc;
