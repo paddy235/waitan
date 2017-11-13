@@ -396,6 +396,8 @@ public class ParkServiceImpl extends BaseServiceImpl implements ParkService {
 		} else {
 			params.put("regCompany",null);
 		}
+		//判断公司是否为新增
+		params.put("newValue",this.parkMapper.queryCompanyNewValue());
 		int total=this.parkMapper.qeuryParkCompanyCount(params);
 		result.put("total",total);
 		result.put("list",this.parkMapper.qeuryParkCompany(params));
