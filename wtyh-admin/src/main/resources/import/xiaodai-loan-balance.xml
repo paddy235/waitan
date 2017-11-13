@@ -13,9 +13,9 @@
 
             <column name="月份" code="month" dataType="integer" bgColor="#FFFF00" required="true" regex="0?[1-9]|1[0-2]"/>
 
-            <column name="三农余额(万元)" code="agricultureBalance" dataType="integer" bgColor="#FFFF00" required="true"/>
-            <column name="小微余额(万元)" code="smallCompanyBalance" dataType="integer" bgColor="#FFFF00" required="true"/>
-            <column name="贷款余额总计(万元)" code="amount" dataType="integer" bgColor="#FFFF00" required="true"/>
+            <column name="三农余额(万元)" code="agricultureBalance" dataType="double" bgColor="#FFFF00" required="true"/>
+            <column name="小微余额(万元)" code="smallCompanyBalance" dataType="double" bgColor="#FFFF00" required="true"/>
+            <column name="贷款余额总计(万元)" code="amount" dataType="double" bgColor="#FFFF00" required="true"/>
             <column name="贷款余额笔数" code="number" dataType="integer" bgColor="#FFFF00" required="true"/>
         </columns>
 
