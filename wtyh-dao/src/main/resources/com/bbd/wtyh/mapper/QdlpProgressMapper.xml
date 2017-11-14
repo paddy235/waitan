@@ -46,12 +46,12 @@
 
 
     <update id="update" parameterType="com.bbd.wtyh.domain.QdlpProgressDO">
-        update qdlp_progress set  foreign_shareholder=#{foreignShareholder},china_shareholder=#{chinaShareholder},quatas=#{quatas},progress=#{progress},architecture=#{architecture},update_by=#{updateBy},update_date=#{updateDate}
+        update qdlp_progress set  foreign_shareholder=#{foreignShareholder},china_shareholder=#{chinaShareholder},quatas=#{quatas},progress=#{progress},architecture=#{architecture},update_by=#{updateBy},update_date=#{updateDate},index_num=#{indexNum}
         where company_id = #{companyId}
     </update>
 
     <insert id="add" parameterType="com.bbd.wtyh.domain.QdlpProgressDO">
-        INSERT INTO `qdlp_progress` (`company_id`, `foreign_shareholder`, `china_shareholder`,`quatas`,`progress`,`architecture`, `create_by`, `create_date`, `update_by`, `update_date`)
-        VALUES (#{companyId}, #{foreignShareholder}, #{chinaShareholder}, #{quatas}, #{progress}, #{architecture}, #{createBy}, #{createDate}, #{updateBy}, #{updateDate});
+        INSERT INTO `qdlp_progress` (`company_id`, `foreign_shareholder`, `china_shareholder`,`quatas`,`progress`,`architecture`, `create_by`, `create_date`, `update_by`, `update_date`, `index_num`)
+        VALUES (#{companyId}, #{foreignShareholder}, #{chinaShareholder}, #{quatas}, #{progress}, #{architecture}, #{createBy}, #{createDate}, #{updateBy}, #{updateDate}, #{indexNum});
     </insert>
 </mapper>

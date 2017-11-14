@@ -13,6 +13,8 @@ public class QflpCompanyDTO {
 
     private Float rmbTotal;
 
+    private Integer indexNum;
+
     public String getCompanyName() {
         return companyName;
     }
@@ -43,5 +45,13 @@ public class QflpCompanyDTO {
 
     public void setRmbTotal(Float rmbTotal) {
         this.rmbTotal = rmbTotal;
+    }
+
+    public Integer getIndexNum() {
+        return indexNum;
+    }
+
+    public void setIndexNum(Integer indexNum) {
+        this.indexNum = indexNum;
     }
 }

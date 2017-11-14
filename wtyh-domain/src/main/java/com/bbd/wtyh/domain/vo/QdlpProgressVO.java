@@ -17,6 +17,8 @@ public class QdlpProgressVO {
 
     private String architecture;
 
+    private Integer indexNum;
+
     public String getCompanyName() {
         return companyName;
     }
@@ -63,6 +65,14 @@ public class QdlpProgressVO {
 
     public void setArchitecture(String architecture) {
         this.architecture = architecture;
+    }
+
+    public Integer getIndexNum() {
+        return indexNum;
+    }
+
+    public void setIndexNum(Integer indexNum) {
+        this.indexNum = indexNum;
     }
 
     @Override

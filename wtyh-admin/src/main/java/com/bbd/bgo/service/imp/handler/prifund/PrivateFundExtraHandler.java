@@ -2,11 +2,10 @@ package com.bbd.bgo.service.imp.handler.prifund;
 
 import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.domain.CompanyDO;
-import com.bbd.wtyh.domain.GuaranteedInfoDO;
 import com.bbd.wtyh.domain.PrivateFundExtraDO;
+import com.bbd.wtyh.domain.enums.FilingStatus;
 import com.bbd.wtyh.excel.imp.handler.AbstractImportHandler;
 import com.bbd.wtyh.service.CompanyService;
-import com.bbd.wtyh.service.GuaranteeService;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -61,6 +60,11 @@ public class PrivateFundExtraHandler extends AbstractImportHandler<PrivateFundEx
 
 	@Override
 	public boolean validateRow(Map<String, String> row) throws Exception {
+		String recordStatus = row.get("record_status");
+		if(recordStatus!=null&& FilingStatus.getType(recordStatus)==0){
+			addError("备案状态 格式错误");
+			return false;
+		}
 		String company_Name = row.get("company_Name");
 		companyDO = this.companyService.getCompanyByName(company_Name);
 		if (companyDO == null) {
@@ -83,12 +87,7 @@ public class PrivateFundExtraHandler extends AbstractImportHandler<PrivateFundEx
 		String sqlWhere= "company_id = " +bean.getCompanyId();
         String recordStatus = row.get("record_status");
         if(StringUtils.isNotEmpty(recordStatus)){
-            if("已备案".equals(recordStatus)){
-				bean.setRecordStatus(1);
-            }
-            if("取消备案".equals(recordStatus)){
-				bean.setRecordStatus(2);
-            }
+			bean.setRecordStatus(FilingStatus.getType(recordStatus));
         }
 		PrivateFundExtraDO privateFundExtra = companyService.selectOne(PrivateFundExtraDO.class,sqlWhere);
 		if(null==privateFundExtra){

@@ -38,6 +38,7 @@ public class PriFundQdlpProgressHandler extends AbstractImportHandler<QdlpProgre
     private List<QdlpProgressVO> insertList = null;
     private List<QdlpProgressVO> updateList = null;
     String loginName = "";
+    Integer indexNum = 1;
 
     @Override
     public void start(HttpServletRequest request) throws Exception {
@@ -78,6 +79,8 @@ public class PriFundQdlpProgressHandler extends AbstractImportHandler<QdlpProgre
 
         QdlpProgressDO qdlpProgressDO = privateFundService.getQdlpProgressByPrimaryKey(cp.getCompanyId());
 
+        bean.setIndexNum(indexNum++);
+
         if (null == qdlpProgressDO) {
             insertList.add(bean);
         } else {
@@ -103,6 +106,7 @@ public class PriFundQdlpProgressHandler extends AbstractImportHandler<QdlpProgre
             qdlpProgressDO.setForeignShareholder(qdlpProgressVO.getForeignShareholder());
             qdlpProgressDO.setUpdateBy(loginName);
             qdlpProgressDO.setUpdateDate(new Date());
+            qdlpProgressDO.setIndexNum(qdlpProgressVO.getIndexNum());
             privateFundService.updateQdlpProgress(qdlpProgressDO);
         }
 
@@ -117,6 +121,7 @@ public class PriFundQdlpProgressHandler extends AbstractImportHandler<QdlpProgre
             qdlpProgressDO.setForeignShareholder(qdlpProgressVO.getForeignShareholder());
             qdlpProgressDO.setCreateBy(loginName);
             qdlpProgressDO.setCreateDate(new Date());
+            qdlpProgressDO.setIndexNum(qdlpProgressVO.getIndexNum());
             privateFundService.addQdlpProgress(qdlpProgressDO);
         }
         log.info(caption + "导入已完成");

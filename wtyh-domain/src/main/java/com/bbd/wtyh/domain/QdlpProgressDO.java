@@ -20,6 +20,8 @@ public class QdlpProgressDO extends BaseDO {
 
     private String architecture;
 
+    private Integer indexNum;
+
     public Integer getCompanyId() {
         return companyId;
     }
@@ -66,5 +68,13 @@ public class QdlpProgressDO extends BaseDO {
 
     public void setArchitecture(String architecture) {
         this.architecture = architecture;
+    }
+
+    public Integer getIndexNum() {
+        return indexNum;
+    }
+
+    public void setIndexNum(Integer indexNum) {
+        this.indexNum = indexNum;
     }
 }

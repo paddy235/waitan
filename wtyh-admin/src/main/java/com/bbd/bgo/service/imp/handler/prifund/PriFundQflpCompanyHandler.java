@@ -38,6 +38,7 @@ public class PriFundQflpCompanyHandler  extends AbstractImportHandler<QflpCompan
     private List<QflpCompanyDTO> insertList = null;
     private List<QflpCompanyDTO> updateList = null;
     String loginName = "";
+    Integer indexNum = 1;
 
     @Override
     public void start(HttpServletRequest request) throws Exception {
@@ -73,6 +74,8 @@ public class PriFundQflpCompanyHandler  extends AbstractImportHandler<QflpCompan
 
         QflpCompanyDO qflpCompanyDO = privateFundService.getQflpCompanyByPrimaryKey(cp.getCompanyId());
 
+        bean.setIndexNum(indexNum++);
+
         if (null == qflpCompanyDO) {
             insertList.add(bean);
         } else {
@@ -96,6 +99,7 @@ public class PriFundQflpCompanyHandler  extends AbstractImportHandler<QflpCompan
             qflpCompanyDO.setScale(qflpCompanyDTO.getTotal());
             qflpCompanyDO.setUpdateBy(loginName);
             qflpCompanyDO.setUpdateDate(new Date());
+            qflpCompanyDO.setIndexNum(qflpCompanyDTO.getIndexNum());
             privateFundService.updateQflpCompany(qflpCompanyDO);
         }
         for(QflpCompanyDTO qflpCompanyDTO:insertList){
@@ -107,6 +111,7 @@ public class PriFundQflpCompanyHandler  extends AbstractImportHandler<QflpCompan
             qflpCompanyDO.setScale(qflpCompanyDTO.getTotal());
             qflpCompanyDO.setCreateBy(loginName);
             qflpCompanyDO.setCreateDate(new Date());
+            qflpCompanyDO.setIndexNum(qflpCompanyDTO.getIndexNum());
             privateFundService.addQflpCompany(qflpCompanyDO);
         }
         log.info(caption + "导入已完成");

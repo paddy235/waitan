@@ -9,9 +9,9 @@
         </rowHeader>
         <columns>
             <column name="试点企业名称" code="companyName" dataType="string" required="true" length="40" bgColor="#FFFF00"/>
-            <column name="总规模(亿美元)" code="total" dataType="number"  regex="^[0-9]+([.][0-9]+){0,1}$" required="true" bgColor="#FFFF00"/>
-            <column name="美元部分(亿美元)" code="dollarPart" dataType="number"  regex="^[0-9]+([.][0-9]+){0,1}$" required="true" bgColor="#FFFF00"/>
-            <column name="投资合计(万元)" code="rmbTotal" dataType="number"  regex="^[0-9]+([.][0-9]+){0,1}$" required="true" bgColor="#FFFF00"/>
+            <column name="总规模(万美元)" code="total" dataType="number"  regex="^[0-9]+([.][0-9]+){0,1}$" required="true" bgColor="#FFFF00"/>
+            <column name="美元部分(万美元)" code="dollarPart" dataType="number"  regex="^[0-9]+([.][0-9]+){0,1}$" required="true" bgColor="#FFFF00"/>
+            <column name="投资合计(万人民币)" code="rmbTotal" dataType="number"  regex="^[0-9]+([.][0-9]+){0,1}$" required="true" bgColor="#FFFF00"/>
         </columns>
     </sheet>
 </excel>

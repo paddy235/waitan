@@ -16,6 +16,8 @@ public class QflpCompanyDO extends BaseDO {
 
     private Float rmbPart;
 
+    private Integer indexNum;
+
     public Integer getCompanyId() {
         return companyId;
     }
@@ -46,5 +48,13 @@ public class QflpCompanyDO extends BaseDO {
 
     public void setRmbPart(Float rmbPart) {
         this.rmbPart = rmbPart;
+    }
+
+    public Integer getIndexNum() {
+        return indexNum;
+    }
+
+    public void setIndexNum(Integer indexNum) {
+        this.indexNum = indexNum;
     }
 }
