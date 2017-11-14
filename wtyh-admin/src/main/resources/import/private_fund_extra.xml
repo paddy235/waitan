@@ -5,13 +5,14 @@
            importHandler="com.bbd.bgo.service.imp.handler.prifund.PrivateFundExtraHandler">
         <rowHeader>
             <column mergeFirstRow="1" mergeLastRow="2" mergeFirstCol="1" mergeLastCol="4" align="LEFT"
-                    value="填写说明：&#x000A;本表格不可填写Excel公式；机构名称必填，不能超过40个汉字；"/>
+                    value="填写说明：&#x000A;本表格不可填写Excel公式；机构名称必填，不能超过40个汉字；&#x000A;备案状态仅可填写“已备案”、“取消备案”之一；"/>
         </rowHeader>
         <columns>
             <column name="机构名称" code="company_Name" dataType="string" bgColor="#FFFF00" required="true"/>
             <column name="机构网址" code="website" dataType="string"  regex="^((https|http|ftp|rtsp|mms)?:\/\/)[^\s]+"/>
             <column name="实缴资本（万元）" code="paidinCapital" dataType="number" regex="[1-9][0-9]*"/>
             <column name="管理基金数量" code="managedFund" dataType="number" regex="[1-9][0-9]*"/>
+            <column name="备案状态" code="record_status" dataType="string" regex="已备案|取消备案"/>
         </columns>
     </sheet>
 

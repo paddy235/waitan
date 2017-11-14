@@ -9,8 +9,10 @@
                     value-ref="writeExplainForLoanLargeBorrower"/>
         </rowHeader>
         <columns>
-            <column name="借款公司" code="borrower" dataType="string" bgColor="#FFFF00" required="true" length="40"/>
-            <column name="贷款公司" code="lender" dataType="string" bgColor="#FFFF00" required="true" length="40"/>
+            <!--<column name="借款公司" code="borrower" dataType="string" bgColor="#FFFF00" required="true" length="40"/>-->
+            <!--<column name="贷款公司" code="lender" dataType="string" bgColor="#FFFF00" required="true" length="40"/>-->
+            <column name="借款方" code="borrower" dataType="string" bgColor="#FFFF00" required="true" length="40"/>
+            <column name="出借方" code="lender" dataType="string" bgColor="#FFFF00" required="true" length="40"/>
         </columns>
 
     </sheet>

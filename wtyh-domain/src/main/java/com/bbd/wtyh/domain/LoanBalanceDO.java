@@ -20,7 +20,7 @@ public class LoanBalanceDO extends BaseDO {
 
 	/** 余额总计 */
 	@Column
-	private Integer amount;
+	private Double amount;
 
 	/** 余额笔数 */
 	@Column
@@ -32,11 +32,11 @@ public class LoanBalanceDO extends BaseDO {
 
 	/** 三农余额 */
 	@Column(name = "agriculture_balance")
-	private Integer agricultureBalance;
+	private Double agricultureBalance;
 
 	/** 小微余额 */
 	@Column(name = "small_company_balance")
-	private Integer smallCompanyBalance;
+	private Double smallCompanyBalance;
 
 	public Integer getId() {
 		return id;
@@ -62,11 +62,11 @@ public class LoanBalanceDO extends BaseDO {
 		this.month = month;
 	}
 
-	public Integer getAmount() {
+	public Double getAmount() {
 		return amount;
 	}
 
-	public void setAmount(Integer amount) {
+	public void setAmount(Double amount) {
 		this.amount = amount;
 	}
 
@@ -78,19 +78,19 @@ public class LoanBalanceDO extends BaseDO {
 		this.number = number;
 	}
 
-	public Integer getAgricultureBalance() {
+	public Double getAgricultureBalance() {
 		return agricultureBalance;
 	}
 
-	public void setAgricultureBalance(Integer agricultureBalance) {
+	public void setAgricultureBalance(Double agricultureBalance) {
 		this.agricultureBalance = agricultureBalance;
 	}
 
-	public Integer getSmallCompanyBalance() {
+	public Double getSmallCompanyBalance() {
 		return smallCompanyBalance;
 	}
 
-	public void setSmallCompanyBalance(Integer smallCompanyBalance) {
+	public void setSmallCompanyBalance(Double smallCompanyBalance) {
 		this.smallCompanyBalance = smallCompanyBalance;
 	}
 
