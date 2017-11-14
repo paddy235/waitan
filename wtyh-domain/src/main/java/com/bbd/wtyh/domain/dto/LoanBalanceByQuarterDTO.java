@@ -9,13 +9,13 @@ public class LoanBalanceByQuarterDTO {
 
     private Integer quarter;
 
-    private Integer amount;
+    private Double amount;
 
     private Integer number;
 
-    private Integer agricultureBalance;
+    private Double agricultureBalance;
 
-    private Integer smallCompanyBalance;
+    private Double smallCompanyBalance;
 
     private Integer companyAmount;
 
@@ -35,11 +35,11 @@ public class LoanBalanceByQuarterDTO {
         this.year = year;
     }
 
-    public Integer getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(Integer amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 
@@ -51,19 +51,19 @@ public class LoanBalanceByQuarterDTO {
         this.number = number;
     }
 
-    public Integer getAgricultureBalance() {
+    public Double getAgricultureBalance() {
         return agricultureBalance;
     }
 
-    public void setAgricultureBalance(Integer agricultureBalance) {
+    public void setAgricultureBalance(Double agricultureBalance) {
         this.agricultureBalance = agricultureBalance;
     }
 
-    public Integer getSmallCompanyBalance() {
+    public Double getSmallCompanyBalance() {
         return smallCompanyBalance;
     }
 
-    public void setSmallCompanyBalance(Integer smallCompanyBalance) {
+    public void setSmallCompanyBalance(Double smallCompanyBalance) {
         this.smallCompanyBalance = smallCompanyBalance;
     }
 
