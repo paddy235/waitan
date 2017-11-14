@@ -81,6 +81,15 @@ public class PrivateFundExtraHandler extends AbstractImportHandler<PrivateFundEx
 	public void endRow(Map<String, String> row, PrivateFundExtraDO bean) throws Exception {
 		//GuaranteedInfoDO guaranteedInfoDO = guaranteeService.selectByPrimaryKey(bean.getId());
 		String sqlWhere= "company_id = " +bean.getCompanyId();
+        String recordStatus = row.get("record_status");
+        if(StringUtils.isNotEmpty(recordStatus)){
+            if("已备案".equals(recordStatus)){
+				bean.setRecordStatus(1);
+            }
+            if("取消备案".equals(recordStatus)){
+				bean.setRecordStatus(2);
+            }
+        }
 		PrivateFundExtraDO privateFundExtra = companyService.selectOne(PrivateFundExtraDO.class,sqlWhere);
 		if(null==privateFundExtra){
 			bean.setCreateBy(loginName);
