@@ -24,10 +24,10 @@
     *
     FROM
     plat_list where 1 = 1
-    <if test="platName !=null">
+    <if test="platName !=null and platName!=''">
       AND  plat_name like #{platName}
     </if>
-    <if test="companyName !=null">
+    <if test="companyName !=null and companyName!=''">
       AND company_name like #{companyName}
     </if>
     ORDER BY
@@ -38,9 +38,25 @@
     T.plat_name
     ) a
     LEFT JOIN company c ON a.company_name = c.`name`
+    <if test="areaName !=null and areaName!='' and areaName!='上海市'">
+      left join china_area ca on a.area_id = ca.area_code
+      where ca.county = #{areaName}
+    </if>
     ORDER BY
-    a.create_date DESC,
-    a.plat_name ASC
+    <choose>
+      <when test="orderByField == 1">c.registered_date</when>
+      <when test="orderByField == 2">c.registered_capital</when>
+      <when test="orderByField == 3">a.create_date</when>
+      <otherwise>a.create_date DESC,a.plat_name ASC</otherwise>
+    </choose>
+    <choose>
+      <when test="descAsc=='desc'">
+        desc
+      </when>
+      <when test="descAsc=='asc'">
+        asc
+      </when>
+    </choose>
 
   </select>
 

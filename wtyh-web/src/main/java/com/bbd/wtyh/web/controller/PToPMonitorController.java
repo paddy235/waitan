@@ -12,6 +12,8 @@ import java.util.TreeMap;
 import com.bbd.wtyh.cachetobean.ShanghaiAreaCode;
 import com.bbd.wtyh.log.user.Operation;
 import com.bbd.wtyh.log.user.annotation.LogRecord;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -95,8 +97,12 @@ public class PToPMonitorController {
 	@RequestMapping("/platInfoList")
 	@ResponseBody
 	public ResponseBean platInfoList(@RequestParam(defaultValue = "") String platName,
-									 @RequestParam(defaultValue = "")String companyName) {
-		return ResponseBean.successResponse(pToPMonitorService.getPlatInfoList(platName,companyName));
+									 @RequestParam(defaultValue = "")String companyName,
+									 @RequestParam(defaultValue = "")String orderByField,
+									 @RequestParam(defaultValue = "")String descAsc) {
+		Subject currentUser = SecurityUtils.getSubject();
+		String areaName = String.valueOf(currentUser.getSession().getAttribute("areaName"));
+		return ResponseBean.successResponse(pToPMonitorService.getPlatInfoList(platName,companyName,orderByField,descAsc,areaName));
 
 	}
 
