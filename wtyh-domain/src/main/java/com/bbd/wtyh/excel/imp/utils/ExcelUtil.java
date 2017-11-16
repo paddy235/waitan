@@ -263,6 +263,11 @@ public class ExcelUtil {
 		mapLevel27.put("企业列表", "prepay-company-list");// 构建二级下拉
 		mapLevel27.put("备案企业预付金额总额", "prepay-company-amount");// 构建二级下拉
 
+		//线下理财行业类型
+		Map<String, String> mapLevel28 = new HashMap<>();
+		mapLevel1.put("线下理财行业类型", mapLevel28);// 构建一级下拉
+		mapLevel28.put("线下理财名单导入", "offline-financial-list");// 构建二级下拉
+
 		return mapLevel1;
 	}
 

@@ -98,6 +98,17 @@ public class Clues {
     }
 
     /**
+     * 线下理财行业类型-线下理财名单-导入模板
+     */
+    public static String writeExplainForOfflineFinancialList() {
+        StringBuilder writeExplain = new StringBuilder();
+        writeExplain.append("填写说明（请仔细阅读）：\r\n");
+        writeExplain.append("1.本表格不可填写Excel公式，公司名称必填，不能超过40个汉字；\r\n");
+        writeExplain.append("2.l类型仅填写“新增”“删除”两个类型之一。\r\n");
+        return writeExplain.toString();
+    }
+
+    /**
      * 风险状态范围限制。适用于小额贷款、融资担保之外的风险状态
      * 
      * @return string 风险状态,以逗号分开
