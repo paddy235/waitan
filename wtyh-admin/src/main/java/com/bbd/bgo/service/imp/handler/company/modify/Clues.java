@@ -73,7 +73,7 @@ public class Clues {
         StringBuilder writeExplain = new StringBuilder();
         writeExplain.append("填写说明（请仔细阅读）：\r\n");
         writeExplain.append("1.本表格不可填写Excel公式，所有项必填；\r\n");
-        writeExplain.append("2.本表格仅支持小额贷款行业类型信息导入。\r\n");
+        writeExplain.append("2.本表格仅支持小额贷款行业类型信息导入，贷款余额支持2位小数；\r\n");
         return writeExplain.toString();
     }
     /**
