@@ -9,15 +9,15 @@ public class GuaranteeBalanceDTO {
 
     private Integer month;
 
-    private Integer amount;
+    private Double amount;
 
     private Integer number;
 
-    private Integer steelBalance;
+    private Double steelBalance;
 
-    private Integer compositeBalance;
+    private Double compositeBalance;
 
-    private Integer policyBalance;
+    private Double policyBalance;
 
     private Integer companyAmount;
 
@@ -29,11 +29,11 @@ public class GuaranteeBalanceDTO {
         this.year = year;
     }
 
-    public Integer getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(Integer amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 
@@ -45,27 +45,27 @@ public class GuaranteeBalanceDTO {
         this.number = number;
     }
 
-    public Integer getSteelBalance() {
+    public Double getSteelBalance() {
         return steelBalance;
     }
 
-    public void setSteelBalance(Integer steelBalance) {
+    public void setSteelBalance(Double steelBalance) {
         this.steelBalance = steelBalance;
     }
 
-    public Integer getCompositeBalance() {
+    public Double getCompositeBalance() {
         return compositeBalance;
     }
 
-    public void setCompositeBalance(Integer compositeBalance) {
+    public void setCompositeBalance(Double compositeBalance) {
         this.compositeBalance = compositeBalance;
     }
 
-    public Integer getPolicyBalance() {
+    public Double getPolicyBalance() {
         return policyBalance;
     }
 
-    public void setPolicyBalance(Integer policyBalance) {
+    public void setPolicyBalance(Double policyBalance) {
         this.policyBalance = policyBalance;
     }
 
