@@ -36,6 +36,7 @@ public class PriFundQflpCompanyHandler  extends AbstractImportHandler<QflpCompan
     private PrivateFundService privateFundService;
 
     private List<QflpCompanyDTO> insertList = null;
+    private List<String> companyNameList = null;
     private List<QflpCompanyDTO> updateList = null;
     String loginName = "";
 
@@ -48,6 +49,7 @@ public class PriFundQflpCompanyHandler  extends AbstractImportHandler<QflpCompan
         log.info("开始检查" + caption);
         insertList = new LinkedList<>();
         updateList = new LinkedList<>();
+        companyNameList = new LinkedList<>();
     }
 
     @Override
@@ -62,6 +64,11 @@ public class PriFundQflpCompanyHandler  extends AbstractImportHandler<QflpCompan
 
     @Override
     public void endRow(Map<String, String> row, QflpCompanyDTO bean) throws Exception {
+        if (companyNameList.contains(bean.getCompanyName())) {
+            addError("有重复企业记录");
+            return;
+        }
+        companyNameList.add(bean.getCompanyName());
         CompanyDO cp = companyService.getCompanyByName(bean.getCompanyName());
         if (null == cp) {
             cp = companyService.getCompanyByName(bean.getCompanyName(), true);
@@ -70,7 +77,7 @@ public class PriFundQflpCompanyHandler  extends AbstractImportHandler<QflpCompan
             addError("未查询到此企业");
             return;
         }
-
+        companyNameList.add(bean.getCompanyName());
         QflpCompanyDO qflpCompanyDO = privateFundService.getQflpCompanyByPrimaryKey(cp.getCompanyId());
 
         if (null == qflpCompanyDO) {

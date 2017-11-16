@@ -35,6 +35,7 @@ public class PriFundQdlpProgressHandler extends AbstractImportHandler<QdlpProgre
     @Autowired
     private PrivateFundService privateFundService;
 
+    private List<String> companyNameList = null;
     private List<QdlpProgressVO> insertList = null;
     private List<QdlpProgressVO> updateList = null;
     String loginName = "";
@@ -67,6 +68,11 @@ public class PriFundQdlpProgressHandler extends AbstractImportHandler<QdlpProgre
 
     @Override
     public void endRow(Map<String, String> row, QdlpProgressVO bean) throws Exception {
+        if (companyNameList.contains(bean.getCompanyName())) {
+            addError("有重复企业记录");
+            return;
+        }
+        companyNameList.add(bean.getCompanyName());
         CompanyDO cp = companyService.getCompanyByName(bean.getCompanyName());
         if (null == cp) {
             cp = companyService.getCompanyByName(bean.getCompanyName(), true);
