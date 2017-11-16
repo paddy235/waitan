@@ -38,8 +38,12 @@
       order by qc.index_num
   </select>
 
+    <select id="selectQflpMaxIndexNum" resultType="int">
+        SELECT MAX(index_num) from qflp_company;
+    </select>
+
   <update id="update" parameterType="com.bbd.wtyh.domain.QflpCompanyDO">
-    update qflp_company set  dollor_part=#{dollorPart},scale=#{scale},rmb_part=#{rmbPart},update_by=#{updateBy},update_date=#{updateDate},index_num=#{indexNum}
+    update qflp_company set  dollor_part=#{dollorPart},scale=#{scale},rmb_part=#{rmbPart},update_by=#{updateBy},update_date=#{updateDate}
      where company_id = #{companyId}
   </update>
 

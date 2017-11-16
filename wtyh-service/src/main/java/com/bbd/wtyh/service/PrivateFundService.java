@@ -58,4 +58,8 @@ public interface PrivateFundService {
     void saveOrUpdateProductStatistic(FundProductStatisticDO productDO);
 
     void saveOrUpdateStatistic(PrivateFundStatisticDO statisticDO);
+
+    int selectQdlpMaxIndexNum();
+
+    int selectQflpMaxIndexNum();
 }

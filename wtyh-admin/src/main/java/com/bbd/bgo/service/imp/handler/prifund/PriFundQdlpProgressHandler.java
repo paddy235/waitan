@@ -35,10 +35,10 @@ public class PriFundQdlpProgressHandler extends AbstractImportHandler<QdlpProgre
     @Autowired
     private PrivateFundService privateFundService;
 
+    private List<String> companyNameList = null;
     private List<QdlpProgressVO> insertList = null;
     private List<QdlpProgressVO> updateList = null;
     String loginName = "";
-    Integer indexNum = 1;
 
     @Override
     public void start(HttpServletRequest request) throws Exception {
@@ -68,6 +68,11 @@ public class PriFundQdlpProgressHandler extends AbstractImportHandler<QdlpProgre
 
     @Override
     public void endRow(Map<String, String> row, QdlpProgressVO bean) throws Exception {
+        if (companyNameList.contains(bean.getCompanyName())) {
+            addError("有重复企业记录");
+            return;
+        }
+        companyNameList.add(bean.getCompanyName());
         CompanyDO cp = companyService.getCompanyByName(bean.getCompanyName());
         if (null == cp) {
             cp = companyService.getCompanyByName(bean.getCompanyName(), true);
@@ -78,8 +83,6 @@ public class PriFundQdlpProgressHandler extends AbstractImportHandler<QdlpProgre
         }
 
         QdlpProgressDO qdlpProgressDO = privateFundService.getQdlpProgressByPrimaryKey(cp.getCompanyId());
-
-        bean.setIndexNum(indexNum++);
 
         if (null == qdlpProgressDO) {
             insertList.add(bean);
@@ -109,8 +112,9 @@ public class PriFundQdlpProgressHandler extends AbstractImportHandler<QdlpProgre
             qdlpProgressDO.setIndexNum(qdlpProgressVO.getIndexNum());
             privateFundService.updateQdlpProgress(qdlpProgressDO);
         }
-
+        int indexNum = privateFundService.selectQdlpMaxIndexNum();
         for (QdlpProgressVO qdlpProgressVO : insertList) {
+            indexNum+=1;
             CompanyDO cp = companyService.getCompanyByName(qdlpProgressVO.getCompanyName());
             QdlpProgressDO qdlpProgressDO = new QdlpProgressDO();
             qdlpProgressDO.setCompanyId(cp.getCompanyId());
@@ -121,7 +125,7 @@ public class PriFundQdlpProgressHandler extends AbstractImportHandler<QdlpProgre
             qdlpProgressDO.setForeignShareholder(qdlpProgressVO.getForeignShareholder());
             qdlpProgressDO.setCreateBy(loginName);
             qdlpProgressDO.setCreateDate(new Date());
-            qdlpProgressDO.setIndexNum(qdlpProgressVO.getIndexNum());
+            qdlpProgressDO.setIndexNum(indexNum);
             privateFundService.addQdlpProgress(qdlpProgressDO);
         }
         log.info(caption + "导入已完成");
