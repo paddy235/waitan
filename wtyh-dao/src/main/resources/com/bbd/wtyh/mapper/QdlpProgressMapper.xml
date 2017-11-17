@@ -45,7 +45,7 @@
     </select>
 
     <select id="selectQdlpMaxIndexNum" resultType="int">
-        SELECT MAX(index_num) from qdlp_progress;
+        SELECT ifnull(MAX(index_num),0) from qdlp_progress;
     </select>
 
     <update id="update" parameterType="com.bbd.wtyh.domain.QdlpProgressDO">

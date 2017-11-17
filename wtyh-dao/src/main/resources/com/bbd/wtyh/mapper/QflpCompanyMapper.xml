@@ -39,7 +39,7 @@
   </select>
 
     <select id="selectQflpMaxIndexNum" resultType="int">
-        SELECT MAX(index_num) from qflp_company;
+        SELECT ifnull(MAX(index_num),0) from qflp_company;
     </select>
 
   <update id="update" parameterType="com.bbd.wtyh.domain.QflpCompanyDO">
