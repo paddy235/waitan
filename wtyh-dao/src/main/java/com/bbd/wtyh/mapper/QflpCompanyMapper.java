@@ -13,4 +13,6 @@ public interface QflpCompanyMapper {
     void update(QflpCompanyDO qflpCompanyDO);
 
     void add(QflpCompanyDO qflpCompanyDO);
+
+    int selectQflpMaxIndexNum();
 }

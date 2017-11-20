@@ -739,10 +739,10 @@ public class PToPMonitorServiceImpl implements PToPMonitorService, TaskService {
     }
 
     @Override
-    public List<PlatInfoDTO> getPlatInfoList(String platName,String companyName){
+    public List<PlatInfoDTO> getPlatInfoList(String platName,String companyName,String orderByField,String descAsc,String areaName){
         platName = "%"+platName+"%";
         companyName = "%"+companyName+"%";
-        List<PlatInfoDTO> platList = platInfoListMapper.getPlatInfoList(platName,companyName);
+        List<PlatInfoDTO> platList = platInfoListMapper.getPlatInfoList(platName,companyName,orderByField,descAsc,areaName);
         List<PlatInfoDTO> platMoreThanOne = platInfoListMapper.getPlatMoreThanOne(platName,companyName);
         //可能出现 平台对公司 1对N 的情况，如果N>1 ,这家企业的基本信息置空
         if(ListUtil.isEmpty(platMoreThanOne)){

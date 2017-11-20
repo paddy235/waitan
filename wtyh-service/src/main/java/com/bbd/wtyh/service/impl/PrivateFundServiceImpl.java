@@ -141,6 +141,16 @@ public class PrivateFundServiceImpl implements PrivateFundService {
     }
 
     @Override
+    public int selectQdlpMaxIndexNum() {
+        return qdlpProgressMapper.selectQdlpMaxIndexNum();
+    }
+
+    @Override
+    public int selectQflpMaxIndexNum() {
+        return qflpCompanyMapper.selectQflpMaxIndexNum();
+    }
+
+    @Override
     public void addQdlpProgress(QdlpProgressDO qdlpProgressDO) {
         qdlpProgressMapper.add(qdlpProgressDO);
     }

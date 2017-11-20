@@ -13,4 +13,7 @@ public interface QdlpProgressMapper {
     void update(QdlpProgressDO qdlpProgressDO);
 
     void add(QdlpProgressDO qdlpProgressDO);
+
+    int selectQdlpMaxIndexNum();
+
 }

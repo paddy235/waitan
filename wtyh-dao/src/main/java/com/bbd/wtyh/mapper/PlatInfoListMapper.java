@@ -15,7 +15,10 @@ import java.util.List;
 public interface PlatInfoListMapper {
 
 	List<PlatInfoDTO> getPlatInfoList(@Param(value = "platName") String platName,
-									  @Param(value = "companyName")String companyName);
+									  @Param(value = "companyName")String companyName,
+									  @Param(value = "orderByField")String orderByField,
+									  @Param(value = "descAsc")String descAsc,
+									  @Param(value = "areaName")String areaName);
 
 	List<PlatInfoDTO> getPlatMoreThanOne(@Param(value = "platName") String platName,
 									  @Param(value = "companyName")String companyName);

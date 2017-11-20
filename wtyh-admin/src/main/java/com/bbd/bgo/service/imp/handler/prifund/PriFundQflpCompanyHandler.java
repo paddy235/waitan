@@ -36,9 +36,9 @@ public class PriFundQflpCompanyHandler  extends AbstractImportHandler<QflpCompan
     private PrivateFundService privateFundService;
 
     private List<QflpCompanyDTO> insertList = null;
+    private List<String> companyNameList = null;
     private List<QflpCompanyDTO> updateList = null;
     String loginName = "";
-    Integer indexNum = 1;
 
     @Override
     public void start(HttpServletRequest request) throws Exception {
@@ -49,6 +49,7 @@ public class PriFundQflpCompanyHandler  extends AbstractImportHandler<QflpCompan
         log.info("开始检查" + caption);
         insertList = new LinkedList<>();
         updateList = new LinkedList<>();
+        companyNameList = new LinkedList<>();
     }
 
     @Override
@@ -63,6 +64,11 @@ public class PriFundQflpCompanyHandler  extends AbstractImportHandler<QflpCompan
 
     @Override
     public void endRow(Map<String, String> row, QflpCompanyDTO bean) throws Exception {
+        if (companyNameList.contains(bean.getCompanyName())) {
+            addError("有重复企业记录");
+            return;
+        }
+        companyNameList.add(bean.getCompanyName());
         CompanyDO cp = companyService.getCompanyByName(bean.getCompanyName());
         if (null == cp) {
             cp = companyService.getCompanyByName(bean.getCompanyName(), true);
@@ -71,10 +77,8 @@ public class PriFundQflpCompanyHandler  extends AbstractImportHandler<QflpCompan
             addError("未查询到此企业");
             return;
         }
-
+        companyNameList.add(bean.getCompanyName());
         QflpCompanyDO qflpCompanyDO = privateFundService.getQflpCompanyByPrimaryKey(cp.getCompanyId());
-
-        bean.setIndexNum(indexNum++);
 
         if (null == qflpCompanyDO) {
             insertList.add(bean);
@@ -102,7 +106,9 @@ public class PriFundQflpCompanyHandler  extends AbstractImportHandler<QflpCompan
             qflpCompanyDO.setIndexNum(qflpCompanyDTO.getIndexNum());
             privateFundService.updateQflpCompany(qflpCompanyDO);
         }
+        int indexNum = privateFundService.selectQflpMaxIndexNum();
         for(QflpCompanyDTO qflpCompanyDTO:insertList){
+            indexNum+=1;
             CompanyDO cp = companyService.getCompanyByName(qflpCompanyDTO.getCompanyName());
             QflpCompanyDO qflpCompanyDO = new QflpCompanyDO();
             qflpCompanyDO.setCompanyId(cp.getCompanyId());
@@ -111,7 +117,7 @@ public class PriFundQflpCompanyHandler  extends AbstractImportHandler<QflpCompan
             qflpCompanyDO.setScale(qflpCompanyDTO.getTotal());
             qflpCompanyDO.setCreateBy(loginName);
             qflpCompanyDO.setCreateDate(new Date());
-            qflpCompanyDO.setIndexNum(qflpCompanyDTO.getIndexNum());
+            qflpCompanyDO.setIndexNum(indexNum);
             privateFundService.addQflpCompany(qflpCompanyDO);
         }
         log.info(caption + "导入已完成");
