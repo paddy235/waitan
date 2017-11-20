@@ -6,8 +6,10 @@ import com.bbd.wtyh.domain.*;
 import com.bbd.wtyh.domain.bbdAPI.IndustryCodeDO;
 import com.bbd.wtyh.mapper.CompanyBackgroundMapper;
 import com.bbd.wtyh.mapper.CompanyMapper;
+import com.bbd.wtyh.mapper.CompanyStaticRiskScoreMapper;
 import com.bbd.wtyh.mapper.TaskFailInfoMapper;
 import com.bbd.wtyh.service.AreaService;
+import com.bbd.wtyh.service.CompanyStaticRiskScoreService;
 import com.bbd.wtyh.service.HologramQueryService;
 import com.bbd.wtyh.service.TaskService;
 import com.bbd.wtyh.service.impl.OfflineFinanceServiceImpl;
@@ -36,16 +38,14 @@ public class StaticRiskUpdateServiceImpl implements StaticRiskUpdateService,Task
 	private Logger logger = LoggerFactory.getLogger(OfflineFinanceServiceImpl.class);
 
 	@Autowired
-	private AreaService areaService;
+	private CompanyStaticRiskScoreService companyStaticRiskScoreService;
 
 	@Autowired
-	private CompanyMapper companyMapper;
-
-	@Autowired
-	private HologramQueryService hologramQueryService;
+	private CompanyStaticRiskScoreMapper companyStaticRiskScoreMapper;
 
 	@Autowired
 	private TaskFailInfoMapper taskFailInfoMapper;
+
 
 	private volatile boolean isShutdown = false;//任务停止标志
 
@@ -63,7 +63,10 @@ public class StaticRiskUpdateServiceImpl implements StaticRiskUpdateService,Task
 		TaskResultDO taskResultDO=new TaskResultDO();
 		Integer dataTotal = 0;
 		try {
-			final int totalCount = companyMapper.countAllCompany();
+			//查询最新版本
+			String newDataVersion = companyStaticRiskScoreMapper.getNewDataVersion();
+			//查询总公司数
+			final int totalCount = companyStaticRiskScoreMapper.findCompanyCount(newDataVersion);
 			dataTotal = totalCount;
 			final int pageSize = 190;
 			Pagination pagination = new Pagination();
@@ -72,7 +75,7 @@ public class StaticRiskUpdateServiceImpl implements StaticRiskUpdateService,Task
 			int total = pagination.getLastPageNumber();
 			ExecutorService dataExecutorService = Executors.newFixedThreadPool(12);
 			logger.info("start update static risk");
-			for (int i = 1; i <= total; i++) {
+			for (int i = 1; i <= 10; i++) {
 				final int num = i;
 				dataExecutorService.submit(new Runnable() {
 					@Override
@@ -81,7 +84,7 @@ public class StaticRiskUpdateServiceImpl implements StaticRiskUpdateService,Task
 						paginationP.setPageNumber(num);
 						paginationP.setPageSize(pageSize);
 						paginationP.setCount(totalCount);
-						companyAndBackgroundUpdateThread(paginationP,1,taskId);
+						companyAndBackgroundUpdateThread(newDataVersion,paginationP,1,taskId);
 					}
 				});
 			}
@@ -113,6 +116,8 @@ public class StaticRiskUpdateServiceImpl implements StaticRiskUpdateService,Task
 		this.errorNum=0;
 		Integer dataTotal = 0;
 		try {
+			//查询最新版本
+			String newDataVersion = companyStaticRiskScoreMapper.getNewDataVersion();
 			final int totalCount = taskFailInfoMapper.countFailByTaskId(oldTaskId);
 			dataTotal = totalCount;
 			final int pageSize = 190;
@@ -122,7 +127,7 @@ public class StaticRiskUpdateServiceImpl implements StaticRiskUpdateService,Task
 			int total = pagination.getLastPageNumber();
 			ExecutorService dataExecutorService = Executors.newFixedThreadPool(16);
 			logger.info("start update static risk");
-			for (int i = 1; i <= total; i++) {
+			for (int i = 1; i <= 10; i++) {
 				if (isShutdown) {
 					break;
 				}
@@ -134,7 +139,7 @@ public class StaticRiskUpdateServiceImpl implements StaticRiskUpdateService,Task
 						paginationP.setPageNumber(num);
 						paginationP.setPageSize(pageSize);
 						paginationP.setCount(totalCount);
-						companyAndBackgroundUpdateThread(paginationP,2,oldTaskId);
+						companyAndBackgroundUpdateThread(newDataVersion,paginationP,2,oldTaskId);
 					}
 				});
 			}
@@ -156,14 +161,54 @@ public class StaticRiskUpdateServiceImpl implements StaticRiskUpdateService,Task
 	}
 
 
-	private void companyAndBackgroundUpdateThread(Pagination pagination,Integer type,Integer dataTaskId) {
+	private void companyAndBackgroundUpdateThread(String newDataVersion,Pagination pagination,Integer type,Integer dataTaskId) {
 		if (isShutdown) {
 			return;
 		}
 		Map<String, Object> params = new HashMap<>();
 		params.put("pagination", pagination);
+		params.put("newDataVersion",newDataVersion);
 		StringBuffer companyNameSerial = new StringBuffer();
 		List<String> failNameList = new ArrayList<String>();
+		if(1==type){
+			//分页查询最新版本线下理财公司
+			List<CompanyStaticRiskScoreDO> list = companyStaticRiskScoreMapper.findByPage(params);
+			if (CollectionUtils.isEmpty(list)) {
+				return;
+			}
+			for (final CompanyStaticRiskScoreDO companyStaticRiskScoreDO : list){
+				//更新企业风险值
+				try{
+					companyStaticRiskScoreService.updateOffLineCompany(newDataVersion,companyStaticRiskScoreDO);
+				}catch (Exception e) {
+					logger.error(e.getMessage(), e);
+					insertFailInfo(null,companyStaticRiskScoreDO.getName(),"计算更新公司风险出错");
+				}
+
+			}
+
+		}else{
+			params.put("taskId",dataTaskId);
+			List<TaskFailInfoDO> failList = taskFailInfoMapper.findByPage(params);
+			if (CollectionUtils.isEmpty(failList)) {
+				return;
+			}
+			for (final TaskFailInfoDO fail : failList) {
+				List<CompanyStaticRiskScoreDO> list = companyStaticRiskScoreMapper.findByCompanyName(fail.getFailName(), newDataVersion);
+				if (CollectionUtils.isEmpty(list)){
+					return;
+				}
+				for (final CompanyStaticRiskScoreDO companyStaticRiskScoreDO : list){
+					//更新企业风险值
+					try{
+						companyStaticRiskScoreService.updateOffLineCompany(newDataVersion,companyStaticRiskScoreDO);
+					}catch (Exception e) {
+						logger.error(e.getMessage(), e);
+						insertFailInfo(null,companyStaticRiskScoreDO.getName(),"计算更新公司风险出错");
+					}
+				}
+			}
+		}
 	}
 
 

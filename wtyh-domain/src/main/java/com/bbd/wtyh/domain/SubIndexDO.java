@@ -1,7 +1,7 @@
 package com.bbd.wtyh.domain;
 
 /**
- * 线下理财企业信息指标实体类
+ * 线下理财企业信息子指标实体类
  * Created by puyuan on 2017/11/16
  * c.company_id ,
  c.name ,
@@ -13,12 +13,8 @@ package com.bbd.wtyh.domain;
  s.relation_in_risk_v2
  */
 
-public class CompanyStaticRiskScoreDO {
+public class SubIndexDO {
 
-    //公司id
-    private Integer company_id;
-    //公司名称
-    private String name;
     //实际控制人风险
     private float real_control_risk_v2;
     //非法融资衍生风险
@@ -31,22 +27,14 @@ public class CompanyStaticRiskScoreDO {
     private float person_structure_risk_v2;
     //关联方中心积聚化风险
     private float relation_in_risk_v2;
-
-    public Integer getCompanyId() {
-        return company_id;
-    }
-
-    public void setCompanyId(Integer company_id) {
-        this.company_id = company_id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+    //上海非正常户认定
+    private int V1;
+    //上海用人单位欠缴社会保险费
+    private int V2;
+    //上海失信曝光
+    private int V3;
+    //上海市场监管类行政处罚
+    private int V4;
 
     public float getReal_control_risk_v2() {
         return real_control_risk_v2;
@@ -94,5 +82,37 @@ public class CompanyStaticRiskScoreDO {
 
     public void setRelation_in_risk_v2(float relation_in_risk_v2) {
         this.relation_in_risk_v2 = relation_in_risk_v2;
+    }
+
+    public int getV1() {
+        return V1;
+    }
+
+    public void setV1(int v1) {
+        V1 = v1;
+    }
+
+    public int getV2() {
+        return V2;
+    }
+
+    public void setV2(int v2) {
+        V2 = v2;
+    }
+
+    public int getV3() {
+        return V3;
+    }
+
+    public void setV3(int v3) {
+        V3 = v3;
+    }
+
+    public int getV4() {
+        return V4;
+    }
+
+    public void setV4(int v4) {
+        V4 = v4;
     }
 }
