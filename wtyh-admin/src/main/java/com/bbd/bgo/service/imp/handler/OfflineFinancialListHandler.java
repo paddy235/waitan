@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 /**
- * 小贷-大额借款人处理器
+ * 线下理财行业-线下理财名单处理器
  *
  * @author Created by Wll on 2017-11-16 11:35.
  */
@@ -55,17 +55,19 @@ public class OfflineFinancialListHandler extends AbstractImportHandler<OfflineFi
         //
         String type = row.get("type");
         String companyName = row.get("company_name");
-        boolean haveError = false;
         if (companyName == null) {
             addError("公司不存在，请先导入线下理财公司名单");
+            log.info("公司不存在，请先导入线下理财公司名单");
             return false;
         }
         if (type == null) {
-            addError("类型不存在，请先导入线下理财公司名单");
+            addError("类型不存在，请填写正确的类型");
+            log.info("类型不存在，请填写正确的类型");
             return false;
         }
         if (!type.equals("新增")&&!type.equals("删除")) {
             addError("输入的类型不合法");
+            log.info("输入的类型不合法");
             return false;
         }
 
@@ -74,6 +76,7 @@ public class OfflineFinancialListHandler extends AbstractImportHandler<OfflineFi
             CompanyDO companyInfo = this.companyService.getCompanyByName(companyName);
             if (null==companyInfo){
                 addError("请先导入企业");
+                log.info("请先导入企业");
                 return false;
             }
 
@@ -81,6 +84,7 @@ public class OfflineFinancialListHandler extends AbstractImportHandler<OfflineFi
                     "companyName = " + "'"+companyName+"'" );
             if(offlinefinancialList!=null){
                 addError("该企业已经存在于线下理财白名单中");
+                log.info("该企业已经存在于线下理财白名单中");
                 return false;
             }
 
@@ -91,7 +95,8 @@ public class OfflineFinancialListHandler extends AbstractImportHandler<OfflineFi
                 row.put("companyName",name);
                 row.put("companyId", companyId + "");
             }else{
-                addError("excel企业重复");
+                addError("excel中企业名称重复");
+                log.info("excel中企业名称重复");
                 return false;
             }
         }
@@ -102,9 +107,10 @@ public class OfflineFinancialListHandler extends AbstractImportHandler<OfflineFi
                     "companyName = " + "'"+companyName+"'" );
             if (offlinefinancialList==null){
                 addError("该企业不在线下理财白名单中，不需要进行删除");
+                log.info("该企业不在线下理财白名单中，不需要进行删除");
                 return false;
             }else{
-                //增加删除list
+                //增加删除list公司名单
                  deleteList.add(offlinefinancialList);
             }
         }
@@ -128,13 +134,13 @@ public class OfflineFinancialListHandler extends AbstractImportHandler<OfflineFi
             }
             if(deleteList!=null && !deleteList.isEmpty()){
                 for (OfflineFinancialListDO delCompany: deleteList) {
-//                    this.companyService.delete(delCompany);
                     this.companyService.executeCUD("DELETE from offline_financial_white where companyId = ?",delCompany.getCompanyId());
                 }
             }
 
         } else {
             addError("用户上传的线下理财名单中的数据有误，所有数据均不予入库");
+            log.info("用户上传的线下理财名单中的数据有误，所有数据均不予入库");
         }
         log.info("导入线下理财行业-线下理财名单结束");
     }
