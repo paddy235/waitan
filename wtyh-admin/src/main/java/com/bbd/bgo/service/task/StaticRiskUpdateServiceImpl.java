@@ -8,10 +8,7 @@ import com.bbd.wtyh.mapper.CompanyBackgroundMapper;
 import com.bbd.wtyh.mapper.CompanyMapper;
 import com.bbd.wtyh.mapper.CompanyStaticRiskScoreMapper;
 import com.bbd.wtyh.mapper.TaskFailInfoMapper;
-import com.bbd.wtyh.service.AreaService;
-import com.bbd.wtyh.service.CompanyStaticRiskScoreService;
-import com.bbd.wtyh.service.HologramQueryService;
-import com.bbd.wtyh.service.TaskService;
+import com.bbd.wtyh.service.*;
 import com.bbd.wtyh.service.impl.OfflineFinanceServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,6 +36,9 @@ public class StaticRiskUpdateServiceImpl implements StaticRiskUpdateService,Task
 
 	@Autowired
 	private CompanyStaticRiskScoreService companyStaticRiskScoreService;
+
+	@Autowired
+	private UpdateWhiteCompanyRiskGradeService updateWhiteCompanyRiskGradeService;
 
 	@Autowired
 	private CompanyStaticRiskScoreMapper companyStaticRiskScoreMapper;
@@ -75,7 +75,7 @@ public class StaticRiskUpdateServiceImpl implements StaticRiskUpdateService,Task
 			int total = pagination.getLastPageNumber();
 			ExecutorService dataExecutorService = Executors.newFixedThreadPool(12);
 			logger.info("start update static risk");
-			for (int i = 1; i <= 10; i++) {
+			for (int i = 1; i <= total; i++) {
 				final int num = i;
 				dataExecutorService.submit(new Runnable() {
 					@Override
@@ -90,6 +90,8 @@ public class StaticRiskUpdateServiceImpl implements StaticRiskUpdateService,Task
 			}
 			dataExecutorService.shutdown();
 			dataExecutorService.awaitTermination(1, TimeUnit.DAYS);
+			//更新5万家白名单企业
+			updateWhiteCompanyRiskGradeService.startUpdate();
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 		}
@@ -145,6 +147,8 @@ public class StaticRiskUpdateServiceImpl implements StaticRiskUpdateService,Task
 			}
 			dataExecutorService.shutdown();
 			dataExecutorService.awaitTermination(1, TimeUnit.DAYS);
+			//更新5万家白名单企业
+			updateWhiteCompanyRiskGradeService.startUpdate();
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 		}

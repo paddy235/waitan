@@ -70,4 +70,10 @@
     s.relation_in_risk_v2 as relation_in_risk_v2
      FROM company c, static_risk_data s where c.`name`=s.company_name and c.company_type=4 and s.data_version=#{newDataVersion} and c.company_id=#{companyId}
   </select>
+
+  <update id="updateSubIndex" parameterType="com.bbd.wtyh.domain.BbdSubIndexDO">
+
+    UPDATE static_risk_data set real_control_risk=#{real_control_risk} and illegal_financing_risk=#{illegal_financing_risk}
+    and short_risk=#{short_risk} and illegal_money_financing_risk=#{illegal_money_financing_risk} and person_structure_risk=#{person_structure_risk} and relation_in_risk=#{relation_in_risk}
+  </update>
 </mapper>

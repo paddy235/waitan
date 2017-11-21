@@ -1,5 +1,6 @@
 package com.bbd.wtyh.service.impl;
 
+import com.bbd.wtyh.domain.BbdSubIndexDO;
 import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.CompanyStaticRiskScoreDO;
 import com.bbd.wtyh.domain.SubIndexDO;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import sun.security.provider.Sun;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -102,40 +104,39 @@ public class CompanyStaticRiskScoreServiceImpl implements CompanyStaticRiskScore
     public SubIndexDO searchSubIndex(String newDataVersion, Integer companyId) {
         CompanyStaticRiskScoreDO companyStaticRiskScoreDO = CompanyStaticRiskScoreMapper.findCompany(companyId, newDataVersion);
         SubIndexDO subIndexDo = new SubIndexDO();
-        subIndexDo.setReal_control_risk_v2((float) (100/(1+Math.exp(-3*companyStaticRiskScoreDO.getReal_control_risk_v2()+2))));
-        subIndexDo.setIllegal_financing_risk_v2((float)(100/(1+Math.exp(6*companyStaticRiskScoreDO.getIllegal_financing_risk_v2()-6))));
-        subIndexDo.setIllegal_money_financing_risk_v2((float)(100-200/(1+Math.exp(20*Math.pow(companyStaticRiskScoreDO.getIllegal_money_financing_risk_v2()-0.33,2)))));
-        subIndexDo.setPerson_structure_risk_v2((float)(100/(1+Math.exp(-5*companyStaticRiskScoreDO.getPerson_structure_risk_v2()/(100+1)))));
-        subIndexDo.setRelation_in_risk_v2((float)(100/(1+Math.exp(-1*companyStaticRiskScoreDO.getRelation_in_risk_v2()+1))));
-        subIndexDo.setShort_risk_v2((float)(100/(1+Math.exp(5*companyStaticRiskScoreDO.getShort_risk_v2())-2)));
+        //保留两位小数
+        DecimalFormat df = new DecimalFormat("#.00");
         //根据id获取上海的四个指标
         //非正常户认定指标
         int V1 = CompanyStaticRiskScoreMapper.getShanghaitarget(NORMAL_HOUSEHOLD_COGNIZANCE, companyStaticRiskScoreDO.getCompanyId());
-        V1 = (int)(100/(1+Math.exp(-2*V1+1)));
-         subIndexDo.setV1(V1);
+        //double V1 = 0;
+         subIndexDo.setNormalHousehold(df.format(100/(1+Math.exp(-2*V1+1))));
+         subIndexDo.setNormalHouseholdNum(V1);
         //用人单位欠缴社会保险费指标
         int V2 = CompanyStaticRiskScoreMapper.getShanghaitarget(UNPAID_SOCIAL_SECURITY_FEE, companyStaticRiskScoreDO.getCompanyId());
+        //double V2 = 1;
         if(V2 == 0){
             V2 = 0;
         }else{
             V2 = 1;
         }
-        V2 = (int)(100/(1+Math.exp(-5*V2+1)));
-        subIndexDo.setV2(V2);
+        subIndexDo.setUnpaidInsurancePremium(df.format(100/(1+Math.exp(-5*V2+1))));
+        subIndexDo.setUnpaidInsurancePremiumNum(V2);
         //失信曝光指标
         int V3 = CompanyStaticRiskScoreMapper.getShanghaitarget(EXPOSURE_STAGE, companyStaticRiskScoreDO.getCompanyId())+CompanyStaticRiskScoreMapper.getShanghaitarget(DISHONESTY_INFO, companyStaticRiskScoreDO.getCompanyId());
+        //double V3 = 1;
         if(V3 == 0){
             V3 = 0;
         }else{
             V3 = 1;
         }
-        V3 = (int)(100/(1+Math.exp(-4*V3+1)));
-        subIndexDo.setV3(V3);
+        subIndexDo.setDiscreditExposure(df.format(100/(1+Math.exp(-4*V3+1))));
+        subIndexDo.setDiscreditExposureNum(V3);
         //市场监管类行政处罚指标
         int V4 = CompanyStaticRiskScoreMapper.getShanghaitarget(ADMINISTRATIVE_SANCTION, companyStaticRiskScoreDO.getCompanyId());
-        subIndexDo.setV4(V4);
-        V4 = (int)(100/(1+Math.exp(-5*V4+1)));
-
+        //double V4 = 1;
+        subIndexDo.setAdministrativeSanction(df.format(100/(1+Math.exp(-5*V4+1))));
+        subIndexDo.setAdministrativeSanctionNum(V4);
         return subIndexDo;
     }
 
@@ -159,6 +160,10 @@ public class CompanyStaticRiskScoreServiceImpl implements CompanyStaticRiskScore
         //人才结构风险
         double r = companyStaticRiskScoreDO.getPerson_structure_risk_v2();
         //double r = 100;
+
+
+        //计算子指标值保存数据库
+        CalculationSubIndex(s,z,f,d,w,r);
 
 
         //根据id获取上海的四个指标
@@ -189,6 +194,27 @@ public class CompanyStaticRiskScoreServiceImpl implements CompanyStaticRiskScore
         double P = InitializationTarget(s, z, f, d, w, r, V1, V2, V3, V4);
 
         return P ;
+    }
+
+    private void CalculationSubIndex(double s, double z, double f, double d, double w, double r) {
+        //保留两位小数
+        DecimalFormat df = new DecimalFormat("#.00");
+        BbdSubIndexDO bbdSubIndexDO = new BbdSubIndexDO();
+        s = Double.parseDouble(df.format(100/(1+Math.exp(-3*s+2))));
+        f = Double.parseDouble(df.format(100/(1+Math.exp(6*f-6))));
+        w = Double.parseDouble(df.format(100-200/(1+Math.exp(20*Math.pow(w-0.33,2)))));
+        r = Double.parseDouble(df.format(100/(1+Math.exp(-5*r/100+1))));
+        z = Double.parseDouble(df.format(100/(1+Math.exp(-1*z+1))));
+        d = Double.parseDouble(df.format(100/(1+Math.exp(5*d-2))));
+        bbdSubIndexDO.setReal_control_risk((float) s);
+        bbdSubIndexDO.setIllegal_financing_risk((float) f);
+        bbdSubIndexDO.setIllegal_money_financing_risk((float)w);
+        bbdSubIndexDO.setPerson_structure_risk((float)r);
+        bbdSubIndexDO.setRelation_in_risk((float)z);
+        bbdSubIndexDO.setShort_risk((float)d);
+        //存储新计算的bbd留个风险子指标
+        CompanyStaticRiskScoreMapper.updateSubIndex(bbdSubIndexDO);
+
     }
 
     private double ProbabilityCalculation(double s, double z, double f, double d, double w, double r, int v1, int v2, int v3, int v4) {
