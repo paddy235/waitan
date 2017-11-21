@@ -58,6 +58,7 @@ public class CompanyListHandler extends AbstractImportHandler<CompanyDO> {
     @Override
     public boolean validateRow(Map<String, String> row) throws Exception {
         String companyName = row.get("name");
+        companyName = dealCompanyName(companyName);
         if (checkRepeatMap.containsKey(companyName)) {
             addError("企业【" + companyName + "】在文件中有重复，请检查");
             return false;
@@ -72,6 +73,7 @@ public class CompanyListHandler extends AbstractImportHandler<CompanyDO> {
         byte cpTypeCode = CompanyDO.companyType(bean.getComTypeCnItself());
         bean.setCompanyType(cpTypeCode);
         bean.setId(getRowNumber()); //将行号存下
+        bean.setName(dealCompanyName(bean.getName()));
         tempList.add(bean);
         if (tempList.size() < 200) {
             return;
@@ -101,4 +103,11 @@ public class CompanyListHandler extends AbstractImportHandler<CompanyDO> {
         log.error("导入企业名单时服务器异常 ", e);
     }
 
+    public String dealCompanyName(String name){
+        //替换英文括号为中文括号，去掉名称中的空格
+        name = name.replaceAll(" +","");
+        name = name.replaceAll("\\(","（");
+        name = name.replaceAll("\\)","）");
+        return name;
+    }
 }
