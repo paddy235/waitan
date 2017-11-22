@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.bbd.higgs.utils.ListUtil;
 import com.bbd.wtyh.core.base.BaseServiceImpl;
 import com.bbd.wtyh.dao.HologramQueryDao;
+import com.bbd.wtyh.domain.CompanyBuildParkDO;
 import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.bbdAPI.*;
 import com.bbd.wtyh.domain.bbdAPI.BaiDuYuQingDO;
@@ -111,6 +112,13 @@ public class HologramQueryServiceImpl extends BaseServiceImpl implements Hologra
         BBDLogoDO bbdLogoDO = hologramQueryDao.bbdLogo(company,bbdQyxxId);
         for (BBDLogoDO.Result result : bbdLogoDO.getResults()) {
             data.put("公司logo", result.getCompany_logo());
+        }
+        data.put("park","");
+        data.put("build","");
+        CompanyBuildParkDO buidPark = companyMapper.queryCompanyBuildParkInfo(company);
+        if(null!=buidPark){
+            data.put("park",buidPark.getParkName());
+            data.put("build",buidPark.getBuildName());
         }
         return data;
     }

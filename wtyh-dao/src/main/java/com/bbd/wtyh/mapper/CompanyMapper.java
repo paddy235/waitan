@@ -4,12 +4,9 @@ package com.bbd.wtyh.mapper;
 import java.util.List;
 import java.util.Map;
 
-import com.bbd.wtyh.domain.BuildingDO;
+import com.bbd.wtyh.domain.*;
 import org.apache.ibatis.annotations.Param;
 
-import com.bbd.wtyh.domain.CompanyDO;
-import com.bbd.wtyh.domain.CompanyTypeCountDO;
-import com.bbd.wtyh.domain.InBusinessDO;
 import com.bbd.wtyh.domain.query.CompanyQuery;
 import com.bbd.wtyh.domain.vo.SpectrumVO;
 import org.apache.ibatis.annotations.Select;
@@ -51,6 +48,12 @@ public interface CompanyMapper {
 	List<String> queryCompanyNames(@Param("parkId") Integer parkId, @Param("buildingId") Integer buildingId);
 
 	List<Map<Integer, Object>> companyInfo(String companyName);
+
+	@Select("SELECT company.area_id AS comAreaId, park.area_id AS parkAreaId, park. NAME AS parkName,building.`name` AS buildName FROM " +
+			" park,building,company_building,company,park_and_building_relation pabr WHERE park.park_id = pabr.park_id" +
+			" AND pabr.building_id = building.building_id AND building.building_id = company_building.building_id" +
+			" AND company_building.company_id = company.company_id AND company.`name` = #{companyName}")
+	CompanyBuildParkDO queryCompanyBuildParkInfo(String companyName);
 
 	List<CompanyDO> queryCompanyByType(@Param("companyType") Integer companyType, @Param("orderByField") Integer orderByField,
 			@Param("descAsc") String descAsc);
