@@ -150,7 +150,14 @@ public class CompanyLevelHandler extends AbstractImportHandler<CompanyLevelDO> {
         }
         bean.setUpdateBy(createBy);
         bean.setUpdateDate(new Date());
-        updateList.add(bean);
+        CompanyLevelDO companyLevel = this.companyService.selectById(CompanyLevelDO.class,row.get("companyId"));
+        if(null==companyLevel){
+            bean.setCreateBy(createBy);
+            bean.setCreateDate(new Date());
+            insertList.add(bean);
+        }else{
+            updateList.add(bean);
+        }
         this.riskChgCoList.add(riskChgCoDo);
     }
 

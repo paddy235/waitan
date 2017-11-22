@@ -21,6 +21,8 @@ public interface PlatformNameInformationMapper {
 
 	String getPlatName(@Param(value = "company_name")String company);
 
+	List<String> getPlatNames(@Param(value = "company_name")String company);
+
 	int addPlat(List<PlatformNameInformationDO> platList);
 
 	int addPlatOne(PlatformNameInformationDO plat);

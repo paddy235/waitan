@@ -1,6 +1,7 @@
 package com.bbd.wtyh.mapper;
 
 
+import com.bbd.wtyh.domain.BbdSubIndexDO;
 import com.bbd.wtyh.domain.CompanyStaticRiskScoreDO;
 import org.apache.ibatis.annotations.Param;
 
@@ -39,6 +40,11 @@ public interface CompanyStaticRiskScoreMapper {
      * */
 
     int updateStaticRisk(@Param(value = "companyName") String companyName,@Param(value = "dataVersion") String dataVersion ,@Param(value = "index") float index);
+
+    /**
+     * 存储指标值
+     * */
+    int updateSubIndex(BbdSubIndexDO bbdSubIndexDO);
 
 
     /**

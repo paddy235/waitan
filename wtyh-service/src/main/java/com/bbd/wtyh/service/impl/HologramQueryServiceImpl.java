@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.bbd.higgs.utils.ListUtil;
 import com.bbd.wtyh.core.base.BaseServiceImpl;
 import com.bbd.wtyh.dao.HologramQueryDao;
+import com.bbd.wtyh.domain.CompanyBuildParkDO;
 import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.bbdAPI.*;
 import com.bbd.wtyh.domain.bbdAPI.BaiDuYuQingDO;
@@ -112,6 +113,13 @@ public class HologramQueryServiceImpl extends BaseServiceImpl implements Hologra
         for (BBDLogoDO.Result result : bbdLogoDO.getResults()) {
             data.put("公司logo", result.getCompany_logo());
         }
+        data.put("park","");
+        data.put("build","");
+        CompanyBuildParkDO buidPark = companyMapper.queryCompanyBuildParkInfo(company);
+        if(null!=buidPark){
+            data.put("park",buidPark.getParkName());
+            data.put("build",buidPark.getBuildName());
+        }
         return data;
     }
 
@@ -162,8 +170,10 @@ public class HologramQueryServiceImpl extends BaseServiceImpl implements Hologra
     public CompanyDO tag(String company) {
         CompanyDO companyDO = companyMapper.queryCompanyByName(company);
         if (companyDO != null) {
+            List<String> names = platformNameInformationMapper.getPlatNames(company);
             companyDO.setPlatName(
-                    platformNameInformationMapper.getPlatName(company) == null ? "" : platformNameInformationMapper.getPlatName(company));
+                    //platformNameInformationMapper.getPlatName(company) == null ? "" : platformNameInformationMapper.getPlatName(company));
+                    names.size()>0 ? org.apache.commons.lang.StringUtils.join(names.toArray(),","):"");
         }
         return companyDO;
     }
