@@ -70,4 +70,6 @@ public interface HologramQueryDao {
 
     public BaseDataDO getBbdQyxxBatchByPostCD(String companySerial);
 
+    BBDParentCompanyDO getParentCompany(String name);
+
 }
