@@ -43,44 +43,44 @@ public class StaticRiskVO {
 	private String areaCode; // 地区代码
 
 	//新增上海四个参数
-	private String V1;//上海非正常户认定
+	private String normalHousehold;//上海非正常户认定
 
-	private String V2;//上海用人单位欠缴社会保险费
+	private String UnpaidInsurancePremium;//上海用人单位欠缴社会保险费
 
-	private String V3;//上海失信曝光
+	private String DiscreditExposure;//上海失信曝光
 
-	private String V4;//上海市场监管类行政处罚
+	private String AdministrativeSanction;//上海市场监管类行政处罚
 
-	public String getV1() {
-		return V1;
+	public String getNormalHousehold() {
+		return normalHousehold;
 	}
 
-	public void setV1(String v1) {
-		V1 = v1;
+	public void setNormalHousehold(String normalHousehold) {
+		this.normalHousehold = normalHousehold;
 	}
 
-	public String getV2() {
-		return V2;
+	public String getUnpaidInsurancePremium() {
+		return UnpaidInsurancePremium;
 	}
 
-	public void setV2(String v2) {
-		V2 = v2;
+	public void setUnpaidInsurancePremium(String unpaidInsurancePremium) {
+		UnpaidInsurancePremium = unpaidInsurancePremium;
 	}
 
-	public String getV3() {
-		return V3;
+	public String getDiscreditExposure() {
+		return DiscreditExposure;
 	}
 
-	public void setV3(String v3) {
-		V3 = v3;
+	public void setDiscreditExposure(String discreditExposure) {
+		DiscreditExposure = discreditExposure;
 	}
 
-	public String getV4() {
-		return V4;
+	public String getAdministrativeSanction() {
+		return AdministrativeSanction;
 	}
 
-	public void setV4(String v4) {
-		V4 = v4;
+	public void setAdministrativeSanction(String administrativeSanction) {
+		AdministrativeSanction = administrativeSanction;
 	}
 
 	public String getCompanyName() {

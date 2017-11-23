@@ -19,7 +19,7 @@ public interface CompanyStaticRiskScoreService {
     /**
      * 获取10个子指标初始值
      * */
-    SubIndexDO searchSubIndex(String newDataVersion , Integer companyId);
+    SubIndexDO searchSubIndex( String companyName);
 
 
 }
