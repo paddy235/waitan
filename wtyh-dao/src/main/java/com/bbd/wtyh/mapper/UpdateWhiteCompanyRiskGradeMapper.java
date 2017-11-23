@@ -1,5 +1,6 @@
 package com.bbd.wtyh.mapper;
 
+import com.bbd.wtyh.domain.CompanyDO;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;

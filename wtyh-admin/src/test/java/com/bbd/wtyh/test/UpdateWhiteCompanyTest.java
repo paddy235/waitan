@@ -1,8 +1,7 @@
 package com.bbd.wtyh.test;
 
-import com.bbd.bgo.service.task.UpdateWhiteCompanyRiskGradeService;
 import com.bbd.wtyh.core.base.BaseService;
-import com.bbd.wtyh.mapper.UpdateWhiteCompanyRiskGradeMapper;
+import com.bbd.wtyh.service.UpdateWhiteCompanyRiskGradeService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
