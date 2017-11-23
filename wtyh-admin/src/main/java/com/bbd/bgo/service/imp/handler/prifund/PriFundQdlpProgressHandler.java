@@ -49,6 +49,7 @@ public class PriFundQdlpProgressHandler extends AbstractImportHandler<QdlpProgre
         log.info("开始检查" + caption);
         insertList = new LinkedList<>();
         updateList = new LinkedList<>();
+        companyNameList = new LinkedList<>();
     }
 
     @Override
