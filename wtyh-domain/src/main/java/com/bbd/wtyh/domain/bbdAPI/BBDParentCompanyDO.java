@@ -11,6 +11,8 @@ public class BBDParentCompanyDO {
     private String total;
     private List<Result> results;
     private String err_code;
+    private String order_id;
+    private String client_id;
 
     public String getMsg() {
         return msg;
@@ -50,6 +52,22 @@ public class BBDParentCompanyDO {
 
     public void setErr_code(String err_code) {
         this.err_code = err_code;
+    }
+
+    public String getOrder_id() {
+        return order_id;
+    }
+
+    public void setOrder_id(String order_id) {
+        this.order_id = order_id;
+    }
+
+    public String getClient_id() {
+        return client_id;
+    }
+
+    public void setClient_id(String client_id) {
+        this.client_id = client_id;
     }
 
     public class Result{

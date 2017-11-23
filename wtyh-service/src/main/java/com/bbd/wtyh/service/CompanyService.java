@@ -3,7 +3,6 @@ package com.bbd.wtyh.service;
 import com.bbd.wtyh.core.base.BaseService;
 import com.bbd.wtyh.domain.BuildingDO;
 import com.bbd.wtyh.domain.CompanyDO;
-import com.bbd.wtyh.domain.bbdAPI.BBDParentCompanyDO;
 import com.bbd.wtyh.domain.query.CompanyQuery;
 
 import java.util.List;
@@ -35,7 +34,5 @@ public interface CompanyService extends BaseService {
 	int searchCompanyNameCount(String keyword, String dataVersion, Integer areaId);
 
 	BuildingDO getCompanyBuild(Integer companyId) throws Exception;
-
-	BBDParentCompanyDO getParentCompany(String name);
 
 }
