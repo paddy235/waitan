@@ -80,6 +80,12 @@ public class OfflineFinancialListHandler extends AbstractImportHandler<OfflineFi
                 return false;
             }
 
+            if((int)companyInfo.getCompanyType()!=4){
+                addError("该企业不属于线下理财名单企业");
+                log.info("该企业不属于线下理财名单企业");
+                return false;
+            }
+
             OfflineFinancialListDO offlinefinancialList = this.companyService.selectOne(OfflineFinancialListDO.class,
                     "companyName = " + "'"+companyName+"'" );
             if(offlinefinancialList!=null){

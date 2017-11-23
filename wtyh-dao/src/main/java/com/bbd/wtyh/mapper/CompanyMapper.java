@@ -94,7 +94,7 @@ public interface CompanyMapper {
 	 */
 	List<Map<String, Integer>> getRiskLevelNumber();
 
-	@Select("SELECT b.*,b.building_id AS buildingId FROM building b,company_building cb WHERE cb.company_id = #{compantId} AND b.building_id = cb.building_id")
+	@Select("SELECT b.*,b.building_id AS buildingId FROM building b,company_building cb WHERE cb.company_id = #{compantId} AND b.building_id = cb.building_id limit 1")
 	BuildingDO getCompanyBuild(Integer compantId);
 
 	/**
