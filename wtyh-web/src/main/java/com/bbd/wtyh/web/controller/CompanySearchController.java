@@ -1,6 +1,7 @@
 package com.bbd.wtyh.web.controller;
 
 import com.bbd.wtyh.domain.CompanyDO;
+import com.bbd.wtyh.domain.bbdAPI.BBDParentCompanyDO;
 import com.bbd.wtyh.log.user.Operation;
 import com.bbd.wtyh.log.user.annotation.LogRecord;
 import com.bbd.wtyh.service.CompanySearchAPIService;
@@ -64,6 +65,14 @@ public class CompanySearchController {
 	@ResponseBody
 	public ResponseBean searchCompanyByDataPlat(String keyword) throws Exception {
 		String data = comSearApiSer.searchCompanyByKeyword(keyword);
+		return ResponseBean.successResponse(data);
+	}
+
+	@RequestMapping("/searchCompany/test")
+	@ResponseBody
+	public ResponseBean test(String name) throws Exception {
+		name = "上海申彤大大资产管理有限公司浦东第五分公司";
+		BBDParentCompanyDO data = companyService.getParentCompany(name);
 		return ResponseBean.successResponse(data);
 	}
 

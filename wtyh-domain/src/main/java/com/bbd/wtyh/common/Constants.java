@@ -20,6 +20,7 @@ public class Constants {
 	public static final String REDIS_KEY_FFRZWG_RISK = "RK_FFRZWGR";
 	public static final String REDIS_KEY_RCJG_RISK = "RK_RCJGR";
 	public static final String REDIS_KEY_BASE_INFO_BBD_DATA = "BASE_INFO_BBD_DATA";
+	public static final String REDIS_KEY_COMPANY_PARENT = "COMPANY_PARENT";
 	// 关联方-动态计算
 	public static final String REDIS_KEY_RELATION_URL = "REDIS_KEY_RELATION_URL";
 	public static final String REDIS_KEY_NATURAL_PERSON_LIST = "REDIS_KEY_NATURAL_PERSON_LIST";
