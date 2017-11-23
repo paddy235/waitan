@@ -47,6 +47,9 @@ public interface DataLoadingMapper {
 
     List<QyxxBasicDO> getCompanyBasicInfoInNames(List<CompanyDO> CompanyList);
 
+    @Select("select bbd_qyxx_id FROM qyxx_basic where company_name = #{name}  LIMIT 1 ")
+    String getCompanyQyxxId(String name);
+
     @Select("SELECT file_name AS fileName,data_version AS dataVersion ,file_id AS fileId FROM datashare_pull_file WHERE is_pull = FALSE")
     List<Map<String, String>> noPullFileNameList();
 
