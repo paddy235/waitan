@@ -4,6 +4,7 @@ import com.bbd.wtyh.domain.BbdSubIndexDO;
 import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.CompanyStaticRiskScoreDO;
 import com.bbd.wtyh.domain.SubIndexDO;
+import com.bbd.wtyh.mapper.CompanyMapper;
 import com.bbd.wtyh.mapper.CompanyStaticRiskScoreMapper;
 import com.bbd.wtyh.service.CompanyStaticRiskScoreService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,12 @@ public class CompanyStaticRiskScoreServiceImpl implements CompanyStaticRiskScore
     private static final Logger LOGGER = LoggerFactory.getLogger(CompanyStaticRiskScoreServiceImpl.class);
     @Autowired
     private CompanyStaticRiskScoreMapper CompanyStaticRiskScoreMapper;
+
+    @Autowired
+    private CompanyMapper companyMapper;
+
+    @Autowired
+    private CompanyStaticRiskScoreMapper companyStaticRiskScoreMapper;
 
     private static final String NORMAL_HOUSEHOLD_COGNIZANCE = "正常户认定";
 
@@ -101,7 +108,10 @@ public class CompanyStaticRiskScoreServiceImpl implements CompanyStaticRiskScore
     }
 
     @Override
-    public SubIndexDO searchSubIndex(String newDataVersion, Integer companyId) {
+    public SubIndexDO searchSubIndex(String companyName) {
+        String newDataVersion = companyStaticRiskScoreMapper.getNewDataVersion();
+        CompanyDO companyDO = companyMapper.selectByName(companyName);
+        int companyId=companyDO.getCompanyId();
         CompanyStaticRiskScoreDO companyStaticRiskScoreDO = CompanyStaticRiskScoreMapper.findCompany(companyId, newDataVersion);
         SubIndexDO subIndexDo = new SubIndexDO();
         //保留两位小数

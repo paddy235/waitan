@@ -21,7 +21,7 @@ public class CompanyStaticRiskScoreController {
     @ResponseBody
     public ResponseBean getCompanyStaticRiskScore() throws Exception {
       //  CompanyStaticRiskScoreService.updateOffLineCompany(null ,null);
-        CompanyStaticRiskScoreService.searchSubIndex(null ,null);
+        CompanyStaticRiskScoreService.searchSubIndex(null);
         return null;
     }
 
