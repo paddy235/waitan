@@ -12,6 +12,7 @@ import com.bbd.wtyh.domain.dto.CoBatchModifyDTO;
 import com.bbd.wtyh.excel.imp.handler.AbstractImportHandler;
 import com.bbd.wtyh.service.CompanyInfoModifyService;
 import com.bbd.wtyh.service.CompanyService;
+import com.bbd.wtyh.util.CompanyUtils;
 import com.bbd.wtyh.web.companyInfoModify.ModifyData;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -73,6 +74,7 @@ public class BatchModifyHandler extends AbstractImportHandler<CoBatchModifyDTO> 
         convertDigit(typeEnum, row);
 
         String companyName = row.get("companyName");
+        companyName = CompanyUtils.dealCompanyName(companyName);
         if (checkRepeatMap.containsKey(companyName)) {
             addError("企业【" + companyName + "】在文件中有重复，请检查");
             return false;
@@ -87,7 +89,7 @@ public class BatchModifyHandler extends AbstractImportHandler<CoBatchModifyDTO> 
     @Override
     public void endRow(Map<String, String> row, CoBatchModifyDTO bean) throws Exception {
         ModifyData modifyData = new ModifyData();
-        modifyData.setName(bean.getCompanyName());
+        modifyData.setName(CompanyUtils.dealCompanyName(bean.getCompanyName()));
         modifyData.setIndustry(bean.getCompanyType());
         modifyData.setLevel(bean.getRiskLevel());
         modifyData.setOutLevel(bean.getOutLevel());

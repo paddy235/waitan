@@ -4,16 +4,10 @@ import com.alibaba.fastjson.JSONObject;
 import com.bbd.wtyh.core.base.BaseService;
 import com.bbd.wtyh.domain.QyxxTagDO;
 import com.bbd.wtyh.domain.SubscriptionListDO;
-import com.bbd.wtyh.domain.TaskFailInfoDO;
-import com.bbd.wtyh.domain.dataLoading.DatasharePullFileDO;
 import com.bbd.wtyh.mapper.DataLoadingMapper;
 import com.bbd.wtyh.mapper.QyxxTagMapper;
-import com.bbd.wtyh.util.DataLoadingUtil;
-import com.bbd.wtyh.util.DateUtils;
-import com.bbd.wtyh.util.HttpUtil;
-import com.bbd.wtyh.util.PullFileUtil;
+import com.bbd.wtyh.util.*;
 import com.google.common.collect.ListMultimap;
-import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -142,7 +136,7 @@ public class TagUpdateServiceImpl implements TagUpdateService {
         QyxxTagDO qyxxTagDO= new QyxxTagDO();
         qyxxTagDO.setBbdQyxxId(columns[0]);
         qyxxTagDO.setTag(columns[1]);
-        qyxxTagDO.setCompanyName(columns[2]);
+        qyxxTagDO.setCompanyName(CompanyUtils.dealCompanyName(columns[2]));
         qyxxTagDO.setUptime( DateUtils.stringToDate(columns[3]) );
         Integer dt;
         try {
@@ -176,6 +170,7 @@ public class TagUpdateServiceImpl implements TagUpdateService {
         for (SubscriptionListDO slDo : list) {
             executors.execute(() -> {
                 String name = slDo.getCompanyName();
+                name = CompanyUtils.dealCompanyName(name);
                 param.put("company", name);
 
                 JSONObject result;
