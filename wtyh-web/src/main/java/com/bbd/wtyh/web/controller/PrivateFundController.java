@@ -1,6 +1,8 @@
 package com.bbd.wtyh.web.controller;
 
+import com.bbd.wtyh.dao.HologramQueryDao;
 import com.bbd.wtyh.domain.*;
+import com.bbd.wtyh.domain.bbdAPI.RecordCompanyDO;
 import com.bbd.wtyh.domain.dto.*;
 import com.bbd.wtyh.domain.enums.CompanyProgress;
 import com.bbd.wtyh.log.user.Operation;
@@ -18,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -33,6 +36,9 @@ public class PrivateFundController {
 	private PrivateFundService privateFundService;
 	@Autowired
 	private CompanyService companyService;
+
+	@Autowired
+	private HologramQueryDao hologramQueryDao;
 
 	@RequestMapping("qdlpProgressList.do")
 	public ResponseBean qdlpProgressList() {
@@ -181,11 +187,21 @@ public class PrivateFundController {
 			recordStatus = null;
 		}
 		List<PrivateFundCompanyDTO> privateFundCompanyDTOs = privateFundService.privateFundExtraList(orderByField, descAsc, recordStatus);
+		int count = 0;
+		Date a = new Date();
 		for (PrivateFundCompanyDTO dto : privateFundCompanyDTOs) {
 			if (StringUtils.isNotEmpty(dto.getWebsite()) && !dto.getWebsite().startsWith("http")) {
 				dto.setWebsite("http://" + dto.getWebsite());
 			}
+//			String  res = hologramQueryDao.getCompanyInfo(dto.getName());
+//			System.out.println("当前"+(count++)+"====="+res);
+//			if("1".equals(res)){
+//				dto.setRecordStatus(1);
+//			}
 		}
+//		Date b = new Date();
+//		long interval = (b.getTime() - a.getTime())/1000;
+//		System.out.println("总共用时："+interval+"秒");
 		return ResponseBean.successResponse(privateFundCompanyDTOs);
 	}
 
