@@ -66,7 +66,7 @@ public interface CompanyStaticRiskScoreMapper {
     /**
      * 查询公司的信用信息 风险
      * */
-    int getCreditInformationRisk(@Param(value = "companyId") Integer companyId,@Param(value = "resourceName1") String resourceName);
+    int getCreditInformationRisk(@Param(value = "companyId") Integer companyId,@Param(value = "resourceName") String resourceName);
 
     /**
      * 根据版本号查询bbd的六个值
