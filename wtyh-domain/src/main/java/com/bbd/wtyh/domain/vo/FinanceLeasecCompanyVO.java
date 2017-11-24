@@ -12,6 +12,7 @@ public class FinanceLeasecCompanyVO implements Serializable {
 	private String riskStatusB;//
 	private String riskStatusC;//
 	private String riskStatusD;//
+	private String otherQuertion;//
 
 
 
@@ -69,5 +70,13 @@ public class FinanceLeasecCompanyVO implements Serializable {
 
 	public void setRiskStatusD(String riskStatusD) {
 		this.riskStatusD = riskStatusD;
+	}
+
+	public String getOtherQuertion() {
+		return otherQuertion;
+	}
+
+	public void setOtherQuertion(String otherQuertion) {
+		this.otherQuertion = otherQuertion;
 	}
 }

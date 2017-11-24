@@ -82,5 +82,6 @@
 
     UPDATE static_risk_data set real_control_risk=#{real_control_risk} and illegal_financing_risk=#{illegal_financing_risk}
     and short_risk=#{short_risk} and illegal_money_financing_risk=#{illegal_money_financing_risk} and person_structure_risk=#{person_structure_risk} and relation_in_risk=#{relation_in_risk}
+    where company_name=#{companyName} and data_version=#{newDataVersion}
   </update>
 </mapper>

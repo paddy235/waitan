@@ -19,5 +19,12 @@ public interface StaticRiskUpdateService {
      */
     TaskResultDO updateStaticRiskAutomaticOperate(Integer taskId);
 
+    /**
+     * 更新历史静态风险相关自动执行
+     * (by zhw)
+     */
+    TaskResultDO updateOldStaticRiskAutomaticOperate();
+
+
     public void stopTask();
 }

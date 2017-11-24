@@ -23,6 +23,15 @@ public class SysConfigController {
         return ResponseBean.successResponse(this.sysConfigService.findByKey("wzlj"));
     }
 
+    @RequestMapping(value="/adminFindByKey")
+    @ResponseBody
+    @LogRecord(logMsg = "后台网页链接")
+    public ResponseBean adminFindByKey(){
+        return ResponseBean.successResponse(this.sysConfigService.findByKey("htwzlj"));
+    }
+
+
+
 
 
 }

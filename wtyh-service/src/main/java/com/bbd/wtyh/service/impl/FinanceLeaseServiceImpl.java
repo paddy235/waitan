@@ -185,6 +185,7 @@ public class FinanceLeaseServiceImpl implements FinanceLeaseService {
             for (FinanceLeaseVO financeLeaseVO : set) {
                 String companyName = financeLeaseVO.getCompanyName();
                 String address = financeLeaseVO.getAddress();
+                String otherQuestion = financeLeaseVO.getOtherQuestion();
                 Integer riskType = financeLeaseVO.getRiskType();
                 Integer riskStatus = financeLeaseVO.getRiskStatus();
                 String riskStatusString = null;
@@ -195,6 +196,7 @@ public class FinanceLeaseServiceImpl implements FinanceLeaseService {
                     FinanceLeasecCompanyVO financeLeasecCompanyVO = new FinanceLeasecCompanyVO();
                     financeLeasecCompanyVO.setCompanyName(companyName);
                     financeLeasecCompanyVO.setAddress(address);
+                    financeLeasecCompanyVO.setOtherQuertion(otherQuestion);
                     financeLeasecCompanyVO.setRiskStatus("正常");
                     if (riskStatus != null && riskStatus == 1) {
                         financeLeasecCompanyVO.setRiskStatus("潜在");

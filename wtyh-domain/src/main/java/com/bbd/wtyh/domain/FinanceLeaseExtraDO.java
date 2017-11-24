@@ -13,6 +13,9 @@ public class FinanceLeaseExtraDO extends BaseDO {
     @Column(name = "free_trade_zone")
     private boolean freeTradeZone;
 
+    @Column(name = "other_question")
+    private String otherQuestion;
+
     public Integer getCompanyId() {
         return companyId;
     }
@@ -27,5 +30,13 @@ public class FinanceLeaseExtraDO extends BaseDO {
 
     public void setFreeTradeZone(boolean freeTradeZone) {
         this.freeTradeZone = freeTradeZone;
+    }
+
+    public String isOtherQuestion() {
+        return otherQuestion;
+    }
+
+    public void setOtherQuestion(String otherQuestion) {
+        this.otherQuestion = otherQuestion;
     }
 }

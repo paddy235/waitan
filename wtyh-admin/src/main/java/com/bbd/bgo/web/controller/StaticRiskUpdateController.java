@@ -21,7 +21,7 @@ public class StaticRiskUpdateController {
     @RequestMapping("/updateStaticRiskScore.do")
     @ResponseBody
     public ResponseBean getCompanyStaticRiskScore() throws Exception {
-       staticRiskUpdateService.updateStaticRiskAutomaticOperate(100);
+       staticRiskUpdateService.updateOldStaticRiskAutomaticOperate();
         return null;
     }
 
