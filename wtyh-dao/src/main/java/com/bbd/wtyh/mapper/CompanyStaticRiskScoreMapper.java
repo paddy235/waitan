@@ -28,6 +28,11 @@ public interface CompanyStaticRiskScoreMapper {
     String getNewDataVersion();
 
     /**
+     * 查询2017的历史版本
+     * */
+    List<String> getDateVersion();
+
+    /**
      * 分页查询bbd线下理财信息
      *
      * */
