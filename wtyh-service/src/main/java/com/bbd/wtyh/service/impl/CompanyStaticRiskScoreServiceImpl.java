@@ -147,6 +147,17 @@ public class CompanyStaticRiskScoreServiceImpl implements CompanyStaticRiskScore
         //double V4 = 1;
         subIndexDo.setAdministrativeSanction(df.format(100/(1+Math.exp(-5*V4+1))));
         subIndexDo.setAdministrativeSanctionNum(V4);
+
+        //信用信息风险
+        //限制出境条数
+        int restrictedExit = CompanyStaticRiskScoreMapper.getCreditInformationRisk(companyId, RESTRICTED_EXIT);
+        subIndexDo.setRestrictedExit(restrictedExit);
+        //限制高消费
+        int LimetingHighConsumption = CompanyStaticRiskScoreMapper.getCreditInformationRisk(companyId, LIMITING_HIGH_CONSUMPTION);
+        subIndexDo.setLimetingHighConsumption(LimetingHighConsumption);
+        //网上追讨
+        int onlineRecovery = CompanyStaticRiskScoreMapper.getCreditInformationRisk(companyId, ONLINE_RECOVERY);
+        subIndexDo.setOnlineRecovery(onlineRecovery);
         return subIndexDo;
     }
 

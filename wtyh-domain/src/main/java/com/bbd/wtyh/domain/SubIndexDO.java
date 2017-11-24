@@ -19,6 +19,39 @@ public class SubIndexDO {
     private String AdministrativeSanction;
     private int AdministrativeSanctionNum;//条数
 
+
+    //信用信息风险
+    //限制出境
+    private Integer restrictedExit;
+    //限制高消费
+    private Integer LimetingHighConsumption;
+    //网上追讨
+    private Integer onlineRecovery;
+
+    public Integer getRestrictedExit() {
+        return restrictedExit;
+    }
+
+    public void setRestrictedExit(Integer restrictedExit) {
+        this.restrictedExit = restrictedExit;
+    }
+
+    public Integer getLimetingHighConsumption() {
+        return LimetingHighConsumption;
+    }
+
+    public void setLimetingHighConsumption(Integer limetingHighConsumption) {
+        LimetingHighConsumption = limetingHighConsumption;
+    }
+
+    public Integer getOnlineRecovery() {
+        return onlineRecovery;
+    }
+
+    public void setOnlineRecovery(Integer onlineRecovery) {
+        this.onlineRecovery = onlineRecovery;
+    }
+
     public String getNormalHousehold() {
         return normalHousehold;
     }
