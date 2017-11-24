@@ -10,6 +10,7 @@ import com.bbd.wtyh.log.user.annotation.LogRecord;
 import com.bbd.wtyh.service.CompanyService;
 import com.bbd.wtyh.service.PrivateFundService;
 import com.bbd.wtyh.util.CalculateUtils;
+import com.bbd.wtyh.web.PageBean;
 import com.bbd.wtyh.web.ResponseBean;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Lists;
@@ -18,6 +19,7 @@ import com.google.common.collect.Multimap;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
@@ -182,27 +184,29 @@ public class PrivateFundController {
 	}
 
 	@RequestMapping("privateFundList.do")
-	public ResponseBean privateFundList(Integer orderByField, String descAsc, Integer recordStatus) {
+	public ResponseBean privateFundList(Integer orderByField, String descAsc, Integer recordStatus,@RequestParam(defaultValue = "10") Integer pageSize,
+										@RequestParam(defaultValue = "1") Integer currentPage) {
 		if (null != recordStatus && recordStatus <= 0) {
 			recordStatus = null;
 		}
-		List<PrivateFundCompanyDTO> privateFundCompanyDTOs = privateFundService.privateFundExtraList(orderByField, descAsc, recordStatus);
-		int count = 0;
-		Date a = new Date();
-		for (PrivateFundCompanyDTO dto : privateFundCompanyDTOs) {
+		int start = (currentPage-1)*pageSize;
+		PageBean<PrivateFundCompanyDTO> pageInfo = privateFundService.privateFundExtraList(orderByField, descAsc, recordStatus,start,pageSize);
+//		int count = 0;
+//		Date a = new Date();
+		for (PrivateFundCompanyDTO dto : pageInfo.getItems()) {
 			if (StringUtils.isNotEmpty(dto.getWebsite()) && !dto.getWebsite().startsWith("http")) {
 				dto.setWebsite("http://" + dto.getWebsite());
 			}
-//			String  res = hologramQueryDao.getCompanyInfo(dto.getName());
+			String  res = hologramQueryDao.getCompanyInfo(dto.getName());
 //			System.out.println("当前"+(count++)+"====="+res);
-//			if("1".equals(res)){
-//				dto.setRecordStatus(1);
-//			}
+			if("1".equals(res)){
+				dto.setRecordStatus(1);
+			}
 		}
 //		Date b = new Date();
 //		long interval = (b.getTime() - a.getTime())/1000;
 //		System.out.println("总共用时："+interval+"秒");
-		return ResponseBean.successResponse(privateFundCompanyDTOs);
+		return ResponseBean.successResponse(pageInfo);
 	}
 
 }
