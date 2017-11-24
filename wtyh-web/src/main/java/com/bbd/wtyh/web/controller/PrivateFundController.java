@@ -102,35 +102,6 @@ public class PrivateFundController {
 
 	}
 
-	@RequestMapping("productTypeStatistic.do")
-	public ResponseBean productTypeStatistic() {
-		List<FundProductStatisticDO> productTypeStaticticList = privateFundService.productTypeStatisticList();
-		List<PrivateFundProductTypeStatisticDTO> result = Lists.newArrayList();
-		for (FundProductStatisticDO statisticDO : productTypeStaticticList) {
-			PrivateFundProductTypeStatisticDTO statisticDTO = new PrivateFundProductTypeStatisticDTO();
-			statisticDTO.setTypeName(privateFundService.getProductTypeById(statisticDO.getProductTypeId()).getProductTypeName());
-			statisticDTO.setAmount(statisticDO.getProductNumber());
-			result.add(statisticDTO);
-		}
-		return ResponseBean.successResponse(result);
-	}
-
-	@RequestMapping("topProductNumber.do")
-	public ResponseBean topProductNumber(Integer numbers) {
-		if (null == numbers || numbers <= 0) {
-			numbers = 10;
-		}
-
-		List<ProductAmountDO> productAmountDOs = privateFundService.topProductNumber(numbers);
-		List<Map<String, Object>> result = Lists.newArrayList();
-		for (ProductAmountDO amountDO : productAmountDOs) {
-			Map<String, Object> topProductNumber = Maps.newHashMap();
-			topProductNumber.put("companyName", companyService.getNameById(amountDO.getCompanyId()));
-			topProductNumber.put("productNumber", amountDO.getProductNumber());
-			result.add(topProductNumber);
-		}
-		return ResponseBean.successResponse(result);
-	}
 
 	@RequestMapping("capitalAmount.do")
 	public ResponseBean capitalAmount() {
@@ -149,6 +120,41 @@ public class PrivateFundController {
 		return ResponseBean.successResponse(result);
 
 	}
+
+	@RequestMapping("productTypeStatistic.do")
+	public ResponseBean productTypeStatistic() {
+		List<FundProductStatisticDO> productTypeStaticticList = privateFundService.productTypeStatisticList();
+		List<PrivateFundProductTypeStatisticDTO> result = Lists.newArrayList();
+		for (FundProductStatisticDO statisticDO : productTypeStaticticList) {
+			PrivateFundProductTypeStatisticDTO statisticDTO = new PrivateFundProductTypeStatisticDTO();
+			statisticDTO.setTypeName(privateFundService.getProductTypeById(statisticDO.getProductTypeId()).getProductTypeName());
+			statisticDTO.setAmount(statisticDO.getProductNumber());
+			result.add(statisticDTO);
+		}
+		return ResponseBean.successResponse(result);
+	}
+
+
+
+
+	@RequestMapping("topProductNumber.do")
+	public ResponseBean topProductNumber(Integer numbers) {
+		if (null == numbers || numbers <= 0) {
+			numbers = 10;
+		}
+
+		List<ProductAmountDO> productAmountDOs = privateFundService.topProductNumber(numbers);
+		List<Map<String, Object>> result = Lists.newArrayList();
+		for (ProductAmountDO amountDO : productAmountDOs) {
+			Map<String, Object> topProductNumber = Maps.newHashMap();
+			topProductNumber.put("companyName", companyService.getNameById(amountDO.getCompanyId()));
+			topProductNumber.put("productNumber", amountDO.getProductNumber());
+			result.add(topProductNumber);
+		}
+		return ResponseBean.successResponse(result);
+	}
+
+
 
 	@RequestMapping("investmentReturn.do")
 	public ResponseBean investmentReturn() {

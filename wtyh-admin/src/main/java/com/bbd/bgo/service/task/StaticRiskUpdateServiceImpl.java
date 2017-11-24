@@ -53,6 +53,64 @@ public class StaticRiskUpdateServiceImpl implements StaticRiskUpdateService,Task
 	public void stopTask() {
 		isShutdown = true;
 	}
+	//跑历史月份的数据
+	@Override
+	public TaskResultDO updateOldStaticRiskAutomaticOperate() {
+		logger.info("--- static risk job begin ---");
+		isShutdown=false;
+		this.taskId=taskId;
+		this.errorNum=0;
+		TaskResultDO taskResultDO=new TaskResultDO();
+		Integer dataTotal = 0;
+		try {
+			//查询最新版本
+			String[] newDataVersion ={"20170105","20170120","20170205","20170305","20170405","20170505","20170520","20170605","20170620","20171020","20171105"};
+			for (String dataVersion : newDataVersion){
+				//查询总公司数
+				final int totalCount = companyStaticRiskScoreMapper.findCompanyCount(dataVersion);
+				dataTotal = totalCount;
+				final int pageSize = 190;
+				Pagination pagination = new Pagination();
+				pagination.setPageSize(pageSize);
+				pagination.setCount(totalCount);
+				int total = pagination.getLastPageNumber();
+				ExecutorService dataExecutorService = Executors.newFixedThreadPool(12);
+				logger.info("start update static risk");
+				for (int i = 1; i <= total; i++) {
+					final int num = i;
+					dataExecutorService.submit(new Runnable() {
+						@Override
+						public void run() {
+							Pagination paginationP = new Pagination();
+							paginationP.setPageNumber(num);
+							paginationP.setPageSize(pageSize);
+							paginationP.setCount(totalCount);
+							companyAndBackgroundUpdateThread(dataVersion,paginationP,1,taskId);
+						}
+					});
+				}
+				dataExecutorService.shutdown();
+				dataExecutorService.awaitTermination(1, TimeUnit.DAYS);
+			}
+
+			//更新5万家白名单企业
+			updateWhiteCompanyRiskGradeService.startUpdate();
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+		}
+		if (isShutdown) {
+			taskResultDO.setPlanCount(dataTotal);
+			taskResultDO.setFailCount(0);
+			taskResultDO.setSuccessCount(0);
+		}else{
+			taskResultDO.setPlanCount(dataTotal);
+			taskResultDO.setFailCount(errorNum);
+			taskResultDO.setSuccessCount(dataTotal-errorNum);
+		}
+
+		logger.info("--- static risk job end ---");
+		return taskResultDO;
+	}
 
 	@Override
 	public TaskResultDO updateStaticRiskAutomaticOperate(Integer taskId) {

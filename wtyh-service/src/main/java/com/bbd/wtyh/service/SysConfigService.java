@@ -24,4 +24,8 @@ public interface SysConfigService {
 	void saveConfig(String key, String value, String group, String desc);
 
 	void updateConfig(String key, String value, String group, String desc);
+
+	String findByKey(String key);
+
+
 }

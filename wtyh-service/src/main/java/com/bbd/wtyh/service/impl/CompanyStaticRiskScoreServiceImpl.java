@@ -42,8 +42,8 @@ public class CompanyStaticRiskScoreServiceImpl implements CompanyStaticRiskScore
 
     private static final String ADMINISTRATIVE_SANCTION = "市场监管类行政处罚（法人）";
 
-    private static final String RESTRICTED_EXIT = "限制出境";
-
+    private static final String RESTRICTED_EXIT = "经营异常名录";
+    //限制出境
     private static final String LIMITING_HIGH_CONSUMPTION = "限制高消费";
 
     private static final String ONLINE_RECOVERY ="网上追讨";
@@ -95,14 +95,14 @@ public class CompanyStaticRiskScoreServiceImpl implements CompanyStaticRiskScore
             CompanyStaticRiskScoreMapper.updateStaticRisk(CompanyStaticRiskScoreDO.getName(), newDataVersion, 80);
         }
         //没有铭感词风险值计算
-        float Score = 0;
+
             //获取指标并且计算风险值
-            double P = getTarget(CompanyStaticRiskScoreDO, Score);
+            double P = getTarget(CompanyStaticRiskScoreDO,newDataVersion);
             //保留四位小数
             DecimalFormat df = new DecimalFormat("#.0000");
             P =Double.parseDouble(df.format(P)) ;
            int i = CompanyStaticRiskScoreMapper.updateStaticRisk(CompanyStaticRiskScoreDO.getName(), newDataVersion, (float) P);
-          LOGGER.info("公司名称："+CompanyStaticRiskScoreDO.getName()+"新版本："+newDataVersion+"静态值："+(float) P+"成功条数："+i);
+          LOGGER.info("公司名称："+CompanyStaticRiskScoreDO.getName()+"更新静态风险成功条数："+i);
 
 
     }
@@ -161,7 +161,7 @@ public class CompanyStaticRiskScoreServiceImpl implements CompanyStaticRiskScore
         return subIndexDo;
     }
 
-    private double getTarget(CompanyStaticRiskScoreDO companyStaticRiskScoreDO,float Score) {
+    private double getTarget(CompanyStaticRiskScoreDO companyStaticRiskScoreDO,String newDataVersion) {
 
         //实际控制人风险
         double s = companyStaticRiskScoreDO.getReal_control_risk_v2();
@@ -184,7 +184,7 @@ public class CompanyStaticRiskScoreServiceImpl implements CompanyStaticRiskScore
 
 
         //计算子指标值保存数据库
-        CalculationSubIndex(s,z,f,d,w,r);
+        CalculationSubIndex(s,z,f,d,w,r,newDataVersion,companyStaticRiskScoreDO.getName());
 
 
         //根据id获取上海的四个指标
@@ -217,7 +217,7 @@ public class CompanyStaticRiskScoreServiceImpl implements CompanyStaticRiskScore
         return P ;
     }
 
-    private void CalculationSubIndex(double s, double z, double f, double d, double w, double r) {
+    private void CalculationSubIndex(double s, double z, double f, double d, double w, double r, String newDataVersion, String name) {
         //保留两位小数
         DecimalFormat df = new DecimalFormat("#.00");
         BbdSubIndexDO bbdSubIndexDO = new BbdSubIndexDO();
@@ -233,8 +233,11 @@ public class CompanyStaticRiskScoreServiceImpl implements CompanyStaticRiskScore
         bbdSubIndexDO.setPerson_structure_risk((float)r);
         bbdSubIndexDO.setRelation_in_risk((float)z);
         bbdSubIndexDO.setShort_risk((float)d);
+        bbdSubIndexDO.setNewDataVersion(newDataVersion);
+        bbdSubIndexDO.setCompanyName(name);
         //存储新计算的bbd留个风险子指标
-        CompanyStaticRiskScoreMapper.updateSubIndex(bbdSubIndexDO);
+        int i = CompanyStaticRiskScoreMapper.updateSubIndex(bbdSubIndexDO);
+        LOGGER.info(name+"子风险指标更新成功条数："+i);
 
     }
 
