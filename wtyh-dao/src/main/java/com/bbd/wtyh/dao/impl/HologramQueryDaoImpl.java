@@ -140,6 +140,9 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
     @Value("${api.bbd_qyxx_parent.url}")
     private String parentUrl;
 
+    @Value("${api.bbd_qyxg_jijin_simu.url}")
+    private String recordUrl;
+
     @Autowired
     private RedisDAO redisDAO;
 
@@ -831,5 +834,29 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
             }
         }
         return new Gson().fromJson(response, BBDParentCompanyDO.class);
+    }
+
+    @Override
+    public String  getCompanyInfo(String name){
+        final String redisKey2 = REDIS_KEY_COMPANY_PARENT + "_" + name;
+        String response = null;
+        String redis =  redisDAO.getString(redisKey2);
+        if(null==redis || redis.isEmpty()) {
+            String URL = recordUrl + "company=" + name;
+            try {
+                response = httpTemplate.get(URL);
+                Gson gson = new Gson();
+                RecordCompanyDO rd = gson.fromJson(response, RecordCompanyDO.class);
+                if(rd.getResults().size()>0){
+                    redis = 1+"";
+                    redisDAO.addString(redisKey2, redis, Constants.cacheDay);
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+        return redis;
     }
 }
