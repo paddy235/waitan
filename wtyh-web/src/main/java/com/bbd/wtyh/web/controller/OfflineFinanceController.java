@@ -223,7 +223,6 @@ public class OfflineFinanceController {
 			Object o = offlineFinanceService.queryStatistics(companyName, "" + tabIndex, areaCode);
 			map.put("tabIndex" + tabIndex, o);
 		}
-		map.remove("tabIndex0");
 		map.remove("tabIndex2");
 		return map;
 	}
@@ -263,21 +262,49 @@ public class OfflineFinanceController {
 		SubIndexDO subIndexDO=companyStaticRiskScoreService.searchSubIndex(companyName);
 		JSONArray jsonArray=new JSONArray();
 		JSONObject jsonObject=new JSONObject();
-		jsonObject.put("resourceName","上海非正常户认定指标");
+		jsonObject.put("resourceName","非正常户认定");
 		jsonObject.put("indexs",subIndexDO.getNormalHousehold());
 		jsonObject.put("counts",subIndexDO.getNormalHouseholdNum());
 		jsonArray.add(jsonObject);
-		jsonObject.put("resourceName","上海用人单位欠缴社会保险费指标");
+		jsonObject.put("resourceName","用人单位欠缴社会保险费");
 		jsonObject.put("indexs",subIndexDO.getUnpaidInsurancePremium());
 		jsonObject.put("counts",subIndexDO.getUnpaidInsurancePremiumNum());
 		jsonArray.add(jsonObject);
-		jsonObject.put("resourceName","上海失信曝光指标");
+		jsonObject.put("resourceName","失信曝光");
 		jsonObject.put("indexs",subIndexDO.getDiscreditExposure());
 		jsonObject.put("counts",subIndexDO.getDiscreditExposureNum());
 		jsonArray.add(jsonObject);
-		jsonObject.put("resourceName","上海市场监管类行政处罚指标");
+		jsonObject.put("resourceName","市场监管类行政处罚");
 		jsonObject.put("indexs",subIndexDO.getAdministrativeSanction());
 		jsonObject.put("counts",subIndexDO.getAdministrativeSanctionNum());
+		jsonArray.add(jsonObject);
+		jsonObject.put("resourceName","信用信息风险");
+		jsonObject.put("indexs","");
+		jsonObject.put("counts","");
+		JSONArray jarr=new JSONArray();
+		JSONObject job=new JSONObject();
+		String restrictedExit="否";
+		String LimetingHighConsumption="否";
+		String onlineRecovery="否";
+		if (subIndexDO.getRestrictedExit()>0){
+			restrictedExit="是";
+		}
+		if (subIndexDO.getLimetingHighConsumption()>0){
+			LimetingHighConsumption="是";
+		}
+		if (subIndexDO.getOnlineRecovery()>0){
+			onlineRecovery="是";
+		}
+		job.put("resourceName","限制出境");
+		job.put("res",restrictedExit);
+		jarr.add(job);
+		job.put("resourceName","限制高消费");
+		job.put("res",LimetingHighConsumption);
+		jarr.add(job);
+		job.put("resourceName","网上追讨");
+		job.put("res",onlineRecovery);
+		jarr.add(job);
+		jsonObject.put("data",jarr);
 		jsonArray.add(jsonObject);
 		return ResponseBean.successResponse(jsonArray);
 	}
