@@ -2,8 +2,10 @@ package com.bbd.wtyh.service.impl;
 
 import com.bbd.wtyh.core.base.BaseServiceImpl;
 import com.bbd.wtyh.domain.SysConfigDo;
+import com.bbd.wtyh.mapper.SysConfigMapper;
 import com.bbd.wtyh.service.SysConfigService;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +21,9 @@ import java.util.concurrent.ConcurrentHashMap;
 public class SysConfigServiceImpl extends BaseServiceImpl implements SysConfigService {
 
 	private static final Map<String, SysConfigDo> CONFIG_MAP = new ConcurrentHashMap<>();
+	@Autowired
+	private SysConfigMapper sysConfigMapper;
+
 
 	@Override
 	public String getValue(String key) {
@@ -88,4 +93,15 @@ public class SysConfigServiceImpl extends BaseServiceImpl implements SysConfigSe
 		this.update(configDo);
 		CONFIG_MAP.put(key, configDo);
 	}
+
+	/**
+	 * 根据key获取链接
+	 * @param key
+	 * @return
+	 */
+	@Override
+	public String findByKey(String key) {
+		return this.sysConfigMapper.findByKey(key);
+	}
+
 }

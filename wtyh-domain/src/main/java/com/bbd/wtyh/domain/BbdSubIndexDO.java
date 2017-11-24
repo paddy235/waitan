@@ -32,6 +32,28 @@ public class BbdSubIndexDO {
     //关联方中心积聚化风险
     private float relation_in_risk;
 
+    //最新的时间
+    private String newDataVersion;
+
+    //公司名称
+    private  String companyName;
+
+    public String getNewDataVersion() {
+        return newDataVersion;
+    }
+
+    public void setNewDataVersion(String newDataVersion) {
+        this.newDataVersion = newDataVersion;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
     public float getReal_control_risk() {
         return real_control_risk;
     }
