@@ -6,6 +6,7 @@ import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.OfflineFinancialListDO;
 import com.bbd.wtyh.excel.imp.handler.AbstractImportHandler;
 import com.bbd.wtyh.service.CompanyService;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,12 +56,12 @@ public class OfflineFinancialListHandler extends AbstractImportHandler<OfflineFi
         //
         String type = row.get("type");
         String companyName = row.get("company_name");
-        if (companyName == null) {
+        if (StringUtils.isBlank(companyName)) {
             addError("公司不存在，请先导入线下理财公司名单");
             log.info("公司不存在，请先导入线下理财公司名单");
             return false;
         }
-        if (type == null) {
+        if (StringUtils.isBlank(type)) {
             addError("类型不存在，请填写正确的类型");
             log.info("类型不存在，请填写正确的类型");
             return false;
@@ -80,7 +81,7 @@ public class OfflineFinancialListHandler extends AbstractImportHandler<OfflineFi
                 return false;
             }
 
-            if((int)companyInfo.getCompanyType()!=4){
+            if(!companyInfo.getCompanyType().equals(CompanyDO.TYPE_XXLC_4)){
                 addError("该企业不属于线下理财名单企业");
                 log.info("该企业不属于线下理财名单企业");
                 return false;
