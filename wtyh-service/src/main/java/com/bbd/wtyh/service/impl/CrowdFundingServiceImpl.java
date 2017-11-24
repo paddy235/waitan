@@ -13,6 +13,7 @@ import com.bbd.wtyh.service.CompanyService;
 import com.bbd.wtyh.service.TaskService;
 import com.bbd.wtyh.service.impl.companyInfoModify.CompanyInfoMudifyUtil;
 import com.bbd.wtyh.util.AddCompanyUtil;
+import com.bbd.wtyh.util.CompanyUtils;
 import com.bbd.wtyh.web.EasyExportExcel.ExportCondition;
 import com.bbd.wtyh.web.PageBean;
 import com.bbd.wtyh.web.companyInfoModify.ModifyData;
@@ -286,20 +287,20 @@ public class CrowdFundingServiceImpl implements CrowdFundingService,TaskService 
             try {
                 crowdFundingCompanyMapper.saveForDataLand(dto);
                 //拉下众筹数据的时候，将Company表 company_type为空或者为4的 company_type修改为6
-                CompanyDO companyDO = companyService.getCompanyByName(dto.getCompanyName());
+                CompanyDO companyDO = companyService.getCompanyByName(CompanyUtils.dealCompanyName(dto.getCompanyName()));
                 if(companyDO != null
                         && !StringUtils.isEmpty(companyDO.getName())
                         && CompanyInfo.TYPE_XXLC_4==(companyDO.getCompanyType()==null?CompanyInfo.TYPE_XXLC_4:companyDO.getCompanyType())
                         ){
                     ModifyData modifyData = new ModifyData();
-                    modifyData.setName(companyDO.getName());
+                    modifyData.setName(CompanyUtils.dealCompanyName(companyDO.getName()));
                     modifyData.setLevel(null);//修改后无风险等级
                     modifyData.setIndustry(CompanyInfo.TYPE_ZC_6+"");//修改后固定为众筹
                     modify(modifyData);//
                 }
                 if(companyDO == null || null==companyDO.getCompanyId()){
                     CompanyDO tempDo=new CompanyDO();
-                    tempDo.setName(dto.getCompanyName());
+                    tempDo.setName(CompanyUtils.dealCompanyName(dto.getCompanyName()));
                     tempDo.setCompanyType(CompanyInfo.TYPE_ZC_6);
                     newCompanys.add(tempDo);
                 }
