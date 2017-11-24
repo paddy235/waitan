@@ -20,8 +20,8 @@ public class CompanyStaticRiskScoreController {
     @RequestMapping("/getStaticRiskScore.do")
     @ResponseBody
     public ResponseBean getCompanyStaticRiskScore() throws Exception {
-      //  CompanyStaticRiskScoreService.updateOffLineCompany(null ,null);
-        CompanyStaticRiskScoreService.searchSubIndex(null);
+        CompanyStaticRiskScoreService.updateOffLineCompany(null ,null);
+        //CompanyStaticRiskScoreService.searchSubIndex(null);
         return null;
     }
 
