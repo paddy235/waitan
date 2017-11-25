@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<excel key="offline-financial-list" name="线下理财名单-导入模板">
+    <sheet name="Sheet1" startRow="5" entity="com.bbd.wtyh.domain.OfflineFinancialListDO"
+           importHandler="com.bbd.bgo.service.imp.handler.OfflineFinancialListHandler">
+        <property name="writeExplainForOfflineFinancialList" value-ref="com.bbd.bgo.service.imp.handler.company.modify.Clues.writeExplainForOfflineFinancialList"/>
+        <rowHeader>
+            <column mergeFirstRow="1" mergeLastRow="3" mergeFirstCol="1" mergeLastCol="2" align="LEFT"
+                    value-ref="writeExplainForOfflineFinancialList"/>
+        </rowHeader>
+        <columns>
+            <column name="企业名称" code="company_name" dataType="string" bgColor="#FFFF00" required="true" length="40"/>
+            <column name="类型" code="type" dataType="string" bgColor="#FFFF00" required="true" length="40"/>
+        </columns>
+
+    </sheet>
+
+</excel>

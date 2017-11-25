@@ -7,6 +7,7 @@ import com.bbd.wtyh.log.user.Operation;
 import com.bbd.wtyh.log.user.annotation.LogRecord;
 import com.bbd.wtyh.service.FinanceLeaseService;
 import com.bbd.wtyh.web.ResponseBean;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -68,6 +69,28 @@ public class FinanceLeaseController {
             analysisResult = 1;
         }
         List<FinanceLeasecCompanyVO> list = financeLeaseService.leaseCompanyList(areaName, analysisResult, riskA, riskB, riskC, riskD);
+        for(FinanceLeasecCompanyVO financeLeasecCompany:list){
+            String riskStatusA = financeLeasecCompany.getRiskStatusA();
+            String riskStatusB = financeLeasecCompany.getRiskStatusA();
+            String riskStatusC = financeLeasecCompany.getRiskStatusA();
+            String otherQuertion = financeLeasecCompany.getOtherQuertion();
+            if(StringUtils.isNotEmpty(riskStatusA)&&"是".equals(riskStatusA)){
+                financeLeasecCompany.setRiskStatus("潜在");
+                continue;
+            }
+            if(StringUtils.isNotEmpty(riskStatusB)&&"是".equals(riskStatusB)){
+                financeLeasecCompany.setRiskStatus("潜在");
+                continue;
+            }
+            if(StringUtils.isNotEmpty(riskStatusC)&&"是".equals(riskStatusC)){
+                financeLeasecCompany.setRiskStatus("潜在");
+                continue;
+            }
+            if(StringUtils.isNotEmpty(otherQuertion)){
+                financeLeasecCompany.setRiskStatus("潜在");
+                continue;
+            }
+        }
         return ResponseBean.successResponse(list);
     }
 

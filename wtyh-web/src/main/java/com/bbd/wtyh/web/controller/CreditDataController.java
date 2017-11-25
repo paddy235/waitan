@@ -66,22 +66,22 @@ public class CreditDataController {
     /**
      * 公信数据展示
      *
-     * @return
-     */
-    @RequestMapping("/getCreditData.do")
-    @ResponseBody
-    public ResponseBean getCreditData(String companyName, String dataType, PageBean pageBean, HttpServletRequest request) throws Exception {
-        if (org.apache.commons.lang3.StringUtils.isEmpty(companyName)) {
-            return ResponseBean.errorResponse("请输入公司名称");
-        }
+                * @return
+        */
+        @RequestMapping("/getCreditData.do")
+        @ResponseBody
+        public ResponseBean getCreditData(String companyName, String dataType, PageBean pageBean, HttpServletRequest request) throws Exception {
+            if (org.apache.commons.lang3.StringUtils.isEmpty(companyName)) {
+                return ResponseBean.errorResponse("请输入公司名称");
+            }
 
-        dataType=CreditType.desc(dataType);
+            dataType=CreditType.desc(dataType);
 
-        if (org.apache.commons.lang3.StringUtils.isEmpty(dataType)) {
-            return ResponseBean.errorResponse("请输入数据类型");
-        }
+            if (org.apache.commons.lang3.StringUtils.isEmpty(dataType)) {
+                return ResponseBean.errorResponse("请输入数据类型");
+            }
 
-        List<CompanyCreditRawInfoDTO> list = coCreditScoreService.getCreditInfoByCompanyAndType(companyName, dataType, pageBean);
+            List<CompanyCreditRawInfoDTO> list = coCreditScoreService.getCreditInfoByCompanyAndType(companyName, dataType, pageBean);
         Map<String, Object> result = new HashMap<>();
         result.put("data", list);
         result.put("total", pageBean.getTotalCount());

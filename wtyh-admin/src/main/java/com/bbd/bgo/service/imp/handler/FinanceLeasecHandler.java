@@ -87,10 +87,10 @@ public class FinanceLeasecHandler extends AbstractImportHandler<FinanceLeasecCom
             }
         };
         f1.fun("address", "是否在自贸区" );
-        f1.fun("riskStatusA", "失联企业" );
-        f1.fun("riskStatusB", "未参加自查企业" );
-        f1.fun("riskStatusC", "一年以上零认缴资本" );
-        f1.fun("riskStatusD", "一年以上未经营" );
+        f1.fun("riskStatusA", "失联/未参加自查" );
+        f1.fun("riskStatusB", "一年以上实缴资本低于30%" );
+        f1.fun("riskStatusC", "一年以上未经营" );
+        //f1.fun("riskStatusD", "一年以上未经营" );
         if( validCntA[0] <1 ) {
             addError("选填参数数量不足");
             return false;
@@ -176,12 +176,17 @@ public class FinanceLeasecHandler extends AbstractImportHandler<FinanceLeasecCom
             savRisk.fun(fv.getRiskStatusA(), 1); //失联企业
             savRisk.fun(fv.getRiskStatusB(), 2); //未参加自查企业
             savRisk.fun(fv.getRiskStatusC(), 3); //一年以上零认缴资本
-            savRisk.fun(fv.getRiskStatusD(), 4); //一年以上未经营
+            //savRisk.fun(fv.getRiskStatusD(), 4); //一年以上未经营
             //写和更新finance_lease_extra表
-            if ( StringUtils.isNotBlank( fv.getAddress() ) ) {
+            if ( StringUtils.isNotBlank( fv.getAddress()) || StringUtils.isNotBlank( fv.getOtherQuertion()) ) {
                 FinanceLeaseExtraDO feDo = new FinanceLeaseExtraDO();
                 feDo.setCompanyId(locCDo.getCompanyId());
-                feDo.setFreeTradeZone( fv.getAddress().equals("是") ? true : false );
+                if ( StringUtils.isNotBlank( fv.getAddress())){
+                    feDo.setFreeTradeZone( fv.getAddress().equals("是") ? true : false );
+                }
+                if ( StringUtils.isNotBlank( fv.getOtherQuertion())){
+                    feDo.setOtherQuestion(fv.getOtherQuertion());
+                }
                 FinanceLeaseExtraDO srcFe = baseService.selectById(FinanceLeaseExtraDO.class, locCDo.getCompanyId());
                 if ( null == srcFe ) {
                     feDo.setCreateBy(loginName);

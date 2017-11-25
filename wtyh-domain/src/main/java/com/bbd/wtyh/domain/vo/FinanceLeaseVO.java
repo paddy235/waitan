@@ -12,6 +12,7 @@ public class FinanceLeaseVO implements Serializable {
 	private String address;//
 	private Integer riskType;
 	private Integer riskStatus;//
+	private String otherQuestion;
 
 
 	public String getCompanyName() {
@@ -44,5 +45,13 @@ public class FinanceLeaseVO implements Serializable {
 
 	public void setRiskStatus(Integer riskStatus) {
 		this.riskStatus = riskStatus;
+	}
+
+	public String getOtherQuestion() {
+		return otherQuestion;
+	}
+
+	public void setOtherQuestion(String otherQuestion) {
+		this.otherQuestion = otherQuestion;
 	}
 }

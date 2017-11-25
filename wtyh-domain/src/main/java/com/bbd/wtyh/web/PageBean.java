@@ -104,7 +104,7 @@ public class PageBean<T> {
             if (getTotalCount() % getPageSize() > 0) {
                 this.totalPageCount++;
             }
-            this.totalPageCount = this.totalPageCount > 100 ? 100 : this.totalPageCount;
+//            this.totalPageCount = this.totalPageCount > 100 ? 100 : this.totalPageCount;
         } else {
             this.totalCount = 0L;
             this.totalPageCount = 0L;

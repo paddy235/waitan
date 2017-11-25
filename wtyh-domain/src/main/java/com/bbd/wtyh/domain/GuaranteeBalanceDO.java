@@ -12,7 +12,7 @@ public class GuaranteeBalanceDO extends BaseDO {
     private Integer id;
 
     @Column(name = "guarantee_balance")
-    private Integer guaranteeBalance;
+    private Double guaranteeBalance;
 
     @Column(name = "year")
     private Integer year;
@@ -27,13 +27,13 @@ public class GuaranteeBalanceDO extends BaseDO {
     private Integer companyAmount;
 
     @Column(name = "steel_balance")
-    private Integer steelBalance;//钢贸类余额
+    private Double steelBalance;//钢贸类余额
 
     @Column(name = "composite_balance")
-    private Integer compositeBalance;//综合类余额
+    private Double compositeBalance;//综合类余额
 
     @Column(name = "policy_balance")
-    private Integer policyBalance;
+    private Double policyBalance;
 
     public Integer getId() {
         return id;
@@ -43,11 +43,11 @@ public class GuaranteeBalanceDO extends BaseDO {
         this.id = id;
     }
 
-    public Integer getGuaranteeBalance() {
+    public Double getGuaranteeBalance() {
         return guaranteeBalance;
     }
 
-    public void setGuaranteeBalance(Integer guaranteeBalance) {
+    public void setGuaranteeBalance(Double guaranteeBalance) {
         this.guaranteeBalance = guaranteeBalance;
     }
 
@@ -75,27 +75,27 @@ public class GuaranteeBalanceDO extends BaseDO {
         this.number = number;
     }
 
-    public Integer getSteelBalance() {
+    public Double getSteelBalance() {
         return steelBalance;
     }
 
-    public void setSteelBalance(Integer steelBalance) {
+    public void setSteelBalance(Double steelBalance) {
         this.steelBalance = steelBalance;
     }
 
-    public Integer getCompositeBalance() {
+    public Double getCompositeBalance() {
         return compositeBalance;
     }
 
-    public void setCompositeBalance(Integer compositeBalance) {
+    public void setCompositeBalance(Double compositeBalance) {
         this.compositeBalance = compositeBalance;
     }
 
-    public Integer getPolicyBalance() {
+    public Double getPolicyBalance() {
         return policyBalance;
     }
 
-    public void setPolicyBalance(Integer policyBalance) {
+    public void setPolicyBalance(Double policyBalance) {
         this.policyBalance = policyBalance;
     }
 

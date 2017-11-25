@@ -44,9 +44,12 @@
             qp.index_num
     </select>
 
+    <select id="selectQdlpMaxIndexNum" resultType="int">
+        SELECT ifnull(MAX(index_num),0) from qdlp_progress;
+    </select>
 
     <update id="update" parameterType="com.bbd.wtyh.domain.QdlpProgressDO">
-        update qdlp_progress set  foreign_shareholder=#{foreignShareholder},china_shareholder=#{chinaShareholder},quatas=#{quatas},progress=#{progress},architecture=#{architecture},update_by=#{updateBy},update_date=#{updateDate},index_num=#{indexNum}
+        update qdlp_progress set  foreign_shareholder=#{foreignShareholder},china_shareholder=#{chinaShareholder},quatas=#{quatas},progress=#{progress},architecture=#{architecture},update_by=#{updateBy},update_date=#{updateDate}
         where company_id = #{companyId}
     </update>
 

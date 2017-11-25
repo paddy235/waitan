@@ -3,15 +3,15 @@ package com.bbd.wtyh.dao.impl;
 import com.alibaba.fastjson.JSON;
 import com.bbd.higgs.utils.http.HttpCallback;
 import com.bbd.higgs.utils.http.HttpTemplate;
+import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.dao.HologramQueryDao;
-import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.RecruitDO;
 import com.bbd.wtyh.domain.bbdAPI.*;
+import com.bbd.wtyh.mapper.DataLoadingMapper;
 import com.bbd.wtyh.redis.RedisDAO;
 import com.bbd.wtyh.util.UrlUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
@@ -26,6 +26,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static com.bbd.wtyh.common.Constants.REDIS_KEY_COMPANY_PARENT;
 
 /**
  * 企业全息信息查询平台dao层实现类
@@ -135,6 +137,12 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
     @Value("${api.bbd_qyxx_batch.url}")
     private String apiBbdQyxxBatchUrl;
 
+    @Value("${api.bbd_qyxx_parent.url}")
+    private String parentUrl;
+
+    @Value("${api.bbd_qyxg_jijin_simu.url}")
+    private String recordUrl;
+
     @Autowired
     private RedisDAO redisDAO;
 
@@ -143,6 +151,12 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
 
     @Value("${api.bbdZuzhiJiGoudm.ak}")
     private String zuZhiJiGouAK;
+
+    @Autowired
+    private DataLoadingMapper dataLoadingMapper;
+
+    @Autowired
+    private HttpTemplate httpTemplate;
 
     public String getCompanyNews() {
 
@@ -799,5 +813,50 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public BBDParentCompanyDO getParentCompany(String name){
+        final String redisKey = REDIS_KEY_COMPANY_PARENT + "_" + name;
+        String response =  redisDAO.getString(redisKey);
+        if(null==response || response.isEmpty()){
+            String qyxxId = dataLoadingMapper.getCompanyQyxxId(name);
+            if(org.apache.commons.lang.StringUtils.isEmpty(qyxxId)){
+                return null;
+            }
+            String URL = parentUrl + "?company=" + name+"&qyxx_id="+qyxxId;
+            try {
+                response = httpTemplate.get(URL);
+                redisDAO.addString(redisKey, response, Constants.cacheDay);
+            }catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+        return new Gson().fromJson(response, BBDParentCompanyDO.class);
+    }
+
+    @Override
+    public String  getCompanyInfo(String name){
+        final String redisKey2 = REDIS_KEY_COMPANY_PARENT + "_" + name;
+        String response = null;
+        String redis =  redisDAO.getString(redisKey2);
+        if(null==redis || redis.isEmpty()) {
+            String URL = recordUrl + "company=" + name;
+            try {
+                response = httpTemplate.get(URL);
+                Gson gson = new Gson();
+                RecordCompanyDO rd = gson.fromJson(response, RecordCompanyDO.class);
+                if(rd.getResults().size()>0){
+                    redis = 1+"";
+                    redisDAO.addString(redisKey2, redis, Constants.cacheDay);
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+        return redis;
     }
 }

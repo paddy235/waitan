@@ -3,25 +3,15 @@ package com.bbd.bgo.service.imp.handler;
 import com.bbd.bgo.service.imp.handler.assist.CompanyImportAssist;
 import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.domain.CompanyDO;
-import com.bbd.wtyh.domain.bbdAPI.BaseDataDO;
-import com.bbd.wtyh.domain.bbdAPI.IndustryCodeDO;
 import com.bbd.wtyh.excel.imp.handler.AbstractImportHandler;
-import com.bbd.wtyh.service.AreaService;
-import com.bbd.wtyh.service.CompanyService;
-import com.bbd.wtyh.service.CompanyStatusChangeService;
-import com.bbd.wtyh.service.HologramQueryService;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang3.time.DateUtils;
+import com.bbd.wtyh.util.CompanyUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Created by cgj on 2017/7/19.
@@ -58,6 +48,7 @@ public class CompanyListHandler extends AbstractImportHandler<CompanyDO> {
     @Override
     public boolean validateRow(Map<String, String> row) throws Exception {
         String companyName = row.get("name");
+        companyName = CompanyUtils.dealCompanyName(companyName);
         if (checkRepeatMap.containsKey(companyName)) {
             addError("企业【" + companyName + "】在文件中有重复，请检查");
             return false;
@@ -72,6 +63,7 @@ public class CompanyListHandler extends AbstractImportHandler<CompanyDO> {
         byte cpTypeCode = CompanyDO.companyType(bean.getComTypeCnItself());
         bean.setCompanyType(cpTypeCode);
         bean.setId(getRowNumber()); //将行号存下
+        bean.setName(CompanyUtils.dealCompanyName(bean.getName()));
         tempList.add(bean);
         if (tempList.size() < 200) {
             return;

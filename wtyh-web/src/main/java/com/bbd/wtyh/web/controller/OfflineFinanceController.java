@@ -14,6 +14,7 @@ import java.util.TreeMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.bbd.wtyh.domain.SubIndexDO;
 import com.bbd.wtyh.domain.dto.CreditRiskDataDTO;
 import com.bbd.wtyh.excel.ExportExcel;
 import com.bbd.wtyh.exception.ExceptionHandler;
@@ -21,6 +22,8 @@ import com.bbd.wtyh.log.user.Operation;
 import com.bbd.wtyh.log.user.UserLogRecord;
 import com.bbd.wtyh.log.user.annotation.LogRecord;
 import com.bbd.wtyh.service.*;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 import org.apache.commons.collections.map.HashedMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -91,6 +94,8 @@ public class OfflineFinanceController {
 	private RelationService relationService;
 	@Autowired
 	private CoCreditScoreService coCreditScoreService;
+	@Autowired
+	private CompanyStaticRiskScoreService companyStaticRiskScoreService;
 
 	/**
 	 * 关联图谱
@@ -218,7 +223,7 @@ public class OfflineFinanceController {
 			Object o = offlineFinanceService.queryStatistics(companyName, "" + tabIndex, areaCode);
 			map.put("tabIndex" + tabIndex, o);
 		}
-
+		map.remove("tabIndex2");
 		return map;
 	}
 
@@ -235,6 +240,11 @@ public class OfflineFinanceController {
 		String currentDate = request.getParameter("currentDate");
 		String areaCode = request.getParameter("areaCode");
 		StaticRiskVO vo = offlineFinanceService.queryCurrentStaticRisk(companyName, currentDate, areaCode);
+		SubIndexDO subIndexDO=companyStaticRiskScoreService.searchSubIndex(companyName);
+		vo.setNormalHousehold(subIndexDO.getNormalHousehold());
+		vo.setUnpaidInsurancePremium(subIndexDO.getUnpaidInsurancePremium());
+		vo.setDiscreditExposure(subIndexDO.getDiscreditExposure());
+		vo.setAdministrativeSanction(subIndexDO.getAdministrativeSanction());
 		return ResponseBean.successResponse(vo);
 	}
 
@@ -248,8 +258,55 @@ public class OfflineFinanceController {
 	@ResponseBody
 	public ResponseBean creditRiskData(HttpServletRequest request) {
 		String companyName = request.getParameter("companyName");
-		List<CreditRiskDataDTO> list = coCreditScoreService.getResourceCounts(null,companyName);
-		return ResponseBean.successResponse(list);
+//		List<CreditRiskDataDTO> list = coCreditScoreService.getResourceCounts(null,companyName);
+		SubIndexDO subIndexDO=companyStaticRiskScoreService.searchSubIndex(companyName);
+		JSONArray jsonArray=new JSONArray();
+		JSONObject jsonObject=new JSONObject();
+		jsonObject.put("resourceName","非正常户认定");
+		jsonObject.put("indexs",subIndexDO.getNormalHousehold());
+		jsonObject.put("counts",subIndexDO.getNormalHouseholdNum());
+		jsonArray.add(jsonObject);
+		jsonObject.put("resourceName","用人单位欠缴社会保险费");
+		jsonObject.put("indexs",subIndexDO.getUnpaidInsurancePremium());
+		jsonObject.put("counts",subIndexDO.getUnpaidInsurancePremiumNum());
+		jsonArray.add(jsonObject);
+		jsonObject.put("resourceName","失信曝光");
+		jsonObject.put("indexs",subIndexDO.getDiscreditExposure());
+		jsonObject.put("counts",subIndexDO.getDiscreditExposureNum());
+		jsonArray.add(jsonObject);
+		jsonObject.put("resourceName","市场监管类行政处罚");
+		jsonObject.put("indexs",subIndexDO.getAdministrativeSanction());
+		jsonObject.put("counts",subIndexDO.getAdministrativeSanctionNum());
+		jsonArray.add(jsonObject);
+		jsonObject.put("resourceName","信用信息风险");
+		jsonObject.put("indexs","");
+		jsonObject.put("counts","");
+		JSONArray jarr=new JSONArray();
+		JSONObject job=new JSONObject();
+		String restrictedExit="否";
+		String LimetingHighConsumption="否";
+		String onlineRecovery="否";
+		if (subIndexDO.getRestrictedExit()>0){
+			restrictedExit="是";
+		}
+		if (subIndexDO.getLimetingHighConsumption()>0){
+			LimetingHighConsumption="是";
+		}
+		if (subIndexDO.getOnlineRecovery()>0){
+			onlineRecovery="是";
+		}
+		job.put("resourceName","限制出境");
+		job.put("res",restrictedExit);
+		jarr.add(job);
+		job.put("resourceName","限制高消费");
+		job.put("res",LimetingHighConsumption);
+		jarr.add(job);
+		job.put("resourceName","网上追讨");
+		job.put("res",onlineRecovery);
+		jarr.add(job);
+		jsonObject.put("data",jarr);
+		jsonArray.add(jsonObject);
+		return ResponseBean.successResponse(jsonArray);
 	}
 
 	/**
@@ -373,6 +430,8 @@ public class OfflineFinanceController {
 	@LogRecord(logMsg = "浏览【%s】风险页面", params = { "companyName" }, page = Operation.Page.licaiRisk)
 	public ResponseBean staticRiskIndex(String companyName) {
 		Map data = offlineFinanceService.staticRiskIndex(companyName);
+		System.out.println("return:"+ResponseBean.successResponse(data).toString());
+		System.out.println("data:"+data.toString());
 		return ResponseBean.successResponse(data);
 	}
 

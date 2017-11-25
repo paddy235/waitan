@@ -43,7 +43,7 @@ public interface PrivateFundService {
 
     LinkedList<InvestmentStatisticDO> investmentAmount();
 
-    List<PrivateFundCompanyDTO> privateFundExtraList(Integer orderByField, String descAsc, Integer recordStatus);
+    PageBean<PrivateFundCompanyDTO> privateFundExtraList(Integer orderByField, String descAsc, Integer recordStatus,Integer start,Integer pageSize);
 
     List<PrivateOfferedFundData> getPrivateOfferedFund(ExportCondition exportCondition, PageBean pagination);
 
@@ -58,4 +58,8 @@ public interface PrivateFundService {
     void saveOrUpdateProductStatistic(FundProductStatisticDO productDO);
 
     void saveOrUpdateStatistic(PrivateFundStatisticDO statisticDO);
+
+    int selectQdlpMaxIndexNum();
+
+    int selectQflpMaxIndexNum();
 }

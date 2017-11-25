@@ -1,6 +1,8 @@
 package com.bbd.wtyh.web.controller;
 
+import com.bbd.wtyh.dao.HologramQueryDao;
 import com.bbd.wtyh.domain.*;
+import com.bbd.wtyh.domain.bbdAPI.RecordCompanyDO;
 import com.bbd.wtyh.domain.dto.*;
 import com.bbd.wtyh.domain.enums.CompanyProgress;
 import com.bbd.wtyh.log.user.Operation;
@@ -8,6 +10,7 @@ import com.bbd.wtyh.log.user.annotation.LogRecord;
 import com.bbd.wtyh.service.CompanyService;
 import com.bbd.wtyh.service.PrivateFundService;
 import com.bbd.wtyh.util.CalculateUtils;
+import com.bbd.wtyh.web.PageBean;
 import com.bbd.wtyh.web.ResponseBean;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Lists;
@@ -16,8 +19,10 @@ import com.google.common.collect.Multimap;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -33,6 +38,9 @@ public class PrivateFundController {
 	private PrivateFundService privateFundService;
 	@Autowired
 	private CompanyService companyService;
+
+	@Autowired
+	private HologramQueryDao hologramQueryDao;
 
 	@RequestMapping("qdlpProgressList.do")
 	public ResponseBean qdlpProgressList() {
@@ -102,35 +110,6 @@ public class PrivateFundController {
 
 	}
 
-	@RequestMapping("productTypeStatistic.do")
-	public ResponseBean productTypeStatistic() {
-		List<FundProductStatisticDO> productTypeStaticticList = privateFundService.productTypeStatisticList();
-		List<PrivateFundProductTypeStatisticDTO> result = Lists.newArrayList();
-		for (FundProductStatisticDO statisticDO : productTypeStaticticList) {
-			PrivateFundProductTypeStatisticDTO statisticDTO = new PrivateFundProductTypeStatisticDTO();
-			statisticDTO.setTypeName(privateFundService.getProductTypeById(statisticDO.getProductTypeId()).getProductTypeName());
-			statisticDTO.setAmount(statisticDO.getProductNumber());
-			result.add(statisticDTO);
-		}
-		return ResponseBean.successResponse(result);
-	}
-
-	@RequestMapping("topProductNumber.do")
-	public ResponseBean topProductNumber(Integer numbers) {
-		if (null == numbers || numbers <= 0) {
-			numbers = 10;
-		}
-
-		List<ProductAmountDO> productAmountDOs = privateFundService.topProductNumber(numbers);
-		List<Map<String, Object>> result = Lists.newArrayList();
-		for (ProductAmountDO amountDO : productAmountDOs) {
-			Map<String, Object> topProductNumber = Maps.newHashMap();
-			topProductNumber.put("companyName", companyService.getNameById(amountDO.getCompanyId()));
-			topProductNumber.put("productNumber", amountDO.getProductNumber());
-			result.add(topProductNumber);
-		}
-		return ResponseBean.successResponse(result);
-	}
 
 	@RequestMapping("capitalAmount.do")
 	public ResponseBean capitalAmount() {
@@ -149,6 +128,41 @@ public class PrivateFundController {
 		return ResponseBean.successResponse(result);
 
 	}
+
+	@RequestMapping("productTypeStatistic.do")
+	public ResponseBean productTypeStatistic() {
+		List<FundProductStatisticDO> productTypeStaticticList = privateFundService.productTypeStatisticList();
+		List<PrivateFundProductTypeStatisticDTO> result = Lists.newArrayList();
+		for (FundProductStatisticDO statisticDO : productTypeStaticticList) {
+			PrivateFundProductTypeStatisticDTO statisticDTO = new PrivateFundProductTypeStatisticDTO();
+			statisticDTO.setTypeName(privateFundService.getProductTypeById(statisticDO.getProductTypeId()).getProductTypeName());
+			statisticDTO.setAmount(statisticDO.getProductNumber());
+			result.add(statisticDTO);
+		}
+		return ResponseBean.successResponse(result);
+	}
+
+
+
+
+	@RequestMapping("topProductNumber.do")
+	public ResponseBean topProductNumber(Integer numbers) {
+		if (null == numbers || numbers <= 0) {
+			numbers = 10;
+		}
+
+		List<ProductAmountDO> productAmountDOs = privateFundService.topProductNumber(numbers);
+		List<Map<String, Object>> result = Lists.newArrayList();
+		for (ProductAmountDO amountDO : productAmountDOs) {
+			Map<String, Object> topProductNumber = Maps.newHashMap();
+			topProductNumber.put("companyName", companyService.getNameById(amountDO.getCompanyId()));
+			topProductNumber.put("productNumber", amountDO.getProductNumber());
+			result.add(topProductNumber);
+		}
+		return ResponseBean.successResponse(result);
+	}
+
+
 
 	@RequestMapping("investmentReturn.do")
 	public ResponseBean investmentReturn() {
@@ -170,17 +184,33 @@ public class PrivateFundController {
 	}
 
 	@RequestMapping("privateFundList.do")
-	public ResponseBean privateFundList(Integer orderByField, String descAsc, Integer recordStatus) {
+	public ResponseBean privateFundList(Integer orderByField, String descAsc, Integer recordStatus,@RequestParam(defaultValue = "10") Integer pageSize,
+										@RequestParam(defaultValue = "1") Integer currentPage) {
 		if (null != recordStatus && recordStatus <= 0) {
 			recordStatus = null;
 		}
-		List<PrivateFundCompanyDTO> privateFundCompanyDTOs = privateFundService.privateFundExtraList(orderByField, descAsc, recordStatus);
-		for (PrivateFundCompanyDTO dto : privateFundCompanyDTOs) {
+		int start = (currentPage-1)*pageSize;
+		PageBean<PrivateFundCompanyDTO> pageInfo = privateFundService.privateFundExtraList(orderByField, descAsc, recordStatus,start,pageSize);
+//		int count = 0;
+//		Date a = new Date();
+        Integer status = new Integer(2);
+		for (PrivateFundCompanyDTO dto : pageInfo.getItems()) {
 			if (StringUtils.isNotEmpty(dto.getWebsite()) && !dto.getWebsite().startsWith("http")) {
 				dto.setWebsite("http://" + dto.getWebsite());
 			}
+			if(!status.equals(recordStatus)){
+				String  res = hologramQueryDao.getCompanyInfo(dto.getName());
+//			System.out.println("当前"+(count++)+"====="+res);
+				if("1".equals(res)){
+					dto.setRecordStatus(1);
+				}
+			}
+
 		}
-		return ResponseBean.successResponse(privateFundCompanyDTOs);
+//		Date b = new Date();
+//		long interval = (b.getTime() - a.getTime())/1000;
+//		System.out.println("总共用时："+interval+"秒");
+		return ResponseBean.successResponse(pageInfo);
 	}
 
 }

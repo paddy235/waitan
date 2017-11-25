@@ -1,6 +1,7 @@
 package com.bbd.wtyh.web.controller;
 
 import com.bbd.wtyh.domain.CompanyDO;
+import com.bbd.wtyh.domain.bbdAPI.BBDParentCompanyDO;
 import com.bbd.wtyh.log.user.Operation;
 import com.bbd.wtyh.log.user.annotation.LogRecord;
 import com.bbd.wtyh.service.CompanySearchAPIService;
@@ -9,7 +10,7 @@ import com.bbd.wtyh.web.ResponseBean;
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
-import org.joda.time.Period;
+import com.bbd.wtyh.dao.HologramQueryDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -28,6 +29,9 @@ public class CompanySearchController {
 
 	@Autowired
 	private CompanySearchAPIService comSearApiSer;
+
+	@Autowired
+	private HologramQueryDao HologramQueryDao;
 
 	@RequestMapping("searchCompany.do")
 	@ResponseBody
@@ -66,5 +70,4 @@ public class CompanySearchController {
 		String data = comSearApiSer.searchCompanyByKeyword(keyword);
 		return ResponseBean.successResponse(data);
 	}
-
 }

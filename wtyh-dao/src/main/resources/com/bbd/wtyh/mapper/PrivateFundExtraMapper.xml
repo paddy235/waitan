@@ -92,7 +92,6 @@
         <if test="null != recordStatus">
             and  r.record_status=#{recordStatus}
         </if>
-
         <if test="null != orderByField">
 
             order by
@@ -119,6 +118,30 @@
             </choose>
 
         </if>
+        limit #{start},#{pageSize}
+    </select>
+
+    <select id="countCompany" resultType="Long">
+      SELECT count(*) FROM (
+        select
+        a.company_id, a.website, a.paidin_capital, a.managed_fund,
+        a.record_status,b.name,b.registered_date,b.registered_capital
+        from private_fund_extra a,company b where
+        a.company_id=b.company_id
+        UNION
+        select
+        a.company_id, a.website, a.paidin_capital, a.managed_fund,
+        a.record_status,b.name,b.registered_date,b.registered_capital
+        from company b
+        LEFT JOIN private_fund_extra a ON a.company_id = b.company_id
+        WHERE
+        b.company_type = 5
+        ) r where 1 = 1
+        <if test="null != recordStatus">
+            and  r.record_status=#{recordStatus}
+        </if>
+
+
     </select>
 
     <select id="countAllCompany" resultType="int">

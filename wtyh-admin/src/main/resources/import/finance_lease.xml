@@ -5,15 +5,16 @@
            importHandler="com.bbd.bgo.service.imp.handler.FinanceLeasecHandler">
         <rowHeader>
             <column mergeFirstRow="1" mergeLastRow="2" mergeFirstCol="1" mergeLastCol="6" align="LEFT"
-                    value="填写说明：&#x000A;本表格不可填写Excel公式；本表格不可填写Excel公式；企业名称必填，不能超过40个汉字；其余字段填“是”或“否”"/>
+                    value="填写说明：&#x000A;本表格不可填写Excel公式；本表格不可填写Excel公式；企业名称必填，不能超过40个汉字；
+                                    &#x000A;“失联/未参加自查”、“一年以上实缴资本低于30%”、“一年以上未经营”字段填“是”或“否”，“其他问题”填写文本。"/>
         </rowHeader>
         <columns>
             <column name="企业名称" code="companyName" dataType="string" required="true" bgColor="#FFFF00"/>
             <column name="是否在自贸区" code="address" dataType="string"/>
-            <column name="失联企业" code="riskStatusA" dataType="string"/>
-            <column name="未参加自查企业" code="riskStatusB" dataType="string"/>
-            <column name="一年以上零认缴资本" code="riskStatusC" dataType="string"/>
-            <column name="一年以上未经营" code="riskStatusD" dataType="string"/>
+            <column name="失联/未参加自查" code="riskStatusA" dataType="string"/>
+            <column name="一年以上实缴资本低于30%" code="riskStatusB" dataType="string"/>
+            <column name="一年以上未经营" code="riskStatusC" dataType="string"/>
+            <column name="其他问题" code="otherQuertion" dataType="string"/>
         </columns>
 
     </sheet>

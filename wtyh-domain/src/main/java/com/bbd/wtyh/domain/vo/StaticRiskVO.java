@@ -42,6 +42,47 @@ public class StaticRiskVO {
 	private String rise; // 当前风险指数是否上升
 	private String areaCode; // 地区代码
 
+	//新增上海四个参数
+	private String normalHousehold;//上海非正常户认定
+
+	private String UnpaidInsurancePremium;//上海用人单位欠缴社会保险费
+
+	private String DiscreditExposure;//上海失信曝光
+
+	private String AdministrativeSanction;//上海市场监管类行政处罚
+
+	public String getNormalHousehold() {
+		return normalHousehold;
+	}
+
+	public void setNormalHousehold(String normalHousehold) {
+		this.normalHousehold = normalHousehold;
+	}
+
+	public String getUnpaidInsurancePremium() {
+		return UnpaidInsurancePremium;
+	}
+
+	public void setUnpaidInsurancePremium(String unpaidInsurancePremium) {
+		UnpaidInsurancePremium = unpaidInsurancePremium;
+	}
+
+	public String getDiscreditExposure() {
+		return DiscreditExposure;
+	}
+
+	public void setDiscreditExposure(String discreditExposure) {
+		DiscreditExposure = discreditExposure;
+	}
+
+	public String getAdministrativeSanction() {
+		return AdministrativeSanction;
+	}
+
+	public void setAdministrativeSanction(String administrativeSanction) {
+		AdministrativeSanction = administrativeSanction;
+	}
+
 	public String getCompanyName() {
 		return companyName;
 	}
