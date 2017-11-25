@@ -104,4 +104,9 @@ public class GuaranteeServiceImpl extends BaseServiceImpl implements GuaranteeSe
 
 		return guaranteedInfoMapper.selectByPrimaryKey(id);
 	}
+
+	@Override
+	public void updateG(GuaranteedInfoDO guaranteedInfoDO) {
+		guaranteedInfoMapper.updateG(guaranteedInfoDO);
+	}
 }

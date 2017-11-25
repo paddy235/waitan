@@ -24,4 +24,6 @@ public interface GuaranteeService extends BaseService {
     int countLargeGuarantee();
 
     GuaranteedInfoDO selectByPrimaryKey(Integer id);
+
+    void updateG(GuaranteedInfoDO guaranteedInfoDO);
 }
