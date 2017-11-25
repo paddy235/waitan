@@ -190,6 +190,11 @@ public class PrivateFundController {
 		//取消备案
 		if(status.equals(recordStatus)){
 			PageBean<PrivateFundCompanyDTO> pageInfo2 = privateFundService.privateFundExtraList(orderByField, descAsc, recordStatus,-1,pageSize);
+			for (PrivateFundCompanyDTO dto : pageInfo2.getItems()) {
+                if (StringUtils.isNotEmpty(dto.getWebsite()) && !dto.getWebsite().startsWith("http")) {
+                    dto.setWebsite("http://" + dto.getWebsite());
+                }
+            }
 			Long num = 0L;
             List<PrivateFundCompanyDTO> totalList = pageInfo2.getItems();
 			List<PrivateFundCompanyDTO> totalList2 = totalList;
