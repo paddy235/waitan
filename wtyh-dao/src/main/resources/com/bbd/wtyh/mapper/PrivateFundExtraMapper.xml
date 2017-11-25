@@ -118,6 +118,9 @@
             </choose>
 
         </if>
+        <if test="null == orderByField">
+        order by r.company_id
+        </if>
         <if test="start != -1">
             limit #{start},#{pageSize}
         </if>
