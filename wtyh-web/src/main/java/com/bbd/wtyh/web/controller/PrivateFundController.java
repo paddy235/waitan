@@ -197,11 +197,14 @@ public class PrivateFundController {
 			if (StringUtils.isNotEmpty(dto.getWebsite()) && !dto.getWebsite().startsWith("http")) {
 				dto.setWebsite("http://" + dto.getWebsite());
 			}
-			String  res = hologramQueryDao.getCompanyInfo(dto.getName());
+			if(recordStatus!=2){
+				String  res = hologramQueryDao.getCompanyInfo(dto.getName());
 //			System.out.println("当前"+(count++)+"====="+res);
-			if("1".equals(res)){
-				dto.setRecordStatus(1);
+				if("1".equals(res)){
+					dto.setRecordStatus(1);
+				}
 			}
+
 		}
 //		Date b = new Date();
 //		long interval = (b.getTime() - a.getTime())/1000;
