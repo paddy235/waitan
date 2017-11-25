@@ -118,7 +118,10 @@
             </choose>
 
         </if>
-        limit #{start},#{pageSize}
+        <if test="start != -1">
+            limit #{start},#{pageSize}
+        </if>
+
     </select>
 
     <select id="countCompany" resultType="Long">
