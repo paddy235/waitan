@@ -227,12 +227,10 @@ public class PrivateFundController {
 			if (StringUtils.isNotEmpty(dto.getWebsite()) && !dto.getWebsite().startsWith("http")) {
 				dto.setWebsite("http://" + dto.getWebsite());
 			}
-			if(!status.equals(recordStatus)){
 				String  res = hologramQueryDao.getCompanyInfo(dto.getName());
 				if("1".equals(res)){
 					dto.setRecordStatus(1);
 				}
-			}
 
 		}
 		return ResponseBean.successResponse(pageInfo);
