@@ -26,6 +26,13 @@
       select count(1) from guaranteed_info
     </select>
 
+    <update id="updateG" parameterType="com.bbd.wtyh.domain.GuaranteedInfoDO">
+        UPDATE guaranteed_info
+        SET update_by= #{updateBy},
+            update_date=#{updateDate}
+        WHERE id= #{id};
+    </update>
+
     <select id="listLargeGuarantee" resultMap="BaseResultMap">
         select guarantee_id,guaranteed_id from guaranteed_info,company e,company d
         where guaranteed_info.guarantee_id=e.company_id and guaranteed_info.guaranteed_id=d.company_id and e.company_type=3

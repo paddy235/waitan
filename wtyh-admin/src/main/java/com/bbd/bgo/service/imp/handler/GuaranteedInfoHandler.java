@@ -90,6 +90,12 @@ public class GuaranteedInfoHandler extends AbstractImportHandler<GuaranteedInfoD
 			bean.setCreateBy(loginName);
 			bean.setCreateDate(new Date());
 			insertList.add(bean);
+		}else{
+			log.info(guaranteedInfo.getGuaranteedId()+" is guaranteed by "+guaranteedInfo.getGuaranteeId()+" 本条记录已经存在，更新创建人和时间");
+			guaranteedInfo.setUpdateDate(new Date());
+		    guaranteedInfo.setUpdateBy(loginName);
+            guaranteeService.update(guaranteedInfo);
+			//guaranteeService.updateG(guaranteedInfo);
 		}
 	}
 
