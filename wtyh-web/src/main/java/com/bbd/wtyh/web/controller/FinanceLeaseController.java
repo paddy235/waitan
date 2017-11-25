@@ -74,6 +74,7 @@ public class FinanceLeaseController {
             String riskStatusB = financeLeasecCompany.getRiskStatusA();
             String riskStatusC = financeLeasecCompany.getRiskStatusA();
             String otherQuertion = financeLeasecCompany.getOtherQuertion();
+            financeLeasecCompany.setRiskStatus("正常");
             if(StringUtils.isNotEmpty(riskStatusA)&&"是".equals(riskStatusA)){
                 financeLeasecCompany.setRiskStatus("潜在");
                 continue;
