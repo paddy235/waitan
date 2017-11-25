@@ -193,11 +193,12 @@ public class PrivateFundController {
 		PageBean<PrivateFundCompanyDTO> pageInfo = privateFundService.privateFundExtraList(orderByField, descAsc, recordStatus,start,pageSize);
 //		int count = 0;
 //		Date a = new Date();
+        Integer status = new Integer(2);
 		for (PrivateFundCompanyDTO dto : pageInfo.getItems()) {
 			if (StringUtils.isNotEmpty(dto.getWebsite()) && !dto.getWebsite().startsWith("http")) {
 				dto.setWebsite("http://" + dto.getWebsite());
 			}
-			if(recordStatus!=2){
+			if(!status.equals(recordStatus)){
 				String  res = hologramQueryDao.getCompanyInfo(dto.getName());
 //			System.out.println("当前"+(count++)+"====="+res);
 				if("1".equals(res)){
