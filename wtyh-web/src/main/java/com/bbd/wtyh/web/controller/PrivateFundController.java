@@ -200,8 +200,8 @@ public class PrivateFundController {
 					num++;
 				}
 			}
-
-			pageInfo2.setTotalCount(pageInfo2.getTotalCount()-num);
+			Long  t_count = num;
+			pageInfo2.setTotalCount(pageInfo2.getTotalCount()-t_count);
 			pageInfo2.setCurrentPage(currentPage);
 			pageInfo2.setPageSize(pageSize);
 			int formIndex = (currentPage-1)*pageSize;
