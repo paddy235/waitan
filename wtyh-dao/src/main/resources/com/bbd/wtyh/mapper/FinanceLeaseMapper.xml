@@ -96,11 +96,13 @@
         c.`name` as companyName,
         c.address as address,
         f.risk_type as riskType,
-        f.risk_status as riskStatus
+        f.risk_status as riskStatus,
+        e.other_question as otherQuestion
         FROM
         company c
         LEFT JOIN finance_lease_risk f ON f.company_id = c.company_id
         LEFT JOIN area a ON a.area_id = c.area_id
+        LEFT JOIN finance_lease_extra e on c.company_id=e.company_id
         <where>
             AND c.company_type = 13
             <if test="areaName != null and areaName != '' and areaName != '全部'">

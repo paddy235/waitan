@@ -72,4 +72,6 @@ public interface HologramQueryDao {
 
     BBDParentCompanyDO getParentCompany(String name);
 
+    String getCompanyInfo(String name);
+
 }

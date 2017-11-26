@@ -18,8 +18,10 @@ public interface PrivateFundExtraMapper {
 
     PrivateFundExtraDO selectByPrimaryKey(Integer companyId);
 
-    List<PrivateFundCompanyDTO> selectAll(@Param("orderByField") Integer orderByField, @Param("descAsc") String descAsc, @Param("recordStatus") Integer recordStatus);
+    List<PrivateFundCompanyDTO> selectAll(@Param("orderByField") Integer orderByField, @Param("descAsc") String descAsc, @Param("recordStatus") Integer recordStatus,@Param("start") Integer start,
+                                          @Param("pageSize") Integer pageSize);
 
+    Long countCompany(@Param("orderByField") Integer orderByField, @Param("descAsc") String descAsc, @Param("recordStatus") Integer recordStatus);
     /**
      * 获取总条数
      *

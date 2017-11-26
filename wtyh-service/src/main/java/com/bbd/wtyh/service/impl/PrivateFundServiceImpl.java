@@ -115,8 +115,19 @@ public class PrivateFundServiceImpl implements PrivateFundService {
     }
 
     @Override
-    public List<PrivateFundCompanyDTO> privateFundExtraList(Integer orderByField, String descAsc, Integer recordStatus) {
-        return privateFundExtraMapper.selectAll(orderByField, descAsc, recordStatus);
+    public PageBean<PrivateFundCompanyDTO> privateFundExtraList(Integer orderByField, String descAsc, Integer recordStatus,Integer start,Integer pageSize) {
+        Long count = privateFundExtraMapper.countCompany(orderByField, descAsc, recordStatus);
+        PageBean<PrivateFundCompanyDTO> paging = new PageBean<>();
+        if(count.equals(0)){
+            return paging;
+        }
+        paging.setCurrentPage(start/pageSize+1);
+        paging.setTotalCount(count);
+        paging.setPageSize(pageSize);
+        List<PrivateFundCompanyDTO> fundCompanyList = privateFundExtraMapper.selectAll(orderByField, descAsc, recordStatus,start,pageSize);
+
+        paging.setItems(fundCompanyList);
+        return paging;
     }
 
     @Override
