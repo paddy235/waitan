@@ -23,11 +23,15 @@
     </select>
 
     <select id="selectCompanyLevel" resultMap="BaseResultMap">
-        select
-        company_level.company_id, company_level.out_level, company_level.inner_level, company_level.live_level
-        from company_level,company
-        where company_level.company_id = company.company_id
-        and company.company_type=#{companyType}
+        SELECT
+        company.company_id,
+        company_level.out_level,
+        company_level.inner_level,
+        company_level.live_level
+        FROM company LEFT JOIN company_level ON
+        company_level.company_id = company.company_id
+        WHERE
+        company.company_type = #{companyType}
         <if test="areaId != null">
             and company.area_id=#{areaId}
         </if>
