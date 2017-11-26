@@ -64,13 +64,13 @@ public class StaticRiskUpdateServiceImpl implements StaticRiskUpdateService,Task
 		Integer dataTotal = 0;
 		try {
 			//查询最新版本
-			//String[] newDataVersion ={"20170105","20170120","20170205","20170305","20170405","20170505","20170520","20170605","20170620","20171020","20171105"};
-			List<String> DataVersion = companyStaticRiskScoreMapper.getDateVersion();
+			String[] DataVersion ={"20170120","20170220","20170320","20170420","20170520","20170620","20170720","20170820","20170920","20171020","20171120"};
+			//List<String> DataVersion = companyStaticRiskScoreMapper.getDateVersion();
 			for (String dataVersion : DataVersion){
 				//查询总公司数
 				final int totalCount = companyStaticRiskScoreMapper.findCompanyCount(dataVersion);
 				dataTotal = totalCount;
-				final int pageSize = 190;
+				final int pageSize = 1000;
 				Pagination pagination = new Pagination();
 				pagination.setPageSize(pageSize);
 				pagination.setCount(totalCount);
@@ -90,6 +90,7 @@ public class StaticRiskUpdateServiceImpl implements StaticRiskUpdateService,Task
 						}
 					});
 				}
+				logger.info(dataVersion+"版本finish");
 				dataExecutorService.shutdown();
 				dataExecutorService.awaitTermination(1, TimeUnit.DAYS);
 			}

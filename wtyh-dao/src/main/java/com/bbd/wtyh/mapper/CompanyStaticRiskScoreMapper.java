@@ -46,6 +46,9 @@ public interface CompanyStaticRiskScoreMapper {
 
     int updateStaticRisk(@Param(value = "companyName") String companyName,@Param(value = "dataVersion") String dataVersion ,@Param(value = "index") float index);
 
+    int updatestaticrisk(@Param(value = "companyName") String companyName ,@Param(value = "index") float index);
+
+
     /**
      * 存储指标值
      * */

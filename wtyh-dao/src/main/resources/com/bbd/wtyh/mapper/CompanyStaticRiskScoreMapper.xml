@@ -45,6 +45,12 @@
     where company_name=#{companyName} and data_version=#{dataVersion}
   </update>
 
+  <update id="updatestaticrisk" >
+    update index_data
+    set  static_risk_index=#{index}
+    where company_name=#{companyName}
+  </update>
+
 
   <select id="findCompanyCount" resultType="int">
    SELECT

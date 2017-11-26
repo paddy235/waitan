@@ -102,7 +102,8 @@ public class CompanyStaticRiskScoreServiceImpl implements CompanyStaticRiskScore
             DecimalFormat df = new DecimalFormat("#.0000");
             P =Double.parseDouble(df.format(P)) ;
            int i = CompanyStaticRiskScoreMapper.updateStaticRisk(CompanyStaticRiskScoreDO.getName(), newDataVersion, (float) P);
-          LOGGER.info("公司名称："+CompanyStaticRiskScoreDO.getName()+"更新静态风险成功条数："+i);
+           int j = CompanyStaticRiskScoreMapper.updatestaticrisk(CompanyStaticRiskScoreDO.getName(), (float) P);
+        LOGGER.info(newDataVersion+CompanyStaticRiskScoreDO.getName()+"更新静态风险成功条数："+i+"..."+j);
 
 
     }
@@ -237,7 +238,7 @@ public class CompanyStaticRiskScoreServiceImpl implements CompanyStaticRiskScore
         bbdSubIndexDO.setCompanyName(name);
         //存储新计算的bbd留个风险子指标
         int i = CompanyStaticRiskScoreMapper.updateSubIndex(bbdSubIndexDO);
-        LOGGER.info(name+"子风险指标更新成功条数："+i);
+        //LOGGER.info(name+"子风险指标更新成功条数："+i);
 
     }
 
