@@ -71,8 +71,8 @@ public class FinanceLeaseController {
         List<FinanceLeasecCompanyVO> list = financeLeaseService.leaseCompanyList(areaName, analysisResult, riskA, riskB, riskC, riskD);
         for(FinanceLeasecCompanyVO financeLeasecCompany:list){
             String riskStatusA = financeLeasecCompany.getRiskStatusA();
-            String riskStatusB = financeLeasecCompany.getRiskStatusA();
-            String riskStatusC = financeLeasecCompany.getRiskStatusA();
+            String riskStatusB = financeLeasecCompany.getRiskStatusB();
+            String riskStatusC = financeLeasecCompany.getRiskStatusC();
             String otherQuertion = financeLeasecCompany.getOtherQuertion();
             financeLeasecCompany.setRiskStatus("正常");
             if(StringUtils.isNotEmpty(riskStatusA)&&"是".equals(riskStatusA)){
