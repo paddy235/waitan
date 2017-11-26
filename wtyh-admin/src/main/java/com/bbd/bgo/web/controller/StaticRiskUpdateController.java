@@ -22,6 +22,7 @@ public class StaticRiskUpdateController {
     @ResponseBody
     public ResponseBean getCompanyStaticRiskScore() throws Exception {
        staticRiskUpdateService.updateOldStaticRiskAutomaticOperate();
+       //staticRiskUpdateService.updateStaticRiskManualOperate(100,101);
         return null;
     }
 
