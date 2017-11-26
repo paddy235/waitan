@@ -118,7 +118,7 @@
             </choose>
 
         </if>
-        <if test="null == orderByField">
+        <if test="null == orderByField and 2 == recordStatus">
         order by r.company_id
         </if>
         <if test="start != -1">
