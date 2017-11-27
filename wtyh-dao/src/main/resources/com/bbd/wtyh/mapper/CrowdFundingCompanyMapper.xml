@@ -40,18 +40,17 @@
 
     <select id="queryCompany"  resultType="string">
         select * from (
-
                 (select CONCAT(a.platform_name,'-',c.`name`) name
                 from crowd_funding_company a
                 LEFT JOIN company c
                 on c.company_id=a.company_id
                 where a.platform_name like CONCAT('%',#{keyword},'%') LIMIT 5)
             union
-                (select CONCAT(a.platform_name,'-',c.`name`) name
-                from crowd_funding_company a
-                LEFT JOIN company c
+                (select CONCAT(IFNULL(a.platform_name,''),'-',c.`name`) name
+                from  company c
+                LEFT JOIN crowd_funding_company a
                 on c.company_id=a.company_id
-                where c.`name` like CONCAT('%',#{keyword},'%')  LIMIT 5)
+                where c.company_type = 6 and c.`name` like CONCAT('%',#{keyword},'%')  LIMIT 5)
 
         ) un  limit 5
     </select>
