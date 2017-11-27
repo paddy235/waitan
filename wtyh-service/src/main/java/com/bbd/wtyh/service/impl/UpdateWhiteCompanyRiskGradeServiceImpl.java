@@ -124,6 +124,10 @@ public class UpdateWhiteCompanyRiskGradeServiceImpl implements UpdateWhiteCompan
             continue;
         }
 
+        //把company表中线下企业不是白名单的企业风险等级设置成null
+        this.updateWhiteGradeMapper.updateCompanyIsNotWhite();
+        logger.info("company表中线下理财非白名单企业风险等级设置成null结束");
+
         logger.info("白名单企业风险等级更新结束");
     }
 

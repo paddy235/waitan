@@ -28,4 +28,8 @@ public interface UpdateWhiteCompanyRiskGradeMapper {
     //5万家白名单企业的公信中心数据包含：限制出境、限制高消费和网上追讨的公司名单
     @Select("select a.company_name from company_credit_raw_info a INNER JOIN offline_financial_white b ON a.company_name = b.companyName WHERE a.resource_name ='限制出境' or resource_name ='限制高消费' or resource_name ='网上追讨'")
     List<String> query_raw_info();
+
+    //把company表中线下企业不是白名单的企业风险等级设置成null
+    @Update("update company c set c.risk_level = null WHERE c.company_type = 4 AND  NOT EXISTS (SELECT 1 FROM offline_financial_white o WHERE o.companyId = c.company_id)")
+    void updateCompanyIsNotWhite();
 }
