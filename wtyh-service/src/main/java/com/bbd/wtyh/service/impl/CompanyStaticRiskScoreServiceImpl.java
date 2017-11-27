@@ -117,7 +117,7 @@ public class CompanyStaticRiskScoreServiceImpl implements CompanyStaticRiskScore
                 j = CompanyStaticRiskScoreMapper.updatestaticrisk(CompanyStaticRiskScoreDO.getName(), (float) P);
            }
 
-           LOGGER.info(newDataVersion+CompanyStaticRiskScoreDO.getName()+"更新静态风险成功条数："+"..."+j);
+           LOGGER.info(newDataVersion+CompanyStaticRiskScoreDO.getName()+"更新静态风险成功条数："+i+"..."+j);
 
 
     }

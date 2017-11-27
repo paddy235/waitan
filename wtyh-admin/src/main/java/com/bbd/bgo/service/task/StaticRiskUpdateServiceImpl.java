@@ -64,7 +64,7 @@ public class StaticRiskUpdateServiceImpl implements StaticRiskUpdateService,Task
 		Integer dataTotal = 0;
 		try {
 			//查询最新版本,
-			String[] DataVersion ={"20171120","20171020","20170920","20170820","20170720","20170620","20170520","20170420","20170320","20170220"};
+			String[] DataVersion ={"20171120","20171020","20170920","20170820","20170720","20170620","20170520","20170420","20170320","20170220","20170120"};
 			//List<String> DataVersion = companyStaticRiskScoreMapper.getDateVersion();
 			for (String dataVersion : DataVersion){
 				//查询总公司数
@@ -90,9 +90,10 @@ public class StaticRiskUpdateServiceImpl implements StaticRiskUpdateService,Task
 						}
 					});
 				}
-				logger.info(dataVersion+"版本finish");
+
 				dataExecutorService.shutdown();
 				dataExecutorService.awaitTermination(1, TimeUnit.DAYS);
+				logger.info(dataVersion+"版本finish");
 			}
 
 			//更新5万家白名单企业
