@@ -265,8 +265,8 @@ public class ExcelUtil {
 
 		//线下理财行业类型
 		Map<String, String> mapLevel28 = new HashMap<>();
-		mapLevel1.put("线下理财行业类型", mapLevel28);// 构建一级下拉
-		mapLevel28.put("线下理财名单导入", "offline-financial-list");// 构建二级下拉
+		mapLevel1.put("线下理财", mapLevel28);// 构建一级下拉
+		mapLevel28.put("线下理财白名单导入", "offline-financial-list");// 构建二级下拉
 
 		return mapLevel1;
 	}
