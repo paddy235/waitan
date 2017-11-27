@@ -12,7 +12,7 @@
             <column name="机构网址" code="website" dataType="string"  regex="^((https|http|ftp|rtsp|mms)?:\/\/)[^\s]+"/>
             <column name="实缴资本（万元）" code="paidinCapital" dataType="number" regex="[1-9][0-9]*"/>
             <column name="管理基金数量" code="managedFund" dataType="number" regex="[1-9][0-9]*"/>
-            <column name="备案状态" code="record_status" dataType="string"/>
+            <column name="备案状态" code="record_status" bgColor="#FFFF00" dataType="string"/>
         </columns>
     </sheet>
 
