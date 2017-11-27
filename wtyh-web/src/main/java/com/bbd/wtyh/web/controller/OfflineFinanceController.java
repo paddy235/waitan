@@ -310,7 +310,7 @@ public class OfflineFinanceController {
 		job.put("resourceName","行政处罚");
 		job.put("res",subIndexDO.getAdministrativeSanction2());
 		jarr.add(job);
-		job.put("resourceName","对不正当行为处罚");
+		job.put("resourceName","对不正当竞争行为处罚");
 		job.put("res",subIndexDO.getBehaviorPunishment());
 		jarr.add(job);
 		jsonObject.put("data",jarr);
