@@ -22,10 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Marco on 2016/8/10.
@@ -189,27 +186,53 @@ public class PrivateFundController {
 		if (null != recordStatus && recordStatus <= 0) {
 			recordStatus = null;
 		}
+		Integer status = new Integer(2);
+		//取消备案
+		if(status.equals(recordStatus)){
+			PageBean<PrivateFundCompanyDTO> pageInfo2 = privateFundService.privateFundExtraList(orderByField, descAsc, recordStatus,-1,pageSize);
+			for (PrivateFundCompanyDTO dto : pageInfo2.getItems()) {
+                if (StringUtils.isNotEmpty(dto.getWebsite()) && !dto.getWebsite().startsWith("http")) {
+                    dto.setWebsite("http://" + dto.getWebsite());
+                }
+            }
+			Long num = 0L;
+            List<PrivateFundCompanyDTO> totalList = pageInfo2.getItems();
+			List<PrivateFundCompanyDTO> totalList2 = totalList;
+			for(int i=0;i<totalList.size();i++) {
+				String  res2 = hologramQueryDao.getCompanyInfo(totalList.get(i).getName());
+				if("1".equals(res2)){
+					totalList2.remove(i);
+					num++;
+				}
+			}
+			Long  t_count = num;
+			pageInfo2.setTotalCount(pageInfo2.getTotalCount()-t_count);
+			pageInfo2.setCurrentPage(currentPage);
+			pageInfo2.setPageSize(pageSize);
+			int formIndex = (currentPage-1)*pageSize;
+			int endIndex = currentPage*pageSize;
+			if(endIndex>totalList.size()){
+				endIndex = totalList.size();
+			}
+			pageInfo2.setItems(totalList2.subList(formIndex,endIndex));
+			return ResponseBean.successResponse(pageInfo2);
+
+		}
+
+		//全部/已备案
 		int start = (currentPage-1)*pageSize;
 		PageBean<PrivateFundCompanyDTO> pageInfo = privateFundService.privateFundExtraList(orderByField, descAsc, recordStatus,start,pageSize);
-//		int count = 0;
-//		Date a = new Date();
-        Integer status = new Integer(2);
+
 		for (PrivateFundCompanyDTO dto : pageInfo.getItems()) {
 			if (StringUtils.isNotEmpty(dto.getWebsite()) && !dto.getWebsite().startsWith("http")) {
 				dto.setWebsite("http://" + dto.getWebsite());
 			}
-			if(!status.equals(recordStatus)){
 				String  res = hologramQueryDao.getCompanyInfo(dto.getName());
-//			System.out.println("当前"+(count++)+"====="+res);
 				if("1".equals(res)){
 					dto.setRecordStatus(1);
 				}
-			}
 
 		}
-//		Date b = new Date();
-//		long interval = (b.getTime() - a.getTime())/1000;
-//		System.out.println("总共用时："+interval+"秒");
 		return ResponseBean.successResponse(pageInfo);
 	}
 

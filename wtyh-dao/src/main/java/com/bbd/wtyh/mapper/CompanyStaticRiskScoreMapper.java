@@ -28,6 +28,11 @@ public interface CompanyStaticRiskScoreMapper {
     String getNewDataVersion();
 
     /**
+     * 查询2017的历史版本
+     * */
+    List<String> getDateVersion();
+
+    /**
      * 分页查询bbd线下理财信息
      *
      * */
@@ -40,6 +45,9 @@ public interface CompanyStaticRiskScoreMapper {
      * */
 
     int updateStaticRisk(@Param(value = "companyName") String companyName,@Param(value = "dataVersion") String dataVersion ,@Param(value = "index") float index);
+
+    int updatestaticrisk(@Param(value = "companyName") String companyName ,@Param(value = "index") float index);
+
 
     /**
      * 存储指标值

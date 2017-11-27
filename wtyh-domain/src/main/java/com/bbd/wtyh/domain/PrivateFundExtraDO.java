@@ -15,7 +15,7 @@ public class PrivateFundExtraDO extends BaseDO {
     @Column(name = "website")
     private String website;//机构网站
     @Column(name = "paidin_capital")
-    private Integer paidinCapital;//实缴资本
+    private Double paidinCapital;//实缴资本
     @Column(name = "managed_fund")
     private Integer managedFund;//管理基金数量
     @Column(name = "record_status")
@@ -37,11 +37,11 @@ public class PrivateFundExtraDO extends BaseDO {
         this.website = website == null ? null : website.trim();
     }
 
-    public Integer getPaidinCapital() {
+    public Double getPaidinCapital() {
         return paidinCapital;
     }
 
-    public void setPaidinCapital(Integer paidinCapital) {
+    public void setPaidinCapital(Double paidinCapital) {
         this.paidinCapital = paidinCapital;
     }
 

@@ -2,6 +2,7 @@ package com.bbd.wtyh.service.impl;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.bbd.wtyh.constants.RiskChgCoSource;
 import com.bbd.wtyh.constants.TaskState;
 import com.bbd.wtyh.core.base.BaseServiceImpl;
 import com.bbd.wtyh.dao.P2PImageDao;
@@ -12,25 +13,21 @@ import com.bbd.wtyh.domain.EasyExport.WangdaiData;
 import com.bbd.wtyh.domain.bbdAPI.BaseDataDO;
 import com.bbd.wtyh.domain.bbdAPI.ZuZhiJiGoudmDO;
 import com.bbd.wtyh.domain.wangDaiAPI.*;
-import com.bbd.wtyh.log.user.Operation;
 import com.bbd.wtyh.mapper.*;
-import com.bbd.wtyh.service.HologramQueryService;
-import com.bbd.wtyh.service.P2PImageService;
-import com.bbd.wtyh.service.TaskService;
+import com.bbd.wtyh.service.*;
 import com.bbd.wtyh.web.EasyExportExcel.ExportCondition;
 import com.bbd.wtyh.web.PageBean;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
+import net.sf.cglib.beans.BeanCopier;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.xmlbeans.impl.xb.xsdschema.Public;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.util.*;
@@ -68,6 +65,18 @@ public class P2PImageServiceImpl extends BaseServiceImpl implements P2PImageServ
 
     @Autowired
     private HologramQueryService hologramQueryService;
+
+    @Autowired
+    private CompanyInfoModifyService companyInfoModify;
+
+    @Autowired
+    private PToPMonitorService pToPMonitorService;
+
+    @Autowired
+    private CompanyMapper companyMapper;
+
+    @Autowired
+    private CoAddOrCloseService coChgMonitorService;
 
     private volatile boolean isShutdown = false;// 任务停止标志
 
@@ -457,6 +466,12 @@ public class P2PImageServiceImpl extends BaseServiceImpl implements P2PImageServ
             addWangdaiTaskInfo(taskId, "网贷平台列表(plat_list)", e.getClass().getSimpleName());
             return taskResultDO;
         }
+        Map<Integer, Integer> platRankMapData = null;
+        try {
+            platRankMapData = pToPMonitorService.getPlatRankMapData();
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+        }
         Integer planCount = platList == null ? 0 : platList.size();
         Integer failCount = 0;
         taskResultDO.setPlanCount(planCount);
@@ -478,6 +493,10 @@ public class P2PImageServiceImpl extends BaseServiceImpl implements P2PImageServ
 
                 // 保存雷达数据
                 updateRadarScore(plat);
+
+                if(null!=platRankMapData){
+                    updateP2PCompanyLevel(plat,platRankMapData);
+                }
 
             } catch (Exception e) {
                 taskResultDO.setState(TaskState.ERROR);
@@ -677,6 +696,55 @@ public class P2PImageServiceImpl extends BaseServiceImpl implements P2PImageServ
             }
         } catch (JsonSyntaxException e) {
             logger.error(String.format("dataType＝leida&plat_name=%s return bad value", plat.getPlat_name()));
+        }
+    }
+
+    protected void updateP2PCompanyLevel(PlatListDO plat,Map<Integer, Integer> platRankMapData) throws Exception {
+        if (isShutdown) {
+            return;
+        }
+        try {
+            //风险等级被人工修改过，则不再更新
+            if (companyInfoModify.isModifyByAfterRisk(plat.getCompany_name())) {
+                return;
+            }
+            CompanyDO companyDO = companyMapper.selectByName(plat.getCompany_name());
+            if(null == companyDO){
+                return;
+            }
+            Integer companyId = companyDO.getCompanyId();
+            Integer oldRiskLevel = companyDO.getRiskLevel();
+            Integer riskLevelForPToP = platRankMapData.get(companyId);
+            Integer companyType=(companyDO!=null && companyDO.getCompanyType() != null)?companyDO.getCompanyType().intValue():-1;
+
+            if(null==riskLevelForPToP){
+                return;
+            }
+            if (!riskLevelForPToP.equals(oldRiskLevel)) { // 只记录前一次变化的，这是最新的产品需求
+                companyMapper.updateRiskLevel(riskLevelForPToP, oldRiskLevel, companyId, "system");
+                logger.error("riskLevel changed: companyId={} oldRiskLevel={} newRiskLevel:{}", companyId, oldRiskLevel, riskLevelForPToP);
+                // 添加风险变化公司
+                BeanCopier beanCopier = BeanCopier.create(CompanyDO.class, RiskChgCoDo.class, false);
+                RiskChgCoDo rcco = new RiskChgCoDo();
+                beanCopier.copy(companyDO, rcco, null);
+
+                rcco.setCompanyName(companyDO.getName());
+                rcco.setCompanyType((companyType==-1)?null:companyType);
+
+                rcco.setOldRiskLevel(oldRiskLevel);
+                rcco.setRiskLevel(riskLevelForPToP);
+                rcco.setSource(RiskChgCoSource.MODEL_SCORE.type());
+
+                rcco.setCreateBy("updateCoRiskLevelTask");
+
+                try {
+                    this.coChgMonitorService.saveRiskChgCo(rcco);
+                } catch (Exception e) {
+                    logger.error("保存风险变化公司失败！companyId：" + companyId, e);
+                }
+            }
+        } catch (Exception e) {
+            logger.error(String.format("dataType＝p2pRiskLevel&plat_name=%s return bad value", plat.getPlat_name()));
         }
     }
 

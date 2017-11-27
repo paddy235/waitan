@@ -118,7 +118,13 @@
             </choose>
 
         </if>
-        limit #{start},#{pageSize}
+        <if test="null == orderByField and 2 == recordStatus">
+        order by r.company_id
+        </if>
+        <if test="start != -1">
+            limit #{start},#{pageSize}
+        </if>
+
     </select>
 
     <select id="countCompany" resultType="Long">

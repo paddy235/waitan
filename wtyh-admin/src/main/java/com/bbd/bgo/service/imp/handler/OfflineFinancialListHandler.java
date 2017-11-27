@@ -81,7 +81,7 @@ public class OfflineFinancialListHandler extends AbstractImportHandler<OfflineFi
                 return false;
             }
 
-            if(!companyInfo.getCompanyType().equals(CompanyDO.TYPE_XXLC_4)){
+            if(!((Byte)CompanyDO.TYPE_XXLC_4).equals(companyInfo.getCompanyType())){
                 addError("该企业不属于线下理财名单企业");
                 log.info("该企业不属于线下理财名单企业");
                 return false;
