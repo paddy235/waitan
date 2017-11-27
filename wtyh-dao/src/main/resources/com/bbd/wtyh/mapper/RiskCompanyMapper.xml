@@ -26,6 +26,9 @@
             <if test="riskLevel != null and riskLevel != ''">
                 AND c.risk_level=#{riskLevel}
             </if>
+            <if test="riskLevelExist != null and riskLevelExist == '1'">
+                AND c.risk_level != null
+            </if>
         </where>
     </sql>
     <sql id="indexDataContent">
