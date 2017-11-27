@@ -27,7 +27,7 @@
                 AND c.risk_level=#{riskLevel}
             </if>
             <if test="riskLevelExist != null and riskLevelExist == '1'">
-                AND c.risk_level != null
+                AND c.risk_level is not null
             </if>
         </where>
     </sql>
@@ -156,7 +156,7 @@
         LEFT JOIN index_data
         ON company.name= index_data.company_name
         WHERE
-        1=1
+        company.risk_level is not null
         <if test="exportCondition.industry!=null">
             and company.company_type = #{exportCondition.industry}
         </if>
@@ -202,7 +202,7 @@
         LEFT JOIN index_data
         ON company.name= index_data.company_name
         WHERE
-        1=1
+        company.risk_level is not null
         <if test="exportCondition.industry!=null">
             and company.company_type = #{exportCondition.industry}
         </if>
