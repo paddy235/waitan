@@ -68,12 +68,12 @@
   <select id="getCreditInformationRisk" resultType="int" >
     SELECT
     count(1)
-    FROM company_credit_raw_info c, offline_financial_white o where c.company_id = o.companyId and o.companyId = #{companyId} and resource_name = #{resourceName}
+    FROM company_credit_raw_info where company_id = #{companyId} and resource_name = #{resourceName}
   </select>
 
   <select id="findCompany" resultType="com.bbd.wtyh.domain.CompanyStaticRiskScoreDO">
     SELECT
-      c.company_id as companyId,
+    c.company_id as companyId,
     c.name as name,
     s.real_control_risk_v2 as real_control_risk_v2,
     s.illegal_financing_risk_v2 as illegal_financing_risk_v2 ,

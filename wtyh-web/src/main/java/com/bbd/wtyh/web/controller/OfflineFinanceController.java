@@ -304,6 +304,15 @@ public class OfflineFinanceController {
 		job.put("resourceName","网上追讨");
 		job.put("res",onlineRecovery);
 		jarr.add(job);
+		job.put("resourceName","经营异常名录");
+		job.put("res",subIndexDO.getExceptionList());
+		jarr.add(job);
+		job.put("resourceName","行政处罚");
+		job.put("res",subIndexDO.getAdministrativeSanction2());
+		jarr.add(job);
+		job.put("resourceName","对不正当行为处罚");
+		job.put("res",subIndexDO.getBehaviorPunishment());
+		jarr.add(job);
 		jsonObject.put("data",jarr);
 		jsonArray.add(jsonObject);
 		return ResponseBean.successResponse(jsonArray);

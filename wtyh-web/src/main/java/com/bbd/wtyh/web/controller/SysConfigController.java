@@ -30,8 +30,12 @@ public class SysConfigController {
         return ResponseBean.successResponse(this.sysConfigService.findByKey("htwzlj"));
     }
 
+    @RequestMapping(value="/financeLeaseRiskListName")
+    @ResponseBody
+    @LogRecord(logMsg = "上海市融资租赁企业列表名")
+    public ResponseBean financeLeaseRiskListName(){
+        return ResponseBean.successResponse(this.sysConfigService.findByKey("financeLeaseRiskListName"));
 
-
-
+    }
 
 }

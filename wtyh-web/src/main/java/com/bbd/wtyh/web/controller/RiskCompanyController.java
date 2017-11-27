@@ -69,6 +69,7 @@ public class RiskCompanyController {
 
 		Map<String, Object> params = this.fillMap(area, minRegCapital, maxRegCapital, companyQualification, minReviewTime, maxReviewTime,
 				riskLevel);
+		params.put("riskLevelExist", "1");
 		return ResponseBean.successResponse(riskCompanyService.getScanner(params));
 	}
 
@@ -93,6 +94,7 @@ public class RiskCompanyController {
 		Map<String, Object> params = this.fillMap(area, minRegCapital, maxRegCapital, companyQualification, minReviewTime, maxReviewTime,
 				riskLevel);
 		params.put("sortType", sortType); // 排序方式
+		params.put("riskLevelExist", "1");
 		int count = riskCompanyService.getTopCount(params);
 		Pagination pagination = new Pagination();
 		pagination.setCount(count >= MAX_COUNT ? MAX_COUNT - 1 : count); // 搜索结果最多保留200条数据
