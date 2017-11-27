@@ -26,7 +26,7 @@
             <if test="riskLevel != null and riskLevel != ''">
                 AND c.risk_level=#{riskLevel}
             </if>
-            <if test="riskLevelExist != null and riskLevelExist == '1'">
+            <if test="riskLevelExist != null">
                 AND c.risk_level is not null
             </if>
         </where>
