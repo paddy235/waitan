@@ -48,5 +48,11 @@ public interface ParkMapper {
 
 	@Select("SELECT config_value from sys_config where config_key = 'companyNewValue'")
 	Integer queryCompanyNewValue();
+
+	//地区的企业数量统计
+	@Select("SELECT count(1) FROM (SELECT company.company_id AS companyId,company.`name` AS companyName FROM park,building,company_building,company,park_and_building_relation pabr WHERE \n" +
+			"park.area_id = ${area_id} AND park.park_id = pabr.park_id AND pabr.building_id = building.building_id AND building.building_id = company_building.building_id AND company_building.company_id = company.company_id\n" +
+			"UNION SELECT company.company_id AS companyId,company.`name` AS companyName FROM company WHERE company.area_id = ${area_id}) rs")
+	Integer countAreaCompany(@Param("area_id") int area_id);
    
 }

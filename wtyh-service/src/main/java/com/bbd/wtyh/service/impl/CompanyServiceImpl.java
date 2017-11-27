@@ -5,6 +5,7 @@ import com.bbd.wtyh.domain.BuildingDO;
 import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.query.CompanyQuery;
 import com.bbd.wtyh.mapper.CompanyMapper;
+import com.bbd.wtyh.mapper.ParkMapper;
 import com.bbd.wtyh.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,9 @@ public class CompanyServiceImpl extends BaseServiceImpl implements CompanyServic
 	@Autowired
 	private CompanyMapper companyMapper;
 
+	@Autowired
+	private ParkMapper parkMapper;
+
 	@Override
 	public int countCompanyNum(CompanyQuery query) {
 		return companyMapper.countByQuery(query);
@@ -29,7 +33,12 @@ public class CompanyServiceImpl extends BaseServiceImpl implements CompanyServic
 
 	@Override
 	public List<Map<String, Object>> countCompanyNum() {
-		return companyMapper.countCompany();
+		List<Map<String, Object>> listMap = companyMapper.countCompany();
+		for (Map<String, Object> map:listMap) {
+			Integer num = this.parkMapper.countAreaCompany((int)map.get("area_id"));
+			map.put("num",num);
+		}
+		return listMap;
 	}
 
 	@Override
