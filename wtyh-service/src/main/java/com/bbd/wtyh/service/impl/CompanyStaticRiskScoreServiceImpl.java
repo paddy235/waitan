@@ -42,11 +42,18 @@ public class CompanyStaticRiskScoreServiceImpl implements CompanyStaticRiskScore
 
     private static final String ADMINISTRATIVE_SANCTION = "市场监管类行政处罚（法人）";
 
-    private static final String RESTRICTED_EXIT = "经营异常名录";
-    //限制出境
+    private static final String RESTRICTED_EXIT = "限制出境";
+
     private static final String LIMITING_HIGH_CONSUMPTION = "限制高消费";
 
     private static final String ONLINE_RECOVERY ="网上追讨";
+
+    private static final String EXCEPTION_LIST ="经营异常名录";
+
+    private static final String ADMINISTRATIVE_SANCTION2 = "行政处罚";
+
+
+    private static final String BEHAVIOR_PUNISHMENT = "对不正当竞争行为的处罚";
 
     //模型系数数组
     private double[][] bate = {{-4.863,0.540,0.354,-0.478,-1.045,-0.486,0.583,0.935,3.184,1.370,2.474},
@@ -84,6 +91,8 @@ public class CompanyStaticRiskScoreServiceImpl implements CompanyStaticRiskScore
 
     @Override
     public void updateOffLineCompany(String newDataVersion,CompanyStaticRiskScoreDO CompanyStaticRiskScoreDO) {
+        //查询最新的版本
+        String dataVersion = CompanyStaticRiskScoreMapper.getNewDataVersion();
       /*  //查询最新的版本
         String newDataVersion = CompanyStaticRiskScoreMapper.getNewDataVersion();
         //查询最新版本线下理财企业信息
@@ -102,8 +111,13 @@ public class CompanyStaticRiskScoreServiceImpl implements CompanyStaticRiskScore
             DecimalFormat df = new DecimalFormat("#.0000");
             P =Double.parseDouble(df.format(P)) ;
            int i = CompanyStaticRiskScoreMapper.updateStaticRisk(CompanyStaticRiskScoreDO.getName(), newDataVersion, (float) P);
-           int j = CompanyStaticRiskScoreMapper.updatestaticrisk(CompanyStaticRiskScoreDO.getName(), (float) P);
-        LOGGER.info(newDataVersion+CompanyStaticRiskScoreDO.getName()+"更新静态风险成功条数："+i+"..."+j);
+           //为最新版本才插入index表
+            int j = 0;
+            if(dataVersion.equals(newDataVersion)){
+                j = CompanyStaticRiskScoreMapper.updatestaticrisk(CompanyStaticRiskScoreDO.getName(), (float) P);
+           }
+
+           LOGGER.info(newDataVersion+CompanyStaticRiskScoreDO.getName()+"更新静态风险成功条数："+i+"..."+j);
 
 
     }
@@ -159,6 +173,15 @@ public class CompanyStaticRiskScoreServiceImpl implements CompanyStaticRiskScore
         //网上追讨
         int onlineRecovery = CompanyStaticRiskScoreMapper.getCreditInformationRisk(companyId, ONLINE_RECOVERY);
         subIndexDo.setOnlineRecovery(onlineRecovery);
+        //经营异常名录
+        int exceptionList = CompanyStaticRiskScoreMapper.getCreditInformationRisk(companyId, EXCEPTION_LIST);
+        subIndexDo.setExceptionList(exceptionList);
+        //行政处罚
+        int administrativeSanction = CompanyStaticRiskScoreMapper.getCreditInformationRisk(companyId, ADMINISTRATIVE_SANCTION2);
+        subIndexDo.setAdministrativeSanction2(administrativeSanction);
+        //对不正当竞争行为的处罚
+        int behaviorPunishment = CompanyStaticRiskScoreMapper.getCreditInformationRisk(companyId, BEHAVIOR_PUNISHMENT);
+        subIndexDo.setBehaviorPunishment(behaviorPunishment);
         return subIndexDo;
     }
 
