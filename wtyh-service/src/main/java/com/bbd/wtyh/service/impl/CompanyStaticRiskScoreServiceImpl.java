@@ -189,26 +189,27 @@ public class CompanyStaticRiskScoreServiceImpl implements CompanyStaticRiskScore
 
         //实际控制人风险
         double s = companyStaticRiskScoreDO.getReal_control_risk_v2();
-        //double s = 1.5;
+        //double s = 0.0961845;
         //关联方中心积聚化风险
         double z = companyStaticRiskScoreDO.getRelation_in_risk_v2();
-        //double z = 0;
+        //double z = 316;
         //非法融资衍生风险
         double f = companyStaticRiskScoreDO.getIllegal_financing_risk_v2();
-        //double f = 0;
+        //double f = 1.3077;
         //短期逐利风险
         double d = companyStaticRiskScoreDO.getShort_risk_v2();
-        //double d = 0;
+        //double d = 1;
         //非法融资违规风险
         double w = companyStaticRiskScoreDO.getIllegal_money_financing_risk_v2();
-        //double w = 1;
+        //double w = 0.574126;
         //人才结构风险
         double r = companyStaticRiskScoreDO.getPerson_structure_risk_v2();
-        //double r = 100;
+        //double r = 20.4255;
 
 
         //计算子指标值保存数据库
         CalculationSubIndex(s,z,f,d,w,r,newDataVersion,companyStaticRiskScoreDO.getName());
+        //CalculationSubIndex(s,z,f,d,w,r,"20171120","中信信诚资产管理有限公司");
 
 
         //根据id获取上海的四个指标
@@ -218,7 +219,7 @@ public class CompanyStaticRiskScoreServiceImpl implements CompanyStaticRiskScore
 
         //用人单位欠缴社会保险费指标
         int V2 = CompanyStaticRiskScoreMapper.getShanghaitarget(UNPAID_SOCIAL_SECURITY_FEE, companyStaticRiskScoreDO.getCompanyId());
-        //int V2 = 1;
+        //int V2 = 0;
         if(V2 == 0){
             V2 = 0;
         }else{
@@ -226,7 +227,7 @@ public class CompanyStaticRiskScoreServiceImpl implements CompanyStaticRiskScore
         }
         //失信曝光指标
         int V3 = CompanyStaticRiskScoreMapper.getShanghaitarget(EXPOSURE_STAGE, companyStaticRiskScoreDO.getCompanyId())+CompanyStaticRiskScoreMapper.getShanghaitarget(DISHONESTY_INFO, companyStaticRiskScoreDO.getCompanyId());
-       // int V3 = 1;
+       //int V3 = 0;
         if(V3 == 0){
             V3 = 0;
         }else{
@@ -234,7 +235,7 @@ public class CompanyStaticRiskScoreServiceImpl implements CompanyStaticRiskScore
         }
         //市场监管类行政处罚指标
         int V4 = CompanyStaticRiskScoreMapper.getShanghaitarget(ADMINISTRATIVE_SANCTION, companyStaticRiskScoreDO.getCompanyId());
-        //int V4 = 1;
+        //int V4 = 0;
         //初始化指标
         double P = InitializationTarget(s, z, f, d, w, r, V1, V2, V3, V4);
 
@@ -261,7 +262,7 @@ public class CompanyStaticRiskScoreServiceImpl implements CompanyStaticRiskScore
         bbdSubIndexDO.setCompanyName(name);
         //存储新计算的bbd留个风险子指标
        int i = CompanyStaticRiskScoreMapper.updateSubIndex(bbdSubIndexDO);
-        //LOGGER.info(name+"子风险指标更新成功条数："+i);
+        LOGGER.info(name+"子风险指标更新成功条数："+i);
 
     }
 

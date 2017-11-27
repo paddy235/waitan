@@ -70,7 +70,7 @@ public class StaticRiskUpdateServiceImpl implements StaticRiskUpdateService,Task
 				//查询总公司数
 				final int totalCount = companyStaticRiskScoreMapper.findCompanyCount(dataVersion);
 				dataTotal = totalCount;
-				final int pageSize = 1000;
+				final int pageSize = 190;
 				Pagination pagination = new Pagination();
 				pagination.setPageSize(pageSize);
 				pagination.setCount(totalCount);
