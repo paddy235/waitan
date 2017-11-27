@@ -63,8 +63,8 @@ public class StaticRiskUpdateServiceImpl implements StaticRiskUpdateService,Task
 		TaskResultDO taskResultDO=new TaskResultDO();
 		Integer dataTotal = 0;
 		try {
-			//查询最新版本
-			String[] DataVersion ={"20170120","20170220","20170320","20170420","20170520","20170620","20170720","20170820","20170920","20171020","20171120"};
+			//查询最新版本,
+			String[] DataVersion ={"20171120","20171020","20170920","20170820","20170720","20170620","20170520","20170420","20170320","20170220"};
 			//List<String> DataVersion = companyStaticRiskScoreMapper.getDateVersion();
 			for (String dataVersion : DataVersion){
 				//查询总公司数

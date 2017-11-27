@@ -117,7 +117,7 @@ public class CompanyStaticRiskScoreServiceImpl implements CompanyStaticRiskScore
                 j = CompanyStaticRiskScoreMapper.updatestaticrisk(CompanyStaticRiskScoreDO.getName(), (float) P);
            }
 
-           LOGGER.info(newDataVersion+CompanyStaticRiskScoreDO.getName()+"更新静态风险成功条数："+i+"..."+j);
+           LOGGER.info(newDataVersion+CompanyStaticRiskScoreDO.getName()+"更新静态风险成功条数："+"..."+j);
 
 
     }
@@ -260,7 +260,7 @@ public class CompanyStaticRiskScoreServiceImpl implements CompanyStaticRiskScore
         bbdSubIndexDO.setNewDataVersion(newDataVersion);
         bbdSubIndexDO.setCompanyName(name);
         //存储新计算的bbd留个风险子指标
-        int i = CompanyStaticRiskScoreMapper.updateSubIndex(bbdSubIndexDO);
+       int i = CompanyStaticRiskScoreMapper.updateSubIndex(bbdSubIndexDO);
         //LOGGER.info(name+"子风险指标更新成功条数："+i);
 
     }
