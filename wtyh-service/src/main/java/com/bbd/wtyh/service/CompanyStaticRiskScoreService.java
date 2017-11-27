@@ -17,7 +17,7 @@ public interface CompanyStaticRiskScoreService {
     void updateOffLineCompany(String newDataVersion ,CompanyStaticRiskScoreDO CompanyStaticRiskScoreDO);
 
     /**
-     * 获取10个子指标初始值
+     * 获取子指标初始值
      * */
     SubIndexDO searchSubIndex( String companyName);
 

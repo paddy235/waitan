@@ -27,6 +27,36 @@ public class SubIndexDO {
     private Integer LimetingHighConsumption;
     //网上追讨
     private Integer onlineRecovery;
+    //经营异常名录
+    private Integer exceptionList;
+    //行政处罚
+    private Integer administrativeSanction2;
+    //对不正当行为处罚
+    private Integer behaviorPunishment;
+
+    public Integer getExceptionList() {
+        return exceptionList;
+    }
+
+    public void setExceptionList(Integer exceptionList) {
+        this.exceptionList = exceptionList;
+    }
+
+    public Integer getAdministrativeSanction2() {
+        return administrativeSanction2;
+    }
+
+    public void setAdministrativeSanction2(Integer administrativeSanction2) {
+        this.administrativeSanction2 = administrativeSanction2;
+    }
+
+    public Integer getBehaviorPunishment() {
+        return behaviorPunishment;
+    }
+
+    public void setBehaviorPunishment(Integer behaviorPunishment) {
+        this.behaviorPunishment = behaviorPunishment;
+    }
 
     public Integer getRestrictedExit() {
         return restrictedExit;
