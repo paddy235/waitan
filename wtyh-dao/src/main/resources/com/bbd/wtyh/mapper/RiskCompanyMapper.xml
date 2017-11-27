@@ -27,7 +27,7 @@
                 AND c.risk_level=#{riskLevel}
             </if>
             <if test="riskLevelExist != null">
-                AND c.risk_level is not null
+                AND c.risk_level IS NOT NULL and EXISTS ( SELECT 1 from offline_financial_white o where c.company_id=o.companyId )
             </if>
         </where>
     </sql>
