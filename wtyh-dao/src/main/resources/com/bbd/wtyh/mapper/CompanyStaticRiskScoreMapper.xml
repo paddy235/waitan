@@ -73,7 +73,7 @@
 
   <select id="findCompany" resultType="com.bbd.wtyh.domain.CompanyStaticRiskScoreDO">
     SELECT
-      c.company_id as companyId,
+    c.company_id as companyId,
     c.name as name,
     s.real_control_risk_v2 as real_control_risk_v2,
     s.illegal_financing_risk_v2 as illegal_financing_risk_v2 ,
