@@ -343,11 +343,39 @@
                 LEFT JOIN static_risk_data ON company. NAME = static_risk_data.company_name
                 WHERE
                     risk_level = #{risk_level}
+                    AND company.company_type = 4
+                    AND EXISTS (SELECT 1 FROM offline_financial_record ofr  where ofr.company_id=company.company_id)
                     <if test="areaId != null"> and company.area_id = #{areaId}</if>
                 AND (
                     static_risk_data.data_version = #{dateVersion}
                     OR static_risk_data.data_version IS NULL
                     OR static_risk_data.data_version = ''
+                )
+                UNION
+                SELECT
+                company.`name`,
+                company.longitude,
+                company.latitude,
+                company.is_new AS newCompany,
+                company.previous_risk_level AS previousRiskLevel,
+                static_risk_data.static_risk_index AS staticRiskIndex,
+                company.registered_capital AS registeredCapital,
+                DATE_FORMAT(
+                company_analysis_result.exposure_date,
+                '%Y-%m'
+                ) AS exposureDate
+                FROM
+                company
+                LEFT JOIN company_analysis_result ON company.company_id = company_analysis_result.company_id
+                LEFT JOIN static_risk_data ON company. NAME = static_risk_data.company_name
+                WHERE
+                risk_level = #{risk_level}
+                AND company.company_type != 4
+                <if test="areaId != null"> and company.area_id = #{areaId}</if>
+                AND (
+                static_risk_data.data_version = #{dateVersion}
+                OR static_risk_data.data_version IS NULL
+                OR static_risk_data.data_version = ''
                 )
                 UNION
                     SELECT
@@ -376,6 +404,8 @@
                                 company
                             WHERE
                                 risk_level = #{risk_level}
+                                AND company_type=4
+                                AND EXISTS (SELECT 1 FROM offline_financial_record ofr  where ofr.company_id=company.company_id)
                                 <if test="areaId != null"> and company.area_id = #{areaId}</if>
                             AND `name` NOT IN (
                                 SELECT
@@ -390,6 +420,36 @@
                                     static_risk_data.data_version = #{dateVersion}
                                     OR static_risk_data.data_version IS NULL
                                     OR static_risk_data.data_version = ''
+                                )
+                            )
+                            UNION
+                            SELECT
+                                `name`,
+                                company_id,
+                                registered_capital,
+                                longitude,
+                                latitude,
+                                is_new AS newCompany,
+                                previous_risk_level AS previousRiskLevel
+                                FROM
+                              company
+                            WHERE
+                              risk_level = #{risk_level}
+                              AND company_type!=4
+                              <if test="areaId != null"> and company.area_id = #{areaId}</if>
+                                AND `name` NOT IN (
+                                SELECT
+                                company.`name`
+                                FROM
+                                company
+                                LEFT JOIN static_risk_data ON company. NAME = static_risk_data.company_name
+                                WHERE
+                                risk_level = #{risk_level}
+                                <if test="areaId != null"> and company.area_id = #{areaId}</if>
+                                AND (
+                                static_risk_data.data_version = #{dateVersion}
+                                OR static_risk_data.data_version IS NULL
+                                OR static_risk_data.data_version = ''
                                 )
                             )
                         ) t1
