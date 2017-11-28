@@ -816,20 +816,20 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
     }
 
     @Override
-    public BBDParentCompanyDO getParentCompany(String name){
-        final String redisKey = REDIS_KEY_COMPANY_PARENT + "_" + name;
-        String response =  redisDAO.getString(redisKey);
-        if(null==response || response.isEmpty()){
-            String URL = parentUrl + "company=" + name;
-            try {
-                response = httpTemplate.get(URL);
-                redisDAO.addString(redisKey, response, Constants.cacheDay);
-            }catch (Exception e) {
-                e.printStackTrace();
-                return null;
+    public String getParentCompany(String name){
+        String URL = parentUrl + "company=" + name;
+        try {
+            String response = httpTemplate.get(URL);
+            BBDParentCompanyDO parCom = new Gson().fromJson(response, BBDParentCompanyDO.class);
+            if(null!=parCom&&parCom.getResults().size()>0){
+                BBDParentCompanyDO.Result result=parCom.getResults().get(0);
+                return result.getCompany_name();
             }
+        }catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
-        return new Gson().fromJson(response, BBDParentCompanyDO.class);
+        return null;
     }
 
     @Override
