@@ -820,11 +820,7 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
         final String redisKey = REDIS_KEY_COMPANY_PARENT + "_" + name;
         String response =  redisDAO.getString(redisKey);
         if(null==response || response.isEmpty()){
-            String qyxxId = dataLoadingMapper.getCompanyQyxxId(name);
-            if(org.apache.commons.lang.StringUtils.isEmpty(qyxxId)){
-                return null;
-            }
-            String URL = parentUrl + "?company=" + name+"&qyxx_id="+qyxxId;
+            String URL = parentUrl + "company=" + name;
             try {
                 response = httpTemplate.get(URL);
                 redisDAO.addString(redisKey, response, Constants.cacheDay);
