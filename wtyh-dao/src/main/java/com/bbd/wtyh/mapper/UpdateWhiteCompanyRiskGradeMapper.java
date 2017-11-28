@@ -22,7 +22,7 @@ public interface UpdateWhiteCompanyRiskGradeMapper {
 
     //前1~200家企业名单 LIMIT 0,200
     //201~1000家企业名单 LIMIT 200,800
-    @Select("SELECT company_name FROM static_risk_data WHERE EXISTS (SELECT * FROM (select b.company_name, MAX(b.data_version) maxtime,b.static_risk_index from static_risk_data  b INNER JOIN offline_financial_white a on b.company_name=a.companyName GROUP BY b.company_name ) x WHERE x.company_name = static_risk_data.company_name AND x.maxtime = static_risk_data.data_version) ORDER BY static_risk_index DESC LIMIT ${start},${size}")
+    @Select("SELECT a.company_name FROM index_data a INNER JOIN offline_financial_white b ON a.company_name = b.companyName ORDER BY a.static_risk_index desc LIMIT ${start},${size}")
     List<String> find(@Param("start") int start, @Param("size")int size);
 
     //5万家白名单企业的公信中心数据包含：限制出境、限制高消费和网上追讨的公司名单
