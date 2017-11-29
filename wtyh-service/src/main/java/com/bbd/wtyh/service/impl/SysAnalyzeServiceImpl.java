@@ -16,8 +16,10 @@ public class SysAnalyzeServiceImpl implements SysAnalyzeService {
 	@Override
 	public SysAnalyzeDO getSysAnalyze() {
 		SysAnalyzeDO sd = sysAnalyzeMapper.getSysAnalyze();
-		int newDataCount = (int)Math.floor(sd.getCompanyCount()*1024*0.09);
-		int newBugCount  = (int)Math.floor(sd.getCompanyCount()*1024*0.18);
+		// 数据分析
+		int newDataCount = (int)Math.floor(sd.getCompanyCount()*1128*0.85);
+		// 数据抓取
+		int newBugCount  = (int)Math.floor(sd.getCompanyCount()*1128);
 		sd.setDataCount(newDataCount);
 		sd.setBugCount(newBugCount);
 		return sd;

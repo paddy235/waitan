@@ -6,6 +6,8 @@ import com.bbd.wtyh.core.base.BaseServiceImpl;
 import com.bbd.wtyh.domain.TaskFailInfoDO;
 import com.bbd.wtyh.domain.TaskResultDO;
 import com.bbd.wtyh.domain.dataLoading.*;
+import com.bbd.wtyh.excel.imp.entity.ImportError;
+import com.bbd.wtyh.excel.imp.entity.Sheet;
 import com.bbd.wtyh.mapper.DataLoadingMapper;
 import com.bbd.wtyh.mapper.TaskFailInfoMapper;
 import com.bbd.wtyh.service.TaskService;
@@ -143,7 +145,7 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
     public static void main(String []argc) {
         Boolean ts =tstBool();
         if ( null == ts ) {
-           // return;
+            // return;
         }
         ts = !ts;
     }
@@ -171,7 +173,7 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
         Integer maxDataVersion = dataLoadingMapper.maxDataVersion();
         List<TaskFailInfoDO> failList = new ArrayList<>();
         ListMultimap<String,File> fileMap =PullFileUtil.getFileListByKeyword( new String[] {"hologram-base", "recruit_all"},
-                    null, maxDataVersion, taskId, dataTotal, failList, "全息、招聘" );
+                null, maxDataVersion, taskId, dataTotal, failList, "全息、招聘" );
 
         List< File > fileList =new LinkedList<>( fileMap.values() );
 
@@ -322,8 +324,8 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 
     @Transactional(rollbackFor = Exception.class)
     public void insertData(List<DishonestyDO> disList, List<KtggDO> ktggList, List<QyxgYuqingDO> yuQingList, List<QyxxBasicDO> basicList,
-            List<QyxxBaxxDO> baxxList, List<QyxxGdxxDO> gdxxList, List<QyxxZhuanliDO> zhuanliList, List<RmfyggDO> rmfyggList,
-            List<ZgcpwswDO> zgcpwswList, List<ZhixingDO> zhixingList, List<RecruitIndexDO> recruitIndexList) {
+                           List<QyxxBaxxDO> baxxList, List<QyxxGdxxDO> gdxxList, List<QyxxZhuanliDO> zhuanliList, List<RmfyggDO> rmfyggList,
+                           List<ZgcpwswDO> zgcpwswList, List<ZhixingDO> zhixingList, List<RecruitIndexDO> recruitIndexList) {
         if (disList.size() > 0) {
             int disInsertNum = batchInsertData(disList);
             logger.debug("批量新增失信被执行人 , count:" + disInsertNum);
@@ -430,7 +432,9 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
             }
         } else if (o instanceof QyxxBasicDO) {
             List<QyxxBasicDO> dataList = (List<QyxxBasicDO>) list;
-            CompanyImportAssist.insertCompany(list); // 将其中的新企业添加到company表
+//            CompanyImportAssist.insertCompany(list); // 将其中的新企业添加到company表
+            CompanyImportAssist ca = new CompanyImportAssist(null,null);
+            ca.insertCompany(list);
             if (pointsDataLimit < size) {
                 int part = size / pointsDataLimit;// 分批数
                 for (int i = 0; i < part; i++) {

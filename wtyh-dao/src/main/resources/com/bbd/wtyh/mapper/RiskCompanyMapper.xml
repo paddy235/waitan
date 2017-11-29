@@ -80,7 +80,6 @@
                     </otherwise>
                 </choose>
                 limit #{pagination.begin}, #{pagination.pageSize} -->
-        select * from (
         select * from (select
         <include refid="indexDataContent"></include>
         from index_data i, company c
@@ -94,31 +93,8 @@
                 desc
             </otherwise>
         </choose>
-        limit 0, 100) i
-        UNION ALL
-        select * from (select
-        <include refid="indexDataContent"></include>
-        from index_data i, company c
-        <include refid="indexDataCondition"></include>
-        order by i.static_risk_index
-        <choose>
-            <when test="sortType == '0'.toString()">
-                desc
-            </when>
-            <otherwise>
-                asc
-            </otherwise>
-        </choose>
-        limit 0, 100) i
-        ) tmp group by tmp.companyName order by tmp.staticRiskIndex
-        <choose>
-            <when test="sortType == '0'.toString()">
-                asc
-            </when>
-            <otherwise>
-                desc
-            </otherwise>
-        </choose>
+        limit 0, 1000) i
+
     </select>
 
     <select id="getTopCount" parameterType="java.util.HashMap" resultType="int">
