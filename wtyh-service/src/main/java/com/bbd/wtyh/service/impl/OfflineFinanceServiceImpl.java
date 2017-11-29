@@ -1311,6 +1311,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService,TaskServ
             vo.setTwoComNum(CalculateUtils.bigDecimal2Str(dto.getTwoComNum(), 1));
             vo.setUnderNum(CalculateUtils.bigDecimal2Str(dto.getUnderNum(), 1));
             vo.setUpperUnderNum(CalculateUtils.bigDecimal2Str(dto.getUpperUnderNum(), 1));
+            vo.setUpperNum(CalculateUtils.bigDecimal2Str(dto.getUnderNum().add(dto.getUpperUnderNum()),1));
             vo.setAreaCode(dto.getAreaCode());
         }
         return vo;

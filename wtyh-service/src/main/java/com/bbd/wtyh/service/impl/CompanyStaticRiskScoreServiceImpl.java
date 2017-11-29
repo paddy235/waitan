@@ -8,6 +8,7 @@ import com.bbd.wtyh.domain.SubIndexDO;
 import com.bbd.wtyh.mapper.CompanyMapper;
 import com.bbd.wtyh.mapper.CompanyStaticRiskScoreMapper;
 import com.bbd.wtyh.service.CompanyStaticRiskScoreService;
+import com.bbd.wtyh.util.relation.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.slf4j.Logger;
@@ -99,7 +100,7 @@ public class CompanyStaticRiskScoreServiceImpl implements CompanyStaticRiskScore
         String dataVersion = CompanyStaticRiskScoreMapper.getNewDataVersion();
         //查询企业是否有母公司
         String parentCompanyName = hologramQueryDao.getParentCompany(CompanyStaticRiskScoreDO.getName());
-        if(null != parentCompanyName || !"".equals(parentCompanyName) ){
+        if(null != parentCompanyName){
             //子公司有母公司
             //母公司名称
             String company_name = parentCompanyName;
@@ -148,7 +149,7 @@ public class CompanyStaticRiskScoreServiceImpl implements CompanyStaticRiskScore
         //查询是否有母公司
         String parentCompany = hologramQueryDao.getParentCompany(companyName);
         CompanyDO companyDO = new CompanyDO();
-        if(parentCompany!=null || !"".equals(parentCompany)){
+        if(parentCompany != null ){
             companyDO = companyMapper.selectByName(parentCompany);
         }else{
             companyDO = companyMapper.selectByName(companyName);
