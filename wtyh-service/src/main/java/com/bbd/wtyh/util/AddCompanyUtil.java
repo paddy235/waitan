@@ -3,6 +3,7 @@ package com.bbd.wtyh.util;
 import java.math.BigDecimal;
 import java.util.*;
 
+import com.bbd.wtyh.dao.HologramQueryDao;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 
@@ -14,6 +15,7 @@ import com.bbd.wtyh.service.CompanyService;
 import com.bbd.wtyh.service.CompanyStatusChangeService;
 import com.bbd.wtyh.service.HologramQueryService;
 import com.bbd.wtyh.service.impl.CompanyServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Created by Administrator on 2017/7/28.
@@ -27,8 +29,10 @@ public class AddCompanyUtil {
     private AreaService areaService = ApplicationContextUtil.getBean(AreaService.class);
     private CompanyStatusChangeService companyStatusChangeService = ApplicationContextUtil.getBean(CompanyStatusChangeService.class);
 
+    //查询母公司接口
+    private HologramQueryDao hologramQueryDao = ApplicationContextUtil.getBean(HologramQueryDao.class);
     /**
-    
+
      */
     public AddCompanyUtil() {
     }
@@ -40,7 +44,7 @@ public class AddCompanyUtil {
 
     /**
      * 准备用于新增和更新的数据，如果对应的行有错误，同样样会标记出来
-     * 
+     *
      * @param tempList
      *            中的CompanyDo 必须包含企业名称，并通过setId(Integer id)设置行号
      *            此方法返回时，tempList表会被清空。
@@ -175,6 +179,12 @@ public class AddCompanyUtil {
         for (Map.Entry<CompanyDO, BaseDataDO.Results> me : insertList) {
             me.getKey().setCreateBy(loginName);
             me.getKey().setCreateDate(new Date());
+            //新增企业到company表，其中对于新增公司的companytype字段逻辑，需要在现在的逻辑基础做调整
+            String parentCompanyName = hologramQueryDao.getParentCompany(me.getKey().getName());
+            if(StringUtils.isNotBlank(parentCompanyName)){
+                CompanyDO cd = companyService.getCompanyByName(parentCompanyName);
+                me.getKey().setCompanyType(cd.getCompanyType());
+            }
             int rst = companyService.insert(me.getKey());
             if (null == me.getKey().getCompanyId()) {
                 me.getKey().setCompanyId(me.getKey().getId()); // 暂时这样修复，其他类似用法的地方还没有去核实

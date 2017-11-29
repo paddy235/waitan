@@ -1,5 +1,6 @@
 package com.bbd.bgo.service.imp.handler.assist;
 
+import com.bbd.wtyh.dao.HologramQueryDao;
 import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.bbdAPI.BaseDataDO;
 import com.bbd.wtyh.domain.bbdAPI.IndustryCodeDO;
@@ -33,6 +34,8 @@ public class CompanyImportAssist {
     private AreaService areaService = ApplicationContextUtil.getBean(AreaService.class);
     private CompanyStatusChangeService companyStatusChangeService =ApplicationContextUtil.getBean(CompanyStatusChangeService.class);
 
+    @Autowired
+    public  HologramQueryDao hologramQueryDao;
     /**
      *
      * @param errList 来自AbstractImportHandler的errorList();
@@ -63,8 +66,8 @@ public class CompanyImportAssist {
             return;
         }
         if ( null ==rowNum ) return;
-         ImportError error = new ImportError(sheet.getName(), rowNum, 0, msg);
-         errList.add(error);
+        ImportError error = new ImportError(sheet.getName(), rowNum, 0, msg);
+        errList.add(error);
     }
 
     /**
@@ -132,15 +135,15 @@ public class CompanyImportAssist {
 //                }
 //                cDo.setOrganizationCode(null);
 //                if (bCrd && bRegNo) { //用数据平台数据验证成功
-                    if ( null ==locCp ) { //数据库中无此企业
-                        //按新增处理
-                        addDataToList( true, cDo, null, cInfo );
-                    } else { //有
-                        if( ! onlyAppend ) {
-                            //按更新处理
-                            addDataToList(false, cDo, locCp, cInfo);
-                        }
+                if ( null ==locCp ) { //数据库中无此企业
+                    //按新增处理
+                    addDataToList( true, cDo, null, cInfo );
+                } else { //有
+                    if( ! onlyAppend ) {
+                        //按更新处理
+                        addDataToList(false, cDo, locCp, cInfo);
                     }
+                }
 //                }
 //                else { //验证失败
 //                    if( onlyAppend && null ==locCp ) {
@@ -209,15 +212,15 @@ public class CompanyImportAssist {
                 }
             }
             if( null !=cInfo ) { //数据平台有此企业
-                    if ( null ==locCp ) { //数据库中无此企业
-                        //按新增处理
-                        addDataToList( true, cDo, null, cInfo );
-                    } else { //有
-                        if( ! onlyAppend ) {
-                            //按更新处理
-                            addDataToList(false, cDo, locCp, cInfo);
-                        }
+                if ( null ==locCp ) { //数据库中无此企业
+                    //按新增处理
+                    addDataToList( true, cDo, null, cInfo );
+                } else { //有
+                    if( ! onlyAppend ) {
+                        //按更新处理
+                        addDataToList(false, cDo, locCp, cInfo);
                     }
+                }
             } else { //数据平台无此企业
 //                cDo.setOrganizationCode(null);
                 Map.Entry<CompanyDO, BaseDataDO.Results> me =new AbstractMap.SimpleEntry<>( cDo, null );
@@ -331,6 +334,13 @@ public class CompanyImportAssist {
         for ( Map.Entry<CompanyDO, BaseDataDO.Results> me : insertList ) {
             me.getKey().setCreateBy(loginName);
             me.getKey().setCreateDate(new Date());
+            //新增企业到company表，其中对于新增公司的companytype字段逻辑，需要在现在的逻辑基础做调整
+            String parentCompanyName = hologramQueryDao.getParentCompany(me.getKey().getName());
+            if(StringUtils.isNotBlank(parentCompanyName)){
+                CompanyDO cd = companyService.getCompanyByName(parentCompanyName);
+                me.getKey().setCompanyType(cd.getCompanyType());
+            }
+
             int rst =companyService.insert( me.getKey() );
             if ( null ==me.getKey().getCompanyId() ) {
                 me.getKey().setCompanyId(me.getKey().getId()); //暂时这样修复，其他类似用法的地方还没有去核实
@@ -356,6 +366,14 @@ public class CompanyImportAssist {
         for ( Map.Entry<CompanyDO, BaseDataDO.Results> me : insertList ) {
             me.getKey().setCreateBy(loginName);
             me.getKey().setCreateDate(new Date());
+
+            //新增企业到company表，其中对于新增公司的companytype字段逻辑，需要在现在的逻辑基础做调整
+            String parentCompanyName = hologramQueryDao.getParentCompany(me.getKey().getName());
+            if(StringUtils.isNotBlank(parentCompanyName)){
+                CompanyDO cd = companyService.getCompanyByName(parentCompanyName);
+                me.getKey().setCompanyType(cd.getCompanyType());
+            }
+
             int rst =companyService.insert( me.getKey() );
             if ( null ==me.getKey().getCompanyId() ) {
                 me.getKey().setCompanyId(me.getKey().getId()); //暂时这样修复，其他类似用法的地方还没有去核实
@@ -376,7 +394,7 @@ public class CompanyImportAssist {
         return errList;
     }
 
-    public static void insertCompany( List<QyxxBasicDO> dataList ) {
+    public  void insertCompany( List<QyxxBasicDO> dataList ) {
         if ( null ==dataList || dataList.isEmpty() ) {
             return;
         }
@@ -445,6 +463,12 @@ public class CompanyImportAssist {
                 }
                 newCom.setCreateBy("system");
                 newCom.setCreateDate(new Date());
+                //新增企业到company表，其中对于新增公司的companytype字段逻辑，需要在现在的逻辑基础做调整
+                String parentCompanyName = hologramQueryDao.getParentCompany(qbDo.getCompany_name());
+                if(StringUtils.isNotBlank(parentCompanyName)){
+                    CompanyDO cd = companyService.getCompanyByName(parentCompanyName);
+                    newCom.setCompanyType(cd.getCompanyType());
+                }
                 cSv.insert(newCom);
             }
         }
