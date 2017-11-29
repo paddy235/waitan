@@ -113,7 +113,9 @@ public class ParkCompanyDo {
 				return t.getName();
 			}
 		}
-
+		if (this.riskLevel.equals(5)) {
+			return "已出风险";
+		}
 		return "";
 	}
 
