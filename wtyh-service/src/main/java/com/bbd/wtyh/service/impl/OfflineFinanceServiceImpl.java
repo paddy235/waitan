@@ -1270,6 +1270,10 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService,TaskServ
         StaticRiskVO vo = null;
         if (null != dto) {
             vo = new StaticRiskVO();
+            vo.setMaxPerComNum(CalculateUtils.bigDecimal2Str(dto.getMaxPerComNum(),1));
+            vo.setMaxLegComNum(CalculateUtils.bigDecimal2Str(dto.getMaxLegComNum(),1));
+            vo.setAvePerComNum(CalculateUtils.bigDecimal2Str(dto.getAvePerComNum(),1));
+            vo.setAveLegComNum(CalculateUtils.bigDecimal2Str(dto.getAveLegComNum(),1));
             vo.setAdvisory(CalculateUtils.bigDecimal2Str(dto.getAdvisory(), 1));
             vo.setAvgPerNum(CalculateUtils.bigDecimal2Str(dto.getAvgPerNum(), 1));
             vo.setCldComConPerNum(CalculateUtils.bigDecimal2Str(dto.getCldComConPerNum(), 1));

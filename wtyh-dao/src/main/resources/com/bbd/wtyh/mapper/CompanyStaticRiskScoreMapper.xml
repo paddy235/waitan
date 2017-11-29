@@ -75,12 +75,12 @@
     SELECT
     c.company_id as companyId,
     c.name as name,
-    s.real_control_risk_v2 as real_control_risk_v2,
-    s.illegal_financing_risk_v2 as illegal_financing_risk_v2 ,
-    s.short_risk_v2 as short_risk_v2,
-    s.illegal_money_financing_risk_v2 as illegal_money_financing_risk_v2,
-    s.person_structure_risk_v2 as person_structure_risk_v2 ,
-    s.relation_in_risk_v2 as relation_in_risk_v2
+    s.real_control_risk_v2 as realControlRiskV2,
+    s.illegal_financing_risk_v2 as illegalFinancingRiskV2 ,
+    s.short_risk_v2 as shortRiskV2,
+    s.illegal_money_financing_risk_v2 as illegalMoneyFinancingRiskV2,
+    s.person_structure_risk_v2 as personStructureRiskV2 ,
+    s.relation_in_risk_v2 as relationInRiskV2
      FROM company c, static_risk_data s where c.`name`=s.company_name and c.company_type=4 and s.data_version=#{newDataVersion} and c.company_id=#{companyId}
   </select>
 

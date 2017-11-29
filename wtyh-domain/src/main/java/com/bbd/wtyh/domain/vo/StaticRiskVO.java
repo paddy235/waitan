@@ -5,6 +5,10 @@ public class StaticRiskVO {
 	private String companyName; // 公司名称
 	private String dataVersion; // 数据版本
 	private String stcRiskIndex; // 静态风险指数
+	private String maxPerComNum;//单个3度及3度以下关联自然人最大控制企业数量
+	private String maxLegComNum;//单个3度及3度以下法人最大控制（控股、高层管理人员）企业数量
+	private String avePerComNum;//平均每位3度及3度以下关联自然人控制企业数量
+	private String aveLegComNum;//平均每位3度及3度以下关联法人控制企业数量
 	private String maxComNum; // 单个一度关联自然人最大控制企业数量
 	private String avgPerNum; // 平均每位一度关联自然人控制企业数量
 	private String oneLvlPer; // 核心一度关联自然人
@@ -33,6 +37,7 @@ public class StaticRiskVO {
 	private String factoring; // 保理类
 	private String companyList; // 公司名单
 	private String illMoneyFinRisk; // 非法融资违规风险
+	private String upperNum;//本科以上人次
 	private String underNum; // 本科人次
 	private String upperUnderNum; // 硕士以上人次(包括硕士)
 	private String flwUnderNum; // 本科以下人次
@@ -50,6 +55,46 @@ public class StaticRiskVO {
 	private String DiscreditExposure;//上海失信曝光
 
 	private String AdministrativeSanction;//上海市场监管类行政处罚
+
+	public String getMaxPerComNum() {
+		return maxPerComNum;
+	}
+
+	public void setMaxPerComNum(String maxPerComNum) {
+		this.maxPerComNum = maxPerComNum;
+	}
+
+	public String getMaxLegComNum() {
+		return maxLegComNum;
+	}
+
+	public void setMaxLegComNum(String maxLegComNum) {
+		this.maxLegComNum = maxLegComNum;
+	}
+
+	public String getAvePerComNum() {
+		return avePerComNum;
+	}
+
+	public void setAvePerComNum(String avePerComNum) {
+		this.avePerComNum = avePerComNum;
+	}
+
+	public String getAveLegComNum() {
+		return aveLegComNum;
+	}
+
+	public void setAveLegComNum(String aveLegComNum) {
+		this.aveLegComNum = aveLegComNum;
+	}
+
+	public String getUpperNum() {
+		return upperNum;
+	}
+
+	public void setUpperNum(String upperNum) {
+		this.upperNum = upperNum;
+	}
 
 	public String getNormalHousehold() {
 		return normalHousehold;

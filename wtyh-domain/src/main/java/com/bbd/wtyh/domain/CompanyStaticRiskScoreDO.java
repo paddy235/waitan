@@ -16,28 +16,28 @@ package com.bbd.wtyh.domain;
 public class CompanyStaticRiskScoreDO {
 
     //公司id
-    private Integer company_id;
+    private Integer companyId;
     //公司名称
     private String name;
     //实际控制人风险
-    private float real_control_risk_v2;
+    private float realControlRiskV2;
     //非法融资衍生风险
-    private float illegal_financing_risk_v2;
+    private float illegalFinancingRiskV2;
     //短期逐利风险
-    private float short_risk_v2;
+    private float shortRiskV2;
     //非法融资违规风险
-    private float illegal_money_financing_risk_v2;
+    private float illegalMoneyFinancingRiskV2;
     //人才结构风险
-    private float person_structure_risk_v2;
+    private float personStructureRiskV2;
     //关联方中心积聚化风险
-    private float relation_in_risk_v2;
+    private float relationInRiskV2;
 
     public Integer getCompanyId() {
-        return company_id;
+        return companyId;
     }
 
-    public void setCompanyId(Integer company_id) {
-        this.company_id = company_id;
+    public void setCompanyId(Integer companyId) {
+        this.companyId = companyId;
     }
 
     public String getName() {
@@ -49,50 +49,50 @@ public class CompanyStaticRiskScoreDO {
     }
 
     public float getReal_control_risk_v2() {
-        return real_control_risk_v2;
+        return realControlRiskV2;
     }
 
-    public void setReal_control_risk_v2(float real_control_risk_v2) {
-        this.real_control_risk_v2 = real_control_risk_v2;
+    public void setReal_control_risk_v2(float realControlRiskV2) {
+        this.realControlRiskV2 = realControlRiskV2;
     }
 
     public float getIllegal_financing_risk_v2() {
-        return illegal_financing_risk_v2;
+        return illegalFinancingRiskV2;
     }
 
-    public void setIllegal_financing_risk_v2(float illegal_financing_risk_v2) {
-        this.illegal_financing_risk_v2 = illegal_financing_risk_v2;
+    public void setIllegal_financing_risk_v2(float illegalFinancingRiskV2) {
+        this.illegalFinancingRiskV2 = illegalFinancingRiskV2;
     }
 
     public float getShort_risk_v2() {
-        return short_risk_v2;
+        return shortRiskV2;
     }
 
-    public void setShort_risk_v2(float short_risk_v2) {
-        this.short_risk_v2 = short_risk_v2;
+    public void setShort_risk_v2(float shortRiskV2) {
+        this.shortRiskV2 = shortRiskV2;
     }
 
     public float getIllegal_money_financing_risk_v2() {
-        return illegal_money_financing_risk_v2;
+        return illegalMoneyFinancingRiskV2;
     }
 
-    public void setIllegal_money_financing_risk_v2(float illegal_money_financing_risk_v2) {
-        this.illegal_money_financing_risk_v2 = illegal_money_financing_risk_v2;
+    public void setIllegal_money_financing_risk_v2(float illegalMoneyFinancingRiskV2) {
+        this.illegalMoneyFinancingRiskV2 = illegalMoneyFinancingRiskV2;
     }
 
     public float getPerson_structure_risk_v2() {
-        return person_structure_risk_v2;
+        return personStructureRiskV2;
     }
 
-    public void setPerson_structure_risk_v2(float person_structure_risk_v2) {
-        this.person_structure_risk_v2 = person_structure_risk_v2;
+    public void setPerson_structure_risk_v2(float personStructureRiskV2) {
+        this.personStructureRiskV2 = personStructureRiskV2;
     }
 
     public float getRelation_in_risk_v2() {
-        return relation_in_risk_v2;
+        return relationInRiskV2;
     }
 
-    public void setRelation_in_risk_v2(float relation_in_risk_v2) {
-        this.relation_in_risk_v2 = relation_in_risk_v2;
+    public void setRelation_in_risk_v2(float relationInRiskV2) {
+        this.relationInRiskV2 = relationInRiskV2;
     }
 }

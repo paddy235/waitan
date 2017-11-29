@@ -12,6 +12,10 @@ public class StaticRiskDTO implements Serializable {
 	private String dataVersion; // 数据版本
 	private Date riskDate; // 风险时间
 	private BigDecimal stcRiskIndex; // 静态风险指数
+	private BigDecimal maxPerComNum;//单个3度及3度以下关联自然人最大控制企业数量
+	private BigDecimal maxLegComNum;//单个3度及3度以下法人最大控制（控股、高层管理人员）企业数量
+	private BigDecimal avePerComNum;//平均每位3度及3度以下关联自然人控制企业数量
+	private BigDecimal aveLegComNum;//平均每位3度及3度以下关联法人控制企业数量
 	private BigDecimal maxComNum; // 单个一度关联自然人最大控制企业数量
 	private BigDecimal avgPerNum; // 平均每位一度关联自然人控制企业数量
 	private String oneLvlPer; // 核心一度关联自然人
@@ -47,6 +51,38 @@ public class StaticRiskDTO implements Serializable {
 	private String top5RecSum; // top5岗位和招聘人次
 	private BigDecimal perStructRisk; // 人才结构风险
 	private String areaCode; // 地区编码
+
+	public BigDecimal getMaxPerComNum() {
+		return maxPerComNum;
+	}
+
+	public void setMaxPerComNum(BigDecimal maxPerComNum) {
+		this.maxPerComNum = maxPerComNum;
+	}
+
+	public BigDecimal getMaxLegComNum() {
+		return maxLegComNum;
+	}
+
+	public void setMaxLegComNum(BigDecimal maxLegComNum) {
+		this.maxLegComNum = maxLegComNum;
+	}
+
+	public BigDecimal getAvePerComNum() {
+		return avePerComNum;
+	}
+
+	public void setAvePerComNum(BigDecimal avePerComNum) {
+		this.avePerComNum = avePerComNum;
+	}
+
+	public BigDecimal getAveLegComNum() {
+		return aveLegComNum;
+	}
+
+	public void setAveLegComNum(BigDecimal aveLegComNum) {
+		this.aveLegComNum = aveLegComNum;
+	}
 
 	public String getCompanyName() {
 		return companyName;

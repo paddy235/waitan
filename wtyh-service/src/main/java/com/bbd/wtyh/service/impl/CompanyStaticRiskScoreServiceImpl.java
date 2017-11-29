@@ -1,5 +1,6 @@
 package com.bbd.wtyh.service.impl;
 
+import com.bbd.wtyh.dao.HologramQueryDao;
 import com.bbd.wtyh.domain.BbdSubIndexDO;
 import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.CompanyStaticRiskScoreDO;
@@ -31,6 +32,9 @@ public class CompanyStaticRiskScoreServiceImpl implements CompanyStaticRiskScore
 
     @Autowired
     private CompanyStaticRiskScoreMapper companyStaticRiskScoreMapper;
+
+    @Autowired
+    private HologramQueryDao hologramQueryDao;
 
     private static final String NORMAL_HOUSEHOLD_COGNIZANCE = "正常户认定";
 
@@ -93,11 +97,27 @@ public class CompanyStaticRiskScoreServiceImpl implements CompanyStaticRiskScore
     public void updateOffLineCompany(String newDataVersion,CompanyStaticRiskScoreDO CompanyStaticRiskScoreDO) {
         //查询最新的版本
         String dataVersion = CompanyStaticRiskScoreMapper.getNewDataVersion();
-      /*  //查询最新的版本
-        String newDataVersion = CompanyStaticRiskScoreMapper.getNewDataVersion();
-        //查询最新版本线下理财企业信息
-        List<CompanyStaticRiskScoreDO> offlineCompanyInfo = CompanyStaticRiskScoreMapper.getOfflineCompanyInfo(newDataVersion);
-*/
+        //查询企业是否有母公司
+        String parentCompanyName = hologramQueryDao.getParentCompany(CompanyStaticRiskScoreDO.getName());
+        if(null != parentCompanyName || !"".equals(parentCompanyName) ){
+            //子公司有母公司
+            //母公司名称
+            String company_name = parentCompanyName;
+            CompanyDO companyDO = companyMapper.selectByName(company_name);
+            if(companyDO!=null){
+                int companyId=companyDO.getCompanyId();
+                //查询母公司的指标
+                CompanyStaticRiskScoreDO company = CompanyStaticRiskScoreMapper.findCompany(companyId, newDataVersion);
+                CompanyStaticRiskScoreDO.setCompanyId(companyId);
+                CompanyStaticRiskScoreDO.setReal_control_risk_v2(company.getReal_control_risk_v2());
+                CompanyStaticRiskScoreDO.setIllegal_financing_risk_v2(company.getIllegal_financing_risk_v2());
+                CompanyStaticRiskScoreDO.setIllegal_money_financing_risk_v2(company.getIllegal_money_financing_risk_v2());
+                CompanyStaticRiskScoreDO.setPerson_structure_risk_v2(company.getPerson_structure_risk_v2());
+                CompanyStaticRiskScoreDO.setRelation_in_risk_v2(company.getRelation_in_risk_v2());
+                CompanyStaticRiskScoreDO.setShort_risk_v2(company.getShort_risk_v2());
+            }
+
+        }
       //5万家白名单企业工信数据有敏感词直接赋值80
         int count = CompanyStaticRiskScoreMapper.getWhiteCompany(CompanyStaticRiskScoreDO.getCompanyId(), RESTRICTED_EXIT, LIMITING_HIGH_CONSUMPTION, ONLINE_RECOVERY);
         if(count > 0){
@@ -125,7 +145,15 @@ public class CompanyStaticRiskScoreServiceImpl implements CompanyStaticRiskScore
     @Override
     public SubIndexDO searchSubIndex(String companyName) {
         String newDataVersion = companyStaticRiskScoreMapper.getNewDataVersion();
-        CompanyDO companyDO = companyMapper.selectByName(companyName);
+        //查询是否有母公司
+        String parentCompany = hologramQueryDao.getParentCompany(companyName);
+        CompanyDO companyDO = new CompanyDO();
+        if(parentCompany!=null || !"".equals(parentCompany)){
+            companyDO = companyMapper.selectByName(parentCompany);
+        }else{
+            companyDO = companyMapper.selectByName(companyName);
+        }
+
         int companyId=companyDO.getCompanyId();
         CompanyStaticRiskScoreDO companyStaticRiskScoreDO = CompanyStaticRiskScoreMapper.findCompany(companyId, newDataVersion);
         SubIndexDO subIndexDo = new SubIndexDO();
