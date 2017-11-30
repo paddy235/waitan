@@ -13,7 +13,8 @@ import java.util.List;
  */
 public interface UpdateWhiteCompanyRiskGradeMapper {
     //白名单企业名称
-    @Select("select companyName from offline_financial_white")
+    @Select("SELECT o.companyName FROM offline_financial_white o WHERE 1 = 1 AND NOT EXISTS (SELECT 1 FROM company_modify c WHERE o.companyName = c. NAME AND c.afterLevel IS NOT NULL AND c.afterLevel != 'null')\n" +
+            "AND NOT EXISTS (SELECT 1 FROM company cm WHERE o.companyId = cm.company_id AND cm.company_type = 4 AND cm.risk_level = 1)")
     List<String> WhiteCompanyList();
 
     //更新company表中的公司风险等级
