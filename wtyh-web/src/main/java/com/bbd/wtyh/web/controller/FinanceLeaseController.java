@@ -69,29 +69,6 @@ public class FinanceLeaseController {
             analysisResult = 1;
         }
         List<FinanceLeasecCompanyVO> list = financeLeaseService.leaseCompanyList(areaName, analysisResult, riskA, riskB, riskC, riskD);
-        for(FinanceLeasecCompanyVO financeLeasecCompany:list){
-            String riskStatusA = financeLeasecCompany.getRiskStatusA();
-            String riskStatusB = financeLeasecCompany.getRiskStatusB();
-            String riskStatusC = financeLeasecCompany.getRiskStatusC();
-            String otherQuertion = financeLeasecCompany.getOtherQuertion();
-            financeLeasecCompany.setRiskStatus("正常");
-            if(StringUtils.isNotEmpty(riskStatusA)&&"是".equals(riskStatusA)){
-                financeLeasecCompany.setRiskStatus("潜在");
-                continue;
-            }
-            if(StringUtils.isNotEmpty(riskStatusB)&&"是".equals(riskStatusB)){
-                financeLeasecCompany.setRiskStatus("潜在");
-                continue;
-            }
-            if(StringUtils.isNotEmpty(riskStatusC)&&"是".equals(riskStatusC)){
-                financeLeasecCompany.setRiskStatus("潜在");
-                continue;
-            }
-            if(StringUtils.isNotEmpty(otherQuertion)){
-                financeLeasecCompany.setRiskStatus("潜在");
-                continue;
-            }
-        }
         return ResponseBean.successResponse(list);
     }
 
