@@ -84,8 +84,9 @@ public class LargeBorrowerHandler extends AbstractImportHandler<LargeLoanDO> {
 		LargeLoanDO largeLoanDO = this.companyService.selectOne(LargeLoanDO.class,
 				"borrower_id = " + borrowerId + " AND lender_id = " + lenderId);
 		if (largeLoanDO != null) {
-			addError("该贷方与借方对应关系已存在");
-			return false;
+//			addError("该贷方与借方对应关系已存在");
+//			return false;
+			return true;
 		}
 		row.put("borrowerId", borrowerId + "");
 		row.put("lenderId", lenderId + "");
@@ -94,9 +95,22 @@ public class LargeBorrowerHandler extends AbstractImportHandler<LargeLoanDO> {
 
 	@Override
 	public void endRow(Map<String, String> row, LargeLoanDO bean) throws Exception {
-		bean.setCreateBy(loginName);
-		bean.setCreateDate(new Date());
-		insertList.add(bean);
+		// 借款公司
+		String borrowerName = row.get("borrower");
+		CompanyDO borrower = this.companyService.getCompanyByName(borrowerName);
+		// 贷款公司
+		String lenderName = row.get("lender");
+		CompanyDO lender = this.companyService.getCompanyByName(lenderName);
+		int borrowerId = borrower.getCompanyId();
+		int lenderId = lender.getCompanyId();
+		LargeLoanDO largeLoanDO = this.companyService.selectOne(LargeLoanDO.class,
+				"borrower_id = " + borrowerId + " AND lender_id = " + lenderId);
+		if (largeLoanDO == null) {
+			bean.setCreateBy(loginName);
+			bean.setCreateDate(new Date());
+			insertList.add(bean);
+		}
+
 	}
 
 	@Override
