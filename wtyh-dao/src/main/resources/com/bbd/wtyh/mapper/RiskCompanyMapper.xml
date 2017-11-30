@@ -84,7 +84,15 @@
         <include refid="indexDataContent"></include>
         from index_data i, company c
         <include refid="indexDataCondition"></include>
-        order by i.static_risk_index
+        order by c.risk_level
+        <choose>
+        <when test="sortType == '0'.toString()">
+            desc
+        </when>
+        <otherwise>
+            asc
+        </otherwise>
+    </choose>,i.static_risk_index
         <choose>
             <when test="sortType == '0'.toString()">
                 asc
