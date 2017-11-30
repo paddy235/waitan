@@ -435,7 +435,7 @@
             <if test="areaId != null"> and company.area_id = #{areaId}</if>
             AND (
             static_risk_data.data_version = #{dateVersion}
-            <if test="risk_level != '4'">
+            <if test='risk_level != "4"'>
                 OR static_risk_data.data_version IS NULL
                 OR static_risk_data.data_version = ''
             </if>
@@ -463,13 +463,13 @@
             <if test="areaId != null"> and company.area_id = #{areaId}</if>
             AND (
             static_risk_data.data_version = #{dateVersion}
-            <if test="risk_level != '4'">
+            <if test='risk_level != "4"'>
             OR static_risk_data.data_version IS NULL
             OR static_risk_data.data_version = ''
             </if>
             )
         ) rs ORDER BY rs.staticRiskIndex desc,rs.`name`
-        <if test="risk_level = '4'">LIMIT 1000</if>
+        LIMIT 1000
     </select>
 
     <select id="queryCompanyByName"  resultType="com.bbd.wtyh.domain.CompanyDO">
