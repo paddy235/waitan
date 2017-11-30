@@ -15,6 +15,7 @@ import com.bbd.wtyh.web.EasyExportExcel.ExportCondition;
 import com.bbd.wtyh.web.PageBean;
 import com.bbd.wtyh.web.XAxisSeriesBarsLineBean;
 import org.apache.commons.collections.map.HashedMap;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -188,45 +189,58 @@ public class FinanceLeaseServiceImpl implements FinanceLeaseService {
                 String otherQuestion = financeLeaseVO.getOtherQuestion();
                 Integer riskType = financeLeaseVO.getRiskType();
                 Integer riskStatus = financeLeaseVO.getRiskStatus();
-                String riskStatusString = null;
-                if (riskStatus != null && riskStatus == 1) {
-                    riskStatusString = "是";
-                }
+                String riskStatusString = "是";
+//                String riskStatusString = null;
+//                if (riskStatus != null && riskStatus == 1) {
+//                    riskStatusString = "是";
+//                }
                 if (resultMap.get(companyName) == null) {
                     FinanceLeasecCompanyVO financeLeasecCompanyVO = new FinanceLeasecCompanyVO();
                     financeLeasecCompanyVO.setCompanyName(companyName);
                     financeLeasecCompanyVO.setAddress(address);
                     financeLeasecCompanyVO.setOtherQuertion(otherQuestion);
                     financeLeasecCompanyVO.setRiskStatus("正常");
-                    if (riskStatus != null && riskStatus == 1) {
-                        financeLeasecCompanyVO.setRiskStatus("潜在");
-                    }
+//                    if (riskStatus != null && riskStatus == 1) {
+//                        financeLeasecCompanyVO.setRiskStatus("潜在");
+//                    }
                     if (riskType != null && riskType == 1) {
                         financeLeasecCompanyVO.setRiskStatusA(riskStatusString);
+                        financeLeasecCompanyVO.setRiskStatus("潜在");
                     } else if (riskType != null && riskType == 2) {
                         financeLeasecCompanyVO.setRiskStatusB(riskStatusString);
+                        financeLeasecCompanyVO.setRiskStatus("潜在");
                     } else if (riskType != null && riskType == 3) {
                         financeLeasecCompanyVO.setRiskStatusC(riskStatusString);
-                    } else if (riskType != null && riskType == 4) {
-                        financeLeasecCompanyVO.setRiskStatusD(riskStatusString);
+                        financeLeasecCompanyVO.setRiskStatus("潜在");
+//                    } else if (riskType != null && riskType == 4) {
+//                        financeLeasecCompanyVO.setRiskStatusD(riskStatusString);
                     } else {
                         //do nothing
+                    }
+                    if(StringUtils.isNotEmpty(financeLeaseVO.getOtherQuestion())){
+                        financeLeasecCompanyVO.setRiskStatus("潜在");
                     }
                     resultMap.put(companyName, financeLeasecCompanyVO);
                 } else {
-                    if (riskStatus != null && riskStatus == 1) {
-                        resultMap.get(companyName).setRiskStatus("潜在");
-                    }
+//                    if (riskStatus != null && riskStatus == 1) {
+//                        resultMap.get(companyName).setRiskStatus("潜在");
+//                    }
                     if (riskType != null && riskType == 1) {
                         resultMap.get(companyName).setRiskStatusA(riskStatusString);
+                        resultMap.get(companyName).setRiskStatus("潜在");
                     } else if (riskType != null && riskType == 2) {
                         resultMap.get(companyName).setRiskStatusB(riskStatusString);
+                        resultMap.get(companyName).setRiskStatus("潜在");
                     } else if (riskType != null && riskType == 3) {
                         resultMap.get(companyName).setRiskStatusC(riskStatusString);
-                    } else if (riskType != null && riskType == 4) {
-                        resultMap.get(companyName).setRiskStatusD(riskStatusString);
+                        resultMap.get(companyName).setRiskStatus("潜在");
+//                    } else if (riskType != null && riskType == 4) {
+//                        resultMap.get(companyName).setRiskStatusD(riskStatusString);
                     } else {
                         //do nothing
+                    }
+                    if(StringUtils.isNotEmpty(financeLeaseVO.getOtherQuestion())){
+                        resultMap.get(companyName).setRiskStatus("潜在");
                     }
                 }
             }
