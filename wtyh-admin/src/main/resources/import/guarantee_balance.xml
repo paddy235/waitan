@@ -4,7 +4,7 @@
     <sheet name="Sheet1" startRow="4" entity="com.bbd.wtyh.domain.GuaranteeBalanceDO"
            importHandler="com.bbd.bgo.service.imp.handler.GuaranteeBalanceHandler">
         <rowHeader>
-            <column mergeFirstRow="1" mergeLastRow="2" mergeFirstCol="1" mergeLastCol="7" align="LEFT"
+            <column mergeFirstRow="1" mergeLastRow="2" mergeFirstCol="1" mergeLastCol="8" align="LEFT"
                     value="填写说明：&#x000A;本表格不可填写Excel公式；年份、月份必填，政策类、综合类、钢贸类、担保责任余额支持2位小数；"/>
         </rowHeader>
         <columns>
@@ -14,6 +14,7 @@
             <column name="综合类	（万元）" code="compositeBalance" dataType="number"/>
             <column name="钢贸类（万元）	" code="steelBalance" dataType="number"/>
             <column name="担保笔数" code="number" dataType="number" regex="[1-9][0-9]*"/>
+            <column name="公司数量" code="companyAmount" dataType="number" regex="[1-9][0-9]*"/>
             <column name="担保责任余额（万元）" code="guaranteeBalance" dataType="number"/>
         </columns>
 
