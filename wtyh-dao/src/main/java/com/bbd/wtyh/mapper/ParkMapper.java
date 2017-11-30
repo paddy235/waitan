@@ -54,5 +54,7 @@ public interface ParkMapper {
 			"park.area_id = ${area_id} AND park.park_id = pabr.park_id AND pabr.building_id = building.building_id AND building.building_id = company_building.building_id AND company_building.company_id = company.company_id\n" +
 			"UNION SELECT company.company_id AS companyId,company.`name` AS companyName FROM company WHERE company.area_id = ${area_id}) rs")
 	Integer countAreaCompany(@Param("area_id") int area_id);
-   
+
+	@Select("select park_id from park where area_id = ${area_id}")
+	List<Integer> findParkId(@Param("area_id") int area_id);
 }

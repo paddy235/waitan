@@ -9,6 +9,7 @@ import com.bbd.wtyh.mapper.ParkMapper;
 import com.bbd.wtyh.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.util.HashMap;
 import java.util.List;
@@ -34,9 +35,16 @@ public class CompanyServiceImpl extends BaseServiceImpl implements CompanyServic
 	@Override
 	public List<Map<String, Object>> countCompanyNum() {
 		List<Map<String, Object>> listMap = companyMapper.countCompany();
+		Map<String, Object> params=new HashMap<>();
 		for (Map<String, Object> map:listMap) {
-			Integer num = this.parkMapper.countAreaCompany((int)map.get("area_id"));
-			map.put("num",num);
+			List<Integer> parkIds = this.parkMapper.findParkId((int)map.get("area_id"));
+			if(!CollectionUtils.isEmpty(parkIds)){
+				params.put("parkId",parkIds.get(0));
+				params.put("regCompany","1");
+				params.put("newValue",this.parkMapper.queryCompanyNewValue());
+				int total=this.parkMapper.qeuryParkCompanyCount(params);
+				map.put("num",total);
+			}
 		}
 		return listMap;
 	}
