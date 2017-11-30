@@ -99,10 +99,10 @@ public class RealTimeMonitorServiceImpl implements RealTimeMonitorService {
             }
         }
 
-        List<SpectrumVO> spectrumAnalysisFocus = companyMapper.getSpectrumAnalysis(FOCUS_LEVEL, dateVersion, red, areaId);
-        List<SpectrumVO> spectrumAnalysisUsual = companyMapper.getSpectrumAnalysis(USUAL_LEVEL, dateVersion, yellow, areaId);
-        List<SpectrumVO> spectrumAnalysisNormal = companyMapper.getSpectrumAnalysis(NORMAL_LEVEL, dateVersion, green, areaId);
-        List<SpectrumVO> spectrumAnalysisRisk = companyMapper.getSpectrumAnalysis(RISK_LEVEL, dateVersion, black, areaId);
+        List<SpectrumVO> spectrumAnalysisFocus = companyMapper.getSpectrumAnalysisByRiskLevel(FOCUS_LEVEL, dateVersion, red, areaId);
+        List<SpectrumVO> spectrumAnalysisUsual = companyMapper.getSpectrumAnalysisByRiskLevel(USUAL_LEVEL, dateVersion, yellow, areaId);
+        List<SpectrumVO> spectrumAnalysisNormal = companyMapper.getSpectrumAnalysisByRiskLevel(NORMAL_LEVEL, dateVersion, green, areaId);
+        List<SpectrumVO> spectrumAnalysisRisk = companyMapper.getSpectrumAnalysisByRiskLevel(RISK_LEVEL, dateVersion, black, areaId);
 
         List<List<SpectrumVO>> rst = new ArrayList<>();
         rst.add(spectrumAnalysisFocus);
