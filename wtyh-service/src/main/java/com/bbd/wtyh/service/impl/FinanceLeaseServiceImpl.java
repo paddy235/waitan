@@ -189,20 +189,19 @@ public class FinanceLeaseServiceImpl implements FinanceLeaseService {
                 String otherQuestion = financeLeaseVO.getOtherQuestion();
                 Integer riskType = financeLeaseVO.getRiskType();
                 Integer riskStatus = financeLeaseVO.getRiskStatus();
-                String riskStatusString = "是";
-//                String riskStatusString = null;
-//                if (riskStatus != null && riskStatus == 1) {
-//                    riskStatusString = "是";
-//                }
+                String riskStatusString = null;
+                if (riskStatus != null && riskStatus == 1) {
+                    riskStatusString = "是";
+                }
                 if (resultMap.get(companyName) == null) {
                     FinanceLeasecCompanyVO financeLeasecCompanyVO = new FinanceLeasecCompanyVO();
                     financeLeasecCompanyVO.setCompanyName(companyName);
                     financeLeasecCompanyVO.setAddress(address);
                     financeLeasecCompanyVO.setOtherQuertion(otherQuestion);
                     financeLeasecCompanyVO.setRiskStatus("正常");
-//                    if (riskStatus != null && riskStatus == 1) {
-//                        financeLeasecCompanyVO.setRiskStatus("潜在");
-//                    }
+                    if (riskStatus != null && riskStatus == 1) {
+                        financeLeasecCompanyVO.setRiskStatus("潜在");
+                    }
                     if (riskType != null && riskType == 1) {
                         financeLeasecCompanyVO.setRiskStatusA(riskStatusString);
                         financeLeasecCompanyVO.setRiskStatus("潜在");
@@ -222,9 +221,9 @@ public class FinanceLeaseServiceImpl implements FinanceLeaseService {
                     }
                     resultMap.put(companyName, financeLeasecCompanyVO);
                 } else {
-//                    if (riskStatus != null && riskStatus == 1) {
-//                        resultMap.get(companyName).setRiskStatus("潜在");
-//                    }
+                    if (riskStatus != null && riskStatus == 1) {
+                        resultMap.get(companyName).setRiskStatus("潜在");
+                    }
                     if (riskType != null && riskType == 1) {
                         resultMap.get(companyName).setRiskStatusA(riskStatusString);
                         resultMap.get(companyName).setRiskStatus("潜在");

@@ -104,7 +104,7 @@
         LEFT JOIN area a ON a.area_id = c.area_id
         LEFT JOIN finance_lease_extra e on c.company_id=e.company_id
         <where>
-            AND c.company_type = 13
+            AND c.company_type = 13 AND f.risk_type != 4
             <if test="areaName != null and areaName != '' and areaName != '全部'">
                 AND a.name = #{areaName}
             </if>
