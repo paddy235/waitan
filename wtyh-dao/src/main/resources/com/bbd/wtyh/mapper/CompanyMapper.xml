@@ -430,7 +430,7 @@
             company
             LEFT JOIN company_analysis_result ON company.company_id = company_analysis_result.company_id
             WHERE
-            risk_level = #{risk_level} and company_type!=4
+            risk_level = #{risk_level} and company.company_type!=4
             <if test="areaId != null"> and company.area_id = #{areaId}</if>
             UNION
             SELECT
@@ -450,11 +450,11 @@
             LEFT JOIN company_analysis_result ON company.company_id = company_analysis_result.company_id
             LEFT JOIN index_data ON company. NAME = index_data.company_name
             WHERE
-            risk_level = #{risk_level} and company_type=4
+            risk_level = #{risk_level} and company.company_type=4
             AND EXISTS (SELECT 1 FROM offline_financial_white ofw  where ofw.companyId=company.company_id)
             <if test="areaId != null"> and company.area_id = #{areaId}</if>
         ) rs ORDER BY rs.staticRiskIndex desc,rs.`name`
-        <if test='risk_level == "4"'>LIMIT 1000</if>
+        <if test="risk_level == 4">  LIMIT 1000 </if>
     </select>
 
     <select id="queryCompanyByName"  resultType="com.bbd.wtyh.domain.CompanyDO">
