@@ -211,13 +211,8 @@ public class FinanceLeaseServiceImpl implements FinanceLeaseService {
                     } else if (riskType != null && riskType == 3) {
                         financeLeasecCompanyVO.setRiskStatusC(riskStatusString);
                         financeLeasecCompanyVO.setRiskStatus("潜在");
-//                    } else if (riskType != null && riskType == 4) {
-//                        financeLeasecCompanyVO.setRiskStatusD(riskStatusString);
                     } else {
                         //do nothing
-                    }
-                    if(StringUtils.isNotEmpty(financeLeaseVO.getOtherQuestion())){
-                        financeLeasecCompanyVO.setRiskStatus("潜在");
                     }
                     resultMap.put(companyName, financeLeasecCompanyVO);
                 } else {
@@ -233,13 +228,8 @@ public class FinanceLeaseServiceImpl implements FinanceLeaseService {
                     } else if (riskType != null && riskType == 3) {
                         resultMap.get(companyName).setRiskStatusC(riskStatusString);
                         resultMap.get(companyName).setRiskStatus("潜在");
-//                    } else if (riskType != null && riskType == 4) {
-//                        resultMap.get(companyName).setRiskStatusD(riskStatusString);
                     } else {
                         //do nothing
-                    }
-                    if(StringUtils.isNotEmpty(financeLeaseVO.getOtherQuestion())){
-                        resultMap.get(companyName).setRiskStatus("潜在");
                     }
                 }
             }
@@ -251,7 +241,29 @@ public class FinanceLeaseServiceImpl implements FinanceLeaseService {
             }
         }
         if (!CollectionUtils.isEmpty(tempList)) {
-
+            for(FinanceLeasecCompanyVO financeLeasecCompany:tempList){
+                String riskStatusA = financeLeasecCompany.getRiskStatusA();
+                String riskStatusB = financeLeasecCompany.getRiskStatusB();
+                String riskStatusC = financeLeasecCompany.getRiskStatusC();
+                String otherQuertion = financeLeasecCompany.getOtherQuertion();
+                financeLeasecCompany.setRiskStatus("正常");
+                if(StringUtils.isNotEmpty(riskStatusA)&&"是".equals(riskStatusA)){
+                    financeLeasecCompany.setRiskStatus("潜在");
+                    continue;
+                }
+                if(StringUtils.isNotEmpty(riskStatusB)&&"是".equals(riskStatusB)){
+                    financeLeasecCompany.setRiskStatus("潜在");
+                    continue;
+                }
+                if(StringUtils.isNotEmpty(riskStatusC)&&"是".equals(riskStatusC)){
+                    financeLeasecCompany.setRiskStatus("潜在");
+                    continue;
+                }
+                if(StringUtils.isNotEmpty(otherQuertion)){
+                    financeLeasecCompany.setRiskStatus("潜在");
+                    continue;
+                }
+            }
             for (FinanceLeasecCompanyVO financeLeasecCompanyVO : tempList) {
                 String riskStatus = financeLeasecCompanyVO.getRiskStatus();
                 if (analysisResult == null) {
