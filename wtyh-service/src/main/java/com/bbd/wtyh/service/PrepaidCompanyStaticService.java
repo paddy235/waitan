@@ -17,7 +17,7 @@ public interface PrepaidCompanyStaticService {
 	
 	List<PrepaidCompanyStatisticDO> prepaidAll();
 
-	List<PrepaidCompanyDO> prepaidCompanyAll();
+	List<PrepaidCompanyDO> prepaidCompanyAll(String companyName);
 
 	CompanyInfo getPerpaycardByCompanyName(String name);
 

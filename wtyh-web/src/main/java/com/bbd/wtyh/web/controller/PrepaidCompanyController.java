@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bbd.wtyh.domain.PrepaidCompanyDO;
@@ -74,11 +75,11 @@ public class PrepaidCompanyController {
 	 */
 	@RequestMapping("/listAndPieChart")
 	@ResponseBody
-	public ResponseBean listAndPieChart() {
+	public ResponseBean listAndPieChart(@RequestParam(defaultValue = "")String companyName) {
 
 		Map<String, Object> returnMap = new HashMap<>();
 
-		List<PrepaidCompanyDO> list = pcsSer.prepaidCompanyAll();
+		List<PrepaidCompanyDO> list = pcsSer.prepaidCompanyAll(companyName);
 
 		PieChartBean<String, Integer> pie = new PieChartBean<>();
 		pie.setTitle("备案企业行业类型");

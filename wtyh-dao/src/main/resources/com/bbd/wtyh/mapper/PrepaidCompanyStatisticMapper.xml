@@ -46,6 +46,9 @@
 	    from company c left join company_analysis_result car 
 	         on car.company_id=c.company_id	    
 	    where c.company_type=11
+        <if test="companyName!=null" >
+            AND c.name like CONCAT('%',#{companyName},'%')
+        </if>
 	    
 	    order by car.analysis_result desc
 	    

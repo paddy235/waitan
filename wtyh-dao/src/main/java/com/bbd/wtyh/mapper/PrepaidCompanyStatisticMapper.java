@@ -15,7 +15,7 @@ public interface PrepaidCompanyStatisticMapper {
 
     List<PrepaidCompanyStatisticDO> prepaidAll();
 
-    List<PrepaidCompanyDO> prepaidCompanyAll();
+    List<PrepaidCompanyDO> prepaidCompanyAll(@Param(value = "companyName") String companyName);
 
     CompanyInfo getPerpaycardByCompanyName(@Param(value = "name") String name);
 

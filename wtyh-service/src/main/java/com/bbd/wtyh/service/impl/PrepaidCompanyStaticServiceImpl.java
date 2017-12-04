@@ -7,6 +7,7 @@ import com.bbd.wtyh.domain.PrepaidCompanyDO;
 import com.bbd.wtyh.domain.PrepaidCompanyStatisticDO;
 import com.bbd.wtyh.mapper.PrepaidCompanyStatisticMapper;
 import com.bbd.wtyh.service.PrepaidCompanyStaticService;
+import com.bbd.wtyh.util.relation.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,8 +31,8 @@ public class PrepaidCompanyStaticServiceImpl implements PrepaidCompanyStaticServ
     }
 
     @Override
-    public List<PrepaidCompanyDO> prepaidCompanyAll() {
-        return pcsMapper.prepaidCompanyAll();
+    public List<PrepaidCompanyDO> prepaidCompanyAll(String companyName) {
+        return pcsMapper.prepaidCompanyAll(companyName);
     }
 
     @Override
