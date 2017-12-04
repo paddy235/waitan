@@ -97,7 +97,7 @@ public class StaticRiskUpdateServiceImpl implements StaticRiskUpdateService,Task
 			}
 
 			//更新5万家白名单企业
-			updateWhiteCompanyRiskGradeService.startUpdate();
+			//updateWhiteCompanyRiskGradeService.startUpdate();
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 		}
@@ -152,7 +152,7 @@ public class StaticRiskUpdateServiceImpl implements StaticRiskUpdateService,Task
 			dataExecutorService.shutdown();
 			dataExecutorService.awaitTermination(1, TimeUnit.DAYS);
 			//更新5万家白名单企业
-			updateWhiteCompanyRiskGradeService.startUpdate();
+			//updateWhiteCompanyRiskGradeService.startUpdate();
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 		}

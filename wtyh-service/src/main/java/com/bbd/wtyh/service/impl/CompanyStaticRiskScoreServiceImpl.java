@@ -37,7 +37,7 @@ public class CompanyStaticRiskScoreServiceImpl implements CompanyStaticRiskScore
     @Autowired
     private HologramQueryDao hologramQueryDao;
 
-    private static final String NORMAL_HOUSEHOLD_COGNIZANCE = "正常户认定";
+    private static final String NORMAL_HOUSEHOLD_COGNIZANCE = "非正常户认定";
 
     private static final String UNPAID_SOCIAL_SECURITY_FEE = "用人单位欠缴社会保险费，被依法责令限期缴纳信息";
 
@@ -47,11 +47,11 @@ public class CompanyStaticRiskScoreServiceImpl implements CompanyStaticRiskScore
 
     private static final String ADMINISTRATIVE_SANCTION = "市场监管类行政处罚（法人）";
 
-    private static final String RESTRICTED_EXIT = "限制出境";
+    private static final String RESTRICTED_EXIT = "民事执行-限制出境";
 
-    private static final String LIMITING_HIGH_CONSUMPTION = "限制高消费";
+    private static final String LIMITING_HIGH_CONSUMPTION = "民事执行-限制高消费令";
 
-    private static final String ONLINE_RECOVERY ="网上追讨";
+    private static final String ONLINE_RECOVERY ="民事执行-网上追查";
 
     private static final String EXCEPTION_LIST ="经营异常名录";
 
