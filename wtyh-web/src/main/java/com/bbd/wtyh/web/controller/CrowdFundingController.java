@@ -138,11 +138,22 @@ public class CrowdFundingController {
 	 */
 	@RequestMapping("/allCompanys")
 	@ResponseBody
-	public ResponseBean allCompanys() {
+	public ResponseBean allCompanys(@RequestParam(defaultValue = "")String platName,@RequestParam(defaultValue = "")String companyName) {
 		List<CrowdFundingCompanyDO> list = crowdFundingSer.queryBaseOfPlat();
 		if (ListUtil.isEmpty(list))
 			list = crowdFundingSer.allCompanys();
-		return ResponseBean.successResponse(null == list ? new ArrayList<>() : list);
+		//根据名称或平台名称查询
+		if(!"".equals(platName) || !"".equals(companyName)){
+			List<CrowdFundingCompanyDO> reList =  new ArrayList<>();
+			for (CrowdFundingCompanyDO crowdFundingCompanyDO :list){
+				if(crowdFundingCompanyDO.getCompanyName().contains(companyName) &&  crowdFundingCompanyDO.getPlatformName().contains(platName)){
+					reList.add(crowdFundingCompanyDO);
+				}
+			}
+			return ResponseBean.successResponse(reList);
+		}
+
+		return ResponseBean.successResponse(list == null ? new ArrayList<>() : list);
 	}
 
 	/**

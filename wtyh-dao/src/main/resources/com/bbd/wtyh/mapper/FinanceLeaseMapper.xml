@@ -111,6 +111,9 @@
             <if test="areaName == null or areaName == ''">
                 AND a.name = '黄浦区'
             </if>
+            <if test="companyName != null and companyName != ''">
+                AND c.name LIKE #{companyName}
+            </if>
         </where>
     </select>
 

@@ -11,6 +11,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
@@ -64,11 +65,11 @@ public class FinanceLeaseController {
      */
     @RequestMapping("leaseCompanyList.do")
     @ResponseBody
-    public ResponseBean leaseCompanyList(String areaName, Integer analysisResult, Integer riskA, Integer riskB, Integer riskC, Integer riskD) {
+    public ResponseBean leaseCompanyList(String areaName, Integer analysisResult, Integer riskA, Integer riskB, Integer riskC, Integer riskD,@RequestParam(defaultValue = "")String companyName) {
         if(riskA!=null || riskB!=null || riskC!=null || riskD!=null){
             analysisResult = 1;
         }
-        List<FinanceLeasecCompanyVO> list = financeLeaseService.leaseCompanyList(areaName, analysisResult, riskA, riskB, riskC, riskD);
+        List<FinanceLeasecCompanyVO> list = financeLeaseService.leaseCompanyList(areaName, analysisResult, riskA, riskB, riskC, riskD, companyName);
         return ResponseBean.successResponse(list);
     }
 
