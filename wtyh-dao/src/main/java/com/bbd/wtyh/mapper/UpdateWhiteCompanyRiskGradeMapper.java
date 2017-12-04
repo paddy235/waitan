@@ -27,7 +27,7 @@ public interface UpdateWhiteCompanyRiskGradeMapper {
     List<String> find(@Param("start") int start, @Param("size")int size);
 
     //5万家白名单企业的公信中心数据包含：限制出境、限制高消费和网上追讨的公司名单
-    @Select("select a.company_name from company_credit_raw_info a INNER JOIN offline_financial_white b ON a.company_name = b.companyName WHERE a.resource_name ='限制出境' or resource_name ='限制高消费' or resource_name ='网上追讨'")
+    @Select("select a.company_name from company_credit_raw_info a INNER JOIN offline_financial_white b ON a.company_name = b.companyName WHERE a.resource_name ='民事执行-限制出境' or resource_name ='民事执行-网上追查' or resource_name ='民事执行-限制高消费令'")
     List<String> query_raw_info();
 
     //把company表中线下企业不是白名单的企业风险等级设置成null
