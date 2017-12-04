@@ -43,7 +43,7 @@ public interface PrivateFundService {
 
     LinkedList<InvestmentStatisticDO> investmentAmount();
 
-    PageBean<PrivateFundCompanyDTO> privateFundExtraList(Integer orderByField, String descAsc, Integer recordStatus,Integer start,Integer pageSize);
+    PageBean<PrivateFundCompanyDTO> privateFundExtraList(String companyName,Integer orderByField, String descAsc, Integer recordStatus,Integer start,Integer pageSize);
 
     PageBean<PrivateFundCompanyDTO> privateFundQueryList(String companyName,Integer orderByField, String descAsc,Integer recordStatus,Integer start,Integer pageSize);
 

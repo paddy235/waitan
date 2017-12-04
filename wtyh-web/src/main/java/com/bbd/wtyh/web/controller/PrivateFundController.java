@@ -205,7 +205,7 @@ public class PrivateFundController {
 	}
 
 	@RequestMapping("privateFundList.do")
-	public ResponseBean privateFundList(Integer orderByField, String descAsc, Integer recordStatus,@RequestParam(defaultValue = "10") Integer pageSize,
+	public ResponseBean privateFundList(@RequestParam(defaultValue = "")String companyName,Integer orderByField, String descAsc, Integer recordStatus,@RequestParam(defaultValue = "10") Integer pageSize,
 										@RequestParam(defaultValue = "1") Integer currentPage) {
 		if (null != recordStatus && recordStatus <= 0) {
 			recordStatus = null;
@@ -213,7 +213,7 @@ public class PrivateFundController {
 		Integer status = new Integer(2);
 		//取消备案
 		if(status.equals(recordStatus)){
-			PageBean<PrivateFundCompanyDTO> pageInfo2 = privateFundService.privateFundExtraList(orderByField, descAsc, recordStatus,-1,pageSize);
+			PageBean<PrivateFundCompanyDTO> pageInfo2 = privateFundService.privateFundExtraList(companyName,orderByField, descAsc, recordStatus,-1,pageSize);
 			for (PrivateFundCompanyDTO dto : pageInfo2.getItems()) {
                 if (StringUtils.isNotEmpty(dto.getWebsite()) && !dto.getWebsite().startsWith("http")) {
                     dto.setWebsite("http://" + dto.getWebsite());
@@ -245,7 +245,7 @@ public class PrivateFundController {
 
 		//全部/已备案
 		int start = (currentPage-1)*pageSize;
-		PageBean<PrivateFundCompanyDTO> pageInfo = privateFundService.privateFundExtraList(orderByField, descAsc, recordStatus,start,pageSize);
+		PageBean<PrivateFundCompanyDTO> pageInfo = privateFundService.privateFundExtraList(companyName,orderByField, descAsc, recordStatus,start,pageSize);
 
 		for (PrivateFundCompanyDTO dto : pageInfo.getItems()) {
 			if (StringUtils.isNotEmpty(dto.getWebsite()) && !dto.getWebsite().startsWith("http")) {
