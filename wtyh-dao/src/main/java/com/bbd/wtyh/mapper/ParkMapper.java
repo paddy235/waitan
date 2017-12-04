@@ -25,6 +25,12 @@ public interface ParkMapper {
 	int qeuryParkCompanyCount(Map<String, Object> params);
 
 	/**
+	 * 首页查询某个园区的楼宇公司笔数
+	 * @return
+	 */
+	int qeuryIndexParkCompanyCount(Map<String, Object> params);
+
+	/**
 	 * 查询所有园区信息
 	 * @return
      */

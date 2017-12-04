@@ -34,6 +34,57 @@
         where company_id = #{companyId,jdbcType=INTEGER}
     </select>
 
+    <select id="queryAll" resultMap="ExtraDTOResultMap">
+      SELECT * FROM (
+        select
+        a.company_id, a.website, a.paidin_capital, a.managed_fund,
+        a.record_status,b.name,b.registered_date,b.registered_capital
+        from private_fund_extra a,company b where
+        a.company_id=b.company_id and b.name like #{companyName}
+        UNION
+        select
+        a.company_id, a.website, a.paidin_capital, a.managed_fund,
+        a.record_status,b.name,b.registered_date,b.registered_capital
+        from company b
+        LEFT JOIN private_fund_extra a ON a.company_id = b.company_id
+        WHERE
+        b.company_type = 5
+        and b.name like #{companyName}
+        ) r where 1 = 1
+        <if test="null != orderByField">
+
+            order by
+            <choose>
+                <when test="orderByField==1">
+                    r.registered_date is null,r.registered_date
+                </when>
+                <when test="orderByField==2">
+                    r.registered_capital is null,r.registered_capital
+                </when>
+                <when test="orderByField==3">
+                    r.paidin_capital is null,r.paidin_capital
+                </when>
+                <when test="orderByField==4">
+                    r.managed_fund is null,r.managed_fund
+                </when>
+            </choose>
+
+            <choose>
+                <when test="descAsc=='desc'">
+                    desc
+                </when>
+                <otherwise>asc</otherwise>
+            </choose>
+
+        </if>
+       <!-- <if test="null == orderByField">
+            order by r.company_id
+        </if>-->
+        <if test="start != -1">
+            limit #{start},#{pageSize}
+        </if>
+
+    </select>
 
     <select id="selectAll" resultMap="ExtraDTOResultMap">
         <!--
@@ -147,6 +198,25 @@
             and  r.record_status=#{recordStatus}
         </if>
 
+
+    </select>
+
+    <select id="countQueryCompany" resultType="Long">
+        SELECT count(*) FROM (
+        select
+        a.company_id, a.website, a.paidin_capital, a.managed_fund,
+        a.record_status,b.name,b.registered_date,b.registered_capital
+        from private_fund_extra a,company b where
+        a.company_id=b.company_id and b.name like #{companyName}
+        UNION
+        select
+        a.company_id, a.website, a.paidin_capital, a.managed_fund,
+        a.record_status,b.name,b.registered_date,b.registered_capital
+        from company b
+        LEFT JOIN private_fund_extra a ON a.company_id = b.company_id
+        WHERE
+        b.company_type = 5 and b.name like #{companyName}
+        ) r where 1 = 1
 
     </select>
 

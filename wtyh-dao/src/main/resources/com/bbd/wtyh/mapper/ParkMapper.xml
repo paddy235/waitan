@@ -159,6 +159,36 @@
         </if>
     </select>
 
+    <select id="qeuryIndexParkCompanyCount"   parameterType="java.util.HashMap" resultType="int">
+        SELECT count(1)
+        FROM
+            (
+            SELECT  1
+                FROM
+                    park,building,company_building,company,park_and_building_relation pabr
+                WHERE
+                    park.park_id = #{parkId}
+                AND park.park_id = pabr.park_id
+                AND pabr.building_id = building.building_id
+                AND building.building_id = company_building.building_id
+                AND company_building.company_id = company.company_id
+            UNION ALL
+                SELECT 1 FROM
+                        company
+                    WHERE
+                        area_id = ( SELECT area_id FROM park WHERE  park_id = #{parkId})
+                    AND company_id NOT IN (
+                        SELECT company_id  FROM company_building
+                        WHERE
+                            company_building.building_id IN (
+                                SELECT building.building_id FROM
+                                    building, park_and_building_relation pabr
+                                WHERE
+                                    building.building_id = pabr.building_id AND pabr.park_id = #{parkId})
+                    )
+            ) rs
+    </select>
+
     <select id="queryAllPark" resultType="com.bbd.wtyh.domain.ParkDO">
         SELECT
             park_id as parkId,
