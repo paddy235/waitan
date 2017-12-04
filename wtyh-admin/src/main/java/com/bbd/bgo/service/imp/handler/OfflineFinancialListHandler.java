@@ -141,10 +141,12 @@ public class OfflineFinancialListHandler extends AbstractImportHandler<OfflineFi
             }
             if(deleteList!=null && !deleteList.isEmpty()){
                 for (OfflineFinancialListDO delCompany: deleteList) {
-                    //先删除白名单表中的该企业
+                    Integer id = delCompany.getCompanyId();
+                    //把company表的该企业风险等级设置为null
+                    this.companyService.executeCUD("update company set risk_level = null where company_id = ?",id);
+                    //删除白名单表中的该企业
                     this.companyService.executeCUD("DELETE from offline_financial_white where companyId = ?",delCompany.getCompanyId());
-                    //再把company表的该企业风险等级设置为null
-                    this.companyService.executeCUD("update company set risk_level = null where companyId = ?",delCompany.getCompanyId());
+
                 }
             }
 

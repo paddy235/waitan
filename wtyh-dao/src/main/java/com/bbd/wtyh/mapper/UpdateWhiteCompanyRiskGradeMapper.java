@@ -31,6 +31,6 @@ public interface UpdateWhiteCompanyRiskGradeMapper {
     List<String> query_raw_info();
 
     //把company表中线下企业不是白名单的企业风险等级设置成null
-    @Update("update company c set c.risk_level = null WHERE c.company_type = 4 AND  NOT EXISTS (SELECT 1 FROM offline_financial_white o WHERE o.companyId = c.company_id)")
+    @Update("update company c set c.risk_level = null WHERE c.company_type = 4 AND c.risk_level != 1 AND  NOT EXISTS (SELECT 1 FROM offline_financial_white o WHERE o.companyId = c.company_id)")
     void updateCompanyIsNotWhite();
 }
