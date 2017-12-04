@@ -40,9 +40,9 @@ public class CompanyServiceImpl extends BaseServiceImpl implements CompanyServic
 			List<Integer> parkIds = this.parkMapper.findParkId((int)map.get("area_id"));
 			if(!CollectionUtils.isEmpty(parkIds)){
 				params.put("parkId",parkIds.get(0));
-				params.put("regCompany","1");
-				params.put("newValue",this.parkMapper.queryCompanyNewValue());
-				int total=this.parkMapper.qeuryParkCompanyCount(params);
+				//params.put("regCompany","1");
+				//params.put("newValue",30);
+				int total=this.parkMapper.qeuryIndexParkCompanyCount(params);
 				map.put("num",total);
 			}
 		}
