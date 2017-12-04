@@ -18,6 +18,7 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Multimap;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -178,6 +179,29 @@ public class PrivateFundController {
 		}
 
 		return ResponseBean.successResponse(list);
+	}
+
+	//新增私募企业查询接口
+	@RequestMapping("privateFundQueryList.do")
+	public ResponseBean privateFundQueryList(String companyName,Integer orderByField,String descAsc,@RequestParam(defaultValue = "10") Integer pageSize,
+											 @RequestParam(defaultValue = "1") Integer currentPage){
+		int start = (currentPage-1)*pageSize;
+		PageBean<PrivateFundCompanyDTO> pageInfo = privateFundService.privateFundQueryList(companyName,orderByField, descAsc,start,pageSize);
+
+		if(CollectionUtils.isEmpty(pageInfo.getItems())){
+			return ResponseBean.successResponse(pageInfo);
+		}
+		for (PrivateFundCompanyDTO dto : pageInfo.getItems()) {
+			if (StringUtils.isNotEmpty(dto.getWebsite()) && !dto.getWebsite().startsWith("http")) {
+				dto.setWebsite("http://" + dto.getWebsite());
+			}
+			String  res = hologramQueryDao.getCompanyInfo(dto.getName());
+			if("1".equals(res)){
+				dto.setRecordStatus(1);
+			}
+
+		}
+		return ResponseBean.successResponse(pageInfo);
 	}
 
 	@RequestMapping("privateFundList.do")

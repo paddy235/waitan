@@ -45,6 +45,8 @@ public interface PrivateFundService {
 
     PageBean<PrivateFundCompanyDTO> privateFundExtraList(Integer orderByField, String descAsc, Integer recordStatus,Integer start,Integer pageSize);
 
+    PageBean<PrivateFundCompanyDTO> privateFundQueryList(String companyName,Integer orderByField, String descAsc,Integer start,Integer pageSize);
+
     List<PrivateOfferedFundData> getPrivateOfferedFund(ExportCondition exportCondition, PageBean pagination);
 
     void updateQflpCompany(QflpCompanyDO qflpCompanyDO);
