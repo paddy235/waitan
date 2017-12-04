@@ -51,6 +51,9 @@
         b.company_type = 5
         and b.name like #{companyName}
         ) r where 1 = 1
+        <if test="null != recordStatus">
+            and  r.record_status=#{recordStatus}
+        </if>
         <if test="null != orderByField">
 
             order by
@@ -217,6 +220,9 @@
         WHERE
         b.company_type = 5 and b.name like #{companyName}
         ) r where 1 = 1
+        <if test="null != recordStatus">
+            and  r.record_status=#{recordStatus}
+        </if>
 
     </select>
 

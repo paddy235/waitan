@@ -21,13 +21,13 @@ public interface PrivateFundExtraMapper {
     List<PrivateFundCompanyDTO> selectAll(@Param("orderByField") Integer orderByField, @Param("descAsc") String descAsc, @Param("recordStatus") Integer recordStatus,@Param("start") Integer start,
                                           @Param("pageSize") Integer pageSize);
 
-    List<PrivateFundCompanyDTO> queryAll(@Param("companyName") String companyName,@Param("orderByField") Integer orderByField, @Param("descAsc") String descAsc,@Param("start") Integer start,
+    List<PrivateFundCompanyDTO> queryAll(@Param("companyName") String companyName,@Param("orderByField") Integer orderByField, @Param("descAsc") String descAsc,@Param("recordStatus") Integer recordStatus,@Param("start") Integer start,
                                           @Param("pageSize") Integer pageSize);
 
     Long countCompany(@Param("orderByField") Integer orderByField, @Param("descAsc") String descAsc, @Param("recordStatus") Integer recordStatus);
 
     //获取查询公司总记录数
-    Long countQueryCompany(@Param("companyName") String companyName,@Param("orderByField") Integer orderByField, @Param("descAsc") String descAsc);
+    Long countQueryCompany(@Param("companyName") String companyName,@Param("orderByField") Integer orderByField, @Param("descAsc") String descAsc,@Param("recordStatus") Integer recordStatus);
     /**
      * 获取总条数
      *

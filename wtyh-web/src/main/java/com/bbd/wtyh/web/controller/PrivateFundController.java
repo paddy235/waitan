@@ -183,10 +183,10 @@ public class PrivateFundController {
 
 	//新增私募企业查询接口
 	@RequestMapping("privateFundQueryList.do")
-	public ResponseBean privateFundQueryList(String companyName,Integer orderByField,String descAsc,@RequestParam(defaultValue = "10") Integer pageSize,
+	public ResponseBean privateFundQueryList(String companyName,Integer orderByField,String descAsc,Integer recordStatus,@RequestParam(defaultValue = "10") Integer pageSize,
 											 @RequestParam(defaultValue = "1") Integer currentPage){
 		int start = (currentPage-1)*pageSize;
-		PageBean<PrivateFundCompanyDTO> pageInfo = privateFundService.privateFundQueryList(companyName,orderByField, descAsc,start,pageSize);
+		PageBean<PrivateFundCompanyDTO> pageInfo = privateFundService.privateFundQueryList(companyName,orderByField,descAsc,recordStatus,start,pageSize);
 
 		if(CollectionUtils.isEmpty(pageInfo.getItems())){
 			return ResponseBean.successResponse(pageInfo);
