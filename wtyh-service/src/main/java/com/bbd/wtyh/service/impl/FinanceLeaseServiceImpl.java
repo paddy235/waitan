@@ -173,10 +173,11 @@ public class FinanceLeaseServiceImpl implements FinanceLeaseService {
     }
 
     @Override
-    public List<FinanceLeasecCompanyVO> leaseCompanyList(String areaName, Integer analysisResult, Integer riskA, Integer riskB, Integer riskC, Integer riskD) {
+    public List<FinanceLeasecCompanyVO> leaseCompanyList(String areaName, Integer analysisResult, Integer riskA, Integer riskB, Integer riskC, Integer riskD, String companyname) {
         Map paramsMap = new HashedMap();
-
+        companyname = "%"+companyname+"%";
         paramsMap.put("areaName", areaName);
+        paramsMap.put("companyName", companyname);
 
         List<FinanceLeasecCompanyVO> tempList = new ArrayList<>();
         List<FinanceLeaseVO> set = financeLeaseMapper.queryLeaseCompanyList(paramsMap);
