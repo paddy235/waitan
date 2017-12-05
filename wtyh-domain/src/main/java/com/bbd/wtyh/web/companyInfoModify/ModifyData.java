@@ -1,5 +1,7 @@
 package com.bbd.wtyh.web.companyInfoModify;
 
+import java.util.Date;
+
 /**
  * Created by YanWenyuan on 2017/7/22.
  */
@@ -17,6 +19,16 @@ public class ModifyData {
     private String liveLevel;
     // 行业变更 - 参数：4，线下理财
     private String industry;
+
+    private Date exposureDate;
+
+    public Date getExposureDate() {
+        return exposureDate;
+    }
+
+    public void setExposureDate(Date exposureDate) {
+        this.exposureDate = exposureDate;
+    }
 
     public String getIndustry() {
         return industry;

@@ -16,6 +16,7 @@ import com.bbd.wtyh.util.CompanyUtils;
 import com.bbd.wtyh.web.companyInfoModify.ModifyData;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,10 +25,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * 企业批量变更
@@ -72,6 +71,14 @@ public class BatchModifyHandler extends AbstractImportHandler<CoBatchModifyDTO> 
         }
         // 风险状态中文转为数字，网贷除外，保留中文
         convertDigit(typeEnum, row);
+        //当风险状态字段为“已出风险”时，需要验证风险暴露日期是否填写
+       if("1".equals(row.get("riskLevel"))){
+           if(org.apache.commons.lang.StringUtils.isBlank(row.get("exposureDate"))){
+               addError("更改为已出风险等级，风险暴露日期必须填写");
+               log.info("更改为已出风险等级，风险暴露日期必须填写");
+               return false;
+           }
+       }
 
         String companyName = row.get("companyName");
         companyName = CompanyUtils.dealCompanyName(companyName);
@@ -95,6 +102,10 @@ public class BatchModifyHandler extends AbstractImportHandler<CoBatchModifyDTO> 
         modifyData.setOutLevel(bean.getOutLevel());
         modifyData.setInnerLevel(bean.getInnerLevel());
         modifyData.setLiveLevel(bean.getLiveLevel());
+        if(StringUtils.isNotEmpty(row.get("exposureDate"))){
+            Date date = BatchModifyHandler.stringToDate(row.get("exposureDate"));
+            modifyData.setExposureDate(date);
+        }
         modifyDataList.add(modifyData);
     }
 
@@ -332,5 +343,23 @@ public class BatchModifyHandler extends AbstractImportHandler<CoBatchModifyDTO> 
             String riskValue = row.get("riskLevel");
             row.put("riskLevel", converter.convertDigit(riskValue));
         }
+    }
+    /**
+     * 日期时间字符串转Date (by cgj)
+     * @param strDate 格式"yyyy-MM-dd "
+     * @return 中途任何转换失败的情况下均返回null
+     */
+    public static Date stringToDate(String strDate) {
+        if(org.apache.commons.lang.StringUtils.isBlank(strDate)) {
+            return null;
+        }
+        Date tDate =null;
+        try {
+            SimpleDateFormat dateFormat =new SimpleDateFormat("yyyy-MM-dd");
+            tDate =dateFormat.parse(strDate);
+        } catch (Exception e) {
+            tDate =null;
+        }
+        return tDate;
     }
 }
