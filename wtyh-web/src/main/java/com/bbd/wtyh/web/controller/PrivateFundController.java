@@ -182,27 +182,27 @@ public class PrivateFundController {
 	}
 
 	//新增私募企业查询接口
-	@RequestMapping("privateFundQueryList.do")
-	public ResponseBean privateFundQueryList(String companyName,Integer orderByField,String descAsc,@RequestParam(defaultValue = "")Integer recordStatus,@RequestParam(defaultValue = "10") Integer pageSize,
-											 @RequestParam(defaultValue = "1") Integer currentPage){
-		int start = (currentPage-1)*pageSize;
-		PageBean<PrivateFundCompanyDTO> pageInfo = privateFundService.privateFundQueryList(companyName,orderByField,descAsc,recordStatus,start,pageSize);
-
-		if(CollectionUtils.isEmpty(pageInfo.getItems())){
-			return ResponseBean.successResponse(pageInfo);
-		}
-		for (PrivateFundCompanyDTO dto : pageInfo.getItems()) {
-			if (StringUtils.isNotEmpty(dto.getWebsite()) && !dto.getWebsite().startsWith("http")) {
-				dto.setWebsite("http://" + dto.getWebsite());
-			}
-			String  res = hologramQueryDao.getCompanyInfo(dto.getName());
-			if("1".equals(res)){
-				dto.setRecordStatus(1);
-			}
-
-		}
-		return ResponseBean.successResponse(pageInfo);
-	}
+//	@RequestMapping("privateFundQueryList.do")
+//	public ResponseBean privateFundQueryList(String companyName,Integer orderByField,String descAsc,@RequestParam(defaultValue = "")Integer recordStatus,@RequestParam(defaultValue = "10") Integer pageSize,
+//											 @RequestParam(defaultValue = "1") Integer currentPage){
+//		int start = (currentPage-1)*pageSize;
+//		PageBean<PrivateFundCompanyDTO> pageInfo = privateFundService.privateFundQueryList(companyName,orderByField,descAsc,recordStatus,start,pageSize);
+//
+//		if(CollectionUtils.isEmpty(pageInfo.getItems())){
+//			return ResponseBean.successResponse(pageInfo);
+//		}
+//		for (PrivateFundCompanyDTO dto : pageInfo.getItems()) {
+//			if (StringUtils.isNotEmpty(dto.getWebsite()) && !dto.getWebsite().startsWith("http")) {
+//				dto.setWebsite("http://" + dto.getWebsite());
+//			}
+//			String  res = hologramQueryDao.getCompanyInfo(dto.getName());
+//			if("1".equals(res)){
+//				dto.setRecordStatus(1);
+//			}
+//
+//		}
+//		return ResponseBean.successResponse(pageInfo);
+//	}
 
 	@RequestMapping("privateFundList.do")
 	public ResponseBean privateFundList(@RequestParam(defaultValue = "")String companyName,Integer orderByField, String descAsc, Integer recordStatus,@RequestParam(defaultValue = "10") Integer pageSize,
@@ -214,6 +214,9 @@ public class PrivateFundController {
 		//取消备案
 		if(status.equals(recordStatus)){
 			PageBean<PrivateFundCompanyDTO> pageInfo2 = privateFundService.privateFundExtraList(companyName,orderByField, descAsc, recordStatus,-1,pageSize);
+			if(CollectionUtils.isEmpty(pageInfo2.getItems())){
+				return ResponseBean.successResponse(pageInfo2);
+			}
 			for (PrivateFundCompanyDTO dto : pageInfo2.getItems()) {
                 if (StringUtils.isNotEmpty(dto.getWebsite()) && !dto.getWebsite().startsWith("http")) {
                     dto.setWebsite("http://" + dto.getWebsite());
@@ -247,6 +250,9 @@ public class PrivateFundController {
 		int start = (currentPage-1)*pageSize;
 		PageBean<PrivateFundCompanyDTO> pageInfo = privateFundService.privateFundExtraList(companyName,orderByField, descAsc, recordStatus,start,pageSize);
 
+		if(CollectionUtils.isEmpty(pageInfo.getItems())){
+			return ResponseBean.successResponse(pageInfo);
+		}
 		for (PrivateFundCompanyDTO dto : pageInfo.getItems()) {
 			if (StringUtils.isNotEmpty(dto.getWebsite()) && !dto.getWebsite().startsWith("http")) {
 				dto.setWebsite("http://" + dto.getWebsite());
