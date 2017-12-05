@@ -299,7 +299,7 @@ public class StaticRiskUpdateServiceImpl implements StaticRiskUpdateService,Task
 
 	@Override
 	public String getTaskKey() {
-		return "companyBaseInfoJob";
+		return "offlineFinanceStaticRiskIndexCalcJob";
 	}
 
 	@Override
