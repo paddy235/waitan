@@ -6,6 +6,7 @@
 			SELECT `name`
 			FROM company
 			WHERE `name` LIKE concat("%", #{q},"%")
+			AND company_type IN (1, 2, 3, 4, 5, 9, 11, 13, 6, 10, 12)
 			order by  `name`
 			LIMIT 0, 10
 	</select>

@@ -84,6 +84,7 @@
         <include refid="indexDataContent"></include>
         from index_data i, company c
         <include refid="indexDataCondition"></include>
+        and c.risk_level != 1
         order by c.risk_level
         <choose>
         <when test="sortType == '0'.toString()">
