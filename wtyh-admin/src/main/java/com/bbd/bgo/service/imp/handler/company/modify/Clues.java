@@ -37,7 +37,7 @@ public class Clues {
 //        writeExplain.append("4、网络借贷只能选填一般关注、优良、重点关注、问题及停业平台，只填入风险状态一栏；\r\n");
         writeExplain.append("4、融资租赁只能选填正常、潜在，只填入风险状态一栏；\r\n");
 //        writeExplain.append("5、交易场所、线下理财、典当、众筹、私募基金、商业保理只能选填一般关注、已出风险、正常、重点关注，只填入风险状态一栏；\r\n");
-        writeExplain.append("5、网络借贷、交易场所、线下理财、典当、众筹、私募基金、商业保理只能选填一般关注、已出风险、正常、重点关注，只填入风险状态一栏；\r\n");
+        writeExplain.append("5、网络借贷、交易场所、线下理财、典当、众筹、私募基金、商业保理只能选填一般关注、已出风险、正常、重点关注，只填入风险状态一栏，当风险状态为“已出风险”，风险暴露日期必填；\r\n");
         writeExplain.append("6、预付卡只能选填正常、潜在、已发生，只填入风险状态一栏；\r\n");
         writeExplain.append("7、纯数字超过11将自动转换为科学计数法，请注意手动转换为文本；");
         return writeExplain.toString();

@@ -1,8 +1,12 @@
 package com.bbd.wtyh.service.impl;
 
 import com.bbd.wtyh.constants.RiskChgCoSource;
+import com.bbd.wtyh.core.base.BaseService;
+import com.bbd.wtyh.domain.CompanyAnalysisResultDO;
 import com.bbd.wtyh.domain.CompanyInfoModify.CompanyInfo;
 import com.bbd.wtyh.domain.RiskChgCoDo;
+import com.bbd.wtyh.domain.enums.CompanyAnalysisResult;
+import com.bbd.wtyh.mapper.CompanyAnalysisResultMapper;
 import com.bbd.wtyh.mapper.CompanyInfoModifyMapper;
 import com.bbd.wtyh.service.CoRiskChgService;
 import com.bbd.wtyh.service.CompanyInfoModifyService;
@@ -11,8 +15,10 @@ import com.bbd.wtyh.service.impl.companyInfoModify.CompanyInfoQueryUtil;
 import com.bbd.wtyh.web.companyInfoModify.ModifyData;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -39,6 +45,14 @@ public class CompanyInfoModifyServiceImpl implements CompanyInfoModifyService {
         return companyInfoModifyMapper.autoComplete(q);
     }
 
+    @Autowired
+    private CompanyAnalysisResultMapper companyAnalysisResultMapper;
+
+    @Autowired
+    @Qualifier(value = "baseServiceImpl")
+    private BaseService baseService;
+
+    private static final String RISK = String.valueOf(CompanyAnalysisResult.RISK.getType());
     @Override
     public CompanyInfo queryCompany(String name) {
         CompanyInfo companyInfo = companyInfoModifyMapper.queryCompany(name);
@@ -113,7 +127,8 @@ public class CompanyInfoModifyServiceImpl implements CompanyInfoModifyService {
 
         RiskChgCoDo data = coRiskChgService.generateNewRecord(modifyData, modifyBy, RiskChgCoSource.MANUAL_MODIFY);
 
-        Byte industry = companyInfoModifyMapper.queryCompany(modifyData.getName()).getIndustry();
+        CompanyInfo ci = companyInfoModifyMapper.queryCompany(modifyData.getName());
+        Byte industry = ci.getIndustry();
 
         if (industry == null) {
             industry = -1;
@@ -172,6 +187,26 @@ public class CompanyInfoModifyServiceImpl implements CompanyInfoModifyService {
 
         if (data != null) {
             coRiskChgService.insert(data);
+        }
+        if (RISK.equals(modifyData.getLevel())) {
+//            String exposure_date = "2017-12-05";
+            Date sqlDate = new java.sql.Date(new Date().getTime());
+            CompanyAnalysisResultDO cDO = this.companyAnalysisResultMapper.selectByPrimaryKey(ci.getCompanyId());
+            if (cDO == null) {// 表中不存在待新增数据
+                cDO.setCompanyId(ci.getCompanyId());
+                cDO.setAnalysisResult(new Byte("1"));
+                cDO.setExposureDate(modifyData.getExposureDate());
+                cDO.setCreateBy("companyUpdate");
+                cDO.setCreateDate(sqlDate);
+                baseService.insert(cDO);
+            } else {
+                cDO.setCompanyId(ci.getCompanyId());
+                cDO.setAnalysisResult(new Byte("1"));
+                cDO.setExposureDate(modifyData.getExposureDate());
+                cDO.setUpdateBy("companyUpdate");
+                cDO.setUpdateDate(sqlDate);
+                baseService.update(cDO);
+            }
         }
         companyInfoMudifyUtil.clearRedisCache("wtyh:realtimeMonitor:guangPu1");
 

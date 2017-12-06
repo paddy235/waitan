@@ -7,7 +7,7 @@
 
         <property name="writeExplain" value-ref="com.bbd.bgo.service.imp.handler.company.modify.Clues.writeExplain"/>
         <rowHeader>
-            <column mergeFirstRow="1" mergeLastRow="8" mergeFirstCol="1" mergeLastCol="8" align="LEFT"
+            <column mergeFirstRow="1" mergeLastRow="8" mergeFirstCol="1" mergeLastCol="9" align="LEFT"
                     value-ref="writeExplain"/>
         </rowHeader>
 
@@ -32,6 +32,7 @@
             <column name="外部评级" code="outLevel" dataType="string" list-ref="riskRating"/>
             <column name="内部评级" code="innerLevel" dataType="string" list-ref="riskRating"/>
             <column name="现场检查" code="liveLevel" dataType="string" list-ref="riskRating"/>
+            <column name="风险暴露日期" code="exposureDate" dataType="string" length="40"/>
         </columns>
     </sheet>
 </excel>

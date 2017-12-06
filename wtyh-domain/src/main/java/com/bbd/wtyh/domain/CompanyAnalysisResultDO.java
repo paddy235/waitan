@@ -3,6 +3,7 @@ package com.bbd.wtyh.domain;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.Date;
 
 @Table(name = "company_analysis_result")
 public class CompanyAnalysisResultDO extends BaseDO {
@@ -29,7 +30,7 @@ public class CompanyAnalysisResultDO extends BaseDO {
     private int registered_capital_type;
 
     @Column(name = "exposure_date")
-    private String exposureDate;
+    private Date exposureDate;
 
     private String staticRiskIndex;
 
@@ -111,11 +112,11 @@ public class CompanyAnalysisResultDO extends BaseDO {
         this.companyType = companyType;
     }
 
-    public String getExposureDate() {
+    public Date getExposureDate() {
         return exposureDate;
     }
 
-    public void setExposureDate(String exposureDate) {
+    public void setExposureDate(Date exposureDate) {
         this.exposureDate = exposureDate;
     }
 
