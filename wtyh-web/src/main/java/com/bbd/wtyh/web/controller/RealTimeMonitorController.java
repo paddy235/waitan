@@ -9,6 +9,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import com.bbd.higgs.utils.DateUtils;
 import com.bbd.wtyh.domain.vo.StatisticsVO;
 import com.bbd.wtyh.log.user.Operation;
 import com.bbd.wtyh.log.user.annotation.LogRecord;
@@ -130,7 +131,7 @@ public class RealTimeMonitorController {
 					sHsereis.add(eSHsereis);
 
 					if (companyAnalysisResultDO.getAnalysisResult() == CompanyAnalysisResultDO.EXPOSURE) {
-						sHhoverDot.put(companyAnalysisResultDO.getName(), companyAnalysisResultDO.getExposureDate());
+						sHhoverDot.put(companyAnalysisResultDO.getName(), com.bbd.wtyh.util.DateUtils.formatDateYmd(companyAnalysisResultDO.getExposureDate()));
 					} else {
 						sHhoverDot.put(companyAnalysisResultDO.getName(), companyAnalysisResultDO.getStaticRiskIndex());
 					}
