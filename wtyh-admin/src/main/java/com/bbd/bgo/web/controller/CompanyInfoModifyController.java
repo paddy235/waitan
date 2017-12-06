@@ -7,6 +7,7 @@ import com.bbd.wtyh.domain.CompanyInfoModify.CompanyInfo;
 import com.bbd.wtyh.domain.enums.CompanyLevel;
 import com.bbd.wtyh.domain.enums.WangDaiRiskLevel;
 import com.bbd.wtyh.service.CompanyInfoModifyService;
+import com.bbd.wtyh.util.DateUtils;
 import com.bbd.wtyh.web.ResponseBean;
 import com.bbd.wtyh.web.companyInfoModify.ModifyData;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,8 +51,9 @@ public class CompanyInfoModifyController {
     // 2. 修改公司 - 风险等级
     @RequestMapping(value = "/modify")
     @ResponseBody
-    public ResponseBean modify(ModifyData modifyData) {
+    public ResponseBean modify(ModifyData modifyData,String exDate) {
         try {
+            modifyData.setExposureDate(DateUtils.stringToDateYmd(exDate));
             companyInfoModify.modify(modifyData, "企业信息变更");
         } catch (Exception e) {
             e.printStackTrace();

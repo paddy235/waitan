@@ -62,6 +62,20 @@ public class DateUtils {
         return tDate;
     }
 
+    public static Date stringToDateYmd(String strDate) {
+        if(StringUtils.isBlank(strDate)) {
+            return null;
+        }
+        Date tDate =null;
+        try {
+            SimpleDateFormat dateFormat =new SimpleDateFormat("yyyy-MM-dd");
+            tDate =dateFormat.parse(strDate);
+        } catch (Exception e) {
+            tDate =null;
+        }
+        return tDate;
+    }
+
     public static String formatDateYmd(Date date) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         return sdf.format(date);
