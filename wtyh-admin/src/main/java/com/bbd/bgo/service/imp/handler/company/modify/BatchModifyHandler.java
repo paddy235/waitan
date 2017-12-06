@@ -355,7 +355,7 @@ public class BatchModifyHandler extends AbstractImportHandler<CoBatchModifyDTO> 
         }
         Date tDate =null;
         try {
-            SimpleDateFormat dateFormat =new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat dateFormat =new SimpleDateFormat("yyyyMMdd");
             tDate =dateFormat.parse(strDate);
         } catch (Exception e) {
             tDate =null;
