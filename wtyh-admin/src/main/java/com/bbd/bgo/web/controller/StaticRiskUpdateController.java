@@ -26,8 +26,8 @@ public class StaticRiskUpdateController {
     @RequestMapping("/updateStaticRiskScore.do")
     @ResponseBody
     public ResponseBean getCompanyStaticRiskScore(@RequestParam("dataVersion") String dataVersion) throws Exception {
-       staticRiskUpdateService.updateOldStaticRiskAutomaticOperate(dataVersion);
-       //staticRiskUpdateService.updateStaticRiskManualOperate(100,101);
+       //staticRiskUpdateService.updateOldStaticRiskAutomaticOperate(dataVersion);
+       staticRiskUpdateService.updateStaticRiskManualOperate(1290,1291);
         return null;
     }
 

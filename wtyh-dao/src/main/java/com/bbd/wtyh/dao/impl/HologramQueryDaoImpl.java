@@ -824,7 +824,7 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
             try {
                 String response = httpTemplate.get(URL);
                 BBDParentCompanyDO parCom = new Gson().fromJson(response, BBDParentCompanyDO.class);
-                if(null!=parCom&&parCom.getResults().size()>0){
+                if(null!=parCom&&null!=parCom.getResults()&&parCom.getResults().size()>0){
                     BBDParentCompanyDO.Result result=parCom.getResults().get(0);
                     redis = result.getCompany_name();
                     redisDAO.addString(redisKey, redis, Constants.cacheDay);
