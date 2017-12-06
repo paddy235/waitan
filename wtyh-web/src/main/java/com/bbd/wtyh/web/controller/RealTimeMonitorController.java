@@ -61,7 +61,8 @@ public class RealTimeMonitorController {
 
 		final String key = "wtyh:realtimeMonitor:guangPu1" + areaId;
 
-		List<List<SpectrumVO>> list= (List<List<SpectrumVO>>) redisDAO.getObject(key);
+//		List<List<SpectrumVO>> list= (List<List<SpectrumVO>>) redisDAO.getObject(key);
+		List<List<SpectrumVO>> list = null;
 		if ( null == list || list.isEmpty() ) {
 			list = realTimeMonitorService.spectrumAnalysis(areaId);
 		}
@@ -78,7 +79,7 @@ public class RealTimeMonitorController {
 			}
 			// redisDAO.addSet(key, String.valueOf(list),
 			// Constants.REDIS_10);
-			redisDAO.addObject(key, list, Constants.REDIS_10, List.class);
+			//redisDAO.addObject(key, list, Constants.REDIS_10, List.class);
 		}
 
 		return ResponseBean.successResponse(list);
