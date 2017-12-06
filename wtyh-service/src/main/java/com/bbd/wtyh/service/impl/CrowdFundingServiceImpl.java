@@ -299,10 +299,12 @@ public class CrowdFundingServiceImpl implements CrowdFundingService,TaskService 
                     modify(modifyData);//
                 }
                 if(companyDO == null || null==companyDO.getCompanyId()){
-                    CompanyDO tempDo=new CompanyDO();
-                    tempDo.setName(CompanyUtils.dealCompanyName(dto.getCompanyName()));
-                    tempDo.setCompanyType(CompanyInfo.TYPE_ZC_6);
-                    newCompanys.add(tempDo);
+                    if(org.apache.commons.lang.StringUtils.isNotEmpty(dto.getCompanyName())){
+                        CompanyDO tempDo=new CompanyDO();
+                        tempDo.setName(CompanyUtils.dealCompanyName(dto.getCompanyName()));
+                        tempDo.setCompanyType(CompanyInfo.TYPE_ZC_6);
+                        newCompanys.add(tempDo);
+                    }
                 }
 
             } catch (Exception e) {
