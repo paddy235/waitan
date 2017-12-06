@@ -33,9 +33,8 @@ public class CompanyImportAssist {
     private HologramQueryService hologramQueryService = ApplicationContextUtil.getBean(HologramQueryService.class);
     private AreaService areaService = ApplicationContextUtil.getBean(AreaService.class);
     private CompanyStatusChangeService companyStatusChangeService =ApplicationContextUtil.getBean(CompanyStatusChangeService.class);
+    private HologramQueryDao hologramQueryDao =ApplicationContextUtil.getBean(HologramQueryDao.class);
 
-    @Autowired
-    public  HologramQueryDao hologramQueryDao;
     /**
      *
      * @param errList 来自AbstractImportHandler的errorList();
