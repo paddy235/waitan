@@ -141,7 +141,7 @@ public class CompanyStaticRiskScoreServiceImpl implements CompanyStaticRiskScore
 
     @Override
     public SubIndexDO searchSubIndex(String companyName) {
-        String newDataVersion = companyStaticRiskScoreMapper.getNewDataVersion();
+        //String newDataVersion = companyStaticRiskScoreMapper.getNewDataVersion();
         //查询是否有母公司
         String parentCompany = hologramQueryDao.getParentCompany(companyName);
         CompanyDO companyDO = new CompanyDO();
@@ -152,18 +152,18 @@ public class CompanyStaticRiskScoreServiceImpl implements CompanyStaticRiskScore
         }
 
         int companyId=companyDO.getCompanyId();
-        CompanyStaticRiskScoreDO companyStaticRiskScoreDO = CompanyStaticRiskScoreMapper.findCompany(companyId, newDataVersion);
+        //CompanyStaticRiskScoreDO companyStaticRiskScoreDO = CompanyStaticRiskScoreMapper.findCompany(companyId, newDataVersion);
         SubIndexDO subIndexDo = new SubIndexDO();
         //保留两位小数
         DecimalFormat df = new DecimalFormat("#.00");
         //根据id获取上海的四个指标
         //非正常户认定指标
-        int V1 = CompanyStaticRiskScoreMapper.getShanghaitarget(NORMAL_HOUSEHOLD_COGNIZANCE, companyStaticRiskScoreDO.getCompanyId());
+        int V1 = CompanyStaticRiskScoreMapper.getShanghaitarget(NORMAL_HOUSEHOLD_COGNIZANCE, companyId);
         //double V1 = 0;
          subIndexDo.setNormalHousehold(df.format(100/(1+Math.exp(-2*V1+1))));
          subIndexDo.setNormalHouseholdNum(V1);
         //用人单位欠缴社会保险费指标
-        int V2 = CompanyStaticRiskScoreMapper.getShanghaitarget(UNPAID_SOCIAL_SECURITY_FEE, companyStaticRiskScoreDO.getCompanyId());
+        int V2 = CompanyStaticRiskScoreMapper.getShanghaitarget(UNPAID_SOCIAL_SECURITY_FEE, companyId);
         //double V2 = 1;
         if(V2 == 0){
             V2 = 0;
@@ -173,7 +173,7 @@ public class CompanyStaticRiskScoreServiceImpl implements CompanyStaticRiskScore
         subIndexDo.setUnpaidInsurancePremium(df.format(100/(1+Math.exp(-5*V2+1))));
         subIndexDo.setUnpaidInsurancePremiumNum(V2);
         //失信曝光指标
-        int V3 = CompanyStaticRiskScoreMapper.getShanghaitarget(EXPOSURE_STAGE, companyStaticRiskScoreDO.getCompanyId())+CompanyStaticRiskScoreMapper.getShanghaitarget(DISHONESTY_INFO, companyStaticRiskScoreDO.getCompanyId());
+        int V3 = CompanyStaticRiskScoreMapper.getShanghaitarget(EXPOSURE_STAGE, companyId)+CompanyStaticRiskScoreMapper.getShanghaitarget(DISHONESTY_INFO, companyId);
         //double V3 = 1;
         if(V3 == 0){
             V3 = 0;
@@ -183,7 +183,7 @@ public class CompanyStaticRiskScoreServiceImpl implements CompanyStaticRiskScore
         subIndexDo.setDiscreditExposure(df.format(100/(1+Math.exp(-4*V3+1))));
         subIndexDo.setDiscreditExposureNum(V3);
         //市场监管类行政处罚指标
-        int V4 = CompanyStaticRiskScoreMapper.getShanghaitarget(ADMINISTRATIVE_SANCTION, companyStaticRiskScoreDO.getCompanyId());
+        int V4 = CompanyStaticRiskScoreMapper.getShanghaitarget(ADMINISTRATIVE_SANCTION,companyId);
         //double V4 = 1;
         subIndexDo.setAdministrativeSanction(df.format(100/(1+Math.exp(-5*V4+1))));
         subIndexDo.setAdministrativeSanctionNum(V4);
