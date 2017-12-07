@@ -119,11 +119,7 @@ public class CompanyStaticRiskScoreServiceImpl implements CompanyStaticRiskScore
             }
 
         }
-      //5万家白名单企业工信数据有敏感词直接赋值80
-        int count = CompanyStaticRiskScoreMapper.getWhiteCompany(CompanyStaticRiskScoreDO.getCompanyId(), RESTRICTED_EXIT, LIMITING_HIGH_CONSUMPTION, ONLINE_RECOVERY);
-        if(count > 0){
-            CompanyStaticRiskScoreMapper.updateStaticRisk(CompanyStaticRiskScoreDO.getName(), newDataVersion, 80);
-        }
+
         //没有铭感词风险值计算
 
             //获取指标并且计算风险值
@@ -138,8 +134,14 @@ public class CompanyStaticRiskScoreServiceImpl implements CompanyStaticRiskScore
                 j = CompanyStaticRiskScoreMapper.updatestaticrisk(CompanyStaticRiskScoreDO.getName(), (float) P);
            }
 
-           LOGGER.info(newDataVersion+CompanyStaticRiskScoreDO.getName()+"更新静态风险成功条数："+i+"..."+j);
+        LOGGER.info(newDataVersion+CompanyStaticRiskScoreDO.getName()+"更新静态风险成功条数："+i+"..."+j);
 
+        //5万家白名单企业工信数据有敏感词直接赋值80
+        int count = CompanyStaticRiskScoreMapper.getWhiteCompany(CompanyStaticRiskScoreDO.getCompanyId(), RESTRICTED_EXIT, LIMITING_HIGH_CONSUMPTION, ONLINE_RECOVERY);
+        if(count > 0){
+            int d = CompanyStaticRiskScoreMapper.updateStaticRisk(CompanyStaticRiskScoreDO.getName(), newDataVersion, 80);
+            LOGGER.info(newDataVersion+CompanyStaticRiskScoreDO.getName()+"白名单80分成功条数："+d);
+        }
 
     }
 
