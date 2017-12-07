@@ -78,7 +78,15 @@ public class BatchModifyHandler extends AbstractImportHandler<CoBatchModifyDTO> 
                log.info("更改为已出风险等级，风险暴露日期必须填写");
                return false;
            }
+           //新增暴露日期判断
+           if(row.get("exposureDate").length()!=8){
+               addError("请按照格式要求填写风险暴露日期");
+               log.info("请按照格式要求填写风险暴露日期");
+               return false;
+           }
        }
+
+
 
         String companyName = row.get("companyName");
         companyName = CompanyUtils.dealCompanyName(companyName);
