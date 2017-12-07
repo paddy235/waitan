@@ -8,6 +8,7 @@ import com.bbd.wtyh.domain.CompanyInfoModify.RecordInfo;
 import com.bbd.wtyh.domain.EasyExport.OffLineData;
 import com.bbd.wtyh.domain.RiskCompanyInfoDO;
 import com.bbd.wtyh.domain.enums.CompanyAnalysisResult;
+import com.bbd.wtyh.domain.enums.WangDaiRiskLevel;
 import com.bbd.wtyh.mapper.RiskCompanyMapper;
 import com.bbd.wtyh.redis.RedisDAO;
 import com.bbd.wtyh.service.PrepaidCompanyStaticService;
@@ -120,8 +121,13 @@ public class RiskCompanyServiceImpl implements RiskCompanyService {
 
     @Override
     public void modifyOffLineLevel(RecordInfo recordInfo) {
-        riskCompanyMapper.modifyLevel(recordInfo.getName(), recordInfo.getAfterLevel());
-        String level = recordInfo.getAfterLevel();
+        String level = null;
+        try {
+            level = ""+Integer.parseInt((recordInfo.getAfterLevel()));
+        }catch (Exception e) {
+            level = WangDaiRiskLevel.getRiskType(recordInfo.getAfterLevel()).toString();
+        }
+        riskCompanyMapper.modifyLevel(recordInfo.getName(), level);
         if (RISK.equals(level)) {
             CompanyAnalysisResultDO analysisResultDO = new CompanyAnalysisResultDO();
             analysisResultDO.setCompanyId(recordInfo.getCompanyId());

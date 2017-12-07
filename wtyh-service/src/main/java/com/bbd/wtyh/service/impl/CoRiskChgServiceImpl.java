@@ -117,7 +117,13 @@ public class CoRiskChgServiceImpl extends BaseServiceImpl implements CoRiskChgSe
         }
         // 线下理财
         if (CompanyType.TYPE_XXLC_4.type().equals(toCompanyType)) {
-            return setLevelFromCompany(companyDO, riskChgCoDo, stringToInt(level));
+            Integer levelInt = null;
+            try {
+                levelInt = stringToInt(level);
+            }catch (Exception e) {
+                levelInt = WangDaiRiskLevel.getRiskType(level);
+            }
+            return setLevelFromCompany(companyDO, riskChgCoDo, levelInt);
         }
         // 私募基金
         if (CompanyType.TYPE_SMJJ_5.type().equals(toCompanyType)) {
