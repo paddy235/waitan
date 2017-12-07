@@ -92,11 +92,11 @@ public class UpdateWhiteCompanyRiskGradeServiceImpl implements UpdateWhiteCompan
 
         CompanyDO cd = new CompanyDO();
         //获取更新之前的线下理财白名单实体
-//        for (String name :companyNames){
-//            //cd = updateWhiteGradeMapper.findCompany(name);
-//            cd = companyService.getCompanyByName(name);
-//            oldCompanys.add(cd);
-//        }
+        for (String name :companyNames){
+            //cd = updateWhiteGradeMapper.findCompany(name);
+            cd = companyService.getCompanyByName(name);
+            oldCompanys.add(cd);
+        }
 
         //5万家企业进行等级划分。前1~200家为重点关注企业，201~1000家为一般关注企业，其他为正常企业
         for(String name :companyNames) {
