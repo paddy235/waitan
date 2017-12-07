@@ -247,8 +247,12 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService,Task
                     insertFailInfo(null,companyName,"区代匹配错误");
                     continue;
                 }
-                areaId=areaDO.getAreaId();
-
+                CompanyDO company = companyMapper.selectByName(companyName);
+                if(null!=company && null!=company.getAreaId()){
+                    areaId=company.getAreaId();
+                }else{
+                    areaId=areaDO.getAreaId();
+                }
                 Object addressObj=itr.get("address");
                 if(null!=addressObj){
                     address = (String)addressObj;
