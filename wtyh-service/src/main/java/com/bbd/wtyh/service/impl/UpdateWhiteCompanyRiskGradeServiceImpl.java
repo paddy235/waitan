@@ -92,11 +92,11 @@ public class UpdateWhiteCompanyRiskGradeServiceImpl implements UpdateWhiteCompan
 
         CompanyDO cd = new CompanyDO();
         //获取更新之前的线下理财白名单实体
-        for (String name :companyNames){
-            //cd = updateWhiteGradeMapper.findCompany(name);
-            cd = companyService.getCompanyByName(name);
-            oldCompanys.add(cd);
-        }
+//        for (String name :companyNames){
+//            //cd = updateWhiteGradeMapper.findCompany(name);
+//            cd = companyService.getCompanyByName(name);
+//            oldCompanys.add(cd);
+//        }
 
         //5万家企业进行等级划分。前1~200家为重点关注企业，201~1000家为一般关注企业，其他为正常企业
         for(String name :companyNames) {
@@ -175,6 +175,8 @@ public class UpdateWhiteCompanyRiskGradeServiceImpl implements UpdateWhiteCompan
         //获取白名单企业名单
         try {
             companyNames = updateWhiteGradeMapper.WhiteCompanyList();
+            logger.info("-白名单企业--"+companyNames.size());
+            dataTotal = companyNames.size();
         }catch (Exception e) {
             logger.error(e.getMessage(), e);
 
@@ -193,6 +195,7 @@ public class UpdateWhiteCompanyRiskGradeServiceImpl implements UpdateWhiteCompan
         //获取白名单企业公信中心数据名单
         try {
             creditNames = updateWhiteGradeMapper.query_raw_info();
+            logger.info("-企业公信中心数据名单--"+creditNames.size());
         }catch (Exception e) {
             logger.error(e.getMessage(), e);
 
@@ -211,6 +214,7 @@ public class UpdateWhiteCompanyRiskGradeServiceImpl implements UpdateWhiteCompan
         //获取前200白名单
         try {
             names1 = updateWhiteGradeMapper.find(0,200);
+            logger.info("-前200白名单--"+names1.size());
         }catch (Exception e) {
             logger.error(e.getMessage(), e);
 
@@ -229,6 +233,7 @@ public class UpdateWhiteCompanyRiskGradeServiceImpl implements UpdateWhiteCompan
         //获取前200-1000白名单
         try {
             names2 = updateWhiteGradeMapper.find(200,800);
+            logger.info("-前200-1000白名单--"+names2.size());
         }catch (Exception e) {
             logger.error(e.getMessage(), e);
 
@@ -267,6 +272,9 @@ public class UpdateWhiteCompanyRiskGradeServiceImpl implements UpdateWhiteCompan
             }
         }
 
+        int count1 = 0;
+        int count2 = 0;
+        int count3 = 0;
         //5万家企业进行等级划分。前1~200家为重点关注企业，201~1000家为一般关注企业，其他为正常企业
         for(String name :companyNames) {
             //前1~200家为重点关注企业
@@ -274,6 +282,8 @@ public class UpdateWhiteCompanyRiskGradeServiceImpl implements UpdateWhiteCompan
                 //更新company重点关注企业
                 try{
                     this.updateWhiteGradeMapper.updateCompanyRisk_level(name,2);
+                    count1++;
+                    logger.info(count1+"-更新白名单企业--"+name+"风险等级为"+2);
                     continue;
                 }catch (Exception e) {
                     logger.info("update error");
@@ -284,6 +294,8 @@ public class UpdateWhiteCompanyRiskGradeServiceImpl implements UpdateWhiteCompan
                 //更新company一般关注企业
                 try{
                     this.updateWhiteGradeMapper.updateCompanyRisk_level(name,3);
+                    count2++;
+                    logger.info(count2+"-更新白名单企业--"+name+"风险等级为"+3);
                     continue;
                 }catch (Exception e) {
                     logger.info("update error");
@@ -293,6 +305,8 @@ public class UpdateWhiteCompanyRiskGradeServiceImpl implements UpdateWhiteCompan
             //其他为正常企业
             try{
                 this.updateWhiteGradeMapper.updateCompanyRisk_level(name,4);
+                count3++;
+                logger.info(count3+"-更新白名单企业--"+name+"风险等级为"+4);
                 continue;
             }catch (Exception e) {
                 logger.info("update error");
@@ -304,6 +318,7 @@ public class UpdateWhiteCompanyRiskGradeServiceImpl implements UpdateWhiteCompan
             for(String c_name:creditNames){
                 try{
                     this.updateWhiteGradeMapper.updateCompanyRisk_level(c_name,2);
+                    logger.info("-更新公信中心数据中白名单企业--"+c_name+"风险等级为"+2);
                 }catch (Exception e) {
                     logger.info("update error");
                 }
@@ -336,7 +351,8 @@ public class UpdateWhiteCompanyRiskGradeServiceImpl implements UpdateWhiteCompan
         //把company表中线下企业不是白名单的企业风险等级设置成null
         try{
             this.updateWhiteGradeMapper.updateCompanyIsNotWhite();
-            isShutdown = true;
+            logger.info("-company表中线下企业不是白名单的企业风险等级--"+"风险等级为null");
+//            isShutdown = true;
         }catch (Exception e) {
             logger.info("update error");
         }
@@ -349,6 +365,9 @@ public class UpdateWhiteCompanyRiskGradeServiceImpl implements UpdateWhiteCompan
             taskResultDO.setFailCount(dataError);
             taskResultDO.setSuccessCount(dataTotal-dataError);
         }
+        logger.info("count1="+count1);
+        logger.info("count2="+count2);
+        logger.info("count3="+count3);
         logger.info("--- offlineFinacial white job end ---");
 
         return taskResultDO;
