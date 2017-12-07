@@ -457,6 +457,40 @@
         <if test="risk_level == 4">  LIMIT 1000 </if>
     </select>
 
+    <select id="getSpectrumAnalysisByRiskLevelOne"  resultType="com.bbd.wtyh.domain.vo.SpectrumVO">
+        SELECT
+        NAME,
+        longitude,
+        latitude,
+        newCompany,
+        previousRiskLevel,
+        registeredCapital,
+        ifnull(staticRiskIndex,"") as staticRiskIndex,
+        ifnull(exposureDate,"") as exposureDate,
+        1 AS companyNumber
+        FROM
+        (
+        SELECT
+        company.`name`,
+        company.longitude,
+        company.latitude,
+        if(company.risk_level=company.previous_risk_level,0,1) as newCompany,
+        company.previous_risk_level AS previousRiskLevel,
+        index_data.static_risk_index AS staticRiskIndex,
+        company.registered_capital AS registeredCapital,
+        DATE_FORMAT(
+        company_analysis_result.exposure_date,
+        '%Y-%m'
+        ) AS exposureDate
+        FROM
+        company
+        LEFT JOIN company_analysis_result ON company.company_id = company_analysis_result.company_id
+        LEFT JOIN index_data ON company. NAME = index_data.company_name
+        WHERE
+        risk_level = 1
+        ) rs ORDER BY rs.staticRiskIndex desc,rs.`name`
+    </select>
+
     <select id="queryCompanyByName"  resultType="com.bbd.wtyh.domain.CompanyDO">
         SELECT
             company.`name`,

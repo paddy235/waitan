@@ -64,6 +64,8 @@ public interface CompanyMapper {
 	List<SpectrumVO> getSpectrumAnalysisByRiskLevel(@Param("risk_level") Integer risk_level, @Param("dateVersion") String dateVersion,
 										 @Param("companyNumber") Integer companyNumber, @Param("areaId") Integer areaId);
 
+	List<SpectrumVO> getSpectrumAnalysisByRiskLevelOne();
+
 	/**
 	 * 获取总条数
 	 * 
