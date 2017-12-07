@@ -17,9 +17,11 @@ public interface UpdateWhiteCompanyRiskGradeMapper {
             "AND NOT EXISTS (SELECT 1 FROM company cm WHERE o.companyId = cm.company_id AND cm.company_type = 4 AND cm.risk_level = 1)")
     List<String> WhiteCompanyList();
 
+    @Select("select risk_level from company where name = '${companyName}'")
+    Integer selectOldRiskLevel (@Param("companyName") String companyName);
     //更新company表中的公司风险等级
-    @Update("update company set risk_level = ${risk_level} where name = '${companyName}'")
-    void updateCompanyRisk_level(@Param("companyName") String companyName,@Param("risk_level") int risk_level);
+    @Update("update company set previous_risk_level = ${old_risk_level},risk_level = ${risk_level} where name = '${companyName}'")
+    void updateCompanyRisk_level(@Param("companyName") String companyName,@Param("risk_level") int risk_level,@Param("old_risk_level") Integer old_risk_level);
 
     //前1~200家企业名单 LIMIT 0,200
     //201~1000家企业名单 LIMIT 200,800
