@@ -7,6 +7,7 @@ import com.bbd.bgo.service.imp.handler.company.modify.validator.RiskValidatorFac
 import com.bbd.bgo.service.imp.handler.company.modify.validator.RiskValueConverter;
 import com.bbd.bgo.service.imp.handler.company.modify.validator.RiskValueValidator;
 import com.bbd.wtyh.constants.CompanyType;
+import com.bbd.wtyh.dao.HologramQueryDao;
 import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.dto.CoBatchModifyDTO;
 import com.bbd.wtyh.excel.imp.handler.AbstractImportHandler;
@@ -42,6 +43,9 @@ public class BatchModifyHandler extends AbstractImportHandler<CoBatchModifyDTO> 
     private CompanyService companyService;
     @Autowired
     private CompanyInfoModifyService companyInfoModify;
+
+    @Autowired
+    private HologramQueryDao hologramQueryDao;
 
     private List<ModifyData> modifyDataList = new ArrayList<>();
     private List<CompanyDO> updateList = new ArrayList<>();
@@ -106,6 +110,11 @@ public class BatchModifyHandler extends AbstractImportHandler<CoBatchModifyDTO> 
         ModifyData modifyData = new ModifyData();
         modifyData.setName(CompanyUtils.dealCompanyName(bean.getCompanyName()));
         modifyData.setIndustry(bean.getCompanyType());
+        String parentCompanyName = hologramQueryDao.getParentCompany(bean.getCompanyName());
+        if(org.apache.commons.lang.StringUtils.isNotBlank(parentCompanyName)){
+            CompanyDO cd = companyService.getCompanyByName(parentCompanyName);
+            modifyData.setIndustry(CompanyDO.companyTypeCN(cd.getCompanyType()));
+        }
         modifyData.setLevel(bean.getRiskLevel());
         modifyData.setOutLevel(bean.getOutLevel());
         modifyData.setInnerLevel(bean.getInnerLevel());
