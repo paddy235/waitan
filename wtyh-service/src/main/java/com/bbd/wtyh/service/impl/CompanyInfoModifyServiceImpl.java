@@ -188,7 +188,7 @@ public class CompanyInfoModifyServiceImpl implements CompanyInfoModifyService {
         if (data != null) {
             coRiskChgService.insert(data);
         }
-        if (RISK.equals(modifyData.getLevel())) {
+        if (RISK.equals(modifyData.getLevel())||"已出风险".equals(modifyData.getLevel())) {
 //            String exposure_date = "2017-12-05";
             Date sqlDate = new java.sql.Date(new Date().getTime());
             CompanyAnalysisResultDO cDO = this.companyAnalysisResultMapper.selectByPrimaryKey(ci.getCompanyId());
