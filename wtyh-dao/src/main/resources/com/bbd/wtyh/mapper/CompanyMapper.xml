@@ -488,7 +488,7 @@
         LEFT JOIN index_data ON company. NAME = index_data.company_name
         WHERE
         risk_level = 1
-        ) rs ORDER BY rs.staticRiskIndex desc,rs.`name`
+        ) rs ORDER BY rs.exposureDate desc,rs.staticRiskIndex desc,rs.`name`
     </select>
 
     <select id="queryCompanyByName"  resultType="com.bbd.wtyh.domain.CompanyDO">
