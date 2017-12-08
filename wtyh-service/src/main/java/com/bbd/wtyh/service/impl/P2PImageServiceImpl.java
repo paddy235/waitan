@@ -418,6 +418,8 @@ public class P2PImageServiceImpl extends BaseServiceImpl implements P2PImageServ
             JSONObject json = jsonArray.getJSONObject(i);
             BigDecimal dayAmount = json.getBigDecimal(jsonKey);
             if("0.0".equals(dayAmount.toPlainString())||"0".equals(dayAmount.toPlainString())){
+                //do nothing
+            }else{
                 days.add(json.getString("date"));
                 amounts.add(dayAmount.toPlainString());
             }
