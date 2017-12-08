@@ -193,12 +193,13 @@ public class CompanyInfoModifyServiceImpl implements CompanyInfoModifyService {
             Date sqlDate = new java.sql.Date(new Date().getTime());
             CompanyAnalysisResultDO cDO = this.companyAnalysisResultMapper.selectByPrimaryKey(ci.getCompanyId());
             if (cDO == null) {// 表中不存在待新增数据
-                cDO.setCompanyId(ci.getCompanyId());
-                cDO.setAnalysisResult(new Byte("1"));
-                cDO.setExposureDate(modifyData.getExposureDate());
-                cDO.setCreateBy("companyUpdate");
-                cDO.setCreateDate(sqlDate);
-                baseService.insert(cDO);
+                CompanyAnalysisResultDO cDO2 = new CompanyAnalysisResultDO();
+                cDO2.setCompanyId(ci.getCompanyId());
+                cDO2.setAnalysisResult(new Byte("1"));
+                cDO2.setExposureDate(modifyData.getExposureDate());
+                cDO2.setCreateBy("companyUpdate");
+                cDO2.setCreateDate(sqlDate);
+                baseService.insert(cDO2);
             } else {
                 cDO.setCompanyId(ci.getCompanyId());
                 cDO.setAnalysisResult(new Byte("1"));
@@ -206,7 +207,7 @@ public class CompanyInfoModifyServiceImpl implements CompanyInfoModifyService {
                 cDO.setUpdateBy("companyUpdate");
                 cDO.setUpdateDate(sqlDate);
                 baseService.update(cDO);
-            }
+                }
         }
         companyInfoMudifyUtil.clearRedisCache("wtyh:realtimeMonitor:guangPu1");
 
