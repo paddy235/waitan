@@ -44,7 +44,7 @@
             t1.longitude,
             t1.latitude,
             company.risk_level AS analysisResult,
-            DATE_FORMAT(t1.exposure_date, '%Y-%m') AS exposureDate,
+            t1.exposure_date AS exposureDate,
             static_risk_data.static_risk_index AS staticRiskIndex
         FROM
             (
