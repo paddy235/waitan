@@ -416,12 +416,12 @@ public class P2PImageServiceImpl extends BaseServiceImpl implements P2PImageServ
         // 倒序取，省得后面排序
         for (int i = startNum; i >= 0; i--) {
             JSONObject json = jsonArray.getJSONObject(i);
-            days.add(json.getString("date"));
-
             BigDecimal dayAmount = json.getBigDecimal(jsonKey);
-            amounts.add(dayAmount.toPlainString());
+            if("0.0".equals(dayAmount.toPlainString())||"0".equals(dayAmount.toPlainString())){
+                days.add(json.getString("date"));
+                amounts.add(dayAmount.toPlainString());
+            }
         }
-
         List<List<String>> result = new ArrayList<>();
         result.add(days);
         result.add(amounts);
