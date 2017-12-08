@@ -143,8 +143,12 @@ public class UpdateWhiteCompanyRiskGradeServiceImpl implements UpdateWhiteCompan
         //公信中心数据中包含：限制出境、限制高消费和网上追讨三类数据任何一类，则企业风险等级直接赋值为“重点关注”
         if(creditNames!=null && !creditNames.isEmpty()){
             for(String name:creditNames){
-                Integer old = this.updateWhiteGradeMapper.selectOldRiskLevel(name);
-                this.updateWhiteGradeMapper.updateCompanyRisk_level(name,2,old);
+                if(!names1.contains(name)){
+                    Integer old = this.updateWhiteGradeMapper.selectOldRiskLevel(name);
+                    this.updateWhiteGradeMapper.updateCompanyRisk_level(name,2,old);
+                }else{
+                    logger.info("在前200家企业为重点关注中已经更新过了");
+                }
             }
         }
 
