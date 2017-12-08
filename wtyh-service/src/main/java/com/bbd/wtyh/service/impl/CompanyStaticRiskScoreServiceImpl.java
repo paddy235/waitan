@@ -98,27 +98,31 @@ public class CompanyStaticRiskScoreServiceImpl implements CompanyStaticRiskScore
     public void updateOffLineCompany(String newDataVersion,CompanyStaticRiskScoreDO CompanyStaticRiskScoreDO) {
         //查询最新的版本
         String dataVersion = CompanyStaticRiskScoreMapper.getNewDataVersion();
-        //查询企业是否有母公司
-        String parentCompanyName = hologramQueryDao.getParentCompany(CompanyStaticRiskScoreDO.getName());
-        if(null != parentCompanyName){
-            //子公司有母公司
-            //母公司名称
-            String company_name = parentCompanyName;
-            CompanyDO companyDO = companyMapper.selectByName(company_name);
-            if(companyDO!=null){
-                int companyId=companyDO.getCompanyId();
-                //查询母公司的指标
-                CompanyStaticRiskScoreDO company = CompanyStaticRiskScoreMapper.findCompany(companyId, newDataVersion);
-                CompanyStaticRiskScoreDO.setCompanyId(companyId);
-                CompanyStaticRiskScoreDO.setReal_control_risk_v2(company.getReal_control_risk_v2());
-                CompanyStaticRiskScoreDO.setIllegal_financing_risk_v2(company.getIllegal_financing_risk_v2());
-                CompanyStaticRiskScoreDO.setIllegal_money_financing_risk_v2(company.getIllegal_money_financing_risk_v2());
-                CompanyStaticRiskScoreDO.setPerson_structure_risk_v2(company.getPerson_structure_risk_v2());
-                CompanyStaticRiskScoreDO.setRelation_in_risk_v2(company.getRelation_in_risk_v2());
-                CompanyStaticRiskScoreDO.setShort_risk_v2(company.getShort_risk_v2());
-            }
+        //判断公司名称以分公司或店结尾查询
+        if(CompanyStaticRiskScoreDO.getName().endsWith("分公司") || CompanyStaticRiskScoreDO.getName().endsWith("店")){
+            //查询企业是否有母公司
+            String parentCompanyName = hologramQueryDao.getParentCompany(CompanyStaticRiskScoreDO.getName());
+            if(null != parentCompanyName){
+                //子公司有母公司
+                //母公司名称
+                String company_name = parentCompanyName;
+                CompanyDO companyDO = companyMapper.selectByName(company_name);
+                if(companyDO!=null){
+                    int companyId=companyDO.getCompanyId();
+                    //查询母公司的指标
+                    CompanyStaticRiskScoreDO company = CompanyStaticRiskScoreMapper.findCompany(companyId, newDataVersion);
+                    CompanyStaticRiskScoreDO.setCompanyId(companyId);
+                    CompanyStaticRiskScoreDO.setReal_control_risk_v2(company.getReal_control_risk_v2());
+                    CompanyStaticRiskScoreDO.setIllegal_financing_risk_v2(company.getIllegal_financing_risk_v2());
+                    CompanyStaticRiskScoreDO.setIllegal_money_financing_risk_v2(company.getIllegal_money_financing_risk_v2());
+                    CompanyStaticRiskScoreDO.setPerson_structure_risk_v2(company.getPerson_structure_risk_v2());
+                    CompanyStaticRiskScoreDO.setRelation_in_risk_v2(company.getRelation_in_risk_v2());
+                    CompanyStaticRiskScoreDO.setShort_risk_v2(company.getShort_risk_v2());
+                }
 
+            }
         }
+
 
         //没有铭感词风险值计算
 
