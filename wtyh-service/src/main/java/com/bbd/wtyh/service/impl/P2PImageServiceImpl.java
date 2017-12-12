@@ -410,16 +410,30 @@ public class P2PImageServiceImpl extends BaseServiceImpl implements P2PImageServ
         List<String> days = new ArrayList<>();
         List<String> amounts = new ArrayList<>();
 
-        if (jsonArray.size() < startNum) {
-            startNum = jsonArray.size();
-        }
+//        if (jsonArray.size() < startNum) {
+//        }
+        startNum = jsonArray.size();
         // 倒序取，省得后面排序
         for (int i = startNum; i >= 0; i--) {
             JSONObject json = jsonArray.getJSONObject(i);
             BigDecimal dayAmount = json.getBigDecimal(jsonKey);
-            if("0.0".equals(dayAmount.toPlainString())||"0".equals(dayAmount.toPlainString())){
+            if(dayAmount.compareTo(new BigDecimal("0"))==0){
                 //do nothing
             }else{
+                days.add(json.getString("date"));
+                amounts.add(dayAmount.toPlainString());
+            }
+            if(amounts.size()>29){
+                break;
+            }
+        }
+        if(amounts.size()==0&&days.size()==0){
+            if (jsonArray.size() < startNum) {
+                startNum = jsonArray.size();
+            }
+            for (int i = startNum; i >= 0; i--) {
+                JSONObject json = jsonArray.getJSONObject(i);
+                BigDecimal dayAmount = json.getBigDecimal(jsonKey);
                 days.add(json.getString("date"));
                 amounts.add(dayAmount.toPlainString());
             }
