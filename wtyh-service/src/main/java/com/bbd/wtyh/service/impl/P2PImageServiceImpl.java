@@ -412,20 +412,23 @@ public class P2PImageServiceImpl extends BaseServiceImpl implements P2PImageServ
 
 //        if (jsonArray.size() < startNum) {
 //        }
-        startNum = jsonArray.size();
-        // 倒序取，省得后面排序
-        for (int i = startNum; i >= 0; i--) {
+//        startNum = jsonArray.size();
+        for (int i = 0; i <jsonArray.size(); i++) {
             JSONObject json = jsonArray.getJSONObject(i);
             BigDecimal dayAmount = json.getBigDecimal(jsonKey);
-            if(dayAmount.compareTo(new BigDecimal("0"))==0){
-                //do nothing
-            }else{
-                days.add(json.getString("date"));
-                amounts.add(dayAmount.toPlainString());
+            if(dayAmount.compareTo(new BigDecimal("0"))<=0){
+                continue;
             }
-            if(amounts.size()>29){
+            days.add(json.getString("date"));
+            amounts.add(dayAmount.toPlainString());
+            if(amounts.size()>=29){
                 break;
             }
+        }
+        //倒序取，省得后面排序
+        if(amounts.size()>0&&days.size()>0){
+            Collections.reverse(days);
+            Collections.reverse(amounts);
         }
         if(amounts.size()==0&&days.size()==0){
             if (jsonArray.size() < startNum) {
