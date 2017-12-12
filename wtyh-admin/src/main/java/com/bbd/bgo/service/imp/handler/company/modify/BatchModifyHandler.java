@@ -10,6 +10,7 @@ import com.bbd.wtyh.constants.CompanyType;
 import com.bbd.wtyh.dao.HologramQueryDao;
 import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.dto.CoBatchModifyDTO;
+import com.bbd.wtyh.domain.enums.CompanyAnalysisResult;
 import com.bbd.wtyh.excel.imp.handler.AbstractImportHandler;
 import com.bbd.wtyh.service.CompanyInfoModifyService;
 import com.bbd.wtyh.service.CompanyService;
@@ -69,12 +70,26 @@ public class BatchModifyHandler extends AbstractImportHandler<CoBatchModifyDTO> 
             return false;
         }
         row.put("companyType", typeEnum.type().toString());
-
-        if (!validateRisk(typeEnum, row)) {
-            return false;
+        if(typeEnum.type()==7||typeEnum.type()==8
+                ||typeEnum.type()==30||typeEnum.type()==31
+                ||typeEnum.type()==32||typeEnum.type()==33
+                ||typeEnum.type()==34||typeEnum.type()==34){
+            String riskValue = row.get("riskLevel");
+            if(org.apache.commons.lang.StringUtils.isNotEmpty(riskValue)){
+                int type = CompanyAnalysisResult.getType(riskValue);
+                if(0==type){
+                    addError("风险状态有误");
+                    return false;
+                }
+                row.put("riskLevel",""+type);
+            }
+        }else {
+            if (!validateRisk(typeEnum, row)) {
+                return false;
+            }
+            // 风险状态中文转为数字，网贷除外，保留中文
+            convertDigit(typeEnum, row);
         }
-        // 风险状态中文转为数字，网贷除外，保留中文
-        convertDigit(typeEnum, row);
         //当风险状态字段为“已出风险”时，需要验证风险暴露日期是否填写
        if("1".equals(row.get("riskLevel"))){
            if(org.apache.commons.lang.StringUtils.isBlank(row.get("exposureDate"))){
@@ -89,8 +104,6 @@ public class BatchModifyHandler extends AbstractImportHandler<CoBatchModifyDTO> 
                return false;
            }
        }
-
-
 
         String companyName = row.get("companyName");
         companyName = CompanyUtils.dealCompanyName(companyName);
@@ -295,7 +308,11 @@ public class BatchModifyHandler extends AbstractImportHandler<CoBatchModifyDTO> 
     }
 
     private boolean validateType(CompanyType typeEnum) {
-        if (typeEnum == null || typeEnum.equals(CompanyType.TYPE_JR_7) || typeEnum.equals(CompanyType.TYPE_QT_8)) {
+//        if (typeEnum == null || typeEnum.equals(CompanyType.TYPE_JR_7) || typeEnum.equals(CompanyType.TYPE_QT_8)) {
+//            addError("行业类别错误!");
+//            return false;
+//        }
+        if (typeEnum == null) {
             addError("行业类别错误!");
             return false;
         }

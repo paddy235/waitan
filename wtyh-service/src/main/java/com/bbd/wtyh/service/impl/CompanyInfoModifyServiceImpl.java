@@ -98,6 +98,30 @@ public class CompanyInfoModifyServiceImpl implements CompanyInfoModifyService {
 
         case CompanyInfo.TYPE_SYBL_10:// 商业保理
             return companyInfoQueryUtil.getBusinessInsurance(name);
+
+        case CompanyInfo.TYPE_JR_7:// 金融
+            return companyInfoQueryUtil.getOthers(name,CompanyInfo.TYPE_JR_7);
+
+        case CompanyInfo.TYPE_QT_8:// 其他
+            return companyInfoQueryUtil.getOthers(name,CompanyInfo.TYPE_QT_8);
+
+        case CompanyInfo.TYPE_WT_30:// 外滩网络借贷
+            return companyInfoQueryUtil.getOthers(name,CompanyInfo.TYPE_WT_30);
+
+        case CompanyInfo.TYPE_WT_31:// 外滩众筹
+            return companyInfoQueryUtil.getOthers(name,CompanyInfo.TYPE_WT_31);
+
+        case CompanyInfo.TYPE_WT_32:// 外滩网银
+            return companyInfoQueryUtil.getOthers(name,CompanyInfo.TYPE_WT_32);
+
+        case CompanyInfo.TYPE_WT_33:// 外滩支付
+            return companyInfoQueryUtil.getOthers(name,CompanyInfo.TYPE_WT_33);
+
+        case CompanyInfo.TYPE_WT_34:// 外滩预付卡
+            return companyInfoQueryUtil.getOthers(name,CompanyInfo.TYPE_WT_34);
+
+        case CompanyInfo.TYPE_WT_35:// 外滩融资租赁
+            return companyInfoQueryUtil.getOthers(name,CompanyInfo.TYPE_WT_35);
         default:
             return null;
         }
@@ -183,7 +207,31 @@ public class CompanyInfoModifyServiceImpl implements CompanyInfoModifyService {
         case CompanyInfo.TYPE_SYBL_10:// 商业保理
             companyInfoMudifyUtil.modifyBizInsurance2Ohter(modifyData);
             break;
-        }
+        case CompanyInfo.TYPE_JR_7:// 金融
+            companyInfoMudifyUtil.newType2Ohter(modifyData);
+            break;
+        case CompanyInfo.TYPE_QT_8:// 其他
+            companyInfoMudifyUtil.newType2Ohter(modifyData);
+            break;
+        case CompanyInfo.TYPE_WT_30:// 外滩网络借贷
+            companyInfoMudifyUtil.newType2Ohter(modifyData);
+            break;
+        case CompanyInfo.TYPE_WT_31:// 外滩众筹
+            companyInfoMudifyUtil.newType2Ohter(modifyData);
+            break;
+        case CompanyInfo.TYPE_WT_32:// 外滩网银
+            companyInfoMudifyUtil.newType2Ohter(modifyData);
+            break;
+        case CompanyInfo.TYPE_WT_33:// 外滩支付
+            companyInfoMudifyUtil.newType2Ohter(modifyData);
+            break;
+        case CompanyInfo.TYPE_WT_34:// 外滩预付卡
+            companyInfoMudifyUtil.newType2Ohter(modifyData);
+            break;
+        case CompanyInfo.TYPE_WT_35:// 外滩融资租赁
+            companyInfoMudifyUtil.newType2Ohter(modifyData);
+            break;
+    }
 
         if (data != null) {
             coRiskChgService.insert(data);
@@ -223,6 +271,11 @@ public class CompanyInfoModifyServiceImpl implements CompanyInfoModifyService {
     public Boolean isModifyByAfterRisk(String name) {
         List<String> names = companyInfoModifyMapper.queryModifyCompanyByAfterRisk(name);
         return !names.isEmpty();
+    }
+
+    @Override
+    public CompanyAnalysisResultDO queryCompanyAnalysisResultDO(Integer companyId) {
+        return companyAnalysisResultMapper.selectByPrimaryKey(companyId);
     }
 
 }

@@ -21,7 +21,14 @@ public enum CompanyType {
     TYPE_SYBL_10(10, "商业保理"),
     TYPE_YFK_11(11, "预付卡"),
     TYPE_DD_12(12, "典当"),
-    TYPE_RZZL_13(13, "融资租赁");
+    TYPE_RZZL_13(13, "融资租赁"),
+    TYPE_WT_30(30, "外滩网络借贷"),
+    TYPE_WT_31(31, "外滩众筹"),
+    TYPE_WT_32(32, "外滩网银"),
+    TYPE_WT_33(33, "外滩支付"),
+    TYPE_WT_34(34, "外滩预付卡"),
+    TYPE_WT_35(35, "外滩融资租赁");
+
 
     private int type;
     private String desc;

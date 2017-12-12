@@ -214,4 +214,16 @@ public class CompanyInfoQueryUtil {
         companyInfo.setIndustry(CompanyInfo.TYPE_SYBL_10);
         return companyInfo;
     }
+
+    /**
+     * 7.8.30-35
+     *
+     * @param name
+     * @return
+     */
+    public CompanyInfo getOthers(String name,byte industry) {
+        CompanyInfo companyInfo = riskCompanyService.getOffLineFinanceByCompanyName(name);
+        companyInfo.setIndustry(industry);
+        return companyInfo;
+    }
 }
