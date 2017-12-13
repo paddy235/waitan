@@ -110,10 +110,11 @@ public class SyncFileServiceImpl extends BaseServiceImpl implements SyncFileServ
 			if (CollectionUtils.isEmpty(taskFailList)) {
 				return taskResult;
 			}
-			TaskFailInfoDO taskFail = taskFailList.get(0);
-			dataVersion = taskFail.getDataVersion();
-			String[] fileNames = pullFile(dataVersion ,newTaskId);
-			for(String fileName : fileNames) {
+			//TaskFailInfoDO taskFail = taskFailList.get(0);
+			//dataVersion = taskFail.getDataVersion();
+			//String[] fileNames = pullFile(dataVersion ,newTaskId);
+			for(TaskFailInfoDO taskFail : taskFailList) {
+				String fileName = taskFail.getFailName();
 				file = new File(PULL_FILE_SAVE_PATH + fileName);
 				logger.info("--------- parse "+fileName+" data file start -----");
 				taskResult = this.syncDataService.receiveFileData(file);
