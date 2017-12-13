@@ -220,7 +220,7 @@ public class UserBehaviorLogController {
 		Date end = DateUtils.stringToDate(endTime);
 
 		String time = null;
-		if(null==beginTime){
+		if(StringUtils.isBlank(beginTime)){
 			time = "";
 		}else{
 			time = "("+DateUtils.formatDateYmd2(begin)+"-"+DateUtils.formatDateYmd2(end)+")";
