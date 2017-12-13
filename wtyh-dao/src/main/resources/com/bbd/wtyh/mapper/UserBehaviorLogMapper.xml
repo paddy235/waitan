@@ -69,4 +69,106 @@
         </if>
     </select>
 
+    <select id="selectlistUserOperaLog" parameterType="java.util.HashMap" resultType="java.util.Map">
+        SELECT area.`name`,T.operation_type,T.countType from (select area_code,group_concat(operation_type) operation_type,group_concat(countType) countType from
+(
+SELECT
+	area_code,
+	operation_type,COUNT(1) as countType
+FROM
+	user_behavior_log
+	<where>
+        <if test="beginTime !=null"> <!-- 开始时间 -->
+            <![CDATA[ `operation_date` >= #{beginTime} ]]>
+        </if>
+        <if test="endTime !=null"> <!-- 结束时间 -->
+            <![CDATA[ AND `operation_date` <= #{endTime} ]]>
+        </if>
+        <if test="sysCode !=null">
+            AND `sys_code` = #{sysCode}
+        </if>
+    </where>
+	GROUP BY area_code,operation_type HAVING area_code != '' ) rs
+ group by area_code ) T LEFT JOIN area on T.area_code=area.area_id
+    </select>
+
+    <select id="findHotPageList" parameterType="java.util.HashMap" resultType="com.bbd.wtyh.domain.vo.UseHotPage">
+        SELECT area.`name` ,T3.request_desc,T3.countCode from(SELECT
+        T2.*
+        FROM
+        (
+        SELECT
+        T.*, CASE
+        WHEN @mid = area_code THEN
+        @ROW :=@ROW + 1
+        ELSE
+        @ROW := 1
+        END rownum ,@mid := area_code mid
+        FROM
+        (
+        SELECT
+        area_code,
+        request_desc,
+        COUNT(1) as countCode
+        FROM
+        user_behavior_log
+        WHERE
+        area_code != ''
+        <if test="beginTime !=null"> <!-- 开始时间 -->
+            <![CDATA[ AND `operation_date` >= #{beginTime} ]]>
+        </if>
+        <if test="endTime !=null"> <!-- 结束时间 -->
+            <![CDATA[ AND `operation_date` <= #{endTime} ]]>
+        </if>
+        <if test="sysCode !=null">
+            AND `sys_code` = #{sysCode}
+        </if>
+        GROUP BY
+        area_code,
+        request_desc
+        ORDER BY area_code asc,countCode desc
+        ) AS T
+        ) AS T2
+        WHERE
+        <![CDATA[ T2.rownum <= 10 ]]>) T3 LEFT JOIN area on T3.area_code=area.area_id
+    </select>
+
+
+    <select id="findSearchList" parameterType="java.util.HashMap" resultType="com.bbd.wtyh.domain.vo.UserSearchVO">
+        select (@numIndex:=@numIndex+1) numIndex,t1.keyWord,t1.countKeyWord
+        from (SELECT
+        keyWord,
+        count(1) countKeyWord
+        FROM
+        (
+        <if test="sysCode ==1">
+            SELECT
+            SUBSTRING_INDEX(
+            log_content,
+            '关键字：' ,- 1
+            ) keyWord
+            FROM
+            user_behavior_log
+            WHERE
+            operation_desc = '搜索'
+            AND sys_name = '前台'
+        </if>
+        <if test="sysCode ==2">
+            SELECT SUBSTRING_INDEX(SUBSTRING_INDEX(log_content,'用户名关键字:' ,- 1),'；',1) keyWord
+            FROM
+            user_behavior_log
+            WHERE
+            operation_desc = '搜索'
+            AND sys_name = '后台' and log_content like '%用户名关键字%'
+        </if>
+        <if test="beginTime !=null"> <!-- 开始时间 -->
+            <![CDATA[ AND `operation_date` >= #{beginTime} ]]>
+        </if>
+        <if test="endTime !=null"> <!-- 结束时间 -->
+            <![CDATA[ AND `operation_date` <= #{endTime} ]]>
+        </if>
+        ) T,(select @numIndex:=0 from dual) t2
+        GROUP BY
+        T.keyWord ORDER BY countKeyWord desc LIMIT 100) t1
+    </select>
 </mapper>

@@ -62,6 +62,10 @@ public class SyncFileServiceImpl extends BaseServiceImpl implements SyncFileServ
 		logger.info("--- offline data job begin ---");
 		TaskResultDO taskResult = null;
 		File file = null;
+		int totalCount = 0;
+		int successCount = 0;
+		int failCount = 0;
+
 		try {
 			String dataVersion = relationDataService.getNewestDataVersion();
 			String[] fileNames = pullFile(dataVersion ,taskId);
@@ -71,9 +75,17 @@ public class SyncFileServiceImpl extends BaseServiceImpl implements SyncFileServ
 				taskResult = this.syncDataService.receiveFileData(file);
 				// 表示有错误数据，需要记录
 				if (taskResult != null && taskResult.getFailCount().compareTo(0) == 1) {
-					taskRecord(taskId, dataVersion);
+					taskRecord(taskId, dataVersion,fileName);
 				}
+				successCount = successCount + taskResult.getSuccessCount();
+				failCount = failCount + taskResult.getFailCount();
 				logger.info("--------- parse "+fileName+" data file end -------");
+			}
+			taskResult.setPlanCount(successCount+failCount);
+			taskResult.setSuccessCount(successCount);
+			taskResult.setFailCount(failCount);
+			if(failCount > 0){
+				taskResult.setState(TaskState.ERROR);
 			}
 
 		} catch (Exception e) {
@@ -98,22 +110,23 @@ public class SyncFileServiceImpl extends BaseServiceImpl implements SyncFileServ
 			if (CollectionUtils.isEmpty(taskFailList)) {
 				return taskResult;
 			}
-			TaskFailInfoDO taskFail = taskFailList.get(0);
-			dataVersion = taskFail.getDataVersion();
-			String[] fileNames = pullFile(dataVersion ,newTaskId);
-			for(String fileName : fileNames) {
+			//TaskFailInfoDO taskFail = taskFailList.get(0);
+			//dataVersion = taskFail.getDataVersion();
+			//String[] fileNames = pullFile(dataVersion ,newTaskId);
+			for(TaskFailInfoDO taskFail : taskFailList) {
+				String fileName = taskFail.getFailName();
 				file = new File(PULL_FILE_SAVE_PATH + fileName);
 				logger.info("--------- parse "+fileName+" data file start -----");
 				taskResult = this.syncDataService.receiveFileData(file);
-
 				// 表示有错误数据，需要记录
 				if (taskResult != null && taskResult.getFailCount().compareTo(0) == 1) {
-					taskRecord(newTaskId, dataVersion);
+					taskRecord(newTaskId, dataVersion, fileName);
 				}
+
 				logger.info("--------- parse  "+fileName+" data file end -------");
 			}
 		} catch (Exception e) {
-			taskRecord(newTaskId, dataVersion);
+			taskRecord(newTaskId, dataVersion, null);
 			taskResult.setPlanCount(1);
 			taskResult.setSuccessCount(0);
 			taskResult.setFailCount(1);
@@ -124,11 +137,11 @@ public class SyncFileServiceImpl extends BaseServiceImpl implements SyncFileServ
 		return taskResult;
 	}
 
-	private void taskRecord(Integer taskId, String dataVersion) {
+	private void taskRecord(Integer taskId, String dataVersion, String fileName) {
 		TaskFailInfoDO taskFail = new TaskFailInfoDO();
 		taskFail.setTaskId(taskId);
 		taskFail.setDataVersion(dataVersion);
-		taskFail.setFailName(dataVersion);
+		taskFail.setFailName(fileName);
 		taskFail.setCreateBy("system");
 		taskFail.setCreateDate(new Date());
 		this.taskFailInfoMapper.addTaskFailInfo(taskFail);
@@ -167,6 +180,9 @@ public class SyncFileServiceImpl extends BaseServiceImpl implements SyncFileServ
 			for(String fileName :fileNames){
 				try {
 					file = new File(PULL_FILE_SAVE_PATH + fileName);
+					if (file.exists()) {
+						file.delete();
+					}
 					url = brokerIp + brokerUri + "?fileName=" + fileName+"&dataVersion="+dataVersion;
 					input = HttpUtil.get(url, 36000, InputStream.class);
 					//file = new File(PULL_FILE_SAVE_PATH + fileName);
