@@ -27,7 +27,7 @@ public interface UserBehaviorLogService extends BaseService {
 
 	HSSFWorkbook produceExcel3(HSSFWorkbook workbook, HSSFSheet sheet, List<UserSearchVO> opeList,String headTitle) ;
 
-	 List<UserSearchVO> findKeyWord(Date beginTime, Date endTime);
+	 List<UserSearchVO> findKeyWord(Date beginTime, Date endTime,Integer sysCode);
 
 	List<UseHotPage> findHotPage(Date beginTime, Date endTime, Integer sysCode);
 }

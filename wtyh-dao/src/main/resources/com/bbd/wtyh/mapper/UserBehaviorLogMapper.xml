@@ -141,16 +141,26 @@ FROM
         count(1) countKeyWord
         FROM
         (
-        SELECT
-        SUBSTRING_INDEX(
-        log_content,
-        '关键字：' ,- 1
-        ) keyWord
-        FROM
-        user_behavior_log
-        WHERE
-        operation_desc = '搜索'
-        AND sys_name = '前台'
+        <if test="sysCode ==1">
+            SELECT
+            SUBSTRING_INDEX(
+            log_content,
+            '关键字：' ,- 1
+            ) keyWord
+            FROM
+            user_behavior_log
+            WHERE
+            operation_desc = '搜索'
+            AND sys_name = '前台'
+        </if>
+        <if test="sysCode ==2">
+            SELECT SUBSTRING_INDEX(SUBSTRING_INDEX(log_content,'用户名关键字:' ,- 1),'；',1) keyWord
+            FROM
+            user_behavior_log
+            WHERE
+            operation_desc = '搜索'
+            AND sys_name = '后台' and log_content like '%用户名关键字%'
+        </if>
         <if test="beginTime !=null"> <!-- 开始时间 -->
             <![CDATA[ AND `operation_date` >= #{beginTime} ]]>
         </if>

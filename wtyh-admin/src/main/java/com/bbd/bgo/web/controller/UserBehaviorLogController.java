@@ -266,7 +266,7 @@ public class UserBehaviorLogController {
 
 
 			List<UserSearchVO> list2 = null;
-			list2 = ubls.findKeyWord(begin,end);
+			list2 = ubls.findKeyWord(begin,end,sysCode);
 			HSSFSheet sheet3 = workbook.createSheet();
 			String sheetName3 = "3搜索关键字排行"+time;
 			String headTitle3 = "搜索关键字排行（"+sysName+"）";

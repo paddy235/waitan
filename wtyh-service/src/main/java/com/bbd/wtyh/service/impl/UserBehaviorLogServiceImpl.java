@@ -137,10 +137,11 @@ public class UserBehaviorLogServiceImpl extends BaseServiceImpl implements UserB
 	}
 
 	@Override
-	public List<UserSearchVO> findKeyWord(Date beginTime, Date endTime) {
+	public List<UserSearchVO> findKeyWord(Date beginTime, Date endTime,Integer sysCode) {
 		Map<String, Object> params = new HashMap<>();
 		params.put("beginTime", beginTime);
 		params.put("endTime", endTime);
+		params.put("sysCode", sysCode);
 		List<UserSearchVO> list = userBehaviorLogMapper.findSearchList(params);
 		return list;
 	}
