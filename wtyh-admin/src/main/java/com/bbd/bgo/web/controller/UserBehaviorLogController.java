@@ -297,7 +297,7 @@ public class UserBehaviorLogController {
 		}catch (Exception e) {
 			return ExceptionHandler.handlerException(e);
 		}
-		return ResponseBean.successResponse("");
+		return ResponseBean.successResponse("下载成功");
 	}
 
 	public Integer [] totalMethod(List<UseDetailVO> uv){
