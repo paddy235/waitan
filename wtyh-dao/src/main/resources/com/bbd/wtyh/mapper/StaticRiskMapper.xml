@@ -324,8 +324,9 @@
         INSERT INTO `static_risk_data` VALUES (#{createBy}, #{createDate}, #{updateBy}, #{updateDate}, #{area}, #{companyName}, #{dataVersion}, #{riskDate}, #{staticRiskIndex}, #{maxCompanyNum}, #{averagePersonNum}, #{oneLevelPerson}, #{realControlRisk}, #{childCompnayControlPerson_num}, #{childChildControlNum}, #{coreChildCompany}, #{companyExpandRisk}, #{controlChildCompanyNum},
          #{oneCompanyNum}, #{controlCompany}, #{relationInRisk}, #{threePersonNum}, #{twoCompanyNum}, #{coreTwoCompany}, #{illegalFinancingRisk}, #{sixMonthNewCompanyNum}, #{toYearNewComapnyNum}, #{sixMonthNewCompany}, #{relationCompanySum}, #{shortRisk},
          #{investment}, #{advisory}, #{trade}, #{lease}, #{factoring}, #{companyList},
-         #{illegalMoneyFinancingRisk}, #{capitalBgRisk}, #{undergraduateNum}, #{uperUndergraduateNum}, #{followUndergraduateNum},
-         #{recruitmentSum}, #{top5RecruitmentSum}, #{personStructureRisk}, #{creditInfoRisk}, #{isExposure});
+         #{illegalMoneyFinancingRisk}, #{capitalBgRisk}, #{maxPersonCompanyNum3}, #{maxLegalCompanyNum3}, #{averagePersonCompanyNum3}, #{averageLegalCompanyNum3}, #{realControlRiskV2}, #{relationInRiskV2}, #{illegalFinancingRiskV2}, #{shortRiskV2}
+         , #{illegalMoneyFinancingRiskV2}, #{undergraduateNum}, #{uperUndergraduateNum}, #{followUndergraduateNum},
+         #{recruitmentSum}, #{top5RecruitmentSum}, #{personStructureRisk}, #{personStructureRiskV2}, #{creditInfoRisk}, #{isExposure});
     </insert>
 
     <sql id="staticRiskDataDOContent">
