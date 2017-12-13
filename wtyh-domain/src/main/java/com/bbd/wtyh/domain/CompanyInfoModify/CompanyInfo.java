@@ -1,6 +1,8 @@
 package com.bbd.wtyh.domain.CompanyInfoModify;
 
 
+import java.util.Date;
+
 /**
  * Created by YanWenyuan on 2017/7/14.
  */
@@ -45,6 +47,8 @@ public class CompanyInfo {
     private String outLevel;   // 外部评级 -
     private String innerLevel;    // 内部评级 - 【小额贷款、融资担保】
     private String liveLevel;  // 现场检查 - 【小额贷款、融资担保】
+
+    private Date exposureDate;  // 暴露日期
 
     public Integer getCompanyId() {
         return companyId;
@@ -140,6 +144,14 @@ public class CompanyInfo {
 
     public void setLiveLevel(String liveLevel) {
         this.liveLevel = liveLevel;
+    }
+
+    public Date getExposureDate() {
+        return exposureDate;
+    }
+
+    public void setExposureDate(Date exposureDate) {
+        this.exposureDate = exposureDate;
     }
 
     public static String companyTypeCN(Byte industry) {

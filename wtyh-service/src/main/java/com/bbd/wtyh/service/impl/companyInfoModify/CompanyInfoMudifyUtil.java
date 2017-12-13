@@ -314,6 +314,16 @@ public class CompanyInfoMudifyUtil extends BaseServiceImpl {
                 || CompanyType.TYPE_DD_12.type().equals(afterIndustry)) { // 典当
 
             riskCompanyService.modifyOffLineLevel(recordInfo);
+        }else if (CompanyType.TYPE_JR_7.type().equals(afterIndustry) // 金融
+                || CompanyType.TYPE_QT_8.type().equals(afterIndustry) // 其他
+                || CompanyType.TYPE_WT_30.type().equals(afterIndustry) // 外滩网络借贷
+                || CompanyType.TYPE_WT_31.type().equals(afterIndustry) // 外滩众筹
+                || CompanyType.TYPE_WT_32.type().equals(afterIndustry) // 外滩网银
+                || CompanyType.TYPE_WT_33.type().equals(afterIndustry) // 外滩支付
+                || CompanyType.TYPE_WT_34.type().equals(afterIndustry) // 外滩预付卡
+                || CompanyType.TYPE_WT_35.type().equals(afterIndustry)) { // 外滩融资租赁
+
+            riskCompanyService.modifyOffLineLevel(recordInfo);
         }
 
         return recordInfo;
@@ -439,4 +449,10 @@ public class CompanyInfoMudifyUtil extends BaseServiceImpl {
         RecordInfo recordInfo = modifyRiskLevel(modifyData, null, null);// 修改行业
         modifyIndustry(recordInfo);
     }
+
+    public void newType2Ohter(ModifyData modifyData) throws Exception {
+        RecordInfo recordInfo = modifyRiskLevel(modifyData, null, null);// 修改行业
+        modifyIndustry(recordInfo);
+    }
+
 }

@@ -53,7 +53,7 @@ public interface CompanyMapper {
 			" park,building,company_building,company,park_and_building_relation pabr WHERE park.park_id = pabr.park_id" +
 			" AND pabr.building_id = building.building_id AND building.building_id = company_building.building_id" +
 			" AND company_building.company_id = company.company_id AND company.`name` = #{companyName}")
-	CompanyBuildParkDO queryCompanyBuildParkInfo(String companyName);
+	List<CompanyBuildParkDO> queryCompanyBuildParkInfo(String companyName);
 
 	List<CompanyDO> queryCompanyByType(@Param("companyType") Integer companyType, @Param("orderByField") Integer orderByField,
 			@Param("descAsc") String descAsc);

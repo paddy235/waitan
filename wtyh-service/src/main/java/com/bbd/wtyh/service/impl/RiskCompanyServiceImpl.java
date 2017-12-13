@@ -125,24 +125,29 @@ public class RiskCompanyServiceImpl implements RiskCompanyService {
         try {
             level = ""+Integer.parseInt((recordInfo.getAfterLevel()));
         }catch (Exception e) {
-            level = WangDaiRiskLevel.getRiskType(recordInfo.getAfterLevel()).toString();
-        }
-        riskCompanyMapper.modifyLevel(recordInfo.getName(), level);
-        if (RISK.equals(level)) {
-            CompanyAnalysisResultDO analysisResultDO = new CompanyAnalysisResultDO();
-            analysisResultDO.setCompanyId(recordInfo.getCompanyId());
-            analysisResultDO.setCreateBy("companyUpdate");
-            analysisResultDO.setUpdateBy("companyUpdate");
-            int i = predService.updateCompanyAnalysisResultWhenBlack(analysisResultDO);
-            if (i == 0) {
-                predService.addCompanyAnalysisResultWhenBlack(analysisResultDO);
-            }
-        } else {
-            if (!StringUtils.isNullOrEmpty(level)) {
-                predService.deleteByCompanyId(recordInfo);
+            try {
+                level = WangDaiRiskLevel.getRiskType(recordInfo.getAfterLevel()).toString();
+            }catch (Exception e1) {
+                level=null;
             }
         }
-
+        if(null!=level){
+            riskCompanyMapper.modifyLevel(recordInfo.getName(), level);
+            if (RISK.equals(level)) {
+                CompanyAnalysisResultDO analysisResultDO = new CompanyAnalysisResultDO();
+                analysisResultDO.setCompanyId(recordInfo.getCompanyId());
+                analysisResultDO.setCreateBy("companyUpdate");
+                analysisResultDO.setUpdateBy("companyUpdate");
+                int i = predService.updateCompanyAnalysisResultWhenBlack(analysisResultDO);
+                if (i == 0) {
+                    predService.addCompanyAnalysisResultWhenBlack(analysisResultDO);
+                }
+            } else {
+                if (!StringUtils.isNullOrEmpty(level)) {
+                    predService.deleteByCompanyId(recordInfo);
+                }
+            }
+        }
     }
 
     @Override
