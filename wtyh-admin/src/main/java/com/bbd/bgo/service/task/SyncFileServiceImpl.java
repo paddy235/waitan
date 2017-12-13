@@ -116,17 +116,12 @@ public class SyncFileServiceImpl extends BaseServiceImpl implements SyncFileServ
 			for(String fileName : fileNames) {
 				file = new File(PULL_FILE_SAVE_PATH + fileName);
 				logger.info("--------- parse "+fileName+" data file start -----");
-				try {
-					taskResult = this.syncDataService.receiveFileData(file);
-				} catch (Exception e) {
-					e.printStackTrace();
-					taskRecord(newTaskId, dataVersion, fileName);
-				}
-
+				taskResult = this.syncDataService.receiveFileData(file);
 				// 表示有错误数据，需要记录
 				if (taskResult != null && taskResult.getFailCount().compareTo(0) == 1) {
 					taskRecord(newTaskId, dataVersion, fileName);
 				}
+
 				logger.info("--------- parse  "+fileName+" data file end -------");
 			}
 		} catch (Exception e) {
@@ -184,6 +179,9 @@ public class SyncFileServiceImpl extends BaseServiceImpl implements SyncFileServ
 			for(String fileName :fileNames){
 				try {
 					file = new File(PULL_FILE_SAVE_PATH + fileName);
+					if (file.exists()) {
+						file.delete();
+					}
 					url = brokerIp + brokerUri + "?fileName=" + fileName+"&dataVersion="+dataVersion;
 					input = HttpUtil.get(url, 36000, InputStream.class);
 					//file = new File(PULL_FILE_SAVE_PATH + fileName);

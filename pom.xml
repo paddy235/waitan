@@ -606,6 +606,7 @@
                 <m.wtyh.web2.ip>http://10.28.200.239:8081</m.wtyh.web2.ip>
                 <m.wtyh.admin.ip>http://10.28.200.239:8082</m.wtyh.admin.ip>
                 <wtyh.file.root.path>/home/tester/wtyh</wtyh.file.root.path>
+                <!--<wtyh.file.root.path>E:/data1/web/waitan-datasync</wtyh.file.root.path>-->
 
 
                 <!--动态风险图存放路径(服务器上的绝对路径，后面不需要加att目录，但是Tomcat的虚拟目录里需要加att目录)  -->
@@ -618,6 +619,7 @@
 
                <!-- <wtyh.beijing.server.ip>106.75.89.210</wtyh.beijing.server.ip>-->
                 <wtyh.beijing.server.ip>10.28.104.11</wtyh.beijing.server.ip>
+                <!--<wtyh.beijing.server.ip>127.0.0.1</wtyh.beijing.server.ip>-->
             </properties>
         </profile>
 
