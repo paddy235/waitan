@@ -3,6 +3,7 @@ package com.bbd.bgo.web.controller;
 import com.bbd.wtyh.constants.JYSCoRiskLevel;
 import com.bbd.wtyh.constants.PrepaidCoRiskLevel;
 import com.bbd.wtyh.constants.RZZLCoRiskLevel;
+import com.bbd.wtyh.domain.CompanyAnalysisResultDO;
 import com.bbd.wtyh.domain.CompanyInfoModify.CompanyInfo;
 import com.bbd.wtyh.domain.enums.CompanyLevel;
 import com.bbd.wtyh.domain.enums.WangDaiRiskLevel;
@@ -44,6 +45,10 @@ public class CompanyInfoModifyController {
         CompanyInfo rst = companyInfoModify.queryCompany(name);
         if (null == rst) {
             return ResponseBean.errorResponse("未找到公司");
+        }
+        CompanyAnalysisResultDO comAna = companyInfoModify.queryCompanyAnalysisResultDO(rst.getCompanyId());
+        if(null!=comAna&&null!=comAna.getExposureDate()){
+            rst.setExposureDate(comAna.getExposureDate());
         }
         return ResponseBean.successResponse(rst);
     }

@@ -1,5 +1,6 @@
 package com.bbd.wtyh.service;
 
+import com.bbd.wtyh.domain.CompanyAnalysisResultDO;
 import com.bbd.wtyh.domain.CompanyInfoModify.CompanyInfo;
 import com.bbd.wtyh.web.companyInfoModify.ModifyData;
 
@@ -14,6 +15,8 @@ public interface CompanyInfoModifyService {
     List<String> autoComplete(String q);
 
     CompanyInfo queryCompany(String name);
+
+    CompanyAnalysisResultDO queryCompanyAnalysisResultDO(Integer companyId);
 
     void modify(ModifyData name, String modifyBy) throws Exception;
 

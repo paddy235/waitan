@@ -449,11 +449,17 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService,TaskServ
             // result.put("status", list.get(0).get("status"));
             result.put("comTypeCN", "");
             result.put("differentManages","");
-            CompanyBuildParkDO buildPark = companyMapper.queryCompanyBuildParkInfo(companyName);
-            if(buildPark!=null&&buildPark.getComAreaId() != buildPark.getParkAreaId()){
-                result.put("differentManages","异地经营");
+            List<CompanyBuildParkDO> buildParkList = companyMapper.queryCompanyBuildParkInfo(companyName);
+            if(buildParkList!=null&&buildParkList.size()>0){
+                for(CompanyBuildParkDO buildPark:buildParkList){
+                    if(null!=buildPark.getComAreaId()&&
+                            null!=buildPark.getParkAreaId()&&
+                            !buildPark.getComAreaId().toString().equals(buildPark.getParkAreaId().toString())){
+                        result.put("differentManages","异地经营");
+                        break;
+                    }
+                }
             }
-
             Object objType = list.get(0).get("companyType");
             if (objType != null) {
                 result.put("comTypeCN", CompanyDO.companyTypeCN(Byte.parseByte(objType.toString())));

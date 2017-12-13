@@ -32,7 +32,7 @@
             <column name="外部评级" code="outLevel" dataType="string" list-ref="riskRating"/>
             <column name="内部评级" code="innerLevel" dataType="string" list-ref="riskRating"/>
             <column name="现场检查" code="liveLevel" dataType="string" list-ref="riskRating"/>
-            <column name="风险暴露日期" code="exposureDate" dataType="string" length="40"/>
+            <column name="风险暴露日期" code="exposureDate" dataType="string" length="8"/>
         </columns>
     </sheet>
 </excel>

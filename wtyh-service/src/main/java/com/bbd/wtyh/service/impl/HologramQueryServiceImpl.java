@@ -115,10 +115,17 @@ public class HologramQueryServiceImpl extends BaseServiceImpl implements Hologra
         }
         data.put("park","");
         data.put("build","");
-        CompanyBuildParkDO buidPark = companyMapper.queryCompanyBuildParkInfo(company);
-        if(null!=buidPark){
-            data.put("park",buidPark.getParkName());
-            data.put("build",buidPark.getBuildName());
+//        CompanyBuildParkDO buidPark = companyMapper.queryCompanyBuildParkInfo(company);
+        List<CompanyBuildParkDO> buildParkList = companyMapper.queryCompanyBuildParkInfo(company);
+        if(null!=buildParkList&&buildParkList.size()>0){
+            for(CompanyBuildParkDO buildPark:buildParkList){
+                if(null!=buildPark.getComAreaId()&&
+                        null!=buildPark.getParkAreaId()&&
+                        !buildPark.getComAreaId().toString().equals(buildPark.getParkAreaId().toString())){
+                    data.put("park",buildPark.getParkName());
+                    data.put("build",buildPark.getBuildName());
+                }
+            }
         }
         return data;
     }
