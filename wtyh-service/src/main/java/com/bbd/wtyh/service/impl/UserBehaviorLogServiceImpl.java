@@ -148,7 +148,8 @@ public class UserBehaviorLogServiceImpl extends BaseServiceImpl implements UserB
 
 	@Override
 	public List<UseHotPage> findHotPage(Date beginTime, Date endTime, Integer sysCode) {
-		List<UseHotPage> lm = null;
+		List<UseHotPage> lm = new ArrayList<>();
+		lm.clear();
 		Map<String, Object> params = new HashMap<>();
 		params.put("beginTime", beginTime);
 		params.put("endTime", endTime);

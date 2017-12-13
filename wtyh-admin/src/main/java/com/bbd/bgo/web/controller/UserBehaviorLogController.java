@@ -216,8 +216,8 @@ public class UserBehaviorLogController {
 		}else {
 			sysName = "前台";
 		}
-		Date begin = DateUtils.stringToDateYmd(beginTime);
-		Date end = DateUtils.stringToDateYmd(endTime);
+		Date begin = DateUtils.stringToDate(beginTime);
+		Date end = DateUtils.stringToDate(endTime);
 
 		String time = null;
 		if(null==beginTime){
