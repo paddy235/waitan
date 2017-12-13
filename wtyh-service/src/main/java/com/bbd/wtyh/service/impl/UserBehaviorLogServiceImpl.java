@@ -3,10 +3,17 @@ package com.bbd.wtyh.service.impl;
 import java.util.*;
 
 import com.bbd.wtyh.cachetobean.ShanghaiAreaCode;
+import com.bbd.wtyh.domain.vo.UseDetailVO;
+import com.bbd.wtyh.domain.vo.UseHotPage;
+import com.bbd.wtyh.domain.vo.UserSearchVO;
+import com.bbd.wtyh.excel.ExportExcelExample;
 import com.bbd.wtyh.mapper.UserBehaviorLogMapper;
 import com.bbd.wtyh.service.UserBehaviorLogService;
 import org.apache.commons.lang.StringUtils;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.bbd.wtyh.core.base.BaseServiceImpl;
@@ -20,6 +27,12 @@ public class UserBehaviorLogServiceImpl extends BaseServiceImpl implements UserB
 
 	@Autowired
 	private UserBehaviorLogMapper userBehaviorLogMapper;
+
+	@Value("${exportExcel.userOperator}")
+	private String userOperator;
+
+	@Value("${exportExcel.searchString}")
+	private String searchString;
 
 	@Override
 	public Map<String, Object> listUserBehaviorLog(int pageSize, Integer pageNumber, String excludeName, String userName, Integer areaCode,
@@ -99,6 +112,49 @@ public class UserBehaviorLogServiceImpl extends BaseServiceImpl implements UserB
 		return rstMap;
 	}
 
+	@Override
+	public List<Map<String, String>> listUserOperaLog(Date beginTime, Date endTime,Integer sysCode) throws Exception {
+		Map<String, Object> params = new HashMap<>();
+		params.put("beginTime", beginTime);
+		params.put("endTime", endTime);
+		params.put("sysCode", sysCode);
+		List<Map<String, String>> lm = userBehaviorLogMapper.selectlistUserOperaLog(params);
+		return lm;
+	}
+
+	@Override
+	public HSSFWorkbook produceExcel(HSSFWorkbook workbook, HSSFSheet sheet, List<UseDetailVO> opeList,String headTitle,Integer [] res){
+		HSSFWorkbook hssfWorkbook = null;
+		hssfWorkbook = ExportExcelExample.exportExcel(workbook,sheet, userOperator, opeList, "yyyyMMdd",headTitle,true,res);
+		return hssfWorkbook;
+	}
+
+	@Override
+	public HSSFWorkbook produceExcel3(HSSFWorkbook workbook, HSSFSheet sheet, List<UserSearchVO> opeList, String headTitle) {
+		HSSFWorkbook hssfWorkbook = null;
+		hssfWorkbook = ExportExcelExample.exportExcel(workbook,sheet, searchString, opeList, "yyyyMMdd",headTitle,false,null);
+		return hssfWorkbook;
+	}
+
+	@Override
+	public List<UserSearchVO> findKeyWord(Date beginTime, Date endTime) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("beginTime", beginTime);
+		params.put("endTime", endTime);
+		List<UserSearchVO> list = userBehaviorLogMapper.findSearchList(params);
+		return list;
+	}
+
+	@Override
+	public List<UseHotPage> findHotPage(Date beginTime, Date endTime, Integer sysCode) {
+		List<UseHotPage> lm = null;
+		Map<String, Object> params = new HashMap<>();
+		params.put("beginTime", beginTime);
+		params.put("endTime", endTime);
+		params.put("sysCode", sysCode);
+		lm = userBehaviorLogMapper.findHotPageList(params);
+		return lm;
+	}
 	/*
 	 * public static void main( String[] argc ) {
 	 * 
@@ -112,6 +168,8 @@ public class UserBehaviorLogServiceImpl extends BaseServiceImpl implements UserB
 	 * HashMap<String, Object>() {{ put("opCode", (Integer)opT.ordinal());
 	 * put("opDesc", opT.name()); }} ); } }}; }
 	 */
+
+
 
 }
 
