@@ -3,6 +3,7 @@ package com.bbd.wtyh.mapper;
 import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.OfflineFinancialRecordDO;
 import com.bbd.wtyh.domain.dataLoading.*;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
@@ -57,5 +58,8 @@ public interface DataLoadingMapper {
     Integer maxDataVersion();
 
     Map<String, Object> wangdaiBaseInfo(@Param("companyName") String companyName);
+
+    @Delete(" DELETE FROM qyxg_yuqing WHERE yuqing_id NOT IN (SELECT yuqing_id FROM(SELECT min(yuqing_id) AS yuqing_id FROM qyxg_yuqing GROUP BY abstract) rs) ")
+    void deleteRepeatCompanyNews();
 
 }
