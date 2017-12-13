@@ -49,6 +49,8 @@ public class SyncFileServiceImpl extends BaseServiceImpl implements SyncFileServ
 	@Value("${api.bbd.broker.ip}")
 	private String brokerIp;
 	private String brokerUri = "/syncFile/supplyFile.do";
+	private String brokerUrl = "/syncFile/generateFile.do";
+
 
 	@Override
 	public void stopTask() {
@@ -59,16 +61,21 @@ public class SyncFileServiceImpl extends BaseServiceImpl implements SyncFileServ
 	public TaskResultDO pullFile(Integer taskId) {
 		logger.info("--- offline data job begin ---");
 		TaskResultDO taskResult = null;
+		File file = null;
 		try {
 			String dataVersion = relationDataService.getNewestDataVersion();
-			File file = pullFile(dataVersion);
-			logger.info("--------- parse data file start -----");
-			taskResult = this.syncDataService.receiveFileData(file);
-			// 表示有错误数据，需要记录
-			if (taskResult != null && taskResult.getFailCount().compareTo(0) == 1) {
-				taskRecord(taskId, dataVersion);
+			String[] fileNames = pullFile(dataVersion ,taskId);
+			for(String fileName : fileNames){
+				file = new File(PULL_FILE_SAVE_PATH + fileName);
+				logger.info("--------- parse "+fileName+" data file start -----");
+				taskResult = this.syncDataService.receiveFileData(file);
+				// 表示有错误数据，需要记录
+				if (taskResult != null && taskResult.getFailCount().compareTo(0) == 1) {
+					taskRecord(taskId, dataVersion);
+				}
+				logger.info("--------- parse "+fileName+" data file end -------");
 			}
-			logger.info("--------- parse data file end -------");
+
 		} catch (Exception e) {
 			if (null == taskResult) {
 				taskResult = new TaskResultDO(0, 0, 0);
@@ -84,6 +91,7 @@ public class SyncFileServiceImpl extends BaseServiceImpl implements SyncFileServ
 	public TaskResultDO rePullFile(Integer oldTaskId, Integer newTaskId) {
 		logger.info("--- offline data handle begin ---");
 		String dataVersion = null;
+		File file =  null;
 		TaskResultDO taskResult = new TaskResultDO(0,0,0);
 		try {
 			List<TaskFailInfoDO> taskFailList = taskFailInfoMapper.getTaskFailInfoByTaskId(oldTaskId);
@@ -92,16 +100,18 @@ public class SyncFileServiceImpl extends BaseServiceImpl implements SyncFileServ
 			}
 			TaskFailInfoDO taskFail = taskFailList.get(0);
 			dataVersion = taskFail.getDataVersion();
-			File file = pullFile(dataVersion);
-			logger.info("--------- parse data file start -----");
-			taskResult = this.syncDataService.receiveFileData(file);
+			String[] fileNames = pullFile(dataVersion ,newTaskId);
+			for(String fileName : fileNames) {
+				file = new File(PULL_FILE_SAVE_PATH + fileName);
+				logger.info("--------- parse "+fileName+" data file start -----");
+				taskResult = this.syncDataService.receiveFileData(file);
 
-			// 表示有错误数据，需要记录
-			if (taskResult != null && taskResult.getFailCount().compareTo(0) == 1) {
-				taskRecord(newTaskId, dataVersion);
+				// 表示有错误数据，需要记录
+				if (taskResult != null && taskResult.getFailCount().compareTo(0) == 1) {
+					taskRecord(newTaskId, dataVersion);
+				}
+				logger.info("--------- parse  "+fileName+" data file end -------");
 			}
-			logger.info("--------- parse data file end -------");
-
 		} catch (Exception e) {
 			taskRecord(newTaskId, dataVersion);
 			taskResult.setPlanCount(1);
@@ -124,29 +134,60 @@ public class SyncFileServiceImpl extends BaseServiceImpl implements SyncFileServ
 		this.taskFailInfoMapper.addTaskFailInfo(taskFail);
 	}
 
-	public File pullFile(String dataVersion) throws Exception {
+	public String[] pullFile(String dataVersion,Integer taskId){
 		logger.info("--------- pull data file start,dataVersion:{} ------", dataVersion);
-		String fileName = dataVersion + ".txt";
-		File file = new File(PULL_FILE_SAVE_PATH + fileName);
-		if (file.exists() && file.length() > 0) {
-			logger.info("--------- pull data file end. File from the local ------");
-			return file;
-		}
+		//String fileName = dataVersion + ".txt";
+
+		//if (file.exists() && file.length() > 0) {
+		//	logger.info("--------- pull data file end. File from the local ------");
+		//	return file;
+	//	}
 
 		InputStream input = null;
 		OutputStream out = null;
-		try {
-			String url = brokerIp + brokerUri + "?dataVersion=" + dataVersion;
-			input = HttpUtil.get(url, 36000, InputStream.class);
-			file = new File(PULL_FILE_SAVE_PATH + fileName);
-			FileUtil.forceMkdirParent(file);
-			out = new FileOutputStream(file);
-			IOUtils.copyLarge(input, out);
+		File file = null;
+		String[] fileNames = null;
+			//请求返回生成文件名称
+			dataVersion = "20171119";
+			String url =  brokerIp + brokerUrl + "?dataVersion=" + dataVersion;
+			String nameStr = null;
+			try {
+				nameStr = HttpUtil.get(url, 36000, String.class);
+			} catch (Exception e) {
+				e.printStackTrace();
+				TaskFailInfoDO taskFail = new TaskFailInfoDO();
+				taskFail.setTaskId(taskId);
+				taskFail.setDataVersion(dataVersion);
+				taskFail.setFailName("borker生成文件错误");
+				taskFail.setCreateBy("system");
+				taskFail.setCreateDate(new Date());
+				this.taskFailInfoMapper.addTaskFailInfo(taskFail);
+			}
+			fileNames = nameStr.split(",");
+			for(String fileName :fileNames){
+				try {
+					file = new File(PULL_FILE_SAVE_PATH + fileName);
+					url = brokerIp + brokerUri + "?fileName=" + fileName+"&dataVersion="+dataVersion;
+					input = HttpUtil.get(url, 36000, InputStream.class);
+					//file = new File(PULL_FILE_SAVE_PATH + fileName);
+					FileUtil.forceMkdirParent(file);
+					out = new FileOutputStream(file);
+					IOUtils.copyLarge(input, out);
+				} catch (Exception e) {
+					e.printStackTrace();
+					TaskFailInfoDO taskFail = new TaskFailInfoDO();
+					taskFail.setTaskId(taskId);
+					taskFail.setDataVersion(dataVersion);
+					taskFail.setFailName(fileName);
+					taskFail.setFailReason("拉取文件错误");
+					taskFail.setCreateBy("system");
+					taskFail.setCreateDate(new Date());
+					this.taskFailInfoMapper.addTaskFailInfo(taskFail);
+				}
+			}
 			logger.info("--------- pull data file end. File from the Beijing server --------");
-		} finally {
 			FileUtil.closeResource(input, out);
-		}
-		return file;
+		return fileNames;
 	}
 
 	@Override

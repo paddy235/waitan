@@ -38,14 +38,104 @@ public class StaticRiskDataDO extends BaseDO {
     private String companyList;//公司名单',
     private float illegalMoneyFinancingRisk;//非法融资违规风险',
     private float capitalBgRisk;//资本背景风险',
+    private float maxPersonCompanyNum3;//单个3度及3度以下关联自然人最大控制企业数量
+    private float maxLegalCompanyNum3;//单个3度及3度以下法人最大控制（控股、高层管理人员）企业数量
+    private float averagePersonCompanyNum3;//平均每位3度及3度以下关联自然人控制企业数量
+    private float averageLegalCompanyNum3;//平均每位3度及3度以下关联法人控制企业数量
+    private float realControlRiskV2;//实际控制人风险v2
+    private float relationInRiskV2;//关联方中心积聚化风险
+    private float illegalFinancingRiskV2;//非法融资衍生风险v2
+    private float shortRiskV2;//短期逐利风险v2
+    private float illegalMoneyFinancingRiskV2;//非法融资违规风险v2
     private float undergraduateNum;//本科人次',
     private float uperUndergraduateNum;//硕士以上人次(包括硕士)',
     private float followUndergraduateNum;//本科以下人次',
     private float recruitmentSum;//招聘总人次
     private String top5RecruitmentSum; // top5岗位和招聘人次
     private float personStructureRisk;//人才结构风险
+    private float personStructureRiskV2;//人才结构风险v2
     private float creditInfoRisk;//信用信息风险
     private String isExposure;
+
+    public float getMaxPersonCompanyNum3() {
+        return maxPersonCompanyNum3;
+    }
+
+    public void setMaxPersonCompanyNum3(float maxPersonCompanyNum3) {
+        this.maxPersonCompanyNum3 = maxPersonCompanyNum3;
+    }
+
+    public float getMaxLegalCompanyNum3() {
+        return maxLegalCompanyNum3;
+    }
+
+    public void setMaxLegalCompanyNum3(float maxLegalCompanyNum3) {
+        this.maxLegalCompanyNum3 = maxLegalCompanyNum3;
+    }
+
+    public float getAveragePersonCompanyNum3() {
+        return averagePersonCompanyNum3;
+    }
+
+    public void setAveragePersonCompanyNum3(float averagePersonCompanyNum3) {
+        this.averagePersonCompanyNum3 = averagePersonCompanyNum3;
+    }
+
+    public float getAverageLegalCompanyNum3() {
+        return averageLegalCompanyNum3;
+    }
+
+    public void setAverageLegalCompanyNum3(float averageLegalCompanyNum3) {
+        this.averageLegalCompanyNum3 = averageLegalCompanyNum3;
+    }
+
+    public float getRealControlRiskV2() {
+        return realControlRiskV2;
+    }
+
+    public void setRealControlRiskV2(float realControlRiskV2) {
+        this.realControlRiskV2 = realControlRiskV2;
+    }
+
+    public float getRelationInRiskV2() {
+        return relationInRiskV2;
+    }
+
+    public void setRelationInRiskV2(float relationInRiskV2) {
+        this.relationInRiskV2 = relationInRiskV2;
+    }
+
+    public float getIllegalFinancingRiskV2() {
+        return illegalFinancingRiskV2;
+    }
+
+    public void setIllegalFinancingRiskV2(float illegalFinancingRiskV2) {
+        this.illegalFinancingRiskV2 = illegalFinancingRiskV2;
+    }
+
+    public float getShortRiskV2() {
+        return shortRiskV2;
+    }
+
+    public void setShortRiskV2(float shortRiskV2) {
+        this.shortRiskV2 = shortRiskV2;
+    }
+
+    public float getIllegalMoneyFinancingRiskV2() {
+        return illegalMoneyFinancingRiskV2;
+    }
+
+    public void setIllegalMoneyFinancingRiskV2(float illegalMoneyFinancingRiskV2) {
+        this.illegalMoneyFinancingRiskV2 = illegalMoneyFinancingRiskV2;
+    }
+
+    public float getPersonStructureRiskV2() {
+        return personStructureRiskV2;
+    }
+
+    public void setPersonStructureRiskV2(float personStructureRiskV2) {
+        this.personStructureRiskV2 = personStructureRiskV2;
+    }
 
     public String getArea() {
         return area;
