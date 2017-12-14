@@ -97,11 +97,11 @@ public class SyncDataServiceImpl extends BaseServiceImpl implements SyncDataServ
 		dataExecutorService.shutdown();
 		dataExecutorService.awaitTermination(1, TimeUnit.DAYS);
 
-		if(failCount>0){
-			taskResultDO.setPlanCount(successCount+failCount);
-			taskResultDO.setSuccessCount(successCount);
-			taskResultDO.setFailCount(failCount);
-		}
+
+		taskResultDO.setPlanCount(successCount+failCount);
+		taskResultDO.setSuccessCount(successCount);
+		taskResultDO.setFailCount(failCount);
+
 		return taskResultDO;
 	}
 

@@ -206,7 +206,12 @@ public class UserBehaviorLogController {
 
 	//日志统计分析表下载
 	@RequestMapping(value = "/logStatistics.do", method = RequestMethod.GET)
+	@ResponseBody
 	public Object logStatistics(@RequestParam(defaultValue = "1")Integer sysCode, String beginTime, String endTime,HttpServletRequest req, HttpServletResponse response){
+		if(-1==sysCode){
+			return ResponseBean.errorResponse("系统位置必选");
+		}
+
 		//清空list
 		opeList.clear();
 		HSSFWorkbook workbook = new HSSFWorkbook();
@@ -220,7 +225,7 @@ public class UserBehaviorLogController {
 		Date end = DateUtils.stringToDate(endTime);
 
 		String time = null;
-		if(null==beginTime){
+		if(StringUtils.isBlank(beginTime)){
 			time = "";
 		}else{
 			time = "("+DateUtils.formatDateYmd2(begin)+"-"+DateUtils.formatDateYmd2(end)+")";
@@ -293,7 +298,7 @@ public class UserBehaviorLogController {
 		}catch (Exception e) {
 			return ExceptionHandler.handlerException(e);
 		}
-		return ResponseBean.successResponse("");
+		return ResponseBean.successResponse("下载成功");
 	}
 
 	public Integer [] totalMethod(List<UseDetailVO> uv){

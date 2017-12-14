@@ -421,7 +421,7 @@ public class P2PImageServiceImpl extends BaseServiceImpl implements P2PImageServ
             }
             days.add(json.getString("date"));
             amounts.add(dayAmount.toPlainString());
-            if(amounts.size()>=29){
+            if(amounts.size()>=30){
                 break;
             }
         }
