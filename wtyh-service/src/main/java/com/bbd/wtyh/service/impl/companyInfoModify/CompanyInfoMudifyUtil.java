@@ -330,7 +330,7 @@ public class CompanyInfoMudifyUtil extends BaseServiceImpl {
     }
 
     private void clearCompanyRiskLevel(Integer companyId) {
-        executeCUD("UPDATE company SET previous_risk_level = null, risk_level = null WHERE company_id = ?", companyId);
+        executeCUD("UPDATE company SET previous_risk_level = null, risk_level = null,update_date=now() WHERE company_id = ?", companyId);
     }
 
     /**

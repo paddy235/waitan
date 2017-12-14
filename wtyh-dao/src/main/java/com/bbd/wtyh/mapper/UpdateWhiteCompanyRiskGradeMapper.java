@@ -20,7 +20,7 @@ public interface UpdateWhiteCompanyRiskGradeMapper {
     @Select("select risk_level from company where name = '${companyName}'")
     Integer selectOldRiskLevel (@Param("companyName") String companyName);
     //更新company表中的公司风险等级
-    @Update("update company set previous_risk_level = ${old_risk_level},risk_level = ${risk_level} where name = '${companyName}'")
+    @Update("update company set previous_risk_level = ${old_risk_level},risk_level = ${risk_level},update_date=now(),update_by='offlineFinanceRiskLevelCalcJob' where name = '${companyName}'")
     void updateCompanyRisk_level(@Param("companyName") String companyName,@Param("risk_level") int risk_level,@Param("old_risk_level") Integer old_risk_level);
 
     //前1~200家企业名单 LIMIT 0,200
@@ -33,6 +33,6 @@ public interface UpdateWhiteCompanyRiskGradeMapper {
     List<String> query_raw_info();
 
     //把company表中线下企业不是白名单的企业风险等级设置成null
-    @Update("update company c set c.risk_level = null WHERE c.company_type = 4 AND c.risk_level != 1 AND  NOT EXISTS (SELECT 1 FROM offline_financial_white o WHERE o.companyId = c.company_id)")
+    @Update("update company c set c.risk_level = null,update_date=now(),update_by='offlineFinanceRiskLevelCalcJob' WHERE c.company_type = 4 AND c.risk_level != 1 AND  NOT EXISTS (SELECT 1 FROM offline_financial_white o WHERE o.companyId = c.company_id)")
     void updateCompanyIsNotWhite();
 }
