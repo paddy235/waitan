@@ -15,6 +15,7 @@ import com.bbd.wtyh.domain.bbdAPI.ZuZhiJiGoudmDO;
 import com.bbd.wtyh.domain.wangDaiAPI.*;
 import com.bbd.wtyh.mapper.*;
 import com.bbd.wtyh.service.*;
+import com.bbd.wtyh.util.DateUtils;
 import com.bbd.wtyh.web.EasyExportExcel.ExportCondition;
 import com.bbd.wtyh.web.PageBean;
 import com.google.gson.Gson;
@@ -425,21 +426,29 @@ public class P2PImageServiceImpl extends BaseServiceImpl implements P2PImageServ
                 break;
             }
         }
+        if(amounts.size()==0&&days.size()==0){
+//            if (jsonArray.size() < startNum) {
+//                startNum = jsonArray.size();
+//            }
+            for (int i = 0; i <jsonArray.size(); i++) {
+                JSONObject json = jsonArray.getJSONObject(i);
+                BigDecimal dayAmount = json.getBigDecimal(jsonKey);
+                days.add(json.getString("date"));
+                amounts.add(dayAmount.toPlainString());
+                if(amounts.size()>=29){
+                    break;
+                }
+            }
+        }
         //倒序取，省得后面排序
         if(amounts.size()>0&&days.size()>0){
             Collections.reverse(days);
             Collections.reverse(amounts);
         }
         if(amounts.size()==0&&days.size()==0){
-            if (jsonArray.size() < startNum) {
-                startNum = jsonArray.size();
-            }
-            for (int i = startNum; i >= 0; i--) {
-                JSONObject json = jsonArray.getJSONObject(i);
-                BigDecimal dayAmount = json.getBigDecimal(jsonKey);
-                days.add(json.getString("date"));
-                amounts.add(dayAmount.toPlainString());
-            }
+            //无数据时放最新时间展示折现框
+            days.add(DateUtils.formatDateYmd(new Date()));
+            amounts.add("0.0");
         }
         List<List<String>> result = new ArrayList<>();
         result.add(days);
