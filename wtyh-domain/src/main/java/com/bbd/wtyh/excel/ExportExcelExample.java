@@ -58,6 +58,12 @@ public class ExportExcelExample {
             // setComment(patriarch);
             // 产生表格标题行
             HSSFRow rowStart = sheet.createRow(0);
+            for(int i=0;i<titleStringList.size();i++){
+                HSSFCell cell = rowStart.createCell(i);
+                cell.setCellStyle(headStyle);
+                HSSFRichTextString text = new HSSFRichTextString("");
+                cell.setCellValue(text);
+            }
             HSSFCell cellS = rowStart.createCell(0);
             cellS.setCellStyle(headStyle);
             HSSFRichTextString textS = new HSSFRichTextString(headTitle);
@@ -79,6 +85,10 @@ public class ExportExcelExample {
             //做合计
             if(flag){
                 HSSFRow rowEnd = sheet.createRow(dataset.size()+2);
+                HSSFCell cellEnd1 = rowEnd.createCell(0);
+                cellEnd1.setCellStyle(headStyle);
+                HSSFRichTextString textE1 = new HSSFRichTextString("");
+                cellEnd1.setCellValue(textE1);
                 HSSFCell cellEnd = rowEnd.createCell(1);
                 cellEnd.setCellStyle(headStyle);
                 HSSFRichTextString textE = new HSSFRichTextString("合计");
@@ -284,6 +294,15 @@ public class ExportExcelExample {
         HSSFCell c0 = row.createCell(0);
         c0.setCellStyle(headStyle);
         c0.setCellValue(new HSSFRichTextString(headTitle));
+        HSSFCell c1 = row.createCell(1);
+        c1.setCellStyle(headStyle);
+        c1.setCellValue(new HSSFRichTextString(""));
+        HSSFCell c2 = row.createCell(2);
+        c2.setCellStyle(headStyle);
+        c2.setCellValue(new HSSFRichTextString(""));
+        HSSFCell c3 = row.createCell(3);
+        c3.setCellStyle(headStyle);
+        c3.setCellValue(new HSSFRichTextString(""));
         sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 3));
 
         HSSFRow row1 = sheet.createRow(1);
@@ -408,9 +427,15 @@ public class ExportExcelExample {
         HSSFCell celEnd = rowEnd.createCell(0);
         celEnd.setCellStyle(headStyle);
         celEnd.setCellValue(new HSSFRichTextString("合计"));
+        HSSFCell celEnd1 = rowEnd.createCell(1);
+        celEnd1.setCellStyle(headStyle);
+        celEnd1.setCellValue(new HSSFRichTextString(""));
         HSSFCell celEnd2 = rowEnd.createCell(2);
         celEnd2.setCellStyle(headStyle);
         celEnd2.setCellValue(new HSSFRichTextString(total+""));
+        HSSFCell celEnd3 = rowEnd.createCell(3);
+        celEnd3.setCellStyle(headStyle);
+        celEnd3.setCellValue(new HSSFRichTextString(""));
         sheet.addMergedRegion(new CellRangeAddress(2+hotPageList.size(), 2+hotPageList.size(), 0, 1));
         sheet.addMergedRegion(new CellRangeAddress(2+hotPageList.size(), 2+hotPageList.size(), 2, 3));
 
