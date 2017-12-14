@@ -154,6 +154,7 @@ public class UserBehaviorLogServiceImpl extends BaseServiceImpl implements UserB
 		params.put("beginTime", beginTime);
 		params.put("endTime", endTime);
 		params.put("sysCode", sysCode);
+		userBehaviorLogMapper.findHotPageList(params);
 		lm = userBehaviorLogMapper.findHotPageList(params);
 		return lm;
 	}
