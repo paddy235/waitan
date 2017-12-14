@@ -59,7 +59,7 @@ public interface DataLoadingMapper {
 
     Map<String, Object> wangdaiBaseInfo(@Param("companyName") String companyName);
 
-    @Delete(" DELETE FROM qyxg_yuqing WHERE yuqing_id NOT IN (SELECT yuqing_id FROM(SELECT min(yuqing_id) AS yuqing_id FROM qyxg_yuqing GROUP BY abstract) rs) ")
+    @Delete(" DELETE FROM qyxg_yuqing WHERE yuqing_id NOT IN (SELECT yuqing_id FROM(SELECT min(yuqing_id) AS yuqing_id FROM qyxg_yuqing GROUP BY abstract,search_key ) rs) ")
     void deleteRepeatCompanyNews();
 
 }

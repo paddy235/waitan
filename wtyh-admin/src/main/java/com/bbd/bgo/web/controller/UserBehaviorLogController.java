@@ -206,6 +206,7 @@ public class UserBehaviorLogController {
 
 	//日志统计分析表下载
 	@RequestMapping(value = "/logStatistics.do", method = RequestMethod.GET)
+	@ResponseBody
 	public Object logStatistics(@RequestParam(defaultValue = "1")Integer sysCode, String beginTime, String endTime,HttpServletRequest req, HttpServletResponse response){
 		if(-1==sysCode){
 			return ResponseBean.errorResponse("系统位置必选");
