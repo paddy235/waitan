@@ -87,6 +87,8 @@ public class PABSentimentTaskServiceImpl implements PABSentimentTaskService {
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             throw new Exception(e);
+        }finally {
+            pabPublicSentimentMapper.deleteRepeatParkPublicSentiment();
         }
     }
 
@@ -124,6 +126,9 @@ public class PABSentimentTaskServiceImpl implements PABSentimentTaskService {
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             throw new Exception(e);
+        }finally {
+            //清除重复楼宇舆情
+            pabPublicSentimentMapper.deleteRepeatBuildingPublicSentiment();
         }
     }
 

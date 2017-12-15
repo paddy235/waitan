@@ -5,7 +5,7 @@
 
     <insert id="save" parameterType="com.bbd.wtyh.domain.PlatformDO">
         INSERT INTO `plat_list` (`plat_name`, `company_name`, `logo_url`, `area_id`,`create_by`, `create_date`, `update_by`, `update_date`)
-        VALUES (#{platName}, #{companyName}, #{logoUrl},#{areaId},#{createBy}, #{createDate}, #{updateBy}, #{updateDate});
+        VALUES (#{platName}, #{companyName}, #{logoUrl},#{areaId},#{createBy}, now(), #{updateBy}, now());
     </insert>
 
     <delete id="deleteByPlatName" parameterType="java.lang.String">

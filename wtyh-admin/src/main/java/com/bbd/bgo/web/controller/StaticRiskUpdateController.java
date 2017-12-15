@@ -1,5 +1,6 @@
 package com.bbd.bgo.web.controller;
 
+import com.bbd.bgo.service.task.PABSentimentTaskService;
 import com.bbd.bgo.service.task.StaticRiskUpdateService;
 import com.bbd.bgo.service.task.SyncFileService;
 import com.bbd.wtyh.service.CompanyStaticRiskScoreService;
@@ -27,6 +28,9 @@ public class StaticRiskUpdateController {
     @Autowired
     private SyncFileService syncFileService;
 
+    @Autowired
+    private PABSentimentTaskService pABSentimentTaskService;
+
     @RequestMapping("/updateStaticRiskScore.do")
     @ResponseBody
     public ResponseBean getCompanyStaticRiskScore(@RequestParam("dataVersion") String dataVersion) throws Exception {
@@ -49,6 +53,14 @@ public class StaticRiskUpdateController {
     @ResponseBody
     public ResponseBean pullFile() throws Exception {
         syncFileService.pullFile(100);
+        return null;
+    }
+
+    //新增园区舆情表数据
+    @RequestMapping("/saveParkPublicSentiment.do")
+    @ResponseBody
+    public ResponseBean saveParkPublicSentiment() throws Exception {
+        pABSentimentTaskService.saveParkPublicSentiment();
         return null;
     }
 

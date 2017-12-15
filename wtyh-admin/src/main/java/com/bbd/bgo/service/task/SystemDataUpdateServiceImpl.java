@@ -379,9 +379,23 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService,Task
     }
 
     private Byte getCompanyType(String companyType) {
-        if ("全民所有制".equals(companyType)) {
+        //国企：company_type包含“全民所有制”，或者（包含“国有”但排除“非国有”）的企业
+        //外企：company_type包含：外商、外资、外国、港、澳、台、中外几个关键字之一的企业。
+        //民企：除了以上两个类别外的其他企业。
+        // 3:国企 4:民营企业 5:外资企业
+        if(companyType.indexOf("全民所有制")>=0){
             return 3;
-        } else {
+        }else if(companyType.indexOf("非国有")==-1&&companyType.indexOf("国有")>=0){
+            return 3;
+        }else if(companyType.indexOf("外商")>=0||
+                companyType.indexOf("外资")>=0||
+                companyType.indexOf("外国")>=0||
+                companyType.indexOf("港")>=0||
+                companyType.indexOf("澳")>=0||
+                companyType.indexOf("台")>=0||
+                companyType.indexOf("中外")>=0){
+            return 5;
+        }else{
             return 4;
         }
     }
@@ -418,6 +432,7 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService,Task
     public void resetTask() {
         this.isShutdown=false;
     }
+
 }
 
 
