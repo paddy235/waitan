@@ -161,7 +161,7 @@ public class SyncFileServiceImpl extends BaseServiceImpl implements SyncFileServ
 		File file = null;
 		String[] fileNames = null;
 			//请求返回生成文件名称
-			dataVersion = "20171119";
+			//dataVersion = "20171119";
 			String url =  brokerIp + brokerUrl + "?dataVersion=" + dataVersion;
 			String nameStr = null;
 			try {
