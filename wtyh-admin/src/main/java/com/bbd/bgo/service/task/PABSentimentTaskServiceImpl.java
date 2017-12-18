@@ -102,7 +102,7 @@ public class PABSentimentTaskServiceImpl implements PABSentimentTaskService {
                 buildingList.forEach((BuildingDO building) -> {
                     if (null == building || StringUtils.isEmpty(building.getBuildingId()))
                         return;
-                    List<String> companyNameList = companyMapper.queryCompanyNamesNew(null, building.getBuildingId());
+                    List<String> companyNameList = companyMapper.queryCompanyNamesByBuildId(building.getBuildingId());
                     if (ListUtil.isNotEmpty(companyNameList)) {
                         NewsVO newsVO = this.queryBatchNews(companyNameList);
                         if (null == newsVO || ListUtil.isEmpty(newsVO.getResults())) {
