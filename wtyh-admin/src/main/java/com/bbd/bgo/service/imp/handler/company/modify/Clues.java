@@ -163,10 +163,10 @@ public class Clues {
         int offset = 0;
         for (int i = 0; i < companyTypes.length; i++) {
             CompanyType type = companyTypes[i];
-            if (type.equals(CompanyType.TYPE_JR_7) || type.equals(CompanyType.TYPE_QT_8)) {
-                offset++;
-                continue;
-            }
+//            if (type.equals(CompanyType.TYPE_JR_7) || type.equals(CompanyType.TYPE_QT_8)) {
+//                offset++;
+//                continue;
+//            }
             typeArray[i - offset] = type.desc();
         }
         return StringUtils.join(typeArray, ",");
