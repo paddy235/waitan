@@ -64,4 +64,12 @@ public class StaticRiskUpdateController {
         return null;
     }
 
+    //新增楼宇舆情表数据
+    @RequestMapping("/saveBuildingPublicSentiment.do")
+    @ResponseBody
+    public ResponseBean saveBuildingPublicSentiment() throws Exception {
+        pABSentimentTaskService.saveBuildingPublicSentiment();
+        return null;
+    }
+
 }
