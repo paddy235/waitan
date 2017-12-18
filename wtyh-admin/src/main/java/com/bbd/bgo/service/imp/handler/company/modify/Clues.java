@@ -158,7 +158,7 @@ public class Clues {
     public static String companyTypeLimit() {
 
         CompanyType[] companyTypes = CompanyType.values();
-        String[] typeArray = new String[companyTypes.length - 2];
+        String[] typeArray = new String[companyTypes.length];
 
         int offset = 0;
         for (int i = 0; i < companyTypes.length; i++) {
