@@ -77,6 +77,10 @@ public class SyncFileServiceImpl extends BaseServiceImpl implements SyncFileServ
 				if (taskResult != null && taskResult.getFailCount().compareTo(0) == 1) {
 					taskRecord(taskId, dataVersion,fileName);
 				}
+				//没错误删除文件
+				if(taskResult.getFailCount()==0){
+					file.delete();
+				}
 				successCount = successCount + taskResult.getSuccessCount();
 				failCount = failCount + taskResult.getFailCount();
 				logger.info("--------- parse "+fileName+" data file end -------");
@@ -87,6 +91,7 @@ public class SyncFileServiceImpl extends BaseServiceImpl implements SyncFileServ
 			if(failCount > 0){
 				taskResult.setState(TaskState.ERROR);
 			}
+
 
 		} catch (Exception e) {
 			if (null == taskResult) {
