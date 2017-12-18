@@ -92,25 +92,25 @@ public class CompanyInfoModifyController {
         //  "典当"
         rst.put(CompanyInfo.TYPE_DD_12, offLine);
         //  "预付卡"
-        rst.put(CompanyInfo.TYPE_YFK_11, PrepaidCoRiskLevel.getMap());
+        rst.put(CompanyInfo.TYPE_YFK_11, offLine);
         // "融资租赁"
-        rst.put(CompanyInfo.TYPE_RZZL_13, RZZLCoRiskLevel.getMap());
+        rst.put(CompanyInfo.TYPE_RZZL_13, offLine);
         // "金融"
-        rst.put(CompanyInfo.TYPE_JR_7, RZZLCoRiskLevel.getMap());
+        rst.put(CompanyInfo.TYPE_JR_7, offLine);
         // "其他"
-        rst.put(CompanyInfo.TYPE_QT_8, RZZLCoRiskLevel.getMap());
+        rst.put(CompanyInfo.TYPE_QT_8, offLine);
         // "外滩网络借贷"
-        rst.put(CompanyInfo.TYPE_WT_30, RZZLCoRiskLevel.getMap());
+        rst.put(CompanyInfo.TYPE_WT_30, offLine);
         // "外滩众筹"
-        rst.put(CompanyInfo.TYPE_WT_31, RZZLCoRiskLevel.getMap());
+        rst.put(CompanyInfo.TYPE_WT_31, offLine);
         // "外滩网银"
-        rst.put(CompanyInfo.TYPE_WT_32, RZZLCoRiskLevel.getMap());
+        rst.put(CompanyInfo.TYPE_WT_32, offLine);
         // "外滩支付"
-        rst.put(CompanyInfo.TYPE_WT_33, RZZLCoRiskLevel.getMap());
+        rst.put(CompanyInfo.TYPE_WT_33, offLine);
         // "外滩预付卡"
-        rst.put(CompanyInfo.TYPE_WT_34, RZZLCoRiskLevel.getMap());
+        rst.put(CompanyInfo.TYPE_WT_34, offLine);
         // "外滩融资租赁"
-        rst.put(CompanyInfo.TYPE_WT_35, RZZLCoRiskLevel.getMap());
+        rst.put(CompanyInfo.TYPE_WT_35, offLine);
         return ResponseBean.successResponse(rst);
     }
 
