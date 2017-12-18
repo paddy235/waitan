@@ -212,39 +212,39 @@ public class PrivateFundController {
 		}
 		Integer status = new Integer(2);
 		//取消备案
-		if(status.equals(recordStatus)){
-			PageBean<PrivateFundCompanyDTO> pageInfo2 = privateFundService.privateFundExtraList(companyName,orderByField, descAsc, recordStatus,-1,pageSize);
-			if(CollectionUtils.isEmpty(pageInfo2.getItems())){
-				return ResponseBean.successResponse(pageInfo2);
-			}
-			for (PrivateFundCompanyDTO dto : pageInfo2.getItems()) {
-                if (StringUtils.isNotEmpty(dto.getWebsite()) && !dto.getWebsite().startsWith("http")) {
-                    dto.setWebsite("http://" + dto.getWebsite());
-                }
-            }
-			Long num = 0L;
-            List<PrivateFundCompanyDTO> totalList = pageInfo2.getItems();
-			List<PrivateFundCompanyDTO> totalList2 = totalList;
-			for(int i=0;i<totalList.size();i++) {
-				String  res2 = hologramQueryDao.getCompanyInfo(totalList.get(i).getName());
-				if("1".equals(res2)){
-					totalList2.remove(i);
-					num++;
-				}
-			}
-			Long  t_count = num;
-			pageInfo2.setTotalCount(pageInfo2.getTotalCount()-t_count);
-			pageInfo2.setCurrentPage(currentPage);
-			pageInfo2.setPageSize(pageSize);
-			int formIndex = (currentPage-1)*pageSize;
-			int endIndex = currentPage*pageSize;
-			if(endIndex>totalList.size()){
-				endIndex = totalList.size();
-			}
-			pageInfo2.setItems(totalList2.subList(formIndex,endIndex));
-			return ResponseBean.successResponse(pageInfo2);
-
-		}
+//		if(status.equals(recordStatus)){
+//			PageBean<PrivateFundCompanyDTO> pageInfo2 = privateFundService.privateFundExtraList(companyName,orderByField, descAsc, recordStatus,-1,pageSize);
+//			if(CollectionUtils.isEmpty(pageInfo2.getItems())){
+//				return ResponseBean.successResponse(pageInfo2);
+//			}
+//			for (PrivateFundCompanyDTO dto : pageInfo2.getItems()) {
+//                if (StringUtils.isNotEmpty(dto.getWebsite()) && !dto.getWebsite().startsWith("http")) {
+//                    dto.setWebsite("http://" + dto.getWebsite());
+//                }
+//            }
+//			Long num = 0L;
+//            List<PrivateFundCompanyDTO> totalList = pageInfo2.getItems();
+//			List<PrivateFundCompanyDTO> totalList2 = totalList;
+//			for(int i=0;i<totalList.size();i++) {
+//				String  res2 = hologramQueryDao.getCompanyInfo(totalList.get(i).getName());
+//				if("1".equals(res2)){
+//					totalList2.remove(i);
+//					num++;
+//				}
+//			}
+//			Long  t_count = num;
+//			pageInfo2.setTotalCount(pageInfo2.getTotalCount()-t_count);
+//			pageInfo2.setCurrentPage(currentPage);
+//			pageInfo2.setPageSize(pageSize);
+//			int formIndex = (currentPage-1)*pageSize;
+//			int endIndex = currentPage*pageSize;
+//			if(endIndex>totalList.size()){
+//				endIndex = totalList.size();
+//			}
+//			pageInfo2.setItems(totalList2.subList(formIndex,endIndex));
+//			return ResponseBean.successResponse(pageInfo2);
+//
+//		}
 
 		//全部/已备案
 		int start = (currentPage-1)*pageSize;
@@ -257,10 +257,10 @@ public class PrivateFundController {
 			if (StringUtils.isNotEmpty(dto.getWebsite()) && !dto.getWebsite().startsWith("http")) {
 				dto.setWebsite("http://" + dto.getWebsite());
 			}
-				String  res = hologramQueryDao.getCompanyInfo(dto.getName());
-				if("1".equals(res)){
-					dto.setRecordStatus(1);
-				}
+//				String  res = hologramQueryDao.getCompanyInfo(dto.getName());
+//				if("1".equals(res)){
+//					dto.setRecordStatus(1);
+//				}
 
 		}
 		return ResponseBean.successResponse(pageInfo);
