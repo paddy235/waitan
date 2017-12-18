@@ -5,7 +5,7 @@
 
     <insert id="save" parameterType="com.bbd.wtyh.domain.PlatRankDataDO">
         INSERT INTO `plat_rank_data` (`plat_name`, `rank`, `amount`, `income_rate`, `loan_period`, `stay_still_of_total`, `plat_status`, `registered_address`, `area_id`, `create_by`, `create_date`, `update_by`, `update_date`)
-        VALUES (#{platName}, #{rank}, #{amount}, #{incomeRate},  #{loanPeriod},#{stayStillOfTotal},#{platStatus},#{registeredAddress},#{areaId},#{createBy}, #{createDate}, #{updateBy}, #{updateDate});
+        VALUES (#{platName}, #{rank}, #{amount}, #{incomeRate},  #{loanPeriod},#{stayStillOfTotal},#{platStatus},#{registeredAddress},#{areaId},#{createBy}, now(), #{updateBy}, now());
     </insert>
 
     <delete id="deleteByPlatName" parameterType="java.lang.String">

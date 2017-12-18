@@ -43,7 +43,7 @@
             #{item.bbd_uptime}, #{item.bbd_url}, #{item.bbd_xgxx_id}, #{item.comment_num},
             #{item.main}, #{item.news_site}, #{item.news_title}, #{item.picture}, #{item.plate},#{item.pubdate},
             #{item.rowkey}, #{item.search_key}, #{item.status}, #{item.table_name},
-            #{item.transfer_num}, #{item.id}, #{item.create_time}, #{item.bbd_qyxx_id}, #{item.task_id})
+            #{item.transfer_num}, #{item.id}, now(), #{item.bbd_qyxx_id}, #{item.task_id})
         </foreach>
     </insert>
 
@@ -57,7 +57,7 @@
             #{bbd_uptime}, #{bbd_url}, #{bbd_xgxx_id}, #{comment_num},
             #{main}, #{news_site}, #{news_title}, #{picture}, #{plate},#{pubdate},
             #{rowkey}, #{search_key}, #{status}, #{table_name},
-            #{transfer_num}, #{id}, #{create_time}, #{bbd_qyxx_id}, #{task_id}
+            #{transfer_num}, #{id}, now(), #{bbd_qyxx_id}, #{task_id}
         FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM qyxg_yuqing WHERE bbd_xgxx_id=#{bbd_xgxx_id})
 
     </insert>
@@ -83,7 +83,7 @@
             #{item.openfrom}, #{item.opento},#{item.operate_scope}, #{item.operating_period},#{item.parent_firm},
             #{item.realcap},#{item.realcap_amount}, #{item.realcap_currency},#{item.regcap}, #{item.regcap_amount},
             #{item.regcap_currency}, #{item.regcapcur},#{item.regno}, #{item.regno_or_creditcode},#{item.regorg},
-            #{item.revoke_date},#{item.type}, #{item.frname_compid}, #{item.create_time}, #{item.task_id})
+            #{item.revoke_date},#{item.type}, #{item.frname_compid}, now(), #{item.task_id})
         </foreach>
     </insert>
 
@@ -108,7 +108,7 @@
             #{item.idno}, #{item.idtype}, #{item.invest_amount}, #{item.invest_name}, #{item.invest_ratio},
             #{item.name_compid}, #{item.no}, #{item.paid_contribution},#{item.shareholder_detail},
             #{item.shareholder_id}, #{item.shareholder_name}, #{item.shareholder_type}, #{item.subscribed_capital},
-            #{item.create_time}, #{item.sumconam}, #{item.task_id})
+            now(), #{item.sumconam}, #{item.task_id})
         </foreach>
     </insert>
 
@@ -132,7 +132,7 @@
             #{item.fmgb}, #{item.fmsq},
             #{item.homeland_prority}, #{item.pct_application_data}, #{item.pct_enter_national},
             #{item.pct_publish_data},#{item.priority}, #{item.wgsq}, #{item.xxsq}, #{item.bbd_source},
-            #{item.bbd_dotime}, #{item.bbd_type}, #{item.bbd_url}, #{item.create_time}, #{item.sumconam},
+            #{item.bbd_dotime}, #{item.bbd_type}, #{item.bbd_url}, now(), #{item.sumconam},
             #{item.task_id})
         </foreach>
     </insert>
