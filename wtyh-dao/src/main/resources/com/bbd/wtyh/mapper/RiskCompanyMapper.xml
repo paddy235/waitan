@@ -216,6 +216,7 @@
         update company
         <set>
             previous_risk_level=risk_level,
+            update_date=now(),
             risk_level=#{afterLevel}
         </set>
         where `name`=#{name}

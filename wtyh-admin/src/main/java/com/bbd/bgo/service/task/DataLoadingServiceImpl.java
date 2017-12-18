@@ -134,8 +134,10 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
             taskResultDO.setFailCount(dataError);
             taskResultDO.setSuccessCount(dataTotal - dataError);
         }
-        //清楚企业舆情表重复数据
+        //清除企业舆情表重复数据
         dataLoadingMapper.deleteRepeatCompanyNews();
+        //清除重复企业表数据
+        dataLoadingMapper.deleteRepeatCompany();
         logger.info("--- company holographic handle end ---");
         return taskResultDO;
     }
@@ -157,6 +159,8 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 
         //清除企业舆情表重复数据
         dataLoadingMapper.deleteRepeatCompanyNews();
+        //清除重复企业表数据
+        dataLoadingMapper.deleteRepeatCompany();
 
         //实时监测舆情落地,保持与其他舆情落地的create_time一致。不需要放到重新执行的任务里，防止数据过分重复
         try {
@@ -196,6 +200,8 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
         }
         //清除企业舆情表重复数据
         dataLoadingMapper.deleteRepeatCompanyNews();
+        //清除重复企业表数据
+        dataLoadingMapper.deleteRepeatCompany();
         logger.info("--- company holographic job end ---");
         return taskResultDO;
     }

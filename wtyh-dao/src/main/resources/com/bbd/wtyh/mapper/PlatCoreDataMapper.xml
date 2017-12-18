@@ -8,7 +8,7 @@
          `plat_data_six_month`, `company_name`, `top10_sum_amount`, `money_stock`, `day30_net_inflow`, `top1_sum_amount`, `amount_total`,
          `create_by`, `create_date`, `update_by`, `update_date`)
         VALUES (#{platName}, #{otherSumAmount},#{interestRate},#{bidNumStayStil},#{borNumStayStil},#{platDataSixMonth},#{companyName},#{top10SumAmount},#{moneyStock},
-         #{day30NetInflow},#{top1SumAmount},#{amountTotal},#{createBy}, #{createDate}, #{updateBy}, #{updateDate});
+         #{day30NetInflow},#{top1SumAmount},#{amountTotal},#{createBy}, now(), #{updateBy}, now());
     </insert>
 
     <delete id="deleteByPlatName" parameterType="java.lang.String">

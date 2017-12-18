@@ -47,6 +47,8 @@ public interface CompanyMapper {
 
 	List<String> queryCompanyNames(@Param("parkId") Integer parkId, @Param("buildingId") Integer buildingId);
 
+	List<String> queryCompanyNamesNew(@Param("parkId") Integer parkId, @Param("buildingId") Integer buildingId);
+
 	List<Map<Integer, Object>> companyInfo(String companyName);
 
 	@Select("SELECT company.area_id AS comAreaId, park.area_id AS parkAreaId, park. NAME AS parkName,building.`name` AS buildName FROM " +
@@ -141,7 +143,7 @@ public interface CompanyMapper {
 	@Update("UPDATE company SET `area_id` =#{areaId}, `address` =#{address}, `credit_code` =#{creditCode}, `longitude` =#{longitude}," +
 	 	" `latitude` =#{latitude}, `legal_person` =#{legalPerson},`registered_capital` =#{registeredCapital}," +
 	 	 " `registered_capital_type` =#{registeredCapitalType}, `registered_date` =#{registeredDate}, `registered_type` =#{registeredType}," +
-	 	  " `status` =#{status} ,`business_type`=#{businessType} ,update_date=CURDATE(),update_by='TIMER' WHERE `name` =#{companyName};")
+	 	  " `status` =#{status} ,`business_type`=#{businessType} ,update_date=now(),update_by='companyBaseInfoJob' WHERE `name` =#{companyName};")
 	void updateBasicInfo(@Param("companyName") String companyName, @Param("areaId") Integer areaId, @Param("address") String address,
 						     @Param("creditCode") String creditCode,@Param("longitude") Double longitude,@Param("latitude") Double latitude,
 							 @Param("legalPerson") String legalPerson,@Param("registeredCapital") Integer registeredCapital,

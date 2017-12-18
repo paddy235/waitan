@@ -68,7 +68,7 @@ public class PABSentimentTaskServiceImpl implements PABSentimentTaskService {
                 parkList.forEach((ParkDO park) -> {
                     if (null == park || StringUtils.isEmpty(park.getAreaId()) || StringUtils.isEmpty(park.getName()))
                         return;
-                    List<String> companyNameList = companyMapper.queryCompanyNames(park.getParkId(), null);
+                    List<String> companyNameList = companyMapper.queryCompanyNamesNew(park.getParkId(), null);
                     if (ListUtil.isNotEmpty(companyNameList)) {
                         NewsVO newsVO = this.queryBatchNews(companyNameList);
                         if (null == newsVO || ListUtil.isEmpty(newsVO.getResults())) {
@@ -87,6 +87,8 @@ public class PABSentimentTaskServiceImpl implements PABSentimentTaskService {
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             throw new Exception(e);
+        }finally {
+            pabPublicSentimentMapper.deleteRepeatParkPublicSentiment();
         }
     }
 
@@ -100,7 +102,7 @@ public class PABSentimentTaskServiceImpl implements PABSentimentTaskService {
                 buildingList.forEach((BuildingDO building) -> {
                     if (null == building || StringUtils.isEmpty(building.getBuildingId()))
                         return;
-                    List<String> companyNameList = companyMapper.queryCompanyNames(null, building.getBuildingId());
+                    List<String> companyNameList = companyMapper.queryCompanyNamesNew(null, building.getBuildingId());
                     if (ListUtil.isNotEmpty(companyNameList)) {
                         NewsVO newsVO = this.queryBatchNews(companyNameList);
                         if (null == newsVO || ListUtil.isEmpty(newsVO.getResults())) {
@@ -124,6 +126,9 @@ public class PABSentimentTaskServiceImpl implements PABSentimentTaskService {
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             throw new Exception(e);
+        }finally {
+            //清除重复楼宇舆情
+            pabPublicSentimentMapper.deleteRepeatBuildingPublicSentiment();
         }
     }
 

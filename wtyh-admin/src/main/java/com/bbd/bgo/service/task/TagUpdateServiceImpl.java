@@ -43,6 +43,7 @@ public class TagUpdateServiceImpl implements TagUpdateService {
     @Override
     public void operateData() {
         logger.info( "TagUpdateService is start . . ." );
+        dataLoadingMapper.deleteRepeatCompany();
         Integer [] dataTotal =new Integer[1];
         Integer maxDataVersion =qyxxTagMapper.maxDataVersion();
         if ( 0 == maxDataVersion ) {
@@ -123,6 +124,8 @@ public class TagUpdateServiceImpl implements TagUpdateService {
             logger.info("end  addTagAndCompany ");
         }catch (Exception e){
             logger.error("addTagAndCompany error : ",e );
+        }finally {
+            dataLoadingMapper.deleteRepeatCompany();
         }
     }
 
