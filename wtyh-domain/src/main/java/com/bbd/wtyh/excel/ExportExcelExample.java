@@ -77,7 +77,7 @@ public class ExportExcelExample {
                     sheet.setColumnWidth(0,5 * 256);
                 }
                 HSSFCell cell = row.createCell(tilteNum);
-                cell.setCellStyle(headStyle);
+                cell.setCellStyle(bodyStyle);
                 HSSFRichTextString text = new HSSFRichTextString(titleFor);
                 cell.setCellValue(text);
                 tilteNum++;
@@ -311,16 +311,16 @@ public class ExportExcelExample {
 
         HSSFRow row1 = sheet.createRow(1);
         HSSFCell c10 = row1.createCell(0);
-        c10.setCellStyle(headStyle);
+        c10.setCellStyle(bodyStyle);
         c10.setCellValue(new HSSFRichTextString("区域"));
         HSSFCell c11 = row1.createCell(1);
-        c11.setCellStyle(headStyle);
+        c11.setCellStyle(bodyStyle);
         c11.setCellValue(new HSSFRichTextString("页面"));
         HSSFCell c12 = row1.createCell(2);
-        c12.setCellStyle(headStyle);
+        c12.setCellStyle(bodyStyle);
         c12.setCellValue(new HSSFRichTextString("次数"));
         HSSFCell c13 = row1.createCell(3);
-        c13.setCellStyle(headStyle);
+        c13.setCellStyle(bodyStyle);
         c13.setCellValue(new HSSFRichTextString("合计"));
 
         String [] ss = new String[]{"name","request_desc","countCode","total"};
