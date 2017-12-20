@@ -18,7 +18,7 @@ public interface UserBehaviorLogMapper {
 	// String loginName);
 
 	// List<UserInfoTableDo> findByPage(Map<String, Object> params);
-	List<Map<String, String>> selectlistUserOperaLog(Map<String, Object> params);
+	List<Map<String, Object>> selectlistUserOperaLog(Map<String, Object> params);
 
 	List<UserSearchVO> findSearchList(Map<String, Object> params);
 

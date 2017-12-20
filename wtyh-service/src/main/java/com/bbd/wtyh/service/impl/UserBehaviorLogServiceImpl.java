@@ -113,12 +113,12 @@ public class UserBehaviorLogServiceImpl extends BaseServiceImpl implements UserB
 	}
 
 	@Override
-	public List<Map<String, String>> listUserOperaLog(Date beginTime, Date endTime,Integer sysCode) throws Exception {
+	public List<Map<String, Object>> listUserOperaLog(Date beginTime, Date endTime,Integer sysCode) throws Exception {
 		Map<String, Object> params = new HashMap<>();
 		params.put("beginTime", beginTime);
 		params.put("endTime", endTime);
 		params.put("sysCode", sysCode);
-		List<Map<String, String>> lm = userBehaviorLogMapper.selectlistUserOperaLog(params);
+		List<Map<String, Object>> lm = userBehaviorLogMapper.selectlistUserOperaLog(params);
 		return lm;
 	}
 

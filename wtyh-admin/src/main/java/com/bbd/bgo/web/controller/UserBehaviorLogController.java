@@ -235,19 +235,20 @@ public class UserBehaviorLogController {
 			int num = 0;
 
 			//获取
-			List<Map<String,String>> list = ubls.listUserOperaLog(begin,end,sysCode);
+			List<Map<String,Object>> list = ubls.listUserOperaLog(begin,end,sysCode);
 
-			for (Map<String,String> map:list) {
-				int total = 0;
+			for (Map<String,Object> map:list) {
+//				int total = 0;
 				UseDetailVO uDetail = new UseDetailVO();
 				uDetail.setNumIndex((++num)+"");
-				uDetail.setArea(map.get("name"));
-				String [] s1 = map.get("operation_type").split(",");
-				String [] s2 = map.get("countType").split(",");
-				for(int i=0;i<s2.length;i++){
-						total += Integer.parseInt(s2[i]);
-					}
-				uDetail.setTotal(total);
+				uDetail.setArea(map.get("name").toString());
+				String [] s1 = map.get("operation_type").toString().split(",");
+				String [] s2 = map.get("countType").toString().split(",");
+//				for(int i=0;i<s2.length;i++){
+//						total += Integer.parseInt(s2[i]);
+//					}
+				Long total = (Long)map.get("total");
+				uDetail.setTotal(total.intValue());
 				switchType(s1,s2,uDetail);
 			}
 
@@ -357,6 +358,7 @@ public class UserBehaviorLogController {
 					break;
 				case "9":
 					uDetail.setAct(Integer.parseInt(s2[i]));
+					break;
 				case "10":
 					uDetail.setDocuExport(Integer.parseInt(s2[i]));
 					break;

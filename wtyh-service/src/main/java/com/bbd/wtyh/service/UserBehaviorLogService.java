@@ -20,7 +20,7 @@ public interface UserBehaviorLogService extends BaseService {
 			Integer sysCode, Integer opTpCd, Integer opPgCd, Date beginTime, Date endTime, String logContent, String orderBy)
 			throws Exception;
 
-	List<Map<String, String >> listUserOperaLog(Date beginTime, Date endTime,Integer sysCode)
+	List<Map<String, Object >> listUserOperaLog(Date beginTime, Date endTime,Integer sysCode)
 			throws Exception;
 
 	 HSSFWorkbook produceExcel(HSSFWorkbook workbook, HSSFSheet sheet, List<UseDetailVO> opeList,String headTitle,Integer [] res) ;

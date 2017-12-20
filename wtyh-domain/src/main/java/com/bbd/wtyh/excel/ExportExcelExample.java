@@ -73,6 +73,9 @@ public class ExportExcelExample {
             int tilteNum = 0;
             for (String titleFor : titleStringList) {
 //                HSSFCell cell = row.createCell(tilteNum);
+                if("序号".equals(titleFor)){
+                    sheet.setColumnWidth(0,5 * 256);
+                }
                 HSSFCell cell = row.createCell(tilteNum);
                 cell.setCellStyle(headStyle);
                 HSSFRichTextString text = new HSSFRichTextString(titleFor);
@@ -222,7 +225,8 @@ public class ExportExcelExample {
     // 样式初始化
     private static void initStyle(HSSFWorkbook workbook, HSSFSheet sheet, HSSFCellStyle headStyle,
                                   HSSFCellStyle headStyleTitle, HSSFCellStyle bodyStyle) {
-        sheet.setDefaultColumnWidth(20);
+        sheet.setDefaultColumnWidth(10);
+
         // 表头样式设置
         headStyle.setFillBackgroundColor((short) 4);
         headStyle.setBorderBottom((short) 1);
@@ -382,7 +386,7 @@ public class ExportExcelExample {
                 if(s.equals("total")){
                     HSSFCell cell = rowStart.createCell(i);
                     cell.setCellStyle(bodyStyle);
-                    cell.setCellValue(new HSSFRichTextString(numTotal.get(hotPageList.get(j).getName())+""));
+                    cell.setCellValue(new HSSFRichTextString(hotPageList.get(j).getSumCode()+""));
                 }
             }
         }

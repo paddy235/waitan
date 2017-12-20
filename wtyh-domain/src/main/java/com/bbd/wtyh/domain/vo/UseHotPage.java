@@ -11,6 +11,16 @@ public class UseHotPage {
 
     private Integer countCode;
 
+    private Integer sumCode;
+
+    public Integer getSumCode() {
+        return sumCode;
+    }
+
+    public void setSumCode(Integer sumCode) {
+        this.sumCode = sumCode;
+    }
+
     public String getName() {
         return name;
     }

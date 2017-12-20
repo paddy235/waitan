@@ -70,7 +70,7 @@
     </select>
 
     <select id="selectlistUserOperaLog" parameterType="java.util.HashMap" resultType="java.util.Map">
-        SELECT area.`name`,T.operation_type,T.countType from (select area_code,group_concat(operation_type) operation_type,group_concat(countType) countType from
+        SELECT case when area.`name`='上海市' then '上海全区' else area.`name` end name,T.operation_type,T.countType,T.total from (select rs.area_code,group_concat(rs.operation_type) operation_type,group_concat(rs.countType) countType,total from
 (
 SELECT
 	area_code,
@@ -88,12 +88,41 @@ FROM
             AND `sys_code` = #{sysCode}
         </if>
     </where>
-	GROUP BY area_code,operation_type HAVING area_code != '' ) rs
- group by area_code ) T LEFT JOIN area on T.area_code=area.area_id
+	GROUP BY area_code,operation_type HAVING area_code != '' ) rs LEFT JOIN (select area_code,count(operation_type) total
+        from user_behavior_log
+        <where>
+            <if test="beginTime !=null"> <!-- 开始时间 -->
+                <![CDATA[ `operation_date` >= #{beginTime} ]]>
+            </if>
+            <if test="endTime !=null"> <!-- 结束时间 -->
+                <![CDATA[ AND `operation_date` <= #{endTime} ]]>
+            </if>
+            <if test="sysCode !=null">
+                AND `sys_code` = #{sysCode}
+            </if>
+        </where>
+        GROUP BY area_code ) b on rs.area_code= b.area_code
+        group by area_code) T LEFT JOIN area on T.area_code=area.area_id
+        ORDER BY T.total desc
     </select>
 
     <select id="findHotPageList" parameterType="java.util.HashMap" resultType="com.bbd.wtyh.domain.vo.UseHotPage">
-        SELECT area.`name` ,T3.request_desc,T3.countCode from(SELECT
+        SELECT
+        T6.*,T5.sumCode
+        FROM
+        (
+        SELECT
+        NAME,
+        SUM(countCode) sumCode
+        FROM
+        (
+        SELECT
+        area.`name`,
+        T3.request_desc,
+        T3.countCode
+        FROM
+        (
+        SELECT
         T2.*
         FROM
         (
@@ -109,7 +138,7 @@ FROM
         SELECT
         area_code,
         request_desc,
-        COUNT(1) as countCode
+        COUNT(1) AS countCode
         FROM
         user_behavior_log
         WHERE
@@ -126,11 +155,70 @@ FROM
         GROUP BY
         area_code,
         request_desc
-        ORDER BY area_code asc,countCode desc
+        ORDER BY
+        area_code ASC,
+        countCode DESC
         ) AS T
         ) AS T2
         WHERE
-        <![CDATA[ T2.rownum <= 10 ]]>) T3 LEFT JOIN area on T3.area_code=area.area_id
+        <![CDATA[ T2.rownum <= 10 ]]>
+        ) T3
+        LEFT JOIN area ON T3.area_code = area.area_id
+        ) T4
+        GROUP BY
+        NAME
+        ) T5
+        LEFT JOIN (
+        SELECT
+        area.`name`,
+        T3.request_desc,
+        T3.countCode
+        FROM
+        (
+        SELECT
+        T2.*
+        FROM
+        (
+        SELECT
+        T.*, CASE
+        WHEN @mid = area_code THEN
+        @ROW :=@ROW + 1
+        ELSE
+        @ROW := 1
+        END rownum ,@mid := area_code mid
+        FROM
+        (
+        SELECT
+        area_code,
+        request_desc,
+        COUNT(1) AS countCode
+        FROM
+        user_behavior_log
+        WHERE
+        area_code != ''
+        <if test="beginTime !=null"> <!-- 开始时间 -->
+            <![CDATA[ AND `operation_date` >= #{beginTime} ]]>
+        </if>
+        <if test="endTime !=null"> <!-- 结束时间 -->
+            <![CDATA[ AND `operation_date` <= #{endTime} ]]>
+        </if>
+        <if test="sysCode !=null">
+            AND `sys_code` = #{sysCode}
+        </if>
+        GROUP BY
+        area_code,
+        request_desc
+        ORDER BY
+        area_code ASC,
+        countCode DESC
+        ) AS T
+        ) AS T2
+        WHERE
+        <![CDATA[ T2.rownum <= 10 ]]>
+        ) T3
+        LEFT JOIN area ON T3.area_code = area.area_id
+        ) T6 ON T5.`NAME`=T6.`name`
+        ORDER BY sumCode desc,countCode desc
     </select>
 
 
