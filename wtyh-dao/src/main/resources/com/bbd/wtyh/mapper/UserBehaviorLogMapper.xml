@@ -78,8 +78,9 @@ SELECT
 FROM
 	user_behavior_log
 	<where>
+        `operator` != 'admin'
         <if test="beginTime !=null"> <!-- 开始时间 -->
-            <![CDATA[ `operation_date` >= #{beginTime} ]]>
+            <![CDATA[ AND `operation_date` >= #{beginTime} ]]>
         </if>
         <if test="endTime !=null"> <!-- 结束时间 -->
             <![CDATA[ AND `operation_date` <= #{endTime} ]]>
@@ -91,8 +92,9 @@ FROM
 	GROUP BY area_code,operation_type HAVING area_code != '' ) rs LEFT JOIN (select area_code,count(operation_type) total
         from user_behavior_log
         <where>
+            `operator` != 'admin'
             <if test="beginTime !=null"> <!-- 开始时间 -->
-                <![CDATA[ `operation_date` >= #{beginTime} ]]>
+                <![CDATA[ AND `operation_date` >= #{beginTime} ]]>
             </if>
             <if test="endTime !=null"> <!-- 结束时间 -->
                 <![CDATA[ AND `operation_date` <= #{endTime} ]]>
@@ -143,6 +145,7 @@ FROM
         user_behavior_log
         WHERE
         area_code != ''
+        and`operator` != 'admin'
         and request_code !=0
         <if test="beginTime !=null"> <!-- 开始时间 -->
             <![CDATA[ AND `operation_date` >= #{beginTime} ]]>
@@ -197,6 +200,7 @@ FROM
         user_behavior_log
         WHERE
         area_code != ''
+        and`operator` != 'admin'
         and request_code !=0
         <if test="beginTime !=null"> <!-- 开始时间 -->
             <![CDATA[ AND `operation_date` >= #{beginTime} ]]>
@@ -242,6 +246,7 @@ FROM
             WHERE
             operation_desc = '搜索'
             AND sys_name = '前台'
+            and`operator` != 'admin'
         </if>
         <if test="sysCode ==2">
             SELECT SUBSTRING_INDEX(SUBSTRING_INDEX(log_content,'用户名关键字:' ,- 1),'；',1) keyWord
@@ -250,6 +255,7 @@ FROM
             WHERE
             operation_desc = '搜索'
             AND sys_name = '后台' and log_content like '%用户名关键字%'
+            and`operator` != 'admin'
         </if>
         <if test="beginTime !=null"> <!-- 开始时间 -->
             <![CDATA[ AND `operation_date` >= #{beginTime} ]]>
