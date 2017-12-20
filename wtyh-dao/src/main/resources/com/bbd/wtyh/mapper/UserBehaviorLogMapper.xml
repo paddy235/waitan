@@ -108,7 +108,7 @@ FROM
 
     <select id="findHotPageList" parameterType="java.util.HashMap" resultType="com.bbd.wtyh.domain.vo.UseHotPage">
         SELECT
-        T6.*,T5.sumCode
+        case when T6.name='上海市' then '上海全区' else T6.name end name,T6.request_desc,T6.countCode,T5.sumCode
         FROM
         (
         SELECT
