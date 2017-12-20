@@ -143,6 +143,7 @@ FROM
         user_behavior_log
         WHERE
         area_code != ''
+        and request_code !=0
         <if test="beginTime !=null"> <!-- 开始时间 -->
             <![CDATA[ AND `operation_date` >= #{beginTime} ]]>
         </if>
@@ -196,6 +197,7 @@ FROM
         user_behavior_log
         WHERE
         area_code != ''
+        and request_code !=0
         <if test="beginTime !=null"> <!-- 开始时间 -->
             <![CDATA[ AND `operation_date` >= #{beginTime} ]]>
         </if>
