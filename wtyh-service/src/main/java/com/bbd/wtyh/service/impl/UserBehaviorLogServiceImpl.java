@@ -113,11 +113,12 @@ public class UserBehaviorLogServiceImpl extends BaseServiceImpl implements UserB
 	}
 
 	@Override
-	public List<Map<String, Object>> listUserOperaLog(Date beginTime, Date endTime,Integer sysCode) throws Exception {
+	public List<Map<String, Object>> listUserOperaLog(Date beginTime, Date endTime,Integer sysCode,String excludeName) throws Exception {
 		Map<String, Object> params = new HashMap<>();
 		params.put("beginTime", beginTime);
 		params.put("endTime", endTime);
 		params.put("sysCode", sysCode);
+		params.put("excludeName", excludeName);
 		List<Map<String, Object>> lm = userBehaviorLogMapper.selectlistUserOperaLog(params);
 		return lm;
 	}
@@ -137,23 +138,25 @@ public class UserBehaviorLogServiceImpl extends BaseServiceImpl implements UserB
 	}
 
 	@Override
-	public List<UserSearchVO> findKeyWord(Date beginTime, Date endTime,Integer sysCode) {
+	public List<UserSearchVO> findKeyWord(Date beginTime, Date endTime,Integer sysCode,String excludeName) {
 		Map<String, Object> params = new HashMap<>();
 		params.put("beginTime", beginTime);
 		params.put("endTime", endTime);
 		params.put("sysCode", sysCode);
+		params.put("excludeName", excludeName);
 		List<UserSearchVO> list = userBehaviorLogMapper.findSearchList(params);
 		return list;
 	}
 
 	@Override
-	public List<UseHotPage> findHotPage(Date beginTime, Date endTime, Integer sysCode) {
+	public List<UseHotPage> findHotPage(Date beginTime, Date endTime, Integer sysCode,String excludeName) {
 		List<UseHotPage> lm = new ArrayList<>();
 		lm.clear();
 		Map<String, Object> params = new HashMap<>();
 		params.put("beginTime", beginTime);
 		params.put("endTime", endTime);
 		params.put("sysCode", sysCode);
+		params.put("excludeName", excludeName);
 		userBehaviorLogMapper.findHotPageList(params);
 		lm = userBehaviorLogMapper.findHotPageList(params);
 		return lm;

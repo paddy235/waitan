@@ -207,9 +207,16 @@ public class UserBehaviorLogController {
 	//日志统计分析表下载
 	@RequestMapping(value = "/logStatistics.do", method = RequestMethod.GET)
 	@ResponseBody
-	public Object logStatistics(@RequestParam(defaultValue = "1")Integer sysCode, String beginTime, String endTime,HttpServletRequest req, HttpServletResponse response){
+	public Object logStatistics(@RequestParam(defaultValue = "1")Integer sysCode, String beginTime, String endTime,HttpServletRequest req, HttpServletResponse response,HttpSession session){
 		if(-1==sysCode){
 			return ResponseBean.errorResponse("系统位置必选");
+		}
+
+		//
+		String excludeName = null;
+
+		if (((UserRank) (session.getAttribute("userRank"))).getRankVal() < UserRank.SUPER_A.getRankVal()) {
+			excludeName = "admin"; // 滤除超管的行为日志，普管不能查看超管的行为日志
 		}
 
 		//清空list
@@ -235,7 +242,7 @@ public class UserBehaviorLogController {
 			int num = 0;
 
 			//获取
-			List<Map<String,Object>> list = ubls.listUserOperaLog(begin,end,sysCode);
+			List<Map<String,Object>> list = ubls.listUserOperaLog(begin,end,sysCode,excludeName);
 
 			for (Map<String,Object> map:list) {
 //				int total = 0;
@@ -263,7 +270,7 @@ public class UserBehaviorLogController {
 
 			//查询热门页面
 			List<UseHotPage> hotPageList = null;
-			hotPageList = ubls.findHotPage(begin,end,sysCode);
+			hotPageList = ubls.findHotPage(begin,end,sysCode,excludeName);
 			HSSFSheet sheet2 = workbook.createSheet();
 			String sheetName2 = "2页面访问热度排行"+time;
 			String headTitle2 = "页面访问热度排行（"+sysName+"）";
@@ -272,7 +279,7 @@ public class UserBehaviorLogController {
 
 
 			List<UserSearchVO> list2 = null;
-			list2 = ubls.findKeyWord(begin,end,sysCode);
+			list2 = ubls.findKeyWord(begin,end,sysCode,excludeName);
 			HSSFSheet sheet3 = workbook.createSheet();
 			String sheetName3 = "3搜索关键字排行"+time;
 			String headTitle3 = "搜索关键字排行（"+sysName+"）";

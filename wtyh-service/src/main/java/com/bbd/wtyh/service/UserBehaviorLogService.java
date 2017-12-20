@@ -20,14 +20,14 @@ public interface UserBehaviorLogService extends BaseService {
 			Integer sysCode, Integer opTpCd, Integer opPgCd, Date beginTime, Date endTime, String logContent, String orderBy)
 			throws Exception;
 
-	List<Map<String, Object >> listUserOperaLog(Date beginTime, Date endTime,Integer sysCode)
+	List<Map<String, Object >> listUserOperaLog(Date beginTime, Date endTime,Integer sysCode,String excludeName)
 			throws Exception;
 
 	 HSSFWorkbook produceExcel(HSSFWorkbook workbook, HSSFSheet sheet, List<UseDetailVO> opeList,String headTitle,Integer [] res) ;
 
 	HSSFWorkbook produceExcel3(HSSFWorkbook workbook, HSSFSheet sheet, List<UserSearchVO> opeList,String headTitle) ;
 
-	 List<UserSearchVO> findKeyWord(Date beginTime, Date endTime,Integer sysCode);
+	 List<UserSearchVO> findKeyWord(Date beginTime, Date endTime,Integer sysCode,String excludeName);
 
-	List<UseHotPage> findHotPage(Date beginTime, Date endTime, Integer sysCode);
+	List<UseHotPage> findHotPage(Date beginTime, Date endTime, Integer sysCode,String excludeName);
 }
