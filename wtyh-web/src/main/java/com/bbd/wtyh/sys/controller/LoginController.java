@@ -99,6 +99,7 @@ public class LoginController {
             map.put("pwdBeOverdue", userInfoService.testUserPasswordBeOverdue(userInfo.getForePwdUpDate()));// 密码是否过期
             map.put("userId", userInfo.getId());// 用户ID
             map.put("userType", userInfo.getUserType());// 用户类型
+            map.put("realName", userInfo.getRealName());// 真实姓名
         } catch (UnknownAccountException e) { // 用户名不存在
             //e.printStackTrace();
             return ResponseBean.errorResponse("用户名或密码不正确");

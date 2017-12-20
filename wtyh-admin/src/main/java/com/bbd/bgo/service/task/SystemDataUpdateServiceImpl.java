@@ -11,6 +11,8 @@ import com.bbd.wtyh.service.AreaService;
 import com.bbd.wtyh.service.HologramQueryService;
 import com.bbd.wtyh.service.TaskService;
 import com.bbd.wtyh.service.impl.OfflineFinanceServiceImpl;
+import com.bbd.wtyh.util.DateUtils;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -175,6 +177,7 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService,Task
         params.put("pagination", pagination);
         StringBuffer companyNameSerial = new StringBuffer();
         List<String> failNameList = new ArrayList<String>();
+        Map<String,String> vaildateRepeat = new HashMap<>();
         if(1==type){
             List<CompanyDO> list = companyMapper.findByPage(params);
             if (CollectionUtils.isEmpty(list)) {
@@ -233,6 +236,7 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService,Task
             String companyType = null;
             Integer status = 2;
             String businessType = null;
+            String currentApprovalDate = null;
             Map itr = null;
             try {
                 itr = (Map) (itr1.get("jbxx"));
@@ -294,6 +298,10 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService,Task
                 if(null!=esdateObj){
                     esdate = (String)esdateObj;
                 }
+                Object approvalDateObj=itr.get("approval_date");//approval_date 批准时间
+                if(null!=approvalDateObj){
+                    currentApprovalDate = (String)approvalDateObj;
+                }
                 Object rcObj=itr.get("regcap_currency");
                 if(null!=rcObj){
                     String regcapCurrency = (String)rcObj;
@@ -319,11 +327,17 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService,Task
                 insertFailInfo(null,companyName,"接口指数错误");
             }
             try {
+                //当前记录的批准日期大于之前的日期，为最新的数据，再次更新，否则不做操作
+                String lastApprovalDate = vaildateRepeat.get(companyName);
+                if(StringUtils.isNotEmpty(lastApprovalDate)&&
+                        DateUtils.compareDateStr(lastApprovalDate,currentApprovalDate)==1){
+                    continue;
+                }
                 //companyMapper.updateAreaIdAndAddress( companyName,areaId, address, creditCode );
                 companyMapper.updateBasicInfo(companyName,areaId, address, creditCode,companyGisLon,companyGisLat,
                         frname,registeredCapital,registeredCapitalType,esdate,companyType,status,businessType);
-
                 updateCompanyBackground(companyName, ipoCompany, companyType);
+                vaildateRepeat.put(companyName,currentApprovalDate);
             } catch (Exception e) {
                 insertFailInfo(null,companyName,"更新数据错误");
             }

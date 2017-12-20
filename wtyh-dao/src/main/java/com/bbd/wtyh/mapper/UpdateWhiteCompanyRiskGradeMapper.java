@@ -25,7 +25,7 @@ public interface UpdateWhiteCompanyRiskGradeMapper {
 
     //前1~200家企业名单 LIMIT 0,200
     //201~1000家企业名单 LIMIT 200,800
-    @Select("SELECT a.company_name FROM index_data a INNER JOIN offline_financial_white b ON a.company_name = b.companyName  AND NOT EXISTS (SELECT 1 FROM company_modify c WHERE b.companyName = c. NAME AND c.afterLevel IS NOT NULL AND c.afterLevel != 'null') AND NOT EXISTS (SELECT 1 FROM company cm WHERE b.companyId = cm.company_id AND cm.company_type = 4 AND cm.risk_level = 1) ORDER BY a.static_risk_index desc LIMIT ${start},${size}")
+    @Select("SELECT a.company_name FROM index_data a INNER JOIN offline_financial_white b ON a.company_name = b.companyName  AND NOT EXISTS (SELECT 1 FROM company_modify c WHERE b.companyName = c. NAME AND c.afterLevel IS NOT NULL AND c.afterLevel != 'null') AND NOT EXISTS (SELECT 1 FROM company cm WHERE b.companyId = cm.company_id AND cm.risk_level = 1) ORDER BY a.static_risk_index desc LIMIT ${start},${size}")
     List<String> find(@Param("start") int start, @Param("size")int size);
 
     //5万家白名单企业的公信中心数据包含：限制出境、限制高消费和网上追讨的公司名单

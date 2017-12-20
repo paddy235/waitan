@@ -49,6 +49,8 @@ public interface CompanyMapper {
 
 	List<String> queryCompanyNamesNew(@Param("parkId") Integer parkId, @Param("buildingId") Integer buildingId);
 
+	List<String> queryCompanyNamesByBuildId(@Param("buildingId") Integer buildingId);
+
 	List<Map<Integer, Object>> companyInfo(String companyName);
 
 	@Select("SELECT company.area_id AS comAreaId, park.area_id AS parkAreaId, park. NAME AS parkName,building.`name` AS buildName FROM " +

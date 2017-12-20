@@ -85,4 +85,29 @@ public class DateUtils {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
         return sdf.format(date);
     }
+
+    /**
+     * 比较时间字符串大小
+     * 返回1 dateStr1大
+     * 返回2 dateStr2大
+     * 返回3 异常
+     * 返回0 相等
+     */
+    public static Integer compareDateStr(String dateStr1,String dateStr2){
+        try {
+            SimpleDateFormat dateFormat =new SimpleDateFormat("yyyy-MM-dd");
+            Date dt1 = dateFormat.parse(dateStr1);
+            Date dt2 = dateFormat.parse(dateStr2);
+            //dateStr1大于dateStr2
+            if (dt1.getTime() > dt2.getTime()) {
+                return 1;
+            } else if (dt1.getTime() < dt2.getTime()) {
+                return 2;
+            } else {
+                return 0;
+            }
+        } catch (Exception e) {
+            return 3;
+        }
+    }
 }

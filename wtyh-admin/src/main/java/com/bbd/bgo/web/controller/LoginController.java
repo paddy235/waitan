@@ -96,6 +96,7 @@ public class LoginController {
             // 用户信息、权限信息传给前端页面
             map = new HashedMap();
             map.put("resource", res);// 权限列表
+            map.put("realName", userInfo.getRealName());// 真实姓名
             map.put(Constants.SESSION.loginName, name);// 登录用户名
             map.put("area", areaCode);// 属地区编号
             map.put("areaName", areaName);// 地区名称

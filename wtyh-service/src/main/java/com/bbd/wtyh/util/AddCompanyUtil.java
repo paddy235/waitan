@@ -183,7 +183,9 @@ public class AddCompanyUtil {
             String parentCompanyName = hologramQueryDao.getParentCompany(me.getKey().getName());
             if(StringUtils.isNotBlank(parentCompanyName)){
                 CompanyDO cd = companyService.getCompanyByName(parentCompanyName);
-                me.getKey().setCompanyType(cd.getCompanyType());
+                if(null!=cd && null!=cd.getCompanyType()){
+                    me.getKey().setCompanyType(cd.getCompanyType());
+                }
             }
             int rst = companyService.insert(me.getKey());
             if (null == me.getKey().getCompanyId()) {

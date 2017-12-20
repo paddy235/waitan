@@ -126,7 +126,9 @@ public class BatchModifyHandler extends AbstractImportHandler<CoBatchModifyDTO> 
         String parentCompanyName = hologramQueryDao.getParentCompany(bean.getCompanyName());
         if(org.apache.commons.lang.StringUtils.isNotBlank(parentCompanyName)){
             CompanyDO cd = companyService.getCompanyByName(parentCompanyName);
-            modifyData.setIndustry(cd.getCompanyType().toString());
+            if(null!=cd && null!=cd.getCompanyType()){
+                modifyData.setIndustry(cd.getCompanyType().toString());
+            }
         }
         modifyData.setLevel(bean.getRiskLevel());
         modifyData.setOutLevel(bean.getOutLevel());

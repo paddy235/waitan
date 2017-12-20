@@ -337,7 +337,9 @@ public class CompanyImportAssist {
             String parentCompanyName = hologramQueryDao.getParentCompany(me.getKey().getName());
             if(StringUtils.isNotBlank(parentCompanyName)){
                 CompanyDO cd = companyService.getCompanyByName(parentCompanyName);
-                me.getKey().setCompanyType(cd.getCompanyType());
+                if(null!=cd && null!=cd.getCompanyType()) {
+                    me.getKey().setCompanyType(cd.getCompanyType());
+                }
             }
 
             int rst =companyService.insert( me.getKey() );
@@ -370,7 +372,9 @@ public class CompanyImportAssist {
             String parentCompanyName = hologramQueryDao.getParentCompany(me.getKey().getName());
             if(StringUtils.isNotBlank(parentCompanyName)){
                 CompanyDO cd = companyService.getCompanyByName(parentCompanyName);
-                me.getKey().setCompanyType(cd.getCompanyType());
+                if(null!=cd && null!=cd.getCompanyType()) {
+                    me.getKey().setCompanyType(cd.getCompanyType());
+                }
             }
 
             int rst =companyService.insert( me.getKey() );
@@ -466,7 +470,9 @@ public class CompanyImportAssist {
                 String parentCompanyName = hologramQueryDao.getParentCompany(qbDo.getCompany_name());
                 if(StringUtils.isNotBlank(parentCompanyName)){
                     CompanyDO cd = companyService.getCompanyByName(parentCompanyName);
-                    newCom.setCompanyType(cd.getCompanyType());
+                    if(null!=cd && null!=cd.getCompanyType()){
+                        newCom.setCompanyType(cd.getCompanyType());
+                    }
                 }
                 cSv.insert(newCom);
             }
