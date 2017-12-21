@@ -277,6 +277,6 @@ FROM
         </if>
         ) T,(select @numIndex:=0 from dual) t2
         GROUP BY
-        T.keyWord ORDER BY countKeyWord desc LIMIT 100) t1
+        T.keyWord ORDER BY countKeyWord desc,keyWord LIMIT 100) t1
     </select>
 </mapper>
