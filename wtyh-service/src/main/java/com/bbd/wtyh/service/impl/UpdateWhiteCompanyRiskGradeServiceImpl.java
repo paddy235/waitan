@@ -110,32 +110,47 @@ public class UpdateWhiteCompanyRiskGradeServiceImpl implements UpdateWhiteCompan
         //前1~200家为重点关注企业
         if(names1!=null && !names1.isEmpty()) {
             for (String name : names1) {
-                //更新company重点关注企业
-                Integer old = this.updateWhiteGradeMapper.selectOldRiskLevel(name);
-                this.updateWhiteGradeMapper.updateCompanyRisk_level(name, 2, old);
-                count1++;
-                logger.info(count1 + "-更新白名单企业--" + name + "风险等级为" + 2);
+                try {
+                    //更新company重点关注企业
+                    Integer old = this.updateWhiteGradeMapper.selectOldRiskLevel(name);
+                    this.updateWhiteGradeMapper.updateCompanyRisk_level(name, 2, old);
+                    count1++;
+                    logger.info(count1 + "-更新白名单企业--" + name + "风险等级为" + 2);
+                } catch (Exception e) {
+                    logger.error(count1 + "-更新白名单企业--" + name + "风险等级为" + 2+"失败" );
+                    dataError++;
+                }
             }
         }
         //201~1000家为一般关注企业
         if(names2!=null && !names2.isEmpty()) {
             for (String name : names2) {
-                //更新company重点关注企业
-                Integer old = this.updateWhiteGradeMapper.selectOldRiskLevel(name);
-                this.updateWhiteGradeMapper.updateCompanyRisk_level(name, 3, old);
-                count2++;
-                logger.info(count2 + "-更新白名单企业--" + name + "风险等级为" + 3);
+                try {
+                    //更新company重点关注企业
+                    Integer old = this.updateWhiteGradeMapper.selectOldRiskLevel(name);
+                    this.updateWhiteGradeMapper.updateCompanyRisk_level(name, 3, old);
+                    count2++;
+                    logger.info(count2 + "-更新白名单企业--" + name + "风险等级为" + 3);
+                } catch (Exception e) {
+                    logger.error(count2 + "-更新白名单企业--" + name + "风险等级为" + 3+"失败");
+                    dataError++;
+                }
             }
         }
         //其他为正常企业
         for(String name :companyNames) {
-            if(!names1.contains(name)&&!names2.contains(name)){
-                Integer old = this.updateWhiteGradeMapper.selectOldRiskLevel(name);
-                this.updateWhiteGradeMapper.updateCompanyRisk_level(name,4,old);
-                count3++;
-                logger.info(count3+"-更新白名单企业--"+name+"风险等级为"+4);
-            }else{
-                logger.info("前面已经更新过了");
+            try {
+                if(!names1.contains(name)&&!names2.contains(name)){
+                    Integer old = this.updateWhiteGradeMapper.selectOldRiskLevel(name);
+                    this.updateWhiteGradeMapper.updateCompanyRisk_level(name,4,old);
+                    count3++;
+                    logger.info(count3+"-更新白名单企业--"+name+"风险等级为"+4);
+                }else{
+                    logger.info("前面已经更新过了");
+                }
+            } catch (Exception e) {
+                logger.info(count3+"-更新白名单企业--"+name+"风险等级为"+4+"失败");
+                dataError++;
             }
 
         }
@@ -143,11 +158,17 @@ public class UpdateWhiteCompanyRiskGradeServiceImpl implements UpdateWhiteCompan
         //公信中心数据中包含：限制出境、限制高消费和网上追讨三类数据任何一类，则企业风险等级直接赋值为“重点关注”
         if(creditNames!=null && !creditNames.isEmpty()){
             for(String name:creditNames){
-                if(!names1.contains(name)){
-                    Integer old = this.updateWhiteGradeMapper.selectOldRiskLevel(name);
-                    this.updateWhiteGradeMapper.updateCompanyRisk_level(name,2,old);
-                }else{
-                    logger.info("在前200家企业为重点关注中已经更新过了");
+                try {
+                    if(!names1.contains(name)){
+                        Integer old = this.updateWhiteGradeMapper.selectOldRiskLevel(name);
+                        this.updateWhiteGradeMapper.updateCompanyRisk_level(name,2,old);
+                        logger.info("更新公信数据中的重点关注企业"+name+"风险等级为2");
+                    }else{
+                        logger.info("在前200家企业为重点关注中已经更新过了");
+                    }
+                } catch (Exception e) {
+                    logger.error("更新公信数据中的重点关注企业"+name+"风险等级为2"+"失败");
+                    dataError++;
                 }
             }
         }
