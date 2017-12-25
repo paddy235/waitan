@@ -397,6 +397,10 @@ public class PToPMonitorController {
 	public Object platRankData1(@RequestParam(required = false, defaultValue = "") String platStatus,
 								HttpSession session) throws Exception {
 		String areaCode = (String) session.getAttribute("area");
+		//区域为空直接返回空
+		if(org.apache.commons.lang.StringUtils.isEmpty(areaCode)){
+			return ResponseBean.successResponse(new ArrayList<>());
+		}
 		Integer area =Integer.valueOf(areaCode);
 		ResponseBean rb =(ResponseBean)platRankData( platStatus);
 		if( 104 ==area || ! rb.isSuccess() ) { //上海全区或查询失败
