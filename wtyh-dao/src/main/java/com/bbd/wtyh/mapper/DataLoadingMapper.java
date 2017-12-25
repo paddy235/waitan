@@ -62,7 +62,7 @@ public interface DataLoadingMapper {
     @Delete(" DELETE FROM qyxg_yuqing WHERE yuqing_id NOT IN (SELECT yuqing_id FROM(SELECT max(yuqing_id) AS yuqing_id FROM qyxg_yuqing GROUP BY news_site,news_title,search_key,pubdate ) rs) ")
     void deleteRepeatCompanyNews();
 
-    @Delete(" DELETE FROM company WHERE company_id NOT IN( SELECT company_id FROM ( SELECT min(company_id) AS company_id FROM company GROUP BY name ) rs ) ")
+    @Delete(" DELETE FROM company WHERE company_id NOT IN( SELECT company_id FROM ( SELECT min(company_id) AS company_id FROM company GROUP BY name ) rs ) and 1 = 2 ")
     void deleteRepeatCompany();
 
 }
