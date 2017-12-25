@@ -17,6 +17,7 @@ import com.bbd.wtyh.service.UserInfoService;
 import com.bbd.wtyh.shiro.RedisSessionDAO;
 import com.bbd.wtyh.util.IPUtil;
 import org.apache.commons.collections.map.HashedMap;
+import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.session.Session;
@@ -71,10 +72,12 @@ public class LoginController {
 
             Set res = (Set) m.get("resourceCode");
             String areaCode = userInfo.getAreaCode();
-            AreaDO areaDo = areaService.getAreaByAreaId(Integer.valueOf(areaCode));
             String areaName = null;
-            if (null != areaDo) {
-                areaName = areaDo.getName();
+            if (StringUtils.isNotEmpty(areaCode)) {
+                AreaDO areaDo = areaService.getAreaByAreaId(Integer.valueOf(areaCode));
+                if (null != areaDo) {
+                    areaName = areaDo.getName();
+                }
             }
             // 用户信息、权限信息保存到session
             Session session = currentUser.getSession();
