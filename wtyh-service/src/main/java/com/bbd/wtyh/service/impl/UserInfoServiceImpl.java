@@ -90,7 +90,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 			throw new BusinessException("部门名称不合规");
 		}
 		if (StringUtils.isBlank(uitd.getAreaCode()) || !rexCheckAreaCode(uitd.getAreaCode())) {
-			throw new BusinessException("地区代码不合规");
+			//throw new BusinessException("地区代码不合规");
 		}
 		if (StringUtils.isBlank(uitd.getCreateBy()) || !rexCheckUserName(uitd.getCreateBy())) {
 			throw new BusinessException("创建人为空");
@@ -197,7 +197,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 				uitd.setAreaCode(null); // 不更新区域代码
 			} else {
 				if (!rexCheckAreaCode(uitd.getAreaCode())) {
-					throw new BusinessException("地区代码不合规");
+					//throw new BusinessException("地区代码不合规");
 				}
 				updateCount++;
 			}
