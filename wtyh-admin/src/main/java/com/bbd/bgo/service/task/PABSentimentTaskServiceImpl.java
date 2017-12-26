@@ -147,15 +147,16 @@ public class PABSentimentTaskServiceImpl implements PABSentimentTaskService {
         int size = list.size();
         for (int i = 0; i < size;) {
             StringBuilder buffer = new StringBuilder();
-            List<String> subNameList = list.subList(i, (i += 100) < size ? i : size);
+            List<String> subNameList = list.subList(i, (i += 20) < size ? i : size);
             for (String name : subNameList) {
                 buffer.append(buffer.length() > 0 ? "," : "").append(name);
             }
 
-            StringBuilder builder = new StringBuilder("keys=").append(buffer);
+            StringBuilder builder = new StringBuilder("?keys=").append(buffer);
             builder.append("&ktype=").append(ktype).append("&page=1&pageSize=20&appkey=").append(appkey);
             try {
-                result = this.sendPost(batchNewsUrl, builder.toString());
+                //result = this.sendPost(batchNewsUrl, builder.toString());
+                result = new HttpTemplate().get(batchNewsUrl+builder.toString());
                 if (StringUtils.isEmpty(result))
                     return null;
                 NewsVO vo = gson.fromJson(result, new TypeToken<NewsVO>(){}.getType());
