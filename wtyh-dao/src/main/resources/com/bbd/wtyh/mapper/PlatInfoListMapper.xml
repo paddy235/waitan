@@ -39,8 +39,8 @@
     ) a
     LEFT JOIN company c ON a.company_name = c.`name`
     <if test="areaName !=null and areaName!='' and areaName!='上海市'">
-      left join china_area ca on a.area_id = ca.area_code
-      where ca.county = #{areaName}
+      left join area ca on a.area_id = ca.nation_district_code
+      where ca.`name` = #{areaName}
     </if>
     ORDER BY
     <choose>
