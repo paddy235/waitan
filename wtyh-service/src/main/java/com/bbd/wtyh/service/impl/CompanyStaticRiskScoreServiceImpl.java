@@ -55,7 +55,7 @@ public class CompanyStaticRiskScoreServiceImpl implements CompanyStaticRiskScore
 
     private static final String EXCEPTION_LIST ="经营异常名录";
 
-    private static final String ADMINISTRATIVE_SANCTION2 = "行政处罚";
+    private static final String ADMINISTRATIVE_SANCTION2 = "行政处罚信息";
 
 
     private static final String BEHAVIOR_PUNISHMENT = "对不正当竞争行为的处罚";
