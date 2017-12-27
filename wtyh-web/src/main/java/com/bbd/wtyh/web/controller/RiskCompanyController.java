@@ -57,6 +57,10 @@ public class RiskCompanyController {
 			@RequestParam(required = false) String minReviewTime, @RequestParam(required = false) String maxReviewTime,
 			@RequestParam(required = false) String riskLevel, HttpSession session) {
 
+		Object areaNameObj = session.getAttribute("areaName");
+		if(null==areaNameObj){
+			return ResponseBean.successResponse(new ArrayList<RiskCompanyInfoDO>());
+		}
 		if(Constants.SH_CHONGMINGQU.equals(area)){
 			// 线下理财需要转换， 因为index_data中保存的崇明县，所以需要把area中的崇明区转换成崇明县查询
 			area=Constants.SH_CHONGMINGXIAN;
@@ -81,6 +85,14 @@ public class RiskCompanyController {
 			@RequestParam(required = false) String minReviewTime, @RequestParam(required = false) String maxReviewTime,
 			@RequestParam(required = false) String riskLevel, @RequestParam(defaultValue = "0") String sortType, HttpSession session) {
 
+		Pagination pagination = new Pagination();
+		pagination.setCount(1000); // 搜索结果最多保留1000条数据
+		Object areaNameObj = session.getAttribute("areaName");
+		if(null==areaNameObj){
+			pagination.setList(new ArrayList<RiskCompanyInfoDO>());
+			return ResponseBean.successResponse(pagination);
+		}
+
 		if(Constants.SH_CHONGMINGQU.equals(area)){
 			// 线下理财需要转换， 因为index_data中保存的崇明县，所以需要把area中的崇明区转换成崇明县查询
 			area=Constants.SH_CHONGMINGXIAN;
@@ -96,9 +108,7 @@ public class RiskCompanyController {
 		params.put("sortType", sortType); // 排序方式
 		params.put("riskLevelExist", "1");
 		int count = riskCompanyService.getTopCount(params);
-		Pagination pagination = new Pagination();
 //		pagination.setCount(count >= MAX_COUNT ? MAX_COUNT - 1 : count); // 搜索结果最多保留200条数据
-		pagination.setCount(1000); // 搜索结果最多保留1000条数据
 		// if (pageNo >= MAX_PAGE_NO || pageNo <= -1) {
 		// pagination.setList(null);
 		// return ResponseBean.errorResponse("错误的分页请求参数！");
