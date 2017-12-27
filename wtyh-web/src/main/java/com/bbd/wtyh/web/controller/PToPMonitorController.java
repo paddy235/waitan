@@ -428,8 +428,8 @@ public class PToPMonitorController {
 					try {
 						if( null !=districtCodeStr ) {
 							Integer districtCode =Integer.valueOf(districtCodeStr);
-							Integer areaId =ShanghaiAreaCode.getCodeToAreaMap().get(districtCode);
-							if (  null !=areaId && areaId.equals(area )){
+							//Integer areaId =ShanghaiAreaCode.getCodeToAreaMap().get(districtCode);
+							if (  null !=districtCode && districtCode.equals(area )){
 								desList.add(mp);
 							}
 						}
