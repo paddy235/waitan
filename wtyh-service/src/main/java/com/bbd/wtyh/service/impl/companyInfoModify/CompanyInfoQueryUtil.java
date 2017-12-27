@@ -123,7 +123,7 @@ public class CompanyInfoQueryUtil {
     public CompanyInfo getTradeMarket(String name) {
         CompanyInfo companyInfo = riskCompanyService.getOffLineFinanceByCompanyName(name);
         if (StringUtils.isEmpty(companyInfo.getCurrentLevel())) {
-            companyInfo.setCurrentLevel("4"); // 正常
+            //companyInfo.setCurrentLevel("4"); // 正常
         }
         companyInfo.setIndustry(CompanyInfo.TYPE_JYS_9);
         return companyInfo;
@@ -148,22 +148,24 @@ public class CompanyInfoQueryUtil {
      * @return
      */
     public CompanyInfo getTenancy(String name) {
-        List<CompanyInfo> companyInfos = financeLeaseService.getTenancy(name);
-        if (null == companyInfos) {
-            return null;
-        }
-        CompanyInfo companyInfo = new CompanyInfo();
-        companyInfo.setName(name);
-        companyInfo.setCurrentLevel("1"); // 正常
+//        List<CompanyInfo> companyInfos = financeLeaseService.getTenancy(name);
+//        if (null == companyInfos) {
+//            return null;
+//        }
+//        CompanyInfo companyInfo = new CompanyInfo();
+//        companyInfo.setName(name);
+//        companyInfo.setCurrentLevel("1"); // 正常
+//        companyInfo.setIndustry(CompanyInfo.TYPE_RZZL_13);
+//        if (!CollectionUtils.isEmpty(companyInfos)) {
+//            for (CompanyInfo temp : companyInfos) {
+//                companyInfo.setCompanyId(temp.getCompanyId());
+//                if (temp.getCurrentLevel() != null && temp.getCurrentLevel().equals("0")) {
+//                    companyInfo.setCurrentLevel("0"); // 潜在
+//                }
+//            }
+//        }
+        CompanyInfo companyInfo = riskCompanyService.getOffLineFinanceByCompanyName(name);
         companyInfo.setIndustry(CompanyInfo.TYPE_RZZL_13);
-        if (!CollectionUtils.isEmpty(companyInfos)) {
-            for (CompanyInfo temp : companyInfos) {
-                companyInfo.setCompanyId(temp.getCompanyId());
-                if (temp.getCurrentLevel() != null && temp.getCurrentLevel().equals("0")) {
-                    companyInfo.setCurrentLevel("0"); // 潜在
-                }
-            }
-        }
         return companyInfo;
     }
 
