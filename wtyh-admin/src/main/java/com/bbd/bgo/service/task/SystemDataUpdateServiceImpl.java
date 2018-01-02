@@ -70,7 +70,7 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService,Task
         try {
             final int totalCount = companyMapper.countAllCompany();
             dataTotal = totalCount;
-            final int pageSize = 190;
+            final int pageSize = 100;
             Pagination pagination = new Pagination();
             pagination.setPageSize(pageSize);
             pagination.setCount(totalCount);
@@ -124,7 +124,7 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService,Task
         try {
             final int totalCount = taskFailInfoMapper.countFailByTaskId(oldTaskId);
             dataTotal = totalCount;
-            final int pageSize = 190;
+            final int pageSize = 100;
             Pagination pagination = new Pagination();
             pagination.setPageSize(pageSize);
             pagination.setCount(totalCount);
