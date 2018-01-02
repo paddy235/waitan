@@ -121,6 +121,7 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 
 		}
 		LOGGER.info("--- credit data job end ---");
+		taskResultDO.setPlanCount(taskResultDO.getFailCount()+taskResultDO.getSuccessCount());
 		return taskResultDO;
 	}
 
@@ -212,6 +213,7 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 
 		}
 		LOGGER.info("--- credit data handle end ---");
+		taskResultDO.setPlanCount(taskResultDO.getFailCount()+taskResultDO.getSuccessCount());
 		return taskResultDO;
 
 	}
