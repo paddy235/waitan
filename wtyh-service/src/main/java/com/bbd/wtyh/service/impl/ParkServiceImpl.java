@@ -341,7 +341,7 @@ public class ParkServiceImpl extends BaseServiceImpl implements ParkService {
 	@Override
 	public Map<String, Object> queryParkCompany(Integer parkId,Integer isNew,Integer riskLevel,
 												String backgroundName,String companyTypeName,String buildingName,
-												String companyName,Integer pageSize,Integer pageNumber, String parkName) {
+												String companyName,Integer pageSize,Integer pageNumber, String parkName, String address) {
 		Map<String, Object> result=new HashMap<>();
 		result.put("total",0);
 		result.put("list",new ArrayList<>());
@@ -374,6 +374,10 @@ public class ParkServiceImpl extends BaseServiceImpl implements ParkService {
         if(org.apache.commons.lang3.StringUtils.isNotBlank(buildingName)){
             params.put("buildingName",buildingName);
         }
+        //注册地址
+		if(org.apache.commons.lang3.StringUtils.isNotBlank(address)){
+			params.put("address",address);
+		}
 
         //风险等级代码
         if(null!=riskLevel){
@@ -391,7 +395,13 @@ public class ParkServiceImpl extends BaseServiceImpl implements ParkService {
 		// 临时方案20170816：如果园区名称不属于某个行政区，就不查询该园区所属行政区的注册企业。例如虹桥商务区
 		// TODO 匹配园区名称的逻辑没有 ------- Barny 2017.9.19
 		List<AreaDO> areaDOs = this.areaMapper.areaListByName(Constants.SH_AREAID, parkId);
-		if (ListUtil.isNotEmpty(areaDOs) && null != areaDOs.get(0) && null != areaDOs.get(0).getCityName() && areaDOs.get(0).getCityName().equals(parkName)) {
+//		if (ListUtil.isNotEmpty(areaDOs) && null != areaDOs.get(0) && null != areaDOs.get(0).getCityName() && areaDOs.get(0).getCityName().equals(parkName)) {
+//			params.put("regCompany","1");
+//		} else {
+//			params.put("regCompany",null);
+//		}
+		// 更改方案20180104，只要园区定义处，园区所属行政区有值，则可以查看注册在该行政区的企业
+		if (ListUtil.isNotEmpty(areaDOs) && null != areaDOs.get(0) && null != areaDOs.get(0).getAreaId()) {
 			params.put("regCompany","1");
 		} else {
 			params.put("regCompany",null);
