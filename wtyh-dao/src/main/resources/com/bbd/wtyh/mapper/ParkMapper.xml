@@ -30,6 +30,9 @@
         <if test="companyName != null">
             AND company.name LIKE CONCAT('%',#{companyName},'%')
         </if>
+        <if test="address != null">
+            AND company.address LIKE CONCAT('%',#{address},'%')
+        </if>
         AND park.park_id=pabr.park_id
         AND pabr.building_id=building.building_id
         AND building.building_id=company_building.building_id
@@ -52,6 +55,9 @@
             from company where area_id=(select area_id from park where park_id=#{parkId})
             <if test="companyName != null">
                 AND company.name LIKE CONCAT('%',#{companyName},'%')
+            </if>
+            <if test="address != null">
+                AND company.address LIKE CONCAT('%',#{address},'%')
             </if>
             and company_id not in (
             select company_id from company_building where company_building.building_id in (select building.building_id from building,park_and_building_relation pabr where building.building_id=pabr.building_id and pabr.park_id=#{parkId}))
@@ -108,6 +114,9 @@
         <if test="companyName != null">
             AND company.name LIKE CONCAT('%',#{companyName},'%')
         </if>
+        <if test="address != null">
+            AND company.address LIKE CONCAT('%',#{address},'%')
+        </if>
         AND park.park_id=pabr.park_id
         AND pabr.building_id=building.building_id
         AND building.building_id=company_building.building_id
@@ -130,6 +139,9 @@
             from company where area_id=(select area_id from park where park_id=#{parkId})
             <if test="companyName != null">
                 AND company.name LIKE CONCAT('%',#{companyName},'%')
+            </if>
+            <if test="address != null">
+                AND company.address LIKE CONCAT('%',#{address},'%')
             </if>
             and company_id not in (
             select company_id from company_building where company_building.building_id in (select building.building_id from building,park_and_building_relation pabr where building.building_id=pabr.building_id and pabr.park_id=#{parkId}))
