@@ -401,7 +401,7 @@ public class ParkServiceImpl extends BaseServiceImpl implements ParkService {
 //			params.put("regCompany",null);
 //		}
 		// 更改方案20180104，只要园区定义处，园区所属行政区有值，则可以查看注册在该行政区的企业
-		if (ListUtil.isNotEmpty(areaDOs) && null != areaDOs.get(0) && null != areaDOs.get(0).getAreaId() && areaDOs.get(0).getAreaId() == parkId) {
+		if (ListUtil.isNotEmpty(areaDOs) && null != areaDOs.get(0) && null != areaDOs.get(0).getAreaId()) {
 			params.put("regCompany","1");
 		} else {
 			params.put("regCompany",null);
