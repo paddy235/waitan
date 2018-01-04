@@ -25,6 +25,8 @@ public interface ExchangeCompanyMapper {
 
     public List<ExchangeCompanyVO> queryExchangeCompanyListByAreaId(Map map);
 
+    public List<ExchangeCompanyVO> queryExchangeCompanyListByAreaIdNew(Map map);
+
     List<TradeMarketData> getTradeMarket(@Param(value = "exportCondition")ExportCondition exportCondition,
                                          @Param(value = "pagination")PageBean pagination);
 

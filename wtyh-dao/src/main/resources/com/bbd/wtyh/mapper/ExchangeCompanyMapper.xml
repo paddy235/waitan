@@ -73,6 +73,10 @@
 		<if test="areaName != null and areaName != ''">
 			and a.name = #{areaName}
 		</if>
+		<if test="orderName==null or orderName==''">
+			ORDER BY
+			c.registered_capital DESC
+		</if>
 		<if test="orderName == 'registeredCapital'">
 			ORDER BY
 			c.registered_capital
@@ -80,6 +84,53 @@
 		<if test="orderName == 'registeredDate'">
 			ORDER BY
 			c.registered_date
+		</if>
+		<if test="orderType == 'desc'">
+			DESC
+		</if>
+		<if test="orderType == 'asc'">
+			ASC
+		</if>
+
+	</select>
+
+	<select id="queryExchangeCompanyListByAreaIdNew" parameterType="java.util.Map" resultType="com.bbd.wtyh.domain.vo.ExchangeCompanyVO">
+		SELECT T.`name`,T.address,T.registeredCapital,T.legalPerson,
+		T.registeredDate,T.website,T.riskLevel from (
+			SELECT
+			c.`name`,
+			c.address,
+			c.registered_capital as registeredCapital,
+			c.legal_person as legalPerson,
+			c.registered_date as registeredDate,
+			ec.website as website,
+			c.risk_level AS riskLevel,
+			case c.risk_level when 1 then 5
+							   when 2 then 2 when 3 then 3 when 4 then 4 else 9 end as afterRiskLevel
+			FROM
+			exchange_company ec
+			LEFT JOIN company c ON ec.company_id = c.company_id
+			LEFT JOIN area a ON c.area_id = a.area_id
+			WHERE
+			c.company_type=9
+			<if test="type != null and type > 0">
+				and ec.type = #{type}
+			</if>
+			<if test="areaName != null and areaName != ''">
+				and a.name = #{areaName}
+			</if>
+		) T
+		<if test="orderName==null or orderName==''">
+			ORDER BY
+			T.afterRiskLevel asc
+		</if>
+		<if test="orderName == 'registeredCapital'">
+			ORDER BY
+			T.registeredCapital
+		</if>
+		<if test="orderName == 'registeredDate'">
+			ORDER BY
+			T.registeredDate
 		</if>
 		<if test="orderType == 'desc'">
 			DESC
