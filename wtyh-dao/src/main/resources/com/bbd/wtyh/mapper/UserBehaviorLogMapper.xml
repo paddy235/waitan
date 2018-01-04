@@ -109,6 +109,7 @@ FROM
         </where>
         GROUP BY area_code ) b on rs.area_code= b.area_code
         group by area_code) T LEFT JOIN area on T.area_code=area.area_id
+        where area.`name` is not null
         ORDER BY T.total desc
     </select>
 
@@ -232,6 +233,7 @@ FROM
         ) T3
         LEFT JOIN area ON T3.area_code = area.area_id
         ) T6 ON T5.`NAME`=T6.`name`
+        WHERE T5.`NAME` is not null and T5.`NAME` != ''
         ORDER BY sumCode desc,countCode desc
     </select>
 
