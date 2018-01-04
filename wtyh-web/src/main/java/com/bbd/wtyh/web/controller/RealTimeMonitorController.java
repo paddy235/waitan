@@ -9,11 +9,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
-import com.bbd.higgs.utils.DateUtils;
-import com.bbd.wtyh.domain.vo.StatisticsVO;
 import com.bbd.wtyh.log.user.Operation;
 import com.bbd.wtyh.log.user.annotation.LogRecord;
-import com.bbd.wtyh.service.OfflineFinanceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -56,13 +53,16 @@ public class RealTimeMonitorController {
 	@ResponseBody
 	@LogRecord(logMsg = "浏览实时监测页面", page = Operation.Page.realCtrl)
 	public ResponseBean spectrumAnalysis(HttpSession session) {
-
+		String area = (String) session.getAttribute("area");
+		List<List<SpectrumVO>> list = null;
+		if(org.apache.commons.lang.StringUtils.isEmpty(area)){
+			return ResponseBean.successResponse(list);
+		}
 		Integer areaId = areaService.getAreaId(session);
 
 		final String key = "wtyh:realtimeMonitor:guangPu1" + areaId;
 
 //		List<List<SpectrumVO>> list= (List<List<SpectrumVO>>) redisDAO.getObject(key);
-		List<List<SpectrumVO>> list = null;
 		if ( null == list || list.isEmpty() ) {
 			list = realTimeMonitorService.spectrumAnalysis(areaId);
 		}
