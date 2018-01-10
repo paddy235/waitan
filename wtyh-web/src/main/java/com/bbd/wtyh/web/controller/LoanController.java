@@ -75,9 +75,9 @@ public class LoanController {
 			result.add(hotAreaDTO);
 		}
 		if(result.size()>0){
-			String guaranteePrivateCompany = sysConfigService.findByKey("guaranteePrivateCompany");
-			String guaranteeStateOwned = sysConfigService.findByKey("guaranteeStateOwned");
-			String guaranteeForeignCapital = sysConfigService.findByKey("guaranteeForeignCapital");
+			String guaranteePrivateCompany = sysConfigService.findByKey("loanPrivateCompany");
+			String guaranteeStateOwned = sysConfigService.findByKey("loanStateOwned");
+			String guaranteeForeignCapital = sysConfigService.findByKey("loanForeignCapital");
 			HotAreaDTO hotAreaDTO = result.get(0);
 			hotAreaDTO.setForeignCapital(Integer.parseInt(guaranteeForeignCapital));
 			hotAreaDTO.setPrivateCompany(Integer.parseInt(guaranteePrivateCompany));
