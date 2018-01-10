@@ -38,6 +38,8 @@ public class GuaranteeController {
 	private GuaranteeService guaranteeService;
 	@Autowired
 	private ShareholderRiskService shareholderRiskService;
+	@Autowired
+	private SysConfigService sysConfigService;
 	private AreaDO shanghaiCity;
 
 	/**
@@ -68,6 +70,15 @@ public class GuaranteeController {
 			hotAreaDTO.setStateOwned(stateOwned);
 			hotAreaDTO.setForeignCapital(foreignCapital);
 			result.add(hotAreaDTO);
+		}
+		if(result.size()>0){
+			String guaranteePrivateCompany = sysConfigService.findByKey("guaranteePrivateCompany");
+			String guaranteeStateOwned = sysConfigService.findByKey("guaranteeStateOwned");
+			String guaranteeForeignCapital = sysConfigService.findByKey("guaranteeForeignCapital");
+			HotAreaDTO hotAreaDTO = result.get(0);
+			hotAreaDTO.setForeignCapital(Integer.parseInt(guaranteeForeignCapital));
+			hotAreaDTO.setPrivateCompany(Integer.parseInt(guaranteePrivateCompany));
+			hotAreaDTO.setStateOwned(Integer.parseInt(guaranteeStateOwned));
 		}
 		return ResponseBean.successResponse(result);
 	}
