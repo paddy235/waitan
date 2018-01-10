@@ -50,7 +50,6 @@ public class TimingTaskController {
 	public ResponseBean getTaskInfo(HttpServletRequest request) {
 
 		List<TaskInfoDTO> list = timingTaskService.getTaskInfo();
-
         UserLogRecord.record("定时任务列表", Operation.Type.browse, Operation.Page.timingTask,
                 Operation.System.back, request);
 
@@ -68,6 +67,9 @@ public class TimingTaskController {
             taskDataSource="0";
         }
 		List<TaskInfoDTO> list = timingTaskService.getLatestTaskInfo(taskState,taskDataSource);
+        for(TaskInfoDTO task:list){
+            task.setPlanCount(task.getFailCount()+task.getSuccessCount());
+        }
 
         UserLogRecord.record("定时任务最新执行情况", Operation.Type.browse, Operation.Page.timingTask,
                 Operation.System.back, request);
@@ -81,7 +83,9 @@ public class TimingTaskController {
                                        String taskState, String taskDataSource, String taskUpdateDate,HttpServletRequest request) {
 
 	    List<TaskInfoDTO> list = timingTaskService.getHistoryTaskInfo(taskKey,taskGroup,taskState,taskDataSource,taskUpdateDate);
-
+        for(TaskInfoDTO task:list){
+            task.setPlanCount(task.getFailCount()+task.getSuccessCount());
+        }
         UserLogRecord.record("定时任务详情", Operation.Type.browse, Operation.Page.timingTask,
                 Operation.System.back, request);
 
