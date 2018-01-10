@@ -68,7 +68,15 @@ public class TimingTaskController {
         }
 		List<TaskInfoDTO> list = timingTaskService.getLatestTaskInfo(taskState,taskDataSource);
         for(TaskInfoDTO task:list){
-            task.setPlanCount(task.getFailCount()+task.getSuccessCount());
+            Integer failCount=task.getFailCount();
+            Integer successCount=task.getSuccessCount();
+            if(null==failCount){
+                failCount=0;
+            }
+            if(null==successCount){
+                successCount=0;
+            }
+            task.setPlanCount(failCount+successCount);
         }
 
         UserLogRecord.record("定时任务最新执行情况", Operation.Type.browse, Operation.Page.timingTask,
@@ -84,7 +92,15 @@ public class TimingTaskController {
 
 	    List<TaskInfoDTO> list = timingTaskService.getHistoryTaskInfo(taskKey,taskGroup,taskState,taskDataSource,taskUpdateDate);
         for(TaskInfoDTO task:list){
-            task.setPlanCount(task.getFailCount()+task.getSuccessCount());
+            Integer failCount=task.getFailCount();
+            Integer successCount=task.getSuccessCount();
+            if(null==failCount){
+                failCount=0;
+            }
+            if(null==successCount){
+                successCount=0;
+            }
+            task.setPlanCount(failCount+successCount);
         }
         UserLogRecord.record("定时任务详情", Operation.Type.browse, Operation.Page.timingTask,
                 Operation.System.back, request);
