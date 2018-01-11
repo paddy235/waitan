@@ -301,7 +301,7 @@ public class OfflineFinanceController {
 		job.put("resourceName","限制高消费");
 		job.put("res",LimetingHighConsumption);
 		jarr.add(job);
-		job.put("resourceName","网上追逃");
+		job.put("resourceName","网上追查");
 		job.put("res",onlineRecovery);
 		jarr.add(job);
 		job.put("resourceName","经营异常名录");
