@@ -39,6 +39,12 @@ public class StaticRiskUpdateController {
         return null;
     }
 
+    @RequestMapping("/updateStaticRiskByDataVersion.do")
+    @ResponseBody
+    public ResponseBean updateStaticRiskByDataVersion(@RequestParam("dataVersion") String dataVersion) throws Exception {
+        return ResponseBean.successResponse(staticRiskUpdateService.updateOldStaticRiskAutomaticOperate(dataVersion));
+    }
+
     //更新5万家白名单
     @RequestMapping("/startUpdate.do")
     @ResponseBody
