@@ -111,13 +111,15 @@ public class CompanyStaticRiskScoreServiceImpl implements CompanyStaticRiskScore
                     int companyId=companyDO.getCompanyId();
                     //查询母公司的指标
                     CompanyStaticRiskScoreDO company = CompanyStaticRiskScoreMapper.findCompany(companyId, newDataVersion);
-                    CompanyStaticRiskScoreDO.setCompanyId(companyId);
-                    CompanyStaticRiskScoreDO.setReal_control_risk_v2(company.getReal_control_risk_v2());
-                    CompanyStaticRiskScoreDO.setIllegal_financing_risk_v2(company.getIllegal_financing_risk_v2());
-                    CompanyStaticRiskScoreDO.setIllegal_money_financing_risk_v2(company.getIllegal_money_financing_risk_v2());
-                    CompanyStaticRiskScoreDO.setPerson_structure_risk_v2(company.getPerson_structure_risk_v2());
-                    CompanyStaticRiskScoreDO.setRelation_in_risk_v2(company.getRelation_in_risk_v2());
-                    CompanyStaticRiskScoreDO.setShort_risk_v2(company.getShort_risk_v2());
+                    if(company!=null) {
+                        CompanyStaticRiskScoreDO.setCompanyId(companyId);
+                        CompanyStaticRiskScoreDO.setReal_control_risk_v2(company.getReal_control_risk_v2());
+                        CompanyStaticRiskScoreDO.setIllegal_financing_risk_v2(company.getIllegal_financing_risk_v2());
+                        CompanyStaticRiskScoreDO.setIllegal_money_financing_risk_v2(company.getIllegal_money_financing_risk_v2());
+                        CompanyStaticRiskScoreDO.setPerson_structure_risk_v2(company.getPerson_structure_risk_v2());
+                        CompanyStaticRiskScoreDO.setRelation_in_risk_v2(company.getRelation_in_risk_v2());
+                        CompanyStaticRiskScoreDO.setShort_risk_v2(company.getShort_risk_v2());
+                    }
                 }
 
             }
