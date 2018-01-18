@@ -204,7 +204,7 @@
                 <!--/offlineFinance/queryStatisticsMultiple.do = perms[F_SSJCPT,F_HYJCPT_XXLC]-->
                 <!--/offlineFinance/companyInfo.do = perms[F_SSJCPT,F_HYJCPT_XXLC]-->
                 <!--/offlineFinance/staticRiskIndex.do = perms[F_SSJCPT,F_HYJCPT_XXLC]-->
-                /offlineFinance/queryRiskData.do = perms[F_SSJCPT,F_HYJCPT_XXLC]
+                <!--/offlineFinance/queryRiskData.do = perms[F_SSJCPT,F_HYJCPT_XXLC]-->
                 <!--实时监测平台  风险时序差异对比-->
                 <!--/offlineFinance/queryDateVersion.do-->
                 /offlineFinance/dynamicRiskData.do = perms[F_SSJCPT,F_HYJCPT_XXLC]
