@@ -199,11 +199,11 @@
                 /offlineFinance/businessChartShow.do = perms[F_SSJCPT]
                 /companyNews/getCompanyNews.do = perms[F_SSJCPT]
                 <!--实时监测平台  静态风险指数-->
-                /offlineFinance/companyNews.do = perms[F_SSJCPT,F_HYJCPT_XXLC]
-                /offlineFinance/queryDateVersion.do = perms[F_SSJCPT,F_HYJCPT_XXLC]
-                /offlineFinance/queryStatisticsMultiple.do = perms[F_SSJCPT,F_HYJCPT_XXLC]
+                <!--/offlineFinance/companyNews.do = perms[F_SSJCPT,F_HYJCPT_XXLC]-->
+                <!--/offlineFinance/queryDateVersion.do = perms[F_SSJCPT,F_HYJCPT_XXLC]-->
+                <!--/offlineFinance/queryStatisticsMultiple.do = perms[F_SSJCPT,F_HYJCPT_XXLC]-->
                 <!--/offlineFinance/companyInfo.do = perms[F_SSJCPT,F_HYJCPT_XXLC]-->
-                /offlineFinance/staticRiskIndex.do = perms[F_SSJCPT,F_HYJCPT_XXLC]
+                <!--/offlineFinance/staticRiskIndex.do = perms[F_SSJCPT,F_HYJCPT_XXLC]-->
                 /offlineFinance/queryRiskData.do = perms[F_SSJCPT,F_HYJCPT_XXLC]
                 <!--实时监测平台  风险时序差异对比-->
                 <!--/offlineFinance/queryDateVersion.do-->
