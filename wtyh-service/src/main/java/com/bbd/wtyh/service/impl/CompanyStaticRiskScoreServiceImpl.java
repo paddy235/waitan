@@ -281,18 +281,18 @@ public class CompanyStaticRiskScoreServiceImpl implements CompanyStaticRiskScore
         //保留两位小数
         DecimalFormat df = new DecimalFormat("#.00");
         BbdSubIndexDO bbdSubIndexDO = new BbdSubIndexDO();
-        s = Double.parseDouble(df.format(100/(1+Math.exp(-3*s+2))));
-        f = Double.parseDouble(df.format(100/(1+Math.exp(6*f-6))));
-        w = Double.parseDouble(df.format(100-200/(1+Math.exp(20*Math.pow(w-0.33,2)))));
-        r = Double.parseDouble(df.format(100/(1+Math.exp(-5*r/100+1))));
-        z = Double.parseDouble(df.format(100/(1+Math.exp(-1*z+1))));
-        d = Double.parseDouble(df.format(100/(1+Math.exp(5*d-2))));
-        bbdSubIndexDO.setReal_control_risk((float) s);
-        bbdSubIndexDO.setIllegal_financing_risk((float) f);
-        bbdSubIndexDO.setIllegal_money_financing_risk((float)w);
-        bbdSubIndexDO.setPerson_structure_risk((float)r);
-        bbdSubIndexDO.setRelation_in_risk((float)z);
-        bbdSubIndexDO.setShort_risk((float)d);
+        double s2 = Double.parseDouble(df.format(100/(1+Math.exp(-3*s+2))));
+        double f2 = Double.parseDouble(df.format(100/(1+Math.exp(6*f-6))));
+        double w2 = Double.parseDouble(df.format(100-200/(1+Math.exp(20*Math.pow(w-0.33,2)))));
+        double r2 = Double.parseDouble(df.format(100/(1+Math.exp(-5*r/100+1))));
+        double z2 = Double.parseDouble(df.format(100/(1+Math.exp(-1*z+1))));
+        double d2 = Double.parseDouble(df.format(100/(1+Math.exp(5*d-2))));
+        bbdSubIndexDO.setReal_control_risk((float) s2);
+        bbdSubIndexDO.setIllegal_financing_risk((float) f2);
+        bbdSubIndexDO.setIllegal_money_financing_risk((float)w2);
+        bbdSubIndexDO.setPerson_structure_risk((float)r2);
+        bbdSubIndexDO.setRelation_in_risk((float)z2);
+        bbdSubIndexDO.setShort_risk((float)d2);
         bbdSubIndexDO.setNewDataVersion(newDataVersion);
         bbdSubIndexDO.setCompanyName(name);
         //存储新计算的bbd留个风险子指标
