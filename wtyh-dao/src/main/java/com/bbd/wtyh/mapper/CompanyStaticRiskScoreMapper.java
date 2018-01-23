@@ -3,6 +3,7 @@ package com.bbd.wtyh.mapper;
 
 import com.bbd.wtyh.domain.BbdSubIndexDO;
 import com.bbd.wtyh.domain.CompanyStaticRiskScoreDO;
+import com.bbd.wtyh.domain.SubIndexDO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -53,6 +54,11 @@ public interface CompanyStaticRiskScoreMapper {
      * 存储指标值
      * */
     int updateSubIndex(BbdSubIndexDO bbdSubIndexDO);
+
+    /**
+     * 存储上海工信信息
+     * */
+    int updateSubIndexDO(SubIndexDO subIndexDO);
 
 
     /**

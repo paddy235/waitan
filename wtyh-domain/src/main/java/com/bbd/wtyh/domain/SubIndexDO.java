@@ -34,6 +34,10 @@ public class SubIndexDO {
     //对不正当行为处罚
     private Integer behaviorPunishment;
 
+    private String companyName;
+
+    private String dataVersion;
+
     public Integer getExceptionList() {
         return exceptionList;
     }
@@ -144,5 +148,21 @@ public class SubIndexDO {
 
     public void setAdministrativeSanctionNum(int administrativeSanctionNum) {
         AdministrativeSanctionNum = administrativeSanctionNum;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public String getDataVersion() {
+        return dataVersion;
+    }
+
+    public void setDataVersion(String dataVersion) {
+        this.dataVersion = dataVersion;
     }
 }

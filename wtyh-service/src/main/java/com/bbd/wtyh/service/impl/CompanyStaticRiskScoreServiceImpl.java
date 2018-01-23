@@ -216,6 +216,49 @@ public class CompanyStaticRiskScoreServiceImpl implements CompanyStaticRiskScore
         return subIndexDo;
     }
 
+    private void saveShanghaiInfo(Integer companyId,String companyName,String dataVersion,int V1,int V2,int V3,int V4) {
+        SubIndexDO subIndexDo = new SubIndexDO();
+        subIndexDo.setDataVersion(dataVersion);
+        subIndexDo.setCompanyName(companyName);
+        //保留两位小数
+        DecimalFormat df = new DecimalFormat("#.00");
+        //根据id获取上海的四个指标
+        //非正常户认定指标
+        subIndexDo.setNormalHousehold(df.format(100/(1+Math.exp(-2*V1+1))));
+        subIndexDo.setNormalHouseholdNum(V1);
+        //用人单位欠缴社会保险费指标
+        subIndexDo.setUnpaidInsurancePremium(df.format(100/(1+Math.exp(-5*V2+1))));
+        subIndexDo.setUnpaidInsurancePremiumNum(V2);
+        //失信曝光指标
+        subIndexDo.setDiscreditExposure(df.format(100/(1+Math.exp(-4*V3+1))));
+        subIndexDo.setDiscreditExposureNum(V3);
+        //市场监管类行政处罚指标
+        subIndexDo.setAdministrativeSanction(df.format(100/(1+Math.exp(-5*V4+1))));
+        subIndexDo.setAdministrativeSanctionNum(V4);
+
+        //信用信息风险
+        //限制出境条数
+        int restrictedExit = CompanyStaticRiskScoreMapper.getCreditInformationRisk(companyId, RESTRICTED_EXIT);
+        subIndexDo.setRestrictedExit(restrictedExit);
+        //限制高消费
+        int LimetingHighConsumption = CompanyStaticRiskScoreMapper.getCreditInformationRisk(companyId, LIMITING_HIGH_CONSUMPTION);
+        subIndexDo.setLimetingHighConsumption(LimetingHighConsumption);
+        //网上追讨
+        int onlineRecovery = CompanyStaticRiskScoreMapper.getCreditInformationRisk(companyId, ONLINE_RECOVERY);
+        subIndexDo.setOnlineRecovery(onlineRecovery);
+        //经营异常名录
+        int exceptionList = CompanyStaticRiskScoreMapper.getCreditInformationRisk(companyId, EXCEPTION_LIST);
+        subIndexDo.setExceptionList(exceptionList);
+        //行政处罚
+        int administrativeSanction = CompanyStaticRiskScoreMapper.getCreditInformationRisk(companyId, ADMINISTRATIVE_SANCTION2);
+        subIndexDo.setAdministrativeSanction2(administrativeSanction);
+        //对不正当竞争行为的处罚
+        int behaviorPunishment = CompanyStaticRiskScoreMapper.getCreditInformationRisk(companyId, BEHAVIOR_PUNISHMENT);
+        subIndexDo.setBehaviorPunishment(behaviorPunishment);
+        int i = CompanyStaticRiskScoreMapper.updateSubIndexDO(subIndexDo);
+        LOGGER.info(companyName+"子上海工信指标更新成功条数："+i);
+    }
+
     private double getTarget(CompanyStaticRiskScoreDO companyStaticRiskScoreDO,String newDataVersion) {
 
         //实际控制人风险
@@ -267,6 +310,8 @@ public class CompanyStaticRiskScoreServiceImpl implements CompanyStaticRiskScore
         //市场监管类行政处罚指标
         int V4 = CompanyStaticRiskScoreMapper.getShanghaitarget(ADMINISTRATIVE_SANCTION, companyStaticRiskScoreDO.getCompanyId());
         //int V4 = 0;
+
+        saveShanghaiInfo(companyStaticRiskScoreDO.getCompanyId(),companyStaticRiskScoreDO.getName(),newDataVersion,V1,V2,V3,V4);
         //初始化指标
         double P = InitializationTarget(s, z, f, d, w, r, V1, V2, V3, V4);
         //5万家白名单企业工信数据有敏感词直接赋值80

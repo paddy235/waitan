@@ -102,6 +102,18 @@ WHERE a.resource_name = #{resourceName1} OR a.resource_name = #{resourceName2} o
     where company_name=#{companyName} and data_version=#{newDataVersion}
   </update>
 
+  <update id="updateSubIndexDO" parameterType="com.bbd.wtyh.domain.SubIndexDO">
+
+    UPDATE static_risk_data set normal_household_cognizance_num=#{normalHouseholdNum} ,normal_household_cognizance_score=#{normalHousehold},
+      unpaid_social_security_fee_num=#{UnpaidInsurancePremiumNum} ,unpaid_social_security_fee_score=#{UnpaidInsurancePremium} ,
+      discredit_exposure_num=#{DiscreditExposureNum} ,discredit_exposure_score=#{DiscreditExposure} ,
+      administrative_sanction_num=#{AdministrativeSanctionNum} ,administrative_sanction_score=#{AdministrativeSanction} ,
+      restricted_exit_num=#{restrictedExit} ,limiting_high_consumption=#{LimetingHighConsumption} ,
+      online_recovery_num=#{onlineRecovery} ,exception_list_num=#{exceptionList} ,
+      administrative_sanction2_num=#{administrativeSanction2} ,behavior_punishment_num=#{behaviorPunishment}
+    where company_name=#{companyName} and data_version=#{dataVersion}
+  </update>
+
   <select id="getDateVersion" resultType="string">
     SELECT DISTINCT(data_version) from static_risk_data WHERE data_version LIKE '%2017%'
   </select>
