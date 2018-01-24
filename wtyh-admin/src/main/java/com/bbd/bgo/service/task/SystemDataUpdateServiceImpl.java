@@ -253,7 +253,13 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService,Task
                 }
                 CompanyDO company = companyMapper.selectByName(companyName);
                 if(null!=company && null!=company.getAreaId()){
-                    areaId=company.getAreaId();
+                    //2018-01-24产品需求更新
+                    //判断接口数据中company_county 是否为 310000或者310100，若为这两个值，则不做更新，否则用接口值更新company表的值
+                    if("310000".equals(company_county)||"310100".equals(company_county)){
+                        areaId=company.getAreaId();
+                    }else{
+                        areaId=areaDO.getAreaId();
+                    }
                 }else{
                     areaId=areaDO.getAreaId();
                 }

@@ -3,7 +3,7 @@ package com.bbd.bgo.web.controller;
 import com.bbd.bgo.service.task.PABSentimentTaskService;
 import com.bbd.bgo.service.task.StaticRiskUpdateService;
 import com.bbd.bgo.service.task.SyncFileService;
-import com.bbd.wtyh.service.CompanyStaticRiskScoreService;
+import com.bbd.bgo.service.task.SystemDataUpdateService;
 import com.bbd.wtyh.service.UpdateWhiteCompanyRiskGradeService;
 import com.bbd.wtyh.web.ResponseBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +30,9 @@ public class StaticRiskUpdateController {
 
     @Autowired
     private PABSentimentTaskService pABSentimentTaskService;
+
+    @Autowired
+    private SystemDataUpdateService systemDataUpdateService;
 
     @RequestMapping("/updateStaticRiskScore.do")
     @ResponseBody
@@ -77,5 +80,12 @@ public class StaticRiskUpdateController {
         pABSentimentTaskService.saveBuildingPublicSentiment();
         return null;
     }
+
+    @RequestMapping("/testCompanyInfo.do")
+    @ResponseBody
+    public ResponseBean testCompanyInfo(Integer taskId) throws Exception {
+        return ResponseBean.successResponse(systemDataUpdateService.updateCompanyAndBackgroundManualOperate(taskId,0));
+    }
+
 
 }
