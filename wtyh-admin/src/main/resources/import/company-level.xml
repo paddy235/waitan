@@ -3,7 +3,7 @@
 <excel key="company-level" name="企业评级-导入模板">
 
 
-    <sheet name="Sheet1" startRow="6" entity="com.bbd.wtyh.domain.CompanyLevelDO"
+    <sheet name="Sheet1" startRow="5" entity="com.bbd.wtyh.domain.CompanyLevelDO"
            importHandler="com.bbd.bgo.service.imp.handler.CompanyLevelHandler">
         <property name="writeExplainForCompanyLevel" value-ref="com.bbd.bgo.service.imp.handler.company.modify.Clues.writeExplainForCompanyLevel"/>
         <rowHeader>
