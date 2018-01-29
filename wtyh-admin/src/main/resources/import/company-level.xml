@@ -3,11 +3,11 @@
 <excel key="company-level" name="企业评级-导入模板">
 
 
-    <sheet name="Sheet1" startRow="5" entity="com.bbd.wtyh.domain.CompanyLevelDO"
+    <sheet name="Sheet1" startRow="6" entity="com.bbd.wtyh.domain.CompanyLevelDO"
            importHandler="com.bbd.bgo.service.imp.handler.CompanyLevelHandler">
         <property name="writeExplainForCompanyLevel" value-ref="com.bbd.bgo.service.imp.handler.company.modify.Clues.writeExplainForCompanyLevel"/>
         <rowHeader>
-            <column mergeFirstRow="1" mergeLastRow="3" mergeFirstCol="1" mergeLastCol="4" align="LEFT"
+            <column mergeFirstRow="1" mergeLastRow="3" mergeFirstCol="1" mergeLastCol="5" align="LEFT"
                     value-ref="writeExplainForCompanyLevel"/>
         </rowHeader>
 
@@ -18,6 +18,7 @@
             <column name="外部评级" code="outLevel" dataType="string" list-ref="co_level"/>
             <column name="内部评级" code="innerLevel" dataType="string" list-ref="co_level"/>
             <column name="现场检查" code="liveLevel" dataType="string" list-ref="co_level"/>
+            <column name="企业背景" code="companyBackground" dataType="string"/>
         </columns>
 
     </sheet>

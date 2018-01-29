@@ -86,9 +86,10 @@ public class RiskCompanyController {
 			@RequestParam(required = false) String riskLevel, @RequestParam(defaultValue = "0") String sortType, HttpSession session) {
 
 		Pagination pagination = new Pagination();
-		pagination.setCount(1000); // 搜索结果最多保留1000条数据
+		//pagination.setCount(1000); // 搜索结果最多保留1000条数据
 		Object areaNameObj = session.getAttribute("areaName");
 		if(null==areaNameObj){
+			pagination.setCount(0);
 			pagination.setList(new ArrayList<RiskCompanyInfoDO>());
 			return ResponseBean.successResponse(pagination);
 		}
@@ -129,6 +130,7 @@ public class RiskCompanyController {
 		// }
 		// }
 		pagination.setList(list);
+		pagination.setCount(list.size());
 		return ResponseBean.successResponse(pagination);
 	}
 

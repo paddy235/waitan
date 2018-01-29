@@ -20,6 +20,9 @@ public class CompanyLevelDO extends BaseDO {
 	@Column(name = "live_level")
 	private Integer liveLevel;
 
+	@Column(name = "company_background")
+	private String companyBackground;
+
 	public Integer getCompanyId() {
 		return companyId;
 	}
@@ -50,5 +53,13 @@ public class CompanyLevelDO extends BaseDO {
 
 	public void setLiveLevel(Integer liveLevel) {
 		this.liveLevel = liveLevel;
+	}
+
+	public String getCompanyBackground() {
+		return companyBackground;
+	}
+
+	public void setCompanyBackground(String companyBackground) {
+		this.companyBackground = companyBackground;
 	}
 }
