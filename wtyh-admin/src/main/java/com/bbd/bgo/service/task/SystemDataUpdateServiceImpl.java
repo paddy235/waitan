@@ -319,7 +319,12 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService,Task
                 Object regcapObj=itr.get("regcap_amount");
                 if(null!=regcapObj){
                     BigDecimal regcap = (BigDecimal)regcapObj;
-                    registeredCapital=regcap.intValue()/10000;
+                    if(regcap.toString().indexOf("E")>0){//科学计数法
+                        String str = regcap.toPlainString();
+                        registeredCapital = (int)(Long.parseLong(str)/10000);
+                    }else{
+                        registeredCapital = regcap.intValue()/10000;
+                    }
                     //registeredCapital = Integer.parseInt(Pattern.compile("[^0-9]").matcher(regcap).replaceAll(""));
                 }
                 Object companyIndustryObj=itr.get("company_industry");
