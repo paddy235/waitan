@@ -72,13 +72,16 @@ public class GuaranteeController {
 			result.add(hotAreaDTO);
 		}
 		if(result.size()>0){
-			String guaranteePrivateCompany = sysConfigService.findByKey("guaranteePrivateCompany");
-			String guaranteeStateOwned = sysConfigService.findByKey("guaranteeStateOwned");
-			String guaranteeForeignCapital = sysConfigService.findByKey("guaranteeForeignCapital");
+//			String guaranteePrivateCompany = sysConfigService.findByKey("guaranteePrivateCompany");
+//			String guaranteeStateOwned = sysConfigService.findByKey("guaranteeStateOwned");
+//			String guaranteeForeignCapital = sysConfigService.findByKey("guaranteeForeignCapital");
+			Integer guaranteePrivateCompany = companyLevelService.countCompanyBackground("民企");
+			Integer guaranteeStateOwned = companyLevelService.countCompanyBackground("国企");
+			Integer guaranteeForeignCapital = companyLevelService.countCompanyBackground("外企");
 			HotAreaDTO hotAreaDTO = result.get(0);
-			hotAreaDTO.setForeignCapital(Integer.parseInt(guaranteeForeignCapital));
-			hotAreaDTO.setPrivateCompany(Integer.parseInt(guaranteePrivateCompany));
-			hotAreaDTO.setStateOwned(Integer.parseInt(guaranteeStateOwned));
+			hotAreaDTO.setForeignCapital(guaranteeForeignCapital);
+			hotAreaDTO.setPrivateCompany(guaranteePrivateCompany);
+			hotAreaDTO.setStateOwned(guaranteeStateOwned);
 		}
 		return ResponseBean.successResponse(result);
 	}

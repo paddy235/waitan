@@ -9,6 +9,7 @@ import com.bbd.wtyh.domain.EasyExport.LoanData;
 import com.bbd.wtyh.web.EasyExportExcel.ExportCondition;
 import com.bbd.wtyh.web.PageBean;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -23,6 +24,9 @@ public interface CompanyLevelMapper {
                            @Param(value = "pagination")PageBean pagination);
 
     void recordLoad(LoanModify loanModify);
+
+    @Select("SELECT count(1) FROM company_level where company_background = #{background} ")
+    Integer countCompanyBackground(@Param("background") String background);
 
     void modifyLoadLevel(RecordInfo recordInfo);
 

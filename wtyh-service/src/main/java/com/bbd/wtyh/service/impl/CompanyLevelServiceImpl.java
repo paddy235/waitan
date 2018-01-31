@@ -65,6 +65,11 @@ public class CompanyLevelServiceImpl implements CompanyLevelService {
     }
 
     @Override
+    public Integer countCompanyBackground(String background) {
+        return companyLevelMapper.countCompanyBackground(background);
+    }
+
+    @Override
     public void recordLoad(LoanModify loanModify) {
         companyLevelMapper.recordLoad(loanModify);
     }
