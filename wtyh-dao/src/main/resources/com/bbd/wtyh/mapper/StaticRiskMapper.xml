@@ -321,7 +321,18 @@
     </select>
 
     <insert id="save" parameterType="com.bbd.wtyh.domain.StaticRiskDataDO" >
-        INSERT INTO `static_risk_data` VALUES (#{createBy}, #{createDate}, #{updateBy}, now(), #{area}, #{companyName}, #{dataVersion}, #{riskDate}, #{staticRiskIndex}, #{maxCompanyNum}, #{averagePersonNum}, #{oneLevelPerson}, #{realControlRisk}, #{childCompnayControlPerson_num}, #{childChildControlNum}, #{coreChildCompany}, #{companyExpandRisk}, #{controlChildCompanyNum},
+        INSERT INTO `static_risk_data` (`create_by`,`create_date`,`update_by`,`update_date`,`area`,`company_name`,
+            `data_version`,`risk_date`,`static_risk_index`,`max_company_num`,`average_person_num`,`one_level_person`,
+            `real_control_risk`,`child_compnay_control_person_num`,`child_child_control_num`,`core_child_company`,
+            `company_expand_risk`,`control_child_company_num`,`one_company_num`,`control_company`,`relation_in_risk`,
+            `three_person_num`,`two_company_num`,`core_two_company`,`illegal_financing_risk`,`six_month_new_company_num`,
+            `to_year_new_comapny_num`,`six_month_new_company`,`relation_company_sum`,`short_risk`,`investment`,
+            `advisory`,`trade`,`lease`,`factoring`,`company_list`,`illegal_money_financing_risk`,`capital_bg_risk`,
+            `max_person_company_num3`,`max_legal_company_num3`,`average_person_company_num3`,`average_legal_company_num3`,
+            `real_control_risk_v2`,`relation_in_risk_v2`,`illegal_financing_risk_v2`,`short_risk_v2`,`illegal_money_financing_risk_v2`,
+            `undergraduate_num`,`uper_undergraduate_num`,`follow_undergraduate_num`,`recruitment_sum`,`top5_recruitment_sum`,
+            `person_structure_risk`,`person_structure_risk_v2`,`credit_info_risk`,`is_exposure`)
+        VALUES (#{createBy}, #{createDate}, #{updateBy}, now(), #{area}, #{companyName}, #{dataVersion}, #{riskDate}, #{staticRiskIndex}, #{maxCompanyNum}, #{averagePersonNum}, #{oneLevelPerson}, #{realControlRisk}, #{childCompnayControlPerson_num}, #{childChildControlNum}, #{coreChildCompany}, #{companyExpandRisk}, #{controlChildCompanyNum},
          #{oneCompanyNum}, #{controlCompany}, #{relationInRisk}, #{threePersonNum}, #{twoCompanyNum}, #{coreTwoCompany}, #{illegalFinancingRisk}, #{sixMonthNewCompanyNum}, #{toYearNewComapnyNum}, #{sixMonthNewCompany}, #{relationCompanySum}, #{shortRisk},
          #{investment}, #{advisory}, #{trade}, #{lease}, #{factoring}, #{companyList},
          #{illegalMoneyFinancingRisk}, #{capitalBgRisk}, #{maxPersonCompanyNum3}, #{maxLegalCompanyNum3}, #{averagePersonCompanyNum3}, #{averageLegalCompanyNum3}, #{realControlRiskV2}, #{relationInRiskV2}, #{illegalFinancingRiskV2}, #{shortRiskV2}
