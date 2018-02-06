@@ -75,9 +75,9 @@ public class GuaranteeController {
 //			String guaranteePrivateCompany = sysConfigService.findByKey("guaranteePrivateCompany");
 //			String guaranteeStateOwned = sysConfigService.findByKey("guaranteeStateOwned");
 //			String guaranteeForeignCapital = sysConfigService.findByKey("guaranteeForeignCapital");
-			Integer guaranteePrivateCompany = companyLevelService.countCompanyBackground("民企");
-			Integer guaranteeStateOwned = companyLevelService.countCompanyBackground("国企");
-			Integer guaranteeForeignCapital = companyLevelService.countCompanyBackground("外企");
+			Integer guaranteePrivateCompany = companyLevelService.countCompanyBackground("民企","3");
+			Integer guaranteeStateOwned = companyLevelService.countCompanyBackground("国企","3");
+			Integer guaranteeForeignCapital = companyLevelService.countCompanyBackground("外企","3");
 			HotAreaDTO hotAreaDTO = result.get(0);
 			hotAreaDTO.setForeignCapital(guaranteeForeignCapital);
 			hotAreaDTO.setPrivateCompany(guaranteePrivateCompany);

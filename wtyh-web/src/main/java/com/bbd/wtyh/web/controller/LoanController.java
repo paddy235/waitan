@@ -75,13 +75,21 @@ public class LoanController {
 			result.add(hotAreaDTO);
 		}
 		if(result.size()>0){
-			String guaranteePrivateCompany = sysConfigService.findByKey("loanPrivateCompany");
-			String guaranteeStateOwned = sysConfigService.findByKey("loanStateOwned");
-			String guaranteeForeignCapital = sysConfigService.findByKey("loanForeignCapital");
+			Integer guaranteePrivateCompany = companyLevelService.countCompanyBackground("民企","2");
+			Integer guaranteeStateOwned = companyLevelService.countCompanyBackground("国企","2");
+			Integer guaranteeForeignCapital = companyLevelService.countCompanyBackground("外企","2");
 			HotAreaDTO hotAreaDTO = result.get(0);
-			hotAreaDTO.setForeignCapital(Integer.parseInt(guaranteeForeignCapital));
-			hotAreaDTO.setPrivateCompany(Integer.parseInt(guaranteePrivateCompany));
-			hotAreaDTO.setStateOwned(Integer.parseInt(guaranteeStateOwned));
+			hotAreaDTO.setForeignCapital(guaranteeForeignCapital);
+			hotAreaDTO.setPrivateCompany(guaranteePrivateCompany);
+			hotAreaDTO.setStateOwned(guaranteeStateOwned);
+
+//			String guaranteePrivateCompany = sysConfigService.findByKey("loanPrivateCompany");
+//			String guaranteeStateOwned = sysConfigService.findByKey("loanStateOwned");
+//			String guaranteeForeignCapital = sysConfigService.findByKey("loanForeignCapital");
+//			HotAreaDTO hotAreaDTO = result.get(0);
+//			hotAreaDTO.setForeignCapital(Integer.parseInt(guaranteeForeignCapital));
+//			hotAreaDTO.setPrivateCompany(Integer.parseInt(guaranteePrivateCompany));
+//			hotAreaDTO.setStateOwned(Integer.parseInt(guaranteeStateOwned));
 		}
 		return ResponseBean.successResponse(result);
 	}

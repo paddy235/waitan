@@ -20,7 +20,7 @@ public interface CompanyLevelService {
 
     List<LoanData> getLoan(ExportCondition exportCondition, PageBean pagination);
 
-    Integer countCompanyBackground(String background);
+    Integer countCompanyBackground(String background,String companyType);
 
     void recordLoad(LoanModify loanModify);
 

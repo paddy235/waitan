@@ -65,8 +65,8 @@ public class CompanyLevelServiceImpl implements CompanyLevelService {
     }
 
     @Override
-    public Integer countCompanyBackground(String background) {
-        return companyLevelMapper.countCompanyBackground(background);
+    public Integer countCompanyBackground(String background,String companyType) {
+        return companyLevelMapper.countCompanyBackground(background,companyType);
     }
 
     @Override

@@ -25,8 +25,8 @@ public interface CompanyLevelMapper {
 
     void recordLoad(LoanModify loanModify);
 
-    @Select("SELECT count(1) FROM company_level where company_background = #{background} ")
-    Integer countCompanyBackground(@Param("background") String background);
+    @Select("SELECT count(1)  FROM company_level cl,company c WHERE c.company_id = cl.company_id and cl.company_background = #{background} and c.company_type=#{companyType} ")
+    Integer countCompanyBackground(@Param("background") String background ,@Param("companyType") String companyType);
 
     void modifyLoadLevel(RecordInfo recordInfo);
 
