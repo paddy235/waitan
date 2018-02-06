@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.bbd.wtyh.common.Constants;
+import com.bbd.wtyh.domain.AreaDO;
 import com.bbd.wtyh.domain.vo.CompanySearchVO;
 import com.bbd.wtyh.log.user.Operation;
 import com.bbd.wtyh.log.user.annotation.LogRecord;
@@ -61,17 +61,25 @@ public class RiskCompanyController {
 		if(null==areaNameObj){
 			return ResponseBean.successResponse(new ArrayList<RiskCompanyInfoDO>());
 		}
-		if(Constants.SH_CHONGMINGQU.equals(area)){
-			// 线下理财需要转换， 因为index_data中保存的崇明县，所以需要把area中的崇明区转换成崇明县查询
-			area=Constants.SH_CHONGMINGXIAN;
+		Integer areaId = null ;
+		AreaDO areaDo = areaService.getAreaByAreaName(area);
+		if(null!=areaDo&&null!=areaDo.getAreaId()){
+			areaId = areaDo.getAreaId();
 		}
+//		if(Constants.SH_CHONGMINGQU.equals(area)){
+//			// 线下理财需要转换， 因为index_data中保存的崇明县，所以需要把area中的崇明区转换成崇明县查询
+//			area=Constants.SH_CHONGMINGXIAN;
+//		}
 		// 如果区域id不为空，则表示此用户只能访问某个区域的数据
-		String areaName = areaService.getAreaName(session);
-		if (areaName != null) {
-			area = areaName;
+//		String areaName = areaService.getAreaName(session);
+//		if (areaName != null) {
+//			area = areaName;
+//		}
+		Integer sessionAreaId = areaService.getAreaId(session);
+		if (sessionAreaId != null) {
+			areaId = sessionAreaId;
 		}
-
-		Map<String, Object> params = this.fillMap(area, minRegCapital, maxRegCapital, companyQualification, minReviewTime, maxReviewTime,
+		Map<String, Object> params = this.fillMap(areaId, minRegCapital, maxRegCapital, companyQualification, minReviewTime, maxReviewTime,
 				riskLevel);
 		params.put("riskLevelExist", "1");
 		return ResponseBean.successResponse(riskCompanyService.getScanner(params));
@@ -93,18 +101,27 @@ public class RiskCompanyController {
 			pagination.setList(new ArrayList<RiskCompanyInfoDO>());
 			return ResponseBean.successResponse(pagination);
 		}
-
-		if(Constants.SH_CHONGMINGQU.equals(area)){
-			// 线下理财需要转换， 因为index_data中保存的崇明县，所以需要把area中的崇明区转换成崇明县查询
-			area=Constants.SH_CHONGMINGXIAN;
+		//20180206需求：区域和company表关联，需传areaId到mapper
+		Integer areaId = null ;
+		AreaDO areaDo = areaService.getAreaByAreaName(area);
+		if(null!=areaDo&&null!=areaDo.getAreaId()){
+			areaId = areaDo.getAreaId();
 		}
+//		if(Constants.SH_CHONGMINGQU.equals(area)){
+//			// 线下理财需要转换， 因为index_data中保存的崇明县，所以需要把area中的崇明区转换成崇明县查询
+//			area=Constants.SH_CHONGMINGXIAN;
+//		}
 		// 如果区域id不为空，则表示此用户只能访问某个区域的数据
-		String areaName = areaService.getAreaName(session);
-		if (areaName != null) {
-			area = areaName;
+//		String areaName = areaService.getAreaName(session);
+//		if (areaName != null) {
+//			area = areaName;
+//		}
+		Integer sessionAreaId = areaService.getAreaId(session);
+		if (sessionAreaId != null) {
+			areaId = sessionAreaId;
 		}
 
-		Map<String, Object> params = this.fillMap(area, minRegCapital, maxRegCapital, companyQualification, minReviewTime, maxReviewTime,
+		Map<String, Object> params = this.fillMap(areaId, minRegCapital, maxRegCapital, companyQualification, minReviewTime, maxReviewTime,
 				riskLevel);
 		params.put("sortType", sortType); // 排序方式
 		params.put("riskLevelExist", "1");
@@ -134,10 +151,10 @@ public class RiskCompanyController {
 		return ResponseBean.successResponse(pagination);
 	}
 
-	private Map<String, Object> fillMap(String area, String minRegCapital, String maxRegCapital, String companyQualification,
+	private Map<String, Object> fillMap(Integer areaId, String minRegCapital, String maxRegCapital, String companyQualification,
 			String minReviewTime, String maxReviewTime, String riskLevel) {
 		Map<String, Object> map = new HashMap<>();
-		map.put("area", area);
+		map.put("areaId", areaId);
 		map.put("minRegCapital", StringUtils.isNotNullOrEmpty(minRegCapital) ? new BigDecimal(minRegCapital) : null);
 		map.put("maxRegCapital", StringUtils.isNotNullOrEmpty(maxRegCapital) ? new BigDecimal(maxRegCapital) : null);
 		if (BG_GQ_MARK.equals(companyQualification))

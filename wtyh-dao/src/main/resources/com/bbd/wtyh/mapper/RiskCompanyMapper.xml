@@ -8,6 +8,9 @@
             <if test="area != null and area != ''">
                 AND i.area=#{area}
             </if>
+            <if test="areaId != null and areaId != ''">
+                AND c.area_id=#{areaId}
+            </if>
             <if test="minRegCapital != null and minRegCapital != ''">
                 AND i.reg_capital<![CDATA[>=]]>#{minRegCapital}
             </if>

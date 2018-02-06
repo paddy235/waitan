@@ -147,4 +147,9 @@ public class AreaServiceImpl extends BaseServiceImpl implements AreaService {
 	public AreaDO getAreaByAreaId(Integer areaId) {
 		return areaMapper.getAreaByAreaId(areaId);
 	}
+
+	@Override
+	public AreaDO getAreaByAreaName(String areaName) {
+		return areaMapper.getAreaByAreaName(areaName);
+	}
 }

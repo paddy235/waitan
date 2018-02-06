@@ -79,4 +79,6 @@ public interface AreaService extends BaseService {
 
 	AreaDO getAreaByAreaId(Integer areaId);
 
+	AreaDO getAreaByAreaName(String areaName);
+
 }
