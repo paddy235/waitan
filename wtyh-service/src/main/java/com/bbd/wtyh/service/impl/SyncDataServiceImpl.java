@@ -83,7 +83,7 @@ public class SyncDataServiceImpl extends BaseServiceImpl implements SyncDataServ
 					}
 					insertData(string);
 					return true;
-				} catch (Throwable t) {
+				} catch (Exception t) {
 					logger.error("----------exception：{}------", string, t);
 					return false;
 				}
@@ -126,7 +126,8 @@ public class SyncDataServiceImpl extends BaseServiceImpl implements SyncDataServ
 			staticRiskDataDO.setStaticRiskIndex(staticRiskIndex);
 
 			String sql = "DELETE FROM static_risk_data WHERE company_name = ? AND data_version = ? AND area = ?";
-			this.executeCUD(sql, companyName, dataVersion, areaName);
+			int num = this.executeCUD(sql, companyName, dataVersion, areaName);
+			logger.info("DELETE static_risk_data" +companyName+" "+dataVersion+" "+areaName+" "+num);
 			staticRiskMapper.save(staticRiskDataDO);
 			logger.info("----type---success---" + type);
 			break;
@@ -157,6 +158,7 @@ public class SyncDataServiceImpl extends BaseServiceImpl implements SyncDataServ
 			String area = indexDataDO.getArea();
 			IndexDataDO isExistDO = indexDataMapper.selectByPrimaryKey(companyNameIndexData, area);
 			indexDataDO.setStaticRiskIndex(staticRiskIndexIndexData);
+			logger.info("----save or update ---" + companyNameIndexData+" "+area);
 			if (isExistDO == null) {
 				indexDataMapper.save(indexDataDO);
 			} else {

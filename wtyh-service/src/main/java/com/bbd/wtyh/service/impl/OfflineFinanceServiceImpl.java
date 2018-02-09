@@ -893,7 +893,11 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService,TaskServ
      * @return
      */
     public BigDecimal getCreditInfoRisk(String companyName) {
-        return new BigDecimal(companyCreditDetailMapper.getCompanyRiskInfoByCompanyName(companyName)).divide(BigDecimal.ONE, 1, BigDecimal.ROUND_HALF_UP);
+        Float companyRisk = companyCreditDetailMapper.getCompanyRiskInfoByCompanyName(companyName);
+        if(null==companyRisk){
+            companyRisk = 0F;
+        }
+        return new BigDecimal(companyRisk).divide(BigDecimal.ONE, 1, BigDecimal.ROUND_HALF_UP);
     }
 
     @Override
