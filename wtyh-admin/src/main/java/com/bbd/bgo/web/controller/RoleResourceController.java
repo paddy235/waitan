@@ -99,14 +99,14 @@ public class RoleResourceController {
 				return ResponseBean.errorResponse("数据错误");
 			}
 			Integer id = Integer.parseInt(roleId);
-//			RoleDo roleDo;
-//			roleDo = roleResourceService.getRoleBase(null, roleName);
-//			if (null != roleDo && roleDo.getName() != null) {
-//				if (roleDo.getId() != id) {
-//					return ResponseBean.errorResponse("角色名称已存在");
-//				}
-//
-//			}
+			RoleDo roleDo;
+			roleDo = roleResourceService.getRoleBase(null, roleName);
+			if (null != roleDo && roleDo.getName() != null) {
+				if (roleDo.getId().intValue() != id.intValue()) {
+					return ResponseBean.errorResponse("角色名称已存在");
+				}
+
+			}
 			// 权限代码转权限ID
 			String[] resourceArr = resource.split(",");
 			for (int i = 0; i < resourceArr.length; i++) {
