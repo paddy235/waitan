@@ -69,9 +69,10 @@ public class RoleResourceController {
 				String resId = roleResourceService.resourceCodeToId(resourceArr[i]).toString();
 				resourceArr[i] = resId;
 			}
-			if (this.roleResourceService.listRoleHaveTheSameRes(resourceArr, null)) {
-				return ResponseBean.errorResponse("已存在相同权限的角色");
-			}
+			//移除已存在相同权限的角色判断 update by 2018-02-11
+//			if (this.roleResourceService.listRoleHaveTheSameRes(resourceArr, null)) {
+//				return ResponseBean.errorResponse("已存在相同权限的角色");
+//			}
 			roleDo = roleResourceService.addRoleBase(roleName, roleDes, userType, loginName);
 			roleResourceService.addRoleResourceRelation(roleDo.getId(), resourceArr, loginName);
 		} catch (Exception e) {
