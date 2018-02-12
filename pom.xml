@@ -644,7 +644,8 @@
                 <m.mapping.path>/app/yed</m.mapping.path>
                 <update.img.web.path/>
                 <update.img.admin.path/>
-                <wtyh.beijing.server.ip>106.75.89.210</wtyh.beijing.server.ip>
+                <!--<wtyh.beijing.server.ip>106.75.89.210</wtyh.beijing.server.ip>-->
+                <wtyh.beijing.server.ip>127.0.0.1</wtyh.beijing.server.ip>
             </properties>
         </profile>
 
