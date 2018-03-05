@@ -43,7 +43,7 @@ public class PrivateFundTaskServiceImpl extends BaseServiceImpl implements Priva
 	 * 每月1日晚上10点，私募企业列表的“备案状态”根据私募证券业协会官网上的状态更新
 	 */
 	@Override
-	@Scheduled(cron = "0 0 22 1 * ?")
+//	@Scheduled(cron = "0 0 22 1 * ?")
 	public void updateCompanyStatus() {
 		try {
 			int totalCount = privateFundExtraMapper.countAllCompany();
@@ -95,7 +95,7 @@ public class PrivateFundTaskServiceImpl extends BaseServiceImpl implements Priva
 
 							@Override
 							public void run() {
-								updatePrivateFundCompanyStatus((Map<String,Object>)obj);
+//								updatePrivateFundCompanyStatus((Map<String,Object>)obj);
 							}
 						});
 					}
