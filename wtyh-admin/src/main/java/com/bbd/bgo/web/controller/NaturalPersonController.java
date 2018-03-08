@@ -67,6 +67,8 @@ public class NaturalPersonController {
             "companyKeyword" }, type = Operation.Type.query, page = Operation.Page.naturalPerson, after = true, before = false)*/
     public @ResponseBody ResponseBean queryNaturalPerson2( @RequestParam String nalName, @RequestParam String type,
                     Boolean isProvince, String companyKeyword, Integer pageSize, Integer page, Boolean noCache, HttpServletRequest request ) {
+        // 去掉字符串的所有空格
+        nalName = nalName.replace(" ", "");
         StringBuffer sb =new StringBuffer("检索自然人“");
         sb.append(nalName).append("”的信息，检索类型：");
         switch (type) {

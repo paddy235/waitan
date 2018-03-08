@@ -8,7 +8,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import com.bbd.wtyh.common.Constants;
-import com.bbd.wtyh.constants.CompanyBackgroundType;
+import com.bbd.wtyh.constants.CompanyBackgroundType2;
 import com.bbd.wtyh.constants.RiskChgCoSource;
 import com.bbd.wtyh.domain.*;
 import com.bbd.wtyh.domain.enums.CompanyLevel;
@@ -121,7 +121,8 @@ public class CompanyLevelHandler extends AbstractImportHandler<CompanyLevelDO> {
         }
         String companyBackgroundStr = row.get("companyBackground");
         if (StringUtils.isNotBlank(companyBackgroundStr)) {
-            CompanyBackgroundType companyBackgroundType = CompanyBackgroundType.getByValue(companyBackgroundStr);
+            //CompanyBackgroundType companyBackgroundType = CompanyBackgroundType.getByValue(companyBackgroundStr);
+            CompanyBackgroundType2 companyBackgroundType = CompanyBackgroundType2.getByValue(companyBackgroundStr);
             if (companyBackgroundType == null) {
                 addError("企业背景格式不符合要求。");
                 haveError = true;

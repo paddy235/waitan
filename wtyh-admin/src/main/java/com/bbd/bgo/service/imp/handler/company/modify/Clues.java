@@ -64,7 +64,7 @@ public class Clues {
         writeExplain.append("1.本表格不可填写Excel公式；企业名称必填，不能超过40个汉字；\r\n");
         writeExplain.append("2.企业评级导入只支持导入融资担保和小额贷款行业类型；\r\n");
         writeExplain.append("3.外部评级、内部评级、现场检查只能够填写AAA+、AAA、AAA-、AA+、AA、AA-、A+、A、A-、BBB+、BBB、BBB-、BB+、BB、BB-、B+、B、B-、CCC+、CCC、CCC-、CC+、CC、CC-、C+、C、C-、D。\r\n");
-        writeExplain.append("4.企业背景可填写国企、外企、民企三者之一；\r\n");
+        writeExplain.append("4.企业背景可填写国有企业、民营企业、外资企业三者之一；\r\n");
         return writeExplain.toString();
     }
 
