@@ -1,5 +1,6 @@
 package com.bbd.wtyh.sys.controller;
 
+import com.bbd.wtyh.util.Base64Util;
 import com.bbd.wtyh.shiro.RedisSessionDAO;
 import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.domain.AreaDO;
@@ -17,7 +18,6 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
-import org.docx4j.wml.P;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,7 +56,8 @@ public class LoginController {
         if (obj != null) {
             return ResponseBean.errorResponse("该浏览器已有账号登录，请更换浏览器或者退出已登陆账号");
         }
-
+        //base64解密
+        password=new String(Base64Util.decode(password));
         Map map;
         UsernamePasswordToken token = new UsernamePasswordToken(name, password);
         token.setRememberMe(true);
