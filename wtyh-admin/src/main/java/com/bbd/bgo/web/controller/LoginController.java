@@ -15,6 +15,7 @@ import com.bbd.wtyh.service.AreaService;
 import com.bbd.wtyh.service.RoleResourceService;
 import com.bbd.wtyh.service.UserInfoService;
 import com.bbd.wtyh.shiro.RedisSessionDAO;
+import com.bbd.wtyh.util.Base64Util;
 import com.bbd.wtyh.util.IPUtil;
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang.StringUtils;
@@ -54,7 +55,8 @@ public class LoginController {
     @ResponseBody
     @LogRecord(logMsg = "后台用户登录", type = Operation.Type.login, page = Operation.Page.login, after = true, before = false)
     public Object login(@RequestParam String name, @RequestParam String password, HttpServletRequest request) {
-
+        //base64解密
+        password=new String(Base64Util.decode(password));
         Map map;
         UsernamePasswordToken token = new UsernamePasswordToken(name, password);
         token.setRememberMe(true);

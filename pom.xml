@@ -599,9 +599,9 @@
                 <m.jdbc.url>jdbc:mysql://10.28.200.239:3306</m.jdbc.url>
                 <m.jdbc.username>wtyh</m.jdbc.username>
                 <m.jdbc.password>wtyh123456</m.jdbc.password>
-                <m.redis.ip>10.28.200.239</m.redis.ip>
-                <m.redis.port>8013</m.redis.port>
-                <m.redis.password>wtyh123456</m.redis.password>
+                <m.redis.ip>192.168.1.95</m.redis.ip>
+                <m.redis.port>6379</m.redis.port>
+                <m.redis.password>redis-dev</m.redis.password>
                 <m.wtyh.web1.ip>http://10.28.200.239:8080</m.wtyh.web1.ip>
                 <m.wtyh.web2.ip>http://10.28.200.239:8081</m.wtyh.web2.ip>
                 <m.wtyh.admin.ip>http://10.28.200.239:8082</m.wtyh.admin.ip>
