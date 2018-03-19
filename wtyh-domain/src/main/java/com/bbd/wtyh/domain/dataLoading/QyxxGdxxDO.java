@@ -24,10 +24,19 @@ public class QyxxGdxxDO {
     private String shareholder_name;//股东
     private String shareholder_type;//股东类型
     private String subscribed_capital;//认缴出资额
+    private String create_by;
     private Date create_time;
     private String sumconam;
     private Integer task_id;
     public QyxxGdxxDO() {
+    }
+
+    public String getCreate_by() {
+        return create_by;
+    }
+
+    public void setCreate_by(String create_by) {
+        this.create_by = create_by;
     }
 
     public Integer getId() {

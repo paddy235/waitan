@@ -50,11 +50,20 @@ public class QyxxZhuanliDO {
     private String bbd_type;//表名
     private Integer bbd_uptime;//时间戳
     private String bbd_url;//url
+    private String create_by;//创建人
     private Date create_time;//入库时间
     private String sumconam;//数据源
     private Integer task_id;
 
     public QyxxZhuanliDO() {
+    }
+
+    public String getCreate_by() {
+        return create_by;
+    }
+
+    public void setCreate_by(String create_by) {
+        this.create_by = create_by;
     }
 
     public Integer getId() {

@@ -6,7 +6,6 @@ import javax.persistence.Table;
 import java.util.Date;
 
 /**
- *
  * Created by wangchenge on 2016/8/21 0021.
  */
 @Table(name = "qyxg_yuqing")
@@ -59,11 +58,21 @@ public class QyxgYuqingDO {
     @Column
     private Date create_time;
     @Column
+    private String create_by;
+    @Column
     private String bbd_qyxx_id;//企业唯一ID
     @Column
     private Integer task_id;
 
     public QyxgYuqingDO() {
+    }
+
+    public String getCreate_by() {
+        return create_by;
+    }
+
+    public void setCreate_by(String create_by) {
+        this.create_by = create_by;
     }
 
     public Integer getId() {

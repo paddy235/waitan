@@ -15,6 +15,7 @@ import com.bbd.wtyh.util.DataLoadingUtil;
 import com.bbd.wtyh.util.PullFileUtil;
 import com.google.common.collect.ListMultimap;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.velocity.runtime.directive.Foreach;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -348,22 +349,38 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
             logger.debug("批量新增开庭公告 , count:" + ktggInsertNum);
         }
         if (yuQingList.size() > 0) {
+            //添加创建人
+            for(QyxgYuqingDO q : yuQingList){
+                    q.setCreate_by("DINGSHI");
+            }
             int yuQingInsertNum = batchInsertData(yuQingList);
             logger.debug("批量新增舆情 , count:" + yuQingInsertNum);
         }
         if (basicList.size() > 0) {
+            for(QyxxBasicDO bc:basicList){
+                bc.setCreate_name("DINGSHI");
+            }
             int basicInsertNum = batchInsertData(basicList);
             logger.debug("批量新增企业基础信息 , count:" + basicInsertNum);
         }
         if (baxxList.size() > 0) {
+            for(QyxxBaxxDO qb : baxxList){
+                qb.setCreate_by("DINGSHI");
+            }
             int baxxInsertNum = batchInsertData(baxxList);
             logger.debug("批量新增企业高管信息 , count:" + baxxInsertNum);
         }
         if (gdxxList.size() > 0) {
+            for (QyxxGdxxDO gd:gdxxList){
+                gd.setCreate_by("DINGSHI");
+            }
             int gdxxInsertNum = batchInsertData(gdxxList);
             logger.debug("批量新增企业股东信息 , count:" + gdxxInsertNum);
         }
         if (zhuanliList.size() > 0) {
+            for (QyxxZhuanliDO qz : zhuanliList){
+                qz.setCreate_by("DINGSHI");
+            }
             int zhuanliInsertNum = batchInsertData(zhuanliList);
             logger.debug("批量新增企业专利信息 , count:" + zhuanliInsertNum);
         }

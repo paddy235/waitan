@@ -23,6 +23,15 @@ public class QyxxBaxxDO {
     private String salary;//薪酬（上市公司）
     private String salasstartingary;//任职起始（上市公司）
     private Integer task_id;
+    private String create_by;//创建人
+
+    public String getCreate_by() {
+        return create_by;
+    }
+
+    public void setCreate_by(String create_by) {
+        this.create_by = create_by;
+    }
 
     public QyxxBaxxDO() {
     }

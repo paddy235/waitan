@@ -36,14 +36,14 @@
         INSERT INTO qyxg_yuqing(
         abstract, author,bbd_dotime ,bbd_source , bbd_type,bbd_uptime ,bbd_url ,bbd_xgxx_id,comment_num,
         main,news_site,news_title,picture,plate,pubdate,rowkey,search_key,status,table_name,
-        transfer_num,id,create_time,bbd_qyxx_id,task_id)
+        transfer_num,id,create_time,bbd_qyxx_id,task_id,create_by)
         VALUES
         <foreach collection="list" item="item" index="index" separator=",">
             (#{item.articleAbstract}, #{item.author}, #{item.bbd_dotime}, #{item.bbd_source}, #{item.bbd_type},
             #{item.bbd_uptime}, #{item.bbd_url}, #{item.bbd_xgxx_id}, #{item.comment_num},
             #{item.main}, #{item.news_site}, #{item.news_title}, #{item.picture}, #{item.plate},#{item.pubdate},
             #{item.rowkey}, #{item.search_key}, #{item.status}, #{item.table_name},
-            #{item.transfer_num}, #{item.id}, now(), #{item.bbd_qyxx_id}, #{item.task_id})
+            #{item.transfer_num}, #{item.id}, now(), #{item.bbd_qyxx_id}, #{item.task_id},#{item.create_by})
         </foreach>
     </insert>
 
@@ -51,13 +51,13 @@
         INSERT INTO qyxg_yuqing(
         abstract, author,bbd_dotime ,bbd_source , bbd_type,bbd_uptime ,bbd_url ,bbd_xgxx_id,comment_num,
         main,news_site,news_title,picture,plate,pubdate,rowkey,search_key,status,table_name,
-        transfer_num,id,create_time,bbd_qyxx_id,task_id)
+        transfer_num,id,create_time,bbd_qyxx_id,task_id,create_by)
         SELECT
             #{articleAbstract}, #{author}, #{bbd_dotime}, #{bbd_source}, #{bbd_type},
             #{bbd_uptime}, #{bbd_url}, #{bbd_xgxx_id}, #{comment_num},
             #{main}, #{news_site}, #{news_title}, #{picture}, #{plate},#{pubdate},
             #{rowkey}, #{search_key}, #{status}, #{table_name},
-            #{transfer_num}, #{id}, now(), #{bbd_qyxx_id}, #{task_id}
+            #{transfer_num}, #{id}, now(), #{bbd_qyxx_id}, #{task_id},#{create_by}
         FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM qyxg_yuqing WHERE bbd_xgxx_id=#{bbd_xgxx_id})
 
     </insert>
@@ -69,7 +69,7 @@
         company_county,company_currency,company_enterprise_status,company_industry,company_name,company_province,company_regorg,company_type,
         credit_code,enterprise_status,esdate,form,frname,frname_id,invest_cap,investcap_amount,investcap_currency,ipo_company,
         openfrom,opento,operate_scope,operating_period,parent_firm,realcap,realcap_amount,realcap_currency,regcap,regcap_amount,
-        regcap_currency,regcapcur,regno,regno_or_creditcode,regorg,revoke_date,type,frname_compid,create_time,task_id)
+        regcap_currency,regcapcur,regno,regno_or_creditcode,regorg,revoke_date,type,frname_compid,create_time,task_id,create_by)
         VALUES
         <foreach collection="list" item="item" index="index" separator=",">
             (#{item.id}, #{item.address}, #{item.approval_date}, #{item.bbd_dotime}, #{item.bbd_history_name},
@@ -83,32 +83,32 @@
             #{item.openfrom}, #{item.opento},#{item.operate_scope}, #{item.operating_period},#{item.parent_firm},
             #{item.realcap},#{item.realcap_amount}, #{item.realcap_currency},#{item.regcap}, #{item.regcap_amount},
             #{item.regcap_currency}, #{item.regcapcur},#{item.regno}, #{item.regno_or_creditcode},#{item.regorg},
-            #{item.revoke_date},#{item.type}, #{item.frname_compid}, now(), #{item.task_id})
+            #{item.revoke_date},#{item.type}, #{item.frname_compid}, now(), #{item.task_id},#{item.create_name})
         </foreach>
     </insert>
 
     <insert id="saveQyxxBaxxDO" parameterType="java.util.List">
         INSERT INTO qyxx_baxx(
         id, bbd_dotime, bbd_qyxx_id,bbd_uptime ,company_name ,
-        position ,idtype,name,name_id,task_id)
+        position ,idtype,name,name_id,task_id,create_by)
         VALUES
         <foreach collection="list" item="item" index="index" separator=",">
             (#{item.id}, #{item.bbd_dotime}, #{item.bbd_qyxx_id}, #{item.bbd_uptime}, #{item.company_name},
-            #{item.position},#{item.idtype}, #{item.name}, #{item.name_id}, #{item.task_id})
+            #{item.position},#{item.idtype}, #{item.name}, #{item.name_id}, #{item.task_id},#{item.create_by})
         </foreach>
     </insert>
 
     <insert id="saveQyxxGdxxDO" parameterType="java.util.List">
         INSERT INTO qyxx_gdxx(
         id, bbd_dotime, bbd_qyxx_id,bbd_uptime ,company_name ,idno ,idtype ,invest_amount ,invest_name,invest_ratio,
-        name_compid,no,paid_contribution,shareholder_detail,shareholder_id,shareholder_name,shareholder_type,subscribed_capital,create_time,sumconam,task_id)
+        name_compid,no,paid_contribution,shareholder_detail,shareholder_id,shareholder_name,shareholder_type,subscribed_capital,create_time,sumconam,task_id,create_by)
         VALUES
         <foreach collection="list" item="item" index="index" separator=",">
             (#{item.id}, #{item.bbd_dotime}, #{item.bbd_qyxx_id}, #{item.bbd_uptime}, #{item.company_name},
             #{item.idno}, #{item.idtype}, #{item.invest_amount}, #{item.invest_name}, #{item.invest_ratio},
             #{item.name_compid}, #{item.no}, #{item.paid_contribution},#{item.shareholder_detail},
             #{item.shareholder_id}, #{item.shareholder_name}, #{item.shareholder_type}, #{item.subscribed_capital},
-            now(), #{item.sumconam}, #{item.task_id})
+            now(), #{item.sumconam}, #{item.task_id},#{item.create_by})
         </foreach>
     </insert>
 
@@ -119,7 +119,7 @@
         inventor,patent_type,patent_agency,title,public_code,publidate,applicant,independent_claim,law_state,main_classcode,
         npc_code,approval_issue_date,approval_num,bg_publication_date,biology_preserve,compare_file,decode_announce_date,division_application,fmgb,fmsq,
         homeland_prority,pct_application_data,pct_enter_national,pct_publish_data,priority,wgsq,xxsq,bbd_source,
-        bbd_dotime,bbd_type,bbd_url,create_time,sumconam,task_id)
+        bbd_dotime,bbd_type,bbd_url,create_time,sumconam,task_id,create_by)
         VALUES
         <foreach collection="list" item="item" index="index" separator=",">
             (#{item.id}, #{item.bbd_qyxx_id}, #{item.address}, #{item.agent_name}, #{item.application_code},
@@ -133,7 +133,7 @@
             #{item.homeland_prority}, #{item.pct_application_data}, #{item.pct_enter_national},
             #{item.pct_publish_data},#{item.priority}, #{item.wgsq}, #{item.xxsq}, #{item.bbd_source},
             #{item.bbd_dotime}, #{item.bbd_type}, #{item.bbd_url}, now(), #{item.sumconam},
-            #{item.task_id})
+            #{item.task_id},#{item.create_by})
         </foreach>
     </insert>
 

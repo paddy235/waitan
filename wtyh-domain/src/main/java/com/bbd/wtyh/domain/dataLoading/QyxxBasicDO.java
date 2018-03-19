@@ -55,7 +55,16 @@ public class QyxxBasicDO {
     private String type;//'爬虫源省份记录（ 中文）'
     private String frname_compid;
     private Date create_time;
+    private String create_name;
     private Integer task_id;
+
+    public String getCreate_name() {
+        return create_name;
+    }
+
+    public void setCreate_name(String create_name) {
+        this.create_name = create_name;
+    }
 
     public QyxxBasicDO() {
     }
