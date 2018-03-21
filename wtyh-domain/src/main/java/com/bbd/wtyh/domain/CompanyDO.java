@@ -110,6 +110,9 @@ public class CompanyDO extends BaseDO implements Comparable {
 	@Column(name = "is_new")
 	private Boolean neo;
 
+	@Column(name = "remark")
+	private String remark;
+
 	/////////////////////////以下是数据库中没有的字段////
 	//风险名称
 	private String riskName = "";
@@ -451,5 +454,13 @@ public class CompanyDO extends BaseDO implements Comparable {
 
 	public void setOrganizationCode(String organizationCode) {
 		this.organizationCode = organizationCode;
+	}
+
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
 	}
 }
