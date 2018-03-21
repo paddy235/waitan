@@ -32,7 +32,7 @@
           id, area_id, park, news_site, search_key, author, main, plate, news_title, bbd_type, bbd_url, pubdate, status
         FROM park_public_sentiment
         WHERE park=(select `name` from park where park_id=#{parkId}) and DATEDIFF(SYSDATE(),get_date) IN (0, 1, 2)
-        ORDER BY get_date DESC, pubdate DESC
+        ORDER BY pubdate DESC, pubdate DESC
         LIMIT 0, 20
     </select>
 
@@ -47,7 +47,7 @@
         id, building_id, news_site, search_key, author, main, plate, news_title, bbd_type, bbd_url, pubdate, status
         FROM building_public_sentiment
         WHERE building_id=#{buildingId} and DATEDIFF(SYSDATE(),get_date) IN (0, 1, 2)
-        ORDER BY get_date DESC, pubdate DESC
+        ORDER BY pubdate DESC, pubdate DESC
         LIMIT 0, 20
     </select>
 
