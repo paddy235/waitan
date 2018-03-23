@@ -53,7 +53,7 @@
 		<foreach item="item" index="index" collection="types" open="(" separator="," close=")">
 			#{item}
 		</foreach>
-		ORDER BY create_time DESC,pubdate DESC
+		ORDER BY pubdate DESC , create_time DESC
 		LIMIT #{len}
 
 	</select>
