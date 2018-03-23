@@ -39,66 +39,70 @@ public class RealTimeMonitorNewsServiceImpl implements  RealTimeMonitorNewsServi
 
     @Override
     public void saveRealTimeMonitorNews() throws Exception {
-        int size=20;
+        int size=5;
         int len=size+30;
         String types = "qyxg_weiyangwang,qyxg_shanghai_finance,qyxg_chinesefinance,qyxg_financial_times,qyxg_sinafinance,qyxg_national_economy";
         long start = System.currentTimeMillis();
-        String url = String.format(apiYuqingUrl,types,len);
         NewsVO vo ;
-        try {
+        for (int i = 1; i <= 10; i++) {
+            String url = String.format(apiYuqingUrl,types,size,i);
+            logger.info("舆情url:"+url);
+            try {
 
-            //数据库没有，从接口取舆情
-            String result = new HttpTemplate().get(url);
-            Gson gson = new Gson();
-            vo = gson.fromJson(result,new TypeToken<NewsVO>(){}.getType());
+                //数据库没有，从接口取舆情
+                String result = new HttpTemplate().get(url);
+                Gson gson = new Gson();
+                vo = gson.fromJson(result,new TypeToken<NewsVO>(){}.getType());
 
-            logger.info("舆情请求耗时：{}ms,url地址为：{}",System.currentTimeMillis()-start,url);
+                logger.info("舆情请求耗时：{}ms,url地址为：{}",System.currentTimeMillis()-start,url);
 
-            if(vo!=null && vo.getResults()!=null){
+                if(vo!=null && vo.getResults()!=null){
 
-                Iterator<NewsVO.Result> it = vo.getResults().iterator();
+                    Iterator<NewsVO.Result> it = vo.getResults().iterator();
 
-                while (it.hasNext()) {
-                    NewsVO.Result r = it.next();
-                    if( "qyxg_financial_times".equals(r.getBbd_type()) &&
-                            !"金融".equals(r.getPlate())){
+                    while (it.hasNext()) {
+                        NewsVO.Result r = it.next();
+                        if( "qyxg_financial_times".equals(r.getBbd_type()) &&
+                                !"金融".equals(r.getPlate())){
 
-                        it.remove();
+                            it.remove();
 
-                    }else if("qyxg_sinafinance".equals(r.getBbd_type()) &&
-                            !"金融新闻".equals(r.getPlate())&&
-                            !"宏观经济".equals(r.getPlate())&&
-                            !"国内财经".equals(r.getPlate())){
+                        }else if("qyxg_sinafinance".equals(r.getBbd_type()) &&
+                                !"金融新闻".equals(r.getPlate())&&
+                                !"宏观经济".equals(r.getPlate())&&
+                                !"国内财经".equals(r.getPlate())){
 
-                        it.remove();
+                            it.remove();
+                        }
                     }
-                }
-                if(vo.getResults().size()>size){
-                    vo.setResults(vo.getResults().subList(0,size));
+                    if(vo.getResults().size()>size){
+                        vo.setResults(vo.getResults().subList(0,size));
+                    }
+
+                    //入库
+                    Date today=new Date();//因接口返回的数据没有bbd_xgxx_id，每天可能有重复的舆情数据，需要用日期时间作为版本号
+                    List<QyxgYuqingDO> list=new ArrayList<>();
+                    QyxgYuqingDO yuqingDO;
+                    BeanCopier beanCopier = BeanCopier.create(NewsVO.Result.class, QyxgYuqingDO.class , false);
+                    for(NewsVO.Result r:vo.getResults()){
+                        yuqingDO=new QyxgYuqingDO();
+                        beanCopier.copy(r,yuqingDO,null);
+                        yuqingDO.setArticleAbstract(r.getaBstract());
+                        yuqingDO.setPubdate(DateUtils.parseDate(r.getPubdate(),"yyyy-MM-dd HH:mm:ss"));
+                        yuqingDO.setCreate_time(today);
+                        list.add(yuqingDO);
+                        //dataLoadingMapper.saveOneQyxgYuqingDO(yuqingDO);
+                    }
+                    dataLoadingMapper.saveQyxgYuqingDO(list);
                 }
 
-                //入库
-                Date today=new Date();//因接口返回的数据没有bbd_xgxx_id，每天可能有重复的舆情数据，需要用日期时间作为版本号
-                List<QyxgYuqingDO> list=new ArrayList<>();
-                QyxgYuqingDO yuqingDO;
-                BeanCopier beanCopier = BeanCopier.create(NewsVO.Result.class, QyxgYuqingDO.class , false);
-                for(NewsVO.Result r:vo.getResults()){
-                    yuqingDO=new QyxgYuqingDO();
-                    beanCopier.copy(r,yuqingDO,null);
-                    yuqingDO.setArticleAbstract(r.getaBstract());
-                    yuqingDO.setPubdate(DateUtils.parseDate(r.getPubdate(),"yyyy-MM-dd HH:mm:ss"));
-                    yuqingDO.setCreate_time(today);
-                    list.add(yuqingDO);
-                    //dataLoadingMapper.saveOneQyxgYuqingDO(yuqingDO);
-                }
-                dataLoadingMapper.saveQyxgYuqingDO(list);
+
+            } catch (Exception e) {
+                logger.error("Method saveRealTimeMonitorNews get Exception." + e.getMessage());
+
             }
-
-
-        } catch (Exception e) {
-            logger.error("Method saveRealTimeMonitorNews get Exception." + e.getMessage());
-
         }
+
     }
 
 
