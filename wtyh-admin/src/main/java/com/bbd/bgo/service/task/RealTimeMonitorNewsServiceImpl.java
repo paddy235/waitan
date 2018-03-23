@@ -1,5 +1,6 @@
 package com.bbd.bgo.service.task;
 
+import com.bbd.higgs.utils.http.DefaultHttpCallback;
 import com.bbd.higgs.utils.http.HttpTemplate;
 import com.bbd.wtyh.domain.dataLoading.QyxgYuqingDO;
 import com.bbd.wtyh.domain.vo.NewsVO;
@@ -50,7 +51,8 @@ public class RealTimeMonitorNewsServiceImpl implements  RealTimeMonitorNewsServi
             try {
 
                 //数据库没有，从接口取舆情
-                String result = new HttpTemplate().get(url);
+//                String result = new HttpTemplate().get(url);
+                String result =new HttpTemplate().get(url,new DefaultHttpCallback(),60*1000,60*1000);
                 Gson gson = new Gson();
                 vo = gson.fromJson(result,new TypeToken<NewsVO>(){}.getType());
 
