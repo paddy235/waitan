@@ -33,8 +33,8 @@
 </div>
 <div class="login-foot">
     <div class="mg-l">
-        Copyright © 2016 intelligent platform All Rights Reserved<br>
-        版权所有 · 普惠法治
+        right<br>
+        版权
     </div>
 </div>
 </body>

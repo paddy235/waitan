@@ -1,6 +1,6 @@
 /**
  * BrandBigData.com Inc.
- * Copyright (c) 2016 All Rights Reserved.
+ * right.
  */
 package com.bbd.wtyh.util.relation;
 

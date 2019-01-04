@@ -5,7 +5,7 @@ package com.bbd.wtyh.domain;
  * @author Barney
  * @since 2016年8月6日
  *
- * @Copyright © BBD.com Inc. All Rights Reserved 2016.
+ * @Copyright © www Inc. All Rights Reserved 2016.
  */
 public class SysAnalyzeDO extends BaseDO {
 
